@@ -1,32 +1,144 @@
 
-MDSS.leaderSearch = function(config) {
-  var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
-  var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
+Mojo.Meta.newClass('MDSS.TeamMemberSearch', { // Implements CallBack
+  Instance: {
+    initialize : function(){
+    },
 
-  var listFunction = function(valueObject) {
-    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
-    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
-    var leaderId = Mojo.$.dss.vector.solutions.PersonView.LEADERID;
+    _listFunction : function(valueObject) {
+      var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.FIRSTNAME);
+      var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.LASTNAME);
+      var memberId = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.MEMBERID);
 
-    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName) + ' - ' + valueObject.getValue(leaderId);
-  };
+      return firstName + ' ' + lastName + ' - ' + memberId;
+    },
 
-  var idFunction = function(valueObject) {
-    var id = Mojo.$.dss.vector.solutions.PersonView.ID;
+    _idFunction : function(valueObject) {
+      var id = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.ID);
 
-    return valueObject.getValue(id);
-  };
+      return id;
+    },
 
-  var displayFunction = function(valueObject) {
-    var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
-    var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+    _displayFunction : function(valueObject) {
+      var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.FIRSTNAME);
+      var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.irs.TeamMemberView.LASTNAME);
 
-    return valueObject.getValue(firstName) + ' ' + valueObject.getValue(lastName);
-  };
+      return firstName + ' ' + lastName;
+    }    
+  }
+});
 
-  var searchFunction = Mojo.$.dss.vector.solutions.irs.SprayLeader.searchForLeader;
+Mojo.Meta.newClass('MDSS.SprayLeaderSearch', { // Implements CallBack
+  Extends : MDSS.TeamMemberSearch,
+  Instance: {
+    initialize : function(config){
+      var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
+      var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
+    
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      var sEH = Mojo.Util.bind(this, this._selectEventHandler);
+    
+      this.search = new MDSS.GenericSearch(searchEl, concreteEl, lF, dF, iF, sF, sEH);
+    },
+    
+    _searchFunction : function(request, value) {
+       Mojo.$.dss.vector.solutions.irs.TeamMember.searchForLeader(request, value);
+    },
+    
+    _selectEventHandler : function() {
+    }
+  }
+});
 
-  var selectEventHandler = function() {};
+Mojo.Meta.newClass('MDSS.OperatorSearch', { // Implements CallBack
+  Extends : MDSS.TeamMemberSearch,
+  Instance: {
+    initialize : function(config){
+      var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
+      var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
+    
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      var sEH = Mojo.Util.bind(this, this._selectEventHandler);
+    
+      this.search = new MDSS.GenericSearch(searchEl, concreteEl, lF, dF, iF, sF, sEH);
+    },
+    
+    _searchFunction : function(request, value) {
+       Mojo.$.dss.vector.solutions.irs.TeamMemberView.searchOperators(request, value);
+    },
+    
+    _selectEventHandler : function() {
+    }
+  }
+});
+
+
+Mojo.Meta.newClass('MDSS.UnassignedOperatorsSearch', { // Implements CallBack
+  Extends : MDSS.TeamMemberSearch,
+  Instance: {
+    initialize : function(config){
+      this._labelEl = Mojo.Util.isString(config.label) ? document.getElementById(config.label) : config.label;
+      this._searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;      
+      this._concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
+      
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._listFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      var sEH = Mojo.Util.bind(this, this._selectEventHandler);
+      
+      this.search = new MDSS.GenericSearch(this._searchEl, this._concreteEl, lF, dF, iF, sF, sEH);
+    },
+      
+    _searchFunction : function(request, value) {
+       Mojo.$.dss.vector.solutions.irs.TeamMemberView.getUnassignedOperators(request, value);
+    },
+    
+    _selectEventHandler : function(selected) {
+      if(this._labelEl != null) {
+        this._labelEl.value = selected.label;
+      }
+    }   
+  }
+});
+
+Mojo.Meta.newClass('MDSS.AssignedOperatorsSearch', { // Implements CallBack
+ Extends : MDSS.TeamMemberSearch,
+ Instance: {
+   initialize : function(config){
+     this._teamEl = Mojo.Util.isString(config.team) ? document.getElementById(config.team) : config.team;
+     this._labelEl = Mojo.Util.isString(config.label) ? document.getElementById(config.label) : config.label;
+     this._searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;      
+     this._concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
+ 
+     var dF = Mojo.Util.bind(this, this._displayFunction);
+     var iF = Mojo.Util.bind(this, this._idFunction);
+     var lF = Mojo.Util.bind(this, this._listFunction);
+     var sF = Mojo.Util.bind(this, this._searchFunction);
+     var sEH = Mojo.Util.bind(this, this._selectEventHandler);
+ 
+     this.search = new MDSS.GenericSearch(this._searchEl, this._concreteEl, lF, dF, iF, sF, sEH);
+   },
+
+   _searchFunction : function(request, value) {
+     if(this._teamEl != null) {
+       var teamId = this._teamEl.value;
+      
+       if(teamId) {
+         Mojo.$.dss.vector.solutions.irs.TeamMemberView.getOtherOperators(request, value, teamId);
+       }
+     }
+   },
    
-  var search = new MDSS.GenericSearch(searchEl, concreteEl, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler);
-}
+   _selectEventHandler : function(selected) {
+     if(this._labelEl != null) {
+       this._labelEl.value = selected.label;
+     }
+   }   
+ }
+});

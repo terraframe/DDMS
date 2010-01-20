@@ -3,10 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-<%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.util.Halp"%><jsp:include page="/WEB-INF/selectSearch.jsp" />
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamMemberDTO"%>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp" />
+
 <mjl:component item="${item}" param="dto">
   <mjl:dt type="text" attribute="startDate" classes="DatePick" />
   <mjl:dt type="text" attribute="completionDate" classes="DatePick" />
@@ -32,12 +36,12 @@
   
 </mjl:component>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{SprayLeaderDTO.CLASS, PersonViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{TeamMemberDTO.CLASS, TeamMemberViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">  
+<script type="text/javascript">  
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-    MDSS.leaderSearch({search:'teamLeaderInput', concrete:'teamLeader'});       
+    new MDSS.SprayLeaderSearch({search:'teamLeaderInput', concrete:'teamLeader'});       
   });
 })();
 </script>    

@@ -38,9 +38,8 @@ import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
-import dss.vector.solutions.irs.SprayLeader;
-import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
 
 public class ExcelViewTest extends TestCase
@@ -110,25 +109,20 @@ public class ExcelViewTest extends TestCase
     john.setLastName("Wayne");
     john.setDateOfBirth(new Date());
     john.apply();
+    
+    TeamMember member = new TeamMember();
+    member.setMemberId("member2");
+    member.setIsSprayLeader(true);
+    member.setIsSprayOperator(true);
+    member.apply();
+    
     john.lock();
-    
-    SprayLeader sprayLeader = new SprayLeader();
-    sprayLeader.setLeaderId("leader1");
-    sprayLeader.setPerson(john);
-    sprayLeader.apply();
-    
-    SprayOperator operator = new SprayOperator();
-    operator.setOperatorId("op2");
-    operator.setPerson(john);
-    operator.apply();
-    
-    john.setSprayLeaderDelegate(sprayLeader);
-    john.setSprayOperatorDelegate(operator);
+    john.setTeamMemberDelegate(member);
     john.apply();
     
     sprayTeam = new SprayTeam();
     sprayTeam.setTeamId("team1");
-    sprayTeam.create("2828007", sprayLeader.getId(), new String[] {operator.getId()});
+    sprayTeam.create("2828007", member.getId(), new String[] {member.getId()});
     
     deltamethrin = new Insecticide();
     deltamethrin.setActiveIngredient(Term.getByTermId("MIRO:10000133"));
@@ -288,9 +282,9 @@ public class ExcelViewTest extends TestCase
       assertEquals("Brian", person.getFirstName());
       assertEquals("Brian", person.getFirstName());
       
-      SprayLeader sprayLeader = person.getSprayLeaderDelegate();
+      TeamMember sprayLeader = person.getTeamMemberDelegate();
       assertNotNull(sprayLeader);
-      assertEquals("e13371", sprayLeader.getLeaderId());
+      assertEquals("e13371", sprayLeader.getMemberId());
       
       GeoEntity residentialGeoEntity = person.getResidentialGeoEntity();
       assertNotNull(residentialGeoEntity);

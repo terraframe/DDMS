@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -331084320)
-public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions.export.ActorSprayExcelViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = 202815216)
+public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.OperatorSprayExcelView";
-  private static final long serialVersionUID = -331084320;
+  private static final long serialVersionUID = 202815216;
   
   protected OperatorSprayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -17,8 +17,12 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   }
   
   public static java.lang.String BEDNETS = "bedNets";
+  public static java.lang.String BRANDNAME = "brandName";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
+  public static java.lang.String ID = "id";
+  public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String OPERATORID = "operatorId";
   public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
@@ -26,14 +30,24 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
+  public static java.lang.String RECEIVED = "received";
+  public static java.lang.String REFILLS = "refills";
   public static java.lang.String REFUSED = "refused";
+  public static java.lang.String RETURNED = "returned";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String ROOMSWITHBEDNETS = "roomsWithBedNets";
+  public static java.lang.String SPRAYDATE = "sprayDate";
+  public static java.lang.String SPRAYMETHOD = "sprayMethod";
+  public static java.lang.String SPRAYTEAM = "sprayTeam";
   public static java.lang.String SPRAYEDHOUSEHOLDS = "sprayedHouseholds";
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTUREID = "structureId";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String SURFACETYPE = "surfaceType";
+  public static java.lang.String TARGET = "target";
+  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
+  public static java.lang.String USED = "used";
   public Integer getBedNets()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
@@ -69,6 +83,87 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
+  }
+  
+  public String getBrandName()
+  {
+    return getValue(BRANDNAME);
+  }
+  
+  public void setBrandName(String value)
+  {
+    if(value == null)
+    {
+      setValue(BRANDNAME, "");
+    }
+    else
+    {
+      setValue(BRANDNAME, value);
+    }
+  }
+  
+  public boolean isBrandNameWritable()
+  {
+    return isWritable(BRANDNAME);
+  }
+  
+  public boolean isBrandNameReadable()
+  {
+    return isReadable(BRANDNAME);
+  }
+  
+  public boolean isBrandNameModified()
+  {
+    return isModified(BRANDNAME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
+  {
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
+  }
+  
+  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(GEOENTITY, "");
+    }
+    else
+    {
+      setValue(GEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isGeoEntityWritable()
+  {
+    return isWritable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityReadable()
+  {
+    return isReadable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityModified()
+  {
+    return isModified(GEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getHouseholdId()
@@ -143,6 +238,43 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHouseholdsMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOUSEHOLDS).getAttributeMdDTO();
+  }
+  
+  public String getLeaderId()
+  {
+    return getValue(LEADERID);
+  }
+  
+  public void setLeaderId(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEADERID, "");
+    }
+    else
+    {
+      setValue(LEADERID, value);
+    }
+  }
+  
+  public boolean isLeaderIdWritable()
+  {
+    return isWritable(LEADERID);
+  }
+  
+  public boolean isLeaderIdReadable()
+  {
+    return isReadable(LEADERID);
+  }
+  
+  public boolean isLeaderIdModified()
+  {
+    return isModified(LEADERID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
   }
   
   public Integer getLocked()
@@ -404,6 +536,80 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
+  public Integer getReceived()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
+  }
+  
+  public void setReceived(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(RECEIVED, "");
+    }
+    else
+    {
+      setValue(RECEIVED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReceivedWritable()
+  {
+    return isWritable(RECEIVED);
+  }
+  
+  public boolean isReceivedReadable()
+  {
+    return isReadable(RECEIVED);
+  }
+  
+  public boolean isReceivedModified()
+  {
+    return isModified(RECEIVED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
+  }
+  
+  public Integer getRefills()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
+  }
+  
+  public void setRefills(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REFILLS, "");
+    }
+    else
+    {
+      setValue(REFILLS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isRefillsWritable()
+  {
+    return isWritable(REFILLS);
+  }
+  
+  public boolean isRefillsReadable()
+  {
+    return isReadable(REFILLS);
+  }
+  
+  public boolean isRefillsModified()
+  {
+    return isModified(REFILLS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
+  }
+  
   public Integer getRefused()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
@@ -439,6 +645,43 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefusedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
+  }
+  
+  public Integer getReturned()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
+  }
+  
+  public void setReturned(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(RETURNED, "");
+    }
+    else
+    {
+      setValue(RETURNED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReturnedWritable()
+  {
+    return isWritable(RETURNED);
+  }
+  
+  public boolean isReturnedReadable()
+  {
+    return isReadable(RETURNED);
+  }
+  
+  public boolean isReturnedModified()
+  {
+    return isModified(RETURNED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public Integer getRooms()
@@ -513,6 +756,117 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsWithBedNetsMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMSWITHBEDNETS).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getSprayDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
+  }
+  
+  public void setSprayDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYDATE, "");
+    }
+    else
+    {
+      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isSprayDateWritable()
+  {
+    return isWritable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateReadable()
+  {
+    return isReadable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateModified()
+  {
+    return isModified(SPRAYDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+  }
+  
+  public String getSprayMethod()
+  {
+    return getValue(SPRAYMETHOD);
+  }
+  
+  public void setSprayMethod(String value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYMETHOD, "");
+    }
+    else
+    {
+      setValue(SPRAYMETHOD, value);
+    }
+  }
+  
+  public boolean isSprayMethodWritable()
+  {
+    return isWritable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodReadable()
+  {
+    return isReadable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodModified()
+  {
+    return isModified(SPRAYMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getSprayTeam()
+  {
+    return getValue(SPRAYTEAM);
+  }
+  
+  public void setSprayTeam(String value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTEAM, "");
+    }
+    else
+    {
+      setValue(SPRAYTEAM, value);
+    }
+  }
+  
+  public boolean isSprayTeamWritable()
+  {
+    return isWritable(SPRAYTEAM);
+  }
+  
+  public boolean isSprayTeamReadable()
+  {
+    return isReadable(SPRAYTEAM);
+  }
+  
+  public boolean isSprayTeamModified()
+  {
+    return isModified(SPRAYTEAM);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayTeamMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
   public Integer getSprayedHouseholds()
@@ -698,6 +1052,154 @@ public abstract class OperatorSprayExcelViewDTOBase extends dss.vector.solutions
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+  }
+  
+  public String getSurfaceType()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
+  public void setSurfaceType(String value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value);
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSurfaceTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
+  }
+  
+  public Integer getTarget()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+  }
+  
+  public void setTarget(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(TARGET, "");
+    }
+    else
+    {
+      setValue(TARGET, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isTargetWritable()
+  {
+    return isWritable(TARGET);
+  }
+  
+  public boolean isTargetReadable()
+  {
+    return isReadable(TARGET);
+  }
+  
+  public boolean isTargetModified()
+  {
+    return isModified(TARGET);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+  }
+  
+  public Integer getTeamSprayWeek()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
+  }
+  
+  public void setTeamSprayWeek(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(TEAMSPRAYWEEK, "");
+    }
+    else
+    {
+      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isTeamSprayWeekWritable()
+  {
+    return isWritable(TEAMSPRAYWEEK);
+  }
+  
+  public boolean isTeamSprayWeekReadable()
+  {
+    return isReadable(TEAMSPRAYWEEK);
+  }
+  
+  public boolean isTeamSprayWeekModified()
+  {
+    return isModified(TEAMSPRAYWEEK);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
+  }
+  
+  public Integer getUsed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
+  }
+  
+  public void setUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(USED, "");
+    }
+    else
+    {
+      setValue(USED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isUsedWritable()
+  {
+    return isWritable(USED);
+  }
+  
+  public boolean isUsedReadable()
+  {
+    return isReadable(USED);
+  }
+  
+  public boolean isUsedModified()
+  {
+    return isModified(USED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
   public static OperatorSprayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -71,12 +71,31 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     ClientRequestIF request = this.getClientSession().getRequest();
     InsecticideBrandDTO brand = dto.getBrand();
     String geoId = dto.getGeoEntity().getGeoId();
+    SprayTeamDTO sprayTeam = dto.getSprayTeam();
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
-    req.setAttribute("operators", Arrays.asList(dto.getSprayTeam().getTeamMemberViews()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
+    
+    if(sprayTeam != null)
+    {
+      List<? extends TeamMemberDTO> leader = sprayTeam.getAllTeamLeader();
+      
+      if(leader.size() > 0)
+      {
+        String leaderId = leader.get(0).getId();
+        
+        req.setAttribute("leaderId", leaderId);        
+      }
+      
+      req.setAttribute("members", Arrays.asList(sprayTeam.getTeamMemberViews()));
+      req.setAttribute("teamId", sprayTeam.getId());
+    }     
+    else
+    {      
+      req.setAttribute("members", new LinkedList<TeamMemberViewDTO>());
+    }
   }
 
   public void update(TeamSprayViewDTO dto) throws IOException, ServletException
@@ -115,7 +134,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", dto.getSprayId());
+    utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF request = this.getClientSession().getRequest();
@@ -141,13 +160,13 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     Map<String, String> map = new HashMap<String, String>();
 
     SprayTeamDTO team = view.getSprayTeam();
-    SprayOperatorDTO[] members = team.getTeamMembers();
+    TeamMemberDTO[] members = team.getTeamMembers();
 
-    for (SprayOperatorDTO operator : members)
+    for (TeamMemberDTO operator : members)
     {
       PersonDTO person = operator.getPerson();
       String key = operator.getId();
-      String label = operator.getOperatorId() + " - " + person.getFirstName() + ", " + person.getLastName();
+      String label = operator.getMemberId() + " - " + person.getFirstName() + ", " + person.getLastName();
 
       map.put(key, label);
     }
@@ -195,7 +214,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void cancel(TeamSprayViewDTO dto) throws IOException, ServletException
   {
-    this.view(TeamSprayDTO.unlockView(getClientRequest(), dto.getSprayId()));
+    this.view(TeamSprayDTO.unlockView(getClientRequest(), dto.getConcreteId()));
   }
 
   public void failCancel(TeamSprayViewDTO dto) throws IOException, ServletException

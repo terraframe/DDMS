@@ -92,11 +92,6 @@
             negativeLabel="No"
             positiveLabel="Yes"
             required="true" />
-          <virtual
-            name="operatorId"
-            concrete="operatorId"
-            type="dss.vector.solutions.irs.SprayOperator"
-            required="true" />
           <boolean
             name="isSprayLeader"
             label="Is Spray Leader"
@@ -106,9 +101,9 @@
             positiveLabel="Yes"
             required="true" />
           <virtual
-            name="leaderId"
-            concrete="leaderId"
-            type="dss.vector.solutions.irs.SprayLeader"
+            name="memberId"
+            concrete="memberId"
+            type="dss.vector.solutions.irs.TeamMember"
             required="true" />
         </attributes>
       </mdView>

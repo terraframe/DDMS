@@ -79,11 +79,11 @@
         <fieldset>
           <dt>
             <label>
-              ${item.operatorIdMd.displayLabel}
+              ${item.memberIdMd.displayLabel}
             </label>
           </dt>
           <dd>
-            ${item.operatorId}
+            ${item.memberId}
           </dd>
         </fieldset>
       </dd>
@@ -99,11 +99,11 @@
         <fieldset>
           <dt>
             <label>
-              ${item.leaderIdMd.displayLabel}
+              ${item.memberIdMd.displayLabel}
             </label>
           </dt>
           <dd>
-            ${item.leaderId}
+            ${item.memberId}
           </dd>
         </fieldset>
       </dd>

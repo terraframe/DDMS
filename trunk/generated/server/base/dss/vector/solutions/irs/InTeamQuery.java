@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1072399849)
+@com.terraframe.mojo.business.ClassSignature(hash = 673065459)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.irs;
  */
 public  class InTeamQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1072399849;
+private static final long serialVersionUID = 673065459;
 
   public InTeamQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -40,21 +40,21 @@ private static final long serialVersionUID = 1072399849;
   }
   /**
    * Restricts the query to include objects that are children in this relationship.
-   * @param sprayOperatorQuery
+   * @param teamMemberQuery
    * @return Condition restricting objects that are children in this relationship.
    */
-   public com.terraframe.mojo.query.Condition hasChild(dss.vector.solutions.irs.SprayOperatorQuery sprayOperatorQuery)
+   public com.terraframe.mojo.query.Condition hasChild(dss.vector.solutions.irs.TeamMemberQuery teamMemberQuery)
    {
-     return this.getRelationshipQuery().hasChild(sprayOperatorQuery);
+     return this.getRelationshipQuery().hasChild(teamMemberQuery);
    }
   /**
    * Restricts the query to include objects that are children in this relationship.
-   * @param sprayOperatorQuery
+   * @param teamMemberQuery
    * @return Condition restricting objects that are children in this relationship.
    */
-   public com.terraframe.mojo.query.Condition doesNotHaveChild(dss.vector.solutions.irs.SprayOperatorQuery sprayOperatorQuery)
+   public com.terraframe.mojo.query.Condition doesNotHaveChild(dss.vector.solutions.irs.TeamMemberQuery teamMemberQuery)
    {
-     return this.getRelationshipQuery().doesNotHaveChild(sprayOperatorQuery);
+     return this.getRelationshipQuery().doesNotHaveChild(teamMemberQuery);
    }
   /**
    * Restricts the query to include objects that are parents in this relationship.

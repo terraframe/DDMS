@@ -9,4 +9,8 @@ public class ZoneSprayViewDTO extends ZoneSprayViewDTOBase
     super(clientRequest);
   }
   
+  public boolean hasConcrete()
+  {
+    return (this.getConcreteId() != null && !this.getConcreteId().equals(""));
+  }
 }

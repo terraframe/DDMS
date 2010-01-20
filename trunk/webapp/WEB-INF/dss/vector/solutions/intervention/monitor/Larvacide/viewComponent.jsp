@@ -54,7 +54,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
         ${item.personCount}
       </mjl:dt>
       <mjl:dt attribute="teamLeader">
-        ${item.teamLeader}
+        ${leader.label}
       </mjl:dt>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.LarvacideController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Larvacide.form.edit.button" />

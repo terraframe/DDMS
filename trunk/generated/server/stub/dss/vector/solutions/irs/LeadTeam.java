@@ -9,7 +9,7 @@ public class LeadTeam extends LeadTeamBase implements com.terraframe.mojo.genera
     super(parentId, childId);
   }
   
-  public LeadTeam(dss.vector.solutions.irs.SprayTeam parent, dss.vector.solutions.irs.SprayLeader child)
+  public LeadTeam(dss.vector.solutions.irs.SprayTeam parent, dss.vector.solutions.irs.TeamMember child)
   {
     this(parent.getId(), child.getId());
   }
@@ -17,6 +17,6 @@ public class LeadTeam extends LeadTeamBase implements com.terraframe.mojo.genera
   @Override
   protected String buildKey()
   {
-    return this.getParent().buildKey() + "-" + this.getChild().buildKey();
+    return this.getParent().getKey() + "-" + this.getChild().getKey();
   }
 }

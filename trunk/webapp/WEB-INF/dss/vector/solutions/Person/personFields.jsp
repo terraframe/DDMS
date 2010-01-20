@@ -152,12 +152,12 @@
           <fieldset>
             <dt>
               <label>
-                ${item.leaderIdMd.displayLabel}
+                ${item.memberIdMd.displayLabel}
               </label>
             </dt>
             <dd>
-              <mjl:input type="text" param="leaderId" />
-              <mjl:messages attribute="leaderId">
+              <mjl:input type="text" param="memberId" id="memberId" />
+              <mjl:messages attribute="memberId">
                 <mjl:message />
               </mjl:messages>
             </dd>
@@ -181,12 +181,12 @@
           <fieldset>
             <dt>
               <label>
-                ${item.operatorIdMd.displayLabel}
+                ${item.memberIdMd.displayLabel}
               </label>
             </dt>
             <dd>
-              <mjl:input type="text" param="operatorId" />
-              <mjl:messages attribute="operatorId">
+              <mjl:input type="text" param="operatorId" id="operatorId" value="${item.memberId}" />
+              <mjl:messages attribute="memberId">
                 <mjl:message />
               </mjl:messages>
             </dd>
@@ -265,6 +265,17 @@
        }    
    }
 
+   var memberId = document.getElementById('memberId');
+   var operatorId = document.getElementById('operatorId');   
+
+   var copyValue = function (to, from)
+   {
+     to.value = from.value;
+   }
+
+   YAHOO.util.Event.on(memberId, 'keyup', Mojo.Util.curry(copyValue, operatorId, memberId));
+   YAHOO.util.Event.on(operatorId, 'keyup', Mojo.Util.curry(copyValue, memberId, operatorId));
+   
    YAHOO.util.Event.on(password, 'blur', validatePassword);
    YAHOO.util.Event.on(repassword, 'blur', validatePassword);
   })

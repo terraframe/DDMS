@@ -71,7 +71,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="queryIRS">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -104,7 +104,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="queryIRS">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -131,7 +131,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="queryIRS">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -158,7 +158,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="queryIRS">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -185,7 +185,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="queryIRS">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -206,7 +206,7 @@
         type="dss.vector.solutions.surveillance.AggregatedCase">
         <assignedRole roleName="Administrator" />
       </method>
-      <method methodName="queryIRS" type="dss.vector.solutions.irs.AbstractSpray">
+      <method methodName="queryIRS" type="dss.vector.solutions.irs.ZoneSpray">
         <assignedRole roleName="Administrator" />
       </method>
       <method methodName="queryResistance"

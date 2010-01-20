@@ -177,10 +177,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     valueQuery.SELECT(selectClauseArray);
     valueQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
     valueQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
+    
     for (SelectablePrimitive selectable : selectableArray)
     {
       valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.get(selectable.getResultAttributeName()));
     }
+    
     valueQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
 
     for (ValueObject valueObject : valueQuery.getIterator())

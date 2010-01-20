@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1838328748)
+@com.terraframe.mojo.business.ClassSignature(hash = -109013733)
 public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.Larvacide";
-  private static final long serialVersionUID = -1838328748;
+  private static final long serialVersionUID = -109013733;
   
   protected LarvacideDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -596,7 +596,7 @@ public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.irs.SprayLeaderDTO getTeamLeader()
+  public dss.vector.solutions.irs.TeamMemberDTO getTeamLeader()
   {
     if(getValue(TEAMLEADER) == null || getValue(TEAMLEADER).trim().equals(""))
     {
@@ -604,11 +604,11 @@ public abstract class LarvacideDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return dss.vector.solutions.irs.SprayLeaderDTO.get(getRequest(), getValue(TEAMLEADER));
+      return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
     }
   }
   
-  public void setTeamLeader(dss.vector.solutions.irs.SprayLeaderDTO value)
+  public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)
   {
     if(value == null)
     {

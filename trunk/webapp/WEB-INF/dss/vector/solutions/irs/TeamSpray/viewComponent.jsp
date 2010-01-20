@@ -8,18 +8,21 @@
   TeamSprayViewDTO spray = ((TeamSprayViewDTO) request.getAttribute("item"));  
   
   OperatorSprayStatusViewDTO view = new OperatorSprayStatusViewDTO(clientRequest);
-  view.setValue(OperatorSprayStatusViewDTO.SPRAYDATA, spray.getSprayData().getId());
+  view.setValue(OperatorSprayStatusViewDTO.SPRAY, spray.getConcreteId());
 
   OperatorSprayStatusViewDTO[] rows = (OperatorSprayStatusViewDTO[]) request.getAttribute("status");
   
-  String[] attributes = {"StatusId", "SprayData", "SprayOperator", "OperatorSprayWeek", "Received",
+  String[] attributes = {"ConcreteId", "Spray", "SprayOperator", "OperatorSprayWeek", "Received",
        "Refills", "Returned", "Used",   "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
   
-  
+  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+  map.put("ConcreteId", new ColumnSetup(true, false));
+  map.put("Spray", new ColumnSetup(true, false));
+  map.put("OperatorLabel", new ColumnSetup(true, false));  
 %>
 
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -37,7 +40,8 @@
 <%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 
-<style type="text/css">
+
+<%@page import="java.util.Arrays"%><style type="text/css">
 .yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
 {
   vertical-align:bottom;
@@ -64,7 +68,7 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.TeamSpray.form.name" id="dss.vector.solutions.irs.TeamSpray.form.id" method="POST">
   <dl>
-    <mjl:input value="${item.sprayId}" type="hidden" param="id" />      
+    <mjl:input value="${item.concreteId}" type="hidden" param="id" />      
     
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
@@ -103,56 +107,46 @@
 <button type="button" id="StatusCreate"> <fmt:message key="Create_New_Team_Spray_Button"/> </button>
 </span>
 
-<script type="text/javascript" defer="defer">
+<%=Halp.loadTypes(Arrays.asList(new String[]{OperatorSprayStatusViewDTO.CLASS}))%>
 
-    var createButton = new YAHOO.widget.Button("StatusCreate", 
-	      {
-	        type:"link",
-	        href:"dss.vector.solutions.irs.TeamSprayController.search.mojo"
-	      });
 
-    <%
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{ActorSprayStatusViewDTO.CLASS}, true));
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{OperatorSprayStatusViewDTO.CLASS}, true));
-     
-     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-     map.put("StatusId", new ColumnSetup(true, false));
-     map.put("SprayData", new ColumnSetup(true, false));
-     map.put("Spray", new ColumnSetup(true, false));
-     map.put("OperatorLabel", new ColumnSetup(true, false));
-    %>
+<script type="text/javascript">
+(function(){
+    YAHOO.util.Event.onDOMReady(function(){
+    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    
+    var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.TeamSprayController.search.mojo"});
+
     operators = <%=request.getAttribute("operators")%>;
     
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-
-
     data = {
-              rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-              defaults:<%=Halp.getDefaultValues(view, attributes)%>,
-              div_id: "Status",
-              data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
-              saveFunction:"applyAll",
-              excelButtons:false
-          };
+      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
+      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      div_id: "Status",
+      data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
+      saveFunction:"applyAll",
+      excelButtons:false
+    };
 
-    var beforeRowAdd = function() {        
+    var beforeRowAdd = function(event) {
+      if(event.getType() == MDSS.GridEvent.BEFORE_ROW_ADD) {
         YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+      }        
     }
     
     var validateSprayOperator = function(oData) {
         // Validate
-	    var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
-		    return record.getData('SprayOperator');
-	    });
+      var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+        return record.getData('SprayOperator');
+      });
         
-        if(selectedValues.indexOf(oData) !== -1) {
-            return undefined;
-        }
-        else {
-            return oData;
-        }
+      if(selectedValues.indexOf(oData) !== -1) {
+        return undefined;
+      }
+      else {
+        return oData;
+      }
     }
 
     var loadUnusedOperators = function(e){
@@ -160,74 +154,74 @@
         var cell = e.editor.getTdEl();
 
         // Get a list of operators which already have data set for them
-	    var usedOperators = data.myDataTable.getRecordSet().getRecords().map( function(record) {
-		    return record.getData('SprayOperator');
-	    });
+      var usedOperators = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+        return record.getData('SprayOperator');
+      });
 
         // Filter the list of possible operators by operators which have already been used
-	    var filteredLabels = SprayOperatorLabels.filter(function(operator){
-		    return (usedOperators.indexOf(operator) === -1);
-	    });
+      var filteredLabels = SprayOperatorLabels.filter(function(operator){
+        return (usedOperators.indexOf(operator) === -1);
+      });
 
-        // Update the editor to use the list of valid operators
-        e.editor.dropdownOptions = filteredLabels;
+      // Update the editor to use the list of valid operators
+      e.editor.dropdownOptions = filteredLabels;
 
-        selectEl = e.editor.dropdown;
-        selectEl.innerHTML = "";
-        selectedValue = e.editor.getRecord().getData('SprayOperator');
+      selectEl = e.editor.dropdown;
+      selectEl.innerHTML = "";
+      selectedValue = e.editor.getRecord().getData('SprayOperator');
 
-        // We have options to populate
-        if(filteredLabels.length > 0) {
-            // Create OPTION elements
-            for(var i=0; i < filteredLabels.length; i++) {
-                var option = filteredLabels[i];
-                var optionEl = document.createElement("option");
+      // We have options to populate
+      if(filteredLabels.length > 0) {
+        // Create OPTION elements
+        for(var i=0; i < filteredLabels.length; i++) {
+          var option = filteredLabels[i];
+          var optionEl = document.createElement("option");
 
-                optionEl.value = option;
-                optionEl.innerHTML = option;
-                optionEl = selectEl.appendChild(optionEl);
-
-                if (optionEl.value == selectedValue) {
-                    optionEl.selected = true;
-                }
-            }
+          optionEl.value = option;
+          optionEl.innerHTML = option;
+          optionEl = selectEl.appendChild(optionEl);
+          
+          if (optionEl.value == selectedValue) {
+            optionEl.selected = true;
+          }
         }
-        else {
-          selectEl.innerHTML = "<option selected value=\"\"></option>";             
-        }
-	 }
-	 
-	var indexHouseholds = 8;
-	var indexStructures = 9;
-	var indexSprayedHouseholds = 10;
-	var indexSprayedStructures = 11;
-	var indexPrevSprayedHouseholds = 12;
-	var indexPrevSprayedStructures = 13;
-	var indexRooms = 14;
-	var indexPeople = 16;
-	var indexBedNets = 17;
-	var indexRoomsWithBedNets = 18;
-	var indexLocked = 19;
-	var indexRefused = 20;
-	var indexOther = 21;
-	
-	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+      }
+      else {
+        selectEl.innerHTML = "<option selected value=\"\"></option>";             
+      }
+   }
+   
+    var indexHouseholds = 8;
+    var indexStructures = 9;
+    var indexSprayedHouseholds = 10;
+    var indexSprayedStructures = 11;
+    var indexPrevSprayedHouseholds = 12;
+    var indexPrevSprayedStructures = 13;
+    var indexRooms = 14;
+    var indexPeople = 16;
+    var indexBedNets = 17;
+    var indexRoomsWithBedNets = 18;
+    var indexLocked = 19;
+    var indexRefused = 20;
+    var indexOther = 21;
+  
+    var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
 
     if (!isMainSpray)
     {
-    	delete data.columnDefs[indexHouseholds].editor;
-    	delete data.columnDefs[indexStructures].editor;
-    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-    	delete data.columnDefs[indexPrevSprayedStructures].editor;
-    	delete data.columnDefs[indexRooms].editor;
-    	
-    	delete data.columnDefs[indexPeople].editor;
-    	delete data.columnDefs[indexBedNets].editor;
-    	delete data.columnDefs[indexRoomsWithBedNets].editor;
-    	delete data.columnDefs[indexLocked].editor;
-    	delete data.columnDefs[indexRefused].editor;
-    	delete data.columnDefs[indexOther].editor;    	
-    }    	
+      delete data.columnDefs[indexHouseholds].editor;
+      delete data.columnDefs[indexStructures].editor;
+      delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+      delete data.columnDefs[indexPrevSprayedStructures].editor;
+      delete data.columnDefs[indexRooms].editor;
+      
+      delete data.columnDefs[indexPeople].editor;
+      delete data.columnDefs[indexBedNets].editor;
+      delete data.columnDefs[indexRoomsWithBedNets].editor;
+      delete data.columnDefs[indexLocked].editor;
+      delete data.columnDefs[indexRefused].editor;
+      delete data.columnDefs[indexOther].editor;      
+    }
     
     SprayOperatorLabels=Mojo.Util.getValues(operators);   
     SprayOperatorIds=Mojo.Util.getKeys(operators);   
@@ -236,5 +230,10 @@
     data.columnDefs[2].save_as_id = true;
     data.columnDefs[2].editor.subscribe('showEvent', loadUnusedOperators);     
 
-    MojoGrid.createDataTable(data);   
+    var grid = MojoGrid.createDataTable(data);
+    grid.addListener(beforeRowAdd);
+    
+  });
+})();
+    
 </script>

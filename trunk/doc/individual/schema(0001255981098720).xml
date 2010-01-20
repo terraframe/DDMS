@@ -11,11 +11,25 @@
           key="dss.vector.solutions.PersonView.sex" />
       </object>        
       <object
-        key="Ontology__dss.vector.solutions.irs.AbstractSprayView.surfaceType"
+        key="Ontology__dss.vector.solutions.irs.ZoneSprayView.surfaceType"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.irs.AbstractSprayView.surfaceType" />
+          key="dss.vector.solutions.irs.ZoneSprayView.surfaceType" />
+      </object>        
+      <object
+        key="Ontology__dss.vector.solutions.irs.TeamSprayView.surfaceType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.TeamSprayView.surfaceType" />
+      </object>        
+      <object
+        key="Ontology__dss.vector.solutions.irs.OperatorSprayView.surfaceType"
+        type="dss.vector.solutions.ontology.BrowserField">
+        <attributeReference
+          name="mdAttribute"
+          key="dss.vector.solutions.irs.OperatorSprayView.surfaceType" />
       </object>        
     </create>  
     <update>
@@ -37,7 +51,13 @@
         key="Ontology__dss.vector.solutions.PersonView.sex"
         type="dss.vector.solutions.ontology.BrowserField" />    
       <object
-        key="Ontology__dss.vector.solutions.irs.AbstractSprayView.surfaceType"
+        key="Ontology__dss.vector.solutions.irs.ZoneSprayView.surfaceType"
+        type="dss.vector.solutions.ontology.BrowserField" />            
+      <object
+        key="Ontology__dss.vector.solutions.irs.TeamSprayView.surfaceType"
+        type="dss.vector.solutions.ontology.BrowserField" />            
+      <object
+        key="Ontology__dss.vector.solutions.irs.OperatorSprayView.surfaceType"
         type="dss.vector.solutions.ontology.BrowserField" />            
       <object
         key="dss.vector.solutions.PersonView.applyAsITNRecipient"

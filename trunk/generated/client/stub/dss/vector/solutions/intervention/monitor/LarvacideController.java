@@ -10,7 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.irs.SprayLeaderDTO;
+import dss.vector.solutions.irs.TeamMemberDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -48,7 +48,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void failCreate(LarvacideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -72,7 +71,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
     {
       ClientRequestIF clientRequest = super.getClientRequest();
       LarvacideDTO dto = new LarvacideDTO(clientRequest);
-      req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
@@ -104,10 +102,18 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
     LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
     view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
+    
+    String leaderId = dto.getValue(LarvacideDTO.TEAMLEADER);
+
+    if(leaderId != null && !leaderId.equals(""))
+    {
+      req.setAttribute("leader", TeamMemberDTO.getView(clientRequest, leaderId));
+    }
 
     req.setAttribute("rows", dto.getInstanceViews());
     req.setAttribute("view", view);
     req.setAttribute("item", dto);
+    
     render("viewComponent.jsp");
   }
 
@@ -145,7 +151,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
     try
     {
       LarvacideDTO dto = LarvacideDTO.lock(super.getClientRequest(), id);
-      req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
@@ -187,7 +192,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void failDelete(LarvacideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -213,7 +217,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void failUpdate(LarvacideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("teamLeader", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }

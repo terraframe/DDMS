@@ -8,12 +8,6 @@
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-            <operation name="READ" />
-            <attributePermission attributeName="sprayData">
-              <operation name="READ" />
-            </attributePermission>
-          </mdBusinessPermission>
 
           <!-- DEFINE ALL READ PERMISSIONS FOR SURVEYS -->
           <mdBusinessPermission
@@ -43,13 +37,8 @@
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
           </mdViewPermission>
-
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          
+          <mdBusinessPermission type="dss.vector.solutions.irs.TeamMember">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
@@ -207,24 +196,6 @@
       </role>
       <role roleName="mdss.dataCapturer">
         <grant>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
@@ -243,12 +214,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.HouseholdSprayStatus">
             <operation name="CREATE" />
@@ -256,7 +221,21 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.OperatorSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.TeamSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.SurveyPoint">
             <operation name="CREATE" />
@@ -588,13 +567,7 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <mdBusinessPermission type="dss.vector.solutions.irs.TeamMember">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
@@ -881,13 +854,7 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <mdBusinessPermission type="dss.vector.solutions.irs.TeamMember">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
@@ -976,24 +943,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
@@ -1012,12 +961,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.HouseholdSprayStatus">
             <operation name="CREATE" />
@@ -1025,7 +968,21 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.OperatorSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.TeamSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.AggregatedIPT">
             <operation name="CREATE" />
@@ -1201,13 +1158,7 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <mdBusinessPermission type="dss.vector.solutions.irs.TeamMember">
             <operation name="CREATE" />
             <operation name="WRITE" />
             <operation name="WRITE_ALL_ATTRIBUTES" />
@@ -1620,24 +1571,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
             <operation name="CREATE" />
             <operation name="WRITE" />
@@ -1656,12 +1589,6 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.irs.HouseholdSprayStatus">
             <operation name="CREATE" />
@@ -1669,7 +1596,21 @@
             <operation name="WRITE_ALL_ATTRIBUTES" />
             <operation name="DELETE" />
           </mdBusinessPermission>
-
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.OperatorSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.irs.TeamSprayStatus">
+            <operation name="CREATE" />
+            <operation name="WRITE" />
+            <operation name="WRITE_ALL_ATTRIBUTES" />
+            <operation name="DELETE" />
+          </mdBusinessPermission>
+          
           <!-- SURVILANCE PERMISSIONS  -->
 
           <mdBusinessPermission

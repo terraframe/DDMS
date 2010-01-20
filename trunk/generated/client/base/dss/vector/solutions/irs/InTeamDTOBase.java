@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1443311794)
+@com.terraframe.mojo.business.ClassSignature(hash = -1019044918)
 public abstract class InTeamDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InTeam";
-  private static final long serialVersionUID = 1443311794;
+  private static final long serialVersionUID = -1019044918;
   
   public InTeamDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -366,9 +366,9 @@ public abstract class InTeamDTOBase extends com.terraframe.mojo.business.Relatio
     return dss.vector.solutions.irs.SprayTeamDTO.get(getRequest(), super.getParentId());
   }
   
-    public dss.vector.solutions.irs.SprayOperatorDTO getChild()
+    public dss.vector.solutions.irs.TeamMemberDTO getChild()
   {
-    return dss.vector.solutions.irs.SprayOperatorDTO.get(getRequest(), super.getChildId());
+    return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), super.getChildId());
   }
   
   public static dss.vector.solutions.irs.InTeamDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -8,9 +8,8 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
-import dss.vector.solutions.irs.SprayLeader;
-import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.Supervisor;
+import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.stock.StockStaff;
 
@@ -94,26 +93,17 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       this.setIsIPTRecipient(true);
     }
 
-    SprayOperator sprayOperator = concrete.getSprayOperatorDelegate();
-    if (sprayOperator == null)
+    TeamMember member = concrete.getTeamMemberDelegate();
+    if (member == null)
     {
       this.setIsSprayOperator(false);
-    }
-    else
-    {
-      this.setIsSprayOperator(true);
-      this.setOperatorId(sprayOperator.getOperatorId());
-    }
-
-    SprayLeader sprayLeader = concrete.getSprayLeaderDelegate();
-    if (sprayLeader == null)
-    {
       this.setIsSprayLeader(false);
     }
     else
     {
-      this.setIsSprayLeader(true);
-      this.setLeaderId(sprayLeader.getLeaderId());
+      this.setIsSprayOperator(member.getIsSprayOperator());
+      this.setIsSprayLeader(member.getIsSprayLeader());
+      this.setMemberId(member.getMemberId());
     }
 
     this.setIsStockStaff(concrete.getStockStaffDelegate() != null);
@@ -121,24 +111,9 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   }
 
   @Override
-  public void validateOperatorId()
-  {
-    if (this.getOperatorId() != null && !this.getOperatorId().equals("") && this.getLeaderId() != null && !this.getLeaderId().equals(""))
-    {
-      if (this.getOperatorId().equals(this.getLeaderId()))
-      {
-        String msg = "Operator Id and Leader Id cannot be the same";
-        throw new DelegateIdException(msg);
-      }
-    }
-  }
-
-  @Override
   @Transaction
   public void apply()
   {
-    validateOperatorId();
-
     Person person = applyPerson();
 
     // Update the delegates
@@ -204,47 +179,30 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       }
     }
 
-    SprayOperator sprayOperator = person.getSprayOperatorDelegate();
-    if (this.getIsSprayOperator())
-    {
-      if (sprayOperator == null)
-      {
-        sprayOperator = new SprayOperator();
-      }
-      sprayOperator.setPerson(person);
-      sprayOperator.setOperatorId(this.getOperatorId());
-      sprayOperator.apply();
-    }
-    else
-    {
-      if (sprayOperator != null)
-      {
-        sprayOperator.delete();
-        sprayOperator = null;
-      }
-    }
-
-    SprayLeader sprayLeader = person.getSprayLeaderDelegate();
-    if (this.getIsSprayLeader())
-    {
-      if (sprayLeader == null)
-      {
-        sprayLeader = new SprayLeader();
-      }
-
-      sprayLeader.setPerson(person);
-      sprayLeader.setLeaderId(this.getLeaderId());
-      sprayLeader.apply();
-    }
-    else
-    {
-      if (sprayLeader != null)
-      {
-        sprayLeader.delete();
-        sprayLeader = null;
-      }
-    }
+    TeamMember member = person.getTeamMemberDelegate();
     
+    if (this.getIsSprayOperator() || this.getIsSprayLeader())
+    {
+      if (member == null)
+      {
+        member = new TeamMember();
+      }
+      
+      member.setPerson(person);
+      member.setIsSprayLeader(this.getIsSprayLeader());
+      member.setIsSprayOperator(this.getIsSprayOperator());
+      member.setMemberId(this.getMemberId());
+      member.apply();
+    }
+    else
+    {
+      if (member != null)
+      {
+        member.delete();
+        member = null;
+      }
+    }
+
     StockStaff staff = person.getStockStaffDelegate();
     
     if (this.getIsStockStaff())
@@ -290,8 +248,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.setUserDelegate(user);
     person.setItnRecipientDelegate(itnRecipient);
     person.setIptRecipientDelegate(iptRecipient);
-    person.setSprayOperatorDelegate(sprayOperator);
-    person.setSprayLeaderDelegate(sprayLeader);
+    person.setTeamMemberDelegate(member);
     person.setPatientDelegate(patient);
     person.setStockStaffDelegate(staff);
     person.setSupervisorDelegate(supervisor);

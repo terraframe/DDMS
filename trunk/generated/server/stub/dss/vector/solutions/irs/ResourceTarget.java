@@ -7,7 +7,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTarget extends ResourceTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -31,9 +30,9 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
 
   private String getTargeterId()
   {
-    if (this.getTargeter() instanceof SprayOperator)
+    if (this.getTargeter() instanceof TeamMember)
     {
-      return ( (SprayOperator) this.getTargeter() ).getOperatorId();
+      return ( (TeamMember) this.getTargeter() ).getMemberId();
     }
 
     return ( (SprayTeam) this.getTargeter() ).getTeamId();
@@ -41,23 +40,17 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
 
   public static String getTargeterName(Targeter targeter)
   {
-    if (targeter instanceof SprayOperator)
+    if (targeter instanceof TeamMember)
     {
-      SprayOperator so = (SprayOperator) targeter;
-      return ( so.getOperatorId() + " - " + so.getPerson().getFirstName() + " " + so.getPerson().getLastName() );
+      TeamMember so = (TeamMember) targeter;
+      return ( so.getLabel() );
     }
 
     if (targeter instanceof SprayTeam)
     {
       SprayTeam st = (SprayTeam) targeter;
 
-      if (!st.getAllTeamLeader().getAll().isEmpty())
-      {
-        Person leader = st.getAllTeamLeader().getAll().get(0).getPerson();
-        String leader_name = " - " + leader.getFirstName() + " " + leader.getLastName();
-      }
-
-      return ( st.getTeamId() + "" );
+      return ( st.getLabel() );
     }
     return null;
   }

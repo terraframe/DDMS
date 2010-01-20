@@ -8,16 +8,22 @@
   ZoneSprayViewDTO spray = ((ZoneSprayViewDTO) request.getAttribute("item"));
 
   TeamSprayStatusViewDTO view = new TeamSprayStatusViewDTO(clientRequest);
-  view.setValue(TeamSprayStatusViewDTO.SPRAYDATA, spray.getSprayData().getId());
+  view.setValue(TeamSprayStatusViewDTO.SPRAY, spray.getConcreteId());
   
   TeamSprayStatusViewDTO[] rows = (TeamSprayStatusViewDTO[]) request.getAttribute("status");
 
-  String[] attributes = {"StatusId", "SprayData", "SprayTeam", "TeamLeader",
+  String[] attributes = {"ConcreteId", "Spray", "SprayTeam", "TeamLeader",
        "TeamSprayWeek", "Target", "Received", "Refills", "Returned", "Used", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+  
+  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+  map.put("ConcreteId", new ColumnSetup(true, false));
+  map.put("SprayData", new ColumnSetup(true, false));
+  map.put("Spray", new ColumnSetup(true, false));
+  map.put("TeamLabel", new ColumnSetup(true, false));  
 %>
 
 
@@ -65,7 +71,7 @@ background:none;
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.ZoneSpray.form.name" id="dss.vector.solutions.irs.ZoneSpray.form.id" method="POST">
   <dl>
-    <mjl:input value="${item.sprayId}" type="hidden" param="id" />
+    <mjl:input value="${item.concreteId}" type="hidden" param="id" />
 
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString}  </mjl:dt>
@@ -107,56 +113,45 @@ background:none;
 </span>
 
 
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayStatusViewDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{ActorSprayStatusViewDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{TeamSprayStatusViewDTO.CLASS}))%>
-<%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("StatusId", new ColumnSetup(true, false));
-map.put("SprayData", new ColumnSetup(true, false));
-map.put("Spray", new ColumnSetup(true, false));
-map.put("TeamLabel", new ColumnSetup(true, false));
-%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS, TeamSprayStatusViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">
-
-  var createButton = new YAHOO.widget.Button("StatusCreate", {
-    type:"link",
-    href:"dss.vector.solutions.irs.ZoneSprayController.search.mojo"
-  });
-
-
-teams = <%=request.getAttribute("teams")%>;
-operators = <%=request.getAttribute("operators")%>;
-<%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-data = {
-         rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-         columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-         defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+<script type="text/javascript">
+(function(){
+    YAHOO.util.Event.onDOMReady(function(){
+      var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.ZoneSprayController.search.mojo"});
+      
+      teams = <%=request.getAttribute("teams")%>;
+      operators = <%=request.getAttribute("operators")%>;
+      
+      <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+      
+      data = {
+        rows:<%=Halp.getDataMap(rows, attributes, view)%>,
+        columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
+        defaults:<%=Halp.getDefaultValues(view, attributes)%>,
          
-         div_id: "Status",
-         data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
-         saveFunction:"applyAll",
-         excelButtons:false,
-         after_row_load:function(record){
-             var team = record.getData('SprayTeam');
-             var leaderId = record.getData('TeamLeader');
+        div_id: "Status",
+        data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
+        saveFunction:"applyAll",
+        excelButtons:false,
+        after_row_load:function(record){
+          var team = record.getData('SprayTeam');
+          var leaderId = record.getData('TeamLeader');
              
-             if(team !== 'undefined' && leaderId !== null) {
-               var row = data.myDataTable.getRecordIndex(record);
-               var teamId = data.rows[row].SprayTeam;
-               var leader = operators[teamId][leaderId];
+          if(team !== 'undefined' && leaderId !== null) {
+            var row = data.myDataTable.getRecordIndex(record);
+            var teamId = data.rows[row].SprayTeam;
+            var leader = operators[teamId][leaderId];
 
-               record.setData('TeamLeader', leader);
-             }
-         }
+            record.setData('TeamLeader', leader);
+          }
+        }
      };
 
      var validateSprayTeam = function(oData) {
        // Validate
        var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
-	     return record.getData('SprayTeam');
+       return record.getData('SprayTeam');
        });
     
        if(selectedValues.indexOf(oData) !== -1) {
@@ -167,126 +162,127 @@ data = {
        }
      }
 
-     var beforeRowAdd = function() {        
+     var beforeRowAdd = function(event) {
+       if(event.getType() == MDSS.GridEvent.BEFORE_ROW_ADD) {
          YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+       }        
      }
       
      var loadUnusedTeams = function(e){
-         var column = data.myDataTable.getColumn('SprayTeam');
-         var cell = e.editor.getTdEl();
-         var currentTeam = e.editor.getRecord().getColumn('SprayTeam').getData();
+       var column = data.myDataTable.getColumn('SprayTeam');
+       var cell = e.editor.getTdEl();
+       var currentTeam = e.editor.getRecord().getColumn('SprayTeam').getData();
 
-         // Get a list of operators which already have data set for them
- 	    var usedTeams = data.myDataTable.getRecordSet().getRecords().map( function(record) {
- 		    return record.getData('SprayTeam');
- 	    });
+       // Get a list of operators which already have data set for them
+       var usedTeams = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+         return record.getData('SprayTeam');
+       });
 
 
-        usedTeams.filter(function(team){
-          return team != currentTeam;
-        });
+       usedTeams.filter(function(team){
+         return team != currentTeam;
+       });
 
          // Filter the list of possible operators by operators which have already been used
- 	    var filteredLabels = SprayTeamLabels.filter(function(operator){
- 		    return (usedTeams.indexOf(operator) === -1);
- 	    });
+       var filteredLabels = SprayTeamLabels.filter(function(operator){
+         return (usedTeams.indexOf(operator) === -1);
+       });
 
-         // Update the editor to use the list of valid operators
-         e.editor.dropdownOptions = filteredLabels;
+       // Update the editor to use the list of valid operators
+       e.editor.dropdownOptions = filteredLabels;
 
-         selectEl = e.editor.dropdown;
-         selectEl.innerHTML = "";
-         selectedValue = e.editor.getRecord().getData('SprayTeam');
+       selectEl = e.editor.dropdown;
+       selectEl.innerHTML = "";
+       selectedValue = e.editor.getRecord().getData('SprayTeam');
 
-         // We have options to populate
-         if(filteredLabels.length > 0) {
-             // Create OPTION elements
-             for(var i=0; i < filteredLabels.length; i++) {
-                 var option = filteredLabels[i];
-                 var optionEl = document.createElement("option");
+       // We have options to populate
+       if(filteredLabels.length > 0) {
+         // Create OPTION elements
+         for(var i=0; i < filteredLabels.length; i++) {
+           var option = filteredLabels[i];
+           var optionEl = document.createElement("option");
 
-                 optionEl.value = option;
-                 optionEl.innerHTML = option;
-                 optionEl = selectEl.appendChild(optionEl);
+           optionEl.value = option;
+           optionEl.innerHTML = option;
+           optionEl = selectEl.appendChild(optionEl);
 
-                 if (optionEl.value == selectedValue) {
-                     optionEl.selected = true;
-                 }
-             }
+           if (optionEl.value == selectedValue) {
+             optionEl.selected = true;
+           }
          }
-         else {
-           selectEl.innerHTML = "<option selected value=\"\"></option>";             
-         }
- 	 }
+       }
+       else {
+         selectEl.innerHTML = "<option selected value=\"\"></option>";             
+       }
+     }
      
-
      var swap = function(e){
-         var row = data.myDataTable.getRecordIndex(e.editor.getRecord());
-         var teamId = data.rows[row].SprayTeam;
+       var row = data.myDataTable.getRecordIndex(e.editor.getRecord());
+       var teamId = data.rows[row].SprayTeam;
 
-         var column = data.myDataTable.getColumn('TeamLeader');
-         var cell = e.editor.getTdEl();
+       var column = data.myDataTable.getColumn('TeamLeader');
+       var cell = e.editor.getTdEl();
          
-         TeamLeaderLabels=Mojo.Util.getValues(operators[teamId]);   
-         TeamLeaderIds=Mojo.Util.getKeys(operators[teamId]);   
+       TeamLeaderLabels=Mojo.Util.getValues(operators[teamId]);   
+       TeamLeaderIds=Mojo.Util.getKeys(operators[teamId]);   
 
-         e.editor.dropdownOptions = TeamLeaderLabels;
+       e.editor.dropdownOptions = TeamLeaderLabels;
 
-         selectEl = e.editor.dropdown;
-         selectEl.innerHTML = "";
-         selectedValue = e.editor.getRecord().getData('TeamLeader');
+       selectEl = e.editor.dropdown;
+       selectEl.innerHTML = "";
+       selectedValue = e.editor.getRecord().getData('TeamLeader');
  
-         // We have options to populate
-         if(TeamLeaderLabels.length > 0) {
+       // We have options to populate
+       if(TeamLeaderLabels.length > 0) {
              // Create OPTION elements
-             for(var i=0; i < TeamLeaderLabels.length; i++) {
-                 var option = TeamLeaderLabels[i];
-                 var optionEl = document.createElement("option");
+         for(var i=0; i < TeamLeaderLabels.length; i++) {
+           var option = TeamLeaderLabels[i];
+           var optionEl = document.createElement("option");
 
-                 optionEl.value = option;
-                 optionEl.innerHTML = option;
-                 optionEl = selectEl.appendChild(optionEl);
-
-                 if (optionEl.value == selectedValue) {
-                     optionEl.selected = true;
-                 }
-             }
+           optionEl.value = option;
+           optionEl.innerHTML = option;
+           optionEl = selectEl.appendChild(optionEl);
+                 
+           if (optionEl.value == selectedValue) {
+             optionEl.selected = true;
+           }
          }
-         else {
-           selectEl.innerHTML = "<option selected value=\"\"></option>";             
-         }
-	 }
+       }
+       else {
+         selectEl.innerHTML = "<option selected value=\"\"></option>";             
+       }
+     }
 
- 	var indexHouseholds = 10;
-	var indexStructures = 11;
-	var indexSprayedHouseholds = 12;
-	var indexSprayedStructures = 13;
-	var indexPrevSprayedHouseholds = 14;
-	var indexPrevSprayedStructures = 15;
-	var indexRooms = 16;
-	var indexPeople = 18;
-	var indexBedNets = 19;
-	var indexRoomsWithBedNets = 20;
-	var indexLocked = 21;
-	var indexRefused = 22;
-	var indexOther = 23;
-	
-	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+     var indexHouseholds = 10;
+     var indexStructures = 11;
+     var indexSprayedHouseholds = 12;
+     var indexSprayedStructures = 13;
+     var indexPrevSprayedHouseholds = 14;
+     var indexPrevSprayedStructures = 15;
+     var indexRooms = 16;
+     var indexPeople = 18;
+     var indexBedNets = 19;
+     var indexRoomsWithBedNets = 20;
+     var indexLocked = 21;
+     var indexRefused = 22;
+     var indexOther = 23;
+  
+     var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
 
-    if (!isMainSpray)
-    {
-    	delete data.columnDefs[indexHouseholds].editor;
-    	delete data.columnDefs[indexStructures].editor;
-    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-    	delete data.columnDefs[indexPrevSprayedStructures].editor;
-    	delete data.columnDefs[indexRooms].editor;
-    	delete data.columnDefs[indexPeople].editor;
-    	delete data.columnDefs[indexBedNets].editor;
-    	delete data.columnDefs[indexRoomsWithBedNets].editor;
-    	delete data.columnDefs[indexLocked].editor;
-    	delete data.columnDefs[indexRefused].editor;
-    	delete data.columnDefs[indexOther].editor;    	    	
-    }    	
+     if (!isMainSpray)
+     {
+       delete data.columnDefs[indexHouseholds].editor;
+       delete data.columnDefs[indexStructures].editor;
+       delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+       delete data.columnDefs[indexPrevSprayedStructures].editor;
+       delete data.columnDefs[indexRooms].editor;
+       delete data.columnDefs[indexPeople].editor;
+       delete data.columnDefs[indexBedNets].editor;
+       delete data.columnDefs[indexRoomsWithBedNets].editor;
+       delete data.columnDefs[indexLocked].editor;
+       delete data.columnDefs[indexRefused].editor;
+       delete data.columnDefs[indexOther].editor;            
+     }      
      
      
      SprayTeamLabels=Mojo.Util.getValues(teams);   
@@ -299,8 +295,8 @@ data = {
      data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
      data.columnDefs[3].editor.subscribe('showEvent', swap);
      
-     MojoGrid.createDataTable(data);
-
-
-
+     var grid = MojoGrid.createDataTable(data);
+     grid.addListener(beforeRowAdd);
+  });
+})();
 </script>

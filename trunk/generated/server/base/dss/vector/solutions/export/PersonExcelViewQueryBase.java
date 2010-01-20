@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1511879944)
+@com.terraframe.mojo.business.ClassSignature(hash = 2100372634)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class PersonExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1511879944;
+private static final long serialVersionUID = 2100372634;
 
   public PersonExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -206,39 +206,21 @@ private static final long serialVersionUID = -1511879944;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLeaderId()
+  public com.terraframe.mojo.query.AttributeChar getMemberId()
   {
-    return getLeaderId(null);
+    return getMemberId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLeaderId(String alias)
+  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.LEADERID, alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.MEMBERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLeaderId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.LEADERID, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getOperatorId()
-  {
-    return getOperatorId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getOperatorId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.OPERATORID, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeChar getOperatorId(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.OPERATORID, alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.MEMBERID, alias, displayLabel);
 
   }
  

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -348951081)
-public abstract class TeamSprayViewDTOBase extends dss.vector.solutions.irs.ActorSprayViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = 795604548)
+public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayView";
-  private static final long serialVersionUID = -348951081;
+  private static final long serialVersionUID = 795604548;
   
   protected TeamSprayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,7 +16,340 @@ public abstract class TeamSprayViewDTOBase extends dss.vector.solutions.irs.Acto
     return CLASS;
   }
   
+  public static java.lang.String BRAND = "brand";
+  public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String GEOENTITY = "geoEntity";
+  public static java.lang.String ID = "id";
+  public static java.lang.String RECEIVED = "received";
+  public static java.lang.String REFILLS = "refills";
+  public static java.lang.String RETURNED = "returned";
+  public static java.lang.String SPRAYDATE = "sprayDate";
+  public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
+  public static java.lang.String SURFACETYPE = "surfaceType";
+  public static java.lang.String TARGET = "target";
+  public static java.lang.String TEAMLEADER = "teamLeader";
+  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
+  public static java.lang.String USED = "used";
+  public dss.vector.solutions.irs.InsecticideBrandDTO getBrand()
+  {
+    if(getValue(BRAND) == null || getValue(BRAND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRAND));
+    }
+  }
+  
+  public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
+  {
+    if(value == null)
+    {
+      setValue(BRAND, "");
+    }
+    else
+    {
+      setValue(BRAND, value.getId());
+    }
+  }
+  
+  public boolean isBrandWritable()
+  {
+    return isWritable(BRAND);
+  }
+  
+  public boolean isBrandReadable()
+  {
+    return isReadable(BRAND);
+  }
+  
+  public boolean isBrandModified()
+  {
+    return isModified(BRAND);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBrandMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRAND).getAttributeMdDTO();
+  }
+  
+  public String getConcreteId()
+  {
+    return getValue(CONCRETEID);
+  }
+  
+  public void setConcreteId(String value)
+  {
+    if(value == null)
+    {
+      setValue(CONCRETEID, "");
+    }
+    else
+    {
+      setValue(CONCRETEID, value);
+    }
+  }
+  
+  public boolean isConcreteIdWritable()
+  {
+    return isWritable(CONCRETEID);
+  }
+  
+  public boolean isConcreteIdReadable()
+  {
+    return isReadable(CONCRETEID);
+  }
+  
+  public boolean isConcreteIdModified()
+  {
+    return isModified(CONCRETEID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
+  {
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
+  }
+  
+  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(GEOENTITY, "");
+    }
+    else
+    {
+      setValue(GEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isGeoEntityWritable()
+  {
+    return isWritable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityReadable()
+  {
+    return isReadable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityModified()
+  {
+    return isModified(GEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+  }
+  
+  public Integer getReceived()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
+  }
+  
+  public void setReceived(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(RECEIVED, "");
+    }
+    else
+    {
+      setValue(RECEIVED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReceivedWritable()
+  {
+    return isWritable(RECEIVED);
+  }
+  
+  public boolean isReceivedReadable()
+  {
+    return isReadable(RECEIVED);
+  }
+  
+  public boolean isReceivedModified()
+  {
+    return isModified(RECEIVED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
+  }
+  
+  public Integer getRefills()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
+  }
+  
+  public void setRefills(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REFILLS, "");
+    }
+    else
+    {
+      setValue(REFILLS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isRefillsWritable()
+  {
+    return isWritable(REFILLS);
+  }
+  
+  public boolean isRefillsReadable()
+  {
+    return isReadable(REFILLS);
+  }
+  
+  public boolean isRefillsModified()
+  {
+    return isModified(REFILLS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
+  }
+  
+  public Integer getReturned()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
+  }
+  
+  public void setReturned(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(RETURNED, "");
+    }
+    else
+    {
+      setValue(RETURNED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReturnedWritable()
+  {
+    return isWritable(RETURNED);
+  }
+  
+  public boolean isReturnedReadable()
+  {
+    return isReadable(RETURNED);
+  }
+  
+  public boolean isReturnedModified()
+  {
+    return isModified(RETURNED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getSprayDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
+  }
+  
+  public void setSprayDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYDATE, "");
+    }
+    else
+    {
+      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isSprayDateWritable()
+  {
+    return isWritable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateReadable()
+  {
+    return isReadable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateModified()
+  {
+    return isModified(SPRAYDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.SprayMethodDTO> getSprayMethod()
+  {
+    return (java.util.List<dss.vector.solutions.irs.SprayMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.SprayMethodDTO.CLASS, getEnumNames(SPRAYMETHOD));
+  }
+  
+  public java.util.List<String> getSprayMethodEnumNames()
+  {
+    return getEnumNames(SPRAYMETHOD);
+  }
+  
+  public void addSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
+  {
+    addEnumItem(SPRAYMETHOD, enumDTO.toString());
+  }
+  
+  public void removeSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
+  {
+    removeEnumItem(SPRAYMETHOD, enumDTO.toString());
+  }
+  
+  public void clearSprayMethod()
+  {
+    clearEnum(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodWritable()
+  {
+    return isWritable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodReadable()
+  {
+    return isReadable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodModified()
+  {
+    return isModified(SPRAYMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSprayMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.irs.SprayTeamDTO getSprayTeam()
   {
     if(getValue(SPRAYTEAM) == null || getValue(SPRAYTEAM).trim().equals(""))
@@ -59,6 +392,205 @@ public abstract class TeamSprayViewDTOBase extends dss.vector.solutions.irs.Acto
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayTeamMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getSurfaceType()
+  {
+    if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
+    }
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
+  }
+  
+  public Integer getTarget()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+  }
+  
+  public void setTarget(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(TARGET, "");
+    }
+    else
+    {
+      setValue(TARGET, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isTargetWritable()
+  {
+    return isWritable(TARGET);
+  }
+  
+  public boolean isTargetReadable()
+  {
+    return isReadable(TARGET);
+  }
+  
+  public boolean isTargetModified()
+  {
+    return isModified(TARGET);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.irs.TeamMemberDTO getTeamLeader()
+  {
+    if(getValue(TEAMLEADER) == null || getValue(TEAMLEADER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMLEADER));
+    }
+  }
+  
+  public void setTeamLeader(dss.vector.solutions.irs.TeamMemberDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TEAMLEADER, "");
+    }
+    else
+    {
+      setValue(TEAMLEADER, value.getId());
+    }
+  }
+  
+  public boolean isTeamLeaderWritable()
+  {
+    return isWritable(TEAMLEADER);
+  }
+  
+  public boolean isTeamLeaderReadable()
+  {
+    return isReadable(TEAMLEADER);
+  }
+  
+  public boolean isTeamLeaderModified()
+  {
+    return isModified(TEAMLEADER);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
+  }
+  
+  public Integer getTeamSprayWeek()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
+  }
+  
+  public void setTeamSprayWeek(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(TEAMSPRAYWEEK, "");
+    }
+    else
+    {
+      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isTeamSprayWeekWritable()
+  {
+    return isWritable(TEAMSPRAYWEEK);
+  }
+  
+  public boolean isTeamSprayWeekReadable()
+  {
+    return isReadable(TEAMSPRAYWEEK);
+  }
+  
+  public boolean isTeamSprayWeekModified()
+  {
+    return isModified(TEAMSPRAYWEEK);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
+  }
+  
+  public Integer getUsed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
+  }
+  
+  public void setUsed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(USED, "");
+    }
+    else
+    {
+      setValue(USED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isUsedWritable()
+  {
+    return isWritable(USED);
+  }
+  
+  public boolean isUsedReadable()
+  {
+    return isReadable(USED);
+  }
+  
+  public boolean isUsedModified()
+  {
+    return isModified(USED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()

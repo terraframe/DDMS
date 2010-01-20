@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 100397780)
+@com.terraframe.mojo.business.ClassSignature(hash = -1570494821)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 100397780;
+  private static final long serialVersionUID = -1570494821;
   
   public LarvacideBase()
   {
@@ -459,7 +459,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
     }
   }
   
-  public dss.vector.solutions.irs.SprayLeader getTeamLeader()
+  public dss.vector.solutions.irs.TeamMember getTeamLeader()
   {
     if (getValue(TEAMLEADER).trim().equals(""))
     {
@@ -467,7 +467,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return dss.vector.solutions.irs.SprayLeader.get(getValue(TEAMLEADER));
+      return dss.vector.solutions.irs.TeamMember.get(getValue(TEAMLEADER));
     }
   }
   
@@ -482,7 +482,7 @@ public abstract class LarvacideBase extends com.terraframe.mojo.business.Busines
     return mdClassIF.definesAttribute(TEAMLEADER);
   }
   
-  public void setTeamLeader(dss.vector.solutions.irs.SprayLeader value)
+  public void setTeamLeader(dss.vector.solutions.irs.TeamMember value)
   {
     if(value == null)
     {

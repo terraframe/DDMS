@@ -132,8 +132,7 @@ public class AdministrationNoPermissions extends PermissionTest implements DoNot
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("1434343");
-    dto.setOperatorId("1434343a");
+    dto.setMemberId("1434343");
     dto.setSex(term);
     dto.apply();
 

@@ -24,7 +24,7 @@
           <reference
             name="teamLeader"
             label="Team Leader"
-            type="dss.vector.solutions.irs.SprayLeader"/>
+            type="dss.vector.solutions.irs.TeamMember"/>
           <integer
             name="personCount"
             label="Number of people involved"/>

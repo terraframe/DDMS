@@ -3,6 +3,27 @@ MojoGrid.cellLock = false;
 MojoGrid.limitTab = false;
 
 
+Mojo.Meta.newClass('MDSS.GridEvent', {
+  Instance : {
+    initialize : function(type, value) {
+    this.type = type;
+    this.value = value;
+    },
+    
+    getType : function() {
+      return this.type;
+    },
+    
+    getValue : function() {
+      return this.value;
+    }    
+  },
+  Static : {
+    AFTER_ROW_ADD : 1,
+    BEFORE_ROW_ADD : 2
+  }
+});
+
 /**
  * Class to support functionality for all data grids
  */
@@ -11,7 +32,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
   IsAbstract : false,
 /*
   sampleTableData :{ 
-	  rows:[{"Collection":"79u4pk5vn8ik162omp5osu5sf6fgkn9pqswtic0sn1rb1bnqjq55et2t581fcvl0","Quantity":"2","Id":"xxairm6cnzw95157jdxnwugc9vvxed1r1p5h9e4d6yo03g38077vo7cycroins1n","QuantityFemale":"1","QuantityMale":"1","IdentificationMethod":"6p759e2830nifbz2a6qa5262bcodfsbkxccfwaj7etspalczxfe1im8q73mklelp","Specie":"8cpfq1kiui89rciqk4uduvdhvdzbh8psxccfwaj7etspalczxfe1im8q73mklelp","GroupId":"scfpeaqfv2eva4ln3u8l5r9jc1bq064zqm938dd8mus496g8igt9kdnvlhofk8lu"}],
+    rows:[{"Collection":"79u4pk5vn8ik162omp5osu5sf6fgkn9pqswtic0sn1rb1bnqjq55et2t581fcvl0","Quantity":"2","Id":"xxairm6cnzw95157jdxnwugc9vvxed1r1p5h9e4d6yo03g38077vo7cycroins1n","QuantityFemale":"1","QuantityMale":"1","IdentificationMethod":"6p759e2830nifbz2a6qa5262bcodfsbkxccfwaj7etspalczxfe1im8q73mklelp","Specie":"8cpfq1kiui89rciqk4uduvdhvdzbh8psxccfwaj7etspalczxfe1im8q73mklelp","GroupId":"scfpeaqfv2eva4ln3u8l5r9jc1bq064zqm938dd8mus496g8igt9kdnvlhofk8lu"}],
     columnDefs: [{key:'GroupId',label:'Morphological Group Id',hidden:true},
                {key:'Collection',label:'Assays',hidden:true},
                {key:'Specie',label:'Species',editor:new YAHOO.widgetOntologyTermEditor.OntologyTermEditor({klass:'dss.vector.solutions.entomology.MorphologicalSpecieGroupView',attribute:'Specie',disableBtns:true})},
@@ -31,117 +52,117 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
   */
   
   Instance : {
-	  
-	  /*
-	  myDataSource : null,
-	  myDataTable : null,
-	  tableData: null,
-	  bReverseSorted : false,
-	  btnSaveRows : false,
-	  btnAddRow : false,
-	  */
-	   
+    
+    /*
+    myDataSource : null,
+    myDataTable : null,
+    tableData: null,
+    bReverseSorted : false,
+    btnSaveRows : false,
+    btnAddRow : false,
+    */
+     
     initialize : function(data)
-    {
-				 
-  		      this.tableData = data;
-  			  this.myDataSource = null;
-  			  this.myDataTable = null;
-  			  this.bReverseSorted = false;
-  			  this.btnSaveRows = false;
-  			  this.btnAddRow = false;
-  			  this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
+    {         
+            this.tableData = data;
+          this.myDataSource = null;
+          this.myDataTable = null;
+          this.bReverseSorted = false;
+          this.btnSaveRows = false;
+          this.btnAddRow = false;
+          this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
 
-				  // set the fields
-				  if (typeof this.tableData.fields === 'undefined') {
-				    this.tableData.fields = this.tableData.columnDefs.map( function(c) {
-				      return c.key;
-				    }).filter( function(c) {
-				      return (c !== 'delete');
-				    });
-				  }
-				
-				  if (typeof this.tableData.saveFunction === 'undefined') {
-				    this.tableData.saveFunction = "saveAll";
-				  }
-				
-				  if (typeof this.tableData.addButton === 'undefined') {
-				    this.tableData.addButton = "allreadyThere";
-				  }
-				
-				  if (typeof this.tableData.copy_from_above === 'undefined') {
-				    this.tableData.copy_from_above = [];
-				  }
-				
-				  this.tableData.dirty = false;
-				
-				  // load the data
-				  this.myDataSource = new YAHOO.util.DataSource(this.tableData.rows);
-				  this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
-				  this.myDataSource.responseSchema = {
-				    fields : this.tableData.fields
-				  };
-				
-				  // Scrolling Data Table is slow, so we use regular data table if possible
-				  if(this.tableData.width){
-				  	 this.myDataTable = new YAHOO.widget.ScrollingDataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {
-						    width : this.tableData.width
-						  });
-				  }
-				  else
-				  {
-				  	 this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
-				  }				  
-				 				  
-				  //set this so it accessable by other methods in the jsp
-				  this.myDataTable.tableData = this.tableData;				  
-				  this.tableData.myDataTable = this.myDataTable;
-				  
-				  // the data comes from the server as ids, we need to set the labels
-				  this._mapRecords();
-				  
-				  this.myDataTable.set("selectionMode","singlecell");
-				  
-				  this.myDataTable.render();
-				  
-				  this.myDataTable.subscribe("columnSortEvent", this._trackReverseSorts);
+          // set the fields
+          if (typeof this.tableData.fields === 'undefined') {
+            this.tableData.fields = this.tableData.columnDefs.map( function(c) {
+              return c.key;
+            }).filter( function(c) {
+              return (c !== 'delete');
+            });
+          }
+        
+          if (typeof this.tableData.saveFunction === 'undefined') {
+            this.tableData.saveFunction = "saveAll";
+          }
+        
+          if (typeof this.tableData.addButton === 'undefined') {
+            this.tableData.addButton = "allreadyThere";
+          }
+        
+          if (typeof this.tableData.copy_from_above === 'undefined') {
+            this.tableData.copy_from_above = [];
+          }
+        
+          this.tableData.dirty = false;
+        
+          // load the data
+          this.myDataSource = new YAHOO.util.DataSource(this.tableData.rows);
+          this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+          this.myDataSource.responseSchema = {
+            fields : this.tableData.fields
+          };
+        
+          // Scrolling Data Table is slow, so we use regular data table if possible
+          if(this.tableData.width){
+             this.myDataTable = new YAHOO.widget.ScrollingDataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {
+                width : this.tableData.width
+              });
+          }
+          else
+          {
+             this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
+          }          
+                   
+          //set this so it accessable by other methods in the jsp
+          this.myDataTable.tableData = this.tableData;          
+          this.tableData.myDataTable = this.myDataTable;
+          
+          // the data comes from the server as ids, we need to set the labels
+          this._mapRecords();
+          
+          this.myDataTable.set("selectionMode","singlecell");
+          
+          this.myDataTable.render();
+          
+          this.myDataTable.subscribe("columnSortEvent", this._trackReverseSorts);
 
-				  this.myDataTable.subscribe("cellMouseoverEvent", this._highlightEditableCell);
+          this.myDataTable.subscribe("cellMouseoverEvent", this._highlightEditableCell);
 
-				  this.myDataTable.subscribe("cellMouseoutEvent", this.myDataTable.onEventUnhighlightCell);
+          this.myDataTable.subscribe("cellMouseoutEvent", this.myDataTable.onEventUnhighlightCell);
 
-				  this.myDataTable.subscribe("tbodyFocusEvent", function() {
-				  var selectedCells = this.getSelectedCells();
-				    if(selectedCells.length === 0) {
-				      this.selectCell(this.getFirstTdEl());
-				    }
-				  });
+          this.myDataTable.subscribe("tbodyFocusEvent", function() {
+          var selectedCells = this.getSelectedCells();
+            if(selectedCells.length === 0) {
+              this.selectCell(this.getFirstTdEl());
+            }
+          });
 
-				  this.myDataTable.subscribe("editorSaveEvent", function(o) {
-				  	this.focusTbodyEl();
-				  });
+          this.myDataTable.subscribe("editorSaveEvent", function(o) {
+            this.focusTbodyEl();
+          });
 
-				  this.myDataTable.subscribe("editorCancelEvent", function(o) {
-				  	this.focusTbodyEl();
-				  });
-				  
-				  this.myDataTable.subscribe("cellClickEvent", this.onCellClick, null, this);
-				  
-				  this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
+          this.myDataTable.subscribe("editorCancelEvent", function(o) {
+            this.focusTbodyEl();
+          });
+          
+          this.myDataTable.subscribe("cellClickEvent", this.onCellClick, null, this);
+          
+          this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
 
-				  this.myDataTable.subscribe("editorSaveEvent", this.saveSomeData, null, this);
-				  
-				  this._setUpButtons();
-				  
-				  /*
-				  //myLogReader = new YAHOO.widget.LogReader();
-				  return {
-				    oDS : this.myDataSource,
-				    oDT : this.myDataTable,
-				    getObjects : this.createObjectRepresentation
-				  };
-				 */ 
-				  
+          this.myDataTable.subscribe("editorSaveEvent", this.saveSomeData, null, this);
+          
+          this._setUpButtons();
+          
+          /*
+          //myLogReader = new YAHOO.widget.LogReader();
+          return {
+            oDS : this.myDataSource,
+            oDT : this.myDataTable,
+            getObjects : this.createObjectRepresentation
+          };
+         */
+    this._listeners = [];
+          
     },
     
     _getDisableButton : function() {
@@ -166,140 +187,140 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     },
     
     _saveHandler : function(request, view_array) {
-		  // Get the class which defines the save function
-		  var klass = Mojo.Meta.findClass(this.tableData.data_type.substring(7));
-		      
-		   // Get the save function
-		  var saveMethod = klass[this.tableData.saveFunction];
-		      
-		  // Invoke the save method
-		  saveMethod(request, view_array);
-	  },
+      // Get the class which defines the save function
+      var klass = Mojo.Meta.findClass(this.tableData.data_type.substring(7));
+          
+       // Get the save function
+      var saveMethod = klass[this.tableData.saveFunction];
+          
+      // Invoke the save method
+      saveMethod(request, view_array);
+    },
     
     _mapRecords : function() {
-	    this.recordIndex = 0;
-    	this.myDataTable.getRecordSet().getRecords().map( function(record) {
-    		this.record = record;
-		    this.tableData.columnDefs.map( function(feild) {
-		      var editor = this.myDataTable.getColumn(feild.key).editor;
+      this.recordIndex = 0;
+      this.myDataTable.getRecordSet().getRecords().map( function(record) {
+        this.record = record;
+        this.tableData.columnDefs.map( function(feild) {
+          var editor = this.myDataTable.getColumn(feild.key).editor;
 
-		      if (feild.save_as_id) {
-		        var label = this._getLabelFromId(feild.key, this.record.getData(feild.key));
-		        this.record.setData(feild.key, label);
-		      }else{
-			      if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){
-			        //data comes in as value instead of label, so we fix this.
-			        for( var i = 0; i < editor.dropdownOptions.length; i++) {
-			          if (this.record.getData(feild.key) === editor.dropdownOptions[i].value){
-			          	this.record.setData(feild.key, editor.dropdownOptions[i].label);
-			            //myDataTable.updateCell(this.record, editor.getColumn(), editor.dropdownOptions[i].label);
-			          }
-			        }
-			      }
-		      }
-		      if (editor instanceof YAHOO.widget.OntologyTermEditor )		      	
-		      {
-		      	  editor.tableData = this.tableData;
-		      	  var data = this.record.getData(feild.key);
-		      	  if(data){
-			          var id = data.split('^^^^')[1];
-			          var displayLabel = data.split('^^^^')[0];
-			          var r = this.tableData.rows[this.recordIndex];
-			          if(r){
-			            r[feild.key] = id;
-			            this.record.setData(feild.key, displayLabel);
-			          }
-		      	  }
-		      }
-		      if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-		        var date = MDSS.Calendar.parseDate(this.record.getData(feild.key));
-		        this.myDataTable.updateCell(this.record, feild.key, date);
-		      }
+          if (feild.save_as_id) {
+            var label = this._getLabelFromId(feild.key, this.record.getData(feild.key));
+            this.record.setData(feild.key, label);
+          }else{
+            if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){
+              //data comes in as value instead of label, so we fix this.
+              for( var i = 0; i < editor.dropdownOptions.length; i++) {
+                if (this.record.getData(feild.key) === editor.dropdownOptions[i].value){
+                  this.record.setData(feild.key, editor.dropdownOptions[i].label);
+                  //myDataTable.updateCell(this.record, editor.getColumn(), editor.dropdownOptions[i].label);
+                }
+              }
+            }
+          }
+          if (editor instanceof YAHOO.widget.OntologyTermEditor )            
+          {
+              editor.tableData = this.tableData;
+              var data = this.record.getData(feild.key);
+              if(data){
+                var id = data.split('^^^^')[1];
+                var displayLabel = data.split('^^^^')[0];
+                var r = this.tableData.rows[this.recordIndex];
+                if(r){
+                  r[feild.key] = id;
+                  this.record.setData(feild.key, displayLabel);
+                }
+              }
+          }
+          if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
+            var date = MDSS.Calendar.parseDate(this.record.getData(feild.key));
+            this.myDataTable.updateCell(this.record, feild.key, date);
+          }
 
-		      if (feild.title) {
-		         var th = this.myDataTable.getThEl(this.myDataTable.getColumn(feild.key));
-		         if(th)
-		         {
-		        	 th.title = feild.title;
-		         }
-		      }
+          if (feild.title) {
+             var th = this.myDataTable.getThEl(this.myDataTable.getColumn(feild.key));
+             if(th)
+             {
+               th.title = feild.title;
+             }
+          }
 
-		      },this);
-		    if (this.tableData.after_row_load) {
-		      this.tableData.after_row_load(this.record);
-		    }
-		    this.recordIndex++;
-		  },this);
-    	this.record = null;
-    	this.recordIndex  = null;
-	  },
+          },this);
+        if (this.tableData.after_row_load) {
+          this.tableData.after_row_load(this.record);
+        }
+        this.recordIndex++;
+      },this);
+      this.record = null;
+      this.recordIndex  = null;
+    },
     
-	  _setUpButtons : function(record) {
-	  if (YAHOO.util.Dom.get('buttons') === null) {
+    _setUpButtons : function(record) {
+    if (YAHOO.util.Dom.get('buttons') === null) {
 
-			var tableDiv = YAHOO.util.Dom.get(this.tableData.div_id);
-		    var buttons = document.createElement('span');
-		    
-		    if(!this.tableData.saveLabelKey){
-		    	this.tableData.saveLabelKey = 'Save_Rows_To_DB';
-		    }
-		    
-		    buttons.id = this.tableData.div_id + 'Buttons';
-		    YAHOO.util.Dom.addClass(buttons, 'noprint');
-		    YAHOO.util.Dom.addClass(buttons, 'dataTableButtons');
-		    buttons.innerHTML = '';
+      var tableDiv = YAHOO.util.Dom.get(this.tableData.div_id);
+        var buttons = document.createElement('span');
+        
+        if(!this.tableData.saveLabelKey){
+          this.tableData.saveLabelKey = 'Save_Rows_To_DB';
+        }
+        
+        buttons.id = this.tableData.div_id + 'Buttons';
+        YAHOO.util.Dom.addClass(buttons, 'noprint');
+        YAHOO.util.Dom.addClass(buttons, 'dataTableButtons');
+        buttons.innerHTML = '';
 
-		    if (this.tableData.addButton !== false) {
-		      buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
-		    }
+        if (this.tableData.addButton !== false) {
+          buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
+        }
 
-		    buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Saverows">' + MDSS.localize(this.tableData.saveLabelKey) + '</button>';
+        buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Saverows">' + MDSS.localize(this.tableData.saveLabelKey) + '</button>';
 
-		    if (this.tableData.excelButtons !== false) {
-		      buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
-		      buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
-		    }
+        if (this.tableData.excelButtons !== false) {
+          buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
+          buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
+        }
 
-		    // Setup the custom buttons
-		    if(Mojo.Util.isArray(this.tableData.customButtons)) {
-		  	  for(var i = 0; i < this.tableData.customButtons.length; i++) {
-		  		  var config = this.tableData.customButtons[i];
-		  		  
-		  		  // Create the button and add it next to the previous button 
-		  		  buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + '.' + config.id + '">' + config.label + '</button>';
-		  	  }
-		    }
+        // Setup the custom buttons
+        if(Mojo.Util.isArray(this.tableData.customButtons)) {
+          for(var i = 0; i < this.tableData.customButtons.length; i++) {
+            var config = this.tableData.customButtons[i];
+            
+            // Create the button and add it next to the previous button 
+            buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + '.' + config.id + '">' + config.label + '</button>';
+          }
+        }
 
-		    YAHOO.util.Dom.insertAfter(buttons, tableDiv);
-		  }
-	  
-		  if (YAHOO.util.Dom.get(this.tableData.div_id + 'Addrow')) {
-		    this.btnAddRow = new YAHOO.widget.Button(this.tableData.div_id + "Addrow");
-		    this.btnAddRow.on("click", this.addRow, null, this);
-		  } 
-	  
-		  if (YAHOO.util.Dom.get(this.tableData.div_id + 'Saverows')) {
-		    // set up the button that saves the rows to the db
-		    this.btnSaveRows = new YAHOO.widget.Button(this.tableData.div_id + "Saverows");
-		    this.btnSaveRows.on("click", this.persistData, null, this);
-		    this.toggleSaveButton(this._getDisableButton());
-		  }
-	
-		  // Setup the custom button actions
-		  if(Mojo.Util.isArray(this.tableData.customButtons)) {
-		    for(var i = 0; i < this.tableData.customButtons.length; i++) {
-		      var config = this.tableData.customButtons[i];
-		  		  
-		  	  // set up the button that saves the rows to the db
-		  	  var customButton = new YAHOO.widget.Button(this.tableData.div_id + "." + config.id);
-			  customButton.on("click", config.action, null, this);
-		    }
-		  }
-		  
-		 
-	  },
-	  
-	  findNext : function(cell,e) {
+        YAHOO.util.Dom.insertAfter(buttons, tableDiv);
+      }
+    
+      if (YAHOO.util.Dom.get(this.tableData.div_id + 'Addrow')) {
+        this.btnAddRow = new YAHOO.widget.Button(this.tableData.div_id + "Addrow");
+        this.btnAddRow.on("click", this.addRow, null, this);
+      } 
+    
+      if (YAHOO.util.Dom.get(this.tableData.div_id + 'Saverows')) {
+        // set up the button that saves the rows to the db
+        this.btnSaveRows = new YAHOO.widget.Button(this.tableData.div_id + "Saverows");
+        this.btnSaveRows.on("click", this.persistData, null, this);
+        this.toggleSaveButton(this._getDisableButton());
+      }
+  
+      // Setup the custom button actions
+      if(Mojo.Util.isArray(this.tableData.customButtons)) {
+        for(var i = 0; i < this.tableData.customButtons.length; i++) {
+          var config = this.tableData.customButtons[i];
+            
+          // set up the button that saves the rows to the db
+          var customButton = new YAHOO.widget.Button(this.tableData.div_id + "." + config.id);
+        customButton.on("click", config.action, null, this);
+        }
+      }
+      
+     
+    },
+    
+    findNext : function(cell,e) {
       var newCell = null;
       if (e.shiftKey) {
         newCell = this.myDataTable.getPreviousTdEl(cell);
@@ -315,7 +336,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       }
       return (newCell);
     },
-	  
+    
     /***************************************************************************
      * handleEditorKeyEvent ( obj ) Handle a keypress when the Cell Editor is
      * open Enter will close the editor and move down Tab will close the editor
@@ -394,12 +415,12 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       //do nothing if nothing changed
       if(oArgs.newData == oArgs.oldData )
       {
-      	return;
+        return;
       }
 
       if (editor instanceof YAHOO.widget.DropdownCellEditor && window[oArgs.editor.getColumn().key + "Labels"])
       {
-        	var i = window[oArgs.editor.getColumn().key + "Labels"].indexOf(oArgs.newData);
+          var i = window[oArgs.editor.getColumn().key + "Labels"].indexOf(oArgs.newData);
           var id = window[oArgs.editor.getColumn().key + "Ids"][i];
           this.tableData.rows[index][oArgs.editor.getColumn().key]  = id;
       }
@@ -412,14 +433,14 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       }
       else
       {
-      	this.tableData.rows[index][oArgs.editor.getColumn().key] = oArgs.newData ;
+        this.tableData.rows[index][oArgs.editor.getColumn().key] = oArgs.newData ;
         if (editor instanceof YAHOO.widget.DropdownCellEditor) {
           //When an item is selected YUI displays the value instead of the label, so we fix this.
           Mojo.Iter.forEach(editor.dropdownOptions, function(opt){
             if (oArgs.newData === opt.value){
               this.myDataTable.updateCell(record, editor.getColumn(), opt.label);
             }
-          }, this);        	
+          }, this);          
         }
       }
 
@@ -440,8 +461,8 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     _sumColumn : function(oArgs) {
 
       if (oArgs.editor.getColumn().sum  && this.tableData.rows.length > 1) {
-      	var record = oArgs.editor.getRecord();
-      	var cellValue = record.getData(oArgs.editor.getColumn().key);
+        var record = oArgs.editor.getRecord();
+        var cellValue = record.getData(oArgs.editor.getColumn().key);
         var lastIndex = this.tableData.rows.length - 1;
         var lastRecord = this.myDataTable.getRecord(lastIndex);
         var editor = oArgs.editor;
@@ -461,7 +482,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         //no calculation is done if cell was tabbed past
         if(!(oArgs.newData || oArgs.oldData ))
         {
-        	return;
+          return;
         }
         
         //they have entered data so make sure to remove the calcuated style
@@ -554,9 +575,9 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         
         return view_arr;
     },
-
+    
     persistData : function() {
-  	  // save any open editors before we send the ajax request
+      // save any open editors before we send the ajax request
         this.myDataTable.saveCellEditor();
         
         var request = new MDSS.Request( {
@@ -567,38 +588,38 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           thisRef : this,
           onSuccess : function(savedRows) {
             if (!this.tableData.dont_update_on_save) {
-          	  
-          	// Get the keys of the columns which need to be reloaded
-          	if(!this.tableData.reloadKeys) {
-          	  this.tableData.reloadKeys = [this.tableData.fields[0].key];
-          	}
-          	else {
-          		this.tableData.reloadKeys.push(this.tableData.fields[0].key);
-          	}
+              
+            // Get the keys of the columns which need to be reloaded
+            if(!this.tableData.reloadKeys) {
+              this.tableData.reloadKeys = [this.tableData.fields[0].key];
+            }
+            else {
+              this.tableData.reloadKeys.push(this.tableData.fields[0].key);
+            }
 
-          	// Refresh the displayed values of the columns specified in 'reloadKeys'
+            // Refresh the displayed values of the columns specified in 'reloadKeys'
               for( var i = 0; i < savedRows.length; i++) {
-              	var record = this.dataTable.getRecord(i);
-              	var row = this.tableData.rows[i];
+                var record = this.dataTable.getRecord(i);
+                var row = this.tableData.rows[i];
 
-              	for(var j = 0; j < this.tableData.reloadKeys.length; j++) {
-              	  var reloadKey = this.tableData.reloadKeys[j];
-              	  var attributeName = reloadKey.substr(0, 1).toLowerCase() + reloadKey.substr(1);
-              	  
-              	  var reloadValue = "";              
-              	  
-              	  if(savedRows[i].getAttributeDTO(attributeName) instanceof AttributeReferenceDTO) {
+                for(var j = 0; j < this.tableData.reloadKeys.length; j++) {
+                  var reloadKey = this.tableData.reloadKeys[j];
+                  var attributeName = reloadKey.substr(0, 1).toLowerCase() + reloadKey.substr(1);
+                  
+                  var reloadValue = "";              
+                  
+                  if(savedRows[i].getAttributeDTO(attributeName) instanceof AttributeReferenceDTO) {
 
-              		  reloadValue = savedRows[i]["getValue"](attributeName);              
-              	  }
-              	  else {
-              		  reloadValue = savedRows[i]["get" + reloadKey]();              
-              	  }
-              		  
+                    reloadValue = savedRows[i]["getValue"](attributeName);              
+                  }
+                  else {
+                    reloadValue = savedRows[i]["get" + reloadKey]();              
+                  }
+                    
                     
                     record.setData(reloadKey, reloadValue);                  
                     row[reloadKey] = reloadValue;
-              	}
+                }
               }
 
               this.tableData.dirty = false;
@@ -618,9 +639,9 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         // Re enable the save button widget when there is a problem
         var oldOnProblemExceptionDTO = request.onProblemExceptionDTO;
         var newOnProblemExceptionDTO = function(e) {
-       	  oldOnProblemExceptionDTO.apply(request, [e]);
+           oldOnProblemExceptionDTO.apply(request, [e]);
           
-      	  this.thisRef.enableSaveButton();
+          this.thisRef.enableSaveButton();
         }
 
         request.onProblemExceptionDTO = newOnProblemExceptionDTO;
@@ -632,17 +653,17 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         this.disableSaveButton();
         
         // Save the table
-			  if(Mojo.Util.isFunction(this.tableData.saveHandler)) {
-			  	this.tableData.saveHandler(request, view_arr);
-			  }
-			  else
-			  {
-			  	this._saveHandler(request, view_arr);
-			  }
+        if(Mojo.Util.isFunction(this.tableData.saveHandler)) {
+          this.tableData.saveHandler(request, view_arr);
+        }
+        else
+        {
+          this._saveHandler(request, view_arr);
+        }
       },
     
     toggleSaveButton : function(disabled) {
-      this.btnSaveRows.set("disabled", disabled);   	  
+      this.btnSaveRows.set("disabled", disabled);       
     },
     
     enableSaveButton : function() {
@@ -656,11 +677,12 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     // Add one row to the bottom
     addRow : function() {
 
-  	// Execute before row add
-      if(typeof beforeRowAdd !== 'undefined' && Mojo.Util.isFunction(beforeRowAdd))
-      {
-      	beforeRowAdd();
-      }
+    // Execute before row add
+      var event = new MDSS.GridEvent(MDSS.GridEvent.BEFORE_ROW_ADD, {});
+          
+      for(var i = 0; i < this._listeners.length; i++) {
+        this._listeners[i](event);
+      }            
 
       // Clear sort when necessary
       if (this.bReverseSorted) {
@@ -684,12 +706,15 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       this.tableData.dirty = true;
       this.enableSaveButton();
 
-  	// Execute after row add
-      if(typeof afterRowAdd !== 'undefined' && Mojo.Util.isFunction(afterRowAdd))
-      {
-      	var index = this.myDataTable.getRecordSet().getLength() - 1;
-      	afterRowAdd(this.myDataTable.getRecord(index), index);
-      }
+      // Execute after row add
+       var index = this.myDataTable.getRecordSet().getLength() - 1;
+      var record = this.myDataTable.getRecord(index);
+      
+      var event = new MDSS.GridEvent(MDSS.GridEvent.AFTER_ROW_ADD, {index:index, record:record});
+      
+      for(var i = 0; i < this._listeners.length; i++) {
+        this._listeners[i](event);
+      }      
     },
     
     getDefaultValues : function() {
@@ -769,15 +794,19 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           this.myDataTable.onEventShowCellEditor(oArgs);
           break;
       }
+    },
+
+    addListener : function(listener){
+      this._listeners.push(listener);
     }
-	}
+  }
 
 });
 
 
 
 MojoGrid.createDataTable = function(data){ 
-	return new MDSS.dataGrid(data);
+  return new MDSS.dataGrid(data);
 };
 
 //MojoGrid.saveHandler = this.saveSomeData;

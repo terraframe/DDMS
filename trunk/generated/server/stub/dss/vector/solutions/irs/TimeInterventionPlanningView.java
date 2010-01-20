@@ -72,7 +72,7 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
     {
       GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
       int totalTargets = 0;
-      int operators = SprayOperator.getAvailableOperators(child);
+      int operators = TeamMember.getAvailableOperators(child);
 
       if (target != null)
       {

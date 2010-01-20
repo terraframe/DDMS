@@ -64,7 +64,6 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
-import dss.vector.solutions.irs.SprayStatusDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
@@ -944,7 +943,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-      loadQuerySpecifics(SprayStatusDTO.CLASS, QueryConstants.QueryType.QUERY_IRS);
+//      loadQuerySpecifics(SprayStatusDTO.CLASS, QueryConstants.QueryType.QUERY_IRS);
       
 //      ClientRequestIF request = this.getClientRequest();
 

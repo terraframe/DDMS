@@ -15,7 +15,7 @@
       </mdController>
 
       <mdBusiness
-        name="dss.vector.solutions.irs.AbstractSpray">
+        name="dss.vector.solutions.irs.ZoneSpray">
         <create>
           <mdMethod
             name="queryIRS"
@@ -92,10 +92,10 @@
         key="dss.vector.solutions.query.QueryController.queryIRS"
         type="com.terraframe.mojo.system.metadata.MdAction"/>
       <object
-        key="dss.vector.solutions.irs.AbstractSpray.queryIRS"
+        key="dss.vector.solutions.irs.ZoneSpray.queryIRS"
         type="com.terraframe.mojo.system.metadata.MdMethod"/>
       <object
-        key="dss.vector.solutions.irs.AbstractSpray.mapQuery"
+        key="dss.vector.solutions.irs.ZoneSpray.mapQuery"
         type="com.terraframe.mojo.system.metadata.MdMethod"/>
     </delete>
   </undoIt>

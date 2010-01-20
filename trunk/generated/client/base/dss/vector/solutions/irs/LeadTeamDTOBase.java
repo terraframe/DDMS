@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2145662272)
+@com.terraframe.mojo.business.ClassSignature(hash = 1521262017)
 public abstract class LeadTeamDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.LeadTeam";
-  private static final long serialVersionUID = 2145662272;
+  private static final long serialVersionUID = 1521262017;
   
   public LeadTeamDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -366,9 +366,9 @@ public abstract class LeadTeamDTOBase extends com.terraframe.mojo.business.Relat
     return dss.vector.solutions.irs.SprayTeamDTO.get(getRequest(), super.getParentId());
   }
   
-    public dss.vector.solutions.irs.SprayLeaderDTO getChild()
+    public dss.vector.solutions.irs.TeamMemberDTO getChild()
   {
-    return dss.vector.solutions.irs.SprayLeaderDTO.get(getRequest(), super.getChildId());
+    return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), super.getChildId());
   }
   
   public static dss.vector.solutions.irs.LeadTeamDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

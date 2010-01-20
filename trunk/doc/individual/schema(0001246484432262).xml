@@ -6,7 +6,7 @@
     <update>
 
       <mdBusiness
-        name="dss.vector.solutions.irs.AbstractSpray">
+        name="dss.vector.solutions.irs.ZoneSpray">
         <create>
           <mdMethod
             name="exportQueryToExcel"

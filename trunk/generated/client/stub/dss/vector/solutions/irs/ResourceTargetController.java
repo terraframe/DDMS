@@ -92,7 +92,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   {
     List<String> targetIds = new ArrayList<String>();
     List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
-    List<SprayOperatorDTO> sprayOperators = new ArrayList<SprayOperatorDTO>();
+    List<TeamMemberDTO> sprayOperators = new ArrayList<TeamMemberDTO>();
 
     if (id.equals("ALL"))
     {
@@ -111,7 +111,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     }
 
     // add all the team members
-    for (SprayOperatorDTO teamMember : sprayOperators)
+    for (TeamMemberDTO teamMember : sprayOperators)
     {
       targetIds.add(teamMember.getId());
     }

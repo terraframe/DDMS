@@ -80,11 +80,11 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
     // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
     // "keyName", true, 0, 0).getResultSet());
 
-    List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
-    List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
-    List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
+    List<TeamMemberViewDTO> currentOperators = new LinkedList<TeamMemberViewDTO>();
+    List<TeamMemberViewDTO> assignedOperators = new LinkedList<TeamMemberViewDTO>();
+    List<TeamMemberViewDTO> availableOperators = new LinkedList<TeamMemberViewDTO>();
 
-    for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
+    for (TeamMemberViewDTO operator : TeamMemberViewDTO.getAllOperators(clientRequest))
     {
       if (!operator.getIsAssigned())
       {
@@ -109,19 +109,19 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
       // "keyName", true, 0, 0).getResultSet());
 
-      SprayOperatorViewDTO[] assigned = SprayOperatorViewDTO.getAllForLocation(clientRequest, team.getSprayZone().getGeoId());
+      TeamMemberViewDTO[] assigned = TeamMemberViewDTO.getAllOperatorsForLocation(clientRequest, team.getSprayZone().getGeoId());
       List<String> locatedIn = new LinkedList<String>();
 
-      for (SprayOperatorViewDTO view : assigned)
+      for (TeamMemberViewDTO view : assigned)
       {
         locatedIn.add(view.getActorId());
       }
 
-      List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
-      List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
-      List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
+      List<TeamMemberViewDTO> assignedOperators = new LinkedList<TeamMemberViewDTO>();
+      List<TeamMemberViewDTO> currentOperators = new LinkedList<TeamMemberViewDTO>();
+      List<TeamMemberViewDTO> availableOperators = new LinkedList<TeamMemberViewDTO>();
 
-      for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
+      for (TeamMemberViewDTO operator : TeamMemberViewDTO.getAllOperators(clientRequest))
       {
         if (operator.getIsAssigned())
         {
@@ -140,14 +140,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
         }
       }
 
-      List<? extends SprayLeaderDTO> leader = team.getAllTeamLeader();
+      List<? extends TeamMemberDTO> leader = team.getAllTeamLeader();
 
       if (leader.size() > 0)
       {
-        SprayLeaderDTO l = leader.get(0);
+        TeamMemberDTO l = leader.get(0);
         PersonDTO person = l.getPerson();
 
-        req.setAttribute("leaderLabel", person.getFirstName() + " " + person.getLastName() + " - " + l.getLeaderId());
+        req.setAttribute("leaderLabel", person.getFirstName() + " " + person.getLastName() + " - " + l.getMemberId());
         req.setAttribute("leaderId", l.getId());
       }
 
@@ -197,14 +197,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   private void renderView(SprayTeamDTO sprayTeamDTO) throws IOException, ServletException
   {
-    List<? extends SprayLeaderDTO> allTeamLeader = sprayTeamDTO.getAllTeamLeader();
+    List<? extends TeamMemberDTO> allTeamLeader = sprayTeamDTO.getAllTeamLeader();
     
     if (allTeamLeader.size() > 0)
     {
       req.setAttribute("leader", allTeamLeader.get(0).getPerson().getView());
     }
     
-    req.setAttribute("operators", SprayOperatorViewDTO.getAllForTeam(super.getClientRequest(), sprayTeamDTO));
+    req.setAttribute("operators", TeamMemberViewDTO.getAllOperatorsForTeam(super.getClientRequest(), sprayTeamDTO));
     req.setAttribute("item", sprayTeamDTO);
     render("viewComponent.jsp");
   }
@@ -266,6 +266,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
     ClientRequestIF clientRequest = super.getClientRequest();
     SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

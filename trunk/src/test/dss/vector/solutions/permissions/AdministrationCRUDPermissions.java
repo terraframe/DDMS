@@ -155,8 +155,7 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId("1434343");
-    dto.setOperatorId("1434343a");
+    dto.setMemberId("1434343");
     dto.setSex(term);
     dto.apply();
 
@@ -197,8 +196,7 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId(TestConstants.LEADER_ID);
-    dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setMemberId(TestConstants.LEADER_ID);
     dto.setSex(term);
     dto.apply();
 
@@ -216,8 +214,7 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
       update.setIsPatient(true);
       update.setIsSprayLeader(true);
       update.setIsSprayOperator(true);
-      update.setLeaderId(TestConstants.LEADER_ID);
-      update.setOperatorId(TestConstants.OPERATOR_ID);
+      update.setMemberId(TestConstants.LEADER_ID);
       update.apply();
 
       PersonViewDTO view = PersonDTO.getView(request, dto.getPersonId());

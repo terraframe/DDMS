@@ -28,10 +28,9 @@ import dss.vector.solutions.irs.NozzleDTO;
 import dss.vector.solutions.irs.NozzleViewDTO;
 import dss.vector.solutions.irs.ResourceTargetDTO;
 import dss.vector.solutions.irs.ResourceTargetViewDTO;
-import dss.vector.solutions.irs.SprayLeaderDTO;
-import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.irs.SprayTeamDTO;
 import dss.vector.solutions.irs.TargetUnitDTO;
+import dss.vector.solutions.irs.TeamMemberDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeave
@@ -51,20 +50,18 @@ public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeav
     dto.setDateOfBirth(new Date());
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId(TestConstants.LEADER_ID);
-    dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setMemberId(TestConstants.LEADER_ID);
     dto.setSex(term);
     dto.apply();
 
     try
     {
       PersonDTO person = PersonDTO.get(request, dto.getPersonId());
-      SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-      SprayOperatorDTO operator = person.getSprayOperatorDelegate();
+      TeamMemberDTO member = person.getTeamMemberDelegate();
 
-      SprayTeamDTO team = new SprayTeamDTO(request);
+      SprayTeamDTO team = new SprayTeamDTO(systemRequest);
       team.setTeamId(TestConstants.TEAM_ID);
-      team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
+      team.create(zoneGeoId, member.getId(), new String[] { member.getId() });
 
       try
       {
@@ -314,20 +311,18 @@ public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeav
       dto.setDateOfBirth(new Date());
       dto.setIsSprayLeader(true);
       dto.setIsSprayOperator(true);
-      dto.setLeaderId(TestConstants.LEADER_ID);
-      dto.setOperatorId(TestConstants.OPERATOR_ID);
+      dto.setMemberId(TestConstants.LEADER_ID);
       dto.setSex(term);
       dto.apply();
 
       try
       {
         PersonDTO person = PersonDTO.get(request, dto.getPersonId());
-        SprayLeaderDTO leader = person.getSprayLeaderDelegate();
-        SprayOperatorDTO operator = person.getSprayOperatorDelegate();
+        TeamMemberDTO member = person.getTeamMemberDelegate();
 
-        SprayTeamDTO team = new SprayTeamDTO(request);
+        SprayTeamDTO team = new SprayTeamDTO(systemRequest);
         team.setTeamId(TestConstants.TEAM_ID);
-        team.create(zoneGeoId, leader.getId(), new String[] { operator.getId() });
+        team.create(zoneGeoId, member.getId(), new String[] { member.getId() });
 
         try
         {

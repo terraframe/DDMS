@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1787741550)
-public abstract class ZoneSprayViewDTOBase extends dss.vector.solutions.irs.AbstractSprayViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = -368684997)
+public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSprayView";
-  private static final long serialVersionUID = -1787741550;
+  private static final long serialVersionUID = -368684997;
   
   protected ZoneSprayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,9 +16,224 @@ public abstract class ZoneSprayViewDTOBase extends dss.vector.solutions.irs.Abst
     return CLASS;
   }
   
+  public static java.lang.String BRAND = "brand";
+  public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String GEOENTITY = "geoEntity";
+  public static java.lang.String ID = "id";
+  public static java.lang.String SPRAYDATE = "sprayDate";
+  public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SUPERVISOR = "supervisor";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
+  public dss.vector.solutions.irs.InsecticideBrandDTO getBrand()
+  {
+    if(getValue(BRAND) == null || getValue(BRAND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(BRAND));
+    }
+  }
+  
+  public void setBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
+  {
+    if(value == null)
+    {
+      setValue(BRAND, "");
+    }
+    else
+    {
+      setValue(BRAND, value.getId());
+    }
+  }
+  
+  public boolean isBrandWritable()
+  {
+    return isWritable(BRAND);
+  }
+  
+  public boolean isBrandReadable()
+  {
+    return isReadable(BRAND);
+  }
+  
+  public boolean isBrandModified()
+  {
+    return isModified(BRAND);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBrandMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRAND).getAttributeMdDTO();
+  }
+  
+  public String getConcreteId()
+  {
+    return getValue(CONCRETEID);
+  }
+  
+  public void setConcreteId(String value)
+  {
+    if(value == null)
+    {
+      setValue(CONCRETEID, "");
+    }
+    else
+    {
+      setValue(CONCRETEID, value);
+    }
+  }
+  
+  public boolean isConcreteIdWritable()
+  {
+    return isWritable(CONCRETEID);
+  }
+  
+  public boolean isConcreteIdReadable()
+  {
+    return isReadable(CONCRETEID);
+  }
+  
+  public boolean isConcreteIdModified()
+  {
+    return isModified(CONCRETEID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
+  {
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
+  }
+  
+  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(GEOENTITY, "");
+    }
+    else
+    {
+      setValue(GEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isGeoEntityWritable()
+  {
+    return isWritable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityReadable()
+  {
+    return isReadable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityModified()
+  {
+    return isModified(GEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getSprayDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
+  }
+  
+  public void setSprayDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYDATE, "");
+    }
+    else
+    {
+      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isSprayDateWritable()
+  {
+    return isWritable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateReadable()
+  {
+    return isReadable(SPRAYDATE);
+  }
+  
+  public boolean isSprayDateModified()
+  {
+    return isModified(SPRAYDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.SprayMethodDTO> getSprayMethod()
+  {
+    return (java.util.List<dss.vector.solutions.irs.SprayMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.SprayMethodDTO.CLASS, getEnumNames(SPRAYMETHOD));
+  }
+  
+  public java.util.List<String> getSprayMethodEnumNames()
+  {
+    return getEnumNames(SPRAYMETHOD);
+  }
+  
+  public void addSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
+  {
+    addEnumItem(SPRAYMETHOD, enumDTO.toString());
+  }
+  
+  public void removeSprayMethod(dss.vector.solutions.irs.SprayMethodDTO enumDTO)
+  {
+    removeEnumItem(SPRAYMETHOD, enumDTO.toString());
+  }
+  
+  public void clearSprayMethod()
+  {
+    clearEnum(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodWritable()
+  {
+    return isWritable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodReadable()
+  {
+    return isReadable(SPRAYMETHOD);
+  }
+  
+  public boolean isSprayMethodModified()
+  {
+    return isModified(SPRAYMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSprayMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
+  }
+  
   public Integer getSprayWeek()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
@@ -98,6 +313,50 @@ public abstract class ZoneSprayViewDTOBase extends dss.vector.solutions.irs.Abst
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getSurfaceType()
+  {
+    if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
+    }
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public Integer getTarget()

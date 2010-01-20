@@ -42,7 +42,7 @@
         </create>
       </mdBusiness>
 
-      <mdBusiness name="dss.vector.solutions.irs.AbstractSpray">
+      <mdBusiness name="dss.vector.solutions.irs.ZoneSpray">
         <create>
           <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
             description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
@@ -95,7 +95,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="xmlToValueQuery">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -122,7 +122,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="xmlToValueQuery">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -149,7 +149,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="xmlToValueQuery">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -176,7 +176,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="xmlToValueQuery">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -203,7 +203,7 @@
               <operation name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission methodName="xmlToValueQuery">
               <operation name="EXECUTE" />
             </mdMethodPermission>
@@ -225,7 +225,7 @@
         type="dss.vector.solutions.surveillance.AggregatedCase">
         <assignedRole roleName="Administrator" />
       </method>
-      <method methodName="xmlToValueQuery" type="dss.vector.solutions.irs.AbstractSpray">
+      <method methodName="xmlToValueQuery" type="dss.vector.solutions.irs.ZoneSpray">
         <assignedRole roleName="Administrator" />
       </method>
       <method methodName="xmlToValueQuery"

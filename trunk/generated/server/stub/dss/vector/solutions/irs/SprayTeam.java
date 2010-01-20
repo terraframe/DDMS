@@ -14,7 +14,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.SprayZoneQuery;
@@ -23,9 +22,9 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
 {
   private static final long serialVersionUID = 1240342487755L;
 
-  class OperatorCompator implements Comparator<SprayOperator>, Reloadable
+  class OperatorCompator implements Comparator<TeamMember>, Reloadable
   {
-    public int compare(SprayOperator o1, SprayOperator o2)
+    public int compare(TeamMember o1, TeamMember o2)
     {
       return o1.getId().compareTo(o2.getId());
     }
@@ -63,56 +62,46 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     this.apply();
 
     if (leaderId != null)
-      this.addTeamLeader(SprayLeader.get(leaderId)).apply();
+    {
+      this.addTeamLeader(TeamMember.getSprayLeader(leaderId)).apply();
+    }
 
     addOperators(operatorIds);
   }
 
-  public SprayOperator[] getTeamMembers()
+  public TeamMember[] getTeamMembers()
   {
-    Set<SprayOperator> set = new TreeSet<SprayOperator>(new OperatorCompator());
+    Set<TeamMember> set = new TreeSet<TeamMember>(new OperatorCompator());
 
-    List<? extends SprayOperator> members = this.getAllSprayTeamMembers().getAll();
-    OIterator<? extends SprayLeader> leaders = this.getAllTeamLeader();
+    OIterator<? extends TeamMember> leaders = this.getAllTeamLeader();
+    OIterator<? extends TeamMember> members = this.getAllSprayTeamMembers();
 
     try
     {
-      while (leaders.hasNext())
-      {
-        SprayLeader leader = leaders.next();
-        Person person = leader.getPerson();
-        SprayOperator operator = person.getSprayOperatorDelegate();
+      set.addAll(leaders.getAll());
+      set.addAll(members.getAll());
 
-        if (operator != null && members.contains(operator))
-        {
-          set.add(operator);
-        }
-      }
-
-      set.addAll(members);
-
-      return set.toArray(new SprayOperator[set.size()]);
+      return set.toArray(new TeamMember[set.size()]);
     }
     finally
-    {
+    {      
       leaders.close();
+      members.close();
     }
   }
 
   @Override
-  public SprayOperatorView[] getTeamMemberViews()
+  public TeamMemberView[] getTeamMemberViews()
   {
-    SprayOperator[] operators = this.getTeamMembers();
-    SprayOperatorView[] views = new SprayOperatorView[operators.length];
-
-    for (int i = 0; i < operators.length; i++)
-    {
-      views[i] = operators[i].populateView();
-    }
-
-    return SprayOperatorView.getAllForTeam(this);
+    return TeamMemberView.getMemberViews(this);
   }
-
+  
+  @Override
+  public TeamMemberView[] getOperatorViews()
+  {
+    return TeamMemberView.getAllOperatorsForTeam(this);
+  }
+  
   @Override
   @Transaction
   public void edit(String geoId, String leaderId, String[] operatorIds, String[] removedIds)
@@ -127,14 +116,15 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
 
     if (leaderId != null)
     {
-      this.addTeamLeader(SprayLeader.get(leaderId)).apply();
+      this.addTeamLeader(TeamMember.getSprayLeader(leaderId)).apply();
     }
 
     addOperators(operatorIds);
 
     for (String id : removedIds)
     {
-      SprayOperator assignedOperator = SprayOperator.get(id);
+      TeamMember assignedOperator = TeamMember.get(id);
+      
       for (InTeam oldTeam : assignedOperator.getAllSprayTeamRel())
       {
         oldTeam.delete();
@@ -146,11 +136,13 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   {
     for (String id : operatorIds)
     {
-      SprayOperator assignedOperator = SprayOperator.get(id);
+      TeamMember assignedOperator = TeamMember.get(id);
+      
       for (InTeam oldTeam : assignedOperator.getAllSprayTeamRel())
       {
         oldTeam.delete();
       }
+      
       this.addSprayTeamMembers(assignedOperator).apply();
     }
   }
@@ -218,16 +210,17 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     }
     sprayTeam.apply();
 
-    sprayTeam.addTeamLeader(SprayLeader.get(leaderId)).apply();
+    sprayTeam.addTeamLeader(TeamMember.getSprayLeader(leaderId)).apply();
 
     for (String id : availableIds)
     {
-      sprayTeam.addSprayTeamMembers(SprayOperator.get(id)).apply();
+      sprayTeam.addSprayTeamMembers(TeamMember.getSprayOperator(id)).apply();
     }
 
     for (String id : assignedIds)
     {
-      SprayOperator assignedOperator = SprayOperator.get(id);
+      TeamMember assignedOperator = TeamMember.getSprayOperator(id);
+      
       for (InTeam oldTeam : assignedOperator.getAllSprayTeamRel())
       {
         oldTeam.delete();
@@ -297,5 +290,27 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
       iterator.close();
     }
 
+  }
+
+  public String getLabel()
+  {
+    OIterator<? extends TeamMember> it = this.getAllTeamLeader();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        TeamMember leader = it.next();
+        String leaderName = leader.getPerson().getFirstName() + " " + leader.getPerson().getLastName();
+
+        return this.getTeamId() + " - " + leaderName;
+      }
+
+      return this.getTeamId();
+    }
+    finally
+    {
+      it.close();
+    }
   }
 }

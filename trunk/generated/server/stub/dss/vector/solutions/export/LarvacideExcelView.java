@@ -15,26 +15,25 @@ import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.LarvacideQuery;
-import dss.vector.solutions.irs.SprayLeader;
-import dss.vector.solutions.irs.SprayLeaderQuery;
+import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class LarvacideExcelView extends LarvacideExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 2093506272;
-  
+
   public LarvacideExcelView()
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     Larvacide larvacide = getLarvacide();
-    
+
     LarvacideInstance instance = new LarvacideInstance();
     instance.setTarget(Term.validateByDisplayLabel(this.getTarget(), LarvacideInstanceView.getTargetMd()));
     instance.setTreated(this.getTreated());
@@ -43,7 +42,7 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
     instance.setUnit(Term.validateByDisplayLabel(this.getUnit(), LarvacideInstanceView.getUnitMd()));
     instance.setUnitsUsed(this.getUnitsUsed());
     instance.apply();
-    
+
     larvacide.addInstances(instance).apply();
   }
 
@@ -55,14 +54,14 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
     larvacideQuery.WHERE(larvacideQuery.getGeoEntity().EQ(this.getGeoEntity()));
     larvacideQuery.WHERE(larvacideQuery.getNatureOfControl().EQ(this.getNatureOfControl()));
     OIterator<? extends Larvacide> larvacideIterator = larvacideQuery.getIterator();
-    
+
     if (larvacideIterator.hasNext())
     {
       Larvacide match = larvacideIterator.next();
       larvacideIterator.close();
       return match;
     }
-    
+
     Larvacide larvacide = new Larvacide();
     larvacide.setStartDate(this.getStartDate());
     larvacide.setCompletionDate(this.getCompletionDate());
@@ -70,20 +69,11 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
     larvacide.setGeoDescription(this.getGeoDescription());
     larvacide.setNatureOfControl(this.getNatureOfControl());
     larvacide.setPersonCount(this.getPersonCount());
-    
-    SprayLeaderQuery leaderQuery = new SprayLeaderQuery(new QueryFactory());
-    leaderQuery.WHERE(leaderQuery.getLeaderId().EQ(this.getTeamLeaderId()));
-    OIterator<? extends SprayLeader> leaderIterator = leaderQuery.getIterator();
-    if (leaderIterator.hasNext())
-    {
-      larvacide.setTeamLeader(leaderIterator.next());
-    }
-    leaderIterator.close();
-    
+    larvacide.setTeamLeader(TeamMember.getSprayLeaderById(this.getTeamLeaderId()));
     larvacide.apply();
     return larvacide;
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -111,7 +101,7 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
   {
     importer.addListener(createExcelGeoListener());
   }
-  
+
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();

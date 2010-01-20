@@ -1,30 +1,6 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <delete>
-      <object
-        key="dss.vector.solutions.irs.AbstractSprayView.dataId"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
-    </delete>
     <update>
-      <mdView
-        name="dss.vector.solutions.irs.AbstractSprayView">
-        <attributes>
-          <char
-            name="sprayId"
-            label="Spray Id"
-            size="255"
-            required="true" />
-        </attributes>
-        <create>
-          <attributes>
-            <virtual
-              name="sprayData"
-              concrete="sprayData"
-              type="dss.vector.solutions.irs.AbstractSpray"
-              required="true" />
-          </attributes>
-        </create>
-      </mdView>
       <mdProblem
         name="dss.vector.solutions.irs.ValueNotApplicableProblem"
         label="Value not Applicable Problem"
@@ -113,24 +89,6 @@
   </doIt>
   <undoIt>
     <update>
-      <mdView
-        name="dss.vector.solutions.irs.AbstractSprayView">
-        <attributes>
-          <char
-            name="sprayId"
-            label="Spray Id"
-            size="255"
-            required="false" />
-        </attributes>
-        <create>
-          <attributes>
-            <char
-              name="dataId"
-              label="Data Id"
-              size="255" />
-          </attributes>
-        </create>
-      </mdView>
       <mdProblem
         name="dss.vector.solutions.irs.ValueNotApplicableProblem"
         label="Value not Applicable Problem"
@@ -140,9 +98,6 @@
       </mdProblem>    
     </update>
     <delete>
-      <object
-        key="dss.vector.solutions.irs.AbstractSprayView.sprayData"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual" />
       <object
         key="dss.vector.solutions.irs.UniqueSprayException"
         type="com.terraframe.mojo.system.metadata.MdException" />

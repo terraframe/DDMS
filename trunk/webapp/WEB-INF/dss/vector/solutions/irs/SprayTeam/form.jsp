@@ -6,13 +6,12 @@
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>    
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayLeaderDTO"%>
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamMemberDTO"%>
 
-<c:set var="SprayZone" scope="request"><%= SprayZoneDTO.CLASS %></c:set>
+
+<%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%><c:set var="SprayZone" scope="request"><%= SprayZoneDTO.CLASS %></c:set>
 
 
 <dt><label> ${item.teamIdMd.displayLabel} </label></dt>
@@ -54,7 +53,7 @@
       <tr>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${current}" param="operatorIds" multiple="true" size="12" id="onTeam" style="width:15em">
           <mjl:option>
-                ${operator.firstName} ${operator.lastName} - ${operator.operatorId}
+                ${operator.firstName} ${operator.lastName} - ${operator.memberId}
               </mjl:option>
         </mjl:select> <mjl:messages attribute="actorId">
           <mjl:message />
@@ -70,7 +69,7 @@
 
         <td><mjl:select var="operator" valueAttribute="actorId" items="${available}" param="removedIds" multiple="true" size="12" id="notOnTeam" style="width:15em">
           <mjl:option>
-                ${operator.firstName} ${operator.lastName} - ${operator.operatorId}
+                ${operator.firstName} ${operator.lastName} - ${operator.memberId}
               </mjl:option>
         </mjl:select> <mjl:messages attribute="actorId">
           <mjl:message />
@@ -90,7 +89,7 @@
         </td>
         <td>
           <mjl:select var="operator" valueAttribute="actorId" items="${assigned}" param="onOtherTeam" multiple="true" size="12" id="onOtherTeam" style="width:15em">
-            <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName} - ${operator.operatorId}</mjl:option>
+            <mjl:option>[${operator.teamId}] ${operator.firstName} ${operator.lastName} - ${operator.memberId}</mjl:option>
           </mjl:select>
         </td>
       </tr>
@@ -114,7 +113,7 @@
     </table>
     </dd>
     
-    <%=Halp.loadTypes(Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS, SprayLeaderDTO.CLASS, PersonViewDTO.CLASS}))%>
+    <%=Halp.loadTypes(Arrays.asList(new String[]{TeamMemberViewDTO.CLASS, TeamMemberDTO.CLASS, PersonViewDTO.CLASS}))%>
 
 <script type="text/javascript">
 (function(){
@@ -124,7 +123,7 @@
     MDSS.operatorSearch({to:'onTeam', from:'notOnTeam', button:'available.button.id', display:'availableInput', id:'availableId'});       
     MDSS.operatorSearch({to:'onTeam', from:'onOtherTeam', button:'assigned.button.id', display:'assignedInput', id:'assignedId'});       
       
-    MDSS.leaderSearch({search:'leaderInput', concrete:'leaderId'});       
+    new MDSS.SprayLeaderSearch({search:'leaderInput', concrete:'leaderId'});       
 
     var loadAssignedOperators = function(geoId) {
       var request = new MDSS.Request({
@@ -140,7 +139,7 @@
             var operator = operators[i];
             var team = operator.getTeamId();
             var value = operator.getActorId();
-            var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getOperatorId();
+            var text = '[' + team + '] ' + operator.getFirstName() + ' ' + operator.getLastName() + ' - ' + operator.getMemberId();
 
             if(teamId !== team) {
               Selectbox.addOption(onOtherTeam,text,value,false);
@@ -149,11 +148,11 @@
         }
       });
 
-      Mojo.$.dss.vector.solutions.irs.SprayOperatorView.getAllForLocation(request, geoId);
+      Mojo.$.dss.vector.solutions.irs.TeamMemberView.getAllOperatorsForLocation(request, geoId);
     }        
 
     Mojo.GLOBAL.onValidGeoEntitySelected = function() {
-      var geoId = document.getElementById('geoIdEl');
+      var geoId = document.getElementById('geoId');
 
       if(geoId.value != null) {
         loadAssignedOperators(geoId.value);

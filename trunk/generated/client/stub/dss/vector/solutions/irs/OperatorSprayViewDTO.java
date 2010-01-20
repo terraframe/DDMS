@@ -8,4 +8,9 @@ public class OperatorSprayViewDTO extends OperatorSprayViewDTOBase
   {
     super(clientRequest);
   }  
+  
+  public boolean hasConcrete()
+  {
+    return (this.getConcreteId() != null && !this.getConcreteId().equals(""));
+  }
 }

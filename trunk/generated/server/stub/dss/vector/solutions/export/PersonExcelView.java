@@ -53,11 +53,9 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.setIsITNRecipient(this.getIsITNRecipient() != null && this.getIsITNRecipient());
     
     personView.setIsSprayLeader(this.getIsSprayLeader() != null && this.getIsSprayLeader());
-    personView.setLeaderId(this.getLeaderId());
-    
     personView.setIsSprayOperator(this.getIsSprayOperator() != null && this.getIsSprayOperator());
-    personView.setOperatorId(this.getOperatorId());
-    
+    personView.setMemberId(this.getMemberId());
+        
     personView.apply();
   }
   

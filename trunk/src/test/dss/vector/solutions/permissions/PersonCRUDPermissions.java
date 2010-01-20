@@ -44,8 +44,7 @@ public class PersonCRUDPermissions extends PermissionTest implements DoNotWeave
     dto.setIsPatient(true);
     dto.setIsSprayLeader(true);
     dto.setIsSprayOperator(true);
-    dto.setLeaderId(TestConstants.LEADER_ID);
-    dto.setOperatorId(TestConstants.OPERATOR_ID);
+    dto.setMemberId(TestConstants.LEADER_ID);
     dto.setSex(term);
     dto.apply();
 

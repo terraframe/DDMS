@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
     <mjl:component item="${item}" param="dto">
-      <mjl:input type="hidden" param="sprayId" value="${item.sprayId}" />      
+      <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />      
       <mjl:dt attribute="geoEntity">
         <mdss:geo param="geoEntity" value="${item.geoEntity}" political="false" populated="false" spray="true" />
       </mjl:dt>

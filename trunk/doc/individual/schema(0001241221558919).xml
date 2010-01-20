@@ -74,7 +74,7 @@
               name="operator"
               label="Operator"
               order="5"
-              type="dss.vector.solutions.irs.SprayOperator" />
+              type="dss.vector.solutions.irs.TeamMember" />
           </mdAction>
         </create>
       </mdController>

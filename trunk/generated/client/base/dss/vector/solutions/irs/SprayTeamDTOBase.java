@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2102195184)
+@com.terraframe.mojo.business.ClassSignature(hash = 171502576)
 public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.TargeterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeam";
-  private static final long serialVersionUID = -2102195184;
+  private static final long serialVersionUID = 171502576;
   
   protected SprayTeamDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -150,48 +150,64 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     return (dss.vector.solutions.irs.SprayTeamDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.irs.SprayOperatorViewDTO[] getTeamMemberViews()
+  public final dss.vector.solutions.irs.TeamMemberViewDTO[] getOperatorViews()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getOperatorViews", _declaredTypes);
+    return (dss.vector.solutions.irs.TeamMemberViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getOperatorViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getOperatorViews", _declaredTypes);
+    return (dss.vector.solutions.irs.TeamMemberViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.irs.TeamMemberViewDTO[] getTeamMemberViews()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getTeamMemberViews", _declaredTypes);
-    return (dss.vector.solutions.irs.SprayOperatorViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.irs.TeamMemberViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.SprayOperatorViewDTO[] getTeamMemberViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getTeamMemberViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getTeamMemberViews", _declaredTypes);
-    return (dss.vector.solutions.irs.SprayOperatorViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.irs.TeamMemberViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.irs.SprayOperatorDTO[] getTeamMembers()
+  public final dss.vector.solutions.irs.TeamMemberDTO[] getTeamMembers()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getTeamMembers", _declaredTypes);
-    return (dss.vector.solutions.irs.SprayOperatorDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+    return (dss.vector.solutions.irs.TeamMemberDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.SprayOperatorDTO[] getTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.TeamMemberDTO[] getTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamDTO.CLASS, "getTeamMembers", _declaredTypes);
-    return (dss.vector.solutions.irs.SprayOperatorDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.irs.TeamMemberDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.irs.SprayOperatorDTO> getAllSprayTeamMembers()
+  public java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO> getAllSprayTeamMembers()
   {
-    return (java.util.List<? extends dss.vector.solutions.irs.SprayOperatorDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.irs.InTeamDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.irs.InTeamDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.irs.SprayOperatorDTO> getAllSprayTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO> getAllSprayTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.irs.SprayOperatorDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.irs.InTeamDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.irs.InTeamDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
@@ -206,12 +222,12 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     return (java.util.List<? extends dss.vector.solutions.irs.InTeamDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.irs.InTeamDTO.CLASS);
   }
   
-  public dss.vector.solutions.irs.InTeamDTO addSprayTeamMembers(dss.vector.solutions.irs.SprayOperatorDTO child)
+  public dss.vector.solutions.irs.InTeamDTO addSprayTeamMembers(dss.vector.solutions.irs.TeamMemberDTO child)
   {
     return (dss.vector.solutions.irs.InTeamDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.irs.InTeamDTO.CLASS);
   }
   
-  public static dss.vector.solutions.irs.InTeamDTO addSprayTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.irs.SprayOperatorDTO child)
+  public static dss.vector.solutions.irs.InTeamDTO addSprayTeamMembers(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.irs.TeamMemberDTO child)
   {
     return (dss.vector.solutions.irs.InTeamDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.irs.InTeamDTO.CLASS);
   }
@@ -237,15 +253,15 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.irs.SprayLeaderDTO> getAllTeamLeader()
+  public java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO> getAllTeamLeader()
   {
-    return (java.util.List<? extends dss.vector.solutions.irs.SprayLeaderDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.irs.LeadTeamDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.irs.LeadTeamDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.irs.SprayLeaderDTO> getAllTeamLeader(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO> getAllTeamLeader(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends dss.vector.solutions.irs.SprayLeaderDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.irs.LeadTeamDTO.CLASS);
+    return (java.util.List<? extends dss.vector.solutions.irs.TeamMemberDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.irs.LeadTeamDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
@@ -260,12 +276,12 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     return (java.util.List<? extends dss.vector.solutions.irs.LeadTeamDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.irs.LeadTeamDTO.CLASS);
   }
   
-  public dss.vector.solutions.irs.LeadTeamDTO addTeamLeader(dss.vector.solutions.irs.SprayLeaderDTO child)
+  public dss.vector.solutions.irs.LeadTeamDTO addTeamLeader(dss.vector.solutions.irs.TeamMemberDTO child)
   {
     return (dss.vector.solutions.irs.LeadTeamDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.irs.LeadTeamDTO.CLASS);
   }
   
-  public static dss.vector.solutions.irs.LeadTeamDTO addTeamLeader(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.irs.SprayLeaderDTO child)
+  public static dss.vector.solutions.irs.LeadTeamDTO addTeamLeader(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.irs.TeamMemberDTO child)
   {
     return (dss.vector.solutions.irs.LeadTeamDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.irs.LeadTeamDTO.CLASS);
   }

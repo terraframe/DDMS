@@ -4,30 +4,30 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
 
     initialize: function(geoId, teamSelect, operatorSelect, leaderSelect) {
       // Constructor code  
-      this.geoId = geoId;
-      this.teamSelect = teamSelect;
-      this.operatorSelect = operatorSelect;
-      this.leaderSelect = leaderSelect;
+      this._geoId = Mojo.Util.isString(geoId) ? document.getElementById(geoId) : geoId;
+      this._teamSelect = Mojo.Util.isString(teamSelect) ? document.getElementById(teamSelect) : teamSelect;
+      this._operatorSelect = Mojo.Util.isString(operatorSelect) ? document.getElementById(operatorSelect) : operatorSelect;
+      this._leaderSelect = Mojo.Util.isString(leaderSelect) ? document.getElementById(leaderSelect) : leaderSelect;
       this._pollingId = null;     
       
-      YAHOO.util.Event.addListener(this.teamSelect, "click", this.populateTeamMembers, this, true); 
+      YAHOO.util.Event.addListener(this._teamSelect, "change", this.populateFields, this, true); 
     },
   
     // Public getter functions
     getGeoId : function () {
-      return this.geoId;
+      return this._geoId;
     },
     
     getTeamSelect : function () {
-      return this.teamSelect;
+      return this._teamSelect;
     },
 
     getOperatorSelect : function () {
-      return this.operatorSelect;
+      return this._operatorSelect;
     },
     
     getLeaderSelect : function () {
-      return this.leaderSelect;
+      return this._leaderSelect;
     },
     
     getTeamId : function () {
@@ -37,7 +37,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
     // Clear a select list of all options and disables it
     clearSelect : function(select) {
       if(select) {
-      Selectbox.removeAllOptions(select);                
+        Selectbox.removeAllOptions(select);                
         select.disabled=true;   
       }      
     },
@@ -52,16 +52,33 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       this.clearSelect(this.getOperatorSelect());
       this.clearSelect(this.getLeaderSelect());      
     },
+    
+    populateFields : function() {
+      this.clearTeamMembers();  
+        
+      if(this.getOperatorSelect() != null) {
+        this._populateOperators();
+      }
+        
+      if(this.getLeaderSelect() != null) {
+        this._populateLeaders();
+      }
+    },   
         
     // Private methods
-    _populateOperatorList : function (select, operators) {
+    _populateOperatorList : function (select, operators, blank) {
       if(select) {
         // Remove all of the current options in the select list
         Selectbox.removeAllOptions(select);
 
+        // Add blank option
+        if(blank != null && blank == true) {
+       	  Selectbox.addOption(select, "", "", false);
+        }
+        
         // Add the new options retrieved from the AJAX call
         for(var i=0; i< operators.length; i++) {
-          var label = operators[i].getOperatorId() + " - " + operators[i].getLastName() + ", " + operators[i].getFirstName();
+          var label = operators[i].getMemberId() + " - " + operators[i].getLastName() + ", " + operators[i].getFirstName();
 
           Selectbox.addOption(select, label, operators[i].getActorId(), false);
         }          
@@ -71,27 +88,46 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       }
     },
     
-    populateTeamMembers : function (){
-      this.clearTeamMembers();
-      
+    _populateOperators : function (){
       if(this.getTeamSelect().value != '')
       {
         var request = new MDSS.Request({
-          obj : this,
+          that : this,
           onSend: function(){},
           onComplete: function(){},
           onFailure : function(){
-          this.obj.clearTeamMembers();
+            this.that.clearTeamMembers();
           },
           onProblemExceptionDTO : function(){
-          this.obj.clearTeamMembers();
+            this.that.clearTeamMembers();
           },          
           onSuccess : function(operators){
-          this.obj._populateOperatorList(this.obj.getOperatorSelect(), operators);
-          this.obj._populateOperatorList(this.obj.getLeaderSelect(), operators);
+            this.that._populateOperatorList(this.that.getOperatorSelect(), operators, false);
           }
         });
 
+        Mojo.$.dss.vector.solutions.irs.SprayTeam.getOperatorViews(request, this.getTeamSelect().value);
+      }  
+    },
+    
+    _populateLeaders : function (){      
+      if(this.getTeamSelect().value != '')
+      {
+        var request = new MDSS.Request({
+          that : this,
+          onSend: function(){},
+          onComplete: function(){},
+          onFailure : function(){
+            this.that.clearTeamMembers();
+          },
+          onProblemExceptionDTO : function(){
+            this.that.clearTeamMembers();
+          },          
+          onSuccess : function(operators){
+            this.that._populateOperatorList(this.that.getLeaderSelect(), operators, true);
+          }
+        });
+        
         Mojo.$.dss.vector.solutions.irs.SprayTeam.getTeamMemberViews(request, this.getTeamSelect().value);
       }  
     },
@@ -101,7 +137,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       
       if(this.getGeoId().value != '')
       {
-      var request = new MDSS.Request({
+        var request = new MDSS.Request({
           obj : this,        
           onSend: function(){},
           onComplete: function(){},
@@ -1081,7 +1117,7 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       YAHOO.util.Event.on(element, 'focus', search.forceSearch, search, search);
       
       return search;
-    }
+    }  
   }  
 });
 

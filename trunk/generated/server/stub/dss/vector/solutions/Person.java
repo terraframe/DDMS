@@ -130,14 +130,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       this.getIptRecipientDelegate().delete();
     }
 
-    if (this.getSprayOperatorDelegate() != null)
+    if (this.getTeamMemberDelegate() != null)
     {
-      this.getSprayOperatorDelegate().delete();
-    }
-
-    if (this.getSprayLeaderDelegate() != null)
-    {
-      this.getSprayLeaderDelegate().delete();
+      this.getTeamMemberDelegate().delete();
     }
 
     if (this.getStockStaffDelegate() != null)
@@ -179,14 +174,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       this.getIptRecipientDelegate().lock();
     }
 
-    if (this.getSprayOperatorDelegate() != null)
+    if (this.getTeamMemberDelegate() != null)
     {
-      this.getSprayOperatorDelegate().lock();
-    }
-
-    if (this.getSprayLeaderDelegate() != null)
-    {
-      this.getSprayLeaderDelegate().lock();
+      this.getTeamMemberDelegate().lock();
     }
 
     if (this.getStockStaffDelegate() != null)
@@ -225,14 +215,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       this.getIptRecipientDelegate().unlock();
     }
 
-    if (this.getSprayOperatorDelegate() != null)
+    if (this.getTeamMemberDelegate() != null)
     {
-      this.getSprayOperatorDelegate().unlock();
-    }
-
-    if (this.getSprayLeaderDelegate() != null)
-    {
-      this.getSprayLeaderDelegate().unlock();
+      this.getTeamMemberDelegate().unlock();
     }
 
     if (this.getStockStaffDelegate() != null)

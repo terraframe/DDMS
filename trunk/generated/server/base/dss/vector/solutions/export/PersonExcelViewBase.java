@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1664822977)
+@com.terraframe.mojo.business.ClassSignature(hash = -2071288605)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,14 +21,13 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String LASTNAME = "lastName";
-  public static java.lang.String LEADERID = "leaderId";
-  public static java.lang.String OPERATORID = "operatorId";
+  public static java.lang.String MEMBERID = "memberId";
   public static java.lang.String PASSWORD = "password";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = 1664822977;
+  private static final long serialVersionUID = -2071288605;
   
   public PersonExcelViewBase()
   {
@@ -303,59 +302,31 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
     }
   }
   
-  public String getLeaderId()
+  public String getMemberId()
   {
-    return getValue(LEADERID);
+    return getValue(MEMBERID);
   }
   
-  public void validateLeaderId()
+  public void validateMemberId()
   {
-    this.validateAttribute(LEADERID);
+    this.validateAttribute(MEMBERID);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLeaderIdMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMemberIdMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
-    return mdClassIF.definesAttribute(LEADERID);
+    return mdClassIF.definesAttribute(MEMBERID);
   }
   
-  public void setLeaderId(String value)
+  public void setMemberId(String value)
   {
     if(value == null)
     {
-      setValue(LEADERID, "");
+      setValue(MEMBERID, "");
     }
     else
     {
-      setValue(LEADERID, value);
-    }
-  }
-  
-  public String getOperatorId()
-  {
-    return getValue(OPERATORID);
-  }
-  
-  public void validateOperatorId()
-  {
-    this.validateAttribute(OPERATORID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getOperatorIdMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPERATORID);
-  }
-  
-  public void setOperatorId(String value)
-  {
-    if(value == null)
-    {
-      setValue(OPERATORID, "");
-    }
-    else
-    {
-      setValue(OPERATORID, value);
+      setValue(MEMBERID, value);
     }
   }
   

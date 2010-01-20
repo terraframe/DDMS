@@ -37,8 +37,7 @@ public class PersonNoPermissions extends PermissionTest implements DoNotWeave
       dto.setIsPatient(true);
       dto.setIsSprayLeader(true);
       dto.setIsSprayOperator(true);
-      dto.setLeaderId("3434343");
-      dto.setOperatorId("3434343a");
+      dto.setMemberId("3434343");
       dto.setSex(term);
       dto.apply();
 

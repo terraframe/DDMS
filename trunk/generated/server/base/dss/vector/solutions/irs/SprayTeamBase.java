@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1770916496)
+@com.terraframe.mojo.business.ClassSignature(hash = -1655562896)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeam";
   public static java.lang.String SPRAYZONE = "sprayZone";
   public static java.lang.String TEAMID = "teamId";
-  private static final long serialVersionUID = 1770916496;
+  private static final long serialVersionUID = -1655562896;
   
   public SprayTeamBase()
   {
@@ -95,20 +95,20 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
     return query;
   }
   
-  public dss.vector.solutions.irs.InTeam addSprayTeamMembers(dss.vector.solutions.irs.SprayOperator sprayOperator)
+  public dss.vector.solutions.irs.InTeam addSprayTeamMembers(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    return (dss.vector.solutions.irs.InTeam) addChild(sprayOperator, dss.vector.solutions.irs.InTeam.CLASS);
+    return (dss.vector.solutions.irs.InTeam) addChild(teamMember, dss.vector.solutions.irs.InTeam.CLASS);
   }
   
-  public void removeSprayTeamMembers(dss.vector.solutions.irs.SprayOperator sprayOperator)
+  public void removeSprayTeamMembers(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    removeAllChildren(sprayOperator, dss.vector.solutions.irs.InTeam.CLASS);
+    removeAllChildren(teamMember, dss.vector.solutions.irs.InTeam.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.SprayOperator> getAllSprayTeamMembers()
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.TeamMember> getAllSprayTeamMembers()
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.SprayOperator>) getChildren(dss.vector.solutions.irs.InTeam.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.TeamMember>) getChildren(dss.vector.solutions.irs.InTeam.CLASS);
   }
   
   @SuppressWarnings("unchecked")
@@ -118,25 +118,25 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.InTeam> getSprayTeamMembersRel(dss.vector.solutions.irs.SprayOperator sprayOperator)
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.InTeam> getSprayTeamMembersRel(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.InTeam>) getRelationshipsWithChild(sprayOperator, dss.vector.solutions.irs.InTeam.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.InTeam>) getRelationshipsWithChild(teamMember, dss.vector.solutions.irs.InTeam.CLASS);
   }
   
-  public dss.vector.solutions.irs.LeadTeam addTeamLeader(dss.vector.solutions.irs.SprayLeader sprayLeader)
+  public dss.vector.solutions.irs.LeadTeam addTeamLeader(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    return (dss.vector.solutions.irs.LeadTeam) addChild(sprayLeader, dss.vector.solutions.irs.LeadTeam.CLASS);
+    return (dss.vector.solutions.irs.LeadTeam) addChild(teamMember, dss.vector.solutions.irs.LeadTeam.CLASS);
   }
   
-  public void removeTeamLeader(dss.vector.solutions.irs.SprayLeader sprayLeader)
+  public void removeTeamLeader(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    removeAllChildren(sprayLeader, dss.vector.solutions.irs.LeadTeam.CLASS);
+    removeAllChildren(teamMember, dss.vector.solutions.irs.LeadTeam.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.SprayLeader> getAllTeamLeader()
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.TeamMember> getAllTeamLeader()
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.SprayLeader>) getChildren(dss.vector.solutions.irs.LeadTeam.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.TeamMember>) getChildren(dss.vector.solutions.irs.LeadTeam.CLASS);
   }
   
   @SuppressWarnings("unchecked")
@@ -146,9 +146,9 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.LeadTeam> getTeamLeaderRel(dss.vector.solutions.irs.SprayLeader sprayLeader)
+  public com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.LeadTeam> getTeamLeaderRel(dss.vector.solutions.irs.TeamMember teamMember)
   {
-    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.LeadTeam>) getRelationshipsWithChild(sprayLeader, dss.vector.solutions.irs.LeadTeam.CLASS);
+    return (com.terraframe.mojo.query.OIterator<? extends dss.vector.solutions.irs.LeadTeam>) getRelationshipsWithChild(teamMember, dss.vector.solutions.irs.LeadTeam.CLASS);
   }
   
   public static SprayTeam get(String id)
@@ -191,25 +191,37 @@ public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter im
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public dss.vector.solutions.irs.SprayOperatorView[] getTeamMemberViews()
+  public dss.vector.solutions.irs.TeamMemberView[] getOperatorViews()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.SprayTeam.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.irs.SprayOperatorView[] getTeamMemberViews(java.lang.String id)
+  public static final dss.vector.solutions.irs.TeamMemberView[] getOperatorViews(java.lang.String id)
+  {
+    SprayTeam _instance = SprayTeam.get(id);
+    return _instance.getOperatorViews();
+  }
+  
+  public dss.vector.solutions.irs.TeamMemberView[] getTeamMemberViews()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.SprayTeam.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.irs.TeamMemberView[] getTeamMemberViews(java.lang.String id)
   {
     SprayTeam _instance = SprayTeam.get(id);
     return _instance.getTeamMemberViews();
   }
   
-  public dss.vector.solutions.irs.SprayOperator[] getTeamMembers()
+  public dss.vector.solutions.irs.TeamMember[] getTeamMembers()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.SprayTeam.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.irs.SprayOperator[] getTeamMembers(java.lang.String id)
+  public static final dss.vector.solutions.irs.TeamMember[] getTeamMembers(java.lang.String id)
   {
     SprayTeam _instance = SprayTeam.get(id);
     return _instance.getTeamMembers();

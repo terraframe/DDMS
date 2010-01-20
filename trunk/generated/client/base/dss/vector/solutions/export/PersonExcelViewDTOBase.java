@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1455878079)
+@com.terraframe.mojo.business.ClassSignature(hash = -1219672477)
 public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -1455878079;
+  private static final long serialVersionUID = -1219672477;
   
   protected PersonExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -26,8 +26,7 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String LASTNAME = "lastName";
-  public static java.lang.String LEADERID = "leaderId";
-  public static java.lang.String OPERATORID = "operatorId";
+  public static java.lang.String MEMBERID = "memberId";
   public static java.lang.String PASSWORD = "password";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String SEX = "sex";
@@ -366,78 +365,41 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
   }
   
-  public String getLeaderId()
+  public String getMemberId()
   {
-    return getValue(LEADERID);
+    return getValue(MEMBERID);
   }
   
-  public void setLeaderId(String value)
+  public void setMemberId(String value)
   {
     if(value == null)
     {
-      setValue(LEADERID, "");
+      setValue(MEMBERID, "");
     }
     else
     {
-      setValue(LEADERID, value);
+      setValue(MEMBERID, value);
     }
   }
   
-  public boolean isLeaderIdWritable()
+  public boolean isMemberIdWritable()
   {
-    return isWritable(LEADERID);
+    return isWritable(MEMBERID);
   }
   
-  public boolean isLeaderIdReadable()
+  public boolean isMemberIdReadable()
   {
-    return isReadable(LEADERID);
+    return isReadable(MEMBERID);
   }
   
-  public boolean isLeaderIdModified()
+  public boolean isMemberIdModified()
   {
-    return isModified(LEADERID);
+    return isModified(MEMBERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMemberIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
-  }
-  
-  public String getOperatorId()
-  {
-    return getValue(OPERATORID);
-  }
-  
-  public void setOperatorId(String value)
-  {
-    if(value == null)
-    {
-      setValue(OPERATORID, "");
-    }
-    else
-    {
-      setValue(OPERATORID, value);
-    }
-  }
-  
-  public boolean isOperatorIdWritable()
-  {
-    return isWritable(OPERATORID);
-  }
-  
-  public boolean isOperatorIdReadable()
-  {
-    return isReadable(OPERATORID);
-  }
-  
-  public boolean isOperatorIdModified()
-  {
-    return isModified(OPERATORID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOperatorIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OPERATORID).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MEMBERID).getAttributeMdDTO();
   }
   
   public String getPassword()

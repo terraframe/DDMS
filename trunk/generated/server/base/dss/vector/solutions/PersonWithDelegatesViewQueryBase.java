@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2006463966)
+@com.terraframe.mojo.business.ClassSignature(hash = 2088810073)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonWithDelegatesViewQueryBase extends dss.vector.solutions.PersonViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2006463966;
+private static final long serialVersionUID = 2088810073;
 
   public PersonWithDelegatesViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -83,44 +83,6 @@ private static final long serialVersionUID = 2006463966;
     return (dss.vector.solutions.PatientQuery.PatientQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.PATIENTDELEGATE, alias, displayLabel);
 
   }
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate()
-  {
-    return getSprayLeaderDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias)
-  {
-
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SPRAYLEADERDELEGATE, alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SPRAYLEADERDELEGATE, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate()
-  {
-    return getSprayOperatorDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias)
-  {
-
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SPRAYOPERATORDELEGATE, alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SPRAYOPERATORDELEGATE, alias, displayLabel);
-
-  }
   public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate()
   {
     return getStockStaffDelegate(null);
@@ -157,6 +119,25 @@ private static final long serialVersionUID = 2006463966;
   {
 
     return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.SUPERVISORDELEGATE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate()
+  {
+    return getTeamMemberDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias)
+  {
+
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.TEAMMEMBERDELEGATE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonWithDelegatesView.TEAMMEMBERDELEGATE, alias, displayLabel);
 
   }
   public dss.vector.solutions.MDSSUserQuery.MDSSUserQueryReferenceIF getUserDelegate()

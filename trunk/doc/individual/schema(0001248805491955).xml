@@ -4,12 +4,12 @@
   <doIt>
     <update>
       <mdView
-        name="dss.vector.solutions.irs.SprayOperatorView">
+        name="dss.vector.solutions.irs.TeamMemberView">
         <create>
           <mdMethod
-            name="getAllForLocation"
+            name="getAllOperatorsForLocation"
             label="Get All For Location"
-            returnType="dss.vector.solutions.irs.SprayOperatorView[]"
+            returnType="dss.vector.solutions.irs.TeamMemberView[]"
             static="true">
             <mdParameter
               name="geoId"

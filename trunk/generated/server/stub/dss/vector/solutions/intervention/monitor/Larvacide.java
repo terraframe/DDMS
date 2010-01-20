@@ -97,15 +97,15 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
       {
         Pattern pattern = Pattern.compile("(" + Person.FIRSTNAME + "|" + Person.LASTNAME + ")[a-zA-z_]+Criteria");
         Matcher matcher = pattern.matcher(config);
-        // if there is no restriction on person, we left join, otherwise we
-        // inner join
+        
+        // if there is no restriction on person, we left join, otherwise we inner join
         if (!matcher.find())
         {
-          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getTeamMemberDelegate(Person.TEAMMEMBERDELEGATE)));
         }
         else
         {
-          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).EQ(personQuery.getSprayLeaderDelegate(Person.SPRAYLEADERDELEGATE)));
+          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).EQ(personQuery.getTeamMemberDelegate(Person.TEAMMEMBERDELEGATE)));
         }
       }
 

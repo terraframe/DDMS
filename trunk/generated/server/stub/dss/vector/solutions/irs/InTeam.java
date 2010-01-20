@@ -9,7 +9,7 @@ public class InTeam extends InTeamBase implements com.terraframe.mojo.generation
     super(parentId, childId);
   }
   
-  public InTeam(dss.vector.solutions.irs.SprayTeam parent, dss.vector.solutions.MDSSUser child)
+  public InTeam(dss.vector.solutions.irs.SprayTeam parent, dss.vector.solutions.irs.TeamMember child)
   {
     this(parent.getId(), child.getId());
   }
@@ -17,6 +17,6 @@ public class InTeam extends InTeamBase implements com.terraframe.mojo.generation
   @Override
   protected String buildKey()
   {
-    return this.getParent().buildKey() + "-" + this.getChild().buildKey();
+    return this.getParent().getKey() + "-" + this.getChild().getKey();
   }
 }

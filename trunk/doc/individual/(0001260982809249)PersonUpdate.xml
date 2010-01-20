@@ -24,10 +24,7 @@
             concrete="iptRecipientDelegate"
             type="dss.vector.solutions.Person" />
           <virtual
-            concrete="sprayOperatorDelegate"
-            type="dss.vector.solutions.Person" />
-          <virtual
-            concrete="sprayLeaderDelegate"
+            concrete="teamMemberDelegate"
             type="dss.vector.solutions.Person" />
         </attributes>
         <mdMethod

@@ -111,7 +111,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", dto.getSprayId());
+    utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF request = this.getClientRequest();
@@ -176,12 +176,12 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
       // Map between an entities id and display label
       List<String> list = new LinkedList<String>();
 
-      SprayOperatorViewDTO[] members = team.getTeamMemberViews();
+      TeamMemberViewDTO[] members = team.getTeamMemberViews();
 
-      for (SprayOperatorViewDTO operator : members)
+      for (TeamMemberViewDTO operator : members)
       {
         String key = operator.getActorId();
-        String label = operator.getFirstName() + ", " + operator.getLastName() + " - " + operator.getOperatorId();
+        String label = operator.getFirstName() + ", " + operator.getLastName() + " - " + operator.getMemberId();
 
         list.add("\"" + key + "\":\"" + label + "\"");
       }
@@ -231,7 +231,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   public void cancel(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    this.view(ZoneSprayDTO.unlockView(getClientRequest(), dto.getSprayId()));
+    this.view(ZoneSprayDTO.unlockView(getClientRequest(), dto.getConcreteId()));
   }
 
   public void failCancel(ZoneSprayViewDTO dto) throws IOException, ServletException

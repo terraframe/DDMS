@@ -98,7 +98,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   public void view(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", dto.getSprayId());
+    utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF request = this.getClientSession().getRequest();
@@ -157,7 +157,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void cancel(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
-    this.view(OperatorSprayDTO.unlockView(getClientRequest(), dto.getSprayId()));
+    this.view(OperatorSprayDTO.unlockView(getClientRequest(), dto.getConcreteId()));
   }
 
   public void failCancel(OperatorSprayViewDTO dto) throws IOException, ServletException
@@ -170,20 +170,31 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     try
     {
       dto.deleteConcrete();
+      
       this.search();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
 
   public void failDelete(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-    req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
+    this.setupRequest(dto);
+    this.setupReferences(dto);
+
     req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    
+    render("editComponent.jsp");    
   }
 
   public void search() throws IOException, ServletException
@@ -196,16 +207,30 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
-    req.setAttribute("methods", methods);
-    req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
+    req.setAttribute("methods", methods);    
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
-    req.setAttribute("operators", new LinkedList<SprayOperatorViewDTO>());
+    req.setAttribute("item", new OperatorSprayViewDTO(clientRequest));
+    
+    if(req.getAttribute("teams") == null)
+    {
+      req.setAttribute("teams", new LinkedList<SprayTeamDTO>());      
+    }
+    
+    if(req.getAttribute("operators") == null)
+    {
+      req.setAttribute("operators", new LinkedList<TeamMemberViewDTO>());
+    }
+    
+    if(req.getAttribute("method") == null)
+    {
+      req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
+    }
 
     render("searchComponent.jsp");
   }
-
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
+  
+  @Override
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, String teamId, TeamMemberDTO operator) throws IOException, ServletException
   {
     try
     {
@@ -221,6 +246,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       }
       else
       {
+        dto.setValue(OperatorSprayViewDTO.SPRAYTEAM, teamId);
+        
         //Ensure that the user has the ability to create an operator spray
         new OperatorSprayDTO(request);
         
@@ -255,40 +282,42 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     InsecticideBrandDTO brand = dto.getBrand();
     String geoId = dto.getGeoEntity().getGeoId();
-
-    List<? extends SprayTeamDTO> selectedTeam = dto.getSprayOperator().getAllSprayTeam();
+    
+    SprayTeamDTO sprayTeam = dto.getSprayTeam();
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
 
-    if(selectedTeam.size() > 0)
+    String operatorId = dto.getValue(OperatorSprayViewDTO.SPRAYOPERATOR);
+    
+    if(operatorId != null && !operatorId.equals(""))
     {
-      SprayTeamDTO sprayTeam = selectedTeam.get(0);
+      req.setAttribute("operator", TeamMemberDTO.getView(request, operatorId));
+    }
 
-      req.setAttribute("operators", Arrays.asList(sprayTeam.getTeamMemberViews()));
+    if(sprayTeam != null)
+    {
+      List<? extends TeamMemberDTO> leader = sprayTeam.getAllTeamLeader();
+      
+      if(leader.size() > 0)
+      {
+        String leaderId = leader.get(0).getId();
+        
+        req.setAttribute("leaderId", leaderId);        
+      }
+      
+      req.setAttribute("members", Arrays.asList(sprayTeam.getTeamMemberViews()));
       req.setAttribute("teamId", sprayTeam.getId());
     }     
     else
     {      
-      req.setAttribute("operators", new LinkedList<SprayOperatorViewDTO>());
+      req.setAttribute("members", new LinkedList<TeamMemberViewDTO>());
     }
   }
 
-  private List<SprayOperatorDTO> getTeamMembers(SprayOperatorDTO operator)
-  {
-    List<? extends SprayTeamDTO> teams = operator.getAllSprayTeam();
-    List<SprayOperatorDTO> operators = new LinkedList<SprayOperatorDTO>();
-
-    for (SprayTeamDTO team : teams)
-    {
-      operators.addAll(team.getAllSprayTeamMembers());
-    }
-    return operators;
-  }
-
-  private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, SprayOperatorDTO operator)
+  private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, TeamMemberDTO operator)
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
@@ -328,15 +357,11 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     }
   }
 
-  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method, String teamId, TeamMemberDTO operator) throws IOException, ServletException
   {
+    
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
-    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    
-    req.setAttribute("methods", methods);
-    req.setAttribute("brands", Arrays.asList(brands));
     req.setAttribute("brand", brand);
     req.setAttribute("method", method);
     req.setAttribute("date", date);
@@ -347,22 +372,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(clientRequest, geoId)));            
       req.setAttribute("geoId", geoId);
     }
-    else
-    {
-      req.setAttribute("teams", new LinkedList<SprayTeamDTO>());      
-    }
     
     if(teamId != null)
     {
       req.setAttribute("operators", Arrays.asList(SprayTeamDTO.getTeamMemberViews(clientRequest, teamId)));      
       req.setAttribute("teamId", teamId);      
     }
-    else
-    {
-      req.setAttribute("operators", new LinkedList<SprayOperatorViewDTO>());      
-    }
 
-    render("searchComponent.jsp");
+    this.search();
   }
 
 }

@@ -9,14 +9,25 @@
 
   HouseholdSprayStatusViewDTO[] rows = (HouseholdSprayStatusViewDTO[]) request.getAttribute("status");
   HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
-  view.setValue(HouseholdSprayStatusViewDTO.SPRAY, spray.getSprayId());
-
+  view.setValue(HouseholdSprayStatusViewDTO.SPRAY, spray.getConcreteId());
+  
   // If the order of these attributes are changed, you need to change the javascript indexes at the bottom!
-  String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
+  String[] attributes = {"ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+  
+  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+  map.put("ConcreteId", new ColumnSetup(true, false));
+  map.put("Spray", new ColumnSetup(true, false));
+  map.put("SprayData", new ColumnSetup(true, false));
+  map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
+  map.put("Structures", new ColumnSetup(false, true, "validateStructure", null, null));    
+  map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
+  map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
+  map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
+  map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
 %>
 
 
@@ -25,13 +36,13 @@
 <%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
 
 <%@page import="java.util.Map"%>
 <%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 
-<style type="text/css">
+
+<%@page import="java.util.Arrays"%><style type="text/css">
 .yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
 {
   vertical-align:bottom;
@@ -59,7 +70,7 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.OperatorSpray.form.name" id="dss.vector.solutions.irs.OperatorSpray.form.id" method="POST">
   <dl>
-    <mjl:input value="${item.sprayId}" type="hidden" param="id" />
+    <mjl:input value="${item.concreteId}" type="hidden" param="id" />
 
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
@@ -79,7 +90,9 @@
       </mjl:dt>
                 
       <mjl:dt attribute="teamLeader">
-        ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
+        <c:if test="${item.teamLeader != null}">
+          ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
+        </c:if>
       </mjl:dt>
       <mjl:dt attribute="surfaceType" >
         <c:if test="${surfaceType != null}">
@@ -106,30 +119,14 @@
 </span>
 
 
-<script type="text/javascript" defer="defer">
+<%=Halp.loadTypes(Arrays.asList(new String[]{HouseholdSprayStatusViewDTO.CLASS}))%>
 
-    var createButton = new YAHOO.widget.Button("StatusCreate", 
-      {
-        type:"link",
-        href:"dss.vector.solutions.irs.OperatorSprayController.search.mojo"
-      });
-
-    <%
-      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-      map.put("StatusId", new ColumnSetup(true, false));
-      map.put("Spray", new ColumnSetup(true, false));
-      map.put("SprayData", new ColumnSetup(true, false));
-      map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
-      map.put("Structures", new ColumnSetup(false, true, "validateStructure", null, null));    
-      map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
-      map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
-      map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
-      map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
-
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{HouseholdSprayStatusViewDTO.CLASS}, true));
-    %>
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){ 
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+
+    var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.OperatorSprayController.search.mojo"});
 
     var validateValue = function(oData) {
         var re = /^[0-1]$/;
@@ -145,90 +142,94 @@
     }
 
     var validateStructure = function(oData) {
-        var re = /^[1]$/;
+      var re = /^[1]$/;
         
-        // Validate
-        if(re.test(oData) || oData === "") {
-            return oData;
-        }
-        else {
-            alert(MDSS.localize("Value_Not_1"));
-            return undefined;
-        }
+      // Validate
+      if(re.test(oData) || oData === "") {
+        return oData;
+      }
+      else {
+        alert(MDSS.localize("Value_Not_1"));
+        return undefined;
+      }
     }
 
-    var beforeRowAdd = function() {        
+    var beforeRowAdd = function(event) {
+      if(event.getType() == MDSS.GridEvent.BEFORE_ROW_ADD) {
         YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+      }
     }
 
-    var afterRowAdd = function(record, index) {
-
-    	var request = new MDSS.Request({
-          record: record,
-          index: index,
+    var afterRowAdd = function(event) {
+      if(event.getType() == MDSS.GridEvent.AFTER_ROW_ADD) {
+        var value = event.getValue();
+        
+        var request = new MDSS.Request({
+          record: value.record,
+          index: value.index,
           data: data,
-          onSend: function(){},
-          onComplete: function(){},
           onSuccess: function(ids)
           {
-        	  this.record.setData("HouseholdId", ids[0]);
-        	  this.record.setData("StructureId", ids[1]);    
-        	  this.data.rows[index]['HouseholdId'] = ids[0];
-        	  this.data.rows[index]['StructureId'] = ids[0];
+            this.record.setData("HouseholdId", ids[0]);
+            this.record.setData("StructureId", ids[1]);    
+            this.data.rows[this.index]['HouseholdId'] = ids[0];
+            this.data.rows[this.index]['StructureId'] = ids[0];
 
-        	  this.data.myDataTable.render();
+            this.data.myDataTable.render();
           }
-      });
+        });
 
-      Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView.getGeneratedIds(request);        
+        Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView.getGeneratedIds(request);        
+      }
     }
     
-	var indexHouseholds = 4;
-	var indexStructures = 5;
-	var indexSprayedHouseholds = 6;
-	var indexSprayedStructures = 7;
-	var indexPrevSprayedHouseholds = 8;
-	var indexPrevSprayedStructures = 9;
-	var indexRooms = 10;
-	var indexPeople = 12;
-	var indexBedNets = 13;
-	var indexRoomsWithBedNets = 14;
-	var indexLocked = 15;
-	var indexRefused = 16;
-	var indexOther = 17;
-	
-	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
-	
+    var indexHouseholds = 4;
+    var indexStructures = 5;
+    var indexSprayedHouseholds = 6;
+    var indexSprayedStructures = 7;
+    var indexPrevSprayedHouseholds = 8;
+    var indexPrevSprayedStructures = 9;
+    var indexRooms = 10;
+    var indexPeople = 12;
+    var indexBedNets = 13;
+    var indexRoomsWithBedNets = 14;
+    var indexLocked = 15;
+    var indexRefused = 16;
+    var indexOther = 17;
+  
+    var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+  
     data = {
-              rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-              defaults:<%=Halp.getDefaultValues(view, attributes)%>,
-              div_id: "Status",
-              data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
-              saveFunction:"applyAll",
-              excelButtons:false
-          };
+      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
+      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
+      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      div_id: "Status",
+      data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
+      saveFunction:"applyAll",
+      excelButtons:false
+    };
 
     if (isMainSpray) {
-    	//delete data.columnDefs[indexHouseholds].editor;
-    	//delete data.columnDefs[indexStructures].editor;
-    	data.defaults.Households = 1;
-    	data.defaults.Structures = 1;
+      data.defaults.Households = 1;
+      data.defaults.Structures = 1;
     } else {
-    	delete data.columnDefs[indexHouseholds].editor;
-    	delete data.columnDefs[indexStructures].editor;
-    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-    	delete data.columnDefs[indexPrevSprayedStructures].editor;
-    	delete data.columnDefs[indexRooms].editor;
-    	delete data.columnDefs[indexPeople].editor;
-    	delete data.columnDefs[indexBedNets].editor;
-    	delete data.columnDefs[indexRoomsWithBedNets].editor;
-    	delete data.columnDefs[indexLocked].editor;
-    	delete data.columnDefs[indexRefused].editor;
-    	delete data.columnDefs[indexOther].editor;
+      delete data.columnDefs[indexHouseholds].editor;
+      delete data.columnDefs[indexStructures].editor;
+      delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+      delete data.columnDefs[indexPrevSprayedStructures].editor;
+      delete data.columnDefs[indexRooms].editor;
+      delete data.columnDefs[indexPeople].editor;
+      delete data.columnDefs[indexBedNets].editor;
+      delete data.columnDefs[indexRoomsWithBedNets].editor;
+      delete data.columnDefs[indexLocked].editor;
+      delete data.columnDefs[indexRefused].editor;
+      delete data.columnDefs[indexOther].editor;
     }    
-    
-    document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
+    var grid = MojoGrid.createDataTable(data);    
+    grid.addListener(afterRowAdd);
+    grid.addListener(beforeRowAdd);    
+  });
+})();
 </script>
 

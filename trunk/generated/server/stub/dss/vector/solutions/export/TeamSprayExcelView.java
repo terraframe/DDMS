@@ -3,19 +3,24 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
+import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
-import dss.vector.solutions.irs.SprayOperator;
+import dss.vector.solutions.irs.SprayMethod;
 import dss.vector.solutions.irs.SprayTeam;
+import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayView;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
@@ -26,6 +31,19 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
   public TeamSprayExcelView()
   {
     super();
+  }
+  
+  public SprayMethod getSprayMethodByLabel(String label)
+  {
+    for (SprayMethod e : SprayMethod.values())
+    {
+      if (e.getDisplayLabel().equals(label))
+      {
+        return e;
+      }
+    }
+    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
   }
 
   @Override
@@ -54,24 +72,45 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
         getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()),
         teamId);
 
-    if (tsv.getSprayId() == null || tsv.getSprayId().equals(""))
+    if (tsv.getConcreteId() == null || tsv.getConcreteId().equals(""))
     {
-      super.populate(tsv);
+      String leaderID = this.getLeaderId();
+      
+      if (leaderID != null && !leaderID.equals(""))
+      {
+        TeamMember leader = TeamMember.getMemberById(leaderID);
+
+        if(leader != null)
+        {
+          tsv.setTeamLeader(leader);
+        }
+        else
+        {
+          String msg = "Unknown team member [" + leaderID + "]";
+          throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
+        }
+      }
+      
+      tsv.setTeamSprayWeek(this.getTeamSprayWeek());
+      tsv.setTarget(this.getTarget());
+      tsv.setReceived(this.getReceived());
+      tsv.setRefills(this.getRefills());
+      tsv.setReturned(this.getReturned());
+      tsv.setUsed(this.getUsed());      
+      tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
       tsv.apply();
     }
 
     if (this.getOperatorId() != null && !this.getOperatorId().equals(""))
     {
-      TeamSpray teamSpray = TeamSpray.get(tsv.getSprayId());
-
       OperatorSprayStatusView view = new OperatorSprayStatusView();
-      view.setSprayOperator(SprayOperator.getByOperatorId(this.getOperatorId()));
+      view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       view.setOperatorSprayWeek(this.getOperatorSprayWeek());
       view.setReceived(this.getReceived());
       view.setRefills(this.getRefills());
       view.setReturned(this.getReturned());
       view.setUsed(this.getUsed());
-      view.setSprayData(teamSpray.getSprayData());
+      view.setSpray(TeamSpray.get(tsv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());

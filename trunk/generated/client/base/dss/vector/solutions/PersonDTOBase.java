@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -455536940)
+@com.terraframe.mojo.business.ClassSignature(hash = -1700109980)
 public abstract class PersonDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Person";
-  private static final long serialVersionUID = -455536940;
+  private static final long serialVersionUID = -1700109980;
   
   protected PersonDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -47,10 +47,9 @@ public abstract class PersonDTOBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SPRAYLEADERDELEGATE = "sprayLeaderDelegate";
-  public static java.lang.String SPRAYOPERATORDELEGATE = "sprayOperatorDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
   public static java.lang.String SUPERVISORDELEGATE = "supervisorDelegate";
+  public static java.lang.String TEAMMEMBERDELEGATE = "teamMemberDelegate";
   public static java.lang.String TYPE = "type";
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
@@ -744,94 +743,6 @@ public abstract class PersonDTOBase extends com.terraframe.mojo.business.Busines
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.irs.SprayLeaderDTO getSprayLeaderDelegate()
-  {
-    if(getValue(SPRAYLEADERDELEGATE) == null || getValue(SPRAYLEADERDELEGATE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.irs.SprayLeaderDTO.get(getRequest(), getValue(SPRAYLEADERDELEGATE));
-    }
-  }
-  
-  public void setSprayLeaderDelegate(dss.vector.solutions.irs.SprayLeaderDTO value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYLEADERDELEGATE, "");
-    }
-    else
-    {
-      setValue(SPRAYLEADERDELEGATE, value.getId());
-    }
-  }
-  
-  public boolean isSprayLeaderDelegateWritable()
-  {
-    return isWritable(SPRAYLEADERDELEGATE);
-  }
-  
-  public boolean isSprayLeaderDelegateReadable()
-  {
-    return isReadable(SPRAYLEADERDELEGATE);
-  }
-  
-  public boolean isSprayLeaderDelegateModified()
-  {
-    return isModified(SPRAYLEADERDELEGATE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayLeaderDelegateMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYLEADERDELEGATE).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.irs.SprayOperatorDTO getSprayOperatorDelegate()
-  {
-    if(getValue(SPRAYOPERATORDELEGATE) == null || getValue(SPRAYOPERATORDELEGATE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.irs.SprayOperatorDTO.get(getRequest(), getValue(SPRAYOPERATORDELEGATE));
-    }
-  }
-  
-  public void setSprayOperatorDelegate(dss.vector.solutions.irs.SprayOperatorDTO value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYOPERATORDELEGATE, "");
-    }
-    else
-    {
-      setValue(SPRAYOPERATORDELEGATE, value.getId());
-    }
-  }
-  
-  public boolean isSprayOperatorDelegateWritable()
-  {
-    return isWritable(SPRAYOPERATORDELEGATE);
-  }
-  
-  public boolean isSprayOperatorDelegateReadable()
-  {
-    return isReadable(SPRAYOPERATORDELEGATE);
-  }
-  
-  public boolean isSprayOperatorDelegateModified()
-  {
-    return isModified(SPRAYOPERATORDELEGATE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayOperatorDelegateMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYOPERATORDELEGATE).getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.stock.StockStaffDTO getStockStaffDelegate()
   {
     if(getValue(STOCKSTAFFDELEGATE) == null || getValue(STOCKSTAFFDELEGATE).trim().equals(""))
@@ -918,6 +829,50 @@ public abstract class PersonDTOBase extends com.terraframe.mojo.business.Busines
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSupervisorDelegateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISORDELEGATE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.irs.TeamMemberDTO getTeamMemberDelegate()
+  {
+    if(getValue(TEAMMEMBERDELEGATE) == null || getValue(TEAMMEMBERDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.TeamMemberDTO.get(getRequest(), getValue(TEAMMEMBERDELEGATE));
+    }
+  }
+  
+  public void setTeamMemberDelegate(dss.vector.solutions.irs.TeamMemberDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TEAMMEMBERDELEGATE, "");
+    }
+    else
+    {
+      setValue(TEAMMEMBERDELEGATE, value.getId());
+    }
+  }
+  
+  public boolean isTeamMemberDelegateWritable()
+  {
+    return isWritable(TEAMMEMBERDELEGATE);
+  }
+  
+  public boolean isTeamMemberDelegateReadable()
+  {
+    return isReadable(TEAMMEMBERDELEGATE);
+  }
+  
+  public boolean isTeamMemberDelegateModified()
+  {
+    return isModified(TEAMMEMBERDELEGATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTeamMemberDelegateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMMEMBERDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.MDSSUserDTO getUserDelegate()

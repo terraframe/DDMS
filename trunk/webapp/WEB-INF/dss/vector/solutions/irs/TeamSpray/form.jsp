@@ -8,13 +8,12 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%>
 
-<%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%><jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
     <mjl:component item="${item}" param="dto">
-      <mjl:input type="hidden" param="sprayId" value="${item.sprayId}" />      
+      <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />      
       <mjl:dt attribute="geoEntity">
         <mdss:geo param="geoEntity" value="${item.geoEntity}" political="false" populated="false" spray="true" />
       </mjl:dt>
@@ -43,12 +42,12 @@
         </mjl:select>
       </mjl:dt>      
       <mjl:dt attribute="teamLeader">       
-        <mjl:select var="current" valueAttribute="actorId" items="${operators}" id="leaderSelect" param="teamLeader">
-          <mjl:option selected="${item.teamLeader != null && current.actorId == item.teamLeader.id ? 'selected' : 'false'}">
-            ${current.operatorId} - ${current.lastName}, ${current.firstName}
+        <mjl:select var="current" valueAttribute="actorId" items="${members}" id="leaderSelect" param="teamLeader" includeBlank="true">
+          <mjl:option selected="${(leaderId != null && current.actorId == leaderId) ? 'selected' : 'false'}">
+            ${current.memberId} - ${current.lastName}, ${current.firstName}
           </mjl:option>
         </mjl:select>
-      </mjl:dt>              
+      </mjl:dt>        
       <mjl:dt attribute="surfaceType">
         <mdss:mo param="surfaceType" value="${surfaceType}"/>
       </mjl:dt>                  
@@ -56,21 +55,15 @@
       <mjl:dt attribute="target" type="text"/>
     </mjl:component>
 
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayOperatorViewDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS, TeamMemberViewDTO.CLASS}))%>
 
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   
-    var teamSelect = document.getElementById('teamSelect');
-    var leaderSelect = document.getElementById('leaderSelect');
-    var geoId = document.getElementById('geoIdEl');
+    var search = new MDSS.TeamSearch('geoIdEl', 'teamSelect', null, 'leaderSelect');
 
-    var search = new MDSS.TeamSearch(geoId, teamSelect, null, leaderSelect);
-
-    onValidGeoEntitySelected = function(){
-        search.populateSprayTeams();
+    Mojo.GLOBAL.onValidGeoEntitySelected = function(){
+      search.populateSprayTeams();
     }
   })
 })();

@@ -39,11 +39,7 @@ public class HouseholdSprayStatusTest extends TestCase
 
   private static GeoEntity        geoEntity        = null;
 
-  private static SprayData        data             = null;
-
-  private static SprayData        mopUp            = null;
-
-  private static SprayOperator    operator         = null;
+  private static TeamMember       operator         = null;
 
   private static OperatorSpray    spray            = null;
 
@@ -85,11 +81,9 @@ public class HouseholdSprayStatusTest extends TestCase
     spray.delete();
     operator.delete();
     person.delete();
-    SprayData.get(mopUp.getId()).delete();
-    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
-    
+
     activeIngredient.delete();
     surfaceType.delete();
     sex.delete();
@@ -117,22 +111,6 @@ public class HouseholdSprayStatusTest extends TestCase
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
-    data = new SprayData();
-    data.setBrand(brand);
-    data.setGeoEntity(geoEntity);
-    data.setSprayDate(new Date());
-    data.addSprayMethod(SprayMethod.MAIN_SPRAY);
-    data.setSurfaceType(surfaceType);
-    data.apply();
-
-    mopUp = new SprayData();
-    mopUp.setBrand(brand);
-    mopUp.setGeoEntity(geoEntity);
-    mopUp.setSprayDate(new Date());
-    mopUp.addSprayMethod(SprayMethod.MOP_UP);
-    mopUp.setSurfaceType(surfaceType);
-    mopUp.apply();
-
     person = new Person();
     person.setSex(sex);
     person.setDateOfBirth(new Date());
@@ -140,13 +118,17 @@ public class HouseholdSprayStatusTest extends TestCase
     person.setLastName("Smethie");
     person.apply();
 
-    operator = new SprayOperator();
-    operator.setOperatorId(TestConstants.OPERATOR_ID);
+    operator = new TeamMember();
+    operator.setMemberId(TestConstants.OPERATOR_ID);
     operator.setPerson(person);
     operator.apply();
 
     spray = new OperatorSpray();
-    spray.setSprayData(data);
+    spray.setBrand(brand);
+    spray.setGeoEntity(geoEntity);
+    spray.setSprayDate(new Date());
+    spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
+    spray.setSurfaceType(surfaceType);
     spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
@@ -158,7 +140,11 @@ public class HouseholdSprayStatusTest extends TestCase
     spray.apply();
 
     mopupSpray = new OperatorSpray();
-    mopupSpray.setSprayData(mopUp);
+    mopupSpray.setBrand(brand);
+    mopupSpray.setGeoEntity(geoEntity);
+    mopupSpray.setSprayDate(new Date());
+    mopupSpray.addSprayMethod(SprayMethod.MOP_UP);
+    mopupSpray.setSurfaceType(surfaceType);
     mopupSpray.setOperatorSprayWeek(2);
     mopupSpray.setReceived(2);
     mopupSpray.setRefills(3);
@@ -315,7 +301,7 @@ public class HouseholdSprayStatusTest extends TestCase
 
     try
     {
-      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status.getStatusId());
+      HouseholdSprayStatusView test = HouseholdSprayStatus.get(status.getConcreteId()).getView();
 
       assertNotNull(test);
       assertEquals(spray.getId(), test.getSpray().getId());
@@ -364,7 +350,7 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setStructureId(TestConstants.STRUCTURE_ID);
     status.apply();
 
-    HouseholdSprayStatusView edit = (HouseholdSprayStatusView) HouseholdSprayStatus.lockView(status.getStatusId());
+    HouseholdSprayStatusView edit = HouseholdSprayStatus.get(status.getConcreteId()).getView();
     edit.setHouseholds(1);
     edit.setStructures(1);
     edit.setSprayedHouseholds(1);
@@ -383,7 +369,7 @@ public class HouseholdSprayStatusTest extends TestCase
 
     try
     {
-      HouseholdSprayStatusView test = (HouseholdSprayStatusView) HouseholdSprayStatus.getView(status.getStatusId());
+      HouseholdSprayStatusView test = HouseholdSprayStatus.get(status.getConcreteId()).getView();
 
       assertNotNull(test);
       assertEquals(spray.getId(), test.getSpray().getId());
@@ -429,14 +415,11 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setOther(1);
     status.setRefused(3);
     status.apply();
-
-    String id = status.getStatusId();
-
     status.deleteConcrete();
 
     try
     {
-      HouseholdSprayStatus.getView(id);
+      HouseholdSprayStatus.get(status.getConcreteId());
 
       fail("Unabled to delete the concrete spray operator");
     }

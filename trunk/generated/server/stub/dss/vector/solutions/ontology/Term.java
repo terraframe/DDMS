@@ -1096,6 +1096,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     query.restrictRows(15, 1);
+    
+    System.out.println(query.getSQL());
 
     return query;
   }

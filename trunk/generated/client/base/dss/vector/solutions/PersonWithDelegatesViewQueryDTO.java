@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1175270480)
+@com.terraframe.mojo.business.ClassSignature(hash = 1564977195)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class PersonWithDelegatesViewQueryDTO extends dss.vector.solutions.PersonViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1175270480;
+private static final long serialVersionUID = 1564977195;
 
   protected PersonWithDelegatesViewQueryDTO(String type)
   {

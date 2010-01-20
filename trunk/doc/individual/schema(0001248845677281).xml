@@ -4,7 +4,7 @@
   <doIt>
   <update>
       <mdBusiness
-        name="dss.vector.solutions.irs.AbstractSpray">
+        name="dss.vector.solutions.irs.ZoneSpray">
         <mdMethod
           name="queryIRS">
           <create>

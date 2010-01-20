@@ -2,36 +2,6 @@
   xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <delete>
-      <object key="dss.vector.solutions.export.ActorSprayExcelView.leaderFirstName" type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
-      <object key="dss.vector.solutions.export.ActorSprayExcelView.leaderLastName" type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
-      <object key="dss.vector.solutions.export.OperatorSprayExcelView.operatorFirstName" type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
-      <object key="dss.vector.solutions.export.OperatorSprayExcelView.operatorLastName" type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
-    </delete>
-    <update>
-      <mdView
-        name="dss.vector.solutions.export.ActorSprayExcelView">
-        <create>
-          <attributes>
-            <char
-              name="leaderId"
-              label="Team Leader Id"
-              size="255" />
-          </attributes>
-        </create>
-      </mdView>
-      <mdView
-        name="dss.vector.solutions.export.OperatorSprayExcelView">
-        <create>
-          <attributes>
-            <char
-              name="operatorId"
-              label="Spray Operator Id"
-              size="255" />
-          </attributes>
-        </create>
-      </mdView>      
-    </update>
   </doIt>
   <undoIt>
     <delete></delete>

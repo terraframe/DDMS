@@ -81,7 +81,7 @@
         key="dss.vector.solutions.surveillance.AggregatedCase.xmlToValueQuery.thematicLayer"
         type="com.terraframe.mojo.system.metadata.MdParameter"/>      
       <object
-        key="dss.vector.solutions.irs.AbstractSpray.xmlToValueQuery.thematicLayer"
+        key="dss.vector.solutions.irs.ZoneSpray.xmlToValueQuery.thematicLayer"
         type="com.terraframe.mojo.system.metadata.MdParameter"/>      
       <object
         key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.xmlToValueQuery.thematicLayer"
@@ -90,7 +90,7 @@
         key="dss.vector.solutions.surveillance.AggregatedCase.mapQuery"
         type="com.terraframe.mojo.system.metadata.MdMethod"/>
       <object
-        key="dss.vector.solutions.irs.AbstractSpray.mapQuery"
+        key="dss.vector.solutions.irs.ZoneSpray.mapQuery"
         type="com.terraframe.mojo.system.metadata.MdMethod"/>
       <object
         key="dss.vector.solutions.intervention.monitor.SurveyPoint.mapQuery"

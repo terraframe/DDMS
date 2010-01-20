@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -909715120)
+@com.terraframe.mojo.business.ClassSignature(hash = 1971332454)
 public class OperatorSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.OperatorSprayController";
@@ -10,7 +10,7 @@ public class OperatorSprayControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -909715120;
+  private static final long serialVersionUID = 1971332454;
   
   public OperatorSprayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -151,15 +151,15 @@ public class OperatorSprayControllerBase implements com.terraframe.mojo.generati
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.OperatorSprayController.failSearch");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.irs.InsecticideBrandDTO:brand, java.lang.String:geoId, java.util.Date:date, java.lang.String:method, java.lang.String:teamId, dss.vector.solutions.irs.SprayOperatorDTO:operator", post=true)
-  public void searchByParameters(dss.vector.solutions.irs.InsecticideBrandDTO brand, java.lang.String geoId, java.util.Date date, java.lang.String method, java.lang.String teamId, dss.vector.solutions.irs.SprayOperatorDTO operator) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.irs.InsecticideBrandDTO:brand, java.lang.String:geoId, java.util.Date:date, java.lang.String:method, java.lang.String:teamId, dss.vector.solutions.irs.TeamMemberDTO:operator", post=true)
+  public void searchByParameters(dss.vector.solutions.irs.InsecticideBrandDTO brand, java.lang.String geoId, java.util.Date date, java.lang.String method, java.lang.String teamId, dss.vector.solutions.irs.TeamMemberDTO operator) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.OperatorSprayController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.OperatorSprayController.searchByParameters");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.irs.InsecticideBrandDTO:brand, java.lang.String:geoId, java.lang.String:date, java.lang.String:method, java.lang.String:teamId, dss.vector.solutions.irs.SprayOperatorDTO:operator", post=true)
-  public void failSearchByParameters(dss.vector.solutions.irs.InsecticideBrandDTO brand, java.lang.String geoId, java.lang.String date, java.lang.String method, java.lang.String teamId, dss.vector.solutions.irs.SprayOperatorDTO operator) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.irs.InsecticideBrandDTO:brand, java.lang.String:geoId, java.lang.String:date, java.lang.String:method, java.lang.String:teamId, dss.vector.solutions.irs.TeamMemberDTO:operator", post=true)
+  public void failSearchByParameters(dss.vector.solutions.irs.InsecticideBrandDTO brand, java.lang.String geoId, java.lang.String date, java.lang.String method, java.lang.String teamId, dss.vector.solutions.irs.TeamMemberDTO operator) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.OperatorSprayController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.irs.OperatorSprayController.failSearchByParameters");

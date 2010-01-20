@@ -4,7 +4,7 @@
 
 <%@page import="com.terraframe.mojo.business.ComponentQueryDTO"%>
 <%@page import="dss.vector.solutions.PersonWithDelegatesViewDTO"%>
-
+    
     <mjl:attributeColumn attributeName="firstName">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="lastName">
@@ -35,7 +35,7 @@
         <mjl:header>${sprayOperatorLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.sprayOperatorDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayOperator}"><fmt:message key="Yes" /></c:when>
             <c:otherwise><fmt:message key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
@@ -46,7 +46,7 @@
         <mjl:header>${sprayLeaderLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.sprayLeaderDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayLeader}"><fmt:message key="Yes" /></c:when>
             <c:otherwise><fmt:message key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>

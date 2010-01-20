@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1487273731)
+@com.terraframe.mojo.business.ClassSignature(hash = -1168058661)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class PersonQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1487273731;
+private static final long serialVersionUID = -1168058661;
 
   public PersonQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -439,52 +439,6 @@ private static final long serialVersionUID = -1487273731;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.Person.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate()
-  {
-    return getSprayLeaderDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayLeaderDelegate");
-
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SPRAYLEADERDELEGATE, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias, String displayLabel)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayLeaderDelegate");
-
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SPRAYLEADERDELEGATE, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate()
-  {
-    return getSprayOperatorDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayOperatorDelegate");
-
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SPRAYOPERATORDELEGATE, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias, String displayLabel)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayOperatorDelegate");
-
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SPRAYOPERATORDELEGATE, mdAttributeIF, this, alias, displayLabel);
-
-  }
   public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate()
   {
     return getStockStaffDelegate(null);
@@ -529,6 +483,29 @@ private static final long serialVersionUID = -1487273731;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("supervisorDelegate");
 
     return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.SUPERVISORDELEGATE, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate()
+  {
+    return getTeamMemberDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("teamMemberDelegate");
+
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.TEAMMEMBERDELEGATE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("teamMemberDelegate");
+
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.TEAMMEMBERDELEGATE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -655,14 +632,6 @@ private static final long serialVersionUID = -1487273731;
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sprayLeaderDelegate")) 
-    {
-       return new dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("sprayOperatorDelegate")) 
-    {
-       return new dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
     else if (name.equals("stockStaffDelegate")) 
     {
        return new dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -670,6 +639,10 @@ private static final long serialVersionUID = -1487273731;
     else if (name.equals("supervisorDelegate")) 
     {
        return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("teamMemberDelegate")) 
+    {
+       return new dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("userDelegate")) 
     {
@@ -778,18 +751,15 @@ private static final long serialVersionUID = -1487273731;
     public com.terraframe.mojo.query.AttributeChar getSiteMaster();
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate();
-    public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias);
-    public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias, String displayLabel);
-    public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate();
-    public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias);
-    public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias, String displayLabel);
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate();
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate(String alias);
     public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate(String alias, String displayLabel);
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate();
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias);
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel);
+    public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate();
+    public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias);
+    public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getType();
     public com.terraframe.mojo.query.AttributeChar getType(String alias);
     public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
@@ -817,7 +787,7 @@ private static final long serialVersionUID = -1487273731;
  implements PersonQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -281303905;
+private static final long serialVersionUID = -468388743;
 
   public PersonQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1176,40 +1146,6 @@ private static final long serialVersionUID = -281303905;
     return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
 
   }
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate()
-  {
-    return getSprayLeaderDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias)
-  {
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.attributeFactory("sprayLeaderDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF getSprayLeaderDelegate(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReferenceIF)this.attributeFactory("sprayLeaderDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
-
-  }
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate()
-  {
-    return getSprayOperatorDelegate(null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias)
-  {
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.attributeFactory("sprayOperatorDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
-
-  }
- 
-  public dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF getSprayOperatorDelegate(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReferenceIF)this.attributeFactory("sprayOperatorDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
-
-  }
   public dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF getStockStaffDelegate()
   {
     return getStockStaffDelegate(null);
@@ -1242,6 +1178,23 @@ private static final long serialVersionUID = -281303905;
   public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisorDelegate(String alias, String displayLabel)
   {
     return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.attributeFactory("supervisorDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate()
+  {
+    return getTeamMemberDelegate(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias)
+  {
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.attributeFactory("teamMemberDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamMemberDelegate(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.attributeFactory("teamMemberDelegate", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -1356,14 +1309,6 @@ private static final long serialVersionUID = -281303905;
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sprayLeaderDelegate")) 
-    {
-       return new dss.vector.solutions.irs.SprayLeaderQuery.SprayLeaderQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("sprayOperatorDelegate")) 
-    {
-       return new dss.vector.solutions.irs.SprayOperatorQuery.SprayOperatorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
     else if (name.equals("stockStaffDelegate")) 
     {
        return new dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1371,6 +1316,10 @@ private static final long serialVersionUID = -281303905;
     else if (name.equals("supervisorDelegate")) 
     {
        return new dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("teamMemberDelegate")) 
+    {
+       return new dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals("userDelegate")) 
     {

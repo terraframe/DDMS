@@ -79,12 +79,12 @@
           <mdMethod
             name="getTeamMembers"
             label="Get Team Members"
-            returnType="dss.vector.solutions.irs.SprayOperator[]"
+            returnType="dss.vector.solutions.irs.TeamMember[]"
             static="false" />
           <mdMethod
             name="getTeamMemberViews"
             label="Get Team Members"
-            returnType="dss.vector.solutions.irs.SprayOperatorView[]"
+            returnType="dss.vector.solutions.irs.TeamMemberView[]"
             static="false" />
           <mdMethod
             name="findByLocation"
@@ -184,13 +184,12 @@
           method="LeadsTeam" />
         <child
           cardinality="1"
-          name="dss.vector.solutions.irs.SprayLeader"
+          name="dss.vector.solutions.irs.TeamMember"
           method="TeamLeader" />
       </mdRelationship>
       <mdView
-        name="dss.vector.solutions.irs.SprayOperatorView"
-        label="Spray Operator View"
-        description="View for a Spray Operator">
+        name="dss.vector.solutions.irs.TeamMemberView"
+        label="Team Member">
         <attributes>
           <char
             name="actorId"
@@ -198,9 +197,9 @@
             size="255"
             required="true" />
           <char
-            name="operatorId"
-            label="Spray Operator ID"
-            description="Spray Operator ID"
+            name="memberId"
+            label="Member Id"
+            description="Member ID"
             size="64" />
           <virtual
             name="firstName"
@@ -222,18 +221,18 @@
             type="dss.vector.solutions.irs.SprayTeam" />
         </attributes>
         <mdMethod
-          name="getAll"
+          name="getAllOperators"
           label="Get All"
           description="Gets all Spray Operators"
           static="true"
-          returnType="dss.vector.solutions.irs.SprayOperatorView[]">
+          returnType="dss.vector.solutions.irs.TeamMemberView[]">
         </mdMethod>
         <mdMethod
-          name="getAllForTeam"
+          name="getAllOperatorsForTeam"
           label="Get All OperatorViews For SprayTeam"
           description="Returns views of all operators assigned to the given team"
           static="true"
-          returnType="dss.vector.solutions.irs.SprayOperatorView[]">
+          returnType="dss.vector.solutions.irs.TeamMemberView[]">
           <mdParameter
             name="sprayTeam"
             label="Spray Team"
@@ -268,7 +267,7 @@
         key="dss.vector.solutions.irs.LeadTeam"
         type="com.terraframe.mojo.system.metadata.MdRelationship" />
       <object
-        key="dss.vector.solutions.irs.SprayOperatorView"
+        key="dss.vector.solutions.irs.TeamMemberView"
         type="com.terraframe.mojo.system.metadata.MdView" />
     </delete>
   </undoIt>

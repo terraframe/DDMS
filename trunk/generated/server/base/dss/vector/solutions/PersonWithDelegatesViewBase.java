@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -251897881)
+@com.terraframe.mojo.business.ClassSignature(hash = -1997748638)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,12 +14,11 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
   public static java.lang.String IPTRECIPIENTDELEGATE = "iptRecipientDelegate";
   public static java.lang.String ITNRECIPIENTDELEGATE = "itnRecipientDelegate";
   public static java.lang.String PATIENTDELEGATE = "patientDelegate";
-  public static java.lang.String SPRAYLEADERDELEGATE = "sprayLeaderDelegate";
-  public static java.lang.String SPRAYOPERATORDELEGATE = "sprayOperatorDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
   public static java.lang.String SUPERVISORDELEGATE = "supervisorDelegate";
+  public static java.lang.String TEAMMEMBERDELEGATE = "teamMemberDelegate";
   public static java.lang.String USERDELEGATE = "userDelegate";
-  private static final long serialVersionUID = -251897881;
+  private static final long serialVersionUID = -1997748638;
   
   public PersonWithDelegatesViewBase()
   {
@@ -131,76 +130,6 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     }
   }
   
-  public dss.vector.solutions.irs.SprayLeader getSprayLeaderDelegate()
-  {
-    if (getValue(SPRAYLEADERDELEGATE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.irs.SprayLeader.get(getValue(SPRAYLEADERDELEGATE));
-    }
-  }
-  
-  public void validateSprayLeaderDelegate()
-  {
-    this.validateAttribute(SPRAYLEADERDELEGATE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSprayLeaderDelegateMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYLEADERDELEGATE);
-  }
-  
-  public void setSprayLeaderDelegate(dss.vector.solutions.irs.SprayLeader value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYLEADERDELEGATE, "");
-    }
-    else
-    {
-      setValue(SPRAYLEADERDELEGATE, value.getId());
-    }
-  }
-  
-  public dss.vector.solutions.irs.SprayOperator getSprayOperatorDelegate()
-  {
-    if (getValue(SPRAYOPERATORDELEGATE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.irs.SprayOperator.get(getValue(SPRAYOPERATORDELEGATE));
-    }
-  }
-  
-  public void validateSprayOperatorDelegate()
-  {
-    this.validateAttribute(SPRAYOPERATORDELEGATE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSprayOperatorDelegateMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYOPERATORDELEGATE);
-  }
-  
-  public void setSprayOperatorDelegate(dss.vector.solutions.irs.SprayOperator value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYOPERATORDELEGATE, "");
-    }
-    else
-    {
-      setValue(SPRAYOPERATORDELEGATE, value.getId());
-    }
-  }
-  
   public dss.vector.solutions.stock.StockStaff getStockStaffDelegate()
   {
     if (getValue(STOCKSTAFFDELEGATE).trim().equals(""))
@@ -268,6 +197,41 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     else
     {
       setValue(SUPERVISORDELEGATE, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.irs.TeamMember getTeamMemberDelegate()
+  {
+    if (getValue(TEAMMEMBERDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.TeamMember.get(getValue(TEAMMEMBERDELEGATE));
+    }
+  }
+  
+  public void validateTeamMemberDelegate()
+  {
+    this.validateAttribute(TEAMMEMBERDELEGATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getTeamMemberDelegateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
+    return mdClassIF.definesAttribute(TEAMMEMBERDELEGATE);
+  }
+  
+  public void setTeamMemberDelegate(dss.vector.solutions.irs.TeamMember value)
+  {
+    if(value == null)
+    {
+      setValue(TEAMMEMBERDELEGATE, "");
+    }
+    else
+    {
+      setValue(TEAMMEMBERDELEGATE, value.getId());
     }
   }
   
