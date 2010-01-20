@@ -1399,6 +1399,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             return row;
         	 */
            //row.attributeName += '.displayLabel.currentValue';
+        	 row.isEnum = true;
          }
         
          row.key = attrib.attributeName + this.suffix;

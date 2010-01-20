@@ -1363,11 +1363,16 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._whereValues = [];
       this._isAggregate = obj.isAggregate || false;
       this._isTerm = false;
+      this._isEnum = false;
       
       if(obj.isTerm){
       	this._isTerm = obj.isTerm;
       }
   
+      if(obj.isEnum){
+      	this._isEnum = obj.isEnum;
+      }
+      
       if(obj.key)
       {
         this._key=obj.key;
@@ -1467,9 +1472,15 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
         var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
         return new MDSS.QueryXML.Selectable(attribute);
       }
+      else if(this._isEnum && dereference)
+      {
+        var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
+        return new MDSS.QueryXML.Selectable(attribute);
+      }
       else if(dereference)
       {
         attrName = attrName + '.displayLabel.currentValue';
+        //attrName = attrName + '_displayLabel';
       }
   
       var attribute;
