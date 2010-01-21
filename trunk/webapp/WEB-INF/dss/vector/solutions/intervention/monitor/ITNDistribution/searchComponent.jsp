@@ -39,8 +39,18 @@
         <mjl:input type="text" param="batchNumber" />
       </mjl:dt>
       <mjl:dt attribute="person">
-        <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+        	<table>
+  		<tr>
+			<td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
+			<td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+        		<mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+        		</td><td>
         <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+        </td><td>
 
         <mjl:input type="hidden" param="person" id="person"/>
 
@@ -52,6 +62,8 @@
             <fmt:message key="Edit_recipient"/>        
           </span>
         </span>
+        </td>
+        </tr></table>
       </mjl:dt>
     </mjl:component>
 

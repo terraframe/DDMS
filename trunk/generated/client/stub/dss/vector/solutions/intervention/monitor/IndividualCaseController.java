@@ -303,6 +303,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   private void renderSearch(IndividualCaseViewDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
     render("searchComponent.jsp");
   }
 

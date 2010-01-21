@@ -346,6 +346,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     ClientRequestIF request = this.getClientRequest();
 
     req.setAttribute("item", new ITNDistributionViewDTO(request));
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
     render("searchComponent.jsp");
   }
 

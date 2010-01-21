@@ -38,21 +38,35 @@
     <label> ${item.patientMd.displayLabel} </label>
   </dt>
   <dd>
-      <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
-      <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
-      
-      <mjl:input type="hidden" param="personId" id="patient" value="${person != null ? person.personId : ''}"/>
-      <span class="clickable" id="recipient.span">
-        <span id="createPatient">
-          <fmt:message key="Create_new_Patient"/>        
-        </span>
-        <span id="editPatient" >
-          <fmt:message key="Edit_Patient"/>        
-        </span>
-      </span>
-     <mjl:messages attribute="personId">
-    <mjl:message/>
-  </mjl:messages>
+	<table>
+		<tr>
+			<td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
+			<td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+      			<mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+			</td>
+			<td>      
+      			<mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+			</td>
+			<td>
+      			<mjl:input type="hidden" param="personId" id="patient" value="${person != null ? person.personId : ''}"/>
+      			<span class="clickable" id="recipient.span">
+        			<span id="createPatient">
+          			<fmt:message key="Create_new_Patient"/>        
+        			</span>
+        			<span id="editPatient" >
+          			<fmt:message key="Edit_Patient"/>        
+        			</span>
+      			</span>
+     			<mjl:messages attribute="personId">
+    			<mjl:message/>
+  			</mjl:messages>
+			</td>
+		</tr>
+	</table>      
   </dd>
 
 <mjl:command name="searchPatient.button" value="Search"action="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.mojo" id="button.id" />

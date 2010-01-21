@@ -321,6 +321,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
+      req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
       render("searchComponent.jsp");
     }
   }

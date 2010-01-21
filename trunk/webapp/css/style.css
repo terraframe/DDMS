@@ -194,6 +194,11 @@ label {
 	color: #666666;
 }
 
+label.sublabel {
+	font-style: italic;
+	font-size: 12px;
+}
+
 dd {
 	margin-bottom: .75em;
 }
