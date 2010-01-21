@@ -114,7 +114,7 @@ YAHOO.util.Event.onDOMReady(function(){
       	displayLabel:"Resistance"
      };
 
-    var adultAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
+    var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var adultAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","sex","fed","gravid","holdingTime","mortality","kd50","kd95","controlTestMortality"]);
     var adultCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_adult', dropDownMaps:adultMaps});
@@ -122,7 +122,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var adultColumns =  collectionColumns.concat(adultAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps}));
     adultColumns.push(abstractCalculations);
 
-    var larvaeAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
+    var larvaeAssay = new  dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","startPoint","endPoint","controlTestMortality","lt50","lt95","mortality"]);
     var larvaeCalculations = ["quanityAlive","percentMortality"];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_larvae', dropDownMaps:adultMaps});
@@ -130,7 +130,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var larvaeColumns =  collectionColumns.concat(larvaeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvaeAssay, suffix:'_larvae', dropDownMaps:larvaeMaps}));
     larvaeColumns.push(abstractCalculations);
 
-    var knockDownAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay();
+    var knockDownAssay = new  dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = abstractAssayAttribs.concat(["sex","fed","gravid","kd50","kd95"]);
     var knockDownCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_knockDown', dropDownMaps:adultMaps});
@@ -138,21 +138,21 @@ YAHOO.util.Event.onDOMReady(function(){
     var knockDownColumns =  collectionColumns.concat(knockDownAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:knockDownAssay, suffix:'_knockDown', dropDownMaps:knockDownMaps}));
     knockDownColumns.push(abstractCalculations);
 
-    var pooledAssay = new  Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
+    var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var pooledAttribs = abstractAssayAttribs;
     var pooledCalulations = [];
-    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_adult', dropDownMaps:adultMaps});
-    collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_adult', dropDownMaps:insecticideMaps}));
-    var pooledColumns =  collectionColumns.concat(pooledAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps}));
+    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection', dropDownMaps:adultMaps});
+    collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_collection', dropDownMaps:insecticideMaps}));
+    var pooledColumns =  collectionColumns.concat(pooledAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pooledAssay, suffix:'_collection', dropDownMaps:adultMaps, type:'dss.vector.solutions.entomology.assay.CollectionAssay'}));
     pooledColumns.push(abstractCalculations);
 
     pooledColumns = pooledColumns.map(function(attrib){attrib.type = attrib.type.replace('AdultDiscriminatingDose','Collection');return attrib;});
 
     var selectableGroups = [
-              {title:"Adult_DDA", values:adultColumns, group:"adult", klass:Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
-              {title:"Larvae_DDA", values:larvaeColumns, group:"lavae", klass:Mojo.$.dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
-              {title:"Knock_Down_Assay", values:knockDownColumns, group:"knockDown", klass:Mojo.$.dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS},
-              {title:"Pooled_Assays", values:pooledColumns, group:"pooled", klass:Mojo.$.dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
+              {title:"Adult_DDA", values:adultColumns, group:"adult", klass:dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS},
+              {title:"Larvae_DDA", values:larvaeColumns, group:"lavae", klass:dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.CLASS},
+              {title:"Knock_Down_Assay", values:knockDownColumns, group:"knockDown", klass:dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS},
+              {title:"Pooled_Assays", values:pooledColumns, group:"pooled", klass:dss.vector.solutions.entomology.assay.CollectionAssay.CLASS},
     ];
 
     var query = new MDSS.QueryResistance(selectableGroups, queryList);
