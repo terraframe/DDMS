@@ -122,7 +122,13 @@ Mojo.Meta.newClass('MDSS.AssignedOperatorsSearch', { // Implements CallBack
      var sF = Mojo.Util.bind(this, this._searchFunction);
      var sEH = Mojo.Util.bind(this, this._selectEventHandler);
  
-     this.search = new MDSS.GenericSearch(this._searchEl, this._concreteEl, lF, dF, iF, sF, sEH);
+     this._search = new MDSS.GenericSearch(this._searchEl, this._concreteEl, lF, dF, iF, sF, sEH);
+     
+     YAHOO.util.Event.on(this._teamEl, 'change', this._resetCache, this, this);
+   },
+   
+   _resetCache : function() {
+     this._search.resetCache();
    },
 
    _searchFunction : function(request, value) {
