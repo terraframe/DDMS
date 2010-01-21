@@ -7,10 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
@@ -18,43 +20,17 @@ import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 
 public class ShapefileExporter implements Reloadable {
+	private static final String SHAPEFILE_EXTRACTION_CMD = "pgsql2shp";
 	private static final int BUFFER_SIZE = 4096;
 
-	/*
-	public class Layer {
-		String sql;
-		String name;
-		String geoField;
-
-		public Layer(String name, String sqlTableOrView, String geoField) {
-			this.name = name;
-			this.sql = sqlTableOrView;
-			this.geoField = geoField;
-		}
-
-		public String getSql() {
-			return sql;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getGeoField() {
-			return geoField;
-		}
-
-	}
-	*/
-	
 	public void export(List<Layer> layers, OutputStream output) {
 		File dir = this.createTempDir("shapefile");
 		if (dir != null) {
 			for (Layer layer : layers) {
-			  
-			  String name = layer.getLayerName();
-			  String dbView = layer.getViewName();
-			  
+
+				String name = layer.getLayerName();
+				String dbView = layer.getViewName();
+
 				this.pgsql2shp(dir, name, dbView);
 			}
 			this.zipDir(dir, output);
@@ -63,7 +39,7 @@ public class ShapefileExporter implements Reloadable {
 
 	private void zipDir(File dir, OutputStream output) {
 		ZipOutputStream zos = new ZipOutputStream(output);
-		
+
 		byte[] buffer = new byte[BUFFER_SIZE];
 
 		String[] dirList = dir.list();
@@ -80,10 +56,12 @@ public class ShapefileExporter implements Reloadable {
 			}
 			zos.finish();
 		} catch (FileNotFoundException e) {
-			// This should be impossible, since we're iterating over a directory listing
+			// This should be impossible, since we're iterating over a directory
+			// listing
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {  }
+		} finally {
+		}
 	}
 
 	private synchronized File createTempDir(String prefix) {
@@ -102,40 +80,57 @@ public class ShapefileExporter implements Reloadable {
 	}
 
 	private void pgsql2shp(File dir, String name, String viewName) {
-		String cmd[] = new String[13];
-		cmd[0] = "/usr/bin/pgsql2shp";
-		cmd[1] = "-f";
-		cmd[2] = name;
-		cmd[3] = "-g";
-		cmd[4] = QueryConstants.GEOMETRY_NAME_COLUMN;
-		cmd[5] = "-h";
-		cmd[6] = "localhost";
-		cmd[7] = "-u";
-		cmd[8] = "mdssdeploy";
-		cmd[9] = "-P";
-		cmd[10] = "mdssdeploy";
-		cmd[11] = "mdssdeploy";
-		cmd[12] = viewName;
+	    ArrayList<String> args = new ArrayList<String>();
+	    
+		args.add(DatabaseProperties.getDatabaseBinDirectory() + SHAPEFILE_EXTRACTION_CMD);
+		
+		// Output file name
+		args.add("-f");
+		args.add(name);
+		
+		// Column containing geodata
+		args.add("-g");
+		args.add(QueryConstants.GEOMETRY_NAME_COLUMN);
+		
+		// Host / port
+		args.add("-h");
+	    args.add(DatabaseProperties.getServerName());
+	    args.add("-p");
+	    args.add(Integer.toString(DatabaseProperties.getPort()));
 
-		String output = this.run(cmd, dir);
+	    // Username / password
+	    args.add("-u");
+	    args.add(DatabaseProperties.getUser());
+		args.add( "-P");
+	    args.add(DatabaseProperties.getPassword());
+
+		// Database name
+	    args.add(DatabaseProperties.getDatabaseName());
+	    
+	    // View/table name (or SQL)
+		args.add(viewName);
+
+	    ProcessBuilder pb = new ProcessBuilder(args);
+	    pb.directory(dir);
+		String output = this.run(pb);
 		System.out.println(output);
 	}
 
-	private String run(String[] command, File dir) {
-		Runtime rt = Runtime.getRuntime();
+	private String run(ProcessBuilder pb) {
+		this.print(pb);
 		StringBuilder sb = new StringBuilder();
 
 		String line = null;
 		int exitVal = 0;
 		try {
-			Process pr = rt.exec(command, new String[0], dir);
+			Process pr = pb.start();
 			BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 			while ((line = input.readLine()) != null) {
 				sb.append(line + "\n");
 			}
 			exitVal = pr.waitFor();
 		} catch (IOException e) {
-      throw new ProgrammingErrorException(e);
+			throw new ProgrammingErrorException(e);
 		} catch (InterruptedException e) {
 			// Do nothing);
 		}
@@ -147,4 +142,10 @@ public class ShapefileExporter implements Reloadable {
 		}
 	}
 
+	private void print(ProcessBuilder pb) {
+		for (String cmd: pb.command()) {
+			System.out.print(cmd + " ");
+		}
+		System.out.println();
+	}
 }
