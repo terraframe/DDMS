@@ -111,7 +111,7 @@ var checkForFF = function () {
 // Define private vars here.
   var downloadLink = "http://www.getfirefox.com";
   var agent = navigator.userAgent;
-  var is_firefox = /Firefox.3\.5/i.test(agent) || /Shiretoko.3/i.test(agent); // is IE6??
+  var is_firefox = /Firefox.3\.(5|6)/i.test(agent) || /Shiretoko.3/i.test(agent); // is IE6??
   var overlayColor  = "#000000";  // Change these to fit your color scheme.
   var lightboxColor = "#ffffff";  // " "
   var borderColor   = "#ff0000";  // " "
@@ -131,7 +131,7 @@ var lightboxContents =
    "<div style='text-align: center;'>" +
    "<div class='pageTitle'>Your Browser is Unsupported</div>" +
    "<br><br><br>" +
-   "Firefox 3.5 is required for proper function of MDSS " +
+   "Firefox 3.5 or greater is required for proper function of MDSS " +
    "<br><br><br>" +
    "Please <a style='color: #0000EE' href='" + downloadLink + "'>install Firefox 3.5</a>" +
    "</div>" +
