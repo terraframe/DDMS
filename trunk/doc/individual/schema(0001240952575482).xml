@@ -501,7 +501,8 @@
         name="dss.vector.solutions.irs.AbstractSpray"
         label="Abstract Spray"
         isAbstract="true"
-        extendable="true">
+        extendable="true"
+        generateController="false">
         <attributes>
           <reference
             name="geoEntity"
