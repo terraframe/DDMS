@@ -21,9 +21,8 @@
   Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
   map.put("ConcreteId", new ColumnSetup(true, false));
   map.put("Spray", new ColumnSetup(true, false));
-  map.put("SprayData", new ColumnSetup(true, false));
-  map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
-  map.put("Structures", new ColumnSetup(false, true, "validateStructure", null, null));    
+  map.put("Households", new ColumnSetup(true, false));    
+  map.put("Structures", new ColumnSetup(true, false));
   map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
   map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
   map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
@@ -115,7 +114,9 @@
 <div id="Status">
 </div>
 <span class="noprint dataTableButtons">
-<button type="button" id="StatusCreate"> <fmt:message key="Create_New_Operator_Spray_Button"/> </button>
+  <input type="text" id="#strucutresInput" size="5" value="1" />  
+  <button type="button" id="NewRow"> <fmt:message key="New_Rows"/> </button>
+  <button type="button" id="StatusCreate"> <fmt:message key="Create_New_Operator_Spray_Button"/> </button>
 </span>
 
 
@@ -126,8 +127,13 @@
   YAHOO.util.Event.onDOMReady(function(){ 
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
-    var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.OperatorSprayController.search.mojo"});
+    var structuresInput = document.getElementById('#strucutresInput');
 
+    var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.OperatorSprayController.search.mojo"});
+    var newRowButton = new YAHOO.widget.Button("NewRow");
+
+    var addRows = false;
+    
     var validateValue = function(oData) {
         var re = /^[0-1]$/;
         
@@ -154,33 +160,57 @@
       }
     }
 
-    var beforeRowAdd = function(event) {
-      if(event.getType() == MDSS.GridEvent.BEFORE_ROW_ADD) {
-        YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
+    var beforeRowHandler = function() {
+      addRows = true;
+      // Save the existing data before adding new rows
+      grid.persistData();
+    }
+
+    var dataListener = function(event) {
+      // Only add the new rows on a successful save
+      if(event.getType() == MDSS.GridEvent.AFTER_SAVE) {          
+        if(addRows == true) {
+          addNewRows();
+        }
+      }
+      else if (event.getType() == MDSS.GridEvent.AFTER_PROBLEM) {
+        addRows = false;
+      }
+      else if (event.getType() == MDSS.GridEvent.AFTER_FAILURE) {
+        addRows = false;
       }
     }
 
-    var afterRowAdd = function(event) {
-      if(event.getType() == MDSS.GridEvent.AFTER_ROW_ADD) {
-        var value = event.getValue();
-        
+    var addNewRows = function() {
+      var rows = structuresInput.value * 1;
+      if(Mojo.Util.isNumber(rows) && rows > 0) {
         var request = new MDSS.Request({
-          record: value.record,
-          index: value.index,
-          data: data,
-          onSuccess: function(ids)
-          {
-            this.record.setData("HouseholdId", ids[0]);
-            this.record.setData("StructureId", ids[1]);    
-            this.data.rows[this.index]['HouseholdId'] = ids[0];
-            this.data.rows[this.index]['StructureId'] = ids[0];
+            grid: grid,
+            data: data,
+            
+            onSuccess: function(ids)
+            {
+              var householdId = ids[0];
+              
+              for(var i = 0; i < rows; i++) {
+                var event = this.grid.addRow();
+                var record = event.getValue().record;
+                var index = event.getValue().index;
+                  
+                record.setData("HouseholdId", householdId);
+                record.setData("StructureId", i);
+                
+                this.data.rows[index]['HouseholdId'] = householdId;
+                this.data.rows[index]['StructureId'] = i;
+              }
+              
+              this.data.myDataTable.render();
+            }
+          });
 
-            this.data.myDataTable.render();
-          }
-        });
-
-        Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView.getGeneratedIds(request);        
-      }
+         Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView.getGeneratedIds(request);
+         addRows = false;         
+      }        
     }
     
     var indexHouseholds = 4;
@@ -206,13 +236,11 @@
       div_id: "Status",
       data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
       saveFunction:"applyAll",
-      excelButtons:false
+      excelButtons:false,
+      addButton:false
     };
 
-    if (isMainSpray) {
-      data.defaults.Households = 1;
-      data.defaults.Structures = 1;
-    } else {
+    if (!isMainSpray) {
       delete data.columnDefs[indexHouseholds].editor;
       delete data.columnDefs[indexStructures].editor;
       delete data.columnDefs[indexPrevSprayedHouseholds].editor;
@@ -226,9 +254,10 @@
       delete data.columnDefs[indexOther].editor;
     }    
 
-    var grid = MojoGrid.createDataTable(data);    
-    grid.addListener(afterRowAdd);
-    grid.addListener(beforeRowAdd);    
+    var grid = MojoGrid.createDataTable(data);
+    grid.addListener(dataListener);
+    
+    YAHOO.util.Event.on('NewRow', 'click', beforeRowHandler);       
   });
 })();
 </script>

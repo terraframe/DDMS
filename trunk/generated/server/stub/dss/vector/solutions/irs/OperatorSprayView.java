@@ -155,7 +155,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     
     HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getSpray().EQ(spray));
-    query.ORDER_BY_ASC(query.getCreateDate());
+    query.ORDER_BY_ASC(query.getHouseholdId());
+    query.ORDER_BY_ASC(query.getStructureId());
 
     OIterator<? extends HouseholdSprayStatus> it = query.getIterator();
 

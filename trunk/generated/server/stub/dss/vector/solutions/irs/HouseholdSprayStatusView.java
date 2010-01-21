@@ -114,8 +114,19 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   @Transaction
   public static HouseholdSprayStatusView[] applyAll(HouseholdSprayStatusView[] views)
   {
+    String householdId = "";
     for (HouseholdSprayStatusView view : views)
     {
+      if(!view.getHouseholdId().equals(householdId))
+      {
+        householdId = view.getHouseholdId();
+        view.setHouseholds(1);
+      }
+      else
+      {
+        view.setHouseholds(0);
+      }
+      
       view.apply();
     }
 

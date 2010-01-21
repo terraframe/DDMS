@@ -6,8 +6,8 @@ MojoGrid.limitTab = false;
 Mojo.Meta.newClass('MDSS.GridEvent', {
   Instance : {
     initialize : function(type, value) {
-    this.type = type;
-    this.value = value;
+      this.type = type;
+      this.value = value;
     },
     
     getType : function() {
@@ -20,7 +20,10 @@ Mojo.Meta.newClass('MDSS.GridEvent', {
   },
   Static : {
     AFTER_ROW_ADD : 1,
-    BEFORE_ROW_ADD : 2
+    BEFORE_ROW_ADD : 2,
+    AFTER_SAVE : 3,
+    AFTER_PROBLEM : 4,
+    AFTER_FAILURE : 5
   }
 });
 
@@ -631,7 +634,10 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
               if (this.tableData.after_save) {
                 this.tableData.after_save();
               }
+              
               this.thisRef.myDataTable.fireEvent("tableSaveEvent");
+              
+              this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_SAVE, {}));
             }
           }
         });
@@ -642,10 +648,19 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
            oldOnProblemExceptionDTO.apply(request, [e]);
           
           this.thisRef.enableSaveButton();
+          this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_PROBLEM, {}))
+        }
+        
+        var oldOnFailure = request.onFailure;
+        var newOnFailure = function(e) {
+          oldOnFailure.apply(request, [e]);
+          
+          this.thisRef.enableSaveButton();
+          this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_FAILURE, {}))
         }
 
         request.onProblemExceptionDTO = newOnProblemExceptionDTO;
-
+        request.onFailure = newOnFailure;
 
         var view_arr = this.createObjectRepresentation();
 
@@ -680,9 +695,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     // Execute before row add
       var event = new MDSS.GridEvent(MDSS.GridEvent.BEFORE_ROW_ADD, {});
           
-      for(var i = 0; i < this._listeners.length; i++) {
-        this._listeners[i](event);
-      }            
+      this.fireEvent(event);
 
       // Clear sort when necessary
       if (this.bReverseSorted) {
@@ -707,14 +720,20 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       this.enableSaveButton();
 
       // Execute after row add
-       var index = this.myDataTable.getRecordSet().getLength() - 1;
+      var index = this.myDataTable.getRecordSet().getLength() - 1;
       var record = this.myDataTable.getRecord(index);
       
       var event = new MDSS.GridEvent(MDSS.GridEvent.AFTER_ROW_ADD, {index:index, record:record});
       
+      this.fireEvent(event);
+      
+      return event;
+    },
+    
+    fireEvent : function(event) {       
       for(var i = 0; i < this._listeners.length; i++) {
         this._listeners[i](event);
-      }      
+      }    	
     },
     
     getDefaultValues : function() {

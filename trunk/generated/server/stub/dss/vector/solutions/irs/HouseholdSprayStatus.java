@@ -324,7 +324,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
-  
+
   private void validateOther(SprayMethod method)
   {
     if (this.getOther() != null)
@@ -400,42 +400,66 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     }
   }
 
-
   @Transaction
   public void apply()
   {
-    lock.lock();
+    SprayMethod method = this.getSprayMethod();
 
-    try
+    this.setStructures(1);
+
+    // Validate MOP-UP
+    validateHouseholds(method);
+    validateStructures(method);
+    validatePrevSprayedHouseholds(method);
+    validatePrevSprayedStructures(method);
+    validateRooms(method);
+    validatePeople(method);
+    validateBedNets(method);
+    validateRoomsWithBedNets(method);
+    validateLocked(method);
+    validateRefused(method);
+    validateOther(method);
+
+    // Validate values
+    validateSprayedHouseholds();
+    validateSprayedStructures();
+    validateSprayedRooms();
+
+    super.apply();
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    Integer _households = this.getHouseholds();
+    String _householdId = this.getHouseholdId();
+    String _id = this.getId();
+
+    super.delete();
+
+    if (_households != null && _households == 1)
     {
-      SprayMethod method = this.getSprayMethod();
+      lock.lock();
 
-      // Validate MOP-UP
-      validateHouseholds(method);
-      validateStructures(method);
-      validatePrevSprayedHouseholds(method);
-      validatePrevSprayedStructures(method);
-      validateRooms(method);
-      validatePeople(method);
-      validateBedNets(method);
-      validateRoomsWithBedNets(method);
-      validateLocked(method);
-      validateRefused(method);
-      validateOther(method);
+      try
+      {
+        HouseholdSprayStatus _other = HouseholdSprayStatus.getOther(_householdId, _id);
 
-      // Validate values
-      validateSprayedHouseholds();
-      validateSprayedStructures();
-      validateSprayedRooms();
-
-      super.apply();
+        if (_other != null)
+        {
+          _other.lock();
+          _other.setHouseholds(1);
+          _other.apply();
+        }
+      }
+      finally
+      {
+        lock.unlock();
+      }
     }
-    finally
-    {
-      lock.unlock();
-    }
-  }  
-  
+  }
+
   protected SprayMethod getSprayMethod()
   {
     List<SprayMethod> method = this.getSpray().getSprayMethod();
@@ -446,6 +470,30 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     }
 
     return null;
+  }
+
+  private static HouseholdSprayStatus getOther(String householdId, String id)
+  {
+    HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+    query.WHERE(query.getHouseholdId().EQ(householdId));
+    query.AND(query.getId().NE(id));
+
+    OIterator<? extends HouseholdSprayStatus> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+
   }
 
   private static HouseholdSprayStatus searchByHousehold(String householdId, Integer household)
