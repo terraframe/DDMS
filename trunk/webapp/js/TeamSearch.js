@@ -73,7 +73,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
 
         // Add blank option
         if(blank != null && blank == true) {
-       	  Selectbox.addOption(select, "", "", false);
+         Selectbox.addOption(select, "", "", false);
         }
         
         // Add the new options retrieved from the AJAX call
@@ -767,6 +767,11 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       if(this.index != null) {
         var option = this._getOption(this.index);
         
+        this._autocomplete.selectHandler(option);
+      }
+      else if (this.ul.children.length == 1) {
+        var option = this._getOption(0);
+      
         this._autocomplete.selectHandler(option);
       }
     },
