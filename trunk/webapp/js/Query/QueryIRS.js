@@ -21,35 +21,32 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       this._whereOptions = {};
       this._visibleAggregateSelectables = {};
 
-      this._sprayData = Mojo.$.dss.vector.solutions.irs.SprayData;
-      var sprayStatus = Mojo.$.dss.vector.solutions.irs.SprayStatus;
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._sprayData.CLASS, this._sprayData.SPRAYDATE, this._sprayData.SPRAYDATE);
-      this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
-      this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
+      var abstractSpray = dss.vector.solutions.irs.AbstractSpray;
 
       //this screen can query two diffrent classes, so we have a place to store the selected class
-      this._mainQueryClass = Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS;
+      this._mainQueryClass = abstractSpray.CLASS;
       
-    	this._groupByClass = Mojo.$.dss.vector.solutions.irs.SprayStatus;
+    	this._groupByClass = abstractSpray;
     	
-    	var sprayData = new this._sprayData;
+      var abstractSprayInstance = new dss.vector.solutions.irs.OperatorSpray();
 
-      this._commonQueryClasses = [Mojo.$.dss.vector.solutions.irs.SprayData.CLASS,
-                                  Mojo.$.dss.vector.solutions.irs.InsecticideBrand.CLASS,
-                                  Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS,
-                                  Mojo.$.dss.vector.solutions.irs.ActorSpray.CLASS];
+      this._commonQueryClasses = [];
       
       this._geoEntityAttribs = [
                                 {
-                                  keyName :  this._sprayData.CLASS+'.'+this._sprayData.GEOENTITY,
-                                  display :  sprayData.getGeoEntityMd().getDisplayLabel()
-                                },    
-                                
+                                  keyName :  abstractSpray.CLASS+'.' + abstractSpray.GEOENTITY,
+                                  display :  abstractSprayInstance.getGeoEntityMd().getDisplayLabel()
+                                },                                    
                               ];
+      this._dateAttribs = [
+                           {
+                          	 klass :  dss.vector.solutions.irs.OperatorSpray,
+                             accessor : abstractSpray.SPRAYDATE,
+                           }
+                          ];
+      
 
       this._exclusionClasses = [];
-
-      //this._dataQueryFunction = Mojo.$.dss.vector.solutions.irs.AbstractSpray.queryIRS;
 
       this._queryType = this._mainQueryClass;
 

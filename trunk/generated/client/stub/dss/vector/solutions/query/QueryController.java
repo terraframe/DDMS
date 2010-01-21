@@ -64,6 +64,8 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
+import dss.vector.solutions.irs.AbstractSprayDTO;
+import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
@@ -83,48 +85,48 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class QueryController extends QueryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long   serialVersionUID       = 1237863171352L;
+  private static final long   serialVersionUID                 = 1237863171352L;
 
-  private static final String QUERY_ENTOMOLOGY       = "/WEB-INF/queryScreens/queryEntomology.jsp";
+  private static final String QUERY_ENTOMOLOGY                 = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
-  private static final String QUERY_RESISTANCE       = "/WEB-INF/queryScreens/queryResistance.jsp";
+  private static final String QUERY_RESISTANCE                 = "/WEB-INF/queryScreens/queryResistance.jsp";
 
-  private static final String QUERY_IRS              = "/WEB-INF/queryScreens/queryIRS.jsp";
+  private static final String QUERY_IRS                        = "/WEB-INF/queryScreens/queryIRS.jsp";
 
-  private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
+  private static final String QUERY_AGGREGATED_CASES           = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
 
-  private static final String QUERY_AGGREGATED_IPT   = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
+  private static final String QUERY_AGGREGATED_IPT             = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
-  private static final String QUERY_INDIVIDUAL_IPT   = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
-  
-  private static final String QUERY_INDIVIDUAL_CASES = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
+  private static final String QUERY_INDIVIDUAL_IPT             = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
 
-  private static final String QUERY_SURVEY           = "/WEB-INF/queryScreens/querySurvey.jsp";
-  
-  private static final String QUERY_STOCK            = "/WEB-INF/queryScreens/queryStock.jsp";
-  
-  private static final String QUERY_LARVACIDE        = "/WEB-INF/queryScreens/queryLarvacide.jsp";
+  private static final String QUERY_INDIVIDUAL_CASES           = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
 
-  private static final String NEW_QUERY              = "/WEB-INF/queryScreens/newQuery.jsp";
+  private static final String QUERY_SURVEY                     = "/WEB-INF/queryScreens/querySurvey.jsp";
 
-  private static final String QUERY_EFFICACY_ASSAY   = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
-  
-  private static final String QUERY_ITN_COMMUNITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNCommunityDistribution.jsp";
-  
+  private static final String QUERY_STOCK                      = "/WEB-INF/queryScreens/queryStock.jsp";
+
+  private static final String QUERY_LARVACIDE                  = "/WEB-INF/queryScreens/queryLarvacide.jsp";
+
+  private static final String NEW_QUERY                        = "/WEB-INF/queryScreens/newQuery.jsp";
+
+  private static final String QUERY_EFFICACY_ASSAY             = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
+
+  private static final String QUERY_ITN_COMMUNITY_DISTRIBUTION = "/WEB-INF/queryScreens/queryITNCommunityDistribution.jsp";
+
   private static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNFacilityDistribution.jsp";
-  
-  private static final String QUERY_AGGREGATED_ITN = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
-  
-  private static final String QUERY_MOSQUITO_COLLECTIONS = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
+
+  private static final String QUERY_AGGREGATED_ITN             = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
+
+  private static final String QUERY_MOSQUITO_COLLECTIONS       = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
-  
+
   /**
-   * Loads information common to query screens, including the Earth node for 061 and all available
-   * queries for the given query screen.
+   * Loads information common to query screens, including the Earth node for 061
+   * and all available queries for the given query screen.
    * 
    * @param queryClass
    * @param queryType
@@ -134,7 +136,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     ClientRequestIF request = this.getClientRequest();
     String namespacedType = QueryConstants.namespaceQuery(queryClass, queryType);
-    
+
     SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, namespacedType);
     JSONArray queries = new JSONArray();
     for (SavedSearchViewDTO view : query.getResultSet())
@@ -145,13 +147,13 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       queries.put(idAndName);
     }
-    
+
     JSONObject queryList = new JSONObject();
     queryList.put("queries", queries);
     queryList.put("namespacedType", namespacedType);
-    
+
     req.setAttribute("queryList", queryList.toString());
-    
+
     // The Earth is the root. FIXME use country's default root
     EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
@@ -163,7 +165,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(SurveyPointDTO.CLASS, QueryConstants.QueryType.QUERY_INDICATOR_SURVEY);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
@@ -171,31 +173,30 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       // locations
       JSONObject location = new JSONObject();
       location.put("type", TermDTO.CLASS);
-      //location.put("label", MDSSProperties.getObject("Locations"));
+      // location.put("label", MDSSProperties.getObject("Locations"));
       location.put("relType", SurveyedPersonTreatmentLocationDTO.CLASS);
       location.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
-      location.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYLOCATIONS));
+      location.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYLOCATIONS));
       ordered.put("locations", location);
 
       // Treatment
       JSONObject treatment = new JSONObject();
       treatment.put("type", TermDTO.CLASS);
-      //treatment.put("label", MDSSProperties.getObject("Treatments"));
+      // treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", SurveyedPersonTreatmentDTO.CLASS);
       treatment.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
-      treatment.put("options",getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYTREATMENTS));
+      treatment.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
-      
+
       ClassQueryDTO surveyedPerson = request.getQuery(SurveyedPersonDTO.CLASS);
       String surveyedPersonMap = Halp.getDropDownMaps(surveyedPerson, request, ", ");
-      req.setAttribute("surveyedPersonMap", surveyedPersonMap); 
-      
+      req.setAttribute("surveyedPersonMap", surveyedPersonMap);
+
       ClassQueryDTO iTNInstance = request.getQuery(ITNInstanceDTO.CLASS);
       String itnMap = Halp.getDropDownMaps(iTNInstance, request, ", ");
       req.setAttribute("itnMap", itnMap);
-      
 
       ClassQueryDTO householdQuery = request.getQuery(HouseholdDTO.CLASS);
       String householdMap = Halp.getDropDownMaps(householdQuery, request, ", ");
@@ -296,11 +297,11 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
-      
+
       AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientRequest());
       JSONArray groups = new JSONArray();
       for (AggregatedAgeGroupDTO ageGroup : ageGroups)
-        // Age groups
+      // Age groups
       {
         JSONObject group = new JSONObject();
         group.put("id", ageGroup.getId());
@@ -322,8 +323,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       {
         AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
 
-        if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO ) && ! ( attributeDTO instanceof AttributeStructDTO ) && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
-            && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
+        if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO ) && ! ( attributeDTO instanceof AttributeStructDTO ) && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY) && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
         {
           JSONObject json = new JSONObject();
           json.put("attributeName", visibleAttribute);
@@ -419,9 +419,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       }
     }
   }
-  
-  private JSONArray getAllTermsForGrid(ClientRequestIF request ,String klass, String attribute) throws JSONException{
-    JSONArray array =  new JSONArray();
+
+  private JSONArray getAllTermsForGrid(ClientRequestIF request, String klass, String attribute) throws JSONException
+  {
+    JSONArray array = new JSONArray();
     for (TermDTO term : TermDTO.getAllTermsForField(request, klass, attribute))
     {
       JSONObject option = new JSONObject();
@@ -434,7 +435,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
     return array;
   }
-  
 
   @Override
   public void newQuery() throws IOException, ServletException
@@ -461,7 +461,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(AggregatedIPTDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_IPT);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -471,9 +471,9 @@ public class QueryController extends QueryControllerBase implements com.terrafra
 
       JSONObject ordered = new JSONObject();
 
-//      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
+      // Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
 
-//      AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
+      // AggregatedIPTViewDTO av = new AggregatedIPTViewDTO(request);
 
       // Patients
       JSONObject patients = new JSONObject();
@@ -481,7 +481,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       patients.put("label", MDSSProperties.getObject("Facility_referred"));
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
-      patients.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
+      patients.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
       ordered.put("patients", patients);
 
       // Doses
@@ -490,7 +490,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       doses.put("label", MDSSProperties.getObject("Diagnostic_methods"));
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
-      doses.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
+      doses.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
       ordered.put("doses", doses);
 
       // Visits
@@ -499,7 +499,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       visits.put("label", MDSSProperties.getObject("Treatment_methods"));
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
-      visits.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
+      visits.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
       ordered.put("visits", visits);
 
       // Treatment
@@ -508,7 +508,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
-      treatment.put("options",getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
+      treatment.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -521,7 +521,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
 
   @Override
   public void queryAggregatedITN() throws IOException, ServletException
@@ -529,7 +528,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(ITNDataDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_ITN);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
@@ -542,7 +541,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       patients.put("label", itn.getDisplayNetsMd().getDisplayLabel());
       patients.put("relType", ITNNetDTO.CLASS);
       patients.put("relAttribute", ITNNetDTO.AMOUNT);
-      patients.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYNETS));
+      patients.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYNETS));
       ordered.put("nets", patients);
 
       // Target Groups
@@ -551,7 +550,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       doses.put("label", itn.getDisplayTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNTargetGroupDTO.AMOUNT);
-      doses.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYTARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYTARGETGROUPS));
       ordered.put("targetGroups", doses);
 
       // Visits
@@ -560,10 +559,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       visits.put("label", itn.getDisplayServicesMd().getDisplayLabel());
       visits.put("relType", ITNServiceDTO.CLASS);
       visits.put("relAttribute", ITNServiceDTO.AMOUNT);
-      visits.put("options",getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYSERVICES));
+      visits.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYSERVICES));
       ordered.put("services", visits);
-
-    
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -575,21 +572,21 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
+
   @Override
   public void queryITNCommunityDistribution() throws IOException, ServletException
   {
     try
     {
       loadQuerySpecifics(ITNCommunityDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_COMMUNITY_DISTRIBUTION);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
 
       ITNCommunityDistributionViewDTO itnView = new ITNCommunityDistributionViewDTO(request);
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO itn = request.getQuery(ITNCommunityDistributionDTO.CLASS);
       String itnMap = Halp.getDropDownMaps(itn, request, ", ");
       req.setAttribute("itnMap", itnMap);
@@ -600,7 +597,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       patients.put("label", itnView.getDisplayNetsMd().getDisplayLabel());
       patients.put("relType", ITNCommunityNetDTO.CLASS);
       patients.put("relAttribute", ITNCommunityNetDTO.AMOUNT);
-      patients.put("options",getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYNETS));
+      patients.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYNETS));
       ordered.put("nets", patients);
 
       // Target Groups
@@ -609,10 +606,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       doses.put("label", itnView.getDisplayTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNCommunityTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNCommunityTargetGroupDTO.AMOUNT);
-      doses.put("options",getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS));
       ordered.put("targetGroups", doses);
-
-     
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -624,7 +619,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
 
   @Override
   public void queryITNDistribution() throws IOException, ServletException
@@ -632,19 +626,17 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(ITNDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_FACILITY_DISTRIBUTION);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
 
       ITNDistributionViewDTO itnView = new ITNDistributionViewDTO(request);
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO itn = request.getQuery(ITNDistributionTargetGroupDTO.CLASS);
       String itnMap = Halp.getDropDownMaps(itn, request, ", ");
       req.setAttribute("itnMap", itnMap);
-
-
 
       // Target Groups
       JSONObject doses = new JSONObject();
@@ -652,10 +644,8 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       doses.put("label", itnView.getTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNDistributionTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNDistributionTargetGroupDTO.AMOUNT);
-      doses.put("options",getAllTermsForGrid(request, ITNDistributionViewDTO.CLASS, ITNDistributionViewDTO.TARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNDistributionViewDTO.CLASS, ITNDistributionViewDTO.TARGETGROUPS));
       ordered.put("targetGroups", doses);
-
-     
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -667,20 +657,19 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
+
   public void queryMosquitoCollections() throws IOException, ServletException
   {
     try
     {
       loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
-      // Load label map 
+      // Load label map
       ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
       String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
       req.setAttribute("collectionMaps", collectionMap);
-
 
       req.getRequestDispatcher(QUERY_MOSQUITO_COLLECTIONS).forward(req, resp);
 
@@ -690,7 +679,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
+
   /**
    * Creates the screen to query IndividualIPT
    */
@@ -700,7 +689,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(IndividualIPTDTO.CLASS, QueryConstants.QueryType.QUERY_INDIVIDUAL_IPT);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -717,7 +706,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-  
   /**
    * Creates the screen to query stock
    */
@@ -727,7 +715,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(StockItemDTO.CLASS, QueryConstants.QueryType.QUERY_STOCK);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -743,7 +731,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
 
   /**
    * Creates the screen to query larvacide
@@ -754,7 +741,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(LarvacideDTO.CLASS, QueryConstants.QueryType.QUERY_LARVACIDE);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -770,8 +757,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
-  
+
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
@@ -781,16 +767,15 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(IndividualCaseDTO.CLASS, QueryConstants.QueryType.QUERY_INDIVIDUAL_CASES);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
-      // Load label map 
+      // Load label map
       ClassQueryDTO iInstance = request.getQuery(IndividualInstanceDTO.CLASS);
       String instanceMap = Halp.getDropDownMaps(iInstance, request, ", ");
       req.setAttribute("instanceMaps", instanceMap);
 
       JSONObject ordered = new JSONObject();
-      
 
       // Treatment
       JSONObject symptoms = new JSONObject();
@@ -822,8 +807,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       throw new ApplicationException(t);
     }
   }
-  
-  
 
   @Override
   public void queryEfficacyAssay() throws IOException, ServletException
@@ -831,7 +814,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(EfficacyAssayDTO.CLASS, QueryConstants.QueryType.QUERY_EFFICACY_ASSAY);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -857,35 +840,34 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_ENTOMOLOGY);
-      
+
       ClientRequestIF request = this.getClientRequest();
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO collectionQuery = request.getQuery(MosquitoCollectionDTO.CLASS);
       String collectionMap = Halp.getDropDownMaps(collectionQuery, request, ", ");
       req.setAttribute("collectionMaps", collectionMap);
-      
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO infectionQuery = request.getQuery(InfectionAssayDTO.CLASS);
       String infectionMap = Halp.getDropDownMaps(infectionQuery, request, ", ");
       req.setAttribute("infectionMaps", infectionMap);
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO pooledInfectionQuery = request.getQuery(PooledInfectionAssayDTO.CLASS);
       String pooledInfectionMap = Halp.getDropDownMaps(pooledInfectionQuery, request, ", ");
       req.setAttribute("pooledInfectionMaps", pooledInfectionMap);
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO biochemicalQuery = request.getQuery(BiochemicalAssayDTO.CLASS);
       String biochemicalMap = Halp.getDropDownMaps(biochemicalQuery, request, ", ");
       req.setAttribute("biochemicalMaps", biochemicalMap);
-      
-      // Load label map 
+
+      // Load label map
       ClassQueryDTO molecularQuery = request.getQuery(MolecularAssayDTO.CLASS);
       String molecularMap = Halp.getDropDownMaps(molecularQuery, request, ", ");
       req.setAttribute("molecularMaps", molecularMap);
-      
+
       req.getRequestDispatcher(QUERY_ENTOMOLOGY).forward(req, resp);
 
     }
@@ -904,7 +886,7 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     try
     {
       loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_RESISTANCE);
-      
+
       ClientRequestIF request = this.getClientRequest();
 
       // Load label map for Adult Discriminating Dose Assay
@@ -943,25 +925,14 @@ public class QueryController extends QueryControllerBase implements com.terrafra
   {
     try
     {
-//      loadQuerySpecifics(SprayStatusDTO.CLASS, QueryConstants.QueryType.QUERY_IRS);
-      
-//      ClientRequestIF request = this.getClientRequest();
+      loadQuerySpecifics(AbstractSprayDTO.CLASS, QueryConstants.QueryType.QUERY_IRS);
+
+      ClientRequestIF request = this.getClientRequest();
 
       // Load label map for spray data
-      // ClassQueryDTO sprayData = request.getQuery(SprayDataDTO.CLASS);
-      // String sprayDataMap = Halp.getDropDownMaps(sprayData, request, ", ");
-      // req.setAttribute("sprayDataMap", sprayDataMap);
-
-      // Load label map for InsecticdeBrand
-      // ClassQueryDTO insecticideBrand =
-      // request.getQuery(InsecticideBrandViewDTO.CLASS);
-      // String insecticideMap = Halp.getDropDownMaps(insecticideBrand, request,
-      // ", ");
-
-      // InsecticideBrandViewDTO brandView = new
-      // InsecticideBrandViewDTO(request);
-      // String insecticideMap = Halp.getDropDownMaps(brandView, request);
-      // req.setAttribute("insecticideBrandMap", insecticideMap);
+      ClassQueryDTO operatorSpray = request.getQuery(OperatorSprayDTO.CLASS);
+      String sprayDataMap = Halp.getDropDownMaps(operatorSpray, request, ", ");
+      req.setAttribute("operatorSprayMap", sprayDataMap);
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
 
@@ -972,13 +943,12 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-
-//  @Override
+  // @Override
   public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = QueryBuilderDTO.exportQueryToCSV(this.getClientRequest(),className, queryXML, config, savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToCSV(this.getClientRequest(), className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -990,12 +960,12 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     }
   }
 
-//  @Override
+  // @Override
   public void exportQueryToExcel(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(),className, queryXML, config, savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(), className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -1074,7 +1044,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException

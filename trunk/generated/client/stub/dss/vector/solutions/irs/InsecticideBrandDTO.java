@@ -2,9 +2,7 @@ package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.LabeledDTO;
-
-public class InsecticideBrandDTO extends InsecticideBrandDTOBase implements Reloadable, LabeledDTO
+public class InsecticideBrandDTO extends InsecticideBrandDTOBase implements Reloadable
 {
   private static final long serialVersionUID = 1240597944499L;
 

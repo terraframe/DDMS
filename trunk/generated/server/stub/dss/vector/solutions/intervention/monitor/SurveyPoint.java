@@ -178,6 +178,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       it.close();
     }
   }
+  
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.

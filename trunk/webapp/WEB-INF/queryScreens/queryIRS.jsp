@@ -31,7 +31,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.general.InsecticideDTO"%>
 <%@page import="com.terraframe.mojo.business.BusinessDTO"%>
-<%@page import="dss.vector.solutions.irs.ActorSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.ZoneSprayDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayDTO"%>
@@ -44,14 +43,14 @@
 <%@page import="dss.vector.solutions.irs.ZoneSprayViewDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InsecticideBrandViewDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
-<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayDataDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 
-<%@page import="dss.vector.solutions.irs.ActorSprayDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
+
+<%@page import="dss.vector.solutions.irs.OperatorSprayStatusDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamSprayStatusDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamSprayViewDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -59,17 +58,21 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] sprayTypes = new String[]{InsecticideBrandViewDTO.CLASS,
+    String[] sprayTypes = new String[]{
+    InsecticideBrandViewDTO.CLASS,
     InsecticideBrandDTO.CLASS,
-    SprayDataDTO.CLASS,
-    SprayStatusDTO.CLASS,
+    HouseholdSprayStatusDTO.CLASS,
+    OperatorSprayStatusDTO.CLASS,
+    TeamSprayStatusDTO.CLASS,
     ZoneSprayDTO.CLASS,
-    ActorSprayDTO.CLASS,
-    OperatorSprayDTO.CLASS
-    //TeamSprayStatusViewDTO.CLASS,
-    //TeamSprayView.CLASS,ZoneSprayViewDTO.CLASS,
-    //OperatorSprayStatusViewDTO.CLASS,OperatorSprayViewDTO.CLASS,
-    //HouseholdSprayStatusViewDTO.CLASS,
+    TeamSprayDTO.CLASS,
+    OperatorSprayDTO.CLASS,
+    HouseholdSprayStatusViewDTO.CLASS,
+    OperatorSprayStatusViewDTO.CLASS,
+    TeamSprayStatusViewDTO.CLASS,
+    ZoneSprayViewDTO.CLASS,
+    TeamSprayViewDTO.CLASS,
+    OperatorSprayViewDTO.CLASS
     };
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
@@ -78,14 +81,9 @@
     loadables.addAll(Arrays.asList(sprayTypes));
     loadables.addAll(Arrays.asList(queryTypes));
 
-
 %>
 
 <%=Halp.loadTypes(loadables)%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayStatusViewDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{ActorSprayStatusViewDTO.CLASS}))%>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{TeamSprayStatusViewDTO.CLASS}))%>
 
 <script type="text/javascript">
 
@@ -109,45 +107,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    //var sprayMaps = {<%//=(String) request.getAttribute("sprayStatusMap")%>};
-
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name';
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.type;
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        if(this.dropDownMaps[attrib.attributeName]){
-          row.dropDownMap = this.dropDownMaps[attrib.attributeName];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlcharacter';
-        row.displayLabel = attribName;
-        row.key = attribName;
-      }
-      return row;
-    }
-
-
-    var sprayStatus = new Mojo.$.dss.vector.solutions.irs.TeamSprayStatusView();
-    var sprayData = new Mojo.$.dss.vector.solutions.irs.SprayData();
-    var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrandView();
-
+    var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrand();
 
     var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
-    var actorSprayAtribs = ["refills","received","used","returned"];
 
     var Insecticide_Details = insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat([
@@ -184,7 +146,10 @@ YAHOO.util.Event.onDOMReady(function(){
                                                        }
                                                     ]);
 
-     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
+//     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
+    var abstractSpray = new Mojo.$.dss.vector.solutions.irs.OperatorSpray();
+    var abstractSprayAtribs = ["geoEntity","sprayMethod","surfaceType", "sprayDate"];
+    var operatorSprayMap = {<%=(String) request.getAttribute("operatorSprayMap")%>};
 
     var Spray_Details = ([
                           {
@@ -198,15 +163,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     //var sprayStatus = new Mojo.$.dss.vector.solutions.irs.SprayStatusView();
-    var sprayDataAttribs = ["sprayDate", "sprayMethod", "surfaceType"];
-    var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
+    //var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
 
-    Spray_Details = Spray_Details.concat(sprayDataAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayData, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayData'}));
-    Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
+    Spray_Details = Spray_Details.concat(abstractSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:abstractSpray, suffix:'_spray', dropDownMaps:operatorSprayMap, type:'dss.vector.solutions.irs.AbstractSpray'}));
+    //Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
 
 
-    var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
-    var HouseHold_Structure_Detail = netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
+    //var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
+    //var HouseHold_Structure_Detail = netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
 
 
      var Planed_Targets = [
@@ -284,7 +248,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
 
-
+/*
    HouseHold_Structure_Detail = HouseHold_Structure_Detail.concat([
                                          {
                                            displayLabel:"Household ID",
@@ -300,7 +264,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                          },
 
                                        ]);
-
+*/
      var Coverage = [
 
                                    {
@@ -429,13 +393,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var selectableGroups = [
- 	                         {title:"Planned_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
-                             {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         {title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"Planned_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+                           {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         //{title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
  	                     ];
 
     var query = new MDSS.QueryIRS(selectableGroups, queryList);
