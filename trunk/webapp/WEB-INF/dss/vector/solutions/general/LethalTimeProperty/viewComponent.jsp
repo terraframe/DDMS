@@ -9,10 +9,9 @@
 <mjl:form name="dss.vector.solutions.general.LethalTimeProperty.form.name" id="dss.vector.solutions.general.LethalTimeProperty.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>  
-    <mjl:component item="item" param="dto">
-      <mjl:input param="insecticide" type="hidden" value="${item.insecticide.id}"/>
+    <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="insecticide">
-          ${item.insecticide.displayLabel}      
+          ${insecticide.displayLabel}      
       </mjl:dt>
       <mjl:dt attribute="lowerPercent"> ${item.lowerPercent} </mjl:dt>
       <mjl:dt attribute="lowerTime"> ${item.lowerTime} </mjl:dt>
@@ -22,4 +21,4 @@
     <mjl:command value="Edit" action="dss.vector.solutions.general.LethalTimePropertyController.edit.mojo" name="dss.vector.solutions.general.LethalTimeProperty.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.general.LethalTimePropertyController.viewAll.mojo" name="dss.vector.solutions.general.LethalTimeProperty.viewAll.link" />
+<mjl:commandLink display="Search" action="dss.vector.solutions.general.LethalTimePropertyController.search.mojo" name="search.link" />

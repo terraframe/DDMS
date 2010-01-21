@@ -5,20 +5,20 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="search" method="POST" id ="searchForm">
-  <dl>
+<dl>
+  <mjl:form name="search" method="POST" id ="searchForm">
     <dt>
-        <label>
-          <fmt:message key="Insecticide_Active_Ingredient"/>
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticideId">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-  </dl>
+      <label>
+        <fmt:message key="Insecticide_Active_Ingredient"/>
+      </label>
+    </dt>
+    <dd>
+      <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticideId">
+        <mjl:option>
+          ${current.displayLabel}
+        </mjl:option>
+      </mjl:select>
+    </dd>
   <mjl:command classes="submitButton" action="dss.vector.solutions.general.LethalTimePropertyController.searchByInsecticide.mojo" name="search.button" value="Search" />
-</mjl:form>
+  </mjl:form>
+</dl>

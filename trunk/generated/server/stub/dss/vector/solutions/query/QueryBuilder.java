@@ -12,7 +12,7 @@ import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
-import com.terraframe.mojo.query.LeftJoinEq;
+import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
@@ -138,10 +138,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
-    QueryBuilder.textLookup(valueQuery, qf, tokenArray, selectableArray, conditionArray, new LeftJoinEq[]{});
+    QueryBuilder.textLookup(valueQuery, qf, tokenArray, selectableArray, conditionArray, new Join[]{});
   }
   
-  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, LeftJoinEq[] joins)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
   {
     long WEIGHT = 256;
 
@@ -191,7 +191,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     }
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, LeftJoinEq[] joins, long weight, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -213,7 +213,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       vQ.AND(condition);
     }
     
-    for (LeftJoinEq join : joins)
+    for (Join join : joins)
     {
       vQ.AND(join);
     }
@@ -239,6 +239,11 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 
   public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions)
   {
+    QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions, new Join[]{});
+  }
+  
+  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
+  {
     Condition condition = null;
     
     for (Condition cond : conditions)
@@ -248,6 +253,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     
     query.SELECT(selectables);
     query.WHERE(condition);    
+    
+    for (Join join : joins)
+    {
+      query.AND(join);
+    }
+    
     query.ORDER_BY_ASC(orderBy);
   }
+  
 }

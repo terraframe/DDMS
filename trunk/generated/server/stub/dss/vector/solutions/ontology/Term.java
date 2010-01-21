@@ -286,11 +286,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
     conditions.add(termQuery.getObsolete().EQ(false));
 
     Condition[] conditionArray = conditions.toArray(new Condition[conditions.size()]);
-    String[] searchable = value.split(" ");
+    
+    if(value != null && !value.equals(""))
+    {
+      String[] searchable = value.split(" ");      
+      QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
+    }
+    else
+    {      
+      SelectablePrimitive orderBy = selectables[1];      
+      QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditionArray);
+    }
 
-    QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
-
-    query.restrictRows(15, 1);
+    query.restrictRows(20, 1);
 
     return query;
   }
@@ -1095,10 +1103,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
     }
 
-    query.restrictRows(15, 1);
+    query.restrictRows(20, 1);
     
-    System.out.println(query.getSQL());
-
     return query;
   }
 

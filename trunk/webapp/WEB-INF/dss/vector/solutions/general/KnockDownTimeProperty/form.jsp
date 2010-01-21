@@ -1,12 +1,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:component param="dto" item="${item}">
+  <mjl:input param="insecticide" type="hidden" value="${item.insecticide.id}"/>
   <mjl:dt attribute="insecticide">
-    <mjl:select param="insecticide" items="${insecticide}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.displayLabel}
-      </mjl:option>
-    </mjl:select>
+    ${item.insecticide.displayLabel}      
   </mjl:dt>
   <mjl:dt attribute="lowerPercent">
     <mjl:input param="lowerPercent" type="text" />
