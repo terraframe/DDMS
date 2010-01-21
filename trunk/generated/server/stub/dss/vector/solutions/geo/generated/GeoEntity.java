@@ -118,6 +118,22 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   @Transaction
   private Set<String> applyInternal()
   {
+	  if ((this.getGeoId() == null) || (this.getGeoId().length() == 0)) {
+		  boolean unique = false;
+		  String generatedGeoId = null;
+
+		  while (!unique) {
+			  generatedGeoId = Property.getNextId();
+			  try {
+				  searchByGeoId(generatedGeoId);
+			  } catch (InvalidIdException e) {
+				  unique = true;
+			  }
+		  }
+		  
+		  this.setGeoId(generatedGeoId);
+	  }
+	  
     GeometryHelper geometryHelper = new GeometryHelper();
     WKTReader r = new WKTReader();
     String geoData = this.getGeoData();
