@@ -131,13 +131,19 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     ValueQuery valueQuery = factory.valueQuery();
 
     PersonQuery personQuery = new PersonQuery(valueQuery);
-    SprayTeamQuery teamQuery = new SprayTeamQuery(valueQuery);
     TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
+    SprayTeamQuery teamQuery = new SprayTeamQuery(valueQuery);
 
     AttributeChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
 
-    Condition[] conditions = new Condition[] { teamQuery.getId().EQ(teamId), leaderQuery.getIsSprayOperator().EQ(true), leaderQuery.NOT_IN_sprayTeam(teamQuery), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
+    // IMPORTANT: The conditions teamQuery.getId().NE(teamId) and
+    // leaderQuery.sprayTeam(teamQuery) only work with the assumption
+    // that a team with the id = teamId exists and that team members
+    // can only be assigned to a single team at a time.  If either of 
+    // these conditions are not true then a cross product will result
+    // where invalid data is returned.
+    Condition[] conditions = new Condition[] { teamQuery.getId().NE(teamId), leaderQuery.getIsSprayOperator().EQ(true), leaderQuery.sprayTeam(teamQuery), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
 
     if (value != null && !value.equals(""))
     {
@@ -166,7 +172,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     AttributeChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
 
-    Condition[] conditions = new Condition[] { leaderQuery.getIsSprayOperator().EQ(true), leaderQuery.NOT_IN_sprayTeam(inTeamQuery), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
+    Condition[] conditions = new Condition[] { leaderQuery.getIsSprayOperator().EQ(true), leaderQuery.getId().SUBSELECT_NOT_IN(inTeamQuery.childId()), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
 
     if (value != null && !value.equals(""))
     {
