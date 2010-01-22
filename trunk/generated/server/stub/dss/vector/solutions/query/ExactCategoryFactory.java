@@ -31,7 +31,6 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
 	}
 
 	private List<String> getLayerValues(Layer layer) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

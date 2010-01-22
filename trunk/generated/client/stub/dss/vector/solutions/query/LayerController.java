@@ -17,6 +17,8 @@ public class LayerController extends LayerControllerBase implements
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/query/Layer/";
 
   public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  
+  public static final String QUERY_INFO_JSP = JSP_DIR + "queryInfo.jsp";
 
   private static final long  serialVersionUID = 1240900964253L;
 
@@ -148,6 +150,34 @@ public class LayerController extends LayerControllerBase implements
     catch(Throwable e)
     {
       throw new ApplicationException(e);
+    }
+  }
+  
+  /**
+   * Calculates basic information for the query represented by the given Layer. The layer object
+   * is not persisted and is only used as a temporary mechanism in which hold query information.
+   */
+  @Override
+  public void calculateQueryInfo(LayerDTO layer) throws IOException, ServletException
+  {
+    try
+    {
+      QueryInfoDTO info = layer.calculateQueryInfo();
+    
+      req.setAttribute("info", info);
+      req.getRequestDispatcher(QUERY_INFO_JSP).forward(req, resp);
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
   

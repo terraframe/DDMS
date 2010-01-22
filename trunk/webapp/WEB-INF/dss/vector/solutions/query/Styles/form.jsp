@@ -243,6 +243,10 @@ MDSS.MapPanel.attach50Slider('${styles.id}_labelHaloRadius');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointWidth');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointSize');
 MDSS.MapPanel.attach100Slider('${styles.id}_polygonWidth');
+
+
+// Grab the value of the containing layer's RenderAs value to know
+// if we should show or hide the point/polygon styles.
 </script>
 
 </mjl:component>

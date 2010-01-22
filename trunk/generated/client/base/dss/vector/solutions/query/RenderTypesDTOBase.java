@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1724347851)
+@com.terraframe.mojo.business.ClassSignature(hash = 831650721)
 public abstract class RenderTypesDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.RenderTypes";
-  private static final long serialVersionUID = -1724347851;
+  private static final long serialVersionUID = 831650721;
   
   protected RenderTypesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

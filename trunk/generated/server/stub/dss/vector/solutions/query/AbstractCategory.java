@@ -21,9 +21,11 @@ public abstract class AbstractCategory extends AbstractCategoryBase
   @Transaction
   public void delete()
   {
+    Styles styles = this.getStyles();
+    
     super.delete();
 
-    this.getStyles().delete();
+    styles.delete();
   }
   
   @Override

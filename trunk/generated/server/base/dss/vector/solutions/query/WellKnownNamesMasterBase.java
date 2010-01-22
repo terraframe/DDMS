@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -162757293)
+@com.terraframe.mojo.business.ClassSignature(hash = -2123543905)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public abstract class WellKnownNamesMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.WellKnownNamesMaster";
-  private static final long serialVersionUID = -162757293;
+  private static final long serialVersionUID = -2123543905;
   
   public WellKnownNamesMasterBase()
   {

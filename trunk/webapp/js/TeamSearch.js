@@ -946,7 +946,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       // Handle the 'esc' key
       else if(oData.keyCode === 27) {
         this.hide();
-      }      
+      }   
       // Handle the 'enter' key
       else if (oData.keyCode === 13) {
         this._panel.selectCurrent();
@@ -955,7 +955,6 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         if(this._isDifferent(value)) {
           this._setCurrentValue(value);
         }
-    
         if(value.length >= this.minLength) {        
           this.performSearch(value);
         }
@@ -970,7 +969,6 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       
     performSearch : function(value) {              
       var parameters = this.getParameters();
-
       for(var i = 0; i < this.listeners.length; i++) {
         this.listeners[i](value, this);
       }

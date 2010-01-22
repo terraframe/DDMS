@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -62,14 +64,16 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
   /**
    * Creates database views for each layer provided and returns a JSON string
-   * with the correct mapping information for use with OpenLayers/GeoServer.
+   * with the correct mapping information for use with OpenLayers/GeoServer. The
+   * returned Map maintains insertion order so it can be safely iterated over to
+   * get the layers starting with the base layer and up.
    * 
    * @param layers
    * @return
    */
-  public static List<Layer> createDBViews(Layer[] layers)
+  public static Map<Layer, ValueQuery> createDBViews(Layer[] layers, boolean infoOnly)
   {
-    if (layers.length == 0)
+    if (!infoOnly && layers.length == 0)
     {
       String error = "A user tried to create a map without layers.";
       throw new NoThematicLayerException(error);
@@ -78,7 +82,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     // Map all Layers to their ValueQuery objects
     Map<String, ValueQuery> layerValueQueries = new HashMap<String, ValueQuery>();
     boolean isClipping = false;
-    String baseView = null;
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
@@ -136,14 +139,10 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       }
 
       // The base layer must have geo entities or geoserver bombs out
-      if (i == 0 && valueQuery.getCount() == 0)
+      if (!infoOnly && i == 0 && valueQuery.getCount() == 0)
       {
         String error = "The thematic layer doesn't contain spatial data.";
         throw new NoEntitiesInThematicLayerException(error);
-      }
-      else if (i == 0)
-      {
-        baseView = layer.getViewName();
       }
 
       layerValueQueries.put(layer.getId(), valueQuery);
@@ -155,7 +154,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     }
 
     String sessionId = Session.getCurrentSession().getId();
-    List<Layer> reloads = new LinkedList<Layer>();
+    Map<Layer, ValueQuery> reloads = new LinkedHashMap<Layer, ValueQuery>();
+    String baseView = null;
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
@@ -182,9 +182,22 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
       // Update the view name on the layer for this refresh cycle
       String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-      layer.appLock();
+      if(!infoOnly)
+      {
+        layer.appLock();
+      }
+        
       layer.setViewName(newViewName);
-      layer.apply();
+      
+      if(!infoOnly)
+      {
+        layer.apply();
+      }
+      
+      if(i == 0)
+      {
+        baseView = newViewName;
+      }
       
       ValueQuery valueQuery = layerValueQueries.get(layer.getId());
 
@@ -271,7 +284,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         }
       }
 
-      reloads.add(layer);
+      reloads.put(layer, valueQuery);
 
 
 
@@ -339,7 +352,7 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
     return bundle.getString("geoserver.remote.path");
   }
 
-  public static void reload(String sessionId, List<Layer> reloads)
+  public static void reload(String sessionId, Map<Layer, ValueQuery> reloads)
   {
     try
     {
@@ -416,8 +429,11 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       }
 
       // Create each layer as a feature on GeoServer
-      for (Layer reload : reloads)
+      Iterator<Layer> iter = reloads.keySet().iterator();
+      while(iter.hasNext())
       {
+        Layer reload = iter.next();
+        
         String viewName = reload.getViewName();
         String defaultStyle = reload.getRenderAs().get(0) == AllRenderTypes.POINT ? "point" : "polygon";
 

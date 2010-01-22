@@ -69,6 +69,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._LayerController = Mojo.$.dss.vector.solutions.query.LayerController;
       this._LayerController.setSaveLayerListener(Mojo.Util.bind(this, this._saveLayerListener));
       this._LayerController.setCancelListener(Mojo.Util.bind(this, this._layerCancelListener));
+      this._LayerController.setCalculateQueryInfoListener(Mojo.Util.bind(this, this._calculateQueryInfoListener));
       
       this._AbstractCategoryController = Mojo.$.dss.vector.solutions.query.AbstractCategoryController;
       this._AbstractCategoryController.setSaveCategoryListener(Mojo.Util.bind(this, this._saveCategoryListener));
@@ -424,6 +425,32 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         Mojo.$.dss.vector.solutions.query.Layer.unlock(request, params['layer.componentId']);
       }
+    },
+    
+    /**
+     * 
+     */
+    _calculateQueryInfoListener : function(params)
+    {
+      // IMPORTANT: The value of Layer.savedSearch is submitted as an array
+      // because it is a select list on the form. But we want to submit it as 
+      // a single value because savedSearch is just a reference attribute.
+      if(params['layer.savedSearch'].length > 0)
+      {
+        params['layer.savedSearch'] = params['layer.savedSearch'][0];
+      }
+      
+      params['savedMapId'] = MDSS.MapPanel.getCurrentMap();
+      params['layer.isNew'] = 'true';
+      
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          document.getElementById('queryInfo').innerHTML = html;
+        }
+      });
+      
+      return request;   
     },
     
     _saveLayerListener : function(params)

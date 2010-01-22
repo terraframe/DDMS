@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2053375155)
+@com.terraframe.mojo.business.ClassSignature(hash = -1256173896)
 public class LayerControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.LayerController";
@@ -10,7 +10,7 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -2053375155;
+  private static final long serialVersionUID = -1256173896;
   
   public LayerControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -65,6 +65,20 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:layer", post=true)
+  public void calculateQueryInfo(dss.vector.solutions.query.LayerDTO layer) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.calculateQueryInfo");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:layer", post=true)
+  public void failCalculateQueryInfo(dss.vector.solutions.query.LayerDTO layer) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failCalculateQueryInfo");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:dto", post=true)

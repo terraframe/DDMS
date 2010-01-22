@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1361976225)
+@com.terraframe.mojo.business.ClassSignature(hash = 1262871199)
 public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.FontStyle";
-  private static final long serialVersionUID = -1361976225;
+  private static final long serialVersionUID = 1262871199;
   
   protected FontStyleDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

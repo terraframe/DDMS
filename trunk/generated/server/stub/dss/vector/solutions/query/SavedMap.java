@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
@@ -61,7 +64,7 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
     JSONObject mapData;
     JSONArray layersJSON;
     
-    List<Layer> layersInMap = MapUtil.createDBViews(getOrderedLayers()); 
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false); 
     
     try
     {
@@ -81,9 +84,11 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
     
     // Create the JSON for the layers that will be passed to OpenLayers
     List<Layer> bboxLayers = new LinkedList<Layer>();
-    for(int i=0; i<layersInMap.size(); i++)
+    int count = 0;
+    Iterator<Layer> iter = layersVQ.keySet().iterator();
+    while(iter.hasNext())
     {
-      Layer layer = layersInMap.get(i);
+      Layer layer = iter.next();
       
       String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + layer.getViewName();
       String sldFile = MapUtil.formatSLD(layer);
@@ -97,10 +102,12 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
         layersJSON.put(layerJSON);
 
         // Always add the base layer to the bounding box
-        if (i == 0 || layer.getAddToBBox())
+        if (count == 0 || layer.getAddToBBox())
         {
           bboxLayers.add(layer);
         }
+        
+        count++;
       }
       catch (JSONException e)
       {
@@ -165,7 +172,14 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       throw new NoLayersInExportException(error);
     }
     
-    List<Layer> layersInMap = MapUtil.createDBViews(getOrderedLayers()); 
+    
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false); 
+    Iterator<Layer> iter = layersVQ.keySet().iterator();
+    List<Layer> layersInMap = new LinkedList<Layer>();
+    while(iter.hasNext())
+    {
+      layersInMap.add(iter.next());
+    }
     
     ShapefileExporter exporter = new ShapefileExporter();
     
@@ -194,28 +208,46 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       Layer existingLayer = existingRel.getChild();
       Layer layer = new Layer();
       
-      layer.setLayerName(existingLayer.getLayerName());
-      layer.setSavedSearch(existingLayer.getSavedSearch());
-      layer.setMdAttribute(existingLayer.getMdAttribute());
-      layer.setGeoHierarchy(existingLayer.getGeoHierarchy());
+      for(MdAttributeDAOIF mdAttr : layer.getMdClass().definesAttributes())
+      {
+        if(!mdAttr.isSystem())
+        {
+          String name = mdAttr.definesAttribute();
+          
+          if(mdAttr instanceof MdAttributeEnumerationDAOIF)
+          {
+            String value = existingLayer.getEnumValues(name).get(0).getId();
+            layer.addEnumItem(name, value);
+          }
+          else if(!name.equals(Layer.SLDFILE) && !name.equals(Layer.DEFAULTSTYLES))
+          {
+            String value = existingLayer.getValue(name);
+            layer.setValue(name, value);
+          }
+        }
+      }
       
       // copy the styles
       Styles existingStyles = existingLayer.getDefaultStyles();
       Styles styles = new Styles();
-      
-      styles.setFill(existingStyles.getFill());
-      styles.setFontFamily(existingStyles.getFontFamily());
-      styles.setFontSize(existingStyles.getFontSize());
-      styles.addFontStyles(existingStyles.getFontStyles().get(0));
-      
-      styles.setPointStroke(existingStyles.getPointStroke());
-      styles.setPointWidth(existingStyles.getPointWidth());
-      
-      styles.setPolygonFill(existingStyles.getPolygonFill());
-      styles.setPolygonStroke(existingStyles.getPolygonStroke());
-      styles.setPolygonWidth(existingStyles.getPolygonWidth());
-      
-      styles.addPointMarker(existingStyles.getPointMarker().get(0));
+      for(MdAttributeDAOIF mdAttr : styles.getMdClass().definesAttributes())
+      {
+        if(!mdAttr.isSystem())
+        {
+          String name = mdAttr.definesAttribute();
+          
+          if(mdAttr instanceof MdAttributeEnumerationDAOIF)
+          {
+            String value = existingStyles.getEnumValues(name).get(0).getId();
+            styles.addEnumItem(name, value);
+          }
+          else
+          {
+            String value = existingStyles.getValue(name);
+            styles.setValue(name, value);
+          }
+        }
+      }
       
       styles.apply();
       

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 751731423)
+@com.terraframe.mojo.business.ClassSignature(hash = -918388449)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class FontStyleBase extends com.terraframe.mojo.system.Enumerati
 {
   public final static String CLASS = "dss.vector.solutions.query.FontStyle";
   public static java.lang.String PRIORITY = "priority";
-  private static final long serialVersionUID = 751731423;
+  private static final long serialVersionUID = -918388449;
   
   public FontStyleBase()
   {

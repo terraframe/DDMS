@@ -2,12 +2,19 @@ package dss.vector.solutions.query;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableChar;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.WebFile;
 import com.terraframe.mojo.util.FileIO;
 
@@ -20,6 +27,78 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
   public Layer()
   {
     super();
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    return this.getId().hashCode();
+  }
+  
+  @Override
+  public QueryInfo calculateQueryInfo()
+  {
+    QueryInfo info = new QueryInfo();
+
+    // Create the DB view for this layer
+    Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(new Layer[]{this}, true);
+    
+    // Query on that view
+    QueryFactory f = new QueryFactory();
+    ValueQuery wrapper = new ValueQuery(f);
+    wrapper.FROM(this.getViewName(), "queryInfo");
+    
+    String thematicVar = this.getThematicUserAlias();
+    List<Selectable> selectables = new LinkedList<Selectable>();
+    if(thematicVar != null && thematicVar.length() > 0)
+    {
+      info.setHasThematicVariable(true);
+      
+      ValueQuery vq = layersVQ.get(this);
+      
+      Selectable selectable = vq.getSelectableRef(thematicVar);
+      
+      if(selectable instanceof SelectableChar)
+      {
+        selectables.add(wrapper.aSQLAggregateCharacter("min_data", "MIN("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+        selectables.add(wrapper.aSQLAggregateCharacter("max_data", "MAX("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+      }
+      else
+      {
+        info.setIsThematicVariable(true);
+        
+        selectables.add(wrapper.aSQLAggregateDouble("min_data", "MIN("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+        selectables.add(wrapper.aSQLAggregateDouble("max_data", "MAX("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+      }
+    }
+    
+    selectables.add(wrapper.aSQLAggregateLong("totalResults", "COUNT(*)"));
+    
+    wrapper.SELECT(selectables.toArray(new Selectable[selectables.size()]));
+    
+    OIterator<? extends ValueObject> iter = wrapper.getIterator();
+    try
+    {
+      ValueObject row = iter.next();
+      
+      if(info.hasThematicVariable())
+      {
+        String min = row.getValue("min_data");
+        String max = row.getValue("max_data");
+        
+        info.setMinimum(min);
+        info.setMaximum(max);
+      }
+      
+      Integer total = Integer.valueOf(row.getValue("totalResults"));
+      info.setTotalResults(total);
+
+      return info;
+    }
+    finally
+    {
+      iter.close();
+    }
   }
   
   /**

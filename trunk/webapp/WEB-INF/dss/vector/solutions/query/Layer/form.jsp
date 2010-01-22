@@ -56,6 +56,15 @@
       </c:forEach>
     </select>
   </mjl:dt>
+  <dt>
+    <label><fmt:message key="Calculate_Query_Info"></fmt:message></label>
+  </dt>
+  <dd>
+    <mjl:command name="dss.vector.solutions.query.LayerController.calculateQueryInfoBtn"
+      action="dss.vector.solutions.query.LayerController.calculateQueryInfo.mojo" value="Calculate"/>
+    <div id="queryInfo">
+    </div>
+  </dd>
   <mjl:dt attribute="showThematicValue">
     <mjl:boolean param="showThematicValue" />
   </mjl:dt>
@@ -89,10 +98,13 @@ MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
 </script>
 </mjl:component>
 
-<jsp:include page="../Styles/form.jsp"></jsp:include>
+<strong><fmt:message key="Advanced" /></strong>: <span id="${styles.id}_toggle" class="clickable"><fmt:message key="Toggle_Show" /></span>
+<div id="${styles.id}_toggleDiv" style="display: block; margin-bottom: 10px;">
+  <jsp:include page="../Styles/form.jsp"></jsp:include>
+</div>
 
-<div id="categories">
-  <fmt:message key="Add_Category" />: 
+<div id="categories" style="margin-top: 10px;">
+  <strong><fmt:message key="Add_Category" /></strong>: 
 <c:choose>
 <c:when test="${!isNewInstance}">
   <mjl:command value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
@@ -119,3 +131,30 @@ MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
 </c:otherwise>
 </c:choose>
 </div>
+
+<script type="text/javascript">
+
+// This timeout is used to ensure that all other DOM manipulating JS calls
+// can be completed before executing the logic below. Otherwise, the sliders
+// and color pickers will not work properly.
+setTimeout(function(){
+
+  document.getElementById('${styles.id}_toggleDiv').style.display = 'none';
+
+  YAHOO.util.Event.on('${styles.id}_toggle', 'click', function(e){
+    var el = e.target;
+    var div = document.getElementById('${styles.id}_toggleDiv');
+    if(div.style.display == 'none')
+    {
+      el.innerHTML = MDSS.Localized.Toggle_Hide;
+      div.style.display = 'block';
+    }
+    else
+    {
+      el.innerHTML = MDSS.Localized.Toggle_Show;
+      div.style.display = 'none';
+    }
+  });
+
+}, 15);
+</script>

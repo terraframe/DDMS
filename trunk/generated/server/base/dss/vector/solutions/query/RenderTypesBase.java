@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1167489973)
+@com.terraframe.mojo.business.ClassSignature(hash = -571478751)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public abstract class RenderTypesBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.RenderTypes";
-  private static final long serialVersionUID = 1167489973;
+  private static final long serialVersionUID = -571478751;
   
   public RenderTypesBase()
   {
