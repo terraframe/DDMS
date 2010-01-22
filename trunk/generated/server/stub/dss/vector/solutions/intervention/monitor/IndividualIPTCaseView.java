@@ -184,11 +184,11 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
     if (isAscending)
     {
-      query.ORDER_BY_ASC((SelectablePrimitive) selectable);
+      query.ORDER_BY_ASC((SelectablePrimitive) selectable, sortAttribute);
     }
     else
     {
-      query.ORDER_BY_DESC((SelectablePrimitive) selectable);
+      query.ORDER_BY_DESC((SelectablePrimitive) selectable, sortAttribute);
     }
 
     if (pageSize != 0 && pageNumber != 0)

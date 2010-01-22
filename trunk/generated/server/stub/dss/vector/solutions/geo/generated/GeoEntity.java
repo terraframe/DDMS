@@ -43,9 +43,11 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.gis.dataaccess.AttributeGeometryIF;
 import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.AttributeChar;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
+import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
@@ -84,6 +86,7 @@ import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
@@ -357,9 +360,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);    
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
     
+    AttributeChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { 
         q.getId(GeoEntity.ID),
-        q.getEntityName(GeoEntity.ENTITYNAME),
+        orderBy,
         q.getGeoId(GeoEntity.GEOID),
         q.getType(GeoEntity.TYPE),
         mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
@@ -396,25 +400,33 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }      
     }
 
-//    String[] searchable = value.split(" ");
-//    
-//    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
-//    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
-//    
-//    QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
-    
-    String searchable = value.replace(" ", "% ") + "%";
+    //  String searchable = value.replace(" ", "% ") + "%";
+    //
+//        Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+//        Condition and = AND.get(or, condition);
+//        
+//        valueQuery.SELECT(selectables);
+//        valueQuery.WHERE(and);
+//        valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+//        valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+//        valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
+//        valueQuery.restrictRows(20, 1);
 
-    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-    Condition and = AND.get(or, condition);
+    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
+    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
     
-    valueQuery.SELECT(selectables);
-    valueQuery.WHERE(and);
-    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
+    if(value != null && !value.equals(""))
+    {
+      String[] searchable = value.split(" ");
+      
+      QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
+    }
+    else{
+      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins); 
+    }
+        
     valueQuery.restrictRows(20, 1);
-
+    
     return valueQuery;    
   }
   

@@ -41,11 +41,11 @@ public class KnockDownAssayView extends KnockDownAssayViewBase implements com.te
 
     if (isAscending)
     {
-      query.ORDER_BY_ASC((SelectablePrimitive) attribute);
+      query.ORDER_BY_ASC((SelectablePrimitive) attribute, sortAttribute);
     }
     else
     {
-      query.ORDER_BY_DESC((SelectablePrimitive) attribute);
+      query.ORDER_BY_DESC((SelectablePrimitive) attribute, sortAttribute);
     }
 
     if (pageSize != 0 && pageNumber != 0)

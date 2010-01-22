@@ -368,7 +368,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     valueQuery.SELECT(selectables);
 
-    QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
+    QueryUtil.forceJoinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
 
     String statement = "%" + value + "%";
 

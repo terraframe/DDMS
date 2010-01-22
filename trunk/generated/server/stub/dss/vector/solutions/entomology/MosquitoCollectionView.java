@@ -334,11 +334,11 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
       if (isAscending)
       {
-        query.ORDER_BY_ASC((SelectablePrimitive) attribute);
+        query.ORDER_BY_ASC((SelectablePrimitive) attribute, sortAttribute);
       }
       else
       {
-        query.ORDER_BY_DESC((SelectablePrimitive) attribute);
+        query.ORDER_BY_DESC((SelectablePrimitive) attribute, sortAttribute);
       }
     }
 

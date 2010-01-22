@@ -241,11 +241,11 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
 
     if (isAscending)
     {
-      query.ORDER_BY_ASC(selectable);
+      query.ORDER_BY_ASC(selectable, sortAttribute);
     }
     else
     {
-      query.ORDER_BY_DESC(selectable);
+      query.ORDER_BY_DESC(selectable, sortAttribute);
     }
 
     if (pageSize != 0 && pageNumber != 0)
