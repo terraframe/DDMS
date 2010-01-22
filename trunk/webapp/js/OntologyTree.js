@@ -225,7 +225,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     
     _createNodeHTML : function(view)
     {
-      return MDSS.OntologyBrowser.formatLabel(view);
+      return MDSS.OntologyBrowser.formatLabelFromView(view);
     },
     
     /**
