@@ -206,6 +206,7 @@ var MDSS = {
       window.location = '/';
     };
     
+    /*
     this._listener = function(e){
       if(e.keyCode === 27 || e.keyCode == 13)
       {
@@ -248,6 +249,7 @@ var MDSS = {
     {
       handler.onComplete = this._removeListener;
     }
+    */
 
     Mojo.Util.copy(new Mojo.ClientRequest(handler), this);
   }
