@@ -521,9 +521,7 @@
             name="amount"
             label="Amount"
             description="Amount of people treated for a given treatment"
-            rejectNegative="true"
-            required="true"
-            defaultValue="0" />
+            rejectNegative="true" />
         </attributes>
         <parent
           cardinality="*"
@@ -544,16 +542,12 @@
             name="amount"
             label="Amount"
             description="Amount of people a diagnostic test was performed upon"
-            rejectNegative="true"
-            required="true"
-            defaultValue="0" />
+            rejectNegative="true" />
           <integer
             name="amountPositive"
             label="Amount Positive"
             description="Amount of positive people a diagnostic test was performed upon"
-            rejectNegative="true"
-            required="true"
-            defaultValue="0" />
+            rejectNegative="true" />
         </attributes>
         <parent
           cardinality="*"
@@ -574,9 +568,7 @@
             name="amount"
             label="Amount"
             description="Amount of people treated for a given treatment"
-            rejectNegative="true"
-            required="true"
-            defaultValue="0" />
+            rejectNegative="true" />
         </attributes>
         <parent
           cardinality="*"
@@ -597,9 +589,7 @@
             name="amount"
             label="Amount"
             description="Amount of people treated for a given treatment"
-            rejectNegative="true"
-            required="true"
-            defaultValue="0" />
+            rejectNegative="true" />
         </attributes>
         <parent
           cardinality="*"
