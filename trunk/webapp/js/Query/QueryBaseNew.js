@@ -915,7 +915,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       Mojo.Iter.forEach(selected, function(sel){
         //for display
-        var display = MDSS.OntologyBrowser.formatLabel(sel);
+        var display = MDSS.OntologyBrowser.formatLabelFromView(sel);
         this._queryPanel.addWhereCriteria(attribute.getKey(), sel.getTermId(), display);
       }, this); 
     },
