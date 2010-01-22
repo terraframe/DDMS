@@ -15,6 +15,9 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 @Override
 public List<AbstractCategory> create(Layer layer, Map<String, String> parameters) {
 	// TODO Auto-generated method stub
+ 
+  QueryInfo info = layer.calculateQueryInfo();
+  
 	return null;
 }
   
