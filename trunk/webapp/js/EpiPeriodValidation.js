@@ -80,6 +80,6 @@ MDSS.validateEpiDate = function(button, geoId, yearSearch, period, periodType){
 
   YAHOO.util.Event.on(geoId, 'blur', validate);
   YAHOO.util.Event.on(periodType, 'click', validate);
-  YAHOO.util.Event.on(period, 'blur', validate);
-  YAHOO.util.Event.on(year, 'blur', validate);
+  YAHOO.util.Event.on(period, 'keyup', validate);
+  YAHOO.util.Event.on(year, 'keyup', validate);
 }

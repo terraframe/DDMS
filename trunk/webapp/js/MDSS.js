@@ -72,12 +72,12 @@ var MDSS = {
 
   Effect : {
 
-  	/**
-  	 * Toggles the visibility of an element by clicking
-  	 * on the given toggle element.
-  	 */
-  	toggleVisibility : function(elementId, toggleId, hiddenId)
-  	{
+    /**
+     * Toggles the visibility of an element by clicking
+     * on the given toggle element.
+     */
+    toggleVisibility : function(elementId, toggleId, hiddenId)
+    {
       YAHOO.util.Event.on(toggleId, 'click', function(e, obj){
 
         var el = new YAHOO.util.Element(obj.element);
@@ -97,12 +97,19 @@ var MDSS = {
         }
 
       }, {toggle: toggleId, element: elementId, hidden: hiddenId}, this);
-  	}
-  	
+    }
+    
   },
   
   ErrorModal : function(content)
   {
+    var length = Mojo.Util.trim(content).length;
+    
+    if(length == 0)
+    {
+      return;
+    }
+    
       var modal = new YAHOO.widget.Panel("errorModal" + Mojo.Util.generateId(),
        {
           width:"400px",
@@ -130,13 +137,13 @@ var MDSS = {
    */
   Request : function(handler)
   {
-  	this.createModal = function(content)
-  	{
+    this.createModal = function(content)
+    {
       new MDSS.ErrorModal(content);
-  	};
+    };
 
-  	this.onSend = function()
-  	{
+    this.onSend = function()
+    {
         //Show a modal wait screen to prevent user from clicking an ajax link twice
         if(MDSS.util.wait_for_ajax != null)
         {
@@ -145,29 +152,29 @@ var MDSS = {
         }
         else
         {
-  		  MDSS.util.wait_for_ajax =
-  				new YAHOO.widget.Panel("wait_for_ajax",
-  					{ width:"240px",
-  					  fixedcenter:true,
-  					  close:false,
-  					  draggable:false,
-  					  zindex:999,
-  					  modal:true,
-  					  visible:true
-  					}
-  				);
+        MDSS.util.wait_for_ajax =
+          new YAHOO.widget.Panel("wait_for_ajax",
+            { width:"240px",
+              fixedcenter:true,
+              close:false,
+              draggable:false,
+              zindex:999,
+              modal:true,
+              visible:true
+            }
+          );
 
-  		  MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
-  		  MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
-  		  MDSS.util.wait_for_ajax.render(document.body);
-  		  MDSS.util.wait_for_ajax.bringToTop();
-  		}
-  	}
+        MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
+        MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
+        MDSS.util.wait_for_ajax.render(document.body);
+        MDSS.util.wait_for_ajax.bringToTop();
+      }
+    }
 
-  	this.onComplete = function()
-  	{
-  		MDSS.util.wait_for_ajax.hide();
-  	}
+    this.onComplete = function()
+    {
+      MDSS.util.wait_for_ajax.hide();
+    }
 
     // provide default error handler
     this.onFailure = function(e)
