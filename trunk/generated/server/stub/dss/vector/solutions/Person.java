@@ -308,48 +308,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
   public static ValueQuery searchForPerson(String value)
   {
-//    QueryFactory factory = new QueryFactory();
-//
-//    ValueQuery valueQuery = new ValueQuery(factory);
-//    PersonQuery personQuery = new PersonQuery(valueQuery);
-//
-//    String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
-//
-//    AttributeChar orderBy = personQuery.getFirstName(PersonView.FIRSTNAME);
-//    
-//    SelectableSQLCharacter residentialSelectable = valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel);
-//    QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY);
-//    
-//    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
-//        personQuery.getId(PersonView.ID),
-//        orderBy,
-//        personQuery.getLastName(PersonView.LASTNAME),
-//        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
-//        personQuery.getSex().getName(PersonView.SEX),
-//    };
-//
-//    Join join = null;//QueryUtil.forceJoinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
-//    
-//    Join[] joins = (join != null ? new Join[]{join} : new Join[]{});
-//
-//    if (value != null && !value.equals(""))
-//    {
-//      String[] searchable = value.split(" ");
-//
-//      QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, new Condition[] {}, joins);
-//    }
-//    else
-//    {
-//      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, new Condition[] {}, joins);
-//    }
-//    
-//    valueQuery.SELECT(residentialSelectable);
-//    valueQuery.restrictRows(20, 1);
-//    
-//    System.out.println(valueQuery.getSQL());
-//
-//    return valueQuery;
-    
     QueryFactory f = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(f);
@@ -363,12 +321,12 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
         personQuery.getLastName(PersonView.LASTNAME),
         personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
         personQuery.getSex().getName(PersonView.SEX),
-        valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel)
+        valueQuery.aSQLCharacter(residentialLabel, residentialLabel)
     };
 
     valueQuery.SELECT(selectables);
 
-    QueryUtil.forceJoinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
+    QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
 
     String statement = "%" + value + "%";
 

@@ -155,7 +155,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.LASTNAME);
         var dateOfBirth = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH);
         var sex = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.SEX);
-        var residential = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.RESIDENTIALGEOID);
+        var residential = valueObject.getValue('residentialGeoEntity_displayLabel');
 
         var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
         
