@@ -11,6 +11,7 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
   public static final String STARTING_COLOR = "startingColor";
   public static final String ENDING_COLOR = "endingColor";
   public static final String COUNT = "count";
+  public static final String PRECISION = "precision";
   
   public AbstractCategoryFactory()
   {
