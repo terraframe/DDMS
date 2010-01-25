@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,9 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.RefusedResponseDTO;
+import dss.vector.solutions.ResponseDTO;
+import dss.vector.solutions.ResponseMasterDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -137,7 +141,11 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
       SurveyedPersonViewDTO dto = new SurveyedPersonViewDTO(clientRequest);
       dto.setValue(SurveyedPersonViewDTO.HOUSEHOLD, householdId);
-
+      dto.addHaemoglobinMeasured(RefusedResponseDTO.NO);
+      dto.addPerformedRDT(RefusedResponseDTO.NO);
+      dto.addFever(ResponseDTO.NO);
+      dto.addMalaria(ResponseDTO.NO);
+      
       this.setupReference(dto);
       req.setAttribute("item", dto);
 
@@ -269,17 +277,36 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
     req.setAttribute("anaemiaTreatment", dto.getAnaemiaTreatment());
     req.setAttribute("bloodslideDetail", dto.getBloodslideDetail());
     req.setAttribute("bloodslideReason", dto.getBloodslideReason());
-    req.setAttribute("fever", dss.vector.solutions.ResponseDTO.allItems(request));
-    req.setAttribute("haemoglobinMeasured", dss.vector.solutions.RefusedResponseDTO.allItems(request));
+    req.setAttribute("fever", this.getResponses(request));
+    req.setAttribute("haemoglobinMeasured", this.getRefusedResponses(request));
     req.setAttribute("headOfHousehold", dto.getHeadOfHousehold());
     req.setAttribute("immuneCompromised", dto.getImmuneCompromised());
-    req.setAttribute("malaria", dss.vector.solutions.ResponseDTO.allItems(request));
+    req.setAttribute("malaria", this.getResponses(request));
     req.setAttribute("malariaConformationTechnique", dto.getMalariaConformationTechnique());
     req.setAttribute("payment", dto.getPayment());
-    req.setAttribute("performedRDT", dss.vector.solutions.RefusedResponseDTO.allItems(request));
+    req.setAttribute("performedRDT", this.getRefusedResponses(request));
     req.setAttribute("rdtDetail", dto.getRdtDetail());
     req.setAttribute("rdtTreatment", dto.getRdtTreatment());
     req.setAttribute("sex", dto.getSex());
   }
 
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
+	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
+		  if (!responses.contains(response)) {
+			  responses.add(response);
+		  }
+	  }
+	  return responses;
+  }
+
+  private List<ResponseMasterDTO> getRefusedResponses(ClientRequestIF request) {
+	  List<ResponseMasterDTO> responses = RefusedResponseDTO.items(request, RefusedResponseDTO.YES, RefusedResponseDTO.NO);
+	  for (ResponseMasterDTO response: dss.vector.solutions.RefusedResponseDTO.allItems(request)) {
+		  if (!responses.contains(response)) {
+			  responses.add(response);
+		  }
+	  }
+	  return responses;
+  }
 }

@@ -14,6 +14,8 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.MonthOfYearDTO;
 import dss.vector.solutions.MonthOfYearMasterDTO;
+import dss.vector.solutions.ResponseDTO;
+import dss.vector.solutions.ResponseMasterDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.MonthComparator;
 import dss.vector.solutions.util.RedirectUtility;
@@ -253,6 +255,17 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
     req.setAttribute("obtained", dto.getObtained());
     req.setAttribute("purpose", dto.getPurpose());
     req.setAttribute("washPeriod", dto.getWashPeriod());
-    req.setAttribute("washed", dss.vector.solutions.ResponseDTO.allItems(request));
+    req.setAttribute("washed", this.getResponses(request));
+  }
+  
+
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
+	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
+		  if (!responses.contains(response)) {
+			  responses.add(response);
+		  }
+	  }
+	  return responses;
   }
 }

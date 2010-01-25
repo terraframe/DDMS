@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.ResponseDTO;
+import dss.vector.solutions.ResponseMasterDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -256,7 +258,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   private void setupRequest()
   {
-    req.setAttribute("hasBeenSprayed", ResponseDTO.allItems(this.getClientSession().getRequest()));
+    req.setAttribute("hasBeenSprayed", this.getResponses(this.getClientSession().getRequest()));
   }
 
   private void setupReferences(HouseholdViewDTO dto)
@@ -266,4 +268,14 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     req.setAttribute("roof", dto.getRoof());
   }
 
+
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
+	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
+		  if (!responses.contains(response)) {
+			  responses.add(response);
+		  }
+	  }
+	  return responses;
+  }
 }
