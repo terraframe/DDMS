@@ -27,7 +27,7 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 			double max = Double.parseDouble(info.getMaximum());
 			this.createCategories(categories, layer, min, max, count, precision, startingColor, endingColor);
 		} else {
-
+			// TODO -- Throw exception or problem
 		}
 
 		return categories;
