@@ -400,32 +400,32 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }      
     }
 
-    //  String searchable = value.replace(" ", "% ") + "%";
-    //
-//        Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-//        Condition and = AND.get(or, condition);
-//        
-//        valueQuery.SELECT(selectables);
-//        valueQuery.WHERE(and);
-//        valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-//        valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-//        valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
-//        valueQuery.restrictRows(20, 1);
-
-    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
-    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
+      String searchable = value.replace(" ", "% ") + "%";
     
-    if(value != null && !value.equals(""))
-    {
-      String[] searchable = value.split(" ");
-      
-      QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
-    }
-    else{
-      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins); 
-    }
+        Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+        Condition and = AND.get(or, condition);
         
-    valueQuery.restrictRows(20, 1);
+        valueQuery.SELECT(selectables);
+        valueQuery.WHERE(and);
+        valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
+        valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
+        valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
+        valueQuery.restrictRows(20, 1);
+
+//    Condition[] conditions = new Condition[] {condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
+//    LeftJoinEq[] joins = new LeftJoinEq[] {q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId"))};   
+//    
+//    if(value != null && !value.equals(""))
+//    {
+//      String[] searchable = value.split(" ");
+//      
+//      QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, conditions, joins);
+//    }
+//    else{
+//      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins); 
+//    }
+//        
+//    valueQuery.restrictRows(20, 1);
     
     return valueQuery;    
   }
