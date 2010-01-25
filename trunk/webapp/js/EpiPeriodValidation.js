@@ -1,85 +1,144 @@
-MDSS.validateEpiDate = function(button, geoId, yearSearch, period, periodType){
-  var year = yearSearch.getDisplayElement();
 
-  var keyHandler = function(e, obj) {
-    if ( this.e && e.keyCode !== 9) {
-      return;
-    }
-    else {
-      validate();
-    }
-  };
-  
-  var validate = function() {        
-    button.disabled=true;
+Mojo.Meta.newClass('MDSS.DateSearchValidator', {
+  Instance:{
+    initialize: function(prop) {
+      this._button = Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button;
+      this._geoId = Mojo.Util.isString(prop.geoId) ? document.getElementById(prop.geoId) : prop.geoId;
+      this._startDate = Mojo.Util.isString(prop.startDate) ? document.getElementById(prop.startDate) : prop.startDate;
+      this._endDate = Mojo.Util.isString(prop.endDate) ? document.getElementById(prop.endDate) : prop.endDate;	
+      
+      YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
+      YAHOO.util.Event.on(this._startDate, 'blur', this.validate, this, this);
+      YAHOO.util.Event.on(this._endDate, 'blur', this.validate, this, this);
+      YAHOO.util.Event.on(this._startDate, 'keyup', this.validate, this, this);
+      YAHOO.util.Event.on(this._endDate, 'keyup', this.validate, this, this);
+    },
+
+    disableButton : function() {
+      this._button.disabled = true;
+    },
+      
+    enableButton : function() {
+      this._button.disabled = false;
+    },      
     
-    var selectedType;
-
-    for(var i=0; i < periodType.length; i++)
-    {
-      var radio = periodType[i];
-
-      if(radio.checked)
+    validate : function() {
+      this.disableButton();
+      
+      if(this._startDate.value != '' && this._endDate.value != '')
       {
-        selectedType = radio.value;
+        var startDate = MDSS.Calendar.parseDate(this._startDate.value);
+        var endDate = MDSS.Calendar.parseDate(this._endDate.value);
+        
+        if(startDate instanceof Date && endDate instanceof Date) {
+          if(startDate > endDate) {
+            alert(MDSS.localize('Invalid_Dates'));
+          }
+          else if(this._geoId.value != ''){
+            this.enableButton();
+          }
+        }        	
       }
     }
+  }
+});
 
-    var re = /^[0-9]+$/;
+Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
+  Instance:{
+    initialize: function(prop) {
+      this._button = Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button;
+      this._geoId = Mojo.Util.isString(prop.geoId) ? document.getElementById(prop.geoId) : prop.geoId;
+      this._year = Mojo.Util.isString(prop.year) ? document.getElementById(prop.year) : prop.year;
+      this._period = Mojo.Util.isString(prop.period) ? document.getElementById(prop.period) : prop.period;
+      this._periodType = Mojo.Util.isString(prop.periodType) ? YAHOO.util.Selector.query('.' + prop.periodType) : prop.periodType;
+      
+      // Initially disable the search button
+      this.disableButton();
 
-    if ( !re.test(year.value) || !re.test(period.value)) {
-      return;
-    }
+      YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
+      YAHOO.util.Event.on(this._periodType, 'click', this.validate, this, this);
+      YAHOO.util.Event.on(this._period, 'keyup', this.validate, this, this);
+      YAHOO.util.Event.on(this._year, 'keyup', this.validate, this, this);
+    },
     
-    var yearValue = year.value + '';
+    disableButton : function() {
+      this._button.disabled = true;
+    },
     
-    if(geoId.value != '' && yearValue != '' && yearValue.length == 4 && period.value != '' && selectedType != '') {
-      var request = new MDSS.Request({
-        onSuccess : function(){
-          button.disabled=false; 
-          if(this.e && e.keyCode === 9 ){
-            button.focus();
-          }
-        },
-        onFailure : function(e){
-          MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
-        },
-        onProblemExceptionDTO : function(e){
-          var problems = e.getProblems();
+    enableButton : function() {
+      this._button.disabled = false;
+    },
+    
+    _hasValidEpiInput : function() {
+      var re = /^[0-9]+$/;
 
-          for each (p in problems) {
-            if(p.getType() == "dss.vector.solutions.FuturePeriodProblem") {
-              MDSS.Calendar.addError(year,p.getLocalizedMessage());
-            }
-            else {
-              MDSS.Calendar.addError(period,p.getLocalizedMessage());
-            }
-          }
+      if ( !re.test(this._year.value) || !re.test(this._period.value)) {
+        return false;
+      }
+          
+      var yearValue = this._year.value;
+      var selectedType = this._getSelectedEpiType();
+      
+      var hasGeoEntity = (this._geoId.value != '');
+      var hasYear = (yearValue != '' && yearValue.length == 4);
+      var hasPeriod = (this._period.value != '');
+      var hasPeriodType = (selectedType != '');
+          
+      return ( hasGeoEntity && hasYear && hasPeriod && hasPeriodType );	
+    },
+    
+    _getSelectedEpiType : function() {
+      for(var i=0; i < this._periodType.length; i++) {
+        var radio = this._periodType[i];
+            
+        if(radio.checked) {
+          return radio.value;
         }
-      });
+      }
+      
+      return '';
+    },
+    
+    validate : function() {
+      this.disableButton();
+                
+      if(this._hasValidEpiInput()) {
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(){
+            this.that.enableButton();
+            
+            if(this.e && e.keyCode === 9 ){
+              this.that._button.focus();
+            }
+          },
+          onFailure : function(e){
+            MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
+          },
+          onProblemExceptionDTO : function(e){
+            var problems = e.getProblems();
 
-      MDSS.Calendar.removeError(geoId);
-      MDSS.Calendar.removeError(year);
-      MDSS.Calendar.removeError(period);
+            for each (p in problems) {
+              if(p.getType() == "dss.vector.solutions.FuturePeriodProblem") {
+                MDSS.Calendar.addError(year,p.getLocalizedMessage());
+              }
+              else {
+                MDSS.Calendar.addError(period,p.getLocalizedMessage());
+              }
+            }
+          }
+        });
+          
+        MDSS.Calendar.removeError(this._geoId);
+        MDSS.Calendar.removeError(this._year);
+        MDSS.Calendar.removeError(this._period);
+        
+        var periodValue = parseInt(this._period.value);
+        var yearValue = parseInt(this._year.value);
+        var selectedType = this._getSelectedEpiType();
 
-      Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, geoId.value, selectedType, parseInt(period.value), parseInt(year.value));
+        Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, this._geoId.value, selectedType, periodValue, yearValue);    
+      }
     }
   }
-  
-  Mojo.GLOBAL.onValidGeoEntitySelected = function() {
-    validate();  
-  }
-  
-  var disableButton = function() {
-    button.disabled=true;
-  };
-  
-  // Initially disable the search button
-  disableButton();
-
-
-  YAHOO.util.Event.on(geoId, 'blur', validate);
-  YAHOO.util.Event.on(periodType, 'click', validate);
-  YAHOO.util.Event.on(period, 'keyup', validate);
-  YAHOO.util.Event.on(year, 'keyup', validate);
-}
+});

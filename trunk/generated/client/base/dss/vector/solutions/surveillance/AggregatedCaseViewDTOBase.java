@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -984460845)
+@com.terraframe.mojo.business.ClassSignature(hash = 1197067141)
 public abstract class AggregatedCaseViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseView";
-  private static final long serialVersionUID = -984460845;
+  private static final long serialVersionUID = 1197067141;
   
   protected AggregatedCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -18,11 +18,13 @@ public abstract class AggregatedCaseViewDTOBase extends com.terraframe.mojo.busi
   
   public static java.lang.String AGEGROUP = "ageGroup";
   public static java.lang.String CASEID = "caseId";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
+  public static java.lang.String STARTDATE = "startDate";
   public dss.vector.solutions.surveillance.AggregatedAgeGroupDTO getAgeGroup()
   {
     if(getValue(AGEGROUP) == null || getValue(AGEGROUP).trim().equals(""))
@@ -102,6 +104,43 @@ public abstract class AggregatedCaseViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCaseIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CASEID).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isEndDateWritable()
+  {
+    return isWritable(ENDDATE);
+  }
+  
+  public boolean isEndDateReadable()
+  {
+    return isReadable(ENDDATE);
+  }
+  
+  public boolean isEndDateModified()
+  {
+    return isModified(ENDDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -188,7 +227,7 @@ public abstract class AggregatedCaseViewDTOBase extends com.terraframe.mojo.busi
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO> getPeriodType()
   {
-    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.surveillance.PeriodType", getEnumNames(PERIODTYPE));
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
   }
   
   public java.util.List<String> getPeriodTypeEnumNames()
@@ -266,6 +305,43 @@ public abstract class AggregatedCaseViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isStartDateWritable()
+  {
+    return isWritable(STARTDATE);
+  }
+  
+  public boolean isStartDateReadable()
+  {
+    return isReadable(STARTDATE);
+  }
+  
+  public boolean isStartDateModified()
+  {
+    return isModified(STARTDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals)

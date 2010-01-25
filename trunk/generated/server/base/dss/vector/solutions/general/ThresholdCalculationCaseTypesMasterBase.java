@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1458207039)
+@com.terraframe.mojo.business.ClassSignature(hash = -1208751359)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public abstract class ThresholdCalculationCaseTypesMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster";
-  private static final long serialVersionUID = -1458207039;
+  private static final long serialVersionUID = -1208751359;
   
   public ThresholdCalculationCaseTypesMasterBase()
   {

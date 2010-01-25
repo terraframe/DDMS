@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1646137847)
+@com.terraframe.mojo.business.ClassSignature(hash = 668593010)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,6 +17,7 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
   public static java.lang.String DISPLAYNETS = "displayNets";
   public static java.lang.String DISPLAYSERVICES = "displayServices";
   public static java.lang.String DISPLAYTARGETGROUPS = "displayTargetGroups";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String NUMBERDISTRIBUTED = "numberDistributed";
@@ -26,7 +27,9 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String RECEIVEDFORCOMMUNITYRESPONSE = "receivedForCommunityResponse";
   public static java.lang.String RECEIVEDFORTARGETGROUPS = "receivedForTargetGroups";
-  private static final long serialVersionUID = 1646137847;
+  public static java.lang.String SEARCHTYPE = "searchType";
+  public static java.lang.String STARTDATE = "startDate";
+  private static final long serialVersionUID = 668593010;
   
   public ITNDataViewBase()
   {
@@ -219,6 +222,34 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
     else
     {
       setValue(DISPLAYTARGETGROUPS, value.getId());
+    }
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void validateEndDate()
+  {
+    this.validateAttribute(ENDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEndDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
+    return mdClassIF.definesAttribute(ENDDATE);
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -472,6 +503,62 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
     }
   }
   
+  public Boolean getSearchType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+  }
+  
+  public void validateSearchType()
+  {
+    this.validateAttribute(SEARCHTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSearchTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
+    return mdClassIF.definesAttribute(SEARCHTYPE);
+  }
+  
+  public void setSearchType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SEARCHTYPE, "");
+    }
+    else
+    {
+      setValue(SEARCHTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void validateStartDate()
+  {
+    this.validateAttribute(STARTDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStartDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDataView.CLASS);
+    return mdClassIF.definesAttribute(STARTDATE);
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -540,6 +627,18 @@ public abstract class ITNDataViewBase extends com.terraframe.mojo.business.View 
   {
     ITNDataView _instance = ITNDataView.get(id);
     return _instance.getITNTargetGroups();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.ITNDataView searchByView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDataView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.ITNDataView searchByView(java.lang.String id)
+  {
+    ITNDataView _instance = ITNDataView.get(id);
+    return _instance.searchByView();
   }
   
   public String toString()

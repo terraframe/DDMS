@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1345493078)
+@com.terraframe.mojo.business.ClassSignature(hash = 908867950)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public abstract class SurfacePositionMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.SurfacePositionMaster";
-  private static final long serialVersionUID = -1345493078;
+  private static final long serialVersionUID = 908867950;
   
   public SurfacePositionMasterBase()
   {

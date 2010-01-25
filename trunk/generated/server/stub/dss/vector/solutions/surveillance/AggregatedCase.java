@@ -379,6 +379,28 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     return view;
   }
 
+  public static AggregatedCaseView searchByDates(GeoEntity geoEntity, Date startDate, Date endDate, AggregatedAgeGroup ageGroup)
+  {
+    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
+
+    if (c != null)
+    {
+      AggregatedCaseView view = c.getView();
+      view.setAgeGroup(ageGroup);
+      view.setCaseId(c.getId());
+
+      return view;
+    }
+
+    AggregatedCaseView view = ageGroup.getView();
+    view.setGeoEntity(geoEntity);
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
+    view.setAgeGroup(ageGroup);
+
+    return view;
+  }
+
   public static AggregatedCaseView getView(String id)
   {
     return AggregatedCase.get(id).getView();
@@ -460,7 +482,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         valueQuery.AND(ctmq.hasChild(termQuery));
       }
     }
-    
+
     try
     {
       SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__cfr");
@@ -471,14 +493,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     {
     }
 
+    calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100);
+    calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000);
+    calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 10000);
+    calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100000);
+    calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000000);
 
-    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,100);
-    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,1000);
-    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,10000);
-    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,100000);
-    calculateIncidence(valueQuery,aggregatedCaseQuery,queryConfig, xml,1000000);
-    
-    
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
@@ -486,19 +506,18 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
 
   }
-  
-  
-  private static void calculateIncidence(ValueQuery valueQuery,AggregatedCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
+
+  private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)
   {
     try
     {
-      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_"+multiplier);
-      
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_" + multiplier);
+
       String geoType = null;
-      
+
       String attributeKey = null;
       String[] selectedUniversals = null;
-      
+
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
       while (keys.hasNext())
@@ -506,37 +525,34 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS+'.'+AggregatedCase.GEOENTITY))
+        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
           {
-            selectedUniversals[i] = universals.getString(i);            
+            selectedUniversals[i] = universals.getString(i);
           }
-          //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-          geoType =  GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
           geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
           geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
           geoType = geoType.replace('.', '_');
         }
       }
-      
 
- 
-      
       String timePeriod = "yearly";
-      
-      if(xml.indexOf("season")>0)
+
+      if (xml.indexOf("season") > 0)
       {
         timePeriod = "seasonal";
       }
-      
+
       Selectable s = valueQuery.getSelectableRef(geoType);
-      
+
       String columnAlias = s.getQualifiedName();
-      
+
       String sql = "(SUM(cases::FLOAT)/";
-      sql += " NULLIF(AVG(get_"+timePeriod+"_population_by_geoid_and_date("+columnAlias+", "+AggregatedCase.STARTDATE+")),0))*"+multiplier;
+      sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + AggregatedCase.STARTDATE + ")),0))*" + multiplier;
 
       calc.setSQL(sql);
     }
@@ -548,7 +564,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+
   }
 
   /**
@@ -612,5 +628,4 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
-
 }

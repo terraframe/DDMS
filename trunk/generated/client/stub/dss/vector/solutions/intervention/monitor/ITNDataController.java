@@ -49,7 +49,6 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     utility.put("id", dto.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    req.setAttribute("entity", AttributeUtil.getGeoEntityFromGeoId(ITNDataViewDTO.GEOID, dto));
     this.prepareRelationships(dto);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -125,7 +124,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void failCreate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
-    this.prepareRelationships(services, targetGroups, nets);
+    this.prepareRelationships(dto, services, targetGroups, nets);
 
     req.setAttribute("item", dto);
     render("createComponent.jsp");
@@ -154,7 +153,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void failUpdate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
   {
-    this.prepareRelationships(services, targetGroups, nets);
+    this.prepareRelationships(dto, services, targetGroups, nets);
 
     req.setAttribute("item", dto);
     render("editComponent.jsp");
@@ -168,6 +167,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
     req.setAttribute("periodType", allItems);
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
+    req.setAttribute("item", new ITNDataViewDTO(clientRequest));
 
     render("searchComponent.jsp");
   }
@@ -238,11 +238,11 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       {
         // Ensure the user has the ability to create new Aggregated ITN data
         new ITNDataDTO(request);
-        
+
         // Load all of the corresponding grid values
         this.prepareRelationships(dto);
         req.setAttribute("item", dto);
-        render("createComponent.jsp");        
+        render("createComponent.jsp");
       }
     }
     catch (ProblemExceptionDTO e)
@@ -279,13 +279,72 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     render("searchComponent.jsp");
   }
 
-  private void prepareRelationships(ITNDataViewDTO dto)
+  @Override
+  public void searchByView(ITNDataViewDTO dto) throws IOException, ServletException
   {
-    prepareRelationships(dto.getITNServices(), dto.getITNTargetGroups(), dto.getITNNets());
+    try
+    {
+      ClientRequestIF request = this.getClientSession().getRequest();
+
+      ITNDataViewDTO view = dto.searchByView();
+
+      if (view.hasConcreteId())
+      {
+        this.view(view);
+      }
+      else
+      {
+        // Ensure that the user has the ability to create an aggregated IPT
+        new AggregatedIPTDTO(request);
+
+        // Load all of the corresponding grid values
+        this.prepareRelationships(view);
+        req.setAttribute("item", view);
+        render("createComponent.jsp");
+      }
+
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failSearchByView(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failSearchByView(dto);
+    }
+  }
+  
+  
+  @Override
+  public void failSearchByView(ITNDataViewDTO dto) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    
+    if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
+    {
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, dto.getGeoId());
+
+      req.setAttribute("entity", entity);
+    }
+
+    req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
+    req.setAttribute("item", dto);
+    
+    render("searchComponent.jsp");
   }
 
-  private void prepareRelationships(ITNServiceDTO[] services, ITNTargetGroupDTO[] targetGroups, ITNNetDTO[] nets)
+  private void prepareRelationships(ITNDataViewDTO dto)
   {
+    this.prepareRelationships(dto, dto.getITNServices(), dto.getITNTargetGroups(), dto.getITNNets());
+  }
+
+  private void prepareRelationships(ITNDataViewDTO dto, ITNServiceDTO[] services, ITNTargetGroupDTO[] targetGroups, ITNNetDTO[] nets)
+  {
+    req.setAttribute("entity", AttributeUtil.getGeoEntityFromGeoId(ITNDataViewDTO.GEOID, dto));
     req.setAttribute("services", Arrays.asList(services));
     req.setAttribute("targetGroups", Arrays.asList(targetGroups));
     req.setAttribute("nets", Arrays.asList(nets));

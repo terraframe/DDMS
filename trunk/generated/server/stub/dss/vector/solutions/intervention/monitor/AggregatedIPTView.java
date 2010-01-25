@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,11 +10,12 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.surveillance.PeriodType;
 
 public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244737040579L;
-  
+
   public AggregatedIPTView()
   {
     super();
@@ -21,9 +23,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
 
   public void populateView(AggregatedIPT concrete)
   {
-    EpiDate date = EpiDate.getInstanceByDate(concrete.getStartDate(), concrete.getEndDate());
-    
-    this.clearPeriodType();    
+    this.clearPeriodType();
     this.setConcreteId(concrete.getId());
     this.setGeoId(concrete.getGeoEntity().getGeoId());
     this.setNumberNatalCare(concrete.getNumberNatalCare());
@@ -31,47 +31,57 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
     this.setNumberPregnantIron(concrete.getNumberPregnantIron());
     this.setNumberPregnantITN(concrete.getNumberPregnantITN());
     this.setTotalITN(concrete.getTotalITN());
-    this.setPeriod(date.getPeriod());
-    this.setPeriodYear(date.getYear());
-    this.addPeriodType(date.getEpiPeriodType());
+    this.setStartDate(concrete.getStartDate());
+    this.setEndDate(concrete.getEndDate());
   }
 
   private void populateConcrete(AggregatedIPT concrete)
   {
-    EpiDate date = EpiDate.getInstanceByPeriod(this.getPeriodType().get(0), this.getPeriod(), this.getPeriodYear());
     GeoEntity geoEntity = GeoEntity.searchByGeoId(this.getGeoId());
-    
+
+    Date _startDate = this.getStartDate();
+    Date _endDate = this.getEndDate();
+
+    if (_startDate == null || _endDate == null)
+    {
+      PeriodType pt = this.getPeriodType().get(0);
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+
+      _startDate = date.getStartDate();
+      _endDate = date.getEndDate();
+    }
+
     concrete.setGeoEntity(geoEntity);
     concrete.setNumberNatalCare(this.getNumberNatalCare());
     concrete.setNumberPregnant(this.getNumberPregnant());
     concrete.setNumberPregnantIron(this.getNumberPregnantIron());
     concrete.setNumberPregnantITN(this.getNumberPregnantITN());
     concrete.setTotalITN(this.getTotalITN());
-    concrete.setStartDate(date.getStartDate());
-    concrete.setEndDate(date.getEndDate());
+    concrete.setStartDate(_startDate);
+    concrete.setEndDate(_endDate);
   }
-  
+
   @Override
   public void apply()
   {
     AggregatedIPT concrete = new AggregatedIPT();
-    
-    if(this.hasConcrete())
+
+    if (this.hasConcrete())
     {
       concrete = AggregatedIPT.get(this.getConcreteId());
     }
-    
+
     this.populateConcrete(concrete);
-    
+
     concrete.apply();
-    
+
     this.populateView(concrete);
   }
-  
+
   @Override
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       AggregatedIPT.get(this.getConcreteId()).delete();
     }
@@ -81,7 +91,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   @Transaction
   public void applyAll(IPTPatients[] patients, IPTANCVisit[] visits, IPTDose[] doses, IPTTreatment[] treatments)
   {
@@ -111,7 +121,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
       treatment.apply();
     }
   }
-  
+
   @Override
   public IPTANCVisit[] getIPTANCVisits()
   {
@@ -129,11 +139,11 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
       for (IPTANCVisit d : concrete.getAllANCVisitsRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -143,7 +153,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
 
     return set.toArray(new IPTANCVisit[set.size()]);
   }
-  
+
   @Override
   public IPTDose[] getIPTDoses()
   {
@@ -161,11 +171,11 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
       for (IPTDose d : concrete.getAllDosesRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -175,7 +185,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
 
     return set.toArray(new IPTDose[set.size()]);
   }
-  
+
   @Override
   public IPTPatients[] getIPTPatients()
   {
@@ -193,11 +203,11 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
       for (IPTPatients d : concrete.getAllPatientsRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -207,7 +217,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
 
     return set.toArray(new IPTPatients[set.size()]);
   }
-  
+
   @Override
   public IPTTreatment[] getIPTTreatments()
   {
@@ -225,11 +235,11 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
       for (IPTTreatment d : concrete.getAllTreatmentsRel())
       {
         // We will only want grid options methods which are active
-        // All active methods are already in the set.  Thus, if
+        // All active methods are already in the set. Thus, if
         // the set already contains an entry for the Grid Option
         // replace the default relationship with the actaul
         // relationship
-        if(set.contains(d))
+        if (set.contains(d))
         {
           set.remove(d);
           set.add(d);
@@ -238,5 +248,22 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
     }
 
     return set.toArray(new IPTTreatment[set.size()]);
+  }
+
+  @Override
+  public AggregatedIPTView searchByView()
+  {
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
+
+    if (this.getSearchType())
+    {
+      return AggregatedIPT.searchByDate(entity, this.getStartDate(), this.getEndDate());
+    }
+    else
+    {
+      PeriodType _periodType = this.getPeriodType().get(0);
+
+      return AggregatedIPT.searchByGeoEntityAndEpiDate(entity, _periodType, this.getPeriod(), this.getPeriodYear());
+    }
   }
 }

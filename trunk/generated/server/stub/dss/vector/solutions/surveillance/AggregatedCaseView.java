@@ -213,6 +213,8 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     EpiDate epiDate = EpiDate.getInstanceByDate(concrete.getStartDate(), concrete.getEndDate());
 
     this.setGeoEntity(concrete.getGeoEntity());
+    this.setStartDate(concrete.getStartDate());
+    this.setEndDate(concrete.getEndDate());
     this.setPeriod(epiDate.getPeriod());
     this.addPeriodType(epiDate.getEpiPeriodType());
     this.setPeriodYear(epiDate.getYear());
@@ -285,11 +287,20 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     }
     else
     {
-      PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
-
-      concrete.setStartDate(date.getStartDate());
-      concrete.setEndDate(date.getEndDate());
+      Date _startDate = this.getStartDate();
+      Date _endDate = this.getEndDate();
+      
+      if(_startDate == null || _endDate == null)
+      {
+        PeriodType pt = this.getPeriodType().get(0);
+        EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());        
+        
+        _startDate = date.getStartDate();
+        _endDate = date.getEndDate();
+      }
+            
+      concrete.setStartDate(_startDate);
+      concrete.setEndDate(_endDate);
       concrete.setStartAge(this.getAgeGroup().getStartAge());
       concrete.setEndAge(this.getAgeGroup().getEndAge());
       concrete.setAgeGroup(this.getAgeGroup());
@@ -324,11 +335,20 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     }
     else
     {
-      PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
-
-      concrete.setStartDate(date.getStartDate());
-      concrete.setEndDate(date.getEndDate());
+      Date _startDate = this.getStartDate();
+      Date _endDate = this.getEndDate();
+      
+      if(_startDate == null || _endDate == null)
+      {
+        PeriodType pt = this.getPeriodType().get(0);
+        EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());        
+        
+        _startDate = date.getStartDate();
+        _endDate = date.getEndDate();
+      }
+            
+      concrete.setStartDate(_startDate);
+      concrete.setEndDate(_endDate);
       concrete.setStartAge(this.getAgeGroup().getStartAge());
       concrete.setEndAge(this.getAgeGroup().getEndAge());
       concrete.setAgeGroup(this.getAgeGroup());

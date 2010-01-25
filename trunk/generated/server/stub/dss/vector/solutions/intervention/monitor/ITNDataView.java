@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,9 +11,9 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.surveillance.PeriodType;
 
-public class ITNDataView extends ITNDataViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class ITNDataView extends ITNDataViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245774473120L;
 
@@ -23,31 +24,38 @@ public class ITNDataView extends ITNDataViewBase implements
 
   public void populateView(ITNData concrete)
   {
-    EpiDate date = EpiDate.getInstanceByDate(concrete.getStartDate(), concrete.getEndDate());
-
     this.clearPeriodType();
     this.setConcreteId(concrete.getId());
     this.setGeoId(concrete.getGeoEntity().getGeoId());
-    this.setPeriod(date.getPeriod());
-    this.setPeriodYear(date.getYear());
-    this.addPeriodType(date.getEpiPeriodType());
     this.setBatchNumber(concrete.getBatchNumber());
     this.setReceivedForTargetGroups(concrete.getReceivedForTargetGroups());
     this.setReceivedForCommunityResponse(concrete.getReceivedForCommunityResponse());
     this.setNumberDistributed(concrete.getNumberDistributed());
     this.setNumberSold(concrete.getNumberSold());
     this.setCurrencyReceived(concrete.getCurrencyReceived());
+    this.setStartDate(concrete.getStartDate());
+    this.setEndDate(concrete.getEndDate());
   }
 
   private void populateConcrete(ITNData concrete)
   {
-    EpiDate date = EpiDate.getInstanceByPeriod(this.getPeriodType().get(0), this.getPeriod(), this
-        .getPeriodYear());
     GeoEntity geoEntity = GeoEntity.searchByGeoId(this.getGeoId());
 
+    Date _startDate = this.getStartDate();
+    Date _endDate = this.getEndDate();
+
+    if (_startDate == null || _endDate == null)
+    {
+      PeriodType pt = this.getPeriodType().get(0);
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+
+      _startDate = date.getStartDate();
+      _endDate = date.getEndDate();
+    }
+
     concrete.setGeoEntity(geoEntity);
-    concrete.setStartDate(date.getStartDate());
-    concrete.setEndDate(date.getEndDate());
+    concrete.setStartDate(_startDate);
+    concrete.setEndDate(_endDate);
     concrete.setBatchNumber(this.getBatchNumber());
     concrete.setReceivedForTargetGroups(this.getReceivedForTargetGroups());
     concrete.setReceivedForCommunityResponse(this.getReceivedForCommunityResponse());
@@ -55,7 +63,7 @@ public class ITNDataView extends ITNDataViewBase implements
     concrete.setNumberSold(this.getNumberSold());
     concrete.setCurrencyReceived(this.getCurrencyReceived());
   }
-  
+
   private void buildAttributeMap(ITNData concrete)
   {
     new AttributeNotificationMap(concrete, ITNData.BATCHNUMBER, this, ITNDataView.BATCHNUMBER);
@@ -64,6 +72,8 @@ public class ITNDataView extends ITNDataViewBase implements
     new AttributeNotificationMap(concrete, ITNData.NUMBERDISTRIBUTED, this, ITNDataView.NUMBERDISTRIBUTED);
     new AttributeNotificationMap(concrete, ITNData.NUMBERSOLD, this, ITNDataView.NUMBERSOLD);
     new AttributeNotificationMap(concrete, ITNData.CURRENCYRECEIVED, this, ITNDataView.CURRENCYRECEIVED);
+    new AttributeNotificationMap(concrete, ITNData.STARTDATE, this, ITNDataView.STARTDATE);
+    new AttributeNotificationMap(concrete, ITNData.ENDDATE, this, ITNDataView.ENDDATE);
   }
 
   @Override
@@ -76,7 +86,8 @@ public class ITNDataView extends ITNDataViewBase implements
       concrete = ITNData.get(this.getConcreteId());
     }
 
-    //Build the attribute map between ITNData and ITNDataView for error handling
+    // Build the attribute map between ITNData and ITNDataView for error
+    // handling
     this.buildAttributeMap(concrete);
 
     this.populateConcrete(concrete);
@@ -128,16 +139,16 @@ public class ITNDataView extends ITNDataViewBase implements
   public ITNNet[] getITNNets()
   {
     Set<ITNNet> set = new TreeSet<ITNNet>(new GridComparator());
-    
+
     for (Term d : Term.getRootChildren(ITNDataView.getDisplayNetsMd()))
     {
       set.add(new ITNNet(this.getConcreteId(), d.getId()));
     }
-    
+
     if (this.hasConcrete())
     {
       ITNData concrete = ITNData.get(this.getConcreteId());
-      
+
       for (ITNNet d : concrete.getAllNetsRel())
       {
         // We will only want grid options methods which are active
@@ -152,10 +163,10 @@ public class ITNDataView extends ITNDataViewBase implements
         }
       }
     }
-    
+
     return set.toArray(new ITNNet[set.size()]);
   }
-  
+
   @Override
   public ITNTargetGroup[] getITNTargetGroups()
   {
@@ -220,4 +231,20 @@ public class ITNDataView extends ITNDataViewBase implements
     return set.toArray(new ITNService[set.size()]);
   }
 
+  @Override
+  public ITNDataView searchByView()
+  {
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
+
+    if (this.getSearchType())
+    {
+      return ITNData.searchByDate(entity, this.getStartDate(), this.getEndDate());
+    }
+    else
+    {
+      PeriodType _periodType = this.getPeriodType().get(0);
+
+      return ITNData.searchByGeoEntityAndEpiDate(entity, _periodType, this.getPeriod(), this.getPeriodYear());
+    }
+  }
 }

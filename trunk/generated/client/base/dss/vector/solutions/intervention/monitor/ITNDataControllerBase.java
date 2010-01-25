@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1937269139)
+@com.terraframe.mojo.business.ClassSignature(hash = 102349330)
 public class ITNDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.ITNDataController";
@@ -10,7 +10,7 @@ public class ITNDataControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1937269139;
+  private static final long serialVersionUID = 102349330;
   
   public ITNDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -163,6 +163,20 @@ public class ITNDataControllerBase implements com.terraframe.mojo.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDataController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNDataController.failSearchByGeoIdAndPeriod");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNDataViewDTO:dto", post=true)
+  public void searchByView(dss.vector.solutions.intervention.monitor.ITNDataViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDataController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNDataController.searchByView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNDataViewDTO:dto", post=true)
+  public void failSearchByView(dss.vector.solutions.intervention.monitor.ITNDataViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ITNDataController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ITNDataController.failSearchByView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ITNDataViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.ITNNetDTO;:nets, [Ldss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;:targetGroups, [Ldss.vector.solutions.intervention.monitor.ITNServiceDTO;:services", post=true)

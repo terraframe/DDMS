@@ -298,7 +298,7 @@ Mojo.Meta.newClass('MDSS.AbstractHiddenElement', {
   }
 });
 
-Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
+Mojo.Meta.newClass('MDSS.HiddenBooleanElement', {
   Extends : MDSS.AbstractHiddenElement,  
   Instance: {
     initialize: function(prop) {
@@ -323,6 +323,39 @@ Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
     resetValues : function() {
       this._positiveElement.checked = this._postivieChecked;
       this._negativeElement.checked = this._negativeChecked;            
+    }    
+  }
+});
+
+
+Mojo.Meta.newClass('MDSS.HiddenRadioElement', {
+  Extends : MDSS.AbstractHiddenElement,  
+  Instance: {
+    initialize: function(prop) {
+      this.$initialize(prop);
+
+      this._options = YAHOO.util.Selector.query('.' + prop.option);
+      this._values = [];
+    
+      this.updateValues();
+    },
+    
+    updateValues : function() {
+      for(var i = 0; i < this._options.length; i++) {
+        this._values[i] = this._options[i].checked;
+      }
+    },
+    
+    clearValues : function() {
+      for(var i = 0; i < this._options.length; i++) {
+        this._options[i].checked = false;
+      }   
+    },
+    
+    resetValues : function() {
+      for(var i = 0; i < this._options.length; i++) {
+        this._options[i].checked = this._values[i];
+      }   
     }    
   }
 });

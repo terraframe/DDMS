@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 621537345)
+@com.terraframe.mojo.business.ClassSignature(hash = 870993025)
 public abstract class ThresholdCalculationCaseTypesMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster";
-  private static final long serialVersionUID = 621537345;
+  private static final long serialVersionUID = 870993025;
   
   protected ThresholdCalculationCaseTypesMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

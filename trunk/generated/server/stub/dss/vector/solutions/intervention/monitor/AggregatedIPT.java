@@ -152,7 +152,10 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
 
-    AggregatedIPT concrete = searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate());
+    Date endDate = date.getEndDate();
+    Date startDate = date.getStartDate();
+    
+    AggregatedIPT concrete = searchByGeoEntityAndDate(geoEntity, startDate, endDate);
 
     if (concrete != null)
     {
@@ -164,7 +167,26 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     view.setPeriod(period);
     view.addPeriodType(periodType);
     view.setPeriodYear(year);
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
 
+    return view;
+  }
+  
+  public static AggregatedIPTView searchByDate(GeoEntity geoEntity, Date startDate, Date endDate)
+  {
+    AggregatedIPT concrete = searchByGeoEntityAndDate(geoEntity, startDate, endDate);
+    
+    if (concrete != null)
+    {
+      return concrete.getView();
+    }
+    
+    AggregatedIPTView view = new AggregatedIPTView();
+    view.setGeoId(geoEntity.getGeoId());
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
+    
     return view;
   }
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 952618954)
+@com.terraframe.mojo.business.ClassSignature(hash = 1327112764)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class AggregatedCaseViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 952618954;
+private static final long serialVersionUID = 1327112764;
 
   public AggregatedCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -60,6 +60,24 @@ private static final long serialVersionUID = 952618954;
   public com.terraframe.mojo.query.AttributeChar getCaseId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  {
+    return getEndDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, displayLabel);
 
   }
  
@@ -150,6 +168,24 @@ private static final long serialVersionUID = 952618954;
   public com.terraframe.mojo.query.AttributeInteger getPeriodYear(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  {
+    return getStartDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, displayLabel);
 
   }
  

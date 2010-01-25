@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 237589620)
+@com.terraframe.mojo.business.ClassSignature(hash = -584803301)
 public class AggregatedCaseControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseController";
@@ -10,7 +10,7 @@ public class AggregatedCaseControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 237589620;
+  private static final long serialVersionUID = -584803301;
   
   public AggregatedCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -163,6 +163,20 @@ public class AggregatedCaseControllerBase implements com.terraframe.mojo.generat
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSearchByGeoIdAndEpiWeek");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:dto", post=true)
+  public void searchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.searchByView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:dto", post=true)
+  public void failSearchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSearchByView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:periodType, java.lang.Integer:period, java.lang.Integer:year", post=false)

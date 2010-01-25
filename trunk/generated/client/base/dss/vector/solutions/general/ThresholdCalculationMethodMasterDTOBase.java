@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 933963836)
+@com.terraframe.mojo.business.ClassSignature(hash = 1367070276)
 public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationMethodMaster";
-  private static final long serialVersionUID = 933963836;
+  private static final long serialVersionUID = 1367070276;
   
   protected ThresholdCalculationMethodMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

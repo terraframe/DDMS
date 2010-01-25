@@ -91,13 +91,33 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
   }
 
   
+  public static ITNDataView searchByDate(GeoEntity geoEntity, Date startDate, Date endDate)
+  {
+    ITNData concrete = searchByGeoEntityAndDate(geoEntity, startDate, endDate);
+    
+    if (concrete != null)
+    {     
+      return concrete.getView();
+    }
+    
+    ITNDataView view = new ITNDataView();
+    view.setGeoId(geoEntity.getGeoId());
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
+    
+    return view;
+  }
+  
   public static ITNDataView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year)
   {
     EpiDate.validate(periodType, period, year); 
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
     
-    ITNData concrete = searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate());
+    Date startDate = date.getStartDate();
+    Date endDate = date.getEndDate();
+    
+    ITNData concrete = searchByGeoEntityAndDate(geoEntity, startDate, endDate);
 
     if (concrete != null)
     {     
@@ -109,6 +129,8 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
     view.setPeriod(period);
     view.addPeriodType(periodType);
     view.setPeriodYear(year);
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);    
 
     return view;
   }

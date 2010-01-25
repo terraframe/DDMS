@@ -185,10 +185,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     
     valueQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
 
-    for (ValueObject valueObject : valueQuery.getIterator())
-    {
-      valueObject.printAttributes();
-    }
+//    for (ValueObject valueObject : valueQuery.getIterator())
+//    {
+//      valueObject.printAttributes();
+//    }
   }
 
   private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)

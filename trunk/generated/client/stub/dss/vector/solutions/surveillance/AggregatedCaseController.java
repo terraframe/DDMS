@@ -27,7 +27,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   private static final long  serialVersionUID = 1239022146651L;
 
-  public AggregatedCaseController(HttpServletRequest req, HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public AggregatedCaseController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -57,21 +57,24 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   @Override
   public void failCreate(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments, CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock, CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException, ServletException
   {
-    this.setupRequest(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    this.setupRequest(dto, treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
 
-  private void setupRequest(CaseTreatmentDTO[] treatments, CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock, CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals)
+  private void setupRequest(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments, CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock, CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals)
   {
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    ClientRequestIF request = this.getClientSession().getRequest();
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
     req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
     req.setAttribute("referrals", Arrays.asList(referrals));
     req.setAttribute("treatments", Arrays.asList(treatments));
     req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
     req.setAttribute("stock", Arrays.asList(stock));
-    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));        
+    req.setAttribute("search", dto.getSearchDTO());
   }
 
   public void update(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments, CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock, CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException, ServletException
@@ -97,23 +100,23 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   public void failUpdate(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments, CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock, CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException, ServletException
   {
-    this.setupRequest(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    this.setupRequest(dto, treatments, treatmentMethods, stock, diagnosticMethods, referrals);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  public void cancel(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
     dto.unlockCase();
     this.view(dto);
   }
 
-  public void failCancel(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void delete(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -134,14 +137,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     }
   }
 
-  public void failDelete(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
     this.setupRequest(dto);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
@@ -168,34 +171,32 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   private void setupRequest(AggregatedCaseViewDTO c)
   {
-    this.setupRequest(c.getTreatments(), c.getTreatmentMethods(), c.getTreatmentStocks(), c.getDiagnosticMethods(), c.getReferrals());
+    this.setupRequest(c, c.getTreatments(), c.getTreatmentMethods(), c.getTreatmentStocks(), c.getDiagnosticMethods(), c.getReferrals());
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    this.view(AggregatedCaseDTO.getView(clientRequest, id));
+    this.view(AggregatedCaseDTO.getView(super.getClientRequest(), id));
   }
 
-  public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void view(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getCaseId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    if (!utility.checkURL(this.getClass().getSimpleName(), "view"))
-    {
-      setupRequest(dto);
-      req.setAttribute("item", dto);
-      render("viewComponent.jsp");
-    }
+    this.setupRequest(dto);
+    
+    req.setAttribute("item", dto);
+    render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
@@ -205,10 +206,9 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-
-    req.setAttribute("periodType", allItems);
+    req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
+    req.setAttribute("item", new AggregatedCaseSearchViewDTO(clientRequest));
 
     render("searchComponent.jsp");
   }
@@ -225,7 +225,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       // Ensure the user has permissions to create a Aggregated Case
       new AggregatedCaseDTO(this.getClientRequest());
-      
+
       // Load all of the corresponding grid values
       this.setupRequest(c);
       req.setAttribute("item", c);
@@ -269,6 +269,66 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
       this.failSelectAgeGroup(geoId, periodType, failPeriod, failYear);
     }
+  }
+
+  @Override
+  public void searchByView(AggregatedCaseSearchViewDTO dto) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientSession().getRequest();
+
+    try
+    {
+      if (dto.getAgeGroup() == null)
+      {
+        List<PeriodTypeDTO> periodType = dto.getPeriodType();
+        if (periodType.size() > 0)
+        {
+          req.setAttribute("periodType", periodType.get(0).name());
+        }
+
+        req.setAttribute("ageGroups", Arrays.asList(AggregatedAgeGroupDTO.getAll(request)));
+        req.setAttribute("search", dto);
+
+        render("selectComponent.jsp");
+      }
+      else
+      {
+        AggregatedCaseViewDTO c = dto.searchByView();
+
+        if (c.hasCaseId())
+        {
+          this.view(c);
+        }
+        else
+        {
+          // Ensure the user has permissions to create a Aggregated Case
+          new AggregatedCaseDTO(this.getClientRequest());
+
+          // Load all of the corresponding grid values
+          this.setupRequest(c);
+          req.setAttribute("item", c);
+          render("createComponent.jsp");
+        }
+      }
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failSearchByView(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failSearchByView(dto);
+    }
+  }
+
+  @Override
+  public void failSearchByView(AggregatedCaseSearchViewDTO dto) throws IOException, ServletException
+  {
+    this.search();
   }
 
   public void failSelectAgeGroup(String geoId, String periodType, String period, String year) throws IOException, ServletException

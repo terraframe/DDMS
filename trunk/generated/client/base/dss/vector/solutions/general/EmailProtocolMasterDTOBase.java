@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -444524580)
+@com.terraframe.mojo.business.ClassSignature(hash = -1562485208)
 public abstract class EmailProtocolMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EmailProtocolMaster";
-  private static final long serialVersionUID = -444524580;
+  private static final long serialVersionUID = -1562485208;
   
   protected EmailProtocolMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

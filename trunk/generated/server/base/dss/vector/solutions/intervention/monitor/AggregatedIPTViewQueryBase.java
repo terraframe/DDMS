@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1512929035)
+@com.terraframe.mojo.business.ClassSignature(hash = 1516758459)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class AggregatedIPTViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1512929035;
+private static final long serialVersionUID = 1516758459;
 
   public AggregatedIPTViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -120,6 +120,24 @@ private static final long serialVersionUID = 1512929035;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.DISPLAYVISITS, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  {
+    return getEndDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.ENDDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.ENDDATE, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getGeoId()
   {
     return getGeoId(null);
@@ -278,6 +296,42 @@ private static final long serialVersionUID = 1512929035;
   public com.terraframe.mojo.query.AttributeInteger getPeriodYear(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.PERIODYEAR, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType()
+  {
+    return getSearchType(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.SEARCHTYPE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.SEARCHTYPE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  {
+    return getStartDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.STARTDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedIPTView.STARTDATE, alias, displayLabel);
 
   }
  

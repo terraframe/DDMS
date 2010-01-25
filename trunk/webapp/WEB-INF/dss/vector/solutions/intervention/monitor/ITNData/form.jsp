@@ -5,12 +5,20 @@
   <mjl:component item="${item}" param="dto">
     <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />  
     <mjl:input type="hidden" param="geoId" value="${item.geoId}" />
-    <mjl:input type="hidden" param="period" value="${item.period}" />
     <mjl:input type="hidden" param="periodType" value="${item.periodTypeEnumNames[0]}"/>
     <mjl:input type="hidden" param="periodYear" value="${item.periodYear}"/>  
+    <mjl:input type="hidden" param="startDate" value="${item.startDate}" classes="DatePick"/>  
+    <mjl:input type="hidden" param="endDate" value="${item.endDate}" classes="DatePick"/>  
     <mjl:dt attribute="geoId">
-      ${item.geoId}
+      ${entity.displayString}
     </mjl:dt>
+    <mjl:dt attribute="startDate">
+      <span class="formatDate">${item.startDate}</span>
+    </mjl:dt>
+    <mjl:dt attribute="endDate">
+      <span class="formatDate">${item.endDate}</span>      
+    </mjl:dt>          
+<!-- 
     <mjl:dt attribute="periodType">
       <ul>
         <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
@@ -24,6 +32,7 @@
     <mjl:dt attribute="periodYear">
       ${item.periodYear}
     </mjl:dt>    
+ -->        
     <mjl:dt attribute="batchNumber" type="text" />
     <mjl:dt attribute="receivedForTargetGroups" type="text" />      
     <mjl:dt attribute="receivedForCommunityResponse" type="text" />      

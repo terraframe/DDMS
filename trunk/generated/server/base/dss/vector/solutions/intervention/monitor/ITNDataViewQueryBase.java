@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -654786770)
+@com.terraframe.mojo.business.ClassSignature(hash = -2036022615)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ITNDataViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -654786770;
+private static final long serialVersionUID = -2036022615;
 
   public ITNDataViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -137,6 +137,24 @@ private static final long serialVersionUID = -654786770;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.DISPLAYTARGETGROUPS, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  {
+    return getEndDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.ENDDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.ENDDATE, alias, displayLabel);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeChar getGeoId()
   {
     return getGeoId(null);
@@ -295,6 +313,42 @@ private static final long serialVersionUID = -654786770;
   public com.terraframe.mojo.query.AttributeInteger getReceivedForTargetGroups(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.RECEIVEDFORTARGETGROUPS, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType()
+  {
+    return getSearchType(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.SEARCHTYPE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.SEARCHTYPE, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  {
+    return getStartDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.STARTDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNDataView.STARTDATE, alias, displayLabel);
 
   }
  

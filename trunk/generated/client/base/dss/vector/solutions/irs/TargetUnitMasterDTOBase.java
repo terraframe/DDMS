@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1615937821)
+@com.terraframe.mojo.business.ClassSignature(hash = 1445840839)
 public abstract class TargetUnitMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TargetUnitMaster";
-  private static final long serialVersionUID = 1615937821;
+  private static final long serialVersionUID = 1445840839;
   
   protected TargetUnitMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

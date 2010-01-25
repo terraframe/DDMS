@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1163103966)
+@com.terraframe.mojo.business.ClassSignature(hash = -1890280302)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
   public static java.lang.String DISPLAYPATIENTS = "displayPatients";
   public static java.lang.String DISPLAYTREATMENTS = "displayTreatments";
   public static java.lang.String DISPLAYVISITS = "displayVisits";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String NUMBERNATALCARE = "numberNatalCare";
@@ -25,8 +26,10 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
+  public static java.lang.String SEARCHTYPE = "searchType";
+  public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TOTALITN = "totalITN";
-  private static final long serialVersionUID = -1163103966;
+  private static final long serialVersionUID = -1890280302;
   
   public AggregatedIPTViewBase()
   {
@@ -198,6 +201,34 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     else
     {
       setValue(DISPLAYVISITS, value.getId());
+    }
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void validateEndDate()
+  {
+    this.validateAttribute(ENDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEndDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
+    return mdClassIF.definesAttribute(ENDDATE);
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -451,6 +482,62 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
     }
   }
   
+  public Boolean getSearchType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+  }
+  
+  public void validateSearchType()
+  {
+    this.validateAttribute(SEARCHTYPE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSearchTypeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
+    return mdClassIF.definesAttribute(SEARCHTYPE);
+  }
+  
+  public void setSearchType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SEARCHTYPE, "");
+    }
+    else
+    {
+      setValue(SEARCHTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void validateStartDate()
+  {
+    this.validateAttribute(STARTDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStartDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPTView.CLASS);
+    return mdClassIF.definesAttribute(STARTDATE);
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public Integer getTotalITN()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTALITN));
@@ -559,6 +646,18 @@ public abstract class AggregatedIPTViewBase extends com.terraframe.mojo.business
   {
     AggregatedIPTView _instance = AggregatedIPTView.get(id);
     return _instance.getIPTTreatments();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.AggregatedIPTView searchByView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.AggregatedIPTView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.AggregatedIPTView searchByView(java.lang.String id)
+  {
+    AggregatedIPTView _instance = AggregatedIPTView.get(id);
+    return _instance.searchByView();
   }
   
   public String toString()

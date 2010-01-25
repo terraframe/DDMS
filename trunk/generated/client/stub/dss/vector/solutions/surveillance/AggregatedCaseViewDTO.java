@@ -202,4 +202,24 @@ public abstract class AggregatedCaseViewDTO extends AggregatedCaseViewDTOBase
       AggregatedCaseDTO.lock(this.getRequest(), this.getCaseId()).delete();
     }
   }
+  
+  public AggregatedCaseSearchViewDTO getSearchDTO()
+  {
+    AggregatedCaseSearchViewDTO search = new AggregatedCaseSearchViewDTO(this.getRequest());
+    
+    for(PeriodTypeDTO type : this.getPeriodType())
+    {
+      search.addPeriodType(type);
+    }
+    
+    search.setPeriod(this.getPeriod());
+    search.setPeriodYear(this.getPeriodYear());
+    search.setStartDate(this.getStartDate());
+    search.setEndDate(this.getEndDate());
+    search.setGeoEntity(this.getGeoEntity());
+    search.setAgeGroup(this.getAgeGroup());
+    
+    return search;
+    
+  }
 }

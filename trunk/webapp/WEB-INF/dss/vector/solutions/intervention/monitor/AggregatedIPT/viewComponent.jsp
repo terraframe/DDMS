@@ -12,8 +12,15 @@
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoId">
-        ${item.geoId}
+        ${entity.displayString}
       </mjl:dt>
+      <mjl:dt attribute="startDate">
+        <span class="formatDate">${item.startDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="endDate">
+        <span class="formatDate">${item.endDate}</span>      
+      </mjl:dt>      
+<!--       
       <mjl:dt attribute="periodType">
         <ul>
           <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
@@ -27,6 +34,7 @@
       <mjl:dt attribute="periodYear">
         ${item.periodYear}
       </mjl:dt>
+ -->      
       <mjl:dt attribute="numberPregnant">
         ${item.numberPregnant}
       </mjl:dt>    

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -58276461)
+@com.terraframe.mojo.business.ClassSignature(hash = 374829979)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class ThresholdCalculationMethodMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -58276461;
+private static final long serialVersionUID = 374829979;
 
   protected ThresholdCalculationMethodMasterQueryDTO(String type)
   {

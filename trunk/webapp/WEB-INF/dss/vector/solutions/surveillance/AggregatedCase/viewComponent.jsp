@@ -20,6 +20,13 @@
       <mjl:dt attribute="geoEntity">
         ${item.geoEntity.displayString} 
       </mjl:dt>
+      <mjl:dt attribute="startDate">
+        <span class="formatDate">${item.startDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="endDate">
+        <span class="formatDate">${item.endDate}</span>      
+      </mjl:dt>      
+<!--       
       <mjl:dt attribute="periodType">
         <ul>
           <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
@@ -32,7 +39,8 @@
       </mjl:dt>
       <mjl:dt attribute="periodYear">
         ${item.periodYear}
-      </mjl:dt>          
+      </mjl:dt>
+ -->  
       <mjl:dt attribute="ageGroup">
         ${item.ageGroup.displayLabel}
       </mjl:dt>          

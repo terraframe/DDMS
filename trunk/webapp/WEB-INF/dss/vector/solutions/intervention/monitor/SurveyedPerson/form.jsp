@@ -144,11 +144,11 @@
     // SETUP FIELD HIDING
     //**********************************************************    
     var haemoglobin = new MDSS.HiddenInputElement({element:'haemoglobin'});
-    var rdtResult = new MDSS.HiddenRadioElement({element:'rdtResult'});
+    var rdtResult = new MDSS.HiddenBooleanElement({element:'rdtResult'});
     var rdtDetail = new MDSS.HiddenInputElement({element:'rdtDetail'});
     var rdtTreatment = new MDSS.HiddenInputElement({element:'rdtTreatment'});
     var bloodslideReason = new MDSS.HiddenInputElement({element:'bloodslideReason'});
-    var bloodslideResult = new MDSS.HiddenRadioElement({element:'bloodslideResult'});
+    var bloodslideResult = new MDSS.HiddenBooleanElement({element:'bloodslideResult'});
     var bloodslideDetail = new MDSS.HiddenInputElement({element:'bloodslideDetail'});
     var malaria = new MDSS.HiddenSelectElement({element:'malaria'});
     var malariaConformationTechnique = new MDSS.HiddenInputElement({element:'malariaConformationTechnique'});

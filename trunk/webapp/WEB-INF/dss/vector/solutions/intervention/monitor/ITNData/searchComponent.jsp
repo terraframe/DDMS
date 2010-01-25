@@ -21,7 +21,7 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*", CollectionSiteDTO.CLASS + "*"}); 
+  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS, CollectionSiteDTO.CLASS}); 
   request.setAttribute("entityUniversals", entityUniversals);
 %>
 
@@ -30,33 +30,47 @@
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <dl>
-    <dt> <fmt:message key="Geo_Id"/> </dt>
-    <dd>
-      <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" value="${geoId}" />
-    </dd>
-    <dt> <fmt:message key="Period_Type"/> </dt>
-    <dd>
-      <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
-        <mjl:radioOption checked="${current.enumName == checkedType ? 'checked' : 'false'}" >
-            ${current.displayLabel}
-        </mjl:radioOption>
-      </mjl:radioGroup>
-    </dd>
-    <dt> <fmt:message key="Period"/> </dt>
-    <dd>
-      <mjl:input param="period" type="text" size="2" maxlength="2" value="${period}" id="period" classes="NumbersOnly"/>
-      <mjl:messages attribute="period">
-        <mjl:message/>
-      </mjl:messages>
-    </dd>
-    <dt> <fmt:message key="Year"/> </dt>
-    <dd>
-      <mjl:input param="year" type="text" size="4" maxlength="4" value="${year}" classes="NoFutureYear" id='year'/>
-      <mjl:messages attribute="year">
-        <mjl:message/>
-      </mjl:messages>
-    </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ITNDataController.searchByGeoIdAndPeriod.mojo" name="search.button" id="button.id" value="Search" />
+    <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="searchType">
+        <mjl:boolean param="searchType" id="searchType"/>
+      </mjl:dt>
+      <mjl:dt attribute="geoId">
+        <mdss:geo param="geoId" concrete="false" value="${entity}" universals="${entityUniversals}" />
+      </mjl:dt>
+      <div class="periodType">
+        <mjl:dt attribute="periodType">
+          <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
+            <mjl:radioOption checked="${current.enumName == checkedType ? 'checked' : 'false'}" id="periodType.${current.enumName}" classes="periodTypeOption">
+              ${current.displayLabel}
+            </mjl:radioOption>
+          </mjl:radioGroup>      
+        </mjl:dt>
+      </div>
+      <div class="period">
+        <mjl:dt attribute="period">
+          <mjl:input param="period" type="text" size="2" maxlength="2" value="${period}" id="period" classes="NumbersOnly"/>
+        </mjl:dt>
+      </div>
+      <div class="periodYear">
+        <mjl:dt attribute="periodYear">
+          <mjl:input param="periodYear" type="text" size="4" maxlength="4" value="${year}" classes="NoFutureYear" id='periodYear'/>
+          <mjl:messages attribute="periodYear">
+            <mjl:message/>
+          </mjl:messages>
+        </mjl:dt>
+      </div>
+      <div class="startDate">
+        <mjl:dt attribute="startDate">
+          <mjl:input type="text" param="startDate" classes="DatePick NoFuture" id="startDate"/>
+        </mjl:dt>
+      </div>
+      <div class="endDate">
+        <mjl:dt attribute="endDate">
+          <mjl:input type="text" param="endDate" classes="DatePick NoFuture"  id="endDate"/>
+        </mjl:dt>
+      </div>
+    </mjl:component>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ITNDataController.searchByView.mojo" name="search.button" id="button.id" value="Search" />
   </dl>
 </mjl:form>
 
@@ -66,16 +80,38 @@
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
-<script type="text/javascript" defer="defer">
-  var form = document.getElementById('searchAggregatedCase');
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    
+    MDSS.GenericSearch.createYearSearch('periodYear');
+        
+    var dateValidator = new MDSS.DateSearchValidator({button:'button.id', geoId:'geoId', startDate:'startDate', endDate:'endDate'});
+    var epiValidator = new MDSS.EpiSearchValidator({button:'button.id', geoId:'geoId', year:'periodYear', period:'period', periodType:'periodTypeOption'});
 
-  var search = MDSS.GenericSearch.createYearSearch('year');
+    Mojo.GLOBAL.onValidGeoEntitySelected = function() {
+      var searchType = document.getElementById('searchType.positive');
 
-  var periodType = form.periodType;
-  var button = document.getElementById('button.id');
+      if(searchType.checked == true) {
+        dateValidator.validate();          
+      }
+      else {
+        epiValidator.validate();  
+      }
+    }
+        
 
-  var geoId = document.getElementById('geoId');	  
-  var period = document.getElementById('period');
-
-  MDSS.validateEpiDate(button, geoId, search, period, periodType);
+    //**********************************************************
+    // SETUP FIELD HIDING
+    //**********************************************************    
+    var periodType = new MDSS.HiddenRadioElement({element:'periodType', option:"periodTypeOption"});
+    var period = new MDSS.HiddenInputElement({element:'period'});
+    var periodYear = new MDSS.HiddenInputElement({element:'periodYear'});
+    var startDate = new MDSS.HiddenInputElement({element:'startDate'});
+    var endDate = new MDSS.HiddenInputElement({element:'endDate'});
+        
+    MDSS.ElementHandler.setupBooleanHandler('searchType.negative', 'searchType.positive', [periodType, period, periodYear]);
+    MDSS.ElementHandler.setupBooleanHandler('searchType.positive', 'searchType.negative', [startDate, endDate]);    
+  })
+})();  
 </script>

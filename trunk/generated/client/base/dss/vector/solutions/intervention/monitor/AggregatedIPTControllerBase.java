@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -264259020)
+@com.terraframe.mojo.business.ClassSignature(hash = 888889214)
 public class AggregatedIPTControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedIPTController";
@@ -10,7 +10,7 @@ public class AggregatedIPTControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -264259020;
+  private static final long serialVersionUID = 888889214;
   
   public AggregatedIPTControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -163,6 +163,20 @@ public class AggregatedIPTControllerBase implements com.terraframe.mojo.generati
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.AggregatedIPTController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.AggregatedIPTController.failSearchByGeoIdAndPeriod");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO:dto", post=true)
+  public void searchByView(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.AggregatedIPTController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.AggregatedIPTController.searchByView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO:dto", post=true)
+  public void failSearchByView(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.AggregatedIPTController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.AggregatedIPTController.failSearchByView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO:dto, [Ldss.vector.solutions.intervention.monitor.IPTPatientsDTO;:patients, [Ldss.vector.solutions.intervention.monitor.IPTANCVisitDTO;:visits, [Ldss.vector.solutions.intervention.monitor.IPTDoseDTO;:doses, [Ldss.vector.solutions.intervention.monitor.IPTTreatmentDTO;:treatments", post=true)

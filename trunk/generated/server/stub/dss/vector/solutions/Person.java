@@ -1,17 +1,18 @@
 package dss.vector.solutions;
 
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AttributeChar;
 import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
+import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -308,45 +309,86 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
   public static ValueQuery searchForPerson(String value)
   {
-    QueryFactory f = new QueryFactory();
+    // QueryFactory f = new QueryFactory();
+    //
+    // ValueQuery valueQuery = new ValueQuery(f);
+    // PersonQuery personQuery = new PersonQuery(valueQuery);
+    //
+    // String residentialLabel = Person.RESIDENTIALGEOENTITY +
+    // QueryUtil.DISPLAY_LABEL_SUFFIX;
+    //
+    // Selectable[] selectables = new Selectable[] {
+    // personQuery.getId(PersonView.ID),
+    // personQuery.getFirstName(PersonView.FIRSTNAME),
+    // personQuery.getLastName(PersonView.LASTNAME),
+    // personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
+    // personQuery.getSex().getName(PersonView.SEX),
+    // valueQuery.aSQLCharacter(residentialLabel, residentialLabel)
+    // };
+    //
+    // valueQuery.SELECT(selectables);
+    //
+    // QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
+    //
+    // String statement = "%" + value + "%";
+    //
+    // // Search conditions
+    // Condition or = OR.get(personQuery.getFirstName().LIKEi(statement),
+    // personQuery.getLastName().LIKEi(statement));
+    //
+    // StringTokenizer toke = new StringTokenizer(value, ", ");
+    //
+    // while (toke.hasMoreTokens())
+    // {
+    // String string = "%" + toke.nextToken() + "%";
+    //
+    // or = OR.get(or, personQuery.getFirstName().LIKEi(string),
+    // personQuery.getLastName().LIKEi(string));
+    // }
+    //
+    // // The person must be a IPT Recipient
+    // valueQuery.WHERE(or);
+    // valueQuery.ORDER_BY_ASC((SelectablePrimitive)
+    // valueQuery.getSelectableRef(Person.FIRSTNAME));
+    //
+    // valueQuery.restrictRows(15, 1);
+    //
+    // return valueQuery;
 
-    ValueQuery valueQuery = new ValueQuery(f);
+    QueryFactory factory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(factory);
     PersonQuery personQuery = new PersonQuery(valueQuery);
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 
-    Selectable[] selectables = new Selectable[] {
-        personQuery.getId(PersonView.ID),
-        personQuery.getFirstName(PersonView.FIRSTNAME),
-        personQuery.getLastName(PersonView.LASTNAME),
-        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
-        personQuery.getSex().getName(PersonView.SEX),
-        valueQuery.aSQLCharacter(residentialLabel, residentialLabel)
-    };
+    AttributeChar orderBy = personQuery.getFirstName(PersonView.FIRSTNAME);
 
-    valueQuery.SELECT(selectables);
+    SelectableSQLCharacter residentialSelectable = valueQuery.aSQLCharacter(PersonView.RESIDENTIALGEOID, residentialLabel);
+    QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY);
 
-    QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { personQuery.getId(PersonView.ID), orderBy, personQuery.getLastName(PersonView.LASTNAME), personQuery.getDateOfBirth(PersonView.DATEOFBIRTH), personQuery.getSex().getName(PersonView.SEX), };
 
-    String statement = "%" + value + "%";
+    Join join = null;// QueryUtil.forceJoinGeoDisplayLabels(valueQuery,
+                     // Person.CLASS, personQuery);
 
-    // Search conditions
-    Condition or = OR.get(personQuery.getFirstName().LIKEi(statement), personQuery.getLastName().LIKEi(statement));
+    Join[] joins = ( join != null ? new Join[] { join } : new Join[] {} );
 
-    StringTokenizer toke = new StringTokenizer(value, ", ");
-
-    while (toke.hasMoreTokens())
+    if (value != null && !value.equals(""))
     {
-      String string = "%" + toke.nextToken() + "%";
+      String[] searchable = value.split(" ");
 
-      or = OR.get(or, personQuery.getFirstName().LIKEi(string), personQuery.getLastName().LIKEi(string));
+      QueryBuilder.textLookup(valueQuery, factory, searchable, selectables, new Condition[] {}, joins);
+    }
+    else
+    {
+      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, new Condition[] {}, joins);
     }
 
-    // The person must be a IPT Recipient
-    valueQuery.WHERE(or);
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(Person.FIRSTNAME));
+    valueQuery.SELECT(residentialSelectable);
+    valueQuery.restrictRows(20, 1);
 
-    valueQuery.restrictRows(15, 1);
+    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }

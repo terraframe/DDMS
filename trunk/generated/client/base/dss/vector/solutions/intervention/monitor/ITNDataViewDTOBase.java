@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1739689097)
+@com.terraframe.mojo.business.ClassSignature(hash = -1383904014)
 public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDataView";
-  private static final long serialVersionUID = -1739689097;
+  private static final long serialVersionUID = -1383904014;
   
   protected ITNDataViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -22,6 +22,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   public static java.lang.String DISPLAYNETS = "displayNets";
   public static java.lang.String DISPLAYSERVICES = "displayServices";
   public static java.lang.String DISPLAYTARGETGROUPS = "displayTargetGroups";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String NUMBERDISTRIBUTED = "numberDistributed";
@@ -31,6 +32,8 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String RECEIVEDFORCOMMUNITYRESPONSE = "receivedForCommunityResponse";
   public static java.lang.String RECEIVEDFORTARGETGROUPS = "receivedForTargetGroups";
+  public static java.lang.String SEARCHTYPE = "searchType";
+  public static java.lang.String STARTDATE = "startDate";
   public String getBatchNumber()
   {
     return getValue(BATCHNUMBER);
@@ -274,6 +277,43 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
   }
   
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isEndDateWritable()
+  {
+    return isWritable(ENDDATE);
+  }
+  
+  public boolean isEndDateReadable()
+  {
+    return isReadable(ENDDATE);
+  }
+  
+  public boolean isEndDateModified()
+  {
+    return isModified(ENDDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+  }
+  
   public String getGeoId()
   {
     return getValue(GEOID);
@@ -425,7 +465,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO> getPeriodType()
   {
-    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.surveillance.PeriodType", getEnumNames(PERIODTYPE));
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
   }
   
   public java.util.List<String> getPeriodTypeEnumNames()
@@ -579,6 +619,80 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVEDFORTARGETGROUPS).getAttributeMdDTO();
   }
   
+  public Boolean getSearchType()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+  }
+  
+  public void setSearchType(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SEARCHTYPE, "");
+    }
+    else
+    {
+      setValue(SEARCHTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isSearchTypeWritable()
+  {
+    return isWritable(SEARCHTYPE);
+  }
+  
+  public boolean isSearchTypeReadable()
+  {
+    return isReadable(SEARCHTYPE);
+  }
+  
+  public boolean isSearchTypeModified()
+  {
+    return isModified(SEARCHTYPE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isStartDateWritable()
+  {
+    return isWritable(STARTDATE);
+  }
+  
+  public boolean isStartDateReadable()
+  {
+    return isReadable(STARTDATE);
+  }
+  
+  public boolean isStartDateModified()
+  {
+    return isModified(STARTDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+  }
+  
   public final void applyAll(dss.vector.solutions.intervention.monitor.ITNNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] targetGroups, dss.vector.solutions.intervention.monitor.ITNServiceDTO[] services)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.ITNNet;", "[Ldss.vector.solutions.intervention.monitor.ITNTargetGroup;", "[Ldss.vector.solutions.intervention.monitor.ITNService;"};
@@ -657,6 +771,22 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.intervention.monitor.ITNDataViewDTO searchByView()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.ITNDataViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.ITNDataViewDTO searchByView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.ITNDataViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static ITNDataViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

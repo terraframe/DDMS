@@ -6,14 +6,20 @@
       <input type="hidden" name="#dto.actualType" value="${item.type}DTO" />
       <mjl:input type="hidden" param="geoEntity" value="${item.geoEntity.id}" />
       <mjl:input type="hidden" param="ageGroup" value="${item.ageGroup.id}" />
-      <mjl:input type="hidden" param="period" value="${item.period}" />
-      <mjl:input type="hidden" param="periodType" value="${item.periodTypeEnumNames[0]}"/>
-      <mjl:input type="hidden" param="periodYear" value="${item.periodYear}"/>
       <mjl:input type="hidden" param="caseId" value="${item.caseId}" />
+      <mjl:input type="hidden" param="startDate" value="${item.startDate}" classes="DatePick"/>
+      <mjl:input type="hidden" param="endDate" value="${item.endDate}" classes="DatePick"/>     
 
       <mjl:dt attribute="geoEntity">
-        ${item.geoEntity.geoId}
+        ${item.geoEntity.displayString}
       </mjl:dt>
+      <mjl:dt attribute="startDate">
+        <span class="formatDate">${item.startDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="endDate">
+        <span class="formatDate">${item.endDate}</span>      
+      </mjl:dt>      
+<!-- 
       <mjl:dt attribute="periodType">
         <ul>
           <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
@@ -26,7 +32,8 @@
       </mjl:dt>
       <mjl:dt attribute="periodYear">
         ${item.periodYear}
-      </mjl:dt>          
+      </mjl:dt>
+ -->                
       <mjl:dt attribute="ageGroup">
         ${item.ageGroup.displayLabel}
       </mjl:dt>          
