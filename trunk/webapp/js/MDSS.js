@@ -179,6 +179,13 @@ var MDSS = {
     // provide default error handler
     this.onFailure = function(e)
     {
+      // Firefox cancels requests when esc is pressed which causes a status code
+      // of 0. In this case, to avoid an empty error modal, do nothing.
+      if(this.getTransport().status === 0)
+      {
+        return;
+      }
+    
       this.createModal(e.getLocalizedMessage());
     };
 
@@ -206,51 +213,6 @@ var MDSS = {
       window.location = '/';
     };
     
-    /*
-    this._listener = function(e){
-      if(e.keyCode === 27 || e.keyCode == 13)
-      {
-        YAHOO.util.Event.preventDefault(e);
-      }
-    }; 
-
-    this._addListener = function()
-    {
-      YAHOO.util.Event.addListener(window, 'keypress', this._listener);
-    };
-    
-    this._removeListener = function()
-    {
-      YAHOO.util.Event.removeListener(window, 'keypress', this._listener);
-    };
-
-    if(Mojo.Util.isFunction(handler.onSend))
-    {
-      var refFunc1 = handler.onSend;
-      handler.onSend = Mojo.Util.bind(this, function(){
-        this._addListener();
-        refFunc1.call(this);
-      });
-    }
-    else
-    {
-      handler.onSend = this._addListener;
-    }
-    
-    if(Mojo.Util.isFunction(handler.onComplete))
-    {
-      var refFunc2 = handler.onComplete;
-      handler.onComplete = Mojo.Util.bind(this, function(){
-        this._removeListener();
-        refFunc2.call(this);
-      });
-    }
-    else
-    {
-      handler.onComplete = this._removeListener;
-    }
-    */
-
     Mojo.Util.copy(new Mojo.ClientRequest(handler), this);
   }
 };
