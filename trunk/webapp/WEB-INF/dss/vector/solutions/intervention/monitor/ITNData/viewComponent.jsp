@@ -137,5 +137,7 @@
   </c:if>
     
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDataController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNData.form.edit.button" />
+    <mjl:command value="Create_New_ITN_Data_Button" action="dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo" name="ITNDataController.search" />
+    
   </dl>
 </mjl:form>
