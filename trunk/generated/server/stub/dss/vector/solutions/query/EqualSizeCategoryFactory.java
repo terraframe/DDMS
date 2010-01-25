@@ -13,6 +13,24 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 	}
 
 	@Override
+	public boolean isRequiredParameter(String param) {
+		if (STARTING_COLOR.equals(param)) return true;
+		if (ENDING_COLOR.equals(param)) return true;
+		if (COUNT.equals(param)) return true;
+		if (PRECISION.equals(param)) return true;
+		return false;
+	}
+
+	@Override
+	public boolean isSupportedParameter(String param) {
+		if (STARTING_COLOR.equals(param)) return true;
+		if (ENDING_COLOR.equals(param)) return true;
+		if (COUNT.equals(param)) return true;
+		if (PRECISION.equals(param)) return true;
+		return false;
+	}
+
+	@Override
 	public List<AbstractCategory> create(Layer layer, Map<String, String> parameters) {
 		ArrayList<AbstractCategory> categories = new ArrayList<AbstractCategory>();
 
