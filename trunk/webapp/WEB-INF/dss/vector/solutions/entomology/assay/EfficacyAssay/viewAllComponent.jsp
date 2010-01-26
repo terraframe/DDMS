@@ -6,8 +6,10 @@
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.business.ComponentQueryDTO"%><fmt:setLocale value="<%=request.getLocale()%>" />
-<c:set var="page_title" value="Efficacy_Bioassay"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.ComponentQueryDTO"%>
+<c:set var="page_title" value="View_All_Efficacy_bioassay"  scope="request"/>
+
+<fmt:setLocale value="<%=request.getLocale()%>" />
 
 <mjl:messages>
   <mjl:message />

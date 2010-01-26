@@ -1,8 +1,10 @@
 package dss.vector.solutions;
 
 import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -197,6 +199,25 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   {
     this.radioFilters.add(tag);
   }
+  
+  private Set<String> getExtraUniversals()
+  {
+    Set<String> set = new LinkedHashSet<String>();
+    List<String> list = this.getUniversals();
+    String _filter = this.getFilter();
+    
+    if(list != null)
+    {
+      set.addAll(list);
+    }
+    
+    if(_filter != null && !_filter.equals(""))
+    {
+      set.add(_filter);
+    }
+    
+    return set;    
+  }
 
   @Override
   public void doTag() throws JspException, IOException
@@ -304,6 +325,8 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
 
   private void writeFilterScript(JspWriter out) throws IOException
   {
+    Set<String> _universals = this.getExtraUniversals();
+
     if (this.getFilter() != null)
     {
       out.write("    selectSearch.setFilter('" + this.getFilter() + "');\n");
@@ -313,7 +336,8 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    selectSearch.setPopulated(" + this.getPopulated() + ");\n");
     out.write("    selectSearch.setSprayTargetAllowed(" + this.getSpray() + ");\n");
     
-    for(String universal : this.getUniversals())
+    
+    for(String universal : _universals)
     {
       out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");      
     }    

@@ -3,13 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
+<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%>
+
+<c:set var="surface" scope="page"><%= SurfaceDTO.CLASS %></c:set>
+
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
       <mjl:dt attribute="geoId">
-        <mdss:geo param="geoId" value="${geoId}" concrete="false" />      
+        <mdss:geo param="geoId" value="${geoId}" concrete="false" filter="${surface}" />      
       </mjl:dt>
       <mjl:dt attribute="testDate">
         <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />

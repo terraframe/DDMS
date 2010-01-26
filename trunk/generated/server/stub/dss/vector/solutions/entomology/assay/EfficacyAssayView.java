@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
+import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
@@ -11,6 +13,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.Surface;
 
 public class EfficacyAssayView extends EfficacyAssayViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -24,12 +27,19 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
 
   private void populateConcrete(EfficacyAssay concrete)
   {
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
+
+    if(entity == null || !(entity instanceof Surface))
+    {
+      throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+    }
+
     concrete.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
     concrete.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
     concrete.setColonyName(this.getColonyName());
     concrete.setExposureTime(this.getExposureTime());
     concrete.setFed(this.getFed());
-    concrete.setGeoEntity(GeoEntity.searchByGeoId(this.getGeoId()));
+    concrete.setGeoEntity((Surface) entity);
     concrete.setGravid(this.getGravid());
     concrete.setHoldingTime(this.getHoldingTime());
     concrete.setInsecticide(this.getInsecticide());
@@ -43,6 +53,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     concrete.setTimeOnSurface(this.getTimeOnSurface());
     concrete.setSex(this.getSex());
     concrete.setSurfacePostion(this.getSurfacePostion());
+    
+    
   }
 
   public void populateView(EfficacyAssay assay)

@@ -29,12 +29,12 @@ import dss.vector.solutions.entomology.assay.InvalidFedSexProblem;
 import dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem;
 import dss.vector.solutions.entomology.assay.InvalidGravidSexProblem;
 import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.ontology.Term;
 
 public class EfficacyAssayTest extends TestCase
 {
-  private static GeoEntity          surface          = null;
+  private static Surface            surface          = null;
 
   private static MosquitoCollection collection       = null;
 
@@ -88,7 +88,7 @@ public class EfficacyAssayTest extends TestCase
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, new Locale[]{Locale.US});
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, new Locale[] { Locale.US });
 
     collectionMethod = TestFixture.createRandomTerm();
     specie = TestFixture.createRandomTerm();
