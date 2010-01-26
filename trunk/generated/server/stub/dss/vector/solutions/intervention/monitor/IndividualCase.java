@@ -203,16 +203,12 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       diagnosisDate = new Date();
     }
 
+    int newCasePeriod = Property.getInt("dss.vector.solutions.intervention.monitor", "newCasePeriod");
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
-    calendar.add(Calendar.DAY_OF_MONTH, -28);
+    calendar.add(Calendar.DAY_OF_MONTH, -7 * newCasePeriod);
     
-    Date fourWeeksAgo = calendar.getTime();
-    
-    calendar.setTime(diagnosisDate);
-    calendar.add(Calendar.DAY_OF_MONTH, 28);
-    
-    Date fourWeeksFuture = calendar.getTime();
+    Date newCasePeriodCutoff = calendar.getTime();
 
     IndividualCase individualCase = new IndividualCase();
     Person person = Person.get(personId);
@@ -222,7 +218,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
       
-      Condition condition = AND.get(query.getDiagnosisDate().GE(fourWeeksAgo), query.getDiagnosisDate().LE(fourWeeksFuture), query.getPatient().EQ(patient));
+      Condition condition = AND.get(query.getDiagnosisDate().GE(newCasePeriodCutoff), query.getDiagnosisDate().LE(diagnosisDate), query.getPatient().EQ(patient));
       
       query.WHERE(condition);
       query.ORDER_BY_DESC(query.getDiagnosisDate());

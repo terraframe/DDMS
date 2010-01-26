@@ -1,0 +1,41 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<object
+		        type="dss.vector.solutions.Property"
+		        key="newCasePeriod">
+		        <attribute
+		          name="propertyName"
+		          value="newCasePeriod" />
+		        <attribute
+		          name="displayLabel"
+		          value="New Case Period (weeks)" />
+		        <attribute
+		          name="propertyPackage"
+		          value="dss.vector.solutions.intervention.monitor" />
+		        <attribute
+		          name="propertyValue"
+		          value="4" />
+		        <attribute
+		          name="propertyType"
+		          value="Integer" />
+		        <attribute
+		          name="propertyValidator"
+		          value="^[1-9][0-9]*$" />
+		        <attribute
+		          name="validValues"
+		          value="4, 6, 10" />
+		        <attribute
+		          name="description"
+		          value="Number of weeks (from case diagnosis date) after which to create a new case" />
+		      	</object>
+	      </create>
+	</doIt>
+	<undoIt>
+	    <delete>
+			<object
+	        	type="dss.vector.solutions.Property"
+	        	key="newCasePeriod" />
+		</delete>
+	</undoIt>
+</version>
