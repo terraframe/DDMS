@@ -223,6 +223,11 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       // add generic ajax search
       this._genericSearch = new MDSS.GenericSearch(this._geoInput, this._geoElement, lF, dF, iF, sF, sEH);
+      
+      // IMPORTANT: We must reset the search cache because new geo entities made be created/deleted in 101.
+      //            As such the existing search results may no longer be valid.
+      YAHOO.util.Event.on(this._opener, "click", this._genericSearch.resetCache, this._genericSearch, this._genericSearch);
+
       YAHOO.util.Event.on(this._geoInput, 'focus', this._setCurrentInput, null, this);
       
       // 
