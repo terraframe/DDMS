@@ -5,8 +5,6 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.Property.form.name" id="dss.vector.solutions.Property.form.id" method="POST">
-  <div class="fldContainer">
-<div class="fcTop">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
@@ -42,14 +40,8 @@
     <dd>
       ${item.propertyValue}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton"/>
   </dl>
-
-<div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-</div>
-
-  <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton"/>
-  <br />
 </mjl:form>
 
 <mjl:commandLink display="View All" action="dss.vector.solutions.PropertyController.viewAll.mojo" name="dss.vector.solutions.Property.viewAll.link" />

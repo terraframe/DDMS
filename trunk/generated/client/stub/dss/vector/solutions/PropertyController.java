@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.EpiConfigurationDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -36,12 +37,20 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void view(String id) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
+    this.view(PropertyDTO.get(this.getClientRequest(), id));
+  }
+  
+  private void view(PropertyDTO dto) throws IOException, ServletException
+  {
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
-    req.setAttribute("item", PropertyDTO.get(clientRequest, id));
+    req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
+
 
   public void failView(String id) throws IOException, ServletException
   {
@@ -119,7 +128,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     try
     {
-      dto.lock();
+//      dto.lock();
       dto.apply();
       this.view(dto.getId());
     }
