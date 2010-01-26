@@ -39,7 +39,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     this.view(PropertyDTO.get(this.getClientRequest(), id));
   }
-  
+
   private void view(PropertyDTO dto) throws IOException, ServletException
   {
     RedirectUtility utility = new RedirectUtility(req, resp);
@@ -51,7 +51,6 @@ public class PropertyController extends PropertyControllerBase implements com.te
     render("viewComponent.jsp");
   }
 
-
   public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
@@ -61,7 +60,10 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     try
     {
-      dto.apply();
+      PropertyDTO locked = PropertyDTO.lock(this.getClientRequest(), dto.getId());
+      locked.setPropertyValue(dto.getPropertyValue());
+      locked.apply();
+
       this.newInstance();
     }
     catch (ProblemExceptionDTO e)
@@ -101,7 +103,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void cancel(PropertyDTO dto) throws IOException, ServletException
   {
     dto.unlock();
-    
+
     this.view(dto);
   }
 
@@ -129,7 +131,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     try
     {
-//      dto.lock();
+      // dto.lock();
       dto.apply();
       this.view(dto.getId());
     }
@@ -186,7 +188,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
      * PropertyDTO dto = new PropertyDTO(clientRequest);
      */
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-    
+
     req.setAttribute("item", dto);
     req.setAttribute("configuration", new EpiConfigurationDTO(clientRequest));
     render("epiWeekComponent.jsp");
@@ -195,5 +197,38 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
+  }
+
+  @Override
+  public void updateStartDay(String propertyValue) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+
+      dto.lock();
+      dto.setPropertyValue(propertyValue);
+      dto.apply();
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdateStartDay(propertyValue);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failUpdateStartDay(propertyValue);
+    }
+
+  }
+
+  @Override
+  public void failUpdateStartDay(String propertyValue) throws IOException, ServletException
+  {
+    this.newInstance();
   }
 }
