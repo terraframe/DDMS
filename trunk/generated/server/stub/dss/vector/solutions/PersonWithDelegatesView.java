@@ -29,7 +29,7 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
     
     if(sortAttribute.equalsIgnoreCase(SEX))
     {
-      selectable = ((AttributeReference) selectable.getAttribute()).aAttribute(Term.DISPLAY);
+      selectable = ((AttributeReference) selectable.getAttribute()).get(Term.DISPLAY);
     }
     
     if (isAscending)

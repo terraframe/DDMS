@@ -133,7 +133,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
 
     if(sortAttribute.equalsIgnoreCase(AreaStandardsView.TARGETUNIT))
     {
-      selectable = ((AttributeEnumeration) selectable.getAttribute()).aAttribute(TargetUnitMaster.ENUMNAME);
+      selectable = ((AttributeEnumeration) selectable.getAttribute()).get(TargetUnitMaster.ENUMNAME);
     }
     
     if (isAscending)
