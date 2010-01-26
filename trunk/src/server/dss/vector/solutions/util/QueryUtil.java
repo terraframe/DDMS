@@ -722,7 +722,7 @@ public class QueryUtil implements Reloadable
           }
         }
 
-        Selectable geometrySel = geoEntityQuery.aAttribute(geoAttr);
+        Selectable geometrySel = geoEntityQuery.get(geoAttr);
         selectables.add(geometrySel);
       }
 
@@ -783,7 +783,7 @@ public class QueryUtil implements Reloadable
       String attributeName = attributeKey.substring(ind + 1);
 
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
-      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
+      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.get(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
   }
 
@@ -805,7 +805,7 @@ public class QueryUtil implements Reloadable
         if (queryMap.containsKey(klass))
         {
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.aAttribute(attributeName);
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.GE(start));
         }
 
@@ -816,7 +816,7 @@ public class QueryUtil implements Reloadable
         if (queryMap.containsKey(klass))
         {
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.aAttribute(attributeName);
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.LE(end));
         }
       }
