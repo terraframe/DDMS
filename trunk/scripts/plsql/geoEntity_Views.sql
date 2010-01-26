@@ -189,6 +189,7 @@ RETURNS INT AS $$
 
 DECLARE
   _epiWeek      INT;
+  _firstDayOfEpiWeek INT;
   _seasonId  	VARCHAR;
   _targetColumn  VARCHAR;
 BEGIN
@@ -200,7 +201,10 @@ BEGIN
      RETURN NULL;
    END IF;
 
-  _epiWeek := EXTRACT(week FROM _date)-2;
+   SELECT propertyValue FROM property WHERE keyname = 'epiStartWeekDay'
+   INTO _firstDayOfEpiWeek;
+   
+  _epiWeek := get_epiWeek_from_date(_date,_firstDayOfEpiWeek);
 
   _targetColumn := ('target_' || _epiWeek); 
     
