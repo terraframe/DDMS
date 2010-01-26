@@ -198,37 +198,4 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     this.viewAll();
   }
-
-  @Override
-  public void updateStartDay(String propertyValue) throws IOException, ServletException
-  {
-    try
-    {
-      ClientRequestIF clientRequest = super.getClientRequest();
-      PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-
-      dto.lock();
-      dto.setPropertyValue(propertyValue);
-      dto.apply();
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdateStartDay(propertyValue);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failUpdateStartDay(propertyValue);
-    }
-
-  }
-
-  @Override
-  public void failUpdateStartDay(String propertyValue) throws IOException, ServletException
-  {
-    this.newInstance();
-  }
 }
