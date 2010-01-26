@@ -54,12 +54,17 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     if (periodType.equals(PeriodType.WEEK))
     {
       Calendar calendar = getEpiCalendar(year);
-
       calendar.add(Calendar.WEEK_OF_YEAR, period);
-      super.setStartDate(calendar.getTime());
+      
+      Date startDate = calendar.getTime();
+      
       calendar.add(Calendar.WEEK_OF_YEAR, 1);
       calendar.add(Calendar.DAY_OF_YEAR, -1);
-      super.setEndDate(calendar.getTime());
+      
+      Date endDate = calendar.getTime();
+
+      super.setStartDate(startDate);
+      super.setEndDate(endDate);
     }
     else if (periodType.equals(PeriodType.MONTH))
     {

@@ -113,17 +113,17 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
             }
           },
           onFailure : function(e){
-            MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
+            MDSS.Calendar.addError(this.that._geoId,e.getLocalizedMessage());            
           },
           onProblemExceptionDTO : function(e){
             var problems = e.getProblems();
 
             for each (p in problems) {
               if(p.getType() == "dss.vector.solutions.FuturePeriodProblem") {
-                MDSS.Calendar.addError(year,p.getLocalizedMessage());
+                MDSS.Calendar.addError(this.that._year,p.getLocalizedMessage());
               }
               else {
-                MDSS.Calendar.addError(period,p.getLocalizedMessage());
+                MDSS.Calendar.addError(this.that._period,p.getLocalizedMessage());
               }
             }
           }

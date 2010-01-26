@@ -35,6 +35,7 @@ import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
+import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
 import com.terraframe.mojo.controller.DTOFacade;
@@ -138,29 +139,33 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   private static String generateDropDownMap(LabeledDTO[] terms) throws JSONException
   {
     JSONObject map = new JSONObject();
+    
     for (LabeledDTO term : terms)
     {
       map.put(term.getOptionId(), term.getLabel().replaceAll("'", "\\\\'"));
     }
+    
     return map.toString();
   }
 
   public static String getDisplayLabels(LabeledDTO[] terms, String name) throws JSONException
   {
-    JSONArray ids = new JSONArray();
-    JSONArray labels = new JSONArray();
+    JSONArray options = new JSONArray();
 
     for (LabeledDTO term : terms)
     {
-      ids.put(term.getOptionId());
-      labels.put(term.getLabel().replaceAll("'", "\\'"));
+      options.put(Halp.getLabeledPair(term.getLabel(), term.getOptionId()));
     }
 
-    return name + "Ids = " + ids.toString() + "; \n " + name + "Labels = " + labels.toString() + ";";
+    return name + "Options = " + options.toString() + ";";
+  }
+  
+  public static String getDataMap(ViewDTO[] rows, String[] attribs, ViewDTO view) throws JSONException
+  {
+    return Halp.getDataMap(rows, attribs, view, new HashMap<String, RowSetup>());
   }
 
-  @SuppressWarnings("deprecation")
-  public static String getDataMap(ViewDTO[] rows, String[] attribs, ViewDTO view) throws JSONException
+  public static String getDataMap(ViewDTO[] rows, String[] attribs, ViewDTO view, Map<String, RowSetup> setups) throws JSONException
   {
     JSONArray map = new JSONArray();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
@@ -175,13 +180,27 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     for (ViewDTO row : rows)
     {
       JSONObject element = new JSONObject();
-      Class<?> c = row.getClass();
 
       for (String attrib : ordered_attribs)
-      {
+      {       
         try
-        {
-          String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
+        {          
+          Object object = null;
+          
+          if(setups.containsKey(attrib))
+          {
+            RowSetup setup = setups.get(attrib);
+            
+            Class<? extends ViewDTO> klass = row.getClass();
+            
+            object = klass.getMethod(setup.getGetter()).invoke(row);
+          }
+          else
+          {
+            object = new DTOFacade(attrib, row).getValue();            
+          }          
+
+          String value = object.toString();
 
           String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
 
@@ -190,20 +209,26 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           switch (Halp.MdType.toType(attributeType))
           {
             case DATE:
-              value = df.format(new Date(value));
+              value = df.format((Date) object);
               break;
             case ENUMERATION:
               // FIXME: this is a hack for enums
               value = value.replaceAll("\\[", "").replaceAll("\\]", "");
               break;
             case REFERENCE:
-              ComponentDTO componentDTO = (ComponentDTO) c.getMethod("get" + attrib).invoke(row);
+              ComponentDTO componentDTO = (ComponentDTO) (object);
 
               if (componentDTO instanceof TermDTO)
               {
                 TermDTO term = (TermDTO) componentDTO;
 
                 value = Halp.getTermIdWithDisplayLabel(term);
+              }
+              else if(componentDTO instanceof LabeledDTO)
+              {
+                LabeledDTO labeled = (LabeledDTO) componentDTO;
+                
+                value = labeled.getOptionId();
               }
               else
               {
@@ -246,7 +271,26 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static String getTermIdWithDisplayLabel(TermDTO term)
   {
-    return term.getDisplayLabel() + "^^^^" + term.getId();
+    String label = term.getDisplayLabel();
+    String id = term.getId();
+    
+    return label + "^^^^" + id;
+  }
+
+  private static JSONObject getLabeledPair(String label, String value)
+  {
+    JSONObject object = new JSONObject();
+    try
+    {
+      object.put("label", label);
+      object.put("value", value);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+        
+    return object;
   }
 
   public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest) throws JSONException
@@ -258,14 +302,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   {
     Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
-
-    for (String a : view.getAccessorNames())
-    {
-      if (!ordered_attribs.contains(a) && a.length() >= 3)
-      {
-        ordered_attribs.add(a.substring(0, 1).toUpperCase() + a.substring(1));
-      }
-    }
 
     ArrayList<String> dropdownbuff = new ArrayList<String>();
     for (String attrib : ordered_attribs)
@@ -485,7 +521,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
     for (String accessorName : view.getAccessorNames())
     {
-      String upcased_attrib = accessorName.substring(0, 1).toUpperCase() + accessorName.substring(1);
+      String upcased_attrib = GenerationUtil.upperFirstCharacter(accessorName);
+      
       if (!ordered.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
       {
         ordered.add(upcased_attrib);
@@ -689,13 +726,18 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         Class<?> refrenced_class = md.getJavaType();
 
+        if(setup.getType() != null)
+        {
+          refrenced_class = LoaderDecorator.load(setup.getType());
+        }
+        
         if (LabeledDTO.class.isAssignableFrom(refrenced_class))
         {
-          options.add("dropdownOptions:" + attrib + "Labels");
+          options.add("dropdownOptions:" + attrib + "Options");
 
           editor = DROPDOWN_EDITOR;
         }
-        if (TermDTO.class.isAssignableFrom(refrenced_class))
+        else if (TermDTO.class.isAssignableFrom(refrenced_class))
         {
           options.add("klass:'" + view.getType() + "'");
           options.add("attribute:'" + attrib + "'");

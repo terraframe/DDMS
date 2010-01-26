@@ -110,9 +110,9 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
   
   public static ITNDataView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year)
   {
-    EpiDate.validate(periodType, period, year); 
+    EpiDate.validate(periodType, period - 1, year); 
 
-    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
+    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period - 1, year);
     
     Date startDate = date.getStartDate();
     Date endDate = date.getEndDate();

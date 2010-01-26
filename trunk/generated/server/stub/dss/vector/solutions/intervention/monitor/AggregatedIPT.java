@@ -148,9 +148,9 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
 
   public static AggregatedIPTView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year)
   {
-    EpiDate.validate(periodType, period, year);
+    EpiDate.validate(periodType, period - 1, year);
 
-    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
+    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period - 1, year);
 
     Date endDate = date.getEndDate();
     Date startDate = date.getStartDate();

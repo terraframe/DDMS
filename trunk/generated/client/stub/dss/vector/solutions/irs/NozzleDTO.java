@@ -2,9 +2,7 @@ package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.LabeledDTO;
-
-public class NozzleDTO extends NozzleDTOBase implements Reloadable, LabeledDTO
+public class NozzleDTO extends NozzleDTOBase implements Reloadable
 {
   private static final long serialVersionUID = 1240597892276L;
 

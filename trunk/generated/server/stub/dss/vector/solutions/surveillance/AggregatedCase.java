@@ -355,9 +355,9 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   @Transaction
   public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
-    EpiDate.validate(periodType, period, year);
+    EpiDate.validate(periodType, period - 1, year);
 
-    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
+    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period - 1, year);
     AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate(), ageGroup);
 
     if (c != null)

@@ -8,4 +8,14 @@ public class InsecticideNozzleViewDTO extends InsecticideNozzleViewDTOBase
   {
     super(clientRequest);
   }
+  
+  public InsecticideBrandViewDTO getBrandView()
+  {
+    return InsecticideBrandDTO.getView(this.getRequest(), this.getValue(BRAND));
+  }
+  
+  public NozzleViewDTO getNozzleView()
+  {
+    return NozzleDTO.getView(this.getRequest(), this.getValue(NOZZLE));
+  }
 }

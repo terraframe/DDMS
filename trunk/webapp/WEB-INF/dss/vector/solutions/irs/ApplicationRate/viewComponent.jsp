@@ -7,7 +7,9 @@
 <%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 
-<c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
+
+<%@page import="dss.vector.solutions.util.RowSetup"%>
+<%@page import="java.util.Arrays"%><c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -18,12 +20,12 @@
 
   Map<String, ColumnSetup> brandMap = new HashMap<String, ColumnSetup>();
   brandMap.put("InsecticdeId", new ColumnSetup(true, false));
-  brandMap.put("BrandName", new ColumnSetup(false, true, null, null, null));
-  brandMap.put("ActiveIngredient", new ColumnSetup(false, true, null, null, null));
+  brandMap.put("BrandName", new ColumnSetup(false, true));
+  brandMap.put("ActiveIngredient", new ColumnSetup(false, true));
   brandMap.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));    
-  brandMap.put("Weight", new ColumnSetup(false, true, null, null, null));
-  brandMap.put("SachetsPerRefill", new ColumnSetup(false, true, null, null, null));   
-  brandMap.put("Enabled", new ColumnSetup(false, true, null, null, null));
+  brandMap.put("Weight", new ColumnSetup(false, true));
+  brandMap.put("SachetsPerRefill", new ColumnSetup(false, true));   
+  brandMap.put("Enabled", new ColumnSetup(false, true));
   
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
   NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
@@ -35,8 +37,15 @@
 
   Map<String, ColumnSetup> configurationMap = new HashMap<String, ColumnSetup>();
   configurationMap.put("InsecticideNozzleId", new ColumnSetup(true, false));
+  configurationMap.put("Brand", new ColumnSetup(false, true, null, brandDTO.getClass().getName(), "getAllActive"));
+  configurationMap.put("Nozzle", new ColumnSetup(false, true, null, nozzleDTO.getClass().getName(), "getAllActive"));
+  configurationMap.put("Enabled", new ColumnSetup(false, true));
   configurationMap.put("BrandLabel", new ColumnSetup(true, false));
   configurationMap.put("NozzleLabel", new ColumnSetup(true, false));
+  
+  Map<String, RowSetup> rowMap = new HashMap<String, RowSetup>();
+  rowMap.put("Brand", new RowSetup("getBrandView"));
+  rowMap.put("Nozzle", new RowSetup("getNozzleView"));
   
   Map<String, String> map = new HashMap<String, String>();
   map.put("Brand", InsecticideBrandViewDTO.class.getName());
@@ -83,6 +92,9 @@
       <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
    </dl>
   </mjl:form>
+  <mjl:commandLink name="history" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo"><fmt:message key="Area_History"/></mjl:commandLink>
+
+  <%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideBrandViewDTO.CLASS, NozzleViewDTO.CLASS, InsecticideNozzleViewDTO.CLASS}))%>
 
 
 <script type="text/javascript">
@@ -98,17 +110,7 @@
 	        return undefined;
 	    }
 	}
-
 	
-    <%
-      String[] types_to_load =
-        {
-          InsecticideBrandViewDTO.CLASS,
-          NozzleViewDTO.CLASS,
-          InsecticideNozzleViewDTO.CLASS
-        };
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load, true));
-    %>
     <%=Halp.getDropdownSetup(brandDTO, brandAttributes, deleteColumn, clientRequest)%>
 
 
@@ -143,7 +145,7 @@
 
 
     insecticideNozzleData = {
-              rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO)%>,
+              rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO, rowMap)%>,
               columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
               defaults:<%=Halp.getDefaultValues(insecticideNozzleDTO, insecticideNozzleAttributes)%>,
               copy_from_above: [],

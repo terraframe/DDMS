@@ -60,6 +60,7 @@ public class ColumnSetup implements Reloadable
     this.type = type;
     this.method = method;
     this.sum = false;
+    
     this.title = null;
     this.label = null;
   }

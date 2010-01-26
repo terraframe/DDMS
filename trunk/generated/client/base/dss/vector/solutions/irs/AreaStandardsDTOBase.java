@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -287476940)
+@com.terraframe.mojo.business.ClassSignature(hash = 1756112251)
 public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandards";
-  private static final long serialVersionUID = -287476940;
+  private static final long serialVersionUID = 1756112251;
   
   protected AreaStandardsDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String HOUSEHOLD = "household";
   public static java.lang.String ID = "id";
@@ -40,6 +41,7 @@ public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String ROOM = "room";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STRUCTUREAREA = "structureArea";
   public static java.lang.String TARGETUNIT = "targetUnit";
   public static java.lang.String TYPE = "type";
@@ -99,6 +101,43 @@ public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isEndDateWritable()
+  {
+    return isWritable(ENDDATE);
+  }
+  
+  public boolean isEndDateReadable()
+  {
+    return isReadable(ENDDATE);
+  }
+  
+  public boolean isEndDateModified()
+  {
+    return isModified(ENDDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -437,6 +476,43 @@ public abstract class AreaStandardsDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isStartDateWritable()
+  {
+    return isWritable(STARTDATE);
+  }
+  
+  public boolean isStartDateReadable()
+  {
+    return isReadable(STARTDATE);
+  }
+  
+  public boolean isStartDateModified()
+  {
+    return isModified(STARTDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public Float getStructureArea()

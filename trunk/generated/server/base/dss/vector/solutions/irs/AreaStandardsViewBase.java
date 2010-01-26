@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1927618072)
+@com.terraframe.mojo.business.ClassSignature(hash = -1277515834)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,13 +12,15 @@ public abstract class AreaStandardsViewBase extends com.terraframe.mojo.business
 {
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandardsView";
   public static java.lang.String AREASTANDARDSID = "areaStandardsId";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String HOUSEHOLD = "household";
   public static java.lang.String ID = "id";
   public static java.lang.String ROOM = "room";
+  public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STRUCTUREAREA = "structureArea";
   public static java.lang.String TARGETUNIT = "targetUnit";
   public static java.lang.String UNITNOZZLEAREACOVERAGE = "unitNozzleAreaCoverage";
-  private static final long serialVersionUID = 1927618072;
+  private static final long serialVersionUID = -1277515834;
   
   public AreaStandardsViewBase()
   {
@@ -50,6 +52,34 @@ public abstract class AreaStandardsViewBase extends com.terraframe.mojo.business
     else
     {
       setValue(AREASTANDARDSID, value);
+    }
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void validateEndDate()
+  {
+    this.validateAttribute(ENDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEndDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
+    return mdClassIF.definesAttribute(ENDDATE);
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -122,6 +152,34 @@ public abstract class AreaStandardsViewBase extends com.terraframe.mojo.business
     else
     {
       setValue(ROOM, java.lang.Float.toString(value));
+    }
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void validateStartDate()
+  {
+    this.validateAttribute(STARTDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStartDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandardsView.CLASS);
+    return mdClassIF.definesAttribute(STARTDATE);
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -254,6 +312,12 @@ public abstract class AreaStandardsViewBase extends com.terraframe.mojo.business
   }
   
   public static dss.vector.solutions.irs.AreaStandardsView getMostRecent()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.AreaStandardsView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.irs.AreaStandardsViewQuery getPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.AreaStandardsView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

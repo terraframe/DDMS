@@ -47,7 +47,7 @@ public class ITNDataView extends ITNDataViewBase implements com.terraframe.mojo.
     if (_startDate == null || _endDate == null)
     {
       PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod() - 1, this.getPeriodYear());
 
       _startDate = date.getStartDate();
       _endDate = date.getEndDate();

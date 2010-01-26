@@ -21,9 +21,13 @@ private static final long serialVersionUID = 1240597921003L;
 
   class DefaultAreaStandardsViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
   {
+    private AreaStandardsQuery query;
+    
     public DefaultAreaStandardsViewBuilder(com.terraframe.mojo.query.QueryFactory queryFactory)
     {
       super(queryFactory);
+      
+      query = new AreaStandardsQuery(queryFactory);
     }
 
     protected AreaStandardsViewQuery getViewQuery()
@@ -35,9 +39,18 @@ private static final long serialVersionUID = 1240597921003L;
      * build the select clause
      */
     protected void buildSelectClause()
-    {
-      String errMsg = "buildSelectClause() method in class DefaultAreaStandardsViewBuilder needs to be overwritten.";
-      throw new com.terraframe.mojo.query.QueryException(errMsg);
+    {      
+      AreaStandardsViewQuery viewQuery = this.getViewQuery();
+      
+      viewQuery.map(AreaStandardsView.AREASTANDARDSID, query.getId());
+      viewQuery.map(AreaStandardsView.ENDDATE, query.getEndDate());
+      viewQuery.map(AreaStandardsView.STARTDATE, query.getStartDate());
+      viewQuery.map(AreaStandardsView.HOUSEHOLD, query.getHousehold());
+      viewQuery.map(AreaStandardsView.ROOM, query.getRoom());
+      viewQuery.map(AreaStandardsView.STARTDATE, query.getStartDate());
+      viewQuery.map(AreaStandardsView.STRUCTUREAREA, query.getStructureArea());
+      viewQuery.map(AreaStandardsView.TARGETUNIT, query.getTargetUnit());
+      viewQuery.map(AreaStandardsView.UNITNOZZLEAREACOVERAGE, query.getUnitNozzleAreaCoverage());
     }
 
     /**

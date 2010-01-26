@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1916218956)
+@com.terraframe.mojo.business.ClassSignature(hash = 1827996667)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class AreaStandardsBase extends com.terraframe.mojo.business.Bus
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandards";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String HOUSEHOLD = "household";
   public static java.lang.String ID = "id";
@@ -24,11 +25,12 @@ public abstract class AreaStandardsBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String ROOM = "room";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STRUCTUREAREA = "structureArea";
   public static java.lang.String TARGETUNIT = "targetUnit";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNITNOZZLEAREACOVERAGE = "unitNozzleAreaCoverage";
-  private static final long serialVersionUID = -1916218956;
+  private static final long serialVersionUID = 1827996667;
   
   public AreaStandardsBase()
   {
@@ -72,6 +74,34 @@ public abstract class AreaStandardsBase extends com.terraframe.mojo.business.Bus
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public java.util.Date getEndDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+  }
+  
+  public void validateEndDate()
+  {
+    this.validateAttribute(ENDDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEndDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
+    return mdClassIF.definesAttribute(ENDDATE);
+  }
+  
+  public void setEndDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(ENDDATE, "");
+    }
+    else
+    {
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
   }
   
   public com.terraframe.mojo.system.metadata.MdDomain getEntityDomain()
@@ -336,6 +366,34 @@ public abstract class AreaStandardsBase extends com.terraframe.mojo.business.Bus
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
     return mdClassIF.definesAttribute(SITEMASTER);
+  }
+  
+  public java.util.Date getStartDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+  }
+  
+  public void validateStartDate()
+  {
+    this.validateAttribute(STARTDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getStartDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
+    return mdClassIF.definesAttribute(STARTDATE);
+  }
+  
+  public void setStartDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(STARTDATE, "");
+    }
+    else
+    {
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
   }
   
   public Float getStructureArea()

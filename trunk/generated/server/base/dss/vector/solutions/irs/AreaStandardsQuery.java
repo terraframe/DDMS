@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1406362987)
+@com.terraframe.mojo.business.ClassSignature(hash = 1449412786)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class AreaStandardsQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1406362987;
+private static final long serialVersionUID = 1449412786;
 
   public AreaStandardsQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -77,6 +77,23 @@ private static final long serialVersionUID = 1406362987;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
 
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.AreaStandards.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  {
+    return getEndDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.AreaStandards.ENDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.AreaStandards.ENDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -290,6 +307,23 @@ private static final long serialVersionUID = 1406362987;
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.AreaStandards.SITEMASTER, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  {
+    return getStartDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.AreaStandards.STARTDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.AreaStandards.STARTDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeFloat getStructureArea()
   {
     return getStructureArea(null);
@@ -448,6 +482,9 @@ private static final long serialVersionUID = 1406362987;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeMoment getEndDate();
+    public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias);
+    public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -481,6 +518,9 @@ private static final long serialVersionUID = 1406362987;
     public com.terraframe.mojo.query.AttributeChar getSiteMaster();
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
     public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeMoment getStartDate();
+    public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias);
+    public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeFloat getStructureArea();
     public com.terraframe.mojo.query.AttributeFloat getStructureArea(String alias);
     public com.terraframe.mojo.query.AttributeFloat getStructureArea(String alias, String displayLabel);
@@ -508,7 +548,7 @@ private static final long serialVersionUID = 1406362987;
  implements AreaStandardsQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -193046391;
+private static final long serialVersionUID = 399076816;
 
   public AreaStandardsQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -559,6 +599,23 @@ private static final long serialVersionUID = -193046391;
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.AreaStandards.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  {
+    return getEndDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("endDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("endDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -746,6 +803,23 @@ private static final long serialVersionUID = -193046391;
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.AreaStandards.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  {
+    return getStartDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("startDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("startDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeFloat getStructureArea()

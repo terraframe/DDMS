@@ -385,7 +385,7 @@
       <mdBusiness
         name="dss.vector.solutions.irs.AreaStandards"
         label="Area Standards"
-        generateController="false"
+        generateController="true"
         description="Surface area standards">
         <attributes>
           <float

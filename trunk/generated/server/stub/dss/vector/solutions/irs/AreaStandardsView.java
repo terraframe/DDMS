@@ -1,8 +1,11 @@
 package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AttributeEnumeration;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 
 public class AreaStandardsView extends AreaStandardsViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -19,7 +22,8 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     concrete.setStructureArea(this.getStructureArea());
     concrete.setHousehold(this.getHousehold());
     concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage()); 
-    
+    concrete.setStartDate(this.getStartDate());
+    concrete.setEndDate(this.getEndDate());
     concrete.clearTargetUnit();
     
     for(TargetUnit unit : this.getTargetUnit())
@@ -115,4 +119,38 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     
     return this.getHousehold();
   }
+  
+  public static AreaStandardsViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    AreaStandardsViewQuery query = new AreaStandardsViewQuery(new QueryFactory());
+    
+    if(sortAttribute == null)
+    {
+      sortAttribute = AreaStandardsView.STARTDATE;
+    }
+    
+    Selectable selectable = query.getComponentQuery().getSelectableRef(sortAttribute);
+
+    if(sortAttribute.equalsIgnoreCase(AreaStandardsView.TARGETUNIT))
+    {
+      selectable = ((AttributeEnumeration) selectable.getAttribute()).aAttribute(TargetUnitMaster.ENUMNAME);
+    }
+    
+    if (isAscending)
+    {
+      query.ORDER_BY_ASC((SelectablePrimitive) selectable, sortAttribute);
+    }
+    else
+    {
+      query.ORDER_BY_DESC((SelectablePrimitive) selectable, sortAttribute);
+    }
+
+    if (pageSize != 0 && pageNumber != 0)
+    {
+       query.restrictRows(pageSize, pageNumber);
+    }
+
+    return query;
+  }
+
 }
