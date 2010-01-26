@@ -6,7 +6,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -24,12 +27,19 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class MdssControlPanel extends JFrame {
+	private static final String SESSION_TIME_PROPERTY = "sessionTime";
+
+	private static final String PROPERTIES_FILENAME = "common.properties";
+
 	private static final long serialVersionUID = 1L;
 
 	public final int HEIGHT = 300;
@@ -42,8 +52,12 @@ public class MdssControlPanel extends JFrame {
 	private static final String STOP = "stop";
 	private static final String BACKUP = "backup";
 	private static final String RESTORE = "restore";
-	
+	private static final String TIMEOUT = "timeout";
+
 	private static final String COUNTRY = "country.";
+
+	private static final String DEFAULT_TIMEOUT = "86400"; // 24 hours (in
+															// seconds)
 
 	private ResourceBundle bundle;
 	private Map<String, String> countries = new HashMap<String, String>();
@@ -52,6 +66,8 @@ public class MdssControlPanel extends JFrame {
 	private JButton stopButton;
 	private JButton backupButton;
 	private JButton restoreButton;
+
+	private JTextField timeoutField;
 
 	private ButtonGroup group = new ButtonGroup();
 
@@ -64,8 +80,9 @@ public class MdssControlPanel extends JFrame {
 	}
 
 	public MdssControlPanel(Locale locale) {
+		// System.out.println(System.getProperty("user.dir"));
 		bundle = ResourceBundle.getBundle("MdssControlPanel", locale);
-		
+
 		Enumeration<String> e = bundle.getKeys();
 		while (e.hasMoreElements()) {
 			String key = e.nextElement();
@@ -82,12 +99,12 @@ public class MdssControlPanel extends JFrame {
 		if (args.length > 0) {
 			String[] localeInfo = args[0].split("_");
 			switch (localeInfo.length) {
-				case 1:
-					locale = new Locale(localeInfo[0]);
-				case 2:
-					locale = new Locale(localeInfo[0], localeInfo[1]);
-				case 3:
-					locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
+			case 1:
+				locale = new Locale(localeInfo[0]);
+			case 2:
+				locale = new Locale(localeInfo[0], localeInfo[1]);
+			case 3:
+				locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
 			}
 		}
 		MdssControlPanel mcp = new MdssControlPanel(locale);
@@ -109,6 +126,7 @@ public class MdssControlPanel extends JFrame {
 		userPanel.setLayout(new BorderLayout());
 		userPanel.add(this.createCountryPanel(), "North");
 		userPanel.add(this.createActionsPanel(), "South");
+		userPanel.add(this.createOptionsPanel(), "West");
 		mainPanel.add(userPanel, "North");
 
 		outputTextArea = new JTextArea();
@@ -161,10 +179,10 @@ public class MdssControlPanel extends JFrame {
 		URL mdss;
 		try {
 			mdss = new URL(this.bundle.getString(URL) + "/status.jsp");
-	        URLConnection mdssConnection = mdss.openConnection();
-	        BufferedReader in = new BufferedReader(new InputStreamReader(mdssConnection.getInputStream()));
-	        status=in.readLine();
-	        in.close();
+			URLConnection mdssConnection = mdss.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(mdssConnection.getInputStream()));
+			status = in.readLine();
+			in.close();
 		} catch (MalformedURLException e) {
 			// This shouldn't happen
 			e.printStackTrace();
@@ -175,7 +193,7 @@ public class MdssControlPanel extends JFrame {
 	}
 
 	private void setButtons() {
-		this.setButtons(this.checkMdssStatus() != null );
+		this.setButtons(this.checkMdssStatus() != null);
 	}
 
 	private void setButtons(boolean started) {
@@ -203,9 +221,9 @@ public class MdssControlPanel extends JFrame {
 		countryPanel.setLayout(new GridLayout(0, 1));
 
 		boolean isFirst = true;
-		for (String country: countries.keySet()) {
+		for (String country : countries.keySet()) {
 			JRadioButton countryButton = new JRadioButton(countries.get(country));
-			//countryButton.setMnemonic(KeyEvent.VK_Z);
+			// countryButton.setMnemonic(KeyEvent.VK_Z);
 			countryButton.setActionCommand(country);
 			if (isFirst) {
 				countryButton.setSelected(true);
@@ -235,6 +253,115 @@ public class MdssControlPanel extends JFrame {
 		return actionsPanel;
 	}
 
+	private JPanel createOptionsPanel() {
+		JPanel optionsPanel = new JPanel();
+		optionsPanel.setLayout(new GridLayout(1, 2));
+
+		optionsPanel.add(new JLabel(this.getText(TIMEOUT) + " "));
+
+		timeoutField = new JTextField(this.getTimeout());
+
+		optionsPanel.add(timeoutField);
+
+		return optionsPanel;
+	}
+
+	private String getTimeout() {
+		String timeout = DEFAULT_TIMEOUT;
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader(PROPERTIES_FILENAME));
+			String line;
+			while ((line = in.readLine()) != null) {
+				if (line.trim().startsWith(SESSION_TIME_PROPERTY)) {
+					int equalsPos = line.lastIndexOf('=');
+					if (equalsPos > 0) {
+						String sessionTime = line.substring(equalsPos + 1).trim();
+						int s = Integer.parseInt(sessionTime);
+						timeout = sessionTime;
+					}
+					break;
+				}
+			}
+		} catch (IOException e) {
+			// Do nothing...use default
+			// System.out.println(e);
+		} catch (NumberFormatException e) {
+			// Do nothing...use default
+			// System.out.println(e);
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					// Do nothing
+				}
+			}
+		}
+		return timeout;
+	}
+
+	private boolean isTimeoutValid(String timeout) {
+		try {
+			int timeoutValue = Integer.parseInt(timeout);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean setTimeout(String timeout) {
+		boolean success = false;
+		BufferedReader in = null;
+		BufferedWriter out = null;
+		File newprops = new File(PROPERTIES_FILENAME + ".new");
+		File props = new File(PROPERTIES_FILENAME);
+		try {
+			in = new BufferedReader(new FileReader(props));
+			out = new BufferedWriter(new FileWriter(newprops));
+			String line;
+			while ((line = in.readLine()) != null) {
+				if (line.trim().startsWith(SESSION_TIME_PROPERTY)) {
+					out.write(SESSION_TIME_PROPERTY + "=" + timeout);
+				} else {
+					out.write(line);
+				}
+				out.write("\n");
+			}
+			success = true;
+		} catch (Exception e) {
+			success = false;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					success = false;
+				}
+			}
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					success = false;
+				}
+			}
+		}
+		
+		if (success) {
+			success = false;
+			File oldprops = new File(PROPERTIES_FILENAME + ".old");
+			if (props.renameTo(oldprops)) {
+				if (newprops.renameTo(props)) {
+					oldprops.delete();
+					success = true;
+				}
+			}
+		}
+		
+		return success;
+	}
+
 	private File chooseFile(boolean chooseDirectoryOnly) {
 		if (chooseDirectoryOnly) {
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -242,13 +369,13 @@ public class MdssControlPanel extends JFrame {
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		}
 
-        int returnVal = fc.showOpenDialog(this);
+		int returnVal = fc.showOpenDialog(this);
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            return fc.getSelectedFile();
-        } else {
-        	return null;
-        }
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			return fc.getSelectedFile();
+		} else {
+			return null;
+		}
 	}
 
 	private void runCommand(String commandKey, String path, String file) {
@@ -262,37 +389,37 @@ public class MdssControlPanel extends JFrame {
 		String command = MessageFormat.format(this.bundle.getString("command." + commandKey), parameters);
 
 		outputTextArea.setText(null);
-        try {
-            Runtime rt = Runtime.getRuntime();
-            final Process pr = rt.exec(command);
+		try {
+			Runtime rt = Runtime.getRuntime();
+			final Process pr = rt.exec(command);
 
 			Thread outputThread = new Thread() {
 				public void run() {
-		            outputTextArea.setText(null);
-		            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+					outputTextArea.setText(null);
+					BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 
-		            String line=null;
+					String line = null;
 
-		            try {
-						while((line=input.readLine()) != null) {
-						    outputTextArea.append(line + "\n");
-						    outputTextArea.setCaretPosition(outputTextArea.getText().length());
+					try {
+						while ((line = input.readLine()) != null) {
+							outputTextArea.append(line + "\n");
+							outputTextArea.setCaretPosition(outputTextArea.getText().length());
 						}
-			            int exitVal = pr.waitFor();
-			            outputTextArea.append("Exit code: "+exitVal);
+						int exitVal = pr.waitFor();
+						outputTextArea.append("Exit code: " + exitVal);
 					} catch (IOException e) {
 						outputTextArea.append(e.toString());
 					} catch (InterruptedException e) {
 						// Do nothing);
 					}
 
-			        setButtons();
+					setButtons();
 				}
 			};
 			outputThread.start();
-        } catch(Exception e) {
-            outputTextArea.append(e.toString());
-        }
+		} catch (Exception e) {
+			outputTextArea.append(e.toString());
+		}
 	}
 
 	private String getText(String key) {
@@ -300,9 +427,17 @@ public class MdssControlPanel extends JFrame {
 	}
 
 	private void start() {
-		setButtons(true);
-		runCommand(START, null, null);
-		setButtons();
+		if (isTimeoutValid(timeoutField.getText())) {
+			if (setTimeout(timeoutField.getText())) {
+				setButtons(true);
+				runCommand(START, null, null);
+				setButtons();
+			} else {
+				JOptionPane.showMessageDialog(this, this.getText("error.properties"));
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, this.getText("error.timeout"));
+		}
 	}
 
 	private void stop() {
@@ -315,45 +450,13 @@ public class MdssControlPanel extends JFrame {
 		File file = chooseFile(true);
 		if (file != null) {
 			runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
-			/*
-			outputTextArea.setText(null);
-
-			final PipedOutputStream out = new PipedOutputStream();
-			PrintStream ps = new PrintStream(out);
-
-			final Backup backup = new Backup(ps, group.getSelection().getActionCommand(), group.getSelection().getActionCommand(), true, true);
-			Thread backupThread = new Thread() {
-				public void run() {
-					backup.backup();
-				}
-			};
-			backupThread.start();
-
-
-			Thread outputThread = new Thread() {
-				public void run() {
-					try {
-						BufferedReader in = new BufferedReader(new InputStreamReader(new PipedInputStream(out)));
-						String line = null;
-						while((line=in.readLine()) != null) {
-							outputTextArea.append(line + "\n");
-						}
-						outputTextArea.append("Done!");
-					} catch (IOException e) {
-						// Do nothing -- streams close themselves
-					}
-					outputTextArea.append("Done!");
-				}
-			};
-			outputThread.start();
-			*/
 		}
 	}
 
 	private void restore() {
 		File file = chooseFile(false);
 		if (file != null) {
-			runCommand(RESTORE, file.getAbsolutePath().substring(0, file.getAbsolutePath().length()-(file.getName().length()+1)), file.getName());
+			runCommand(RESTORE, file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - (file.getName().length() + 1)), file.getName());
 		}
 	}
 
