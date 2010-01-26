@@ -47,13 +47,13 @@ private static final long serialVersionUID = 409435567;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator()
@@ -64,13 +64,13 @@ private static final long serialVersionUID = 409435567;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getMemberId()
@@ -81,13 +81,13 @@ private static final long serialVersionUID = 409435567;
  
   public com.terraframe.mojo.query.AttributeChar getMemberId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.MEMBERID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamMember.MEMBERID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -160,9 +160,23 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     return this.getBusinessQuery().isChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(leadTeamQuery);
   }
 
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
@@ -174,10 +188,25 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
     return this.getBusinessQuery().isChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(leadTeamQuery);
   }
 
 
@@ -189,9 +218,23 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     return this.getBusinessQuery().isNotChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(leadTeamQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
@@ -203,10 +246,25 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
     return this.getBusinessQuery().isNotChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(leadTeamQuery);
   }
 
 
@@ -218,9 +276,23 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     return this.getBusinessQuery().isChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(inTeamQuery);
   }
 
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
@@ -232,10 +304,25 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
     return this.getBusinessQuery().isChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(inTeamQuery);
   }
 
 
@@ -247,9 +334,23 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     return this.getBusinessQuery().isNotChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(inTeamQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
@@ -261,10 +362,25 @@ private static final long serialVersionUID = 409435567;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
     return this.getBusinessQuery().isNotChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(inTeamQuery);
   }
 
 
@@ -299,10 +415,22 @@ private static final long serialVersionUID = 409435567;
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam();
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery);
+
+
   public com.terraframe.mojo.query.Condition sprayTeam();
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
 
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam();
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam();
@@ -311,10 +439,22 @@ private static final long serialVersionUID = 409435567;
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam();
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam();
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam();
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery);
 
   }
 
@@ -353,13 +493,13 @@ private static final long serialVersionUID = -230824495;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isSprayLeader", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isSprayLeader", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator()
@@ -370,13 +510,13 @@ private static final long serialVersionUID = -230824495;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isSprayOperator", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isSprayOperator", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getMemberId()
@@ -387,13 +527,13 @@ private static final long serialVersionUID = -230824495;
  
   public com.terraframe.mojo.query.AttributeChar getMemberId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("memberId", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("memberId", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -404,13 +544,13 @@ private static final long serialVersionUID = -230824495;
  
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias)
   {
-    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.attributeFactory("person", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamMember.PERSON, alias, null);
 
   }
  
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.attributeFactory("person", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamMember.PERSON,  alias, displayLabel);
 
   }
 
@@ -422,6 +562,25 @@ private static final long serialVersionUID = -230824495;
     return this.isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.isChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.isChildIn_SUBSELECT(leadTeamQuery);
+  }
+
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -431,10 +590,25 @@ private static final long serialVersionUID = -230824495;
     return this.isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
     return this.isChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
+    return this.isChildIn_SUBSELECT(leadTeamQuery);
   }
 
 
@@ -446,6 +620,25 @@ private static final long serialVersionUID = -230824495;
     return this.isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.isChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.isChildIn_SUBSELECT(inTeamQuery);
+  }
+
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -455,10 +648,25 @@ private static final long serialVersionUID = -230824495;
     return this.isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
     return this.isChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
+    return this.isChildIn_SUBSELECT(inTeamQuery);
   }
 
 
@@ -470,6 +678,25 @@ private static final long serialVersionUID = -230824495;
     return this.isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.isNotChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(leadTeamQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -479,10 +706,25 @@ private static final long serialVersionUID = -230824495;
     return this.isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.LeadTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
   {
     leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
     return this.isNotChildIn(leadTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_leadsTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.LeadTeamQuery leadTeamQuery)
+  {
+    leadTeamQuery.AND(leadTeamQuery.hasParent(sprayTeamQuery));
+    return this.isNotChildIn_SUBSELECT(leadTeamQuery);
   }
 
 
@@ -494,6 +736,25 @@ private static final long serialVersionUID = -230824495;
     return this.isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.isNotChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(inTeamQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -503,10 +764,25 @@ private static final long serialVersionUID = -230824495;
     return this.isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.irs.InTeam.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(sprayTeamQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
   {
     inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
     return this.isNotChildIn(inTeamQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_sprayTeam(dss.vector.solutions.irs.SprayTeamQuery sprayTeamQuery, dss.vector.solutions.irs.InTeamQuery inTeamQuery)
+  {
+    inTeamQuery.AND(inTeamQuery.hasParent(sprayTeamQuery));
+    return this.isNotChildIn_SUBSELECT(inTeamQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

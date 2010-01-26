@@ -183,13 +183,13 @@ private static final long serialVersionUID = -2033814081;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("endPoint", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("endPoint", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT,  alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint()
@@ -200,13 +200,13 @@ private static final long serialVersionUID = -2033814081;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("startPoint", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("startPoint", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT,  alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

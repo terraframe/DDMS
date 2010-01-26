@@ -47,13 +47,13 @@ private static final long serialVersionUID = 1011170390;
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.FontStyle.PRIORITY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.FontStyle.PRIORITY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   /**  
@@ -171,13 +171,13 @@ private static final long serialVersionUID = 1995445876;
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priority", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priority", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   }
@@ -218,13 +218,13 @@ private static final long serialVersionUID = -1724970970;
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priority", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priority", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   }

@@ -47,13 +47,13 @@ private static final long serialVersionUID = -1756970942;
  
   public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
@@ -64,13 +64,13 @@ private static final long serialVersionUID = -1756970942;
  
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
 
   }
   /**  
@@ -153,13 +153,13 @@ private static final long serialVersionUID = -947697308;
  
   public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("lowerBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("lowerBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
@@ -170,13 +170,13 @@ private static final long serialVersionUID = -947697308;
  
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("upperBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("upperBoundStr", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
 
   }
   }

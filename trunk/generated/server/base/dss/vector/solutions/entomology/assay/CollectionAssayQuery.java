@@ -70,13 +70,13 @@ private static final long serialVersionUID = -67422567;
  
   public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration()
@@ -133,13 +133,13 @@ private static final long serialVersionUID = -67422567;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested()
@@ -150,13 +150,13 @@ private static final long serialVersionUID = -67422567;
  
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()
@@ -303,13 +303,13 @@ private static final long serialVersionUID = 1226375479;
  
   public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias)
   {
-    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.attributeFactory("collection", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION, alias, null);
 
   }
  
   public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.attributeFactory("collection", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getExposureTime()
@@ -320,13 +320,13 @@ private static final long serialVersionUID = 1226375479;
  
   public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("exposureTime", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("exposureTime", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration()
@@ -337,13 +337,13 @@ private static final long serialVersionUID = 1226375479;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("generation", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("generation", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION,  alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod()
@@ -354,13 +354,13 @@ private static final long serialVersionUID = 1226375479;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale()
@@ -371,13 +371,13 @@ private static final long serialVersionUID = 1226375479;
  
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isofemale", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("isofemale", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested()
@@ -388,13 +388,13 @@ private static final long serialVersionUID = 1226375479;
  
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("quantityTested", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("quantityTested", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()
@@ -405,13 +405,13 @@ private static final long serialVersionUID = 1226375479;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("testMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("testMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD,  alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

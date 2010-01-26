@@ -70,13 +70,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getCases(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCases(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale()
@@ -87,13 +87,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesMale()
@@ -104,13 +104,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant()
@@ -121,13 +121,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed()
@@ -138,13 +138,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath()
@@ -155,13 +155,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -172,13 +172,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -212,13 +212,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDaysOutOfStock(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDaysOutOfStock(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeaths()
@@ -229,13 +229,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDeaths(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeaths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale()
@@ -246,13 +246,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale()
@@ -263,13 +263,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant()
@@ -280,13 +280,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed()
@@ -297,13 +297,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath()
@@ -314,13 +314,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getEndAge()
@@ -331,13 +331,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getEndAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getEndAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getEndDate()
@@ -348,13 +348,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -411,13 +411,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatients()
@@ -428,13 +428,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatients(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia()
@@ -445,13 +445,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically()
@@ -462,13 +462,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive()
@@ -479,13 +479,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged()
@@ -496,13 +496,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale()
@@ -513,13 +513,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale()
@@ -530,13 +530,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated()
@@ -547,13 +547,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia()
@@ -564,13 +564,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis()
@@ -581,13 +581,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal()
@@ -598,13 +598,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -615,13 +615,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -632,13 +632,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -695,13 +695,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatients(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale()
@@ -712,13 +712,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale()
@@ -729,13 +729,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated()
@@ -746,13 +746,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal()
@@ -763,13 +763,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -803,13 +803,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis()
@@ -820,13 +820,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath()
@@ -837,13 +837,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived()
@@ -854,13 +854,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived()
@@ -871,13 +871,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent()
@@ -888,13 +888,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -905,13 +905,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -922,13 +922,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStartAge()
@@ -939,13 +939,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getStartAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStartAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getStartDate()
@@ -956,13 +956,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStillBirths()
@@ -973,13 +973,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeInteger getStillBirths(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStillBirths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -990,13 +990,13 @@ private static final long serialVersionUID = 558001093;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.AggregatedCase.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -1071,9 +1071,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     return this.getBusinessQuery().isParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1085,10 +1099,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
     return this.getBusinessQuery().isParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
 
@@ -1100,9 +1129,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     return this.getBusinessQuery().isNotParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1114,10 +1157,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
     return this.getBusinessQuery().isNotParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
 
@@ -1129,9 +1187,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     return this.getBusinessQuery().isParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseReferralQuery);
   }
 
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1143,10 +1215,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
     return this.getBusinessQuery().isParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseReferralQuery);
   }
 
 
@@ -1158,9 +1245,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     return this.getBusinessQuery().isNotParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseReferralQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1172,10 +1273,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
     return this.getBusinessQuery().isNotParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseReferralQuery);
   }
 
 
@@ -1187,9 +1303,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     return this.getBusinessQuery().isParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1201,10 +1331,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
     return this.getBusinessQuery().isParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
 
@@ -1216,9 +1361,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     return this.getBusinessQuery().isNotParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1230,10 +1389,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
     return this.getBusinessQuery().isNotParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
 
@@ -1245,9 +1419,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     return this.getBusinessQuery().isParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1259,10 +1447,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
     return this.getBusinessQuery().isParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
 
@@ -1274,9 +1477,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     return this.getBusinessQuery().isNotParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1288,10 +1505,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
     return this.getBusinessQuery().isNotParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
 
@@ -1303,9 +1535,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     return this.getBusinessQuery().isParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1317,10 +1563,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
     return this.getBusinessQuery().isParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
 
@@ -1332,9 +1593,23 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     return this.getBusinessQuery().isNotParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
@@ -1346,10 +1621,25 @@ private static final long serialVersionUID = 558001093;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
     return this.getBusinessQuery().isNotParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
 
@@ -1535,11 +1825,25 @@ private static final long serialVersionUID = 558001093;
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
+
+
   public com.terraframe.mojo.query.Condition referral();
 
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
 
 
   public com.terraframe.mojo.query.Condition treatment();
@@ -1549,11 +1853,25 @@ private static final long serialVersionUID = 558001093;
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
+
+
   public com.terraframe.mojo.query.Condition treatmentMethod();
 
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
 
 
   public com.terraframe.mojo.query.Condition treatmentStock();
@@ -1563,11 +1881,25 @@ private static final long serialVersionUID = 558001093;
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod();
 
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_referral();
@@ -1577,11 +1909,25 @@ private static final long serialVersionUID = 558001093;
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatment();
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod();
@@ -1591,11 +1937,25 @@ private static final long serialVersionUID = 558001093;
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock();
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
 
   }
 
@@ -1634,13 +1994,13 @@ private static final long serialVersionUID = 2125940839;
  
   public dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF getAgeGroup(String alias)
   {
-    return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.attributeFactory("ageGroup", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.AGEGROUP, alias, null);
 
   }
  
   public dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF getAgeGroup(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.attributeFactory("ageGroup", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.AGEGROUP,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCases()
@@ -1651,13 +2011,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getCases(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("cases", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCases(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("cases", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale()
@@ -1668,13 +2028,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesMale()
@@ -1685,13 +2045,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant()
@@ -1702,13 +2062,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesPregnant", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getCasesPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("casesPregnant", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed()
@@ -1719,13 +2079,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("clinicallyDiagnosed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("clinicallyDiagnosed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath()
@@ -1736,13 +2096,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("clinicallyDiagnosedDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("clinicallyDiagnosedDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -1753,13 +2113,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -1770,13 +2130,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDaysOutOfStock()
@@ -1787,13 +2147,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDaysOutOfStock(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("daysOutOfStock", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDaysOutOfStock(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("daysOutOfStock", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeaths()
@@ -1804,13 +2164,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDeaths(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deaths", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeaths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deaths", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale()
@@ -1821,13 +2181,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale()
@@ -1838,13 +2198,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant()
@@ -1855,13 +2215,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsPregnant", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDeathsPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("deathsPregnant", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed()
@@ -1872,13 +2232,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("definitivelyDiagnosed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("definitivelyDiagnosed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath()
@@ -1889,13 +2249,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("definitivelyDiagnosedDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("definitivelyDiagnosedDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getEndAge()
@@ -1906,13 +2266,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getEndAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("endAge", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getEndAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("endAge", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getEndDate()
@@ -1923,13 +2283,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("endDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("endDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1940,13 +2300,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
@@ -1957,13 +2317,13 @@ private static final long serialVersionUID = 2125940839;
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.GEOENTITY, alias, null);
 
   }
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.GEOENTITY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -1974,13 +2334,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatients()
@@ -1991,13 +2351,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatients(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatients", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatients", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia()
@@ -2008,13 +2368,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsAnemia", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsAnemia", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically()
@@ -2025,13 +2385,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsClinically", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsClinically(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsClinically", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive()
@@ -2042,13 +2402,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsDefinitive", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDefinitive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsDefinitive", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged()
@@ -2059,13 +2419,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsDischarged", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsDischarged(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsDischarged", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale()
@@ -2076,13 +2436,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale()
@@ -2093,13 +2453,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated()
@@ -2110,13 +2470,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia()
@@ -2127,13 +2487,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsPregnantAnemia", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsPregnantAnemia", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis()
@@ -2144,13 +2504,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsPregnantDianosis", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsPregnantDianosis", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal()
@@ -2161,13 +2521,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsTotal", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("inPatientsTotal", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -2178,13 +2538,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -2195,13 +2555,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -2212,13 +2572,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -2229,13 +2589,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatients()
@@ -2246,13 +2606,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatients(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatients", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatients", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale()
@@ -2263,13 +2623,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsFemale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale()
@@ -2280,13 +2640,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsMale", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated()
@@ -2297,13 +2657,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal()
@@ -2314,13 +2674,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsTotal", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOutPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("outPatientsTotal", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -2331,13 +2691,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPatientsNotTreated()
@@ -2348,13 +2708,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("patientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("patientsNotTreated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis()
@@ -2365,13 +2725,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantDiagnosis", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantDiagnosis", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath()
@@ -2382,13 +2742,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantDiagnosisDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantDiagnosisDeath", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived()
@@ -2399,13 +2759,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantReferralsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPregnantReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pregnantReferralsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived()
@@ -2416,13 +2776,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("referralsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("referralsReceived", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent()
@@ -2433,13 +2793,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("referralsSent", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReferralsSent(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("referralsSent", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -2450,13 +2810,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.surveillance.AggregatedCase.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.surveillance.AggregatedCase.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -2467,13 +2827,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStartAge()
@@ -2484,13 +2844,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getStartAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("startAge", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStartAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("startAge", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getStartDate()
@@ -2501,13 +2861,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("startDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("startDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStillBirths()
@@ -2518,13 +2878,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeInteger getStillBirths(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("stillBirths", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStillBirths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("stillBirths", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -2535,13 +2895,13 @@ private static final long serialVersionUID = 2125940839;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.TYPE, alias, displayLabel);
 
   }
 
@@ -2553,6 +2913,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.isParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.isParentIn_SUBSELECT(caseDiagnosticQuery);
+  }
+
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2562,10 +2941,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
     return this.isParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
+    return this.isParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
 
@@ -2577,6 +2971,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.isParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.isParentIn_SUBSELECT(caseReferralQuery);
+  }
+
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2586,10 +2999,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
     return this.isParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
+    return this.isParentIn_SUBSELECT(caseReferralQuery);
   }
 
 
@@ -2601,6 +3029,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.isParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.isParentIn_SUBSELECT(caseTreatmentQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2610,10 +3057,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
     return this.isParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
+    return this.isParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
 
@@ -2625,6 +3087,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.isParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.isParentIn_SUBSELECT(caseTreatmentMethodQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2634,10 +3115,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
     return this.isParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
+    return this.isParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
 
@@ -2649,6 +3145,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.isParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.isParentIn_SUBSELECT(caseTreatmentStockQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2658,10 +3173,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
     return this.isParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
+    return this.isParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
 
@@ -2673,6 +3203,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.isNotParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(caseDiagnosticQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2682,10 +3231,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
   {
     caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
     return this.isNotParentIn(caseDiagnosticQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
+  {
+    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
+    return this.isNotParentIn_SUBSELECT(caseDiagnosticQuery);
   }
 
 
@@ -2697,6 +3261,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.isNotParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(caseReferralQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2706,10 +3289,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
   {
     caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
     return this.isNotParentIn(caseReferralQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
+  {
+    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
+    return this.isNotParentIn_SUBSELECT(caseReferralQuery);
   }
 
 
@@ -2721,6 +3319,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.isNotParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(caseTreatmentQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2730,10 +3347,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
   {
     caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
     return this.isNotParentIn(caseTreatmentQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
+  {
+    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
+    return this.isNotParentIn_SUBSELECT(caseTreatmentQuery);
   }
 
 
@@ -2745,6 +3377,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.isNotParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2754,10 +3405,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
   {
     caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
     return this.isNotParentIn(caseTreatmentMethodQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
+  {
+    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
+    return this.isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
   }
 
 
@@ -2769,6 +3435,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.isNotParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -2778,10 +3463,25 @@ private static final long serialVersionUID = 2125940839;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
   {
     caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
     return this.isNotParentIn(caseTreatmentStockQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
+  {
+    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
+    return this.isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

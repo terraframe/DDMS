@@ -47,13 +47,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointX(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ANCHORPOINTX, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ANCHORPOINTX, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY()
@@ -64,13 +64,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ANCHORPOINTY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ANCHORPOINTY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -81,13 +81,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -121,13 +121,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementX(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.DISPLACEMENTX, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.DISPLACEMENTX, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY()
@@ -138,13 +138,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.DISPLACEMENTY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.DISPLACEMENTY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -178,13 +178,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getFontFamily()
@@ -195,13 +195,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getFontFamily(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTFAMILY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getFontFamily(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTFAMILY, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getFontSize()
@@ -212,13 +212,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTSIZE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.FONTSIZE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
 
   }
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
@@ -252,13 +252,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -269,13 +269,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill()
@@ -286,13 +286,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity()
@@ -303,13 +303,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALOOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius()
@@ -320,13 +320,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALORADIUS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELHALORADIUS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation()
@@ -337,13 +337,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELROTATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LABELROTATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -354,13 +354,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -463,13 +463,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getPointRotation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTROTATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTROTATION, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPointSize()
@@ -480,13 +480,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getPointSize(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSIZE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSIZE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPointStroke()
@@ -497,13 +497,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getPointStroke(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSTROKE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPointStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSTROKE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity()
@@ -514,13 +514,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPointWidth()
@@ -531,13 +531,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getPointWidth(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTWIDTH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POINTWIDTH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPolygonFill()
@@ -548,13 +548,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getPolygonFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPolygonFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONFILL, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity()
@@ -565,13 +565,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke()
@@ -582,13 +582,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONSTROKE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONSTROKE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity()
@@ -599,13 +599,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth()
@@ -616,13 +616,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONWIDTH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.POLYGONWIDTH, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -633,13 +633,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -650,13 +650,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -667,13 +667,13 @@ private static final long serialVersionUID = 773590082;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.query.Styles.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -905,13 +905,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointX(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("anchorPointX", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("anchorPointX", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY()
@@ -922,13 +922,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("anchorPointY", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getAnchorPointY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("anchorPointY", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -939,13 +939,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -956,13 +956,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDisplacementX()
@@ -973,13 +973,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementX(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("displacementX", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("displacementX", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY()
@@ -990,13 +990,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("displacementY", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getDisplacementY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("displacementY", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1007,13 +1007,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getFill()
@@ -1024,13 +1024,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getFontFamily()
@@ -1041,13 +1041,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getFontFamily(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fontFamily", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getFontFamily(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("fontFamily", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getFontSize()
@@ -1058,13 +1058,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("fontSize", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getFontSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("fontSize", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
 
   }
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
@@ -1075,13 +1075,13 @@ private static final long serialVersionUID = -1369012764;
  
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias)
   {
-    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.attributeFactory("fontStyles", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Styles.FONTSTYLES, alias, null);
 
   }
  
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.attributeFactory("fontStyles", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Styles.FONTSTYLES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -1092,13 +1092,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -1109,13 +1109,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill()
@@ -1126,13 +1126,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("labelHaloFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getLabelHaloFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("labelHaloFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity()
@@ -1143,13 +1143,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("labelHaloOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getLabelHaloOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("labelHaloOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius()
@@ -1160,13 +1160,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelHaloRadius", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLabelHaloRadius(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelHaloRadius", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation()
@@ -1177,13 +1177,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelRotation", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLabelRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("labelRotation", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -1194,13 +1194,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1211,13 +1211,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -1228,13 +1228,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1245,13 +1245,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.OWNER,  alias, displayLabel);
 
   }
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker()
@@ -1262,13 +1262,13 @@ private static final long serialVersionUID = -1369012764;
  
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias)
   {
-    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.attributeFactory("pointMarker", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.get(dss.vector.solutions.query.Styles.POINTMARKER, alias, null);
 
   }
  
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.attributeFactory("pointMarker", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.get(dss.vector.solutions.query.Styles.POINTMARKER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPointRotation()
@@ -1279,13 +1279,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getPointRotation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointRotation", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointRotation", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPointSize()
@@ -1296,13 +1296,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getPointSize(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointSize", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointSize", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPointStroke()
@@ -1313,13 +1313,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getPointStroke(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("pointStroke", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPointStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("pointStroke", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity()
@@ -1330,13 +1330,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("pointStrokeOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPointStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("pointStrokeOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPointWidth()
@@ -1347,13 +1347,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getPointWidth(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointWidth", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPointWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("pointWidth", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPolygonFill()
@@ -1364,13 +1364,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getPolygonFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("polygonFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPolygonFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("polygonFill", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity()
@@ -1381,13 +1381,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("polygonFillOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonFillOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("polygonFillOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke()
@@ -1398,13 +1398,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("polygonStroke", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getPolygonStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("polygonStroke", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity()
@@ -1415,13 +1415,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("polygonStrokeOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, null);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.attributeFactory("polygonStrokeOpacity", "com.terraframe.mojo.system.metadata.MdAttributeDecimal", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth()
@@ -1432,13 +1432,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("polygonWidth", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPolygonWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("polygonWidth", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -1449,13 +1449,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -1466,13 +1466,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -1483,13 +1483,13 @@ private static final long serialVersionUID = -1369012764;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

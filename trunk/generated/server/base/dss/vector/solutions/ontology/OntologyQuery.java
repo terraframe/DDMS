@@ -47,13 +47,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -87,13 +87,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getDefaultNamespace(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getDefaultNamespace(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -127,13 +127,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -144,13 +144,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -161,13 +161,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -247,13 +247,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -264,13 +264,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getTitle()
@@ -281,13 +281,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getTitle(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.TITLE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.TITLE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getTitle(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.TITLE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.TITLE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -298,13 +298,13 @@ private static final long serialVersionUID = -405560399;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.ontology.Ontology.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Ontology.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -371,9 +371,23 @@ private static final long serialVersionUID = -405560399;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     return this.getBusinessQuery().isParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
@@ -385,10 +399,25 @@ private static final long serialVersionUID = -405560399;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(ontologyRelationshipQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
     return this.getBusinessQuery().isParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
 
@@ -400,9 +429,23 @@ private static final long serialVersionUID = -405560399;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     return this.getBusinessQuery().isNotParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
@@ -414,10 +457,25 @@ private static final long serialVersionUID = -405560399;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(ontologyRelationshipQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
     return this.getBusinessQuery().isNotParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
 
@@ -483,11 +541,25 @@ private static final long serialVersionUID = -405560399;
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship();
 
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery);
 
   }
 
@@ -526,13 +598,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Ontology.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Ontology.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -543,13 +615,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getDefaultNamespace()
@@ -560,13 +632,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getDefaultNamespace(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("defaultNamespace", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getDefaultNamespace(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("defaultNamespace", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.DEFAULTNAMESPACE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -577,13 +649,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -594,13 +666,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -611,13 +683,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -628,13 +700,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -645,13 +717,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -662,13 +734,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -679,13 +751,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Ontology.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -696,13 +768,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.ontology.Ontology.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.ontology.Ontology.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -713,13 +785,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getTitle()
@@ -730,13 +802,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getTitle(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("title", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.TITLE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getTitle(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("title", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.TITLE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -747,13 +819,13 @@ private static final long serialVersionUID = 1537304147;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Ontology.TYPE, alias, displayLabel);
 
   }
 
@@ -765,6 +837,25 @@ private static final long serialVersionUID = 1537304147;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.isParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.isParentIn_SUBSELECT(ontologyHasRelationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -774,10 +865,25 @@ private static final long serialVersionUID = 1537304147;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(ontologyRelationshipQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
     return this.isParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
+    return this.isParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
 
@@ -789,6 +895,25 @@ private static final long serialVersionUID = 1537304147;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.isNotParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(ontologyHasRelationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -798,10 +923,25 @@ private static final long serialVersionUID = 1537304147;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.OntologyHasRelationship.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(ontologyRelationshipQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
   {
     ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
     return this.isNotParentIn(ontologyHasRelationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_ontologyRelationship(dss.vector.solutions.ontology.OntologyRelationshipQuery ontologyRelationshipQuery, dss.vector.solutions.ontology.OntologyHasRelationshipQuery ontologyHasRelationshipQuery)
+  {
+    ontologyHasRelationshipQuery.AND(ontologyHasRelationshipQuery.hasChild(ontologyRelationshipQuery));
+    return this.isNotParentIn_SUBSELECT(ontologyHasRelationshipQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

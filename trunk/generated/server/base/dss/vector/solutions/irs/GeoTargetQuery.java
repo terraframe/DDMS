@@ -47,13 +47,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -133,13 +133,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -150,13 +150,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -167,13 +167,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -276,13 +276,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -293,13 +293,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_0()
@@ -310,13 +310,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_0, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_0, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_0, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_0, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_1()
@@ -327,13 +327,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_1, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_1, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_1, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_1, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_10()
@@ -344,13 +344,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_10, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_10, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_10, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_10, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_11()
@@ -361,13 +361,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_11, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_11, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_11, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_11, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_12()
@@ -378,13 +378,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_12, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_12, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_12, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_12, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_13()
@@ -395,13 +395,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_13, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_13, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_13, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_13, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_14()
@@ -412,13 +412,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_14, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_14, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_14, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_14, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_15()
@@ -429,13 +429,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_15, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_15, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_15, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_15, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_16()
@@ -446,13 +446,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_16, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_16, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_16, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_16, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_17()
@@ -463,13 +463,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_17, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_17, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_17, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_17, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_18()
@@ -480,13 +480,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_18, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_18, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_18, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_18, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_19()
@@ -497,13 +497,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_19, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_19, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_19, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_19, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_2()
@@ -514,13 +514,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_2, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_2, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_2, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_2, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_20()
@@ -531,13 +531,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_20, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_20, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_20, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_20, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_21()
@@ -548,13 +548,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_21, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_21, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_21, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_21, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_22()
@@ -565,13 +565,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_22, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_22, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_22, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_22, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_23()
@@ -582,13 +582,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_23, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_23, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_23, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_23, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_24()
@@ -599,13 +599,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_24, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_24, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_24, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_24, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_25()
@@ -616,13 +616,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_25, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_25, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_25, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_25, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_26()
@@ -633,13 +633,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_26, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_26, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_26, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_26, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_27()
@@ -650,13 +650,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_27, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_27, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_27, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_27, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_28()
@@ -667,13 +667,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_28, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_28, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_28, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_28, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_29()
@@ -684,13 +684,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_29, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_29, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_29, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_29, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_3()
@@ -701,13 +701,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_3, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_3, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_3, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_3, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_30()
@@ -718,13 +718,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_30, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_30, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_30, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_30, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_31()
@@ -735,13 +735,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_31, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_31, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_31, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_31, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_32()
@@ -752,13 +752,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_32, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_32, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_32, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_32, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_33()
@@ -769,13 +769,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_33, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_33, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_33, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_33, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_34()
@@ -786,13 +786,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_34, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_34, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_34, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_34, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_35()
@@ -803,13 +803,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_35, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_35, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_35, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_35, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_36()
@@ -820,13 +820,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_36, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_36, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_36, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_36, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_37()
@@ -837,13 +837,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_37, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_37, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_37, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_37, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_38()
@@ -854,13 +854,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_38, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_38, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_38, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_38, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_39()
@@ -871,13 +871,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_39, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_39, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_39, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_39, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_4()
@@ -888,13 +888,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_4, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_4, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_4, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_4, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_40()
@@ -905,13 +905,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_40, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_40, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_40, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_40, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_41()
@@ -922,13 +922,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_41, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_41, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_41, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_41, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_42()
@@ -939,13 +939,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_42, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_42, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_42, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_42, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_43()
@@ -956,13 +956,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_43, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_43, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_43, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_43, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_44()
@@ -973,13 +973,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_44, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_44, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_44, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_44, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_45()
@@ -990,13 +990,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_45, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_45, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_45, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_45, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_46()
@@ -1007,13 +1007,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_46, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_46, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_46, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_46, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_47()
@@ -1024,13 +1024,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_47, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_47, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_47, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_47, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_48()
@@ -1041,13 +1041,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_48, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_48, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_48, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_48, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_49()
@@ -1058,13 +1058,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_49, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_49, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_49, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_49, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_5()
@@ -1075,13 +1075,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_5, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_5, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_5, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_5, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_50()
@@ -1092,13 +1092,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_50, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_50, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_51()
@@ -1109,13 +1109,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_51, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_51, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_51, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_51, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_52()
@@ -1126,13 +1126,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_52, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_52, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_52, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_52, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_6()
@@ -1143,13 +1143,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_6, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_6, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_6, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_6, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_7()
@@ -1160,13 +1160,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_7, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_7, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_7, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_7, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_8()
@@ -1177,13 +1177,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_8, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_8, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_8, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_8, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_9()
@@ -1194,13 +1194,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_9, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_9, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TARGET_9, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TARGET_9, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -1211,13 +1211,13 @@ private static final long serialVersionUID = -576644191;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.GeoTarget.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.GeoTarget.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -1534,13 +1534,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.GeoTarget.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.GeoTarget.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -1551,13 +1551,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1568,13 +1568,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
@@ -1585,13 +1585,13 @@ private static final long serialVersionUID = 192331711;
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.GEOENTITY, alias, null);
 
   }
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.GEOENTITY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -1602,13 +1602,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -1619,13 +1619,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -1636,13 +1636,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1653,13 +1653,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -1670,13 +1670,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1687,13 +1687,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.OWNER,  alias, displayLabel);
 
   }
   public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason()
@@ -1704,13 +1704,13 @@ private static final long serialVersionUID = 192331711;
  
   public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason(String alias)
   {
-    return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.attributeFactory("season", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.SEASON, alias, null);
 
   }
  
   public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.attributeFactory("season", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.get(dss.vector.solutions.irs.GeoTarget.SEASON,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -1721,13 +1721,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.GeoTarget.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.GeoTarget.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -1738,13 +1738,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_0()
@@ -1755,13 +1755,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_0", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_0, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_0", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_0, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_1()
@@ -1772,13 +1772,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_1", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_1, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_1", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_1, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_10()
@@ -1789,13 +1789,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_10", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_10, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_10", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_10, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_11()
@@ -1806,13 +1806,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_11", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_11, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_11", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_11, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_12()
@@ -1823,13 +1823,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_12", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_12, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_12", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_12, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_13()
@@ -1840,13 +1840,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_13", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_13, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_13", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_13, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_14()
@@ -1857,13 +1857,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_14", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_14, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_14", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_14, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_15()
@@ -1874,13 +1874,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_15", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_15, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_15", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_15, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_16()
@@ -1891,13 +1891,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_16", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_16, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_16", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_16, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_17()
@@ -1908,13 +1908,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_17", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_17, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_17", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_17, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_18()
@@ -1925,13 +1925,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_18", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_18, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_18", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_18, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_19()
@@ -1942,13 +1942,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_19", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_19, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_19", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_19, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_2()
@@ -1959,13 +1959,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_2", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_2, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_2", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_2, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_20()
@@ -1976,13 +1976,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_20", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_20, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_20", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_20, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_21()
@@ -1993,13 +1993,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_21", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_21, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_21", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_21, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_22()
@@ -2010,13 +2010,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_22", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_22, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_22", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_22, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_23()
@@ -2027,13 +2027,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_23", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_23, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_23", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_23, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_24()
@@ -2044,13 +2044,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_24", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_24, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_24", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_24, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_25()
@@ -2061,13 +2061,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_25", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_25, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_25", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_25, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_26()
@@ -2078,13 +2078,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_26", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_26, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_26", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_26, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_27()
@@ -2095,13 +2095,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_27", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_27, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_27", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_27, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_28()
@@ -2112,13 +2112,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_28", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_28, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_28", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_28, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_29()
@@ -2129,13 +2129,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_29", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_29, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_29", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_29, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_3()
@@ -2146,13 +2146,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_3", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_3, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_3", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_3, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_30()
@@ -2163,13 +2163,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_30", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_30, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_30", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_30, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_31()
@@ -2180,13 +2180,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_31", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_31, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_31", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_31, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_32()
@@ -2197,13 +2197,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_32", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_32, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_32", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_32, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_33()
@@ -2214,13 +2214,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_33", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_33, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_33", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_33, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_34()
@@ -2231,13 +2231,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_34", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_34, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_34", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_34, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_35()
@@ -2248,13 +2248,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_35", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_35, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_35", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_35, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_36()
@@ -2265,13 +2265,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_36", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_36, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_36", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_36, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_37()
@@ -2282,13 +2282,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_37", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_37, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_37", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_37, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_38()
@@ -2299,13 +2299,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_38", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_38, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_38", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_38, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_39()
@@ -2316,13 +2316,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_39", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_39, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_39", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_39, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_4()
@@ -2333,13 +2333,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_4", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_4, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_4", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_4, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_40()
@@ -2350,13 +2350,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_40", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_40, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_40", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_40, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_41()
@@ -2367,13 +2367,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_41", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_41, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_41", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_41, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_42()
@@ -2384,13 +2384,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_42", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_42, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_42", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_42, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_43()
@@ -2401,13 +2401,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_43", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_43, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_43", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_43, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_44()
@@ -2418,13 +2418,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_44", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_44, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_44", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_44, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_45()
@@ -2435,13 +2435,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_45", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_45, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_45", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_45, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_46()
@@ -2452,13 +2452,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_46", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_46, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_46", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_46, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_47()
@@ -2469,13 +2469,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_47", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_47, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_47", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_47, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_48()
@@ -2486,13 +2486,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_48", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_48, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_48", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_48, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_49()
@@ -2503,13 +2503,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_49", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_49, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_49", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_49, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_5()
@@ -2520,13 +2520,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_5", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_5, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_5", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_5, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_50()
@@ -2537,13 +2537,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_50", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_50", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_51()
@@ -2554,13 +2554,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_51", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_51, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_51", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_51, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_52()
@@ -2571,13 +2571,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_52", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_52, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_52", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_52, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_6()
@@ -2588,13 +2588,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_6", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_6, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_6", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_6, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_7()
@@ -2605,13 +2605,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_7", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_7, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_7", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_7, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_8()
@@ -2622,13 +2622,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_8", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_8, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_8", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_8, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget_9()
@@ -2639,13 +2639,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_9", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_9, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target_9", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.GeoTarget.TARGET_9, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -2656,13 +2656,13 @@ private static final long serialVersionUID = 192331711;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.GeoTarget.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

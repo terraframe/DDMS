@@ -70,13 +70,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -133,13 +133,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -150,13 +150,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -167,13 +167,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -253,13 +253,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -270,13 +270,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance()
@@ -333,13 +333,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeInteger getTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -350,13 +350,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnit()
@@ -390,13 +390,13 @@ private static final long serialVersionUID = 389355420;
  
   public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -479,9 +479,23 @@ private static final long serialVersionUID = 389355420;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     return this.getBusinessQuery().isChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
@@ -493,10 +507,25 @@ private static final long serialVersionUID = 389355420;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(larvacideQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
     return this.getBusinessQuery().isChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
 
@@ -508,9 +537,23 @@ private static final long serialVersionUID = 389355420;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     return this.getBusinessQuery().isNotChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
@@ -522,10 +565,25 @@ private static final long serialVersionUID = 389355420;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(larvacideQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
     return this.getBusinessQuery().isNotChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
 
@@ -602,10 +660,22 @@ private static final long serialVersionUID = 389355420;
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide();
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide();
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide();
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery);
 
   }
 
@@ -644,13 +714,13 @@ private static final long serialVersionUID = 2130020030;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getControlMethod(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("controlMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CONTROLMETHOD, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getControlMethod(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("controlMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CONTROLMETHOD,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -661,13 +731,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -678,13 +748,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -695,13 +765,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -712,13 +782,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -729,13 +799,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -746,13 +816,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -763,13 +833,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -780,13 +850,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -797,13 +867,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -814,13 +884,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -831,13 +901,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance()
@@ -848,13 +918,13 @@ private static final long serialVersionUID = 2130020030;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("substance", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SUBSTANCE, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSubstance(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("substance", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.SUBSTANCE,  alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget()
@@ -865,13 +935,13 @@ private static final long serialVersionUID = 2130020030;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("target", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TARGET, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTarget(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("target", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TARGET,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTreated()
@@ -882,13 +952,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeInteger getTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("treated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("treated", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TREATED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -899,13 +969,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnit()
@@ -916,13 +986,13 @@ private static final long serialVersionUID = 2130020030;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnit(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("unit", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNIT, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnit(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("unit", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNIT,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getUnitsUsed()
@@ -933,13 +1003,13 @@ private static final long serialVersionUID = 2130020030;
  
   public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("unitsUsed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("unitsUsed", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.LarvacideInstance.UNITSUSED, alias, displayLabel);
 
   }
 
@@ -951,6 +1021,25 @@ private static final long serialVersionUID = 2130020030;
     return this.isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.isChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.isChildIn_SUBSELECT(larvacideAssociationQuery);
+  }
+
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -960,10 +1049,25 @@ private static final long serialVersionUID = 2130020030;
     return this.isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(larvacideQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
     return this.isChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
+    return this.isChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
 
@@ -975,6 +1079,25 @@ private static final long serialVersionUID = 2130020030;
     return this.isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.isNotChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(larvacideAssociationQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -984,10 +1107,25 @@ private static final long serialVersionUID = 2130020030;
     return this.isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.LarvacideAssociation.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(larvacideQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
   {
     larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
     return this.isNotChildIn(larvacideAssociationQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_controlLarvacide(dss.vector.solutions.intervention.monitor.LarvacideQuery larvacideQuery, dss.vector.solutions.intervention.monitor.LarvacideAssociationQuery larvacideAssociationQuery)
+  {
+    larvacideAssociationQuery.AND(larvacideAssociationQuery.hasParent(larvacideQuery));
+    return this.isNotChildIn_SUBSELECT(larvacideAssociationQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

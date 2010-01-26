@@ -70,13 +70,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -133,13 +133,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -150,13 +150,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -167,13 +167,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -253,13 +253,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeInteger getPriorYears(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPriorYears(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -270,13 +270,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -287,13 +287,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT1Method()
@@ -350,13 +350,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter()
@@ -367,13 +367,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore()
@@ -384,13 +384,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight0()
@@ -401,13 +401,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight1()
@@ -418,13 +418,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight2()
@@ -435,13 +435,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight3()
@@ -452,13 +452,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight4()
@@ -469,13 +469,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight5()
@@ -486,13 +486,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight6()
@@ -503,13 +503,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight7()
@@ -520,13 +520,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight8()
@@ -537,13 +537,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight9()
@@ -554,13 +554,13 @@ private static final long serialVersionUID = 321947682;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -775,13 +775,13 @@ private static final long serialVersionUID = -634024256;
  
   public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.attributeFactory("caseTypes", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.CASETYPES, alias, null);
 
   }
  
   public dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF getCaseTypes(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.attributeFactory("caseTypes", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQuery.ThresholdCalculationCaseTypesQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.CASETYPES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -792,13 +792,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -809,13 +809,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -826,13 +826,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -843,13 +843,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -860,13 +860,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -877,13 +877,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -894,13 +894,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -911,13 +911,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -928,13 +928,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPriorYears()
@@ -945,13 +945,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeInteger getPriorYears(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priorYears", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPriorYears(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("priorYears", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.PRIORYEARS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -962,13 +962,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.general.ThresholdCalculationType.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.general.ThresholdCalculationType.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -979,13 +979,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT1Method()
@@ -996,13 +996,13 @@ private static final long serialVersionUID = -634024256;
  
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT1Method(String alias)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.attributeFactory("t1Method", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.T1METHOD, alias, null);
 
   }
  
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT1Method(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.attributeFactory("t1Method", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.T1METHOD, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT2Method()
@@ -1013,13 +1013,13 @@ private static final long serialVersionUID = -634024256;
  
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT2Method(String alias)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.attributeFactory("t2Method", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, null);
+    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.T2METHOD, alias, null);
 
   }
  
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT2Method(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.attributeFactory("t2Method", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias, displayLabel);
+    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.get(dss.vector.solutions.general.ThresholdCalculationType.T2METHOD, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -1030,13 +1030,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.ThresholdCalculationType.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter()
@@ -1047,13 +1047,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("weeksAfter", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksAfter(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("weeksAfter", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSAFTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore()
@@ -1064,13 +1064,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("weeksBefore", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getWeeksBefore(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("weeksBefore", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEEKSBEFORE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight0()
@@ -1081,13 +1081,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight0", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight0", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT0, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight1()
@@ -1098,13 +1098,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight1", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight1", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT1, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight2()
@@ -1115,13 +1115,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight2", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight2", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT2, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight3()
@@ -1132,13 +1132,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight3", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight3", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT3, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight4()
@@ -1149,13 +1149,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight4", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight4", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT4, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight5()
@@ -1166,13 +1166,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight5", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight5", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT5, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight6()
@@ -1183,13 +1183,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight6", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight6", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT6, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight7()
@@ -1200,13 +1200,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight7", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight7", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT7, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight8()
@@ -1217,13 +1217,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight8", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight8", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT8, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getWeight9()
@@ -1234,13 +1234,13 @@ private static final long serialVersionUID = -634024256;
  
   public com.terraframe.mojo.query.AttributeDouble getWeight9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight9", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getWeight9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("weight9", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.ThresholdCalculationType.WEIGHT9, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

@@ -47,13 +47,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -133,13 +133,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -150,13 +150,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -167,13 +167,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -253,13 +253,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed()
@@ -270,13 +270,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -287,13 +287,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -304,13 +304,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed()
@@ -321,13 +321,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm()
@@ -361,13 +361,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
@@ -378,13 +378,13 @@ private static final long serialVersionUID = 856622060;
  
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -459,9 +459,23 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     return this.getBusinessQuery().isChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
@@ -473,10 +487,25 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.getBusinessQuery().isChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -488,9 +517,23 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     return this.getBusinessQuery().isNotChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
@@ -502,10 +545,25 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.getBusinessQuery().isNotChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -517,9 +575,23 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     return this.getBusinessQuery().isParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
@@ -531,10 +603,25 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
     return this.getBusinessQuery().isParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -546,9 +633,23 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     return this.getBusinessQuery().isNotParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
@@ -560,10 +661,25 @@ private static final long serialVersionUID = 856622060;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
     return this.getBusinessQuery().isNotParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -641,11 +757,25 @@ private static final long serialVersionUID = 856622060;
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity();
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
 
   public com.terraframe.mojo.query.Condition allowedInGeoEntity();
@@ -654,10 +784,22 @@ private static final long serialVersionUID = 856622060;
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity();
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity();
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity();
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
   }
 
@@ -696,13 +838,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -713,13 +855,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -730,13 +872,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass()
@@ -747,13 +889,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.attributeFactory("geoEntityClass", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.GEOENTITYCLASS, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.attributeFactory("geoEntityClass", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.GEOENTITYCLASS,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -764,13 +906,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -781,13 +923,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -798,13 +940,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -815,13 +957,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -832,13 +974,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -849,13 +991,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getPolitical()
@@ -866,13 +1008,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("political", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("political", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed()
@@ -883,13 +1025,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("populationAllowed", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("populationAllowed", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -900,13 +1042,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -917,13 +1059,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed()
@@ -934,13 +1076,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("sprayTargetAllowed", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("sprayTargetAllowed", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm()
@@ -951,13 +1093,13 @@ private static final long serialVersionUID = 1822706446;
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("term", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.TERM, alias, null);
 
   }
  
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.attributeFactory("term", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.TERM,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -968,13 +1110,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
@@ -985,13 +1127,13 @@ private static final long serialVersionUID = 1822706446;
  
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("viewCreated", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, null);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.attributeFactory("viewCreated", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
 
   }
 
@@ -1003,6 +1145,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isParentIn_SUBSELECT(allowedInQuery);
+  }
+
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1012,10 +1173,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
     return this.isParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.isParentIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -1027,6 +1203,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isNotParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(allowedInQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1036,10 +1231,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
     return this.isNotParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_acceptsGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.isNotParentIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -1051,6 +1261,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isChildIn_SUBSELECT(allowedInQuery);
+  }
+
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1060,10 +1289,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.isChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.isChildIn_SUBSELECT(allowedInQuery);
   }
 
 
@@ -1075,6 +1319,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isNotChildIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isNotChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(allowedInQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1084,10 +1347,25 @@ private static final long serialVersionUID = 1822706446;
     return this.isNotChildIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.isNotChildIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.isNotChildIn_SUBSELECT(allowedInQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

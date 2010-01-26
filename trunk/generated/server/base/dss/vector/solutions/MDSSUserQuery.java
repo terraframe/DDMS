@@ -93,13 +93,13 @@ private static final long serialVersionUID = 805238809;
  
   public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.MDSSUser.GEOROOT, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.MDSSUser.GEOROOT, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -207,9 +207,23 @@ private static final long serialVersionUID = 805238809;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     return this.getBusinessQuery().isParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(persistsSearchQuery);
   }
 
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
@@ -221,10 +235,25 @@ private static final long serialVersionUID = 805238809;
     return this.getBusinessQuery().isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(savedSearchQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
     return this.getBusinessQuery().isParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(persistsSearchQuery);
   }
 
 
@@ -236,9 +265,23 @@ private static final long serialVersionUID = 805238809;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     return this.getBusinessQuery().isNotParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(persistsSearchQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
@@ -250,10 +293,25 @@ private static final long serialVersionUID = 805238809;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(savedSearchQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
     return this.getBusinessQuery().isNotParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(persistsSearchQuery);
   }
 
 
@@ -292,11 +350,25 @@ private static final long serialVersionUID = 805238809;
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery);
 
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery);
+
+
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries();
 
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery);
+
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries();
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery);
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery);
 
   }
 
@@ -335,13 +407,13 @@ private static final long serialVersionUID = -841333833;
  
   public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias)
   {
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.attributeFactory("defaultMap", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTMAP, alias, null);
 
   }
  
   public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.attributeFactory("defaultMap", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTMAP,  alias, displayLabel);
 
   }
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch()
@@ -352,13 +424,13 @@ private static final long serialVersionUID = -841333833;
  
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias)
   {
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.attributeFactory("defaultSearch", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTSEARCH, alias, null);
 
   }
  
   public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.attributeFactory("defaultSearch", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTSEARCH,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getGeoRoot()
@@ -369,13 +441,13 @@ private static final long serialVersionUID = -841333833;
  
   public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("geoRoot", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("geoRoot", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -386,13 +458,13 @@ private static final long serialVersionUID = -841333833;
  
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias)
   {
-    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.attributeFactory("person", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.PERSON, alias, null);
 
   }
  
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.attributeFactory("person", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.PERSON,  alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity()
@@ -403,13 +475,13 @@ private static final long serialVersionUID = -841333833;
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("rootGeoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.ROOTGEOENTITY, alias, null);
 
   }
  
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("rootGeoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.ROOTGEOENTITY,  alias, displayLabel);
 
   }
 
@@ -421,6 +493,25 @@ private static final long serialVersionUID = -841333833;
     return this.isParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.isParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.isParentIn_SUBSELECT(persistsSearchQuery);
+  }
+
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -430,10 +521,25 @@ private static final long serialVersionUID = -841333833;
     return this.isParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(savedSearchQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
     return this.isParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
+    return this.isParentIn_SUBSELECT(persistsSearchQuery);
   }
 
 
@@ -445,6 +551,25 @@ private static final long serialVersionUID = -841333833;
     return this.isNotParentIn(relationshipQuery);
   }
 
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.isNotParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(persistsSearchQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -454,10 +579,25 @@ private static final long serialVersionUID = -841333833;
     return this.isNotParentIn(relationshipQuery);
   }
 
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.query.PersistsSearch.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(savedSearchQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
   public com.terraframe.mojo.query.Condition NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
   {
     persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
     return this.isNotParentIn(persistsSearchQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition SUBSELECT_NOT_IN_persistedQueries(dss.vector.solutions.query.SavedSearchQuery savedSearchQuery, dss.vector.solutions.query.PersistsSearchQuery persistsSearchQuery)
+  {
+    persistsSearchQuery.AND(persistsSearchQuery.hasChild(savedSearchQuery));
+    return this.isNotParentIn_SUBSELECT(persistsSearchQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

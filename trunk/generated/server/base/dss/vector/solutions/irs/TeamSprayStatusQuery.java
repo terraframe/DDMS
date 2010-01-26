@@ -47,13 +47,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -64,13 +64,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -127,13 +127,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -144,13 +144,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -161,13 +161,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -178,13 +178,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -218,13 +218,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getLocked(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLocked(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -258,13 +258,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getOther(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.OTHER, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.OTHER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOther(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.OTHER, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.OTHER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -298,13 +298,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getPeople(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPeople(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds()
@@ -315,13 +315,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures()
@@ -332,13 +332,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReceived()
@@ -349,13 +349,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRefills()
@@ -366,13 +366,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRefused()
@@ -383,13 +383,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getRefused(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRefused(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReturned()
@@ -400,13 +400,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRooms()
@@ -417,13 +417,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getRooms(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets()
@@ -434,13 +434,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -451,13 +451,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -468,13 +468,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF getSpray()
@@ -531,13 +531,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms()
@@ -548,13 +548,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures()
@@ -565,13 +565,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStructures()
@@ -582,13 +582,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget()
@@ -599,13 +599,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TARGET, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TARGET, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TARGET, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TARGET, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader()
@@ -639,13 +639,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -656,13 +656,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.TYPE, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getUsed()
@@ -673,13 +673,13 @@ private static final long serialVersionUID = -1720549786;
  
   public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.USED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.irs.TeamSprayStatus.USED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -904,13 +904,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("bedNets", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("bedNets", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.BEDNETS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
@@ -921,13 +921,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("createDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -938,13 +938,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("createdBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.CREATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -955,13 +955,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.ENTITYDOMAIN, alias, null);
 
   }
  
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.ENTITYDOMAIN,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getHouseholds()
@@ -972,13 +972,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("households", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("households", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.HOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -989,13 +989,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.ID, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.ID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getKeyName()
@@ -1006,13 +1006,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("keyName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.KEYNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
@@ -1023,13 +1023,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, null);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.attributeFactory("lastUpdateDate", "com.terraframe.mojo.system.metadata.MdAttributeDateTime", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1040,13 +1040,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.attributeFactory("lastUpdatedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LASTUPDATEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getLocked()
@@ -1057,13 +1057,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getLocked(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("locked", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getLocked(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("locked", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -1074,13 +1074,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKEDBY, alias, null);
 
   }
  
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.attributeFactory("lockedBy", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getOther()
@@ -1091,13 +1091,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getOther(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("other", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.OTHER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getOther(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("other", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.OTHER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1108,13 +1108,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.OWNER, alias, null);
 
   }
  
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.OWNER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPeople()
@@ -1125,13 +1125,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getPeople(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("people", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPeople(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("people", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PEOPLE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds()
@@ -1142,13 +1142,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("prevSprayedHouseholds", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("prevSprayedHouseholds", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures()
@@ -1159,13 +1159,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("prevSprayedStructures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("prevSprayedStructures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReceived()
@@ -1176,13 +1176,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("received", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("received", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.RECEIVED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRefills()
@@ -1193,13 +1193,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("refills", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("refills", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.REFILLS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRefused()
@@ -1210,13 +1210,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getRefused(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("refused", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRefused(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("refused", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.REFUSED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getReturned()
@@ -1227,13 +1227,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("returned", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("returned", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.RETURNED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRooms()
@@ -1244,13 +1244,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getRooms(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("rooms", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("rooms", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.ROOMS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets()
@@ -1261,13 +1261,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("roomsWithBedNets", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getRoomsWithBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("roomsWithBedNets", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeLong getSeq()
@@ -1278,13 +1278,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, null);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.TeamSprayStatus.SEQ, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.TeamSprayStatus.SEQ, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getSiteMaster()
@@ -1295,13 +1295,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF getSpray()
@@ -1312,13 +1312,13 @@ private static final long serialVersionUID = -720804476;
  
   public dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF getSpray(String alias)
   {
-    return (dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF)this.attributeFactory("spray", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAY, alias, null);
 
   }
  
   public dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF getSpray(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF)this.attributeFactory("spray", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.irs.ZoneSprayQuery.ZoneSprayQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAY,  alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam()
@@ -1329,13 +1329,13 @@ private static final long serialVersionUID = -720804476;
  
   public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias)
   {
-    return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.attributeFactory("sprayTeam", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYTEAM, alias, null);
 
   }
  
   public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.attributeFactory("sprayTeam", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYTEAM,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getSprayedHouseholds()
@@ -1346,13 +1346,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedHouseholds", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedHouseholds", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms()
@@ -1363,13 +1363,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedRooms", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedRooms", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDROOMS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures()
@@ -1380,13 +1380,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedStructures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("sprayedStructures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getStructures()
@@ -1397,13 +1397,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getStructures(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("structures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("structures", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTarget()
@@ -1414,13 +1414,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.TARGET, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("target", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.TARGET, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader()
@@ -1431,13 +1431,13 @@ private static final long serialVersionUID = -720804476;
  
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias)
   {
-    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.attributeFactory("teamLeader", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, null);
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.TEAMLEADER, alias, null);
 
   }
  
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.attributeFactory("teamLeader", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias, displayLabel);
+    return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSprayStatus.TEAMLEADER,  alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek()
@@ -1448,13 +1448,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("teamSprayWeek", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("teamSprayWeek", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getType()
@@ -1465,13 +1465,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, null);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.TYPE, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.attributeFactory("type", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamSprayStatus.TYPE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getUsed()
@@ -1482,13 +1482,13 @@ private static final long serialVersionUID = -720804476;
  
   public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("used", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("used", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSprayStatus.USED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

@@ -47,13 +47,13 @@ private static final long serialVersionUID = -1681760144;
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   /**  
@@ -171,13 +171,13 @@ private static final long serialVersionUID = 1137722510;
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("maximumPeriod", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("maximumPeriod", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   }
@@ -218,13 +218,13 @@ private static final long serialVersionUID = 1609047104;
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("maximumPeriod", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("maximumPeriod", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   }

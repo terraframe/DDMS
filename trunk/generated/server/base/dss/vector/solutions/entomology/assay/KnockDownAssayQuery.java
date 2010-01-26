@@ -47,13 +47,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval20()
@@ -64,13 +64,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval30()
@@ -81,13 +81,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval40()
@@ -98,13 +98,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval50()
@@ -115,13 +115,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval60()
@@ -132,13 +132,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval60(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval60(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getKd50()
@@ -149,13 +149,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeDouble getKd50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getKd50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getKd95()
@@ -166,13 +166,13 @@ private static final long serialVersionUID = 1178899689;
  
   public com.terraframe.mojo.query.AttributeDouble getKd95(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getKd95(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, displayLabel);
 
   }
   /**  
@@ -273,13 +273,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval10", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval10", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval20()
@@ -290,13 +290,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval20", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval20", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval30()
@@ -307,13 +307,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval30", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval30", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval40()
@@ -324,13 +324,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval40", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval40", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval50()
@@ -341,13 +341,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval50", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval50", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeInteger getInterval60()
@@ -358,13 +358,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeInteger getInterval60(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval60", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, null);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeInteger getInterval60(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.attributeFactory("interval60", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getKd50()
@@ -375,13 +375,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeDouble getKd50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("kd50", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getKd50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("kd50", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD50, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeDouble getKd95()
@@ -392,13 +392,13 @@ private static final long serialVersionUID = 444597131;
  
   public com.terraframe.mojo.query.AttributeDouble getKd95(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("kd95", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, null);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, null);
 
   }
  
   public com.terraframe.mojo.query.AttributeDouble getKd95(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.attributeFactory("kd95", "com.terraframe.mojo.system.metadata.MdAttributeDouble", alias, displayLabel);
+    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, displayLabel);
 
   }
   }
