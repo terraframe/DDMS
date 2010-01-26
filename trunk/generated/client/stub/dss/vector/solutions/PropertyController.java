@@ -101,12 +101,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void cancel(PropertyDTO dto) throws IOException, ServletException
   {
     dto.unlock();
-    this.viewAll();
+    
+    this.view(dto);
   }
 
   public void failCancel(PropertyDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void viewAll() throws IOException, ServletException
@@ -148,9 +149,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void failUpdate(PropertyDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto.getId());
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -177,7 +176,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void failEdit(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.view(id);
   }
 
   public void newInstance() throws IOException, ServletException
@@ -187,6 +186,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
      * PropertyDTO dto = new PropertyDTO(clientRequest);
      */
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
     req.setAttribute("item", dto);
     req.setAttribute("configuration", new EpiConfigurationDTO(clientRequest));
     render("epiWeekComponent.jsp");
