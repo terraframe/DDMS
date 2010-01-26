@@ -157,7 +157,7 @@ public abstract class HouseholdDTOBase extends com.terraframe.mojo.business.Busi
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.ResponseDTO> getHasBeenSprayed()
   {
-    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.Response", getEnumNames(HASBEENSPRAYED));
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(HASBEENSPRAYED));
   }
   
   public java.util.List<String> getHasBeenSprayedEnumNames()

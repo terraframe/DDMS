@@ -174,7 +174,7 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.irs.TargetUnitDTO> getTargetUnit()
   {
-    return (java.util.List<dss.vector.solutions.irs.TargetUnitDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.irs.TargetUnit", getEnumNames(TARGETUNIT));
+    return (java.util.List<dss.vector.solutions.irs.TargetUnitDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.TargetUnitDTO.CLASS, getEnumNames(TARGETUNIT));
   }
   
   public java.util.List<String> getTargetUnitEnumNames()

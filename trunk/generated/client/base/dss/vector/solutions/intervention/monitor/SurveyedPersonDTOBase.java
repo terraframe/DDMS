@@ -373,7 +373,7 @@ public abstract class SurveyedPersonDTOBase extends com.terraframe.mojo.business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.ResponseDTO> getFever()
   {
-    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.Response", getEnumNames(FEVER));
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(FEVER));
   }
   
   public java.util.List<String> getFeverEnumNames()
@@ -456,7 +456,7 @@ public abstract class SurveyedPersonDTOBase extends com.terraframe.mojo.business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.RefusedResponseDTO> getHaemoglobinMeasured()
   {
-    return (java.util.List<dss.vector.solutions.RefusedResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.RefusedResponse", getEnumNames(HAEMOGLOBINMEASURED));
+    return (java.util.List<dss.vector.solutions.RefusedResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.RefusedResponseDTO.CLASS, getEnumNames(HAEMOGLOBINMEASURED));
   }
   
   public java.util.List<String> getHaemoglobinMeasuredEnumNames()
@@ -797,7 +797,7 @@ public abstract class SurveyedPersonDTOBase extends com.terraframe.mojo.business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.ResponseDTO> getMalaria()
   {
-    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.Response", getEnumNames(MALARIA));
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(MALARIA));
   }
   
   public java.util.List<String> getMalariaEnumNames()
@@ -1012,7 +1012,7 @@ public abstract class SurveyedPersonDTOBase extends com.terraframe.mojo.business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.RefusedResponseDTO> getPerformedRDT()
   {
-    return (java.util.List<dss.vector.solutions.RefusedResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.RefusedResponse", getEnumNames(PERFORMEDRDT));
+    return (java.util.List<dss.vector.solutions.RefusedResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.RefusedResponseDTO.CLASS, getEnumNames(PERFORMEDRDT));
   }
   
   public java.util.List<String> getPerformedRDTEnumNames()

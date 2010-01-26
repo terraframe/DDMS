@@ -81,14 +81,14 @@ public class IndividualCaseControllerBase implements com.terraframe.mojo.generat
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualCaseController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:dto, java.lang.String:personId", post=false)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:dto, java.lang.String:personId", post=true)
   public void create(dss.vector.solutions.intervention.monitor.IndividualCaseDTO dto, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualCaseController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.IndividualCaseController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:dto, java.lang.String:personId", post=false)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.IndividualCaseDTO:dto, java.lang.String:personId", post=true)
   public void failCreate(dss.vector.solutions.intervention.monitor.IndividualCaseDTO dto, java.lang.String personId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualCaseController.java";

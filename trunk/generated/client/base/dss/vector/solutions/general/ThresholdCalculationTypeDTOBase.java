@@ -58,7 +58,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO> getCaseTypes()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.general.ThresholdCalculationCaseTypes", getEnumNames(CASETYPES));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO.CLASS, getEnumNames(CASETYPES));
   }
   
   public java.util.List<String> getCaseTypesEnumNames()
@@ -462,7 +462,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO> getT1Method()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.general.ThresholdCalculationMethod", getEnumNames(T1METHOD));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T1METHOD));
   }
   
   public java.util.List<String> getT1MethodEnumNames()
@@ -508,7 +508,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO> getT2Method()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.general.ThresholdCalculationMethod", getEnumNames(T2METHOD));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T2METHOD));
   }
   
   public java.util.List<String> getT2MethodEnumNames()

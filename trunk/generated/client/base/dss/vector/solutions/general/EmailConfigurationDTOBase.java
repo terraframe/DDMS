@@ -430,7 +430,7 @@ public abstract class EmailConfigurationDTOBase extends com.terraframe.mojo.busi
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.EmailProtocolDTO> getProtocol()
   {
-    return (java.util.List<dss.vector.solutions.general.EmailProtocolDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.general.EmailProtocol", getEnumNames(PROTOCOL));
+    return (java.util.List<dss.vector.solutions.general.EmailProtocolDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.EmailProtocolDTO.CLASS, getEnumNames(PROTOCOL));
   }
   
   public java.util.List<String> getProtocolEnumNames()

@@ -460,7 +460,7 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.stock.EventOptionDTO> getTransactionType()
   {
-    return (java.util.List<dss.vector.solutions.stock.EventOptionDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.stock.EventOption", getEnumNames(TRANSACTIONTYPE));
+    return (java.util.List<dss.vector.solutions.stock.EventOptionDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.stock.EventOptionDTO.CLASS, getEnumNames(TRANSACTIONTYPE));
   }
   
   public java.util.List<String> getTransactionTypeEnumNames()

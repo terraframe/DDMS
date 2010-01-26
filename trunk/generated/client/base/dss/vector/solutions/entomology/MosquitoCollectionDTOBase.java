@@ -443,7 +443,7 @@ public abstract class MosquitoCollectionDTOBase extends com.terraframe.mojo.busi
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.entomology.LifeStageDTO> getLifeStage()
   {
-    return (java.util.List<dss.vector.solutions.entomology.LifeStageDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.entomology.LifeStage", getEnumNames(LIFESTAGE));
+    return (java.util.List<dss.vector.solutions.entomology.LifeStageDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.entomology.LifeStageDTO.CLASS, getEnumNames(LIFESTAGE));
   }
   
   public java.util.List<String> getLifeStageEnumNames()
