@@ -145,8 +145,6 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   {
     String sql = "";
     sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName(), "targeter");
-    sql += " UNION \n";
-    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName(), "geoentity");
     sql += " ";
     return sql;
 
