@@ -180,5 +180,139 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_date
+(
+  _geoEntityId         VARCHAR,
+  _date      DATE
+)
+RETURNS INT AS $$
+
+DECLARE
+  _epiWeek      INT;
+  _seasonId  	VARCHAR;
+  _targetColumn  VARCHAR;
+BEGIN
+
+  SELECT id FROM malariaseason AS ms WHERE _date BETWEEN ms.startDate AND ms.endDate
+    INTO _seasonId;
+    
+   IF _seasonId IS NULL THEN
+     RETURN NULL;
+   END IF;
+
+  _epiWeek := EXTRACT(week FROM _date)-2;
+
+  _targetColumn := ('target_' || _epiWeek); 
+    
+   RETURN get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(_geoEntityId,_seasonId,_targetColumn);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar
+(
+  _geoEntityId         VARCHAR,
+  _seasonId  	VARCHAR,
+  _targetColumn  VARCHAR
+)
+RETURNS INT AS $$
+
+DECLARE
+  _target       INT;
+  _childCount  INT;
+
+  _sql TEXT;
+  rec RECORD;
+BEGIN
+
+  EXECUTE 'SELECT '|| _targetColumn ||' FROM geotarget  WHERE season = $1 AND geoentity = $2 '
+    INTO _target
+    USING _seasonId, _geoEntityId;
+    
+    IF _target IS NULL THEN
+      --check if this branch will lead to any data
+      EXECUTE 'SELECT count(gt.id) FROM allpaths_geo ap
+	  JOIN geotarget gt ON ap.childgeoentity = gt.geoentity  
+	   WHERE gt.season = $1 AND ap.parentgeoentity = $2 '
+      INTO _childCount
+      USING _seasonId, _geoEntityId;
+      --continue to recurse if this branch has data
+      IF _childCount > 0 THEN
+             _target := 0;
+	      _sql := 'SELECT child_id  FROM locatedin WHERE parent_id = ' || quote_literal(_geoEntityId);
+	      FOR  rec IN EXECUTE _sql LOOP
+		    _target = _target + get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(rec.child_id,_seasonId,_targetColumn);
+	      END LOOP;
+       END IF;
+    END IF;
+    
+    RETURN _target;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_epiWeek_from_date
+(
+  _date      DATE,
+  -- 0 = SUNDAY
+  _firstDayOfEpiWeek INT,
+  OUT _epiWeek INT
+  
+)
+RETURNS INT AS $$
+
+DECLARE
+  _year INT;
+  _fourthOfJanWeekDay INT;
+  _startDate date;
+  _nextStartDate date;
+  _prevStartDate date;
+BEGIN 
+  _year := EXTRACT(YEAR FROM _date);
+  
+  _prevStartDate = get_epiStart(_year-1,_firstDayOfEpiWeek);
+  _startDate := get_epiStart(_year,_firstDayOfEpiWeek);
+  _nextStartDate := get_epiStart(_year+1,_firstDayOfEpiWeek);
+
+  --RAISE NOTICE '% % % %', _year,_prevStartDate,_startDate,_nextStartDate;
+  CASE
+   WHEN (_date >= _startDate ) AND (_date < _nextStartDate)  THEN
+      _epiWeek := EXTRACT('epoch' FROM AGE(_date,_startDate))::INT /(60*60*24*7) + 1;
+   WHEN _date >= _nextStartDate THEN
+      _epiWeek := 1;
+   WHEN _date < _startDate THEN
+      _epiWeek := EXTRACT('epoch' FROM AGE(_startDate,_prevStartDate))::INT /(60*60*24*7) ;
+  END CASE;
+
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_epiStart
+(
+  _year INT,
+  _firstDayOfEpiWeek INT,
+  OUT _startDate DATE
+)
+RETURNS DATE AS $$
+
+DECLARE
+  _yearT TEXT;
+  _fourthOfJanWeekDay INT;
+BEGIN 
+  _fourthOfJanWeekDay := EXTRACT(DOW FROM  to_date(_year::TEXT || '-4', 'YYYY-DDD'));
+
+  IF (_fourthOfJanWeekDay >= _firstDayOfEpiWeek )THEN
+	_startDate := to_date(_year::TEXT  || '-' || (4 - _fourthOfJanWeekDay), 'YYYY-DDD'); 
+  ELSE
+	_startDate := to_date(_year::TEXT  || '-' || (4 + 7 + - _fourthOfJanWeekDay), 'YYYY-DDD'); 	
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+--SELECT EXTRACT(week FROM '2010-01-01'::date)-1;
+--SELECT get_seasonal_spray_target_by_geoEntityId_and_date((SELECT id FROM geoentity WHERE geoid = '2828009'),'2010-01-01'::date)
+--SELECT get_seasonal_spray_target_by_geoEntityId_and_date((SELECT id FROM geoentity WHERE geoid = '1300158'),'2010-01-01'::date)
+
+
 --select get_yearly_population_by_geoid_and_date('22002',  '2010-01-01'::DATE)
 --select get_seasonal_population_by_geoid_and_date('22002',  '2010-01-01'::DATE)
