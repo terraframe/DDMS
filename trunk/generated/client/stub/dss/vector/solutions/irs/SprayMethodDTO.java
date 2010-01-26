@@ -18,7 +18,7 @@ public enum SprayMethodDTO implements com.terraframe.mojo.business.EnumerationDT
   
   public dss.vector.solutions.irs.SprayMethodMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (dss.vector.solutions.irs.SprayMethodMasterDTO) clientRequest.getEnumeration("dss.vector.solutions.irs.SprayMethod", this.name());
+    return (dss.vector.solutions.irs.SprayMethodMasterDTO) clientRequest.getEnumeration(dss.vector.solutions.irs.SprayMethodDTO.CLASS, this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
@@ -29,13 +29,13 @@ public enum SprayMethodDTO implements com.terraframe.mojo.business.EnumerationDT
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<dss.vector.solutions.irs.SprayMethodMasterDTO>) clientRequest.getEnumerations("dss.vector.solutions.irs.SprayMethod", itemNames);
+    return (java.util.List<dss.vector.solutions.irs.SprayMethodMasterDTO>) clientRequest.getEnumerations(dss.vector.solutions.irs.SprayMethodDTO.CLASS, itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
   public static java.util.List<dss.vector.solutions.irs.SprayMethodMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<dss.vector.solutions.irs.SprayMethodMasterDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.irs.SprayMethod");
+    return (java.util.List<dss.vector.solutions.irs.SprayMethodMasterDTO>) clientRequest.getAllEnumerations(dss.vector.solutions.irs.SprayMethodDTO.CLASS);
   }
   
   public java.lang.String getName()

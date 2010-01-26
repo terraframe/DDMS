@@ -18,7 +18,7 @@ public enum OutbreakCalculationDTO implements com.terraframe.mojo.business.Enume
   
   public dss.vector.solutions.general.OutbreakCalculationMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (dss.vector.solutions.general.OutbreakCalculationMasterDTO) clientRequest.getEnumeration("dss.vector.solutions.general.OutbreakCalculation", this.name());
+    return (dss.vector.solutions.general.OutbreakCalculationMasterDTO) clientRequest.getEnumeration(dss.vector.solutions.general.OutbreakCalculationDTO.CLASS, this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
@@ -29,13 +29,13 @@ public enum OutbreakCalculationDTO implements com.terraframe.mojo.business.Enume
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationMasterDTO>) clientRequest.getEnumerations("dss.vector.solutions.general.OutbreakCalculation", itemNames);
+    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationMasterDTO>) clientRequest.getEnumerations(dss.vector.solutions.general.OutbreakCalculationDTO.CLASS, itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
   public static java.util.List<dss.vector.solutions.general.OutbreakCalculationMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationMasterDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.general.OutbreakCalculation");
+    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationMasterDTO>) clientRequest.getAllEnumerations(dss.vector.solutions.general.OutbreakCalculationDTO.CLASS);
   }
   
   public java.lang.String getName()

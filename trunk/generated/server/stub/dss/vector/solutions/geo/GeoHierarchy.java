@@ -107,11 +107,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
         Attribute attr;
         if(layer.getRenderAs().get(0).equals(AllRenderTypes.POINT))
         {
-          attr = geoQuery.aAttribute(GeoEntity.GEOPOINT);
+          attr = geoQuery.get(GeoEntity.GEOPOINT);
         }
         else
         {
-          attr = geoQuery.aAttribute(GeoEntity.GEOMULTIPOLYGON);
+          attr = geoQuery.get(GeoEntity.GEOMULTIPOLYGON);
         }
 
         attr.setUserDefinedAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
@@ -121,7 +121,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
         String thematicUserAlias = layer.getThematicUserAlias();
         if(thematicUserAlias != null && thematicUserAlias.length() > 0)
         {
-          Attribute thematic = geoQuery2.aAttribute(thematicUserAlias);
+          Attribute thematic = geoQuery2.get(thematicUserAlias);
           thematic.setUserDefinedAlias(QueryConstants.THEMATIC_DATA_COLUMN);
           selectables.add(thematic);
         }
@@ -150,7 +150,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
         }
       }
       
-      vq.WHERE(geoQuery.aAttribute(GeoEntity.TYPE).EQ(universalType));
+      vq.WHERE(geoQuery.get(GeoEntity.TYPE).EQ(universalType));
       
       return vq;
     }

@@ -97,7 +97,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     }
     else if (attribute instanceof AttributeReference)
     {
-      attribute = ((AttributeReference) attribute).aAttribute(Term.NAME);
+      attribute = ((AttributeReference) attribute).get(Term.NAME);
     }
     else if (attribute instanceof AttributeLocal)
     {

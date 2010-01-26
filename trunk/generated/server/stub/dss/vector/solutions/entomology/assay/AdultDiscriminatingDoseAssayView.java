@@ -32,7 +32,7 @@ public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAss
     }
     else if (attribute instanceof AttributeReference)
     {
-      attribute = ((AttributeReference) attribute).aAttribute(Term.NAME);
+      attribute = ((AttributeReference) attribute).get(Term.NAME);
     }
     else if (attribute instanceof AttributeLocal)
     {

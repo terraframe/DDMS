@@ -18,7 +18,7 @@ public enum EventOptionDTO implements com.terraframe.mojo.business.EnumerationDT
   
   public dss.vector.solutions.stock.EventOptionMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (dss.vector.solutions.stock.EventOptionMasterDTO) clientRequest.getEnumeration("dss.vector.solutions.stock.EventOption", this.name());
+    return (dss.vector.solutions.stock.EventOptionMasterDTO) clientRequest.getEnumeration(dss.vector.solutions.stock.EventOptionDTO.CLASS, this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
@@ -29,13 +29,13 @@ public enum EventOptionDTO implements com.terraframe.mojo.business.EnumerationDT
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<dss.vector.solutions.stock.EventOptionMasterDTO>) clientRequest.getEnumerations("dss.vector.solutions.stock.EventOption", itemNames);
+    return (java.util.List<dss.vector.solutions.stock.EventOptionMasterDTO>) clientRequest.getEnumerations(dss.vector.solutions.stock.EventOptionDTO.CLASS, itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
   public static java.util.List<dss.vector.solutions.stock.EventOptionMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<dss.vector.solutions.stock.EventOptionMasterDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.stock.EventOption");
+    return (java.util.List<dss.vector.solutions.stock.EventOptionMasterDTO>) clientRequest.getAllEnumerations(dss.vector.solutions.stock.EventOptionDTO.CLASS);
   }
   
   public java.lang.String getName()
