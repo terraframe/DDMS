@@ -208,20 +208,20 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     sql += " SELECT child_id, parent_id \n";
     sql += baseValue;
     sql += "  FROM locatedin LEFT JOIN " + geoTarget + " gt ON gt.geoentity = locatedin.child_id\n";
-    sql += "  WHERE gt.season = '" + malariaSeasonId + "'\n";
-    sql += " AND parent_id = '" + geoid + "'\n";
+    sql += "  AND gt.season = '" + malariaSeasonId + "'\n";
+    sql += " WHERE parent_id = '" + geoid + "'\n";
     // this is the recursive case
     sql += " UNION\n";
     sql += " SELECT b.child_id, b.parent_id \n";
     sql += recursiveValue;
     sql += " FROM recursive_rollup a, locatedin b LEFT JOIN " + geoTarget + " gt ON gt.geoentity = b.child_id\n";
-    sql += " WHERE a.child_id = b.parent_id\n";
     sql += " AND gt.season = '" + malariaSeasonId + "'\n";
+    sql += " WHERE a.child_id = b.parent_id\n";
     sql += " )\n";
     sql += " select " + sums + " from recursive_rollup \n";
     sql += " )\n";
 
-   // System.out.println(sql);
+    System.out.println(sql);
 
     valueQuery.FROM(sql, "rr");
 
