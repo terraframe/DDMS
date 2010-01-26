@@ -60,6 +60,10 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     try
     {
+      // IMPORTANT: This action first locks and then applies the dto. As such,
+      // it is a completely thread unsafe mechanism where the last user who
+      // submitts will have their data perserved. Therefore it should on be used
+      // for updating the EPI_WEEK property
       PropertyDTO locked = PropertyDTO.lock(this.getClientRequest(), dto.getId());
       locked.setPropertyValue(dto.getPropertyValue());
       locked.apply();
