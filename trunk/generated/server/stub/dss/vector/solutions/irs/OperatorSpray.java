@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.Person;
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class OperatorSpray extends OperatorSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -113,92 +115,87 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     }
   }
 
-  public static void createTempTable(String tableName)
-  {
-    String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
-    sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += OperatorSpray.getTempTableSQL("") + ";\n";
-    System.out.println(sql);
-    Database.parseAndExecute(sql);
-  }
-
   public static String getTempTableSQL(String viewName)
   {
-//    String select = "SELECT spraystatus.id,\n";
-//
-//    select += "'1' AS aggregation_level,\n";
-//    // operator stuff
-//    select += "householdspraystatus." + HouseholdSprayStatus.HOUSEHOLDID + " AS household_id,\n";
-//    select += "householdspraystatus." + HouseholdSprayStatus.STRUCTUREID + " AS structure_id,\n";
-//    select += "operatorspray." + OperatorSpray.SPRAYOPERATOR + " AS sprayoperator,\n";
-//    select += "sprayoperator.operatorid || ' - ' || person.firstname || ' - ' || person.lastname AS sprayoperator_defaultLocale,\n";
-//    select += "operatorspray." + OperatorSpray.OPERATORSPRAYWEEK + " AS operator_week,\n";
-//    select += "actorspray." + ActorSpray.TARGET + " AS operator_target,\n";
-//    // team stuff
-//    select += "sprayteam." + SprayTeam.ID + " AS sprayteam,\n";
-//    select += "sprayteam." + SprayTeam.TEAMID + " AS sprayteam_defaultLocale,\n";
-//    select += "actorspray." + ActorSpray.TEAMLEADER + " AS sprayleader,\n";
-//    select += "sprayleader.operatorid || ' - ' || person2.firstname || ' - ' || person2.lastname AS sprayleader_defaultLocale,\n";
-//    select += "actorspray." + ActorSpray.TEAMSPRAYWEEK + " AS team_week,\n";
-//    select += "NULL AS team_target,\n";
-//    // zone stuff
-//    select += "'' AS zone_supervisor,\n";
-//    select += "'' AS zone_supervisor_defaultLocale,\n";
-//    select += "CAST(NULL AS INT)  AS zone_week,\n";
-//    select += "CAST(NULL AS INT)  AS zone_target,\n";
-//    // target stuff
-//    // select += "sprayseason.id  AS spray_season,\n";
-//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
-//        + ") AS planed_operator_target,\n";
-//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayteam.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = actorspray." + ActorSpray.TEAMSPRAYWEEK
-//        + ") AS planed_team_target,\n";
-//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = spraydata.geoentity  \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = EXTRACT(WEEK FROM spraydata.spraydate)"
-//        + ") AS planed_area_target,\n";
-//
-//    String from = " FROM ";
-//    // get the main tables
-//    from += MdBusiness.getMdBusiness(SprayTeam.CLASS).getTableName() + " AS sprayteam,\n";
-//    from += "inteam AS inteam,\n";
-//    from += MdBusiness.getMdBusiness(OperatorSpray.CLASS).getTableName() + " AS operatorspray,\n";
-//    from += MdBusiness.getMdBusiness(ActorSpray.CLASS).getTableName() + " AS actorspray,\n";
-//    from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray,\n";
-//    from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
-//    from += MdBusiness.getMdBusiness(SprayStatus.CLASS).getTableName() + " AS spraystatus,\n";
-//    from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayoperator,\n";
-//    from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
-//    from += MdBusiness.getMdBusiness(SprayOperator.CLASS).getTableName() + " AS sprayleader,\n";
-//    from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person2,\n";
-//    from += MdBusiness.getMdBusiness(SprayData.CLASS).getTableName() + " AS spraydata \n";
-//    from += " LEFT JOIN ";
-//    from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
-//    from += "ON spraydata.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate \n";
-//    // from += " LEFT JOIN " ;
-//    // from += viewName + " AS operator_target_view \n";
-//    // from += "ON (,\n";
-//    // from += "viewName AS team_target_view,\n";
-//    // from += "viewName AS geo_target_view,\n";
-//
-//    String where = "";
-//    // join the spray team to the oporator
-//    where += "AND sprayteam.id = inteam.parent_id  \n";
-//    where += "AND sprayoperator.id = inteam.child_id \n";
-//
-//    // join main tables
-//    where += "AND spraydata.id = abstractspray.spraydata \n";
-//    where += "AND abstractspray.id = actorspray.id \n";
-//    where += "AND operatorspray.id = actorspray.id \n";
-//    where += "AND householdspraystatus.id = spraystatus.id \n";
-//    where += "AND spraystatus.spray = operatorspray.id \n";
-//    where += "AND operatorspray.sprayoperator = sprayoperator.id \n";
-//    where += "AND person.id = sprayoperator.person \n";
-//    where += "AND actorspray.teamleader = sprayleader.id \n";
-//    where += "AND person2.id = sprayleader.person \n";
-//
-//    select = select.substring(0, select.length() - 2);
-//    from = from.substring(0, from.length() - 2);
-//    where = "WHERE " + where.substring(3, where.length() - 2);
-//
-//    return select + "\n" + from + "\n" + where;
-    return "";
+    String select = "SELECT operatorspray.id,\n";
+
+    select += "'1'::TEXT AS aggregation_level,\n";
+    // operator stuff
+    select += "householdspraystatus." + HouseholdSprayStatus.HOUSEHOLDID + " AS household_id,\n";
+    select += "householdspraystatus." + HouseholdSprayStatus.STRUCTUREID + " AS structure_id,\n";
+    select += "operatorspray." + OperatorSpray.SPRAYOPERATOR + " AS sprayoperator,\n";
+    select += "sprayoperator."+TeamMember.MEMBERID+" || ' - ' || person.firstname || ' - ' || person.lastname AS sprayoperator_defaultLocale,\n";
+    select += "operatorspray." + OperatorSpray.OPERATORSPRAYWEEK + " AS operator_week,\n";
+    select += "operatorspray." + OperatorSpray.TARGET + " AS operator_target,\n";
+    // team stuff
+    select += "operatorspray." + OperatorSpray.SPRAYTEAM + " AS sprayteam,\n";
+    select += "(SELECT st." + SprayTeam.TEAMID + " FROM "+MdBusiness.getMdBusiness(SprayTeam.CLASS).getTableName()+" st WHERE st.id = operatorspray." + OperatorSpray.SPRAYTEAM + ") AS sprayteam_defaultLocale,\n";
+    select += "operatorspray." + OperatorSpray.TEAMLEADER + " AS sprayleader,\n";
+    select += "(SELECT tm."+TeamMember.MEMBERID+" || ' - ' || p.firstname || ' - ' || p.lastname FROM "+MdBusiness.getMdBusiness(TeamMember.CLASS).getTableName()+" tm , "+MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS p WHERE p.id = tm.id AND tm.id = operatorspray." + OperatorSpray.TEAMLEADER + ") AS sprayleader_defaultLocale,\n";
+    select += "operatorspray." + OperatorSpray.TEAMSPRAYWEEK + " AS team_week,\n";
+    select += "NULL AS team_target,\n";
+    // zone stuff
+    select += "''::TEXT AS zone_supervisor,\n";
+    select += "''::TEXT AS zone_supervisor_defaultLocale,\n";
+    select += "NULL::INT  AS zone_week,\n";
+    select += "NULL::INT  AS zone_target,\n";
+    //spray stuff
+    select += "rooms,\n";
+    select += "structures,\n";
+    select += "households,\n";
+    select += "sprayedrooms,\n";
+    select += "sprayedstructures,\n";
+    select += "sprayedhouseholds,\n";
+    select += "prevsprayedstructures,\n";
+    select += "prevsprayedhouseholds,\n";
+    select += "people,\n";
+    select += "bednets,\n";
+    select += "roomswithbednets,\n";
+    select += "locked,\n";
+    select += "refused,\n";
+    select += "other,\n";
+    select += "received,\n";
+    select += "used,\n";
+    select += "refills,\n";
+    select += "returned,\n";
+    select += "(rooms - sprayedrooms) AS room_unsprayed,\n";
+    select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
+    select += "(households - sprayedhouseholds) AS household_unsprayed,\n";
+    // target stuff
+    select += "sprayseason.id  AS spray_season,\n";
+    
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
+        + ") AS planed_operator_target,\n";
+    
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = operatorspray." + OperatorSpray.SPRAYTEAM + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.TEAMSPRAYWEEK
+        + ") AS planed_team_target,\n";
+
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date(abstractspray."+AbstractSpray.GEOENTITY+",abstractspray."+AbstractSpray.SPRAYDATE
+        + ") AS planed_area_target,\n";
+
+    String from = " FROM ";
+    // get the main tables
+    from += MdBusiness.getMdBusiness(OperatorSpray.CLASS).getTableName() + " AS operatorspray,\n";
+    from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
+    from += MdBusiness.getMdBusiness(TeamMember.CLASS).getTableName() + " AS sprayoperator,\n";
+    from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
+    from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray\n";
+    from += " LEFT JOIN ";
+    from += MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName() + " AS sprayseason ";
+    from += "ON abstractspray.spraydate BETWEEN sprayseason.startdate AND sprayseason.enddate \n";
+
+    String where = "";
+
+    // join main tables
+    where += "AND abstractspray.id = operatorspray.id\n";
+    where += "AND operatorspray.id = householdspraystatus.spray\n";
+    where += "AND operatorspray.sprayoperator = sprayoperator.id \n";
+    where += "AND sprayoperator.person = person.id \n";
+
+    select = select.substring(0, select.length() - 2);
+    from = from.substring(0, from.length() - 2);
+    where = "WHERE " + where.substring(3, where.length() - 2);
+
+    return select + "\n" + from + "\n" + where;
   }
 }
