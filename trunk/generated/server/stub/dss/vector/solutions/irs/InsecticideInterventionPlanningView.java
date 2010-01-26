@@ -30,11 +30,13 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
 
   private double calculate(Float coverage, Float area, Double weight, Integer sachets)
   {
-    if (validateCalculation())
+    Integer _targets = this.getTargets();
+    
+    if (_targets != null)
     {
 //      Formula : #Targets x target unit area (MDSS106) * sachet weight in gr (MDSS106) * sachets per refill (MDSS106) / (unit nozzle can area coverage (MDSS106) x 1000)
 
-      double targets = this.getTargets().doubleValue();
+      double targets = _targets.doubleValue();
 
       return (targets * area * weight * sachets) / (coverage * 1000);
     }
