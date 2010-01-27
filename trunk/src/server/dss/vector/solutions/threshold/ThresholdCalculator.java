@@ -41,6 +41,8 @@ import dss.vector.solutions.surveillance.PeriodType;
 public abstract class ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
 	protected final ThresholdCalculationType calculationType;
 	protected String testingLimiter = null;
+	protected long geoEntityCount = 1;
+	protected long completedCount = 0;
 	
 	protected class ThresholdCalculationPeriod implements com.terraframe.mojo.generation.loader.Reloadable{
 		public MalariaSeason season;
@@ -65,6 +67,10 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	protected abstract long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
 	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2);
 
+	public int getPercentComplete() {
+		return Math.round(100 * this.completedCount / this.geoEntityCount);
+	}
+	
 	public MalariaSeason calculateThresholds(boolean currentPeriod) {
 		ThresholdCalculationPeriod period = this.getCalculationPeriod(currentPeriod);
 		if (period.season != null) {
@@ -77,6 +83,9 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	protected void calculateThresholds(ThresholdCalculationPeriod calculationPeriod) {
 		GeoEntityQuery query = this.getEntityQuery(new QueryFactory());
 		OIterator<? extends GeoEntity> it = query.getIterator();
+		if (this.testingLimiter == null) {
+			this.geoEntityCount = query.getCount();
+		}
 
 		try {
 			// For EACH GeoEntity that has population and isPolitical
@@ -85,6 +94,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 				if (this.testingLimiter == null || this.testingLimiter.equals(geoEntity.getGeoId())) {
 					//System.out.println(geoEntity.getEntityName());
 					this.calculateThresholds(calculationPeriod, geoEntity);
+					this.completedCount++;
 				}
 			}
 		} finally {
@@ -92,7 +102,6 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 		}
 	}
 	
-
 	@Transaction
 	protected void calculateThresholds(ThresholdCalculationPeriod calculationPeriod, GeoEntity geoEntity) {
 		ThresholdCalculationMethod t1Method = calculationType.getT1Method().get(0);
