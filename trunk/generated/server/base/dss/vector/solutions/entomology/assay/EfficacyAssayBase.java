@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1014036160)
+@com.terraframe.mojo.business.ClassSignature(hash = 341440711)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 1014036160;
+  private static final long serialVersionUID = 341440711;
   
   public EfficacyAssayBase()
   {
@@ -136,7 +136,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     }
   }
   
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
+  public dss.vector.solutions.geo.generated.Surface getGeoEntity()
   {
     if (getValue(GEOENTITY).trim().equals(""))
     {
@@ -144,7 +144,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     }
     else
     {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
+      return dss.vector.solutions.geo.generated.Surface.get(getValue(GEOENTITY));
     }
   }
   
@@ -159,7 +159,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     return mdClassIF.definesAttribute(GEOENTITY);
   }
   
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  public void setGeoEntity(dss.vector.solutions.geo.generated.Surface value)
   {
     if(value == null)
     {

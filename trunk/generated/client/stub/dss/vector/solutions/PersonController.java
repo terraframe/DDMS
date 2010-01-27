@@ -13,6 +13,7 @@ import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -40,7 +41,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
     this.setupQueryLabels(query);
     
     // Saving the sex is a pain. This is a shortcut.
-    req.setAttribute("sexEnumName", person.getSex().getDisplayLabel());
+    TermDTO sex = person.getSex();
+    if(sex != null)
+    {
+      req.setAttribute("sex", sex.getId());
+    }
+    
     render("searchResults.jsp");
   }
 
@@ -76,7 +82,13 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     renderCreate(person);
   }
-
+  
+  @Override
+  public void failContinueNewInstance(PersonViewDTO person) throws IOException, ServletException
+  {
+    this.viewAll();
+  }
+  
   @Override
   public void createFromView(PersonViewDTO person) throws IOException, ServletException
   {

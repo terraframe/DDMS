@@ -102,7 +102,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
             this.that.clearTeamMembers();
           },          
           onSuccess : function(operators){
-            this.that._populateOperatorList(this.that.getOperatorSelect(), operators, false);
+            this.that._populateOperatorList(this.that.getOperatorSelect(), operators, true);
           }
         });
 

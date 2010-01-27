@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1249933376)
+@com.terraframe.mojo.business.ClassSignature(hash = -614737337)
 public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssay";
-  private static final long serialVersionUID = 1249933376;
+  private static final long serialVersionUID = -614737337;
   
   protected EfficacyAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -178,7 +178,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
+  public dss.vector.solutions.geo.generated.SurfaceDTO getGeoEntity()
   {
     if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
     {
@@ -186,11 +186,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     }
     else
     {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+      return dss.vector.solutions.geo.generated.SurfaceDTO.get(getRequest(), getValue(GEOENTITY));
     }
   }
   
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  public void setGeoEntity(dss.vector.solutions.geo.generated.SurfaceDTO value)
   {
     if(value == null)
     {
