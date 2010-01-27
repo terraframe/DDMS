@@ -228,5 +228,6 @@
     </c:if>
 
     <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedCaseController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.edit.button" />
+    <mjl:command value="Create_New_Aggregated_Case_Button" action="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" name="AggregatedCaseController.search" />
   </dl>
 </mjl:form>
