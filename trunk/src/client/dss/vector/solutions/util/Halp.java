@@ -139,12 +139,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   private static String generateDropDownMap(LabeledDTO[] terms) throws JSONException
   {
     JSONObject map = new JSONObject();
-    
+
     for (LabeledDTO term : terms)
     {
       map.put(term.getOptionId(), term.getLabel().replaceAll("'", "\\\\'"));
     }
-    
+
     return map.toString();
   }
 
@@ -159,7 +159,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
     return name + "Options = " + options.toString() + ";";
   }
-  
+
   public static String getDataMap(ViewDTO[] rows, String[] attribs, ViewDTO view) throws JSONException
   {
     return Halp.getDataMap(rows, attribs, view, new HashMap<String, RowSetup>());
@@ -182,23 +182,23 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       JSONObject element = new JSONObject();
 
       for (String attrib : ordered_attribs)
-      {       
+      {
         try
-        {          
+        {
           Object object = null;
-          
-          if(setups.containsKey(attrib))
+
+          if (setups.containsKey(attrib))
           {
             RowSetup setup = setups.get(attrib);
-            
+
             Class<? extends ViewDTO> klass = row.getClass();
-            
+
             object = klass.getMethod(setup.getGetter()).invoke(row);
           }
           else
           {
-            object = new DTOFacade(attrib, row).getValue();            
-          }          
+            object = new DTOFacade(attrib, row).getValue();
+          }
 
           String value = object.toString();
 
@@ -216,7 +216,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
               value = value.replaceAll("\\[", "").replaceAll("\\]", "");
               break;
             case REFERENCE:
-              ComponentDTO componentDTO = (ComponentDTO) (object);
+              ComponentDTO componentDTO = (ComponentDTO) ( object );
 
               if (componentDTO instanceof TermDTO)
               {
@@ -224,10 +224,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
                 value = Halp.getTermIdWithDisplayLabel(term);
               }
-              else if(componentDTO instanceof LabeledDTO)
+              else if (componentDTO instanceof LabeledDTO)
               {
                 LabeledDTO labeled = (LabeledDTO) componentDTO;
-                
+
                 value = labeled.getOptionId();
               }
               else
@@ -273,7 +273,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   {
     String label = term.getDisplayLabel();
     String id = term.getId();
-    
+
     return label + "^^^^" + id;
   }
 
@@ -289,7 +289,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       throw new RuntimeException(e);
     }
-        
+
     return object;
   }
 
@@ -439,7 +439,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           EnumerationMasterDTO e = (EnumerationMasterDTO) dto;
 
-          list.add("'" + e.getId() + "':'"+ e.getDisplayLabel().toString().replaceAll("'", "\\\\'") + "'");
+          list.add("'" + e.getId() + "':'" + e.getDisplayLabel().toString().replaceAll("'", "\\\\'") + "'");
         }
 
         return "{" + Halp.join(list) + "}";
@@ -522,7 +522,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     for (String accessorName : view.getAccessorNames())
     {
       String upcased_attrib = GenerationUtil.upperFirstCharacter(accessorName);
-      
+
       if (!ordered.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
       {
         ordered.add(upcased_attrib);
@@ -726,11 +726,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         Class<?> refrenced_class = md.getJavaType();
 
-        if(setup.getType() != null)
+        if (setup.getType() != null)
         {
           refrenced_class = LoaderDecorator.load(setup.getType());
         }
-        
+
         if (LabeledDTO.class.isAssignableFrom(refrenced_class))
         {
           options.add("dropdownOptions:" + attrib + "Options");
@@ -917,11 +917,27 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
             defaults.add(Halp.getDefaultValue(key, objectValue, objectLabel));
           }
-          else if(!value.toString().equals(""))
+          else if (!value.toString().equals(""))
           {
             defaults.add(Halp.getDefaultValue(key, value.toString()));
           }
 
+        }
+      }
+      catch (InvocationTargetException e)
+      {
+        Throwable t = e.getTargetException();
+
+        if (t instanceof RuntimeException)
+        {
+          if(!(t instanceof ClientReadAttributePermissionException))
+          {
+            throw (RuntimeException) t;
+          }
+        }
+        else
+        {
+          throw new ApplicationException(t);
         }
       }
       catch (ClientReadAttributePermissionException e)
@@ -939,7 +955,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   private static String getDefaultValue(String key, String value)
   {
-    return "'" + key + "':'" + value +"'";
+    return "'" + key + "':'" + value + "'";
   }
 
   private static String getDefaultValue(String key, String objectValue, String objectLabel)
