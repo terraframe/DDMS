@@ -10,7 +10,9 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.ViewArrayExcelExporter;
 import com.terraframe.mojo.session.Session;
 
+import dss.vector.solutions.general.GeoEntitySprayProblem;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class OperatorInterventionPlanningView extends OperatorInterventionPlanningViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -77,10 +79,27 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
   @Transaction
   public static OperatorInterventionPlanningView[] getViews(String geoId, MalariaSeason season)
   {
-    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+    GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+    
+    // Validate the Geo Entity: it must be part of the spray hierarchy
+    GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
+
+    if (!geoHierarchy.getSprayTargetAllowed())
+    {
+      String label = entity.getLabel();
+
+      String msg = "The Geo Entity [" + label + "] does not allow spray targets";
+
+      GeoEntitySprayProblem p = new GeoEntitySprayProblem(msg);
+      p.setEntityLabel(label);
+      p.apply();
+      p.throwIt();
+    }
+
+    
     List<OperatorInterventionPlanningView> list = new LinkedList<OperatorInterventionPlanningView>();
 
-    for (GeoEntity child : geoEntity.getSprayChildren())
+    for (GeoEntity child : entity.getSprayChildren())
     {
       GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
       int totalTargets = 0;
