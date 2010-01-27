@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.BasicCondition;
@@ -12,6 +15,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.RequiredAttributeException;
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -45,7 +50,15 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     this.setTeamLeader(concrete.getTeamLeader());
     this.setTeamSprayWeek(concrete.getTeamSprayWeek());
     this.setTarget(concrete.getTarget());
-    this.setTeamLabel(concrete.getSprayTeam().getLabel());
+    if (concrete.getSprayTeam() != null) {
+        this.setTeamLabel(concrete.getSprayTeam().getLabel());
+    } else {
+        RequiredAttributeProblem p = new RequiredAttributeProblem();
+        p.setNotification(this, SPRAYTEAM);
+        p.apply();
+
+        p.throwIt();
+    }
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());

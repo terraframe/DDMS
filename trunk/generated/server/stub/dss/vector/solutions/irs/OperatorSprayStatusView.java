@@ -12,6 +12,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class OperatorSprayStatusView extends OperatorSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -43,7 +44,15 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     this.setRefused(concrete.getRefused());
     this.setSprayOperator(concrete.getSprayOperator());
     this.setOperatorSprayWeek(concrete.getOperatorSprayWeek());
-    this.setOperatorLabel(concrete.getSprayOperator().getLabel());
+    if (concrete.getSprayOperator() != null) {
+        this.setOperatorLabel(concrete.getSprayOperator().getLabel());
+    } else {
+        RequiredAttributeProblem p = new RequiredAttributeProblem();
+        p.setNotification(this, SPRAYOPERATOR);
+        p.apply();
+
+        p.throwIt();
+    }
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());
