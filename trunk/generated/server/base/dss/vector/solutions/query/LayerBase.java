@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -376222738)
+@com.terraframe.mojo.business.ClassSignature(hash = 1829781944)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,7 +38,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -376222738;
+  private static final long serialVersionUID = 1829781944;
   
   public LayerBase()
   {
@@ -873,6 +873,18 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     Layer _instance = Layer.get(id);
     return _instance.calculateQueryInfo();
+  }
+  
+  public dss.vector.solutions.query.AbstractCategory[] generateCategories(dss.vector.solutions.query.CategoryGen categoryGen)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.query.AbstractCategory[] generateCategories(java.lang.String id, dss.vector.solutions.query.CategoryGen categoryGen)
+  {
+    Layer _instance = Layer.get(id);
+    return _instance.generateCategories(categoryGen);
   }
   
   public dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies()

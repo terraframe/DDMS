@@ -44,6 +44,11 @@ public abstract class AbstractCategory extends AbstractCategoryBase
     this.preValidate();
     
     Layer layer = Layer.get(layerId);
+    this.applyWithLayer(layer, isNew);
+  }
+  
+  public void applyWithLayer(Layer layer, boolean isNew)
+  {
     this.checkBoundsForAll(layer.getAllHasCategory().getAll());
     
     this.apply();

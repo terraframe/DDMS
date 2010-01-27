@@ -8,8 +8,9 @@
   request.setAttribute("RangeClass", RangeCategoryDTO.CLASS);
 %>
 
-
-<mjl:component item="${layer}" param="layer">
+<%@page import="java.util.List"%>
+<%@page import="com.terraframe.mojo.business.ValueObjectDTO"%>
+<%@page import="dss.vector.solutions.query.QueryConstants"%><mjl:component item="${layer}" param="layer">
   <input type="hidden" id="layerId" value="${layer.id}" />
   <mjl:dt attribute="layerName">
     <mjl:input type="text" param="layerName" />
@@ -104,11 +105,13 @@ MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
 </div>
 
 <div id="categories" style="margin-top: 10px;">
-  <strong><fmt:message key="Add_Category" /></strong>: 
+<strong><fmt:message key="Add_Category" /></strong>: 
 <c:choose>
 <c:when test="${!isNewInstance}">
-  <mjl:command value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
-  <mjl:command value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+
+  <mjl:command id="exactCategory" value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+  <mjl:command id="rangeCategory" value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+  <mjl:command value="Generate" id="${layer.id}_generate" action="dss.vector.solutions.query.LayerController.requestGenerate.mojo" name="dss.vector.solutions.query.LayerController.requestGenerate.mojo.button" />
   <ul id="categoryList">
     <c:forEach items="${categories}" var="category">
       <li>
@@ -134,6 +137,24 @@ MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
 
 <script type="text/javascript">
 
+if(${!isNewInstance})
+{
+  YAHOO.util.Event.on('thematicVariables', 'change', function(e){
+    var el = e.target;
+    var disabled = el.selectedIndex === 0;
+    document.getElementById('${layer.id}_generate').disabled = disabled;
+    document.getElementById('exactCategory').disabled = disabled;
+    document.getElementById('rangeCategory').disabled = disabled;
+  });
+	
+	if(${!hasThematic})
+	{
+    document.getElementById('${layer.id}_generate').disabled = true;
+    document.getElementById('exactCategory').disabled = true;
+    document.getElementById('rangeCategory').disabled = true;
+	}
+}
+	
 // This timeout is used to ensure that all other DOM manipulating JS calls
 // can be completed before executing the logic below. Otherwise, the sliders
 // and color pickers will not work properly.

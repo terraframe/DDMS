@@ -8,6 +8,10 @@ public class QueryConstants implements Reloadable
    * The namespace as created in GeoServer for all MDSS generated views.
    */
   public static final String MDSS_NAMESPACE = "mdss";
+  
+  public static final String CATEGORY_FACTORY_TYPE = "cfType";
+  
+  public static final String CATEGORY_FACTORY_DISPLAY = "cfDisplay";
 
   public static final String FEATURE_NAMESPACE = "MDSS_maps";
 

@@ -2,12 +2,16 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ValueObjectDTO;
+import com.terraframe.mojo.business.ValueQueryDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
@@ -19,6 +23,8 @@ public class LayerController extends LayerControllerBase implements
   public static final String LAYOUT           = JSP_DIR + "layout.jsp";
   
   public static final String QUERY_INFO_JSP = JSP_DIR + "queryInfo.jsp";
+  
+  public static final String CATEGORY_GEN_JSP = JSP_DIR + "categoryGen.jsp";
 
   private static final long  serialVersionUID = 1240900964253L;
 
@@ -73,16 +79,18 @@ public class LayerController extends LayerControllerBase implements
   {
     try
     {
+      ClientRequestIF request = this.getClientRequest();
+      
       req.setAttribute("layer", layer);
       req.setAttribute("isNewInstance", layer.isNewInstance());
       StylesController.populateRequestForStyles(req, styles);
       
       // fetch queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(this.getClientRequest());
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(request);
       List<? extends SavedSearchViewDTO> results = query.getResultSet();
       
       this.req.setAttribute("queryList", results);
-      this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(this.getClientRequest()));
+      this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(request));
       
       // fetch categories
       String mdAttributeId = "";
@@ -123,6 +131,7 @@ public class LayerController extends LayerControllerBase implements
       }
       else
       {
+        req.setAttribute("hasThematic", layer.getThematicUserAlias() != null && layer.getThematicUserAlias().length() > 0);
         String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
         
         mdAttributeId = layer.getValue(LayerDTO.MDATTRIBUTE);
@@ -150,6 +159,84 @@ public class LayerController extends LayerControllerBase implements
     catch(Throwable e)
     {
       throw new ApplicationException(e);
+    }
+  }
+  
+  @Override
+  public void generateCategories(CategoryGenDTO categoryGen) throws IOException, ServletException
+  {
+    try
+    {
+      String layerId = categoryGen.getLayerId();
+      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId, categoryGen);
+      
+      for(AbstractCategoryDTO category : categories)
+      {
+        resp.getWriter().write("<li>");
+        req.setAttribute("category", category);
+        if(category instanceof NonRangeCategoryDTO)
+        {
+          req.getRequestDispatcher(NonRangeCategoryController.SUMMARY_VIEW).include(req, resp);
+        }
+        else
+        {
+          req.getRequestDispatcher(RangeCategoryController.SUMMARY_VIEW).include(req, resp);
+        }
+        
+        resp.getWriter().write("</li>");
+      }
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
+  @Override
+  public void requestGenerate(LayerDTO layer, String factoryType) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      
+      CategoryGenDTO gen = new CategoryGenDTO(request);
+      gen.setLayerId(layer.getId());
+      
+      req.setAttribute("item", gen);
+      
+      ValueQueryDTO vqDTO = AbstractCategoryFactoryDTO.getSubclassInfo(request);
+      List<CategoryFactoryOption> factories = new LinkedList<CategoryFactoryOption>();
+      for(ValueObjectDTO vo : vqDTO.getResultSet())
+      {
+        factories.add(new CategoryFactoryOption(vo));
+      }
+      
+      req.setAttribute("factories", factories);
+      
+      String required = AbstractCategoryFactoryDTO.getAllRequiredAttributes(request);
+      req.setAttribute("required", required);
+      
+      req.getRequestDispatcher(CATEGORY_GEN_JSP).forward(req, resp);
+    }
+    catch(ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
   

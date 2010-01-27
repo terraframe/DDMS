@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1256173896)
+@com.terraframe.mojo.business.ClassSignature(hash = -1565679107)
 public class LayerControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.LayerController";
@@ -10,7 +10,7 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1256173896;
+  private static final long serialVersionUID = -1565679107;
   
   public LayerControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -137,6 +137,20 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failEdit");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen", post=true)
+  public void generateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.generateCategories");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen", post=true)
+  public void failGenerateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failGenerateCategories");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -149,6 +163,20 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failNewInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:layer, java.lang.String:factoryType", post=true)
+  public void requestGenerate(dss.vector.solutions.query.LayerDTO layer, java.lang.String factoryType) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.requestGenerate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:layer, java.lang.String:factoryType", post=true)
+  public void failRequestGenerate(dss.vector.solutions.query.LayerDTO layer, java.lang.String factoryType) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failRequestGenerate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.LayerDTO:layer, dss.vector.solutions.query.StylesDTO:styles, java.lang.String:savedMapId", post=true)

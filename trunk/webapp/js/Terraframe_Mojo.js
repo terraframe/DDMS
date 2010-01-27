@@ -201,11 +201,11 @@ var Mojo = {
           return function(){
         
             // FIXME clean this (use __context?)
-            var execStack = this.__context[m];
+            var execStack = this.__context['$'+m];
             if(!execStack)
             {
               execStack = [];
-              this.__context[m] = execStack;
+              this.__context['$'+m] = execStack;
             }
             
             var currentKlass = execStack.length === 0 ? this.getMetaClass().getSuperClass()

@@ -70,6 +70,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._LayerController.setSaveLayerListener(Mojo.Util.bind(this, this._saveLayerListener));
       this._LayerController.setCancelListener(Mojo.Util.bind(this, this._layerCancelListener));
       this._LayerController.setCalculateQueryInfoListener(Mojo.Util.bind(this, this._calculateQueryInfoListener));
+      this._LayerController.setRequestGenerateListener(Mojo.Util.bind(this, this._requestGenerateListener));
+      this._LayerController.setGenerateCategoriesListener(Mojo.Util.bind(this, this._generateCategoriesListener));
       
       this._AbstractCategoryController = Mojo.$.dss.vector.solutions.query.AbstractCategoryController;
       this._AbstractCategoryController.setSaveCategoryListener(Mojo.Util.bind(this, this._saveCategoryListener));
@@ -194,6 +196,35 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
         this._LayerController.edit(request, layerId);
       }
+    },
+    
+    _requestGenerateListener : function(params)
+    {
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess : function(html)
+        {
+          this.that._createModalSec(html, MDSS.Localized.Generate, false, true);
+        }
+      });
+      
+      return request;
+    },
+    
+    _generateCategoriesListener : function(params)
+    {
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess : function(html)
+        {
+          var el = document.getElementById(MDSS.MapPanel.CATEGORY_LIST);
+          el.innerHTML = el.innerHTML + html;        
+        
+          this.that._destroyModalSec();
+        }
+      });
+      
+      return request;
     },
     
     /**
@@ -956,7 +987,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._secondaryModal = null;
     },
     
-    _createModalInternal : function(html, title, useLarge)
+    _createModalInternal : function(html, title, useLarge, closeIt)
     {
       var executable = MDSS.util.extractScripts(html);
       var html = MDSS.util.removeScripts(html);
@@ -965,7 +996,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         width: "400px",
         height: useLarge ? "530px" : "400px",
         fixedcenter:true,
-        close: false,
+        close: closeIt || false,
         draggable:false,
         zindex:MDSS.MapPanel.zIndex++,
         modal:true,
@@ -994,18 +1025,20 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       return modal;
     },
     
-    _createModalSec : function(html, title, useLarge)
+    _createModalSec : function(html, title, useLarge, closeIt)
     {
-      this._secondaryModal = this._createModalInternal(html, title, useLarge);
+      this._secondaryModal = this._createModalInternal(html, title, useLarge, closeIt);
+      this._secondaryModal.subscribe('hide', Mojo.Util.bind(this, this._destroyModalSec));
     },
     
     /**
      * Creates a modal with the given HTML as its body and the given title
      * as the modal title, wrapped in an H3.
      */
-    _createModal : function(html, title, useLarge)
+    _createModal : function(html, title, useLarge, closeIt)
     {
-      this._currentModal = this._createModalInternal(html, title, useLarge);
+      this._currentModal = this._createModalInternal(html, title, useLarge, closeIt);
+      this._currentModal.subscribe('hide', Mojo.Util.bind(this, this._destroyModal));
     }
 
   },  

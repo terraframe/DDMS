@@ -10,6 +10,7 @@ import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -99,6 +100,37 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     {
       iter.close();
     }
+  }
+  
+  @Override
+  @Transaction
+  public AbstractCategory[] generateCategories(CategoryGen categoryGen)
+  {
+    String type = categoryGen.getFactoryType();
+    AbstractCategoryFactory factory;
+    try
+    {
+      factory = (AbstractCategoryFactory) LoaderDecorator.load(type).newInstance();
+    }
+    catch (InstantiationException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    catch (IllegalAccessException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    List<AbstractCategory> categories = factory.create(this, categoryGen);
+    
+    String layerId = categoryGen.getLayerId();
+    Layer layer = Layer.get(layerId);
+    for(AbstractCategory cat : categories)
+    {
+      cat.applyWithLayer(layer, true);
+    }
+    
+    return categories.toArray(new AbstractCategory[categories.size()]);
   }
   
   /**

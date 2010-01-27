@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1004154150)
+@com.terraframe.mojo.business.ClassSignature(hash = 443833584)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class AbstractCategoryFactoryBase extends com.terraframe.mojo.bu
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategoryFactory";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1004154150;
+  private static final long serialVersionUID = 443833584;
   
   public AbstractCategoryFactoryBase()
   {
@@ -43,6 +43,18 @@ public abstract class AbstractCategoryFactoryBase extends com.terraframe.mojo.bu
   public static AbstractCategoryFactory get(String id)
   {
     return (AbstractCategoryFactory) com.terraframe.mojo.business.Util.get(id);
+  }
+  
+  public static java.lang.String getAllRequiredAttributes()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryFactory.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static com.terraframe.mojo.query.ValueQuery getSubclassInfo()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.AbstractCategoryFactory.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

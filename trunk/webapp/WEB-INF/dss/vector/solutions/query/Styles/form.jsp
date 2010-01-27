@@ -168,21 +168,6 @@
     </div>
 
   </mjl:dt>
-  <mjl:dt attribute="polygonFill">
-    <mjl:input type="hidden" param="polygonFill" value="${styles.polygonFill}" id="${styles.id}_polygonFill" />
-    <div class="colorPickerValue" id="${styles.id}_polygonFill_opener" style="background-color: ${styles.polygonFill}">&nbsp;</div>
-  </mjl:dt>
-  <mjl:dt attribute="polygonFillOpacity">
-  
-    <div id="${styles.id}_polygonFillOpacitySliderBG" class="yui-h-slider" style="width: 100px">
-      <div id="${styles.id}_polygonFillOpacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
-    </div>
-    <div>
-      <span id="${styles.id}_polygonFillOpacityDisplay"></span>
-      <mjl:input type="hidden" param="polygonFillOpacity" id="${styles.id}_polygonFillOpacity" />
-    </div>
-    
-  </mjl:dt>
   <mjl:dt attribute="polygonStroke">
     <mjl:input type="hidden" param="polygonStroke" value="${styles.polygonStroke}" id="${styles.id}_polygonStroke" />
     <div class="colorPickerValue" id="${styles.id}_polygonStroke_opener" style="background-color: ${styles.polygonStroke}">&nbsp;</div>
@@ -197,6 +182,21 @@
       <mjl:input type="hidden" param="polygonStrokeOpacity" id="${styles.id}_polygonStrokeOpacity" />
     </div>
 
+  </mjl:dt>
+  <mjl:dt attribute="polygonFill">
+    <mjl:input type="hidden" param="polygonFill" value="${styles.polygonFill}" id="${styles.id}_polygonFill" />
+    <div class="colorPickerValue" id="${styles.id}_polygonFill_opener" style="background-color: ${styles.polygonFill}">&nbsp;</div>
+  </mjl:dt>
+  <mjl:dt attribute="polygonFillOpacity">
+  
+    <div id="${styles.id}_polygonFillOpacitySliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${styles.id}_polygonFillOpacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${styles.id}_polygonFillOpacityDisplay"></span>
+      <mjl:input type="hidden" param="polygonFillOpacity" id="${styles.id}_polygonFillOpacity" />
+    </div>
+    
   </mjl:dt>
   <mjl:dt attribute="polygonWidth">
 
