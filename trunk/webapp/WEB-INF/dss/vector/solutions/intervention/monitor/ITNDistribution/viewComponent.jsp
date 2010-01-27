@@ -75,8 +75,6 @@
     </c:if>
       
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.edit.button" />
+    <mjl:command value="Create_New_ITN_Distribution_Button" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo" name="ITNDistributionController.search" />
   </mjl:form>
 </dl>
-<mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.viewAll.link">
-  <fmt:message key="Search" />
-</mjl:commandLink>
