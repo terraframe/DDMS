@@ -32,8 +32,6 @@
 <%@page import="dss.vector.solutions.irs.OperatorSprayStatusViewDTO"%>
 
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
-<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
-<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
 
 
 <%@page import="java.util.Map"%>
