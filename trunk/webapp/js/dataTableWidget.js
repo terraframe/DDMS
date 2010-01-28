@@ -134,13 +134,13 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
           this.myDataTable.subscribe("cellMouseoutEvent", this.myDataTable.onEventUnhighlightCell);
 
+          /*
           this.myDataTable.subscribe("tbodyFocusEvent", function() {
           var selectedCells = this.getSelectedCells();
             if(selectedCells.length === 0) {
               this.selectCell(this.getFirstTdEl());
             }
           });
-
           this.myDataTable.subscribe("editorSaveEvent", function(o) {
             this.focusTbodyEl();
           });
@@ -148,7 +148,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           this.myDataTable.subscribe("editorCancelEvent", function(o) {
             this.focusTbodyEl();
           });
-          
+  */        
           this.myDataTable.subscribe("cellClickEvent", this.onCellClick, null, this);
           
           this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
@@ -157,15 +157,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           
           this._setUpButtons();
           
-          /*
-          //myLogReader = new YAHOO.widget.LogReader();
-          return {
-            oDS : this.myDataSource,
-            oDT : this.myDataTable,
-            getObjects : this.createObjectRepresentation
-          };
-         */
-    this._listeners = [];
+          this._listeners = [];
           
     },
     
@@ -331,17 +323,30 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     
     findNext : function(cell,e) {
       var newCell = null;
-      if (e.shiftKey) {
-        newCell = this.myDataTable.getPreviousTdEl(cell);
-      } else {
-        newCell = this.myDataTable.getNextTdEl(cell);
-      }
-      while (newCell !== null && (this.myDataTable.getColumn(newCell).editor === null || this.myDataTable.getColumn(newCell).hidden === true)) {
-        if (e.shiftKey) {
-          newCell = this.myDataTable.getPreviousTdEl(newCell);
-        } else {
-          newCell = this.myDataTable.getNextTdEl(newCell);
+      var nKey = e.keyCode ;
+      if(nKey === 13 )//Enter
+      {
+        if(e.shiftKey) {
+        	newCell = this.myDataTable.getAboveTdEl(cell);
         }
+        else{ 
+        	newCell = this.myDataTable.getBelowTdEl(cell);
+        }
+      }
+      else if(nKey === 9)//Tab
+      {
+	      if (e.shiftKey) {
+	        newCell = this.myDataTable.getPreviousTdEl(cell);
+	      } else {
+	        newCell = this.myDataTable.getNextTdEl(cell);
+	      }
+	      while (newCell !== null && (this.myDataTable.getColumn(newCell).editor === null || this.myDataTable.getColumn(newCell).hidden === true)) {
+	        if (e.shiftKey) {
+	          newCell = this.myDataTable.getPreviousTdEl(newCell);
+	        } else {
+	          newCell = this.myDataTable.getNextTdEl(newCell);
+	        }
+	      }
       }
       return (newCell);
     },
@@ -354,10 +359,10 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 
     editorKeyEvent : function(obj) {
 
-      // 9 = tab, 13 = enter
       var e = obj.event;
 
-      if (e.keyCode === 9) {
+      // 9 = tab, 13 = enter
+      if (e.keyCode === 9  || e.keyCode === 13) {
 
         e.preventDefault();
         YAHOO.util.Event.stopEvent(e);
@@ -372,37 +377,16 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           MojoGrid.cellLock = true;
         }
 
-
-
         try
         {
-          //YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
-
           var cell = this.myDataTable.getCellEditor().getTdEl();
           var nextCell = this.findNext(cell,e);
-          var nextRow = null;
-
-          // No editable cell found on this row, go to the next row and search for
-          // editable cell
-          if (nextCell === null)
-          {
-            nextCell = cell;
-          }
-
 
           this.myDataTable.saveCellEditor();
-          //YAHOO.log("Saved Cell Editor:" + cell.headers, "warn", "Widget");
-
           if (nextCell) {
-            //YAHOO.log("Selecting Cell Editor:" + nextCell.headers, "warn", "Widget");
-
             this.myDataTable.unselectAllCells();
-
-            this.myDataTable.selectCell(nextCell);
             this.myDataTable.showCellEditor(nextCell);
             this.myDataTable.selectCell(nextCell);
-
-            //YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
           }
         }
         finally
@@ -543,7 +527,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         var setter_exists = Mojo.Util.isFunction(view['set' + attribute.key]);
         
         if (setter_exists) {
-          if (value != null) {
+          if (value) {
             if (view.attributeMap[attributeName] instanceof com.terraframe.mojo.transport.attributes.AttributeDateDTO) {
               view['set' + attribute.key](MDSS.Calendar.parseDate(value));
             }
@@ -551,10 +535,6 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
               view['set' + attribute.key](value);
             }
           } 
-          else {
-            //FIXME: this is a workaround for a bug in mojo
-            view['set' + attribute.key]("");
-          }
         }
         else{
            // enum setters start with "add" instead of "set"
@@ -829,9 +809,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
 });
 
 
-
 MojoGrid.createDataTable = function(data){ 
   return new MDSS.dataGrid(data);
 };
 
-//MojoGrid.saveHandler = this.saveSomeData;
