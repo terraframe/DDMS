@@ -16417,6 +16417,9 @@ handleDisabledBtns : function() {
  */
 resetForm : function() {
     var value = this.value;
+    if(value == null) {
+      value = new Date();
+    }
     var selectedValue = (value.getMonth()+1)+"/"+value.getDate()+"/"+value.getFullYear();
     this.calendar.cfg.setProperty("selected",selectedValue,false);
 	this.calendar.render();

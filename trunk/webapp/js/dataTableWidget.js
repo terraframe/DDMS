@@ -3,7 +3,7 @@ MojoGrid.cellLock = false;
 MojoGrid.limitTab = false;
 
 
-Mojo.Meta.newClass('MDSS.GridEvent', {
+Mojo.Meta.newClass('MDSS.Event', {
   Instance : {
     initialize : function(type, value) {
       this.type = type;
@@ -23,7 +23,8 @@ Mojo.Meta.newClass('MDSS.GridEvent', {
     BEFORE_ROW_ADD : 2,
     AFTER_SAVE : 3,
     AFTER_PROBLEM : 4,
-    AFTER_FAILURE : 5
+    AFTER_FAILURE : 5,
+    AFTER_SELECTION : 6
   }
 });
 
@@ -642,7 +643,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
               
               this.thisRef.myDataTable.fireEvent("tableSaveEvent");
               
-              this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_SAVE, {}));
+              this.thisRef.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SAVE, {}));
             }
           }
         });
@@ -653,7 +654,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
            oldOnProblemExceptionDTO.apply(request, [e]);
           
           this.thisRef.enableSaveButton();
-          this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_PROBLEM, {}))
+          this.thisRef.fireEvent(new MDSS.Event(MDSS.Event.AFTER_PROBLEM, {}))
         }
         
         var oldOnFailure = request.onFailure;
@@ -661,7 +662,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           oldOnFailure.apply(request, [e]);
           
           this.thisRef.enableSaveButton();
-          this.thisRef.fireEvent(new MDSS.GridEvent(MDSS.GridEvent.AFTER_FAILURE, {}))
+          this.thisRef.fireEvent(new MDSS.Event(MDSS.Event.AFTER_FAILURE, {}))
         }
 
         request.onProblemExceptionDTO = newOnProblemExceptionDTO;
@@ -698,7 +699,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
     addRow : function() {
 
     // Execute before row add
-      var event = new MDSS.GridEvent(MDSS.GridEvent.BEFORE_ROW_ADD, {});
+      var event = new MDSS.Event(MDSS.Event.BEFORE_ROW_ADD, {});
           
       this.fireEvent(event);
 
@@ -728,7 +729,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
       var index = this.myDataTable.getRecordSet().getLength() - 1;
       var record = this.myDataTable.getRecord(index);
       
-      var event = new MDSS.GridEvent(MDSS.GridEvent.AFTER_ROW_ADD, {index:index, record:record});
+      var event = new MDSS.Event(MDSS.Event.AFTER_ROW_ADD, {index:index, record:record});
       
       this.fireEvent(event);
       

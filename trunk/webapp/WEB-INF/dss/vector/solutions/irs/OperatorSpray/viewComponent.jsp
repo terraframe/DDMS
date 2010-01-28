@@ -168,15 +168,15 @@
 
     var dataListener = function(event) {
       // Only add the new rows on a successful save
-      if(event.getType() == MDSS.GridEvent.AFTER_SAVE) {          
+      if(event.getType() == MDSS.Event.AFTER_SAVE) {          
         if(addRows == true) {
           addNewRows();
         }
       }
-      else if (event.getType() == MDSS.GridEvent.AFTER_PROBLEM) {
+      else if (event.getType() == MDSS.Event.AFTER_PROBLEM) {
         addRows = false;
       }
-      else if (event.getType() == MDSS.GridEvent.AFTER_FAILURE) {
+      else if (event.getType() == MDSS.Event.AFTER_FAILURE) {
         addRows = false;
       }
     }

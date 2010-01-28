@@ -128,7 +128,7 @@
     };
 
     var beforeRowAdd = function(event) {
-      if(event.getType() == MDSS.GridEvent.BEFORE_ROW_ADD) {
+      if(event.getType() == MDSS.Event.BEFORE_ROW_ADD) {
         YAHOO.util.Dom.get(data.div_id + 'Saverows-button').click();
       }        
     }

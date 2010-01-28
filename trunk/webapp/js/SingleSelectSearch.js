@@ -16,6 +16,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
 
       this._currentSelection = null;
       this._CURRENT_SELECTION = 'currentSelection';
+      this._listeners = [];
       
       // Set this.selectHandler as the default handler
       this.setSelectHandler(Mojo.Util.bind(this, this.selectHandler));
@@ -94,6 +95,21 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       if(valid && typeof onValidGeoEntitySelected !== 'undefined' && Mojo.Util.isFunction(onValidGeoEntitySelected))
       {
         onValidGeoEntitySelected();
+      }
+      
+      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{}));
+    },
+    
+    addListener : function(listener)
+    {
+      this._listeners.push(listener);
+    },
+    
+    _fireEvent : function(event)
+    {
+      for(var i = 0; i < this._listeners.length; i++)
+      {
+        this._listeners[i].handleEvent(event);
       }
     },
 
@@ -183,7 +199,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     initialize : function(geoInput, selectSearch)
     {
       this._selectSearch = selectSearch || null; // 101 widget reference
-    
+      
       this._geoInput = Mojo.Util.isString(geoInput) ? document.getElementById(geoInput) : geoInput;
 
       // Some pages also have a field that takes the geoentity id.
@@ -229,6 +245,9 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       YAHOO.util.Event.on(this._opener, "click", this._genericSearch.resetCache, this._genericSearch, this._genericSearch);
 
       YAHOO.util.Event.on(this._geoInput, 'focus', this._setCurrentInput, null, this);
+
+      // Set up validation on the geo input
+      YAHOO.util.Event.on(this._geoInput, 'blur', this._validateSelection, this, this);
       
       // 
       var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity
@@ -251,6 +270,11 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         });       
 
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, this._geoInput.value);
+      }
+      
+      if(this._selectSearch != null)
+      {
+        this._selectSearch.addListener(this);
       }
     },
     
@@ -305,6 +329,8 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       var handler = this._selectSearch.getSelectHandler();
       
       handler(geoEntityId, true);
+      
+      this._validateSelection();
     },
     
     _searchFunction : function(request, value)
@@ -323,6 +349,59 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
         
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters);
+      }
+    },
+    
+    _getValidationRequest : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSend : function(){}, 
+        onComplete : function(){},        
+        onFailure : function(e){          
+          MDSS.Calendar.removeError(this.that._opener);
+          
+          MDSS.Calendar.addError(this.that._opener, e.getMessage());
+        },
+        onProblemExceptionDTO : function(e){
+          MDSS.Calendar.removeError(this.that._opener);
+          
+          var problems = e.getProblems();
+          for(var i = 0; i < problems.length; i++) {
+            var problem = problems[i];
+            MDSS.Calendar.addError(this.that._opener, problem.getMessage());
+          }
+        },
+        onSuccess : function() {
+          MDSS.Calendar.removeError(this.that._opener);
+        }            
+      });
+        
+      return request;
+    },
+    
+    _validateSelection : function()
+    {
+      var geoId = this._geoInput.value;
+      
+      if(Mojo.Util.isString(geoId) && geoId != '')
+      {
+        var type = this._selectSearch.getFilter();
+        var request = this._getValidationRequest();
+        
+        if(Mojo.Util.isString(type) && type != '')
+        {
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByType(request, geoId, type);
+        }
+        else 
+        {
+          var political = this._selectSearch.getPolitical();
+          var populated = this._selectSearch.getPopulated();
+          var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
+          var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
+           
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
+        }
       }
     },
     
@@ -358,6 +437,14 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       else
       {
         YAHOO.util.Dom.addClass(geoInfo,'alert');
+      }
+    },
+    
+    handleEvent : function(event)
+    {
+      if(event.getType() == MDSS.Event.AFTER_SELECTION)
+      {
+        this._validateSelection();
       }
     },
     
@@ -399,60 +486,3 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     currentGeoIdInput : null
   }
 });
-
-
-YAHOO.util.Event.onDOMReady(function(){
-
-  // Add 101 and the geo searching to any element with a classname of geoInput
-  var geoInputs = YAHOO.util.Dom.getElementsByClassName("geoInput");
-  
-  // use a single picker for all geo inputs
-  var selectSearch = null;
-  if(geoInputs.length > 0)
-  {
-    selectSearch = new MDSS.SingleSelectSearch();
-//    selectSearch.setSelectHandler(selectHandler);
-//    selectSearch.setTreeSelectHandler(selectHandler);
-
-    // set up the filter if it exists
-    var radios = YAHOO.util.Dom.getElementsByClassName("filterType");
-
-    var defaultFilter = '';
-    // Allow either filtering via radio button or through
-    // a predictable element whose value is a type.
-    for(var i=0; i<radios.length; i++)
-    {
-      var radio = radios[i];
-      if(radio.checked)
-      {
-        defaultFilter = radio.value;
-      }
-
-      YAHOO.util.Event.on(radio, 'click', function(e, obj){
-        var radio = e.target;
-        if(radio.checked)
-        {
-          var filter = e.target.value;
-          this.setFilter(filter);
-        }
-
-      }, null, selectSearch);
-    }
-
-    // look for any other filter (this will override any radio input filter)
-    var typeSearchFilter = document.getElementById('typeSearchFilter');
-    if(typeSearchFilter)
-    {
-      defaultFilter = typeSearchFilter.value;
-    }
-
-    selectSearch.setFilter(defaultFilter);
-  }
-
-  for(var i=0; i<geoInputs.length; i++)
-  {
-    var geoInput = geoInputs[i];
-
-    new MDSS.GeoSearch(geoInput, selectSearch);
-  }
-},null,null);
