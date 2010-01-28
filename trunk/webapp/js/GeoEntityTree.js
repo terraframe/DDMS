@@ -984,6 +984,32 @@ MDSS.GeoEntityTree = (function(){
     var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
     if (htmlNode) {
       _selectedNode = _geoTree.getNodeByElement(htmlNode);
+      
+      // If the tree allows selection, disable the Select menu item by default
+      // and check if it should be enabled via an Ajax request.
+      if(_selectCallback != null)
+      {
+        // IMPORTANT:
+        // We have to access itemData directly as a property instead of using getItem()
+        // because the ContextMenu only loads items after the first render (possibly because
+        // of lazy loading).
+        var item = this.itemData[0];
+        item.cfg.setProperty('disabled', true);
+        
+        // SMETHIE: FINISH THIS
+        var request = new MDSS.Request({
+          onSend : function(){},
+          onComplete : function(){},
+          onSuccess : function(){}
+        });
+        
+        // simulated logic. REMOVE
+        setInterval(function(){
+          item.cfg.setProperty('disabled', false);
+        }, 500);
+        
+      }
+
       this.bringToTop();
     }
     else {
