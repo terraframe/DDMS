@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2112864641)
+@com.terraframe.mojo.business.ClassSignature(hash = -1000426900)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.irs;
 public abstract class InsecticideNozzleBase extends com.terraframe.mojo.business.Relationship implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideNozzle";
+  public static java.lang.String CONFIGURATIONDATE = "configurationDate";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENABLED = "enabled";
@@ -24,11 +25,39 @@ public abstract class InsecticideNozzleBase extends com.terraframe.mojo.business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2112864641;
+  private static final long serialVersionUID = -1000426900;
   
   public InsecticideNozzleBase(String parentId, String childId)
   {
     super(parentId, childId);
+  }
+  
+  public java.util.Date getConfigurationDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIGURATIONDATE));
+  }
+  
+  public void validateConfigurationDate()
+  {
+    this.validateAttribute(CONFIGURATIONDATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getConfigurationDateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideNozzle.CLASS);
+    return mdClassIF.definesAttribute(CONFIGURATIONDATE);
+  }
+  
+  public void setConfigurationDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIGURATIONDATE, "");
+    }
+    else
+    {
+      setValue(CONFIGURATIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
   }
   
   public java.util.Date getCreateDate()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1123998038)
+@com.terraframe.mojo.business.ClassSignature(hash = -1259733009)
 public abstract class InsecticideNozzleViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideNozzleView";
-  private static final long serialVersionUID = -1123998038;
+  private static final long serialVersionUID = -1259733009;
   
   protected InsecticideNozzleViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -18,6 +18,7 @@ public abstract class InsecticideNozzleViewDTOBase extends com.terraframe.mojo.b
   
   public static java.lang.String BRAND = "brand";
   public static java.lang.String BRANDLABEL = "brandLabel";
+  public static java.lang.String CONFIGURATIONDATE = "configurationDate";
   public static java.lang.String ENABLED = "enabled";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDENOZZLEID = "insecticideNozzleId";
@@ -102,6 +103,43 @@ public abstract class InsecticideNozzleViewDTOBase extends com.terraframe.mojo.b
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrandLabelMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDLABEL).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getConfigurationDate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIGURATIONDATE));
+  }
+  
+  public void setConfigurationDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIGURATIONDATE, "");
+    }
+    else
+    {
+      setValue(CONFIGURATIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isConfigurationDateWritable()
+  {
+    return isWritable(CONFIGURATIONDATE);
+  }
+  
+  public boolean isConfigurationDateReadable()
+  {
+    return isReadable(CONFIGURATIONDATE);
+  }
+  
+  public boolean isConfigurationDateModified()
+  {
+    return isModified(CONFIGURATIONDATE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getConfigurationDateMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CONFIGURATIONDATE).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()

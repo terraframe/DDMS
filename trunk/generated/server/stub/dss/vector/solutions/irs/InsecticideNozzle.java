@@ -1,5 +1,6 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +42,17 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.terr
   protected String buildKey()
   {
     return this.getId();
+  }
+  
+  @Override
+  public void apply()
+  {
+    if(this.getConfigurationDate() == null)
+    {
+      this.setConfigurationDate(new Date());
+    }
+    
+    super.apply();
   }
 
   public static InsecticideNozzle[] getAll()

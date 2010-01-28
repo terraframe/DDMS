@@ -1,5 +1,6 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,25 +17,29 @@ public class InsecticideNozzleView extends InsecticideNozzleViewBase implements 
     super();
   }
 
-  public void populateView(InsecticideNozzle insecticideNozzle)
+  public void populateView(InsecticideNozzle concrete)
   {
-    InsecticideBrand brand = insecticideNozzle.getParent();
-    Nozzle nozzle = insecticideNozzle.getChild();
+    InsecticideBrand brand = concrete.getParent();
+    Nozzle nozzle = concrete.getChild();
 
     this.setBrand(brand);
     this.setNozzle(nozzle);
-    this.setEnabled(insecticideNozzle.getEnabled());
-    this.setInsecticideNozzleId(insecticideNozzle.getId());
+    this.setEnabled(concrete.getEnabled());
+    this.setInsecticideNozzleId(concrete.getId());
     this.setBrandLabel(brand.getBrandName());
     this.setNozzleLabel(nozzle.getDisplayLabel());
+    this.setConfigurationDate(concrete.getConfigurationDate());
   }
 
-  public void populateConcrete(InsecticideNozzle insecticideNozzle)
+  public void populateConcrete(InsecticideNozzle concrete)
   {
-    insecticideNozzle.setEnabled(this.getEnabled());
+    Date date = this.getConfigurationDate();
+    
+    concrete.setEnabled(this.getEnabled());
+    concrete.setConfigurationDate(date);
   }
 
-  private boolean hasInsecticideNozzle()
+  private boolean hasConcrete()
   {
     return this.getInsecticideNozzleId() != null && !this.getInsecticideNozzleId().equals("");
   }
@@ -42,28 +47,28 @@ public class InsecticideNozzleView extends InsecticideNozzleViewBase implements 
   @Transaction
   public void apply()
   {
-    InsecticideNozzle insecticideNozzle = null;
+    InsecticideNozzle concrete = null;
 
-    if (this.hasInsecticideNozzle())
+    if (this.hasConcrete())
     {
-      insecticideNozzle = InsecticideNozzle.lock(this.getInsecticideNozzleId());
+      concrete = InsecticideNozzle.lock(this.getInsecticideNozzleId());
     }
     else
     {
-      insecticideNozzle = new InsecticideNozzle(this.getBrand(), this.getNozzle());
+      concrete = new InsecticideNozzle(this.getBrand(), this.getNozzle());
     }
 
-    this.populateConcrete(insecticideNozzle);
+    this.populateConcrete(concrete);
 
-    insecticideNozzle.apply();
+    concrete.apply();
 
-    this.populateView(insecticideNozzle);
+    this.populateView(concrete);
   }
 
   @Transaction
   public void deleteConcrete()
   {
-    if (this.hasInsecticideNozzle())
+    if (this.hasConcrete())
     {
       InsecticideNozzle.get(this.getInsecticideNozzleId()).delete();
     }

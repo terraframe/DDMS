@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 200084200)
+@com.terraframe.mojo.business.ClassSignature(hash = -138853213)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.irs;
  */
 public  class InsecticideNozzleQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 200084200;
+private static final long serialVersionUID = -138853213;
 
   public InsecticideNozzleQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -105,6 +105,23 @@ private static final long serialVersionUID = 200084200;
     }
   }
 
+  public com.terraframe.mojo.query.AttributeMoment getConfigurationDate()
+  {
+    return getConfigurationDate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getConfigurationDate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMoment getConfigurationDate(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.AttributeMoment getCreateDate()
   {
     return getCreateDate(null);

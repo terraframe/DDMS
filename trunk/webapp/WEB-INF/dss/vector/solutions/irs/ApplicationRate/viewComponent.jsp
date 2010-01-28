@@ -33,10 +33,11 @@
 
   InsecticideNozzleViewDTO insecticideNozzleDTO = new InsecticideNozzleViewDTO(clientRequest);
   InsecticideNozzleViewDTO[] insecticideNozzleRows = InsecticideNozzleViewDTO.getAll(clientRequest);
-  String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "Brand", "Nozzle", "Enabled"};
+  String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "ConfigurationDate", "Brand", "Nozzle", "Enabled"};
 
   Map<String, ColumnSetup> configurationMap = new HashMap<String, ColumnSetup>();
   configurationMap.put("InsecticideNozzleId", new ColumnSetup(true, false));
+  configurationMap.put("ConfigurationDate", new ColumnSetup(false, true));
   configurationMap.put("Brand", new ColumnSetup(false, true, null, brandDTO.getClass().getName(), "getAllActive"));
   configurationMap.put("Nozzle", new ColumnSetup(false, true, null, nozzleDTO.getClass().getName(), "getAllActive"));
   configurationMap.put("Enabled", new ColumnSetup(false, true));
