@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
-
 public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase implements com.terraframe.mojo.generation.loader.Reloadable {
 	private static final long serialVersionUID = 137489069;
 
@@ -56,10 +54,7 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 		
 		double ulp = Math.pow(10.0d, precision);
 		double min = this.floor(dataMin, ulp);
-		double max = dataMax;
-		if (dataMax != this.floor(dataMax, ulp)) {
-			max = this.ceil(dataMax, ulp);
-		}
+		double max = this.ceil(dataMax, ulp);
 		double step = (max - min) / (double) count;
 		System.out.println("min=" + min + " max=" + max + " step=" + step);
 
@@ -73,16 +68,21 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 
 		switch (count) {
 		case 1:
-			this.addRange(categories, layer, min, max, pointStrokeStart, polygonStrokeStart, polygonFillStart, fontFillStart, labelHaloFillStart);
+			// This doesn't make any sense--it would generate a single range from 
+			// negative infinity to infinity...which is the same as the default
+			// range...so we return no range at all.
 			break;
 		case 2:
-			this.addRange(categories, layer, min, this.floor(min + step, ulp), pointStrokeStart, polygonStrokeStart, polygonFillStart, fontFillStart, labelHaloFillStart);
-			this.addRange(categories, layer, this.ceil(min + step, ulp), max, pointStrokeEnd, polygonStrokeEnd, polygonFillEnd, fontFillEnd, labelHaloFillEnd);
+			// Add the initial (negative infinity to midpoint) range
+			this.addRange(categories, layer, null, "" + this.round(min + step, ulp), pointStrokeStart, polygonStrokeStart, polygonFillStart, fontFillStart, labelHaloFillStart);
+			// Add the final (midpoint to infinity) range
+			this.addRange(categories, layer, "" + this.round(min + step, ulp), null, pointStrokeEnd, polygonStrokeEnd, polygonFillEnd, fontFillEnd, labelHaloFillEnd);
 			break;
 		default:
 			if (count > 0) {
 				double current = min + step;
-				this.addRange(categories, layer, min, this.floor(current, ulp), pointStrokeStart, polygonStrokeStart, polygonFillStart, fontFillStart, labelHaloFillStart);
+				// Add the initial (negative infinity to first value) range
+				this.addRange(categories, layer, null, "" + this.round(current, ulp), pointStrokeStart, polygonStrokeStart, polygonFillStart, fontFillStart, labelHaloFillStart);
 
 				for (int i = 1; i < count - 1; i++) {
 					Color pointStroke = this.interpolateColor(i, count, pointStrokeStart, pointStrokeEnd);
@@ -91,11 +91,15 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 					Color fontFill = this.interpolateColor(i, count, fontFillStart, fontFillEnd);
 					Color labelHaloFill = this.interpolateColor(i, count, labelHaloFillStart, labelHaloFillEnd);
 
-					this.addRange(categories, layer, this.ceil(current, ulp), this.floor(current + step, ulp), pointStroke, polygonStroke, polygonFill, fontFill, labelHaloFill);
+					// If this not a degenerate range, add it to the list of ranges 
+					if (this.round(current, ulp) != this.round(current + step, ulp)) {
+						this.addRange(categories, layer, "" + this.round(current, ulp), "" + this.round(current + step, ulp), pointStroke, polygonStroke, polygonFill, fontFill, labelHaloFill);
+					}
 					current = current + step;
 				}
 
-				this.addRange(categories, layer, this.ceil(current, ulp), max, pointStrokeEnd, polygonStrokeEnd, polygonFillEnd, fontFillEnd, labelHaloFillEnd);
+				// Add the final (last value to infinity) range
+				this.addRange(categories, layer, "" + this.round(current, ulp), null, pointStrokeEnd, polygonStrokeEnd, polygonFillEnd, fontFillEnd, labelHaloFillEnd);
 			}
 		}
 	}
@@ -105,18 +109,18 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 	}
 
 	private double ceil(double n, double ulp) {
+		if (n == this.floor(n, ulp)) {
+			return this.floor(n,ulp);
+		}
 		return (Math.floor(n * ulp) + 1.0d) / ulp;
 	}
 	
-	private void addRange(List<AbstractCategory> categories, Layer layer, double lowerBound, double upperBound, Color pointStroke, Color polygonStroke, Color polygonFill, Color fontFill, Color labelHaloFill) {
-		if (lowerBound == upperBound && categories.size() > 0) {
-			RangeCategory lastCategory = (RangeCategory) categories.get(categories.size() - 1); 
-			double lastUpperBound = Double.parseDouble(lastCategory.getUpperBoundStr());
-			if (lowerBound <= lastUpperBound) {
-				return;
-			}
-		}
-		categories.add(this.createRange(layer, "" + lowerBound, "" + upperBound, pointStroke, polygonStroke, polygonFill, fontFill, labelHaloFill));
+	private double round(double n, double ulp) {
+		return (Math.floor(0.5d + (n * ulp)) / ulp);
+	}
+	
+	private void addRange(List<AbstractCategory> categories, Layer layer, String lowerBound, String upperBound, Color pointStroke, Color polygonStroke, Color polygonFill, Color fontFill, Color labelHaloFill) {
+		categories.add(this.createRange(layer, lowerBound, upperBound, pointStroke, polygonStroke, polygonFill, fontFill, labelHaloFill));
 	}
 	
 	private AbstractCategory createRange(Layer layer, String lowerBound, String upperBound, Color pointStroke, Color polygonStroke, Color polygonFill, Color fontFill, Color labelHaloFill) {

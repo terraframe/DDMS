@@ -1,8 +1,5 @@
 package dss.vector.solutions;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -10,10 +7,8 @@ import junit.framework.TestCase;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.AbstractCategory;
-import dss.vector.solutions.query.AbstractCategoryFactory;
 import dss.vector.solutions.query.CategoryGen;
 import dss.vector.solutions.query.EqualSizeCategoryFactory;
-import dss.vector.solutions.query.ExactCategoryFactory;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryInfo;
 
@@ -58,6 +53,7 @@ public class CategoryFactoryTest extends TestCase implements Reloadable {
 	}
 */	
 	public class LayerMock extends Layer {
+		private static final long serialVersionUID = 1L;
 		private String min;
 		private String max;
 		private int count;
@@ -84,43 +80,58 @@ public class CategoryFactoryTest extends TestCase implements Reloadable {
 		}
 	}
 	
-	public void testRange1() {
+	public void testRange02() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 0, 2);
 		assertEquals(0, categories.size());
 	}
 	
-	public void testRange2() {
+	public void testRange12() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 1, 2);
-		assertEquals(1, categories.size());
+		assertEquals(0, categories.size());
 	}
 	
-	public void testRange3() {
+	public void testRange22() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 2, 2);
 		assertEquals(2, categories.size());
 	}
 	
-	public void testRange4() {
+	public void testRange32() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 3, 2);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange5() {
+	public void testRange33() {
 		List<AbstractCategory> categories = this.testRange(1d, 11d, 3, 3);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange6() {
+	public void testRange31() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 3, 1);
-		assertEquals(1, categories.size());
+		assertEquals(3, categories.size());
 	}
 	
-	public void testRange7() {
+	public void testRange51() {
+		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 5, 1);
+		assertEquals(3, categories.size());
+	}	
+	
+	public void testRange91() {
+		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 9, 1);
+		assertEquals(3, categories.size());
+	}
+	
+	public void testRange30a() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 3, 0);
-		assertEquals(1, categories.size());
+		assertEquals(3, categories.size());
+	}
+	
+	public void testRange30b() {
+		List<AbstractCategory> categories = this.testRange(0d, 10d, 3, 0);
+		assertEquals(3, categories.size());
 	}
 	
 	private List<AbstractCategory> testRange(double min, double max, int count, int precision) {
-		System.out.println("---------- " + min + "->" + max + " (" + count + "," + precision + ") ----------");
+		System.out.println("---------- " + min + "->" + max + " (" + count + " range(s)," + precision + " sigfig) ----------");
 		EqualSizeCategoryFactory f = new EqualSizeCategoryFactory();
 		Layer l = new LayerMock(min, max);
 		CategoryGen cg = new CategoryGen();
