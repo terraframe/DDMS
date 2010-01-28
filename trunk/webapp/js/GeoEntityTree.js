@@ -989,6 +989,9 @@ MDSS.GeoEntityTree = (function(){
       // and check if it should be enabled via an Ajax request.
       if(_selectCallback != null)
       {
+        var geoEntityView = _getGeoEntityView(_selectedNode);
+        var geoEntityId = geoEntityView.getGeoEntityId(); // Runway Id
+      
         // IMPORTANT:
         // We have to access itemData directly as a property instead of using getItem()
         // because the ContextMenu only loads items after the first render (possibly because
