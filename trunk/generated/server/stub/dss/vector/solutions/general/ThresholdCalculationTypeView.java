@@ -10,6 +10,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.threshold.FacilityThresholdCalculator;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
+import dss.vector.solutions.threshold.ThresholdCalculator;
 
 public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -184,27 +185,23 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   @Transaction
   public static void calculateThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-	PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
-	calculator.calculateThresholds(currentPeriod);
+	  ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+	  ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
+	  ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
   }
   
   @Transaction
   public static void calculatePoliticalThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-	  ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-	  PoliticalThresholdCalculator politicalCalculator = new PoliticalThresholdCalculator(calcType);
-	  politicalCalculator.calculateThresholds(currentPeriod);
-	  FacilityThresholdCalculator facilityCalculator = new FacilityThresholdCalculator(calcType);
-	  facilityCalculator.calculateThresholds(currentPeriod);
+	ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+	ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
   }
   
   @Transaction
   public static void calculateFacilityThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-	  ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-	  FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
-	  calculator.calculateThresholds(currentPeriod);
+		ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+		ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
   }
 
   public static ThresholdCalculationTypeView getCalculationThreshold()

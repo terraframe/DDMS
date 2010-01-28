@@ -7,7 +7,6 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.general.ThresholdCalculationType;
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -15,11 +14,7 @@ import dss.vector.solutions.geo.generated.HealthFacilityQuery;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 
 public class FacilityThresholdCalculator extends ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
-	
-	public FacilityThresholdCalculator(ThresholdCalculationType calculationType) {
-		super(calculationType);
-	}
-	
+
 	@Transaction
 	protected GeoEntityQuery getEntityQuery(QueryFactory factory) {
 		return new HealthFacilityQuery(factory);

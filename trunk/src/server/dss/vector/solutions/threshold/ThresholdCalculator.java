@@ -39,8 +39,10 @@ import dss.vector.solutions.surveillance.PeriodType;
 		Create weekly threshold record
 */
 public abstract class ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
-	protected final ThresholdCalculationType calculationType;
-	protected String testingLimiter = null;
+	private static ThresholdCalculator instance = null;
+	public static String testingLimiter = null;
+	
+	protected ThresholdCalculationType calculationType;
 	protected long geoEntityCount = 1;
 	protected long completedCount = 0;
 	
@@ -52,14 +54,30 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 			super();
 		}
 	}
-
-	public ThresholdCalculator(ThresholdCalculationType calculationType) {
-		super();
-		this.calculationType = calculationType;
+	
+	public synchronized static MalariaSeason calculateThresholds(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType, boolean currentPeriod) {
+		MalariaSeason season = null;
+		if (instance == null) {
+			try {
+				instance = (ThresholdCalculator) clazz.newInstance();
+				instance.calculationType = calculationType;
+				season = instance.calculateThresholds(currentPeriod);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return season;
 	}
 	
-	public void setTestingLimiter(String testingLimiter) {
-		this.testingLimiter = testingLimiter;
+	public synchronized static int getPercentComplete() {
+		if (instance == null) {
+			return -1;
+		}
+		return Math.round(100 * instance.completedCount / instance.geoEntityCount);
 	}
 
 	protected abstract GeoEntityQuery getEntityQuery(QueryFactory factory);
@@ -67,15 +85,12 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 	protected abstract long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
 	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2);
 
-	public int getPercentComplete() {
-		return Math.round(100 * this.completedCount / this.geoEntityCount);
-	}
-	
-	public MalariaSeason calculateThresholds(boolean currentPeriod) {
+	private MalariaSeason calculateThresholds(boolean currentPeriod) {
 		ThresholdCalculationPeriod period = this.getCalculationPeriod(currentPeriod);
 		if (period.season != null) {
 			this.calculateThresholds(period);
 		}
+		instance = null;
 		return period.season;
 	}
 	

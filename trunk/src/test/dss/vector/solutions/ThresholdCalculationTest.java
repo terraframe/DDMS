@@ -32,6 +32,7 @@ import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedCase;
 import dss.vector.solutions.threshold.FacilityThresholdCalculator;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
+import dss.vector.solutions.threshold.ThresholdCalculator;
 
 public class ThresholdCalculationTest extends TestCase {
 	private static GeoEntity EGYPT = GeoEntity.searchByGeoId("22220002");
@@ -251,11 +252,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalIndividualMeanThresholds() {
 		output("Calculating Political Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 4, 4);
@@ -266,11 +266,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalIndividualQuartileThresholds() {
 		output("Calculating Political Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 2, 2);
@@ -281,11 +280,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalIndividualBinomialThresholds() {
 		output("Calculating Political Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 6, 8);
@@ -296,11 +294,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalAggregatedMeanThresholds() {
 		output("Calculating Political Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 4, 4);
@@ -311,11 +308,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalAggregatedQuartileThresholds() {
 		output("Calculating Political Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 2, 2);
@@ -326,11 +322,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void xtestCalculatePoliticalAggregatedBinomialThresholds() {
 		output("Calculating Political Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
-		PoliticalThresholdCalculator calculator = new PoliticalThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(DJIBOUTI.getGeoId());
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
 		assertThresholds(true, 11, 2010, td, 6, 8);
@@ -341,11 +336,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityIndividualMeanThresholds() {
 		output("Calculating Facility Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 4, 4);
@@ -356,11 +350,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityIndividualQuartileThresholds() {
 		output("Calculating Facility Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 2, 2);
@@ -371,11 +364,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityIndividualBinomialThresholds() {
 		output("Calculating Facility Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 6, 8);
@@ -386,11 +378,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityAggregatedMeanThresholds() {
 		output("Calculating Facility Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 4, 4);
@@ -401,11 +392,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityAggregatedQuartileThresholds() {
 		output("Calculating Facility Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 2, 2);
@@ -416,11 +406,10 @@ public class ThresholdCalculationTest extends TestCase {
 	public void testCalculateFacilityAggregatedBinomialThresholds() {
 		output("Calculating Facility Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
-		FacilityThresholdCalculator calculator = new FacilityThresholdCalculator(calcType);
 		if (!CALCULATE_ALL_THRESHOLDS) {
-			calculator.setTestingLimiter(KABWE_MINE_HOSPITAL.getGeoId());
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
-		MalariaSeason season = calculator.calculateThresholds(false);
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
 		
 		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
 		assertThresholds(false, 11, 2010, td, 6, 8);
