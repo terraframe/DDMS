@@ -347,6 +347,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   {
     for (FilterTagSupport tag : this.radioFilters)
     {
+      out.write("\n");
+      out.write("    if(document.getElementById('" + tag.getId() + "').checked === true){\n");
+      out.write("      geoSearch.setFilter('" + tag.getUniversal() + "');\n");
+      out.write("    }\n");
+      out.write("\n");
       out.write("    YAHOO.util.Event.on('" + tag.getId() + "', 'click', function(e, obj){\n");
       out.write("      var radio = e.target;\n");
       out.write("      if(radio.checked)  {\n");
