@@ -182,4 +182,29 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
 
   }
   
+  @Override
+  public void validateCurrencyReceived()
+  {
+    if(this.getCurrencyReceived() != null)
+    {
+      if(this.getNumberSold() == null || this.getNumberSold() == 0)
+      {
+        String msg = "Currency received cannot be set when the total number of ITNs sold is zero.";
+        CurrencyAmountProblem p = new CurrencyAmountProblem(msg);
+        p.setNotification(this, ITNData.CURRENCYRECEIVED);
+        p.apply();
+        
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void apply()
+  {    
+    //Validate the amount of currency recieved
+    this.validateCurrencyReceived();    
+    
+    super.apply();
+  }
 }

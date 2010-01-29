@@ -44,8 +44,9 @@
             rejectNegative="true" />
           <decimal
             name="currencyReceived"
-            label="The amount of monitory currency received"
-            length="9"
+            label="Currency Received"
+            description="Monetary currency received"
+            length="12"
             decimal="2"
             rejectNegative="true" />
         </attributes>
