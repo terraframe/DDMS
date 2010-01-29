@@ -55,13 +55,33 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 		}
 	}
 	
-	public synchronized static MalariaSeason calculateThresholds(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType, boolean currentPeriod) {
+	public static MalariaSeason calculateThresholds(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType, boolean currentPeriod) {
 		MalariaSeason season = null;
+		ThresholdCalculator instance = newInstance(clazz, calculationType);
+		if (instance != null) {
+			season = instance.calculateThresholds(currentPeriod);
+			clearInstance();
+		}
+		return season;
+	}
+	
+	public static int getPercentComplete() {
+		ThresholdCalculator instance = getInstance();
+		if (instance == null) {
+			return -1;
+		}
+		return Math.round(100 * instance.completedCount / instance.geoEntityCount);
+	}
+
+	private synchronized static ThresholdCalculator getInstance() {
+		return instance;
+	}
+	
+	private synchronized static ThresholdCalculator newInstance(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType) {
 		if (instance == null) {
 			try {
 				instance = (ThresholdCalculator) clazz.newInstance();
 				instance.calculationType = calculationType;
-				season = instance.calculateThresholds(currentPeriod);
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,16 +90,13 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 				e.printStackTrace();
 			}
 		}
-		return season;
+		return instance;
 	}
 	
-	public synchronized static int getPercentComplete() {
-		if (instance == null) {
-			return -1;
-		}
-		return Math.round(100 * instance.completedCount / instance.geoEntityCount);
+	private synchronized static void clearInstance() {
+		instance = null;
 	}
-
+	
 	protected abstract GeoEntityQuery getEntityQuery(QueryFactory factory);
 	protected abstract GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory);
 	protected abstract long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
@@ -90,7 +107,6 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 		if (period.season != null) {
 			this.calculateThresholds(period);
 		}
-		instance = null;
 		return period.season;
 	}
 	
