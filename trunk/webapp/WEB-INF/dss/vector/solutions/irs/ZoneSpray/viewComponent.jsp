@@ -35,8 +35,6 @@
 <%@page import="dss.vector.solutions.irs.TeamSprayStatusViewDTO"%>
 
 
-<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
-<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
