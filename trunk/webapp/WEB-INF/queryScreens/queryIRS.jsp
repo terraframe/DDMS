@@ -143,14 +143,20 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          key:"standard_application_rate_mg",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate_mg",
-                                                       }
+                                                       },
+                                                       {
+                                                         displayLabel:"Sprayable Units per Can",
+                                                         key:"units_per_can",
+                                                         type:"sqldouble",
+                                                         attributeName:"units_per_can",
+                                                       },
                                                     ]);
 
-//     Insecticide_Details = Insecticide_Details.concat(actorSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.ActorSpray'}));
     var abstractSpray = new Mojo.$.dss.vector.solutions.irs.OperatorSpray();
     var abstractSprayAtribs = ["geoEntity","sprayMethod","surfaceType", "sprayDate"];
     var operatorSprayMap = {<%=(String) request.getAttribute("operatorSprayMap")%>};
 
+   
     var Spray_Details = ([
                           {
                             displayLabel:"Aggregation Level",
@@ -162,16 +168,18 @@ YAHOO.util.Event.onDOMReady(function(){
                          ]);
 
 
-    //var sprayStatus = new Mojo.$.dss.vector.solutions.irs.SprayStatusView();
-    //var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
+    var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
+    var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
 
     Spray_Details = Spray_Details.concat(abstractSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:abstractSpray, suffix:'_spray', dropDownMaps:operatorSprayMap, type:'dss.vector.solutions.irs.AbstractSpray'}));
-    //Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'}));
+    Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
 
-    //var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
-    //var HouseHold_Structure_Detail = netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.SprayStatus'});
+    var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
+    var HouseHold_Structure_Detail = netAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'});
 
+   var insectcideUsageAttribs = ["received","used","refills","returned"];
+   Insecticide_Details = Insecticide_Details.concat(insectcideUsageAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:abstractSpray, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
      var Planed_Targets = [
 
@@ -219,11 +227,22 @@ YAHOO.util.Event.onDOMReady(function(){
                                     key:"zone_target",
                                     type:"sqlinteger",
                                     attributeName:"zone_target",
+                                  },
+                                  {
+                                    displayLabel:"Target Unit",
+                                    key:"targetUnit_displayLabel",
+                                    type:"sqlcharacter",
+                                    attributeName:"targetUnit_displayLabel",
                                   }
                            ];
 
    Spray_Details = Spray_Details.concat([
-
+                                  {
+                                    displayLabel:"Units Sprayed #",
+                                    key:"sprayedunits",
+                                    type:"sqlinteger",
+                                    attributeName:"sprayedunits",
+                                  },   
                                   {
                                      displayLabel:"Unsprayed Strucures",
                                      key:"structure_unsprayed",
@@ -241,14 +260,20 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"room_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"room_unsprayed",
-                                }
+                                   },
+                                   {
+                                      displayLabel:"Unsprayed Units",
+                                      key:"unit_unsprayed",
+                                      type:"sqlinteger",
+                                      attributeName:"unit_unsprayed",
+                                   }
                                 ]);
+  
 
 
 
 
 
-/*
    HouseHold_Structure_Detail = HouseHold_Structure_Detail.concat([
                                          {
                                            displayLabel:"Household ID",
@@ -264,83 +289,38 @@ YAHOO.util.Event.onDOMReady(function(){
                                          },
 
                                        ]);
-*/
-     var Coverage = [
+
+    var Coverage = [
 
                                    {
                                      displayLabel:"Unit Application Rate (g/m²)",
-                                     key:"room_application_rate",
+                                     key:"unit_application_rate",
                                      type:"sqldouble",
-                                     attributeName:"room_application_rate",
+                                     attributeName:"unit_application_rate",
+                                     isAggregate:true
                                    },
                                    {
                                      displayLabel:"Unit Application Rate (mg/m²)",
-                                     key:"room_application_rate_mg",
+                                     key:"unit_application_rate_mg",
                                      type:"sqldouble",
-                                     attributeName:"room_application_rate_mg",
+                                     attributeName:"unit_application_rate_mg",
+                                     isAggregate:true
                                    },
                                    {
                                      displayLabel:"Unit Operational Coverage",
-                                     key:"room_operational_coverage",
+                                     key:"unit_operational_coverage",
                                      type:"sqldouble",
-                                     attributeName:"room_operational_coverage",
+                                     attributeName:"unit_operational_coverage",
+                                     isAggregate:true
                                    },
                                    {
                                      displayLabel:"Unit Application Ratio",
-                                     key:"room_application_ratio",
+                                     key:"unit_application_ratio",
                                      type:"sqldouble",
-                                     attributeName:"room_application_ratio",
+                                     attributeName:"unit_application_ratio",
+                                     isAggregate:true
                                    },
-                                   /*
-                                   {
-                                     displayLabel:"Unit Application Rate (g/m²)",
-                                     key:"structure_application_rate",
-                                     type:"sqldouble",
-                                     attributeName:"structure_application_rate",
-                                   },
-                                   {
-                                     displayLabel:"Unit Application Rate (mg/m²)",
-                                     key:"structure_application_rate",
-                                     type:"sqldouble",
-                                     attributeName:"structure_application_rate_mg",
-                                   },
-                                   {
-                                     displayLabel:"Unit Application Ratio",
-                                     key:"structure_application_ratio",
-                                     type:"sqldouble",
-                                     attributeName:"structure_application_ratio",
-                                   },
-                                   {
-                                     displayLabel:"Unit Operational Coverage",
-                                     key:"structure_operational_coverage",
-                                     type:"sqldouble",
-                                     attributeName:"structure_operational_coverage",
-                                   },
-                                   {
-                                     displayLabel:"Unit Application Rate (g/m²)",
-                                     key:"household_application_rate",
-                                     type:"sqldouble",
-                                     attributeName:"household_application_rate",
-                                   },
-                                   {
-                                     displayLabel:"Unit Application Rate (mg/m²)",
-                                     key:"household_application_rate",
-                                     type:"sqldouble",
-                                     attributeName:"household_application_rate_mg",
-                                   },
-                                   {
-                                     displayLabel:"Unit Operational Coverage",
-                                     key:"household_operational_coverage",
-                                     type:"sqldouble",
-                                     attributeName:"household_operational_coverage",
-                                   },
-                                   {
-                                     displayLabel:"Unit Application Ratio",
-                                     key:"household_application_ratio",
-                                     type:"sqldouble",
-                                     attributeName:"household_application_ratio",
-                                   },*/
-
+                                  
                                 ];
 
     var Spray_Team_Detail = [
@@ -395,11 +375,11 @@ YAHOO.util.Event.onDOMReady(function(){
     var selectableGroups = [
  	                         {title:"Planned_Targets", values:Planed_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Actual_Targets", values:Actual_Targets, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
-                           {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+                             {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
- 	                         //{title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
- 	                         //{title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.SprayStatus.CLASS},
+ 	                         {title:"HouseHold_Structure_Detail", values:HouseHold_Structure_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Spray_Team_Detail", values:Spray_Team_Detail, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                     ];
 
     var query = new MDSS.QueryIRS(selectableGroups, queryList);
