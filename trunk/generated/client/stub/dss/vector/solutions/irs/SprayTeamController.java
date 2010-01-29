@@ -315,15 +315,23 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void delete(SprayTeamDTO dto) throws IOException, ServletException
   {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
+	    try
+	    {
+	      dto.delete();
+	      this.viewAll();
+	    }
+	    catch (ProblemExceptionDTO e)
+	    {
+	      ErrorUtility.prepareProblems(e, req);
+
+	      this.failDelete(dto);
+	    }
+	    catch (Throwable t)
+	    {
+	      ErrorUtility.prepareThrowable(t, req);
+
+	      this.failDelete(dto);
+	    }
   }
 
   public void failDelete(SprayTeamDTO dto) throws IOException, ServletException
