@@ -67,6 +67,13 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
     ThresholdCalculator instance = newInstance(clazz, calculationType);
     if (instance != null)
     {
+//      // Lock the classloader during the long running operation
+//      try {
+//          LockHolder.lock(LoaderDecorator.instance());
+//          season = instance.calculateThresholds(currentPeriod);
+//      } finally {
+//          LockHolder.unlock();
+//      }
       season = instance.calculateThresholds(currentPeriod);
       clearInstance();
     }
