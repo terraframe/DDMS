@@ -124,14 +124,14 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "householdspraystatus." + HouseholdSprayStatus.HOUSEHOLDID + " AS household_id,\n";
     select += "householdspraystatus." + HouseholdSprayStatus.STRUCTUREID + " AS structure_id,\n";
     select += "operatorspray." + OperatorSpray.SPRAYOPERATOR + " AS sprayoperator,\n";
-    select += "sprayoperator."+TeamMember.MEMBERID+" || ' - ' || person.firstname || ' - ' || person.lastname AS sprayoperator_defaultLocale,\n";
+    select += "sprayoperator."+TeamMember.MEMBERID+" || ' - ' || person.firstname  || person.lastname AS sprayoperator_defaultLocale,\n";
     select += "operatorspray." + OperatorSpray.OPERATORSPRAYWEEK + " AS operator_week,\n";
     select += "operatorspray." + OperatorSpray.TARGET + " AS operator_target,\n";
     // team stuff
     select += "operatorspray." + OperatorSpray.SPRAYTEAM + " AS sprayteam,\n";
     select += "(SELECT st." + SprayTeam.TEAMID + " FROM "+MdBusiness.getMdBusiness(SprayTeam.CLASS).getTableName()+" st WHERE st.id = operatorspray." + OperatorSpray.SPRAYTEAM + ") AS sprayteam_defaultLocale,\n";
     select += "operatorspray." + OperatorSpray.TEAMLEADER + " AS sprayleader,\n";
-    select += "(SELECT tm."+TeamMember.MEMBERID+" || ' - ' || p.firstname || ' - ' || p.lastname FROM "+MdBusiness.getMdBusiness(TeamMember.CLASS).getTableName()+" tm , "+MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS p WHERE p.id = tm.id AND tm.id = operatorspray." + OperatorSpray.TEAMLEADER + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm."+TeamMember.MEMBERID+" || ' - ' || p.firstname || p.lastname FROM "+MdBusiness.getMdBusiness(TeamMember.CLASS).getTableName()+" tm , "+MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS p WHERE p.id = tm.id AND tm.id = operatorspray." + OperatorSpray.TEAMLEADER + ") AS sprayleader_defaultLocale,\n";
     select += "operatorspray." + OperatorSpray.TEAMSPRAYWEEK + " AS team_week,\n";
     select += "NULL AS team_target,\n";
     // zone stuff
@@ -139,6 +139,17 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "''::TEXT AS zone_supervisor_defaultLocale,\n";
     select += "NULL::INT  AS zone_week,\n";
     select += "NULL::INT  AS zone_target,\n";
+    // target stuff
+    select += "sprayseason.id  AS spray_season,\n";
+    
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
+        + ") AS planed_operator_target,\n";
+    
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = operatorspray." + OperatorSpray.SPRAYTEAM + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.TEAMSPRAYWEEK
+        + ") AS planed_team_target,\n";
+
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date(abstractspray."+AbstractSpray.GEOENTITY+",abstractspray."+AbstractSpray.SPRAYDATE
+        + ") AS planed_area_target,\n";
     //spray stuff
     select += "rooms,\n";
     select += "structures,\n";
@@ -157,21 +168,13 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "received,\n";
     select += "used,\n";
     select += "refills,\n";
+    select += "refills::FLOAT/(SELECT COUNT(id) FROM householdspraystatus h WHERE h.spray = householdspraystatus.spray)::FLOAT AS refills_for_calc,\n";
     select += "returned,\n";
     select += "(rooms - sprayedrooms) AS room_unsprayed,\n";
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
     select += "(households - sprayedhouseholds) AS household_unsprayed,\n";
-    // target stuff
-    select += "sprayseason.id  AS spray_season,\n";
     
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
-        + ") AS planed_operator_target,\n";
     
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = operatorspray." + OperatorSpray.SPRAYTEAM + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.TEAMSPRAYWEEK
-        + ") AS planed_team_target,\n";
-
-    select += "get_seasonal_spray_target_by_geoEntityId_and_date(abstractspray."+AbstractSpray.GEOENTITY+",abstractspray."+AbstractSpray.SPRAYDATE
-        + ") AS planed_area_target,\n";
 
     String from = " FROM ";
     // get the main tables
