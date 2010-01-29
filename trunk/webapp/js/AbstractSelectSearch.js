@@ -55,7 +55,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       // must be set before instantiating a subclass.
       this._extraUniversals = [],
       
-      this._rendered = false;      
+      this._rendered = false;  
     },
     
     /**
@@ -403,7 +403,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         this._geoTreePanel.bringToTop();
       }
     },
-  
+    
     /**
      * Changes the GeoEntity subtype filter and clears
      * the select search and tree.

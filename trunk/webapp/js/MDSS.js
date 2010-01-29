@@ -430,10 +430,6 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
     {
       if(this._modal != null) {
         this._bar.set('value',percent);
-
-//        var innerHTML = '<img src="imgs/rel_interstitial_loading.gif" />';
-//        innerHTML += '<h1>' + percent + '%</h1>'        
-//       this._modal.setBody(innerHTML);            
       }
     },
     

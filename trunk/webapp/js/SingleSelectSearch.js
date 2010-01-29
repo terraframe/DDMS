@@ -232,9 +232,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       var sF = Mojo.Util.bind(this, this._searchFunction);
       var sEH = Mojo.Util.bind(this, this._selectEventHandler);
       
-      YAHOO.util.Event.on(this._opener, "click", this._openPicker, this._geoInput, this);
-      
-      
+      YAHOO.util.Event.on(this._opener, "click", this._openPicker, this._geoInput, this);     
       //YAHOO.util.Event.on(geoInput, 'blur', this._checkManualEntry, null, this);
       
       // add generic ajax search
@@ -276,6 +274,14 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       {
         this._selectSearch.addListener(this);
       }
+      
+      // Setup the tree validator
+      YAHOO.util.Event.on(this._opener, "click", this._setTreeValidator, this, this);
+    },
+    
+    _setTreeValidator : function()
+    {
+      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          	
     },
     
     destroy : function()
@@ -386,23 +392,29 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       if(Mojo.Util.isString(geoId) && geoId != '')
       {
-        var type = this._selectSearch.getFilter();
         var request = this._getValidationRequest();
         
-        if(Mojo.Util.isString(type) && type != '')
-        {
-          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByType(request, geoId, type);
-        }
-        else 
-        {
-          var political = this._selectSearch.getPolitical();
-          var populated = this._selectSearch.getPopulated();
-          var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
-          var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
-           
-          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
-        }
+        this._validator(request, geoId);
       }
+    },
+    
+    _validator : function(request, geoId)
+    {
+      var type = this._selectSearch.getFilter();
+        
+      if(Mojo.Util.isString(type) && type != '')
+      {
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByType(request, geoId, type);
+      }
+      else 
+      {
+        var political = this._selectSearch.getPolitical();
+        var populated = this._selectSearch.getPopulated();
+        var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
+        var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
+           
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
+      }    	
     },
     
     showGeoInfo : function(selected,currentGeoIdInput,valid)

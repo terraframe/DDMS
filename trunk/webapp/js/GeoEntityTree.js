@@ -35,6 +35,9 @@ MDSS.GeoEntityTree = (function(){
   var _currentBrowser = null;
   var _currentType = null;
   
+  // Selection validator for the tree
+  var _validator = null;
+  
   /**
    * Action to upload a template file.
    */
@@ -990,26 +993,32 @@ MDSS.GeoEntityTree = (function(){
       if(_selectCallback != null)
       {
         var geoEntityView = _getGeoEntityView(_selectedNode);
-        var geoEntityId = geoEntityView.getGeoEntityId(); // Runway Id
+        var geoId = geoEntityView.getGeoId();
       
         // IMPORTANT:
         // We have to access itemData directly as a property instead of using getItem()
         // because the ContextMenu only loads items after the first render (possibly because
         // of lazy loading).
-        var item = this.itemData[0];
-        item.cfg.setProperty('disabled', true);
+        if(_validator != null)
+        {
+          var item = this.itemData[0];
+          item.cfg.setProperty('disabled', true);
         
-        // SMETHIE: FINISH THIS
-        var request = new MDSS.Request({
-          onSend : function(){},
-          onComplete : function(){},
-          onSuccess : function(){}
-        });
-        
-        // simulated logic. REMOVE
-        setInterval(function(){
-          item.cfg.setProperty('disabled', false);
-        }, 500);
+          // SMETHIE: FINISH THIS
+          var request = new MDSS.Request({
+            item : item,
+            onSend : function(){},
+            onComplete : function(){},
+            onFailure : function(){},
+            onProblemExceptionDTO : function(){},
+            onSuccess : function()
+            {
+              this.item.cfg.setProperty('disabled', false);
+            }
+          });
+          
+          _validator(request, geoId);
+        }
         
       }
 
@@ -1336,10 +1345,15 @@ MDSS.GeoEntityTree = (function(){
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);
   }
-
+  
+  function _setValidator(validator) {
+    _validator = validator;
+  }
+  
   // return all public methods/properties
   return {
-    initializeTree : _initializeTree
+    initializeTree : _initializeTree,
+    setValidator : _setValidator
     //destroyAll : _destroyAll
   };
 })();
