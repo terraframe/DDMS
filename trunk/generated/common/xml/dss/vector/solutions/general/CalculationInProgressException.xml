@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.general.CalculationInProgressException">
+  <!--
+    - {id} id
+    - {percentComplete} percentComplete
+    -->
+  <locale language="en">A threshold calculation is already in progress, it is currently {percentComplete}% complete.</locale>
+</exception>
