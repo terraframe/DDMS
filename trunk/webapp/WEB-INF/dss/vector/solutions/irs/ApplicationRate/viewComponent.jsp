@@ -15,7 +15,7 @@
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
-  InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAllActive(clientRequest);
+  InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAll(clientRequest);
   String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
 
   Map<String, ColumnSetup> brandMap = new HashMap<String, ColumnSetup>();
