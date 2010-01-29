@@ -61,8 +61,7 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
       
       wrapper.SELECT(new DISTINCT(layerValues));
       
-      // FIXME how to check for null values?
-//      wrapper.WHERE(layerValues.NE(null));
+      wrapper.WHERE(layerValues.NE((Double) null));
       
       wrapper.ORDER_BY_ASC(layerValues);
       
