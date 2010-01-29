@@ -334,7 +334,7 @@ public class QueryUtil implements Reloadable
         String gridAlias = s.getUserDefinedAlias();
         int index1 = gridAlias.indexOf("__");
         int index2 = gridAlias.lastIndexOf("__");
-        if (index1 > 0 && index2 > 0)
+        if (index1 > 0 && index2 > 0 && index1 != index2)
         {
           String attrib = gridAlias.substring(0, index1);
 
@@ -868,9 +868,9 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
-      int startDay = 6 + Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       GregorianCalendar cal = new GregorianCalendar();
-      dateGroup.setSQL("to_char(" + da + " - interval '" + startDay + " days','IW')");
+      dateGroup.setSQL("get_epiWeek_from_date(" + da + "," + startDay + ")");
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
@@ -909,9 +909,11 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
-
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed
-          + ",'IW') END";
+      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" +
+      "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" +
+      "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")" +
+      "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ") END";
       dateGroup.setSQL(dateGroupSql);
     }
 
