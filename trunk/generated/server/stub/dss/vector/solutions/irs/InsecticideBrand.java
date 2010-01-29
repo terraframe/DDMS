@@ -156,35 +156,40 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
       it.close();
     }
   }
-/*
-  public static void createTempTable(String tableName)
-  {
-    String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
-    sql += "CREATE TEMP TABLE " + tableName + " AS ";
-    sql += InsecticideBrand.getTempTableSQL() + ";\n";
-    System.out.println(sql);
-    Database.parseAndExecute(sql);
-  }
-*/
+
   public static String getTempTableSQL()
   {
 
     String select = "SELECT insecticidebrand.id,\n";
+    select += "COALESCE(startdate,'1900-01-01'::date) startdate,\n";
+    select += "COALESCE(endDate,'2100-01-01'::date) enddate, \n";
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
     //select += "insecticidebrand.brandname,\n";
     select += "weight*sachetsperrefill*ratio*(amount/100.0) AS active_ingredient_per_can,\n";
     select += "nozzle.ratio AS nozzle_ratio,\n";
     select += "nozzle.displaylabel AS nozzle_defaultLocale,\n";
     select += "insecticidenozzle.enabled,\n";
-
+    select += "enumname spray_unit,\n";
+    select += "(SELECT defaultLocale FROM metadatadisplaylabel md WHERE enumeration_master.displaylabel = md.id) targetUnit_displayLabel,\n";
+    
+    select += "(CASE WHEN enumname = 'ROOM' THEN room  WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS unitarea,\n";
+    select += "unitnozzleareacoverage unitnozzleareacoverage,\n";
+    select += "((weight*sachetsperrefill*ratio*(amount/100.0)) / unitnozzleareacoverage )  AS standard_application_rate,\n";
+    select += "(1000.0 * (weight*sachetsperrefill*ratio*(amount/100.0)) / unitnozzleareacoverage ) AS standard_application_rate_mg,\n";
+    select += "ratio * unitnozzleareacoverage/(CASE WHEN enumname = 'ROOM' THEN room WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS units_per_can,\n";
+    
+    
     String from = "FROM ";
+    from += MdBusiness.getMdBusiness(AreaStandards.CLASS).getTableName() + " AS areastandards,\n";
     from += MdBusiness.getMdBusiness(InsecticideBrand.CLASS).getTableName() + " AS insecticidebrand,\n";
     from += MdBusiness.getMdBusiness(Nozzle.CLASS).getTableName() +  " AS nozzle,\n";
     from += MdRelationship.getMdElement(InsecticideNozzle.CLASS).getTableName() + " AS insecticidenozzle\n,";
+    from += "enumeration_master enumeration_master,\n";
 
     String where = "";
     where += "AND insecticidenozzle.parent_id = insecticidebrand.id \n";
     where += "AND insecticidenozzle.child_id = nozzle.id \n";
+    where += "AND enumeration_master.id = targetunit_c \n";
 
     select = select.substring(0, select.length() - 2);
     where = "WHERE " + where.substring(3, where.length() - 2);
