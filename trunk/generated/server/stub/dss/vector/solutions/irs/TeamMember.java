@@ -241,7 +241,7 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
     if (search != null && !search.equals(""))
     {
       String[] array = search.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions);
+      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
     }
     else
     {

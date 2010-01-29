@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
@@ -136,12 +135,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     return valueQuery;
   }
 
-  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
-    QueryBuilder.textLookup(valueQuery, qf, tokenArray, selectableArray, conditionArray, new Join[]{});
+    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, new Join[]{});
   }
   
-  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
   {
     long WEIGHT = 256;
 
@@ -154,13 +153,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       for (int i = 0; i < tokenArray.length; i++)
       {
         String token = tokenArray[i].toLowerCase();
-        valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, joins, WEIGHT, i);
+        valueQueryArray[i] = buildQueryForToken(qf, token, searchableArray, selectableArray, conditionArray, joins, WEIGHT, i);
       }
       uQ.UNION(valueQueryArray);
     }
     else
     {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, joins, WEIGHT, 0);
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), searchableArray, selectableArray, conditionArray, joins, WEIGHT, 0);
     }
 
     // Build outermost select clause. This would be cleaner if the API supported
@@ -191,7 +190,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
 //    }
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -203,10 +202,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * STRPOS(" + concatenate(searchableArray) + ", ' " + token + "'))");
 
     vQ.SELECT(selectClauseArray);
-    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
+    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + token + "%"));
 
     for (Condition condition : conditionArray)
     {

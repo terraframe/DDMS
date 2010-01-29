@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.constants.RelationshipInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
@@ -214,13 +213,14 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName)
+  public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName, String attributeAlias)
   {
-//    MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(klass);
-//    MdAttributeDAOIF attribute = mdBusiness.definesAttribute(attributeName);
+    String tableName = MdBusiness.getMdBusiness(klass).getTableName();
 
-    String sql = "SELECT gdl.displayLabel FROM " + GEO_DISPLAY_LABEL + " as gdl";
-    sql += " WHERE gdl.id = " + attributeName + "";
+//    SELECT gdl.displayLabel FROM geo_displayLabel as gdl join person0 p on p.residentialGeoEntity = gdl.id WHERE p.id = ValueQuery_11.id_4
+    String sql = "SELECT gdl.displayLabel FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p.residentialGeoEntity = gdl.id";
+    sql += " WHERE p.id = " + attributeAlias + "";
+    
 
     geoLabel.setSQL(sql);
   }

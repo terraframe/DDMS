@@ -290,7 +290,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     if(value != null && !value.equals(""))
     {
       String[] searchable = value.split(" ");      
-      QueryBuilder.textLookup(query, factory, searchable, selectables, conditionArray);
+      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditionArray);
     }
     else
     {      
@@ -1094,7 +1094,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       String[] searchable = value.split(" ");
       
-      QueryBuilder.textLookup(query, factory, searchable, selectables, conditions);
+      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditions);
     }
     else
     {      

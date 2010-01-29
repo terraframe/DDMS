@@ -148,7 +148,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     if (value != null && !value.equals(""))
     {
       String[] array = value.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions);
+      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
     }
     else
     {
@@ -177,7 +177,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     if (value != null && !value.equals(""))
     {
       String[] array = value.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions);
+      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
     }
     else
     {
@@ -205,7 +205,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     if (value != null && !value.equals(""))
     {
       String[] array = value.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, conditions);
+      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
     }
     else
     {
