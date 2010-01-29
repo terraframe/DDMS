@@ -2,7 +2,15 @@ package dss.vector.solutions.query;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.query.DISTINCT;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.SelectableSQLDouble;
+import com.terraframe.mojo.query.ValueQuery;
 
 public class ExactCategoryFactory extends ExactCategoryFactoryBase implements com.terraframe.mojo.generation.loader.Reloadable {
 	private static final long serialVersionUID = 207120471;
@@ -36,7 +44,48 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
 	}
 
 	private List<String> getLayerValues(Layer layer) {
-		return null;
+	  
+	  // SQL distinct to avoid dups and smallest to largest
+	  Map<Layer, ValueQuery> layerVQs = MapUtil.createDBViews(new Layer[]{layer}, true);
+	  ValueQuery layerVQ = layerVQs.get(layer);
+	  ValueQuery wrapper = new ValueQuery(layerVQ.getQueryFactory());
+	  
+	  QueryInfo info = layer.calculateQueryInfo();
+	  List<String> values = new LinkedList<String>();
+	  if(info.hasThematicVariable() && info.isThematicNumeric())
+	  {
+	    wrapper.FROM(layer.getViewName(), "layer_values_view");
+	    
+      SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT "+
+          QueryConstants.THEMATIC_DATA_COLUMN);
+      
+      wrapper.SELECT(new DISTINCT(layerValues));
+      
+      // FIXME how to check for null values?
+//      wrapper.WHERE(layerValues.NE(null));
+      
+      wrapper.ORDER_BY_ASC(layerValues);
+      
+      OIterator<ValueObject> iter = wrapper.getIterator();
+      try
+      {
+        while(iter.hasNext())
+        {
+          String value = iter.next().getValue("layer_value");
+          values.add(value);
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+	  }
+	  else
+	  {
+	    // THROW EX?
+	  }
+	  
+		return values;
 	}
 
 	private AbstractCategory createExact(Layer layer, String value, Color c) {
