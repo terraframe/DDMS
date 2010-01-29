@@ -8,7 +8,12 @@ import org.json.JSONObject;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
+import com.terraframe.mojo.query.InnerJoinGtEq;
+import com.terraframe.mojo.query.InnerJoinLtEq;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQL;
+import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.query.Layer;
@@ -67,30 +72,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideQuery);
     }
 
-//    String viewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-//    ResourceTarget.createDatabaseView(viewName);
-//
-//    String coverageCalculationsView = "spray_data_view";
-//    String sprayCaluclationsSQL = "(" + SprayStatus.getTempTableSQL() + ")";
-//    valueQuery.FROM(sprayCaluclationsSQL, coverageCalculationsView);
-//    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", sprayCaluclationsSQL, coverageCalculationsView));
-//
-//    String unionView = "all_levels_spray_view";
-//    String unionSQL = "(" + AbstractSpray.getSubquerySql(viewName) + ")";
-//    valueQuery.FROM(unionSQL, unionView);
-//    valueQuery.WHERE(new InnerJoinEq("id", sprayStatusQuery.getMdClassIF().getTableName(), sprayStatusQuery.getTableAlias(), "id", unionSQL, unionView));
-
-    /*
-     * String targetView = "unit_totals_view"; String targetViewSQL = "(" +
-     * ResourceTarget.getTempTableSQL() +")"; RawLeftJoinEq lj = new
-     * RawLeftJoinEq("targetable_id", unionSQL, unionView, "target_id",
-     * targetViewSQL, targetView);
-     * 
-     * lj.setSql(unionView+".targetable_id = "+targetView+".target_id AND " +
-     * unionView+".spray_season = "+targetView+".season_id AND " +
-     * unionView+".spray_week = "+targetView+".target_week");
-     * valueQuery.WHERE(lj);
-     */
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
@@ -101,7 +82,69 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
     AbstractSpray.setWithQuerySQL(abstractSprayQuery, valueQuery);
-
+    String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
+    String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
+    String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (rooms - sprayedrooms)  WHEN spray_unit = 'STRUCTURE' THEN (structures - sprayedstructures) WHEN spray_unit = 'HOUSEHOLD' THEN (households - sprayedhouseholds)  END )";
+    
+    try
+    { 
+      SelectableSQL calc = (SelectableSQL) valueQuery.getSelectableRef("sprayedunits");
+      String sql = sprayedUnits;
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQL calc = (SelectableSQL) valueQuery.getSelectableRef("unit_unsprayed");
+      String sql = unsprayedUnits;
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    { 
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("unit_application_rate");
+      String sql = "SUM(refills_for_calc::FLOAT * active_ingredient_per_can ) / SUM("+sprayedUnits+"::FLOAT * unitarea)";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("unit_application_rate_mg");
+      String sql = "1000.0 * SUM(refills_for_calc::FLOAT * active_ingredient_per_can ) / SUM("+sprayedUnits+"::FLOAT * unitarea)";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("unit_operational_coverage");
+      String sql = "SUM("+avilableUnits+") / SUM("+sprayedUnits+")";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
+    
+    try
+    {
+      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("unit_application_ratio");
+      String sql = "(units_per_can)::FLOAT/(SUM("+sprayedUnits+")/SUM(refills_for_calc)) ";
+      calc.setSQL(sql);
+    }
+    catch (QueryException e)
+    {
+    }
     
     return valueQuery;
   }
@@ -124,16 +167,19 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     sql += " " + targetView + " AS \n";
     sql += "(" + targetViewQuery + ")\n";
     
-    sql += "," + sprayView + " AS \n";
-    sql += "(" + sprayQuery + ")\n";
-    
     sql += ", "+ insecticideView + " AS \n";
     sql += "(" + insecticideBrandQuery + ")\n";
+    
+    sql += "," + sprayView + " AS \n";
+    sql += "(" + sprayQuery + ")\n";
     
     valueQuery.setSqlPrefix(sql);
     
     valueQuery.WHERE(new InnerJoinEq("id", tableName, tableAlias, "id", sprayView, sprayView));
+    
     valueQuery.WHERE(new InnerJoinEq(AbstractSpray.BRAND, tableName, tableAlias, "id", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "startdate", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "enddate", insecticideView, insecticideView));
   }
   
   /*
@@ -204,4 +250,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     return select + "\n" + from + "\n" + where;
   }
 */
+  
+ 
 }
