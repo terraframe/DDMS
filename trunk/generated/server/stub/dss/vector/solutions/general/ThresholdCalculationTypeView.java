@@ -181,6 +181,11 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
     return calculationType;
   }
+  
+  public static Integer getPercentComplete()
+  {
+    return ThresholdCalculator.getPercentComplete();
+  }
 
   @Transaction
   public static void calculateThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)

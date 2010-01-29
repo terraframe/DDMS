@@ -5,7 +5,8 @@
 
 <%@page import="dss.vector.solutions.general.ThresholdDataController"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.util.Halp"%><c:set var="page_title" value="Configure_Thresholds"  scope="request"/>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.general.ThresholdCalculationTypeViewDTO"%><c:set var="page_title" value="Configure_Thresholds"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -136,7 +137,7 @@
   </dl>
 </mjl:form>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{ThresholdDataController.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{ThresholdCalculationTypeViewDTO.CLASS, ThresholdDataController.CLASS}))%>
 
 <script type="text/javascript">
 (function(){
@@ -148,10 +149,14 @@
         e.preventDefault();
         YAHOO.util.Event.stopEvent(e);
 
-        var request = new MDSS.Request({ /* whatever */});
         var params = Mojo.Util.collectFormValues('threshold.form');
 
-        Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholdsMap(request, params);        
+        var func = function(request)
+        {
+          Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholdsMap(request, params);                    
+        }
+
+        new MDSS.ProgressRequest(func, Mojo.$.dss.vector.solutions.general.ThresholdCalculationTypeView.getPercentComplete, 'Calculating_Thresholds').start();
       };
 
       var facilityButton = document.getElementById('calculateFacility.button');    
@@ -161,10 +166,14 @@
         e.preventDefault();
         YAHOO.util.Event.stopEvent(e);
 
-        var request = new MDSS.Request({ /* whatever */});
         var params = Mojo.Util.collectFormValues('threshold.form');
 
-        Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholdsMap(request, params);        
+        var func = function(request)
+        {
+          Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholdsMap(request, params);
+        }
+
+        new MDSS.ProgressRequest(func, Mojo.$.dss.vector.solutions.general.ThresholdCalculationTypeView.getPercentComplete, 'Calculating_Thresholds').start();
       };
 
       

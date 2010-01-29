@@ -309,3 +309,137 @@ MDSS.Set.prototype = {
     delete registered;
   });
 })();
+
+Mojo.Meta.newClass('MDSS.ProgressRequest', {
+  Instance : {
+    initialize : function(func, polling, key)
+    {
+      this._func = func;
+      this._polling = polling;
+      this._intervalId = null;
+      this._modal = null;
+      this._bar = null;
+      this._key = Mojo.Util.isString(key) ? key : 'Ajax_Loading';
+    },
+    
+    _initializeModal : function ()
+    {
+      //Show a modal wait screen to prevent user from clicking an ajax link twice
+      this._modal = new YAHOO.widget.Panel("progress_modal",{
+        width:"240px",
+        fixedcenter:true,
+        close:false,
+        draggable:false,
+        modal:true,
+        visible:true
+      });
+            
+      this._modal.setHeader(MDSS.localize(this._key));
+      this._modal.setBody("<div id='progress_bar'></div>")
+      this._modal.render(document.body);
+      this._modal.bringToTop();    
+
+      this._bar = new YAHOO.widget.ProgressBar({
+          minValue: 0,
+          maxValue: 100,
+          value: 0,
+          height: "15px",
+          width: "220px"          
+      }).render("progress_bar");
+    },
+    
+    _destroyModal : function ()
+    {
+      if(this._modal != null)
+      {
+        this._modal.hide();
+        this._modal == null;
+      }
+    },
+    
+    start : function()
+    {        
+      this._sendRequest();
+      this._startPolling();
+    },
+    
+    _sendRequest : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onComplete : function()
+        {
+          this.that._destroyModal();
+        },
+        onSend : function()
+        {
+          this.that._initializeModal();
+        },
+        onSuccess : function()
+        {
+          this.that._stopPolling();                
+        }
+      });
+      
+      // Re enable the save button widget when there is a problem
+      var oldOnProblemExceptionDTO = request.onProblemExceptionDTO;
+      var newOnProblemExceptionDTO = function(e) {
+        oldOnProblemExceptionDTO.apply(request, [e]);
+        
+        this.that._stopPolling();
+      }
+      
+      var oldOnFailure = request.onFailure;
+      var newOnFailure = function(e) {
+        oldOnFailure.apply(request, [e]);
+        
+        this.that._stopPolling();
+      }
+
+      request.onProblemExceptionDTO = newOnProblemExceptionDTO;
+      request.onFailure = newOnFailure;
+      
+      this._func(request);
+    },   
+    
+    _startPolling : function()
+    {
+      var bound = Mojo.Util.bind(this, this._pollServer);
+
+      this._intervalId = setInterval(bound, 1000);
+    },
+    
+    _pollServer : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onComplete : function() {},
+        onSend : function() {},
+        onFailure : function(){},
+        onProblemExceptionDTO : function(){},
+        onSuccess : function(percent)
+        {
+          this.that._setPercent(percent);
+        }
+      });
+          
+      this._polling(request);    
+    },
+    
+    _setPercent :  function(percent)
+    {
+      if(this._modal != null) {
+        this._bar.set('value',percent);
+
+//        var innerHTML = '<img src="imgs/rel_interstitial_loading.gif" />';
+//        innerHTML += '<h1>' + percent + '%</h1>'        
+//       this._modal.setBody(innerHTML);            
+      }
+    },
+    
+    _stopPolling : function()
+    {
+      clearInterval(this._intervalId);
+    }
+  }  
+});

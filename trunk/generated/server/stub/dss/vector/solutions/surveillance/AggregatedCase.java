@@ -358,7 +358,11 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     EpiDate.validate(periodType, period - 1, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, period - 1, year);
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate(), ageGroup);
+
+    Date startDate = date.getStartDate();
+    Date endDate = date.getEndDate();
+    
+    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
 
     if (c != null)
     {
@@ -375,6 +379,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     view.addPeriodType(periodType);
     view.setPeriodYear(year);
     view.setAgeGroup(ageGroup);
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
 
     return view;
   }

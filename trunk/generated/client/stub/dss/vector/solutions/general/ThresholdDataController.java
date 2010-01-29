@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
@@ -343,12 +344,21 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   {
     super.failCalculateThresholds(thresholdCalculation, currentYear);
   }
-  
+
   @Override
   public void calculatePoliticalThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, Boolean currentYear) throws IOException, ServletException
   {
-    ThresholdCalculationTypeViewDTO.calculatePoliticalThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
-    this.editThresholdConfiguration();
+    try
+    {
+      ThresholdCalculationTypeViewDTO.calculatePoliticalThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
+      this.editThresholdConfiguration();
+    }
+    catch (java.lang.Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
@@ -356,12 +366,21 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   {
     super.failCalculateThresholds(thresholdCalculation, currentYear);
   }
-  
+
   @Override
   public void calculateFacilityThresholds(ThresholdCalculationTypeViewDTO thresholdCalculation, Boolean currentYear) throws IOException, ServletException
   {
-    ThresholdCalculationTypeViewDTO.calculateFacilityThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
-    this.editThresholdConfiguration();
+    try
+    {
+      ThresholdCalculationTypeViewDTO.calculateFacilityThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
+      this.editThresholdConfiguration();
+    }
+    catch (java.lang.Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
@@ -369,17 +388,17 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   {
     super.failCalculateThresholds(thresholdCalculation, currentYear);
   }
-  
+
   @Override
   public void exportHistory() throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
-    
+
     InputStream stream = WeeklyThresholdViewDTO.exportHistory(request);
-    
+
     FileDownloadUtil.writeXLS(resp, "ThresholdHistory", stream);
   }
-  
+
   @Override
   public void failExportHistory() throws IOException, ServletException
   {

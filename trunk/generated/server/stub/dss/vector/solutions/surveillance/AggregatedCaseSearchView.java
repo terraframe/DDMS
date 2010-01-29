@@ -1,6 +1,5 @@
 package dss.vector.solutions.surveillance;
 
-import java.util.List;
 
 public class AggregatedCaseSearchView extends AggregatedCaseSearchViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
