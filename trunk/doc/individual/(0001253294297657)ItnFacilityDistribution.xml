@@ -46,8 +46,7 @@
             label="Currency Received"
             description="Monetary currency received"
             length="12"
-            decimal="2"
-            rejectNegative="true" />
+            decimal="2" />
           <char
             name="distributorName"
             label="Distributor First Name"
