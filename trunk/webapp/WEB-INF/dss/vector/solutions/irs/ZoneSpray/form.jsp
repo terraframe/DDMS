@@ -4,7 +4,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
-<%@page import="dss.vector.solutions.irs.AbstractSprayViewDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
     <mjl:component item="${item}" param="dto">
