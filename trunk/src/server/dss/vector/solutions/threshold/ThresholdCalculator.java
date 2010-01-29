@@ -7,6 +7,8 @@ import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
+import com.terraframe.mojo.generation.loader.LockHolder;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -59,7 +61,13 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 		MalariaSeason season = null;
 		ThresholdCalculator instance = newInstance(clazz, calculationType);
 		if (instance != null) {
-			season = instance.calculateThresholds(currentPeriod);
+			// Lock the classloader during the long running operation
+			try {
+				LockHolder.lock(LoaderDecorator.instance());
+				season = instance.calculateThresholds(currentPeriod);
+			} finally {
+				LockHolder.unlock();
+			}
 			clearInstance();
 		}
 		return season;
