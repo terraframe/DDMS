@@ -427,7 +427,7 @@
       <mdView
         name="dss.vector.solutions.surveillance.ChildCaseView"
         extends="dss.vector.solutions.surveillance.AggregatedCaseView"
-        label="Child Case View">
+        label="Aggregated Case Surveillance View">
         <attributes>
           <integer
             name="cases"
