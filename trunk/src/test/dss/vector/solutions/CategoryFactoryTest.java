@@ -80,52 +80,65 @@ public class CategoryFactoryTest extends TestCase implements Reloadable {
 		}
 	}
 	
-	public void testRange02() {
+	public void testRanges() {
+		testRange02();
+		testRange12();
+		testRange22();
+		testRange32();
+		testRange33();
+		testRange31();
+		testRange51();
+		testRange91();
+		testRange30a();
+		testRange30b();
+	}
+	
+	private void testRange02() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 0, 2);
 		assertEquals(0, categories.size());
 	}
 	
-	public void testRange12() {
+	private void testRange12() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 1, 2);
 		assertEquals(0, categories.size());
 	}
 	
-	public void testRange22() {
+	private void testRange22() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 2, 2);
 		assertEquals(2, categories.size());
 	}
 	
-	public void testRange32() {
+	private void testRange32() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 3, 2);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange33() {
+	private void testRange33() {
 		List<AbstractCategory> categories = this.testRange(1d, 11d, 3, 3);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange31() {
+	private void testRange31() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 3, 1);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange51() {
+	private void testRange51() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 5, 1);
 		assertEquals(3, categories.size());
 	}	
 	
-	public void testRange91() {
+	private void testRange91() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 9, 1);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange30a() {
+	private void testRange30a() {
 		List<AbstractCategory> categories = this.testRange(1.1d, 1.2d, 3, 0);
 		assertEquals(3, categories.size());
 	}
 	
-	public void testRange30b() {
+	private void testRange30b() {
 		List<AbstractCategory> categories = this.testRange(0d, 10d, 3, 0);
 		assertEquals(3, categories.size());
 	}
