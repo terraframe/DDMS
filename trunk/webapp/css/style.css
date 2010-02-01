@@ -940,6 +940,20 @@ input.browserOpenBtn {
   background:url(imgs/bg-fader.gif) 5px 0 no-repeat;
 }
 
+div.legendColor {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.legend {
+  cursor: move;
+}
+
+table.legend td {
+  border: 1px solid black;
+  padding: 3px;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
