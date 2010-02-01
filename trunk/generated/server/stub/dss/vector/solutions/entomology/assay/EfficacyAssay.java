@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
-import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -224,27 +223,25 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
    
     EfficacyAssayQuery efficacyAssayQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
     
-    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    if (efficacyAssayQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS,efficacyAssayQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getTestDate().getDefiningTableAlias());
+    }
     
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
     
-    valueQuery.WHERE(abstractAssayQuery.getInsecticide().EQ(insecticideQuery));
+    if(insecticideQuery != null)
+    {
+      valueQuery.WHERE(efficacyAssayQuery.getInsecticide().EQ(insecticideQuery));
+      QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
+    }
     
-    valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
-
-    QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
-    
-    QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS,efficacyAssayQuery);
-    
-    QueryUtil.joinTermAllpaths(valueQuery,AbstractAssay.CLASS,abstractAssayQuery);
-
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
-    AttributeMoment dateAttribute = efficacyAssayQuery.getTestDate();
-
-    QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
     
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     
