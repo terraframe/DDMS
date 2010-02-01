@@ -928,13 +928,16 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         Throwable t = e.getTargetException();
 
-        if (t instanceof RuntimeException && !( t instanceof ClientReadAttributePermissionException))
+        if (! ( t instanceof ClientReadAttributePermissionException ))
         {
-          throw (RuntimeException) t;
-        }
-        else if(!( t instanceof ClientReadAttributePermissionException))
-        {
-          throw new ApplicationException(t);
+          if (t instanceof RuntimeException)
+          {
+            throw (RuntimeException) t;
+          }
+          else
+          {
+            throw new ApplicationException(t);
+          }
         }
       }
       catch (ClientReadAttributePermissionException e)
