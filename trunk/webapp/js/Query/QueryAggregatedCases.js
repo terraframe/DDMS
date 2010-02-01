@@ -31,6 +31,16 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       this._gridAggregateSelectables = {};
   
       this._countSelectable = null;
+      
+      /*
+       * Target
+       */
+      this._geoEntityAttribs = [
+        {
+          keyName :  this._aggregatedCase.constructor.CLASS+'.'+this._aggregatedCase.constructor.GEOENTITY,
+          display : this._aggregatedCase.getGeoEntityMd().getDisplayLabel()
+        }        
+      ];
   
       // END: query objects
   
@@ -684,18 +694,8 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
      */
     _buildQueryItems : function(ageGroups, visibleAttributes, orderedGrids)
     {
-      /*
-       * Target
-       */
-      var attributes = [
-        {
-          keyName :  this._aggregatedCase.constructor.CLASS+'.'+this._aggregatedCase.constructor.GEOENTITY,
-          display : this._aggregatedCase.getGeoEntityMd().getDisplayLabel()
-        }        
-      ];
+
       
-      this.addGeoAttributes(attributes);
-  
       /*
        * Age Group
        */
