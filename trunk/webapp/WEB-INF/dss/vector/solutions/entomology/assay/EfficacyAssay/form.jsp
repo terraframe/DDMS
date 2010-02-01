@@ -70,19 +70,3 @@
         <mjl:input type="text" param="quantityDead" />
       </mjl:dt>
     </mjl:component>
-
-    <script type="text/javascript">  
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'testMethod'},
-         {attributeName:'specie'},
-         {attributeName:'sex'},
-         {attributeName:'surfacePostion'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=EfficacyAssayViewDTO.CLASS%>", attributes);
-  })
-})();
-
-</script>    
