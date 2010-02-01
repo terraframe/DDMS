@@ -92,8 +92,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._drawLineBtn = null; // Ref to the button that lets a user draw a vector line on the map
       this._addTextBtn = null;
       
-      this._legendDivs = [];
-      this._freeTexts = [];
+      this._ddDivs = [];
     },
     
     render : function()
@@ -963,6 +962,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           console.log(that._map.getResolutionForZoom(2));
           
+          that._removeDragNDropDivs();
+          
           that._addLegends(layers);
         } 
       });
@@ -971,6 +972,22 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._MappingController.refreshMap(request, mapId);
       
       this._drawLineBtn.disabled = true;
+    },
+    
+    _removeDragNDropDivs : function()
+    {
+      // remove the old legend divs
+      for(var i=0; i<this._ddDivs.length; i++)
+      {
+        var obj = this._ddDivs[i];
+        var dd = obj.dd;
+        var div = obj.div;
+        
+        dd.unsubscribeAll();
+        
+        div.parentNode.removeChild(div);
+      }
+      this._ddDivs = [];
     },
     
     _addText : function()
@@ -985,30 +1002,34 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._MappingController.addText(request);
     },
     
-    _setText : function(params)
+    _setTextListener : function(params)
     {
       var text = Mojo.Util.trim(params['freeText.customText']);
       if(text.length > 0)
       {
-        alert(text);
+         var div = document.createElement('div');
+         div.id = Mojo.Util.generateId();
+         
+         YAHOO.util.Dom.setStyle(div, 'cursor', 'move');
+         
+         var style = 'color: '+params['freeText.textFontFill']+';';
+         style += 'font-size: '+params['freeText.textFontSize']+'px;';
+         style += 'font-style: '+params['freeText.textFontStyles'][0]+';';
+         style += 'font-family: '+params['freeText.textFontFamily']+';';
+         var html = '<span style="'+style+'">'+text+'</span>';
+         div.innerHTML = html;
+         
+         var dd = this._annotation.addDragDrop(div);
+         this._annotation.position(div);
+         
+         this._ddDivs.push({div:div, dd:dd});
       }
+      
+      this._destroyModal();
     },
     
     _addLegends : function(layers)
     {
-      // remove the old legend divs
-      for(var i=0; i<this._legendDivs.length; i++)
-      {
-        var obj = this._legendDivs[i];
-        var dd = obj.dd;
-        var div = obj.div;
-        
-        dd.unsubscribeAll();
-        
-        div.parentNode.removeChild(div);
-      }
-      this._legendDivs = [];
-    
       for(var i=0; i<layers.length; i++)
       {
         var legend = layers[i].legend;
@@ -1025,26 +1046,36 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           var bg = legend.showLegendBorder ? '' : 'border: 2px solid white !important';
           var table = '<table class="legend" style="'+bg+'">';
           
-          table += '<tr><td colspan="2"><span style="font-size: '+legend.fontTitleSize+'px; font-family: '
-            +legend.fontTitleFamily+'; font-style: '+legend.fontTitleStyle+'; color: '+legend.fontTitleFill+';">'
-            +legend.title+'</span></td></tr>';
-          var categories = legend.categories;
-          for(var j=0; j<categories.length; j++)
-          {
-            var category = categories[j];
+          var titleSpan = '<span style="font-size: '+legend.fontTitleSize+'px; font-family: '
+            +legend.fontTitleFamily+'; font-style: '+legend.fontTitleStyle+'; color: '
+            +legend.fontTitleFill+';">'+legend.title+'</span>';
           
-            var display;
-            if(category.exact != null)
+          if(legend.createRawLegend)
+          {
+            table += '<tr><td>'+titleSpan+'</td><td><div class="colorPickerValue legendColor" style="background-color: '+legend.color+'">&nbsp;</div></td></tr>';
+          }
+          else
+          {
+          
+            table += '<tr><td colspan="2">'+titleSpan+'</td></tr>';
+            var categories = legend.categories;
+            for(var j=0; j<categories.length; j++)
             {
-              display = category.exact;
-            }
-            else
-            {
-              display = category.lower + ' < ' + category.upper;
-            }
+              var category = categories[j];
             
-            table += '<tr><td>'+display+'</td>';
-            table += '<td><div class="colorPickerValue legendColor" style="background-color: '+category.color+'">&nbsp;</div></td></tr>';
+              var display;
+              if(category.exact != null)
+              {
+                display = category.exact;
+              }
+              else
+              {
+                display = category.lower + ' < ' + category.upper;
+              }
+              
+              table += '<tr><td>'+display+'</td>';
+              table += '<td><div class="colorPickerValue legendColor" style="background-color: '+category.color+'">&nbsp;</div></td></tr>';
+            }
           }
                     
           
@@ -1052,9 +1083,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           div.innerHTML = table;
           var dd = this._annotation.addDragDrop(div);
-          this._annotation.position(div, 100, 100);
+          this._annotation.position(div);
           
-          this._legendDivs.push({div:div, dd:dd});
+          this._ddDivs.push({div:div, dd:dd});
         }
       }
     },
@@ -1391,12 +1422,43 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
 Mojo.Meta.newClass("MDSS.Annotation", {
 
+  Constants : {
+    
+  },
+
   Instance : {
   
     initialize : function(queryPanel)
     {
       this._queryPanel = queryPanel;
       this._modal = null;
+      
+      // offsets when placing floating divs
+      this._offsetInd = 0;
+      this._offsets = [
+        [0,100],
+        [45,45],
+        [100,0],
+        [45,-45],
+        [0,-100],
+        [-45,-45],
+        [-100,0],
+        [-45,45]
+      ];
+    },
+    
+    /**
+     * Calculates the left and top offset values
+     * used to stagger the drag and drop divs on top 
+     * of the map.
+     */
+    _calculateOffsets : function()
+    {
+      if(this._left > 100 && this._top > 100)
+      {
+        this._left = 10;
+        this._top = 10;
+      }
     },
   
     showModal : function()
@@ -1589,7 +1651,7 @@ Mojo.Meta.newClass("MDSS.Annotation", {
       }
     },
   
-    position : function(div, leftOffset, topOffset)
+    position : function(div)
     {
       YAHOO.util.Dom.setStyle(div, 'display', 'block');
   
@@ -1602,9 +1664,23 @@ Mojo.Meta.newClass("MDSS.Annotation", {
   
       var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
       var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
+
   
-      var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftOffset,
-        xy[1] + (mHeight/2) - (dHeight/2) + topOffset];
+      var offsets = this._offsets[this._offsetInd];
+      var leftO = offsets[0];
+      var topO = offsets[1];
+      
+      if(this._offsetInd == this._offsets.length-1)
+      {
+        this._offsetInd = 0;
+      }
+      else
+      {
+        this._offsetInd++;
+      }
+
+      var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftO,
+        xy[1] + (mHeight/2) - (dHeight/2) + topO];
   
       YAHOO.util.Dom.setXY(div, center);
   

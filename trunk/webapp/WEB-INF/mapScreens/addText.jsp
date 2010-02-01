@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<form name="${freeText.id}_form" id="${freeText.id}_form" method="POST">
+<mjl:form name="${freeText.id}_form" id="${freeText.id}_form" method="POST">
 <dl>
 <mjl:component item="${freeText}" param="freeText">
 
@@ -61,4 +61,4 @@
 </mjl:component>
 </dl>
 <mjl:command value="Create" name="dss.vector.solutions.query.MappingController.form.setText.btn.mojo" action="dss.vector.solutions.query.MappingController.setText.mojo"/>
-</form>
+</mjl:form>
