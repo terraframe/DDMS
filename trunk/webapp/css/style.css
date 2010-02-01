@@ -341,6 +341,12 @@ ul#queryItemsList li ul li {
 div#dateRange {
   margin-top: 5px;
   margin-left: 10px;
+  margin-right: 10px;
+}
+
+#geoAttributesSpan
+{
+	float:right;
 }
 
 #startDateRange, #endDateRange {
