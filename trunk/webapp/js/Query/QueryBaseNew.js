@@ -1366,6 +1366,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   },
   Static : {
       mapAttribs : function(attribName,index){
+  	   var viewType = this.obj.getType() + "View";
+  	   var view = this.obj.getType();
        var attrib = this.obj.attributeMap[attribName];
        var row = {};
        if(attrib){
@@ -1431,6 +1433,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          }
 
        }
+       return row;
+     },
+     mapInts : function(attribName,index){
+       var attrib = this.obj.attributeMap[attribName];
+       var row = {};
+         row.attributeName = attrib.attributeName;
+         row.type = 'sqlinteger';
+         row.displayLabel = attrib.attributeMdDTO.displayLabel;
+         row.key = attribName;
+         row.dtoType = "AttributeIntegerDTO";
        return row;
      },
      mapMo : function(term,index){
