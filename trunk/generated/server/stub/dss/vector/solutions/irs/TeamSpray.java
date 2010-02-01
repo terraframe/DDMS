@@ -172,7 +172,6 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
     select += "operatorspraystatus.received,\n";
     select += "operatorspraystatus.used,\n";
     select += "operatorspraystatus.refills,\n";
-    select += "operatorspraystatus.refills::FLOAT AS refills_for_calc,\n";
     select += "operatorspraystatus.returned,\n";
     select += "(rooms - sprayedrooms) AS room_unsprayed,\n";
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";

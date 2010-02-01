@@ -115,14 +115,23 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     }
   }
 
-  public static String getTempTableSQL(String viewName)
+  public static String getTempTableSQL(String targetView, boolean grouped)
   {
     String select = "SELECT operatorspray.id,\n";
 
     select += "'1'::TEXT AS aggregation_level,\n";
+    
+    if (grouped)
+    {
+      select += "NULL AS household_id,\n";
+      select += "NULL AS structure_id,\n";
+    }
+    else
+    {
+      select += "householdspraystatus." + HouseholdSprayStatus.HOUSEHOLDID + " AS household_id,\n";
+      select += "householdspraystatus." + HouseholdSprayStatus.STRUCTUREID + " AS structure_id,\n";
+    }
     // operator stuff
-    select += "householdspraystatus." + HouseholdSprayStatus.HOUSEHOLDID + " AS household_id,\n";
-    select += "householdspraystatus." + HouseholdSprayStatus.STRUCTUREID + " AS structure_id,\n";
     select += "operatorspray." + OperatorSpray.SPRAYOPERATOR + " AS sprayoperator,\n";
     select += "sprayoperator."+TeamMember.MEMBERID+" || ' - ' || person.firstname  || person.lastname AS sprayoperator_defaultLocale,\n";
     select += "operatorspray." + OperatorSpray.OPERATORSPRAYWEEK + " AS operator_week,\n";
@@ -142,14 +151,15 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     // target stuff
     select += "sprayseason.id  AS spray_season,\n";
     
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
+    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.OPERATORSPRAYWEEK
         + ") AS planed_operator_target,\n";
     
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = operatorspray." + OperatorSpray.SPRAYTEAM + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.TEAMSPRAYWEEK
+    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = operatorspray." + OperatorSpray.SPRAYTEAM + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = operatorspray." + OperatorSpray.TEAMSPRAYWEEK
         + ") AS planed_team_target,\n";
 
     select += "get_seasonal_spray_target_by_geoEntityId_and_date(abstractspray."+AbstractSpray.GEOENTITY+",abstractspray."+AbstractSpray.SPRAYDATE
         + ") AS planed_area_target,\n";
+   
     //spray stuff
     select += "rooms,\n";
     select += "structures,\n";
@@ -165,21 +175,48 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     select += "locked,\n";
     select += "refused,\n";
     select += "other,\n";
+    
     select += "received,\n";
     select += "used,\n";
     select += "refills,\n";
-    select += "refills::FLOAT/(SELECT COUNT(id) FROM householdspraystatus h WHERE h.spray = householdspraystatus.spray)::FLOAT AS refills_for_calc,\n";
     select += "returned,\n";
     select += "(rooms - sprayedrooms) AS room_unsprayed,\n";
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
     select += "(households - sprayedhouseholds) AS household_unsprayed,\n";
     
-    
-
     String from = " FROM ";
+    
+    if (grouped)
+    {
+      String hss_grouped = "SELECT spray,\n" ;
+        
+      hss_grouped += "SUM(rooms) rooms,\n";
+      hss_grouped += "SUM(structures) structures,\n";
+      hss_grouped += "SUM(households) households,\n";
+      hss_grouped += "SUM(sprayedrooms) sprayedrooms,\n";
+      hss_grouped += "SUM(sprayedstructures) sprayedstructures,\n";
+      hss_grouped += "SUM(sprayedhouseholds) sprayedhouseholds,\n";
+      hss_grouped += "SUM(prevsprayedstructures) prevsprayedstructures,\n";
+      hss_grouped += "SUM(prevsprayedhouseholds) prevsprayedhouseholds,\n";
+      hss_grouped += "SUM(people) people,\n";
+      hss_grouped += "SUM(bednets) bednets,\n";
+      hss_grouped += "SUM(roomswithbednets) roomswithbednets,\n";
+      hss_grouped += "SUM(refused) refused,\n";
+      hss_grouped += "SUM(locked) locked,\n";
+      hss_grouped += "SUM(other) other\n";
+      hss_grouped += "FROM " +  MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + "\n";
+      hss_grouped += "GROUP BY spray";
+      
+      from += "("+hss_grouped +")" + " AS householdspraystatus,\n";
+      
+    }
+    else
+    {
+      from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
+    }
+    
     // get the main tables
     from += MdBusiness.getMdBusiness(OperatorSpray.CLASS).getTableName() + " AS operatorspray,\n";
-    from += MdBusiness.getMdBusiness(HouseholdSprayStatus.CLASS).getTableName() + " AS householdspraystatus,\n";
     from += MdBusiness.getMdBusiness(TeamMember.CLASS).getTableName() + " AS sprayoperator,\n";
     from += MdBusiness.getMdBusiness(Person.CLASS).getTableName() + " AS person,\n";
     from += MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName() + " AS abstractspray\n";

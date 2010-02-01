@@ -148,7 +148,6 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
     select += "teamspraystatus.received,\n";
     select += "teamspraystatus.used,\n";
     select += "teamspraystatus.refills,\n";
-    select += "teamspraystatus.refills::FLOAT AS refills_for_calc,\n";
     select += "teamspraystatus.returned,\n";
     select += "(rooms - sprayedrooms) AS room_unsprayed,\n";
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
