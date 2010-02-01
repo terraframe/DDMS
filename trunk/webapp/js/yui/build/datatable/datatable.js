@@ -17004,6 +17004,9 @@ renderForm : function() {
     // Save on enter by default
     // Bug: 1802582 Set up a listener on each textbox to track on keypress
     // since SF/OP can't preventDefault on keydown
+    
+    //changed by Darrell Taylor
+    /*
     Ev.addListener(elTextbox, "keypress", function(v){
         if((v.keyCode === 13)) {
             // Prevent form submit
@@ -17011,7 +17014,7 @@ renderForm : function() {
             this.save();
         }
     }, this, true);
-
+*/
     if(this.disableBtns) {
         // By default this is no-op since enter saves by default
         this.handleDisabledBtns();
