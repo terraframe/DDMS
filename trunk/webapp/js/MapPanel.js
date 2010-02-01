@@ -86,9 +86,14 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       
       this._MappingController = Mojo.$.dss.vector.solutions.query.MappingController;
+      this._MappingController.setSetTextListener(Mojo.Util.bind(this, this._setTextListener));
       
       this._map = null;
       this._drawLineBtn = null; // Ref to the button that lets a user draw a vector line on the map
+      this._addTextBtn = null;
+      
+      this._legendDivs = [];
+      this._freeTexts = [];
     },
     
     render : function()
@@ -218,7 +223,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         onSuccess : function(html)
         {
           var el = document.getElementById(MDSS.MapPanel.CATEGORY_LIST);
-          el.innerHTML = el.innerHTML + html;        
+          el.innerHTML = html;        
         
           this.that._destroyModalSec();
         }
@@ -459,18 +464,23 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     },
     
     /**
+     * The value of savedSearch legendColor is submitted as an array
+     * because from select lists on the form. But we want to submit it as 
+     * a single value because they are just a reference attribute.
+     */
+    _convertRefSelectParams : function(params)
+    {
+      params['layer.savedSearch'] = params['layer.savedSearch'][0];
+      params['layer.legendColor'] = params['layer.legendColor'][0];
+    },
+    
+    /**
      * 
      */
     _calculateQueryInfoListener : function(params)
     {
-      // IMPORTANT: The value of Layer.savedSearch is submitted as an array
-      // because it is a select list on the form. But we want to submit it as 
-      // a single value because savedSearch is just a reference attribute.
-      if(params['layer.savedSearch'].length > 0)
-      {
-        params['layer.savedSearch'] = params['layer.savedSearch'][0];
-      }
-      
+      this._convertRefSelectParams(params);
+    
       params['savedMapId'] = MDSS.MapPanel.getCurrentMap();
       params['layer.isNew'] = 'true';
       
@@ -486,13 +496,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _saveLayerListener : function(params)
     {
-      // IMPORTANT: The value of Layer.savedSearch is submitted as an array
-      // because it is a select list on the form. But we want to submit it as 
-      // a single value because savedSearch is just a reference attribute.
-      if(params['layer.savedSearch'].length > 0)
-      {
-        params['layer.savedSearch'] = params['layer.savedSearch'][0];
-      }
+      this._convertRefSelectParams(params);
       
       params['savedMapId'] = MDSS.MapPanel.getCurrentMap();
     
@@ -599,6 +603,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       mapButtonDiv.appendChild(exportShape);
       
       
+      // Add Text
+      this._addTextBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._addTextBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(this._addTextBtn, 'value', MDSS.Localized.Add_Text);
+      YAHOO.util.Dom.addClass(this._addTextBtn, 'queryButton');
+      YAHOO.util.Event.on(this._addTextBtn, 'click', this._addText, null, this);
+      this._addTextBtn.disabled = true;
+      mapButtonDiv.appendChild(this._addTextBtn);
+
       // Add the draw line button
       this._drawLineBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'type', 'button');
@@ -882,26 +895,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
 
           // setup base tiled layer
-          var baseLayer = layers.shift();
+          var baseLayer = layers[0];
           var base = new OpenLayers.Layer.WMS(
               "", geoServerPath+"/wms",
               {
                   srs: 'EPSG:4326',
                   layers: baseLayer.view,
                   styles: '',
-                  format: 'image/png',
                   sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
-              },
-              {
-                buffer: 0,
-                opacity: baseLayer.opacity,
-                  singleTile : true,
-                isBaseLayer: true
-          });
+                  format: OpenLayers.Format.SVG,
+                  isBaseLayer: true
+                },
+                {
+                  buffer: 0,
+                  opacity: baseLayer.opacity,
+                  singleTile : true
+                }
+          );
           
           mapLayers.push(base);
       
-          for(var i=0; i<layers.length; i++)
+          for(var i=1; i<layers.length; i++)
           {
             var layer = layers[i];
               var extraLayer = new OpenLayers.Layer.WMS(
@@ -910,15 +924,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                   srs: 'EPSG:4326',
                   layers: layer.view,
                   styles: '',
-                  format: 'image/png',
                   sld: Mojo.ClientSession.getBaseEndpoint()+layer.sld,
+                  format: OpenLayers.Format.SVG,
                   transparent: true,
+                  isBaseLayer : false
               },
               {
                 buffer: 0,
-                  singleTile : true,
+                singleTile : true,
                 opacity: layer.opacity
-            });
+              }
+            );
       
             mapLayers.push(extraLayer);
           }
@@ -936,15 +952,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._map.addControl(new OpenLayers.Control.PanZoomBar({
               position: new OpenLayers.Pixel(2, 15)
           }));
-//          that._map.addControl(new OpenLayers.Control.Navigation());
+          that._map.addControl(new OpenLayers.Control.Navigation({zoomWheelEnabled:false}));
           that._map.addControl(new OpenLayers.Control.MousePosition());
           that._map.addControl(that._drawLineControl);
 
           that._map.zoomToExtent(bounds);      
           
           that._drawLineBtn.disabled = false;
+          that._addTextBtn.disabled = false;
           
           console.log(that._map.getResolutionForZoom(2));
+          
+          that._addLegends(layers);
         } 
       });
       
@@ -952,6 +971,92 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._MappingController.refreshMap(request, mapId);
       
       this._drawLineBtn.disabled = true;
+    },
+    
+    _addText : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(html){
+          this.that._createModal(html, MDSS.Localized.Add_Text, false, true);
+        }
+      });
+      
+      this._MappingController.addText(request);
+    },
+    
+    _setText : function(params)
+    {
+      var text = Mojo.Util.trim(params['freeText.customText']);
+      if(text.length > 0)
+      {
+        alert(text);
+      }
+    },
+    
+    _addLegends : function(layers)
+    {
+      // remove the old legend divs
+      for(var i=0; i<this._legendDivs.length; i++)
+      {
+        var obj = this._legendDivs[i];
+        var dd = obj.dd;
+        var div = obj.div;
+        
+        dd.unsubscribeAll();
+        
+        div.parentNode.removeChild(div);
+      }
+      this._legendDivs = [];
+    
+      for(var i=0; i<layers.length; i++)
+      {
+        var legend = layers[i].legend;
+        if(legend != null)
+        {
+          var div = document.createElement('div');
+          div.id = Mojo.Util.generateId();
+          var css = 'display: none; background-color: #ffffff;';
+          css += 'font-size: '+legend.fontSize+'px; font-family: '+legend.fontFamily+';';
+          css += 'font-style: '+legend.fontStyle+'; color: '+legend.fontFill+';';
+          
+          div.style.cssText = css;
+          
+          var bg = legend.showLegendBorder ? '' : 'border: 2px solid white !important';
+          var table = '<table class="legend" style="'+bg+'">';
+          
+          table += '<tr><td colspan="2"><span style="font-size: '+legend.fontTitleSize+'px; font-family: '
+            +legend.fontTitleFamily+'; font-style: '+legend.fontTitleStyle+'; color: '+legend.fontTitleFill+';">'
+            +legend.title+'</span></td></tr>';
+          var categories = legend.categories;
+          for(var j=0; j<categories.length; j++)
+          {
+            var category = categories[j];
+          
+            var display;
+            if(category.exact != null)
+            {
+              display = category.exact;
+            }
+            else
+            {
+              display = category.lower + ' < ' + category.upper;
+            }
+            
+            table += '<tr><td>'+display+'</td>';
+            table += '<td><div class="colorPickerValue legendColor" style="background-color: '+category.color+'">&nbsp;</div></td></tr>';
+          }
+                    
+          
+          table += '</table>';
+
+          div.innerHTML = table;
+          var dd = this._annotation.addDragDrop(div);
+          this._annotation.position(div, 100, 100);
+          
+          this._legendDivs.push({div:div, dd:dd});
+        }
+      }
     },
     
     _destroyModal : function()
@@ -1028,7 +1133,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _createModalSec : function(html, title, useLarge, closeIt)
     {
       this._secondaryModal = this._createModalInternal(html, title, useLarge, closeIt);
-      this._secondaryModal.subscribe('hide', Mojo.Util.bind(this, this._destroyModalSec));
+      var that = this;
+      this._secondaryModal.subscribe('hide', function(){
+        setTimeout(function(){
+          that._destroyModalSec();
+        }, 15);
+      });
     },
     
     /**
@@ -1038,7 +1148,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _createModal : function(html, title, useLarge, closeIt)
     {
       this._currentModal = this._createModalInternal(html, title, useLarge, closeIt);
-      this._currentModal.subscribe('hide', Mojo.Util.bind(this, this._destroyModal));
+      var that = this;
+      this._currentModal.subscribe('hide', function(){
+        setTimeout(function(){
+          that._destroyModal();
+        }, 15);
+      });
     }
 
   },  
@@ -1527,6 +1642,8 @@ Mojo.Meta.newClass("MDSS.Annotation", {
       var dd = new YAHOO.util.DD(div, {
         dragOnly : true
       });
+      
+      return dd;
     },
   
     showArrow : function()

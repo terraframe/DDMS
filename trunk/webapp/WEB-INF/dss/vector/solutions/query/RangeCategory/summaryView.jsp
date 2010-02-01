@@ -7,5 +7,5 @@
   <input type="hidden" id="${category.id}_type" value="${category.type}" />
   <img id="${category.id}_edit" class="clickable" src="imgs/icons/wand.png" />
   <img id="${category.id}_delete" class="clickable" src="imgs/icons/delete.png" />
-  <fmt:message key="Range_Category" />: ${category.lowerBoundStr} - ${category.upperBoundStr}
+  <fmt:message key="Range_Category" />: ${category.lowerBoundStr} &lt; ${category.upperBoundStr}
 </div>

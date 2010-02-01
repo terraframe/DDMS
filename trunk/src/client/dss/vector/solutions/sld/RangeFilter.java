@@ -16,14 +16,25 @@ public class RangeFilter extends Filter implements Reloadable
   
   protected void write(SLDWriter writer)
   {
-    writer.writeln("<ogc:PropertyIsBetween>");
-    writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
-    writer.writeln("<ogc:LowerBoundary>");
-    writer.writeln("<ogc:Literal>"+category.getLowerBoundStr()+"</ogc:Literal>");
-    writer.writeln("</ogc:LowerBoundary>");
-    writer.writeln("<ogc:UpperBoundary>");
-    writer.writeln("<ogc:Literal>"+category.getUpperBoundStr()+"</ogc:Literal>");
-    writer.writeln("</ogc:UpperBoundary>");
-    writer.writeln("</ogc:PropertyIsBetween>");
+    String lower = category.getLowerBoundStr();
+    String upper = category.getUpperBoundStr();
+    
+    if(lower != null && lower.length() > 0)
+    {
+      writer.writeln("<ogc:PropertyIsGreaterThanOrEqualTo>");
+      writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
+      writer.writeln("<ogc:Literal>"+lower+"</ogc:Literal>");
+      writer.writeln("</ogc:PropertyIsGreaterThanOrEqualTo>");
+    }
+    
+    if(upper != null && upper.length() > 0)
+    {    
+      writer.writeln("<ogc:PropertyIsLessThan>");
+      writer.writeln("<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>");
+      writer.writeln("<ogc:Literal>"+upper+"</ogc:Literal>");
+      writer.writeln("</ogc:PropertyIsLessThan>");
+    }
+    
+    
   }
 }

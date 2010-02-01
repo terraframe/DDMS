@@ -81,6 +81,15 @@ public class LayerController extends LayerControllerBase implements
     {
       ClientRequestIF request = this.getClientRequest();
       
+      // Set the available legend color attributes
+      LegendColorOption[] legendColors = new LegendColorOption[5];
+      legendColors[0] = new LegendColorOption(styles.getFillMd());
+      legendColors[1] = new LegendColorOption(styles.getLabelHaloFillMd());
+      legendColors[2] = new LegendColorOption(styles.getPointStrokeMd());
+      legendColors[3] = new LegendColorOption(styles.getPolygonFillMd());
+      legendColors[4] = new LegendColorOption(styles.getPolygonStrokeMd());
+      req.setAttribute("legendColors", legendColors);
+      
       req.setAttribute("layer", layer);
       req.setAttribute("isNewInstance", layer.isNewInstance());
       StylesController.populateRequestForStyles(req, styles);
@@ -95,8 +104,12 @@ public class LayerController extends LayerControllerBase implements
       // fetch categories
       String mdAttributeId = "";
       String geoHierarchyId= "";
+      String currentLegendColor;
       if(layer.isNewInstance())
       {
+        // The polygon fill color is the default since it is the most widely used.
+        currentLegendColor = styles.getPolygonFillMd().getId();
+        
         req.setAttribute("categories", null); 
         
         // Check if there is at least one valid SavedSearch which has geometry in the query.
@@ -131,6 +144,8 @@ public class LayerController extends LayerControllerBase implements
       }
       else
       {
+        currentLegendColor = layer.getValue(Layer.LEGENDCOLOR);
+        
         req.setAttribute("hasThematic", layer.getThematicUserAlias() != null && layer.getThematicUserAlias().length() > 0);
         String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
         
@@ -155,6 +170,7 @@ public class LayerController extends LayerControllerBase implements
       
       this.req.setAttribute("mdAttributeId", mdAttributeId);
       this.req.setAttribute("geoHierarchyId", geoHierarchyId);
+      this.req.setAttribute("currentLegendColor", currentLegendColor);
     }
     catch(Throwable e)
     {

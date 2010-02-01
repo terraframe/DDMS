@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1829781944)
+@com.terraframe.mojo.business.ClassSignature(hash = -1490572037)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,8 +14,10 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String ADDTOBBOX = "addToBBox";
   public static java.lang.String CLIPTOBASELAYER = "clipToBaseLayer";
   public static java.lang.String CREATEDATE = "createDate";
+  public static java.lang.String CREATERAWLEGEND = "createRawLegend";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
+  public static java.lang.String ENABLELEGEND = "enableLegend";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOHIERARCHY = "geoHierarchy";
   public static java.lang.String ID = "id";
@@ -23,6 +25,16 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LAYERNAME = "layerName";
+  public static java.lang.String LEGENDCOLOR = "legendColor";
+  public static java.lang.String LEGENDFONTFAMILY = "legendFontFamily";
+  public static java.lang.String LEGENDFONTFILL = "legendFontFill";
+  public static java.lang.String LEGENDFONTSIZE = "legendFontSize";
+  public static java.lang.String LEGENDFONTSTYLES = "legendFontStyles";
+  public static java.lang.String LEGENDTITLE = "legendTitle";
+  public static java.lang.String LEGENDTITLEFONTFAMILY = "legendTitleFontFamily";
+  public static java.lang.String LEGENDTITLEFONTFILL = "legendTitleFontFill";
+  public static java.lang.String LEGENDTITLEFONTSIZE = "legendTitleFontSize";
+  public static java.lang.String LEGENDTITLEFONTSTYLES = "legendTitleFontStyles";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MDATTRIBUTE = "mdAttribute";
   public static java.lang.String OPACITY = "opacity";
@@ -30,6 +42,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
+  public static java.lang.String SHOWLEGENDBORDER = "showLegendBorder";
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
@@ -38,7 +51,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 1829781944;
+  private static final long serialVersionUID = -1490572037;
   
   public LayerBase()
   {
@@ -117,6 +130,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     return mdClassIF.definesAttribute(CREATEDATE);
   }
   
+  public Boolean getCreateRawLegend()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CREATERAWLEGEND));
+  }
+  
+  public void validateCreateRawLegend()
+  {
+    this.validateAttribute(CREATERAWLEGEND);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCreateRawLegendMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(CREATERAWLEGEND);
+  }
+  
+  public void setCreateRawLegend(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CREATERAWLEGEND, "");
+    }
+    else
+    {
+      setValue(CREATERAWLEGEND, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public com.terraframe.mojo.system.SingleActor getCreatedBy()
   {
     if (getValue(CREATEDBY).trim().equals(""))
@@ -172,6 +213,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(DEFAULTSTYLES, value.getId());
+    }
+  }
+  
+  public Boolean getEnableLegend()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLELEGEND));
+  }
+  
+  public void validateEnableLegend()
+  {
+    this.validateAttribute(ENABLELEGEND);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getEnableLegendMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(ENABLELEGEND);
+  }
+  
+  public void setEnableLegend(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLELEGEND, "");
+    }
+    else
+    {
+      setValue(ENABLELEGEND, java.lang.Boolean.toString(value));
     }
   }
   
@@ -354,6 +423,313 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     {
       setValue(LAYERNAME, value);
     }
+  }
+  
+  public com.terraframe.mojo.system.metadata.MdAttribute getLegendColor()
+  {
+    if (getValue(LEGENDCOLOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdAttribute.get(getValue(LEGENDCOLOR));
+    }
+  }
+  
+  public void validateLegendColor()
+  {
+    this.validateAttribute(LEGENDCOLOR);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendColorMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDCOLOR);
+  }
+  
+  public void setLegendColor(com.terraframe.mojo.system.metadata.MdAttribute value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDCOLOR, "");
+    }
+    else
+    {
+      setValue(LEGENDCOLOR, value.getId());
+    }
+  }
+  
+  public String getLegendFontFamily()
+  {
+    return getValue(LEGENDFONTFAMILY);
+  }
+  
+  public void validateLegendFontFamily()
+  {
+    this.validateAttribute(LEGENDFONTFAMILY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendFontFamilyMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDFONTFAMILY);
+  }
+  
+  public void setLegendFontFamily(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTFAMILY, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTFAMILY, value);
+    }
+  }
+  
+  public String getLegendFontFill()
+  {
+    return getValue(LEGENDFONTFILL);
+  }
+  
+  public void validateLegendFontFill()
+  {
+    this.validateAttribute(LEGENDFONTFILL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendFontFillMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDFONTFILL);
+  }
+  
+  public void setLegendFontFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTFILL, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTFILL, value);
+    }
+  }
+  
+  public Integer getLegendFontSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDFONTSIZE));
+  }
+  
+  public void validateLegendFontSize()
+  {
+    this.validateAttribute(LEGENDFONTSIZE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendFontSizeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDFONTSIZE);
+  }
+  
+  public void setLegendFontSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTSIZE, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStyles> getLegendFontStyles()
+  {
+    return (java.util.List<dss.vector.solutions.query.FontStyles>) getEnumValues(LEGENDFONTSTYLES);
+  }
+  
+  public void addLegendFontStyles(dss.vector.solutions.query.FontStyles value)
+  {
+    if(value != null)
+    {
+      addEnumItem(LEGENDFONTSTYLES, value.getId());
+    }
+  }
+  
+  public void removeLegendFontStyles(dss.vector.solutions.query.FontStyles value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(LEGENDFONTSTYLES, value.getId());
+    }
+  }
+  
+  public void clearLegendFontStyles()
+  {
+    clearEnum(LEGENDFONTSTYLES);
+  }
+  
+  public void validateLegendFontStyles()
+  {
+    this.validateAttribute(LEGENDFONTSTYLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendFontStylesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDFONTSTYLES);
+  }
+  
+  public String getLegendTitle()
+  {
+    return getValue(LEGENDTITLE);
+  }
+  
+  public void validateLegendTitle()
+  {
+    this.validateAttribute(LEGENDTITLE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendTitleMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDTITLE);
+  }
+  
+  public void setLegendTitle(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLE, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLE, value);
+    }
+  }
+  
+  public String getLegendTitleFontFamily()
+  {
+    return getValue(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public void validateLegendTitleFontFamily()
+  {
+    this.validateAttribute(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendTitleFontFamilyMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public void setLegendTitleFontFamily(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTFAMILY, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTFAMILY, value);
+    }
+  }
+  
+  public String getLegendTitleFontFill()
+  {
+    return getValue(LEGENDTITLEFONTFILL);
+  }
+  
+  public void validateLegendTitleFontFill()
+  {
+    this.validateAttribute(LEGENDTITLEFONTFILL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendTitleFontFillMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDTITLEFONTFILL);
+  }
+  
+  public void setLegendTitleFontFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTFILL, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTFILL, value);
+    }
+  }
+  
+  public Integer getLegendTitleFontSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDTITLEFONTSIZE));
+  }
+  
+  public void validateLegendTitleFontSize()
+  {
+    this.validateAttribute(LEGENDTITLEFONTSIZE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendTitleFontSizeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDTITLEFONTSIZE);
+  }
+  
+  public void setLegendTitleFontSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTSIZE, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStyles> getLegendTitleFontStyles()
+  {
+    return (java.util.List<dss.vector.solutions.query.FontStyles>) getEnumValues(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public void addLegendTitleFontStyles(dss.vector.solutions.query.FontStyles value)
+  {
+    if(value != null)
+    {
+      addEnumItem(LEGENDTITLEFONTSTYLES, value.getId());
+    }
+  }
+  
+  public void removeLegendTitleFontStyles(dss.vector.solutions.query.FontStyles value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(LEGENDTITLEFONTSTYLES, value.getId());
+    }
+  }
+  
+  public void clearLegendTitleFontStyles()
+  {
+    clearEnum(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public void validateLegendTitleFontStyles()
+  {
+    this.validateAttribute(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLegendTitleFontStylesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(LEGENDTITLEFONTSTYLES);
   }
   
   public com.terraframe.mojo.system.Users getLockedBy()
@@ -564,6 +940,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
     return mdClassIF.definesAttribute(SEQ);
+  }
+  
+  public Boolean getShowLegendBorder()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWLEGENDBORDER));
+  }
+  
+  public void validateShowLegendBorder()
+  {
+    this.validateAttribute(SHOWLEGENDBORDER);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getShowLegendBorderMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(SHOWLEGENDBORDER);
+  }
+  
+  public void setShowLegendBorder(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SHOWLEGENDBORDER, "");
+    }
+    else
+    {
+      setValue(SHOWLEGENDBORDER, java.lang.Boolean.toString(value));
+    }
   }
   
   public Boolean getShowThematicValue()

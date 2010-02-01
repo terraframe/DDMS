@@ -2,8 +2,6 @@ package dss.vector.solutions.query;
 
 import java.util.List;
 
-import org.apache.commons.lang.math.NumberRange;
-
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
@@ -41,13 +39,19 @@ public abstract class AbstractCategory extends AbstractCategoryBase
       this.setStyles(styles);
     }
     
-    this.preValidate();
-    
     Layer layer = Layer.get(layerId);
     this.applyWithLayer(layer, isNew);
   }
   
   public void applyWithLayer(Layer layer, boolean isNew)
+  {
+    //this.preValidate();
+    
+    this.applyWithLayerPostValidation(layer, isNew);
+  }
+
+  @AbortIfProblem
+  private void applyWithLayerPostValidation(Layer layer, boolean isNew)
   {
     //this.checkBoundsForAll(layer.getAllHasCategory().getAll());
     
@@ -62,9 +66,8 @@ public abstract class AbstractCategory extends AbstractCategoryBase
   /**
    * Ensures any validation is performed ahead of time such that
    * the category can be compared to other categories. This should be
-   * called prior to checkBounds().
+   * called prior to checkBoundsForAll().
    */
-  @AbortIfProblem
   protected abstract void preValidate();
   
   /**
@@ -75,7 +78,6 @@ public abstract class AbstractCategory extends AbstractCategoryBase
    */
   protected abstract void checkBounds(AbstractCategory category);
   
-  @AbortIfProblem
   private void checkBoundsForAll(List<? extends AbstractCategory> list)
   {
     for(AbstractCategory category : list)
@@ -135,24 +137,4 @@ public abstract class AbstractCategory extends AbstractCategoryBase
     throw ex;
   }
   
-  /**
-   * Throws an exception for the overlapping ranges.
-   * 
-   * @param range1
-   * @param range2
-   */
-  protected void throwsOverlapException(NumberRange range1, NumberRange range2)
-  {
-    OverlapBoundsException ex = new OverlapBoundsException();
-    Number min1 = range1.getMinimumNumber();
-    Number max1 = range1.getMaximumNumber();
-    ex.setRangeOne(min1.equals(max1) ? min1.toString() : min1.toString()+", "+max1.toString());
-
-    Number min2 = range2.getMinimumNumber();
-    Number max2 = range2.getMaximumNumber();
-    ex.setRangeTwo(min2.equals(max2) ? min2.toString() : min2.toString()+", "+max2.toString());
-    
-    throw ex; 
-  }
-
 }

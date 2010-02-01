@@ -20,6 +20,7 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
+import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -99,7 +100,6 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
         layerJSON.put("view", namespacedView);
         layerJSON.put("sld", sldFile);
         layerJSON.put("opacity", layer.getOpacity());
-        layersJSON.put(layerJSON);
 
         // Always add the base layer to the bounding box
         if (count == 0 || layer.getAddToBBox())
@@ -107,6 +107,55 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
           bboxLayers.add(layer);
         }
         
+        // Add the legend if enabled
+        if(layer.getEnableLegend())
+        {
+          JSONObject legend = new JSONObject();
+          legend.put("title", layer.getLegendTitle());
+          legend.put("showLegendBorder", layer.getShowLegendBorder());
+          legend.put("fontTitleFamily", layer.getLegendTitleFontFamily());
+          legend.put("fontTitleFill", layer.getLegendTitleFontFill());
+          legend.put("fontTitleSize", layer.getLegendTitleFontSize());
+          legend.put("fontTitleStyle", layer.getLegendTitleFontStyles().get(0).name().toLowerCase());
+          legend.put("fontFamily", layer.getLegendFontFamily());
+          legend.put("fontFill", layer.getLegendFontFill());
+          legend.put("fontSize", layer.getLegendFontSize());
+          legend.put("fontStyle", layer.getLegendFontStyles().get(0).name().toLowerCase());
+          
+          JSONArray categories = new JSONArray();
+          legend.put("categories", categories);
+          
+          MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
+          String colorAttribute = md.definesAttribute();
+          
+          for(AbstractCategory cat : layer.getAllHasCategory())
+          {
+            JSONObject category = new JSONObject();
+            
+            if(cat instanceof RangeCategory)
+            {
+              category.put("lower", ( (RangeCategory) cat ).getLowerBoundStr());
+              category.put("upper", ( (RangeCategory) cat ).getUpperBoundStr());
+            }
+            else
+            {
+              category.put("exact", ( (NonRangeCategory) cat ).getExactValueStr());
+            }
+            
+            category.put("color", cat.getStyles().getValue(colorAttribute));
+            
+            categories.put(category);
+          }
+          
+          layerJSON.put("legend", legend);
+        }
+        else
+        {
+          layerJSON.put("legend", JSONObject.NULL);
+        }
+        
+        layersJSON.put(layerJSON);
+
         count++;
       }
       catch (JSONException e)

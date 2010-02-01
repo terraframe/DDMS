@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2134746273)
+@com.terraframe.mojo.business.ClassSignature(hash = 658218134)
 public class MappingControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -10,7 +10,7 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -2134746273;
+  private static final long serialVersionUID = 658218134;
   
   public MappingControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -79,6 +79,20 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddCategoryToLayer");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  public void addText() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.addText");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  public void failAddText() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddText");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, java.lang.Boolean:doUnlock", post=true)
@@ -247,6 +261,20 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failRefreshMap");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  public void setText() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.setText");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  public void failSetText() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failSetText");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)

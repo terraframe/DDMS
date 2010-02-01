@@ -2,7 +2,6 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -25,17 +24,35 @@ public class MappingController extends MappingControllerBase implements
   private static final long   serialVersionUID     = 1241150593672L;
 
   private static final String JSP_DIR              = "/WEB-INF/mapScreens/";
-
-  public static final String  EDIT_LAYER           = JSP_DIR + "editLayer.jsp";
-
-  public static final String  EDIT_VARIABLE_STYLES = JSP_DIR + "editVariableStyles.jsp";
   
+  private static final String ADD_TEXT_JSP         = JSP_DIR+"addText.jsp";
+
   public static final String GENERATE_MAPS = JSP_DIR+"generateMaps.jsp";
 
   public MappingController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
+  }
+  
+  @Override
+  public void addText() throws IOException, ServletException
+  {
+    try
+    {
+      FreeTextDTO text = new FreeTextDTO(this.getClientRequest());
+      req.setAttribute("freeText", text);
+      
+      StylesController.setFontStylesAndFamiles(req, this.getClientRequest());
+      
+      req.getRequestDispatcher(ADD_TEXT_JSP).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   
   @Override
@@ -123,7 +140,6 @@ public class MappingController extends MappingControllerBase implements
   /**
    * Gets the legend of a saved search as a JSON object.
    * 
-   */
   @Override
   public void getLegend(String savedMapId) throws IOException, ServletException
   {
@@ -183,6 +199,7 @@ public class MappingController extends MappingControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
+   */
 
   public void viewLayer(java.lang.String layerId) throws java.io.IOException,
       javax.servlet.ServletException

@@ -10,7 +10,8 @@
 
 <%@page import="java.util.List"%>
 <%@page import="com.terraframe.mojo.business.ValueObjectDTO"%>
-<%@page import="dss.vector.solutions.query.QueryConstants"%><mjl:component item="${layer}" param="layer">
+<%@page import="dss.vector.solutions.query.QueryConstants"%>
+<mjl:component item="${layer}" param="layer">
   <input type="hidden" id="layerId" value="${layer.id}" />
   <mjl:dt attribute="layerName">
     <mjl:input type="text" param="layerName" />
@@ -93,9 +94,103 @@
       <mjl:input type="hidden" param="opacity" id="${layer.id}_opacity" />
     </div>
   </mjl:dt>
+  <mjl:dt attribute="enableLegend">
+    <mjl:boolean param="enableLegend"/>
+  </mjl:dt>
+  <mjl:dt attribute="legendTitle">
+    <mjl:input type="text" param="legendTitle"/>
+  </mjl:dt>
+  
+  <mjl:dt attribute="legendTitleFontFill">
+    <mjl:input type="hidden" param="legendTitleFontFill" value="${layer.legendTitleFontFill}" id="${layer.id}_legendTitleFontFill" />
+    <div class="colorPickerValue" id="${layer.id}_legendTitleFontFill_opener" style="background-color: ${layer.legendTitleFontFill}">&nbsp;</div>
+  </mjl:dt>
+  <mjl:dt attribute="legendTitleFontFamily">
+    <select name="layer.legendTitleFontFamily">
+      <c:forEach items="${fontFamilies}" var="font">
+        <option value="${font}" <c:if test="${layer.legendTitleFontFamily == font}">selected="selected"</c:if>>${font}</option>
+      </c:forEach>
+    </select>
+  </mjl:dt>
+  <mjl:dt attribute="legendTitleFontSize">
+
+    <div id="${layer.id}_legendTitleFontSizeSliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${layer.id}_legendTitleFontSizeThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${layer.id}_legendTitleFontSizeDisplay"></span>
+      <mjl:input type="hidden" param="legendTitleFontSize" id="${layer.id}_legendTitleFontSize" />
+    </div>
+  
+  </mjl:dt>
+  <mjl:dt attribute="legendTitleFontStyles">
+  
+    <mjl:select var="current" valueAttribute="enumName" items="${allFontStyles}" param="legendTitleFontStyles">
+      <mjl:option selected="${mjl:contains(layer.legendTitleFontStylesEnumNames, current.enumName) ? 'selected' : 'false'}">
+        ${current.displayLabel}
+      </mjl:option>
+    </mjl:select>  
+  
+  </mjl:dt>  
+  
+  <mjl:dt attribute="legendFontFill">
+    <mjl:input type="hidden" param="legendFontFill" value="${layer.legendFontFill}" id="${layer.id}_legendFontFill" />
+    <div class="colorPickerValue" id="${layer.id}_legendFontFill_opener" style="background-color: ${layer.legendFontFill}">&nbsp;</div>
+  </mjl:dt>
+  <mjl:dt attribute="legendFontFamily">
+    <select name="layer.legendFontFamily">
+      <c:forEach items="${fontFamilies}" var="font">
+        <option value="${font}" <c:if test="${layer.legendFontFamily == font}">selected="selected"</c:if>>${font}</option>
+      </c:forEach>
+    </select>
+  </mjl:dt>
+  <mjl:dt attribute="legendFontSize">
+
+    <div id="${layer.id}_legendFontSizeSliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${layer.id}_legendFontSizeThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${layer.id}_legendFontSizeDisplay"></span>
+      <mjl:input type="hidden" param="legendFontSize" id="${layer.id}_legendFontSize" />
+    </div>
+  
+  </mjl:dt>
+  <mjl:dt attribute="legendFontStyles">
+  
+    <mjl:select var="current" valueAttribute="enumName" items="${allFontStyles}" param="legendFontStyles">
+      <mjl:option selected="${mjl:contains(layer.legendFontStylesEnumNames, current.enumName) ? 'selected' : 'false'}">
+        ${current.displayLabel}
+      </mjl:option>
+    </mjl:select>  
+  
+  </mjl:dt>
+  <mjl:dt attribute="showLegendBorder">
+    <mjl:boolean param="showLegendBorder"/>
+  </mjl:dt>
+  <mjl:dt attribute="createRawLegend">
+    <mjl:boolean param="createRawLegend"/>
+  </mjl:dt>
+  <mjl:dt attribute="legendColor">
+    <select name="layer.legendColor">
+      <c:forEach items="${legendColors}" var="color">
+        <option <c:if test="${currentLegendColor == color.mdAttributeId}">selected="selected"</c:if> value="${color.mdAttributeId}">${color.display}</option>
+      </c:forEach>
+    </select>
+  </mjl:dt>
+
 
 <script type="text/javascript">
-MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
+(function(){
+  MDSS.MapPanel.attachOpacitySlider('${layer.id}_opacity');
+
+  var picker = MDSS.ColorPicker.getInstance();
+  picker.attach('${layer.id}_legendFontFill_opener', '${layer.id}_legendFontFill');
+  picker.attach('${layer.id}_legendTitleFontFill_opener', '${layer.id}_legendTitleFontFill');
+
+  MDSS.MapPanel.attach50Slider('${layer.id}_legendFontSize');
+  MDSS.MapPanel.attach50Slider('${layer.id}_legendTitleFontSize');
+  
+})();
 </script>
 </mjl:component>
 

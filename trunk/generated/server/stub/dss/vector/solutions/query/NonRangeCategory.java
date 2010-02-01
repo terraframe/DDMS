@@ -1,6 +1,5 @@
 package dss.vector.solutions.query;
 
-import org.apache.commons.lang.math.NumberRange;
 
 
 public class NonRangeCategory extends NonRangeCategoryBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -42,12 +41,9 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
   
   private void checkAgainstRangeNumbers(Double exactValue, Double lowerBound, Double upperBound)
   {
-    NumberRange range1 = new NumberRange(exactValue); 
-    NumberRange range2 = new NumberRange(lowerBound, upperBound);
-    
-    if(range1.overlapsRange(range2))
+    if(exactValue >= lowerBound && exactValue < upperBound)
     {
-      this.throwsOverlapException(range1, range2);
+      this.throwsOverlapException(exactValue.toString(), lowerBound.toString(), upperBound.toString());
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1324724641)
+@com.terraframe.mojo.business.ClassSignature(hash = 1964286564)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class LayerQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1324724641;
+private static final long serialVersionUID = 1964286564;
 
   public LayerQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -90,6 +90,23 @@ private static final long serialVersionUID = 1324724641;
     return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.query.Layer.CREATEDATE, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend()
+  {
+    return getCreateRawLegend(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
   {
     return getCreatedBy(null);
@@ -134,6 +151,23 @@ private static final long serialVersionUID = 1324724641;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultStyles");
 
     return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.DEFAULTSTYLES, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend()
+  {
+    return getEnableLegend(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -271,6 +305,194 @@ private static final long serialVersionUID = 1324724641;
   public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LAYERNAME, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor()
+  {
+    return getLegendColor(null);
+
+  }
+ 
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendColor");
+
+    return (com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.LEGENDCOLOR, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendColor");
+
+    return (com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Layer.LEGENDCOLOR, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily()
+  {
+    return getLegendFontFamily(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill()
+  {
+    return getLegendFontFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize()
+  {
+    return getLegendFontSize(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles()
+  {
+    return getLegendFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendFontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("legendFontStyles", mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendFontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("legendFontStyles", mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle()
+  {
+    return getLegendTitle(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily()
+  {
+    return getLegendTitleFontFamily(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill()
+  {
+    return getLegendTitleFontFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize()
+  {
+    return getLegendTitleFontSize(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles()
+  {
+    return getLegendTitleFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendTitleFontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("legendTitleFontStyles", mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("legendTitleFontStyles");
+
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("legendTitleFontStyles", mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -420,6 +642,23 @@ private static final long serialVersionUID = 1324724641;
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SEQ, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder()
+  {
+    return getShowLegendBorder(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getShowThematicValue()
@@ -588,6 +827,10 @@ private static final long serialVersionUID = 1324724641;
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("legendColor")) 
+    {
+       return new com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals("lockedBy")) 
     {
        return new com.terraframe.mojo.system.UsersQuery.UsersQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -619,7 +862,15 @@ private static final long serialVersionUID = 1324724641;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("renderAs")) 
+    if (name.equals("legendFontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("legendTitleFontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("renderAs")) 
     {
        return new dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -903,12 +1154,18 @@ private static final long serialVersionUID = 1324724641;
     public com.terraframe.mojo.query.AttributeMoment getCreateDate();
     public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
     public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend();
+    public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
     public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles();
     public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias);
     public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getEnableLegend();
+    public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -930,6 +1187,36 @@ private static final long serialVersionUID = 1324724641;
     public com.terraframe.mojo.query.AttributeChar getLayerName();
     public com.terraframe.mojo.query.AttributeChar getLayerName(String alias);
     public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel);
+    public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor();
+    public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias);
+    public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFamily();
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFill();
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeInteger getLegendFontSize();
+    public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias, String displayLabel);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles();
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitle();
+    public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily();
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill();
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias);
+    public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize();
+    public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias);
+    public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias, String displayLabel);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles();
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias);
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
@@ -951,6 +1238,9 @@ private static final long serialVersionUID = 1324724641;
     public com.terraframe.mojo.query.AttributeLong getSeq();
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
     public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder();
+    public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias);
+    public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeBoolean getShowThematicValue();
     public com.terraframe.mojo.query.AttributeBoolean getShowThematicValue(String alias);
     public com.terraframe.mojo.query.AttributeBoolean getShowThematicValue(String alias, String displayLabel);
@@ -1042,7 +1332,7 @@ private static final long serialVersionUID = 1324724641;
  implements LayerQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -393783357;
+private static final long serialVersionUID = 1606372230;
 
   public LayerQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1112,6 +1402,23 @@ private static final long serialVersionUID = -393783357;
     return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.query.Layer.CREATEDATE, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend()
+  {
+    return getCreateRawLegend(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getCreateRawLegend(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.CREATERAWLEGEND, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
   {
     return getCreatedBy(null);
@@ -1144,6 +1451,23 @@ private static final long serialVersionUID = -393783357;
   public dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF getDefaultStyles(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.StylesQuery.StylesQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.DEFAULTSTYLES,  alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend()
+  {
+    return getEnableLegend(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getEnableLegend(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.ENABLELEGEND, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1265,6 +1589,176 @@ private static final long serialVersionUID = -393783357;
     return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LAYERNAME, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor()
+  {
+    return getLegendColor(null);
+
+  }
+ 
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias)
+  {
+    return (com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LEGENDCOLOR, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF getLegendColor(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReferenceIF)this.get(dss.vector.solutions.query.Layer.LEGENDCOLOR,  alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily()
+  {
+    return getLegendFontFamily(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFamily(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill()
+  {
+    return getLegendFontFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendFontFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDFONTFILL, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize()
+  {
+    return getLegendFontSize(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendFontSize(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles()
+  {
+    return getLegendFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendFontStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDFONTSTYLES, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle()
+  {
+    return getLegendTitle(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitle(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily()
+  {
+    return getLegendTitleFontFamily(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFamily(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFAMILY, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill()
+  {
+    return getLegendTitleFontFill(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getLegendTitleFontFill(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTFILL, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize()
+  {
+    return getLegendTitleFontSize(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeInteger getLegendTitleFontSize(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSIZE, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles()
+  {
+    return getLegendTitleFontStyles(null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getLegendTitleFontStyles(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Layer.LEGENDTITLEFONTSTYLES, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
@@ -1382,6 +1876,23 @@ private static final long serialVersionUID = -393783357;
   public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.query.Layer.SEQ, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder()
+  {
+    return getShowLegendBorder(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBoolean getShowLegendBorder(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.query.Layer.SHOWLEGENDBORDER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeBoolean getShowThematicValue()
@@ -1776,6 +2287,10 @@ private static final long serialVersionUID = -393783357;
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals("legendColor")) 
+    {
+       return new com.terraframe.mojo.system.metadata.MdAttributeQuery.MdAttributeQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals("lockedBy")) 
     {
        return new com.terraframe.mojo.system.UsersQuery.UsersQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -1807,7 +2322,15 @@ private static final long serialVersionUID = -393783357;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("renderAs")) 
+    if (name.equals("legendFontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("legendTitleFontStyles")) 
+    {
+       return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals("renderAs")) 
     {
        return new dss.vector.solutions.query.RenderTypesQuery.AllRenderTypesQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

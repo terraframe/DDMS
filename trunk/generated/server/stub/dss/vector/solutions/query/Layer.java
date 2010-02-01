@@ -121,8 +121,15 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
       throw new ProgrammingErrorException(e);
     }
     
+    // Delete all prior categories because they may no longer apply.
+    for(AbstractCategory category : this.getAllHasCategory().getAll())
+    {
+      category.delete();
+    }
+    
     List<AbstractCategory> categories = factory.create(this, categoryGen);
     
+    // Save the new generated categories
     String layerId = categoryGen.getLayerId();
     Layer layer = Layer.get(layerId);
     for(AbstractCategory cat : categories)
@@ -187,6 +194,14 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     {
       String name = GEO_VIEW_PREFIX + System.currentTimeMillis();
       this.setViewName(name);
+    }
+    
+    // If the legend title is empty, just set it to the layer name.
+    String legendTitle = this.getLegendTitle();
+    String layerName = this.getLayerName();
+    if((legendTitle == null || legendTitle.length() == 0) && (layerName != null && layerName.length() > 0))
+    {
+      this.setLegendTitle(layerName);
     }
     
     super.apply();

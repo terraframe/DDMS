@@ -1,5 +1,6 @@
 package dss.vector.solutions.query;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,28 +56,6 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
 		return obj.toString();
 	}
 
-	protected abstract String[] getRequiredAttributes();
-
-	/**
-	 * Creates a List of AbstracteCategory objects after validating that all
-	 * required attributes exist.
-	 * 
-	 * @param layer
-	 * @param categoryGen
-	 * @return
-	 */
-	public List<AbstractCategory> create(Layer layer, CategoryGen categoryGen) {
-		for (String required : this.getRequiredAttributes()) {
-			categoryGen.validateAttribute(required);
-		}
-
-		// This will never be called if problems have occurred.
-		return createInternal(layer, categoryGen);
-	}
-
-	@AbortIfProblem
-	protected abstract List<AbstractCategory> createInternal(Layer layer, CategoryGen categoryGen);
-
 	/**
 	 * Returns a ValueQuery whose ValueObjects represent the id and display
 	 * label for the subclasses of {@link AbstractCategoryFactory}.
@@ -99,7 +78,55 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
 
 		return vq;
 	}
-
+  
+  protected abstract String[] getRequiredAttributes();
+  
+  /**
+   * Creates a List of AbstracteCategory objects after validating that all
+   * required attributes exist.
+   * 
+   * @param layer
+   * @param categoryGen
+   * @return
+   */
+  public List<AbstractCategory> create(Layer layer, CategoryGen categoryGen)
+  {
+    for(String required : this.getRequiredAttributes())
+    {
+      categoryGen.validateAttribute(required);
+    }
+    
+    Integer count = categoryGen.getCategoryCount();
+    if(count != null && count <= 1)
+    {
+      String error = "The number of categories must be greater than one.";
+      new CountOfOneProblem(error).throwIt();
+    }
+    
+    return createInternal(layer, categoryGen);
+  }
+  
+  @AbortIfProblem
+  protected abstract List<AbstractCategory> createInternal(Layer layer, CategoryGen categoryGen);
+  
+  protected Color interpolateColor(int n, int total, Color startingColor, Color endingColor) {
+	  return new Color(this.interpolate(n, total, startingColor.getRed(), endingColor.getRed()),
+			           this.interpolate(n, total, startingColor.getGreen(), endingColor.getGreen()),
+			           this.interpolate(n, total, startingColor.getBlue(), endingColor.getBlue()));
+  }
+  
+  private int interpolate(int n, int total, int start, int end) {
+	  return start + Math.round( ((float) (end - start)) * ((float) n / (float) total) );
+  }
+  
+  protected Color decodeColor(String s) {
+	  return Color.decode(s);
+  }
+  
+  protected String encodeColor(Color c) {
+	  return String.format( "#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue() );
+  }
+  
 	protected double getUlp(int precision) {
 		return Math.pow(10.0d, precision);
 	}

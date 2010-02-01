@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1524478008)
+@com.terraframe.mojo.business.ClassSignature(hash = 1820253051)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1524478008;
+  private static final long serialVersionUID = 1820253051;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -30,8 +30,10 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String ADDTOBBOX = "addToBBox";
   public static java.lang.String CLIPTOBASELAYER = "clipToBaseLayer";
   public static java.lang.String CREATEDATE = "createDate";
+  public static java.lang.String CREATERAWLEGEND = "createRawLegend";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTSTYLES = "defaultStyles";
+  public static java.lang.String ENABLELEGEND = "enableLegend";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOHIERARCHY = "geoHierarchy";
   public static java.lang.String ID = "id";
@@ -39,6 +41,16 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LAYERNAME = "layerName";
+  public static java.lang.String LEGENDCOLOR = "legendColor";
+  public static java.lang.String LEGENDFONTFAMILY = "legendFontFamily";
+  public static java.lang.String LEGENDFONTFILL = "legendFontFill";
+  public static java.lang.String LEGENDFONTSIZE = "legendFontSize";
+  public static java.lang.String LEGENDFONTSTYLES = "legendFontStyles";
+  public static java.lang.String LEGENDTITLE = "legendTitle";
+  public static java.lang.String LEGENDTITLEFONTFAMILY = "legendTitleFontFamily";
+  public static java.lang.String LEGENDTITLEFONTFILL = "legendTitleFontFill";
+  public static java.lang.String LEGENDTITLEFONTSIZE = "legendTitleFontSize";
+  public static java.lang.String LEGENDTITLEFONTSTYLES = "legendTitleFontStyles";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MDATTRIBUTE = "mdAttribute";
   public static java.lang.String OPACITY = "opacity";
@@ -46,6 +58,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String RENDERAS = "renderAs";
   public static java.lang.String SAVEDSEARCH = "savedSearch";
   public static java.lang.String SEQ = "seq";
+  public static java.lang.String SHOWLEGENDBORDER = "showLegendBorder";
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
@@ -153,6 +166,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
+  public Boolean getCreateRawLegend()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CREATERAWLEGEND));
+  }
+  
+  public void setCreateRawLegend(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CREATERAWLEGEND, "");
+    }
+    else
+    {
+      setValue(CREATERAWLEGEND, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isCreateRawLegendWritable()
+  {
+    return isWritable(CREATERAWLEGEND);
+  }
+  
+  public boolean isCreateRawLegendReadable()
+  {
+    return isReadable(CREATERAWLEGEND);
+  }
+  
+  public boolean isCreateRawLegendModified()
+  {
+    return isModified(CREATERAWLEGEND);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCreateRawLegendMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CREATERAWLEGEND).getAttributeMdDTO();
+  }
+  
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
@@ -227,6 +277,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultStylesMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSTYLES).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnableLegend()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLELEGEND));
+  }
+  
+  public void setEnableLegend(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLELEGEND, "");
+    }
+    else
+    {
+      setValue(ENABLELEGEND, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnableLegendWritable()
+  {
+    return isWritable(ENABLELEGEND);
+  }
+  
+  public boolean isEnableLegendReadable()
+  {
+    return isReadable(ENABLELEGEND);
+  }
+  
+  public boolean isEnableLegendModified()
+  {
+    return isModified(ENABLELEGEND);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnableLegendMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLELEGEND).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -446,6 +533,401 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+  }
+  
+  public com.terraframe.mojo.system.metadata.MdAttributeDTO getLegendColor()
+  {
+    if(getValue(LEGENDCOLOR) == null || getValue(LEGENDCOLOR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdAttributeDTO.get(getRequest(), getValue(LEGENDCOLOR));
+    }
+  }
+  
+  public void setLegendColor(com.terraframe.mojo.system.metadata.MdAttributeDTO value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDCOLOR, "");
+    }
+    else
+    {
+      setValue(LEGENDCOLOR, value.getId());
+    }
+  }
+  
+  public boolean isLegendColorWritable()
+  {
+    return isWritable(LEGENDCOLOR);
+  }
+  
+  public boolean isLegendColorReadable()
+  {
+    return isReadable(LEGENDCOLOR);
+  }
+  
+  public boolean isLegendColorModified()
+  {
+    return isModified(LEGENDCOLOR);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLegendColorMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LEGENDCOLOR).getAttributeMdDTO();
+  }
+  
+  public String getLegendFontFamily()
+  {
+    return getValue(LEGENDFONTFAMILY);
+  }
+  
+  public void setLegendFontFamily(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTFAMILY, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTFAMILY, value);
+    }
+  }
+  
+  public boolean isLegendFontFamilyWritable()
+  {
+    return isWritable(LEGENDFONTFAMILY);
+  }
+  
+  public boolean isLegendFontFamilyReadable()
+  {
+    return isReadable(LEGENDFONTFAMILY);
+  }
+  
+  public boolean isLegendFontFamilyModified()
+  {
+    return isModified(LEGENDFONTFAMILY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendFontFamilyMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFAMILY).getAttributeMdDTO();
+  }
+  
+  public String getLegendFontFill()
+  {
+    return getValue(LEGENDFONTFILL);
+  }
+  
+  public void setLegendFontFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTFILL, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTFILL, value);
+    }
+  }
+  
+  public boolean isLegendFontFillWritable()
+  {
+    return isWritable(LEGENDFONTFILL);
+  }
+  
+  public boolean isLegendFontFillReadable()
+  {
+    return isReadable(LEGENDFONTFILL);
+  }
+  
+  public boolean isLegendFontFillModified()
+  {
+    return isModified(LEGENDFONTFILL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendFontFillMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFILL).getAttributeMdDTO();
+  }
+  
+  public Integer getLegendFontSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDFONTSIZE));
+  }
+  
+  public void setLegendFontSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDFONTSIZE, "");
+    }
+    else
+    {
+      setValue(LEGENDFONTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLegendFontSizeWritable()
+  {
+    return isWritable(LEGENDFONTSIZE);
+  }
+  
+  public boolean isLegendFontSizeReadable()
+  {
+    return isReadable(LEGENDFONTSIZE);
+  }
+  
+  public boolean isLegendFontSizeModified()
+  {
+    return isModified(LEGENDFONTSIZE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLegendFontSizeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDFONTSIZE).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStylesDTO> getLegendFontStyles()
+  {
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDFONTSTYLES));
+  }
+  
+  public java.util.List<String> getLegendFontStylesEnumNames()
+  {
+    return getEnumNames(LEGENDFONTSTYLES);
+  }
+  
+  public void addLegendFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
+  {
+    addEnumItem(LEGENDFONTSTYLES, enumDTO.toString());
+  }
+  
+  public void removeLegendFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
+  {
+    removeEnumItem(LEGENDFONTSTYLES, enumDTO.toString());
+  }
+  
+  public void clearLegendFontStyles()
+  {
+    clearEnum(LEGENDFONTSTYLES);
+  }
+  
+  public boolean isLegendFontStylesWritable()
+  {
+    return isWritable(LEGENDFONTSTYLES);
+  }
+  
+  public boolean isLegendFontStylesReadable()
+  {
+    return isReadable(LEGENDFONTSTYLES);
+  }
+  
+  public boolean isLegendFontStylesModified()
+  {
+    return isModified(LEGENDFONTSTYLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getLegendFontStylesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDFONTSTYLES).getAttributeMdDTO();
+  }
+  
+  public String getLegendTitle()
+  {
+    return getValue(LEGENDTITLE);
+  }
+  
+  public void setLegendTitle(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLE, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLE, value);
+    }
+  }
+  
+  public boolean isLegendTitleWritable()
+  {
+    return isWritable(LEGENDTITLE);
+  }
+  
+  public boolean isLegendTitleReadable()
+  {
+    return isReadable(LEGENDTITLE);
+  }
+  
+  public boolean isLegendTitleModified()
+  {
+    return isModified(LEGENDTITLE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLE).getAttributeMdDTO();
+  }
+  
+  public String getLegendTitleFontFamily()
+  {
+    return getValue(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public void setLegendTitleFontFamily(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTFAMILY, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTFAMILY, value);
+    }
+  }
+  
+  public boolean isLegendTitleFontFamilyWritable()
+  {
+    return isWritable(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public boolean isLegendTitleFontFamilyReadable()
+  {
+    return isReadable(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public boolean isLegendTitleFontFamilyModified()
+  {
+    return isModified(LEGENDTITLEFONTFAMILY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFamilyMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFAMILY).getAttributeMdDTO();
+  }
+  
+  public String getLegendTitleFontFill()
+  {
+    return getValue(LEGENDTITLEFONTFILL);
+  }
+  
+  public void setLegendTitleFontFill(String value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTFILL, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTFILL, value);
+    }
+  }
+  
+  public boolean isLegendTitleFontFillWritable()
+  {
+    return isWritable(LEGENDTITLEFONTFILL);
+  }
+  
+  public boolean isLegendTitleFontFillReadable()
+  {
+    return isReadable(LEGENDTITLEFONTFILL);
+  }
+  
+  public boolean isLegendTitleFontFillModified()
+  {
+    return isModified(LEGENDTITLEFONTFILL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFillMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFILL).getAttributeMdDTO();
+  }
+  
+  public Integer getLegendTitleFontSize()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDTITLEFONTSIZE));
+  }
+  
+  public void setLegendTitleFontSize(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LEGENDTITLEFONTSIZE, "");
+    }
+    else
+    {
+      setValue(LEGENDTITLEFONTSIZE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isLegendTitleFontSizeWritable()
+  {
+    return isWritable(LEGENDTITLEFONTSIZE);
+  }
+  
+  public boolean isLegendTitleFontSizeReadable()
+  {
+    return isReadable(LEGENDTITLEFONTSIZE);
+  }
+  
+  public boolean isLegendTitleFontSizeModified()
+  {
+    return isModified(LEGENDTITLEFONTSIZE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLegendTitleFontSizeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDTITLEFONTSIZE).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.query.FontStylesDTO> getLegendTitleFontStyles()
+  {
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDTITLEFONTSTYLES));
+  }
+  
+  public java.util.List<String> getLegendTitleFontStylesEnumNames()
+  {
+    return getEnumNames(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public void addLegendTitleFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
+  {
+    addEnumItem(LEGENDTITLEFONTSTYLES, enumDTO.toString());
+  }
+  
+  public void removeLegendTitleFontStyles(dss.vector.solutions.query.FontStylesDTO enumDTO)
+  {
+    removeEnumItem(LEGENDTITLEFONTSTYLES, enumDTO.toString());
+  }
+  
+  public void clearLegendTitleFontStyles()
+  {
+    clearEnum(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public boolean isLegendTitleFontStylesWritable()
+  {
+    return isWritable(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public boolean isLegendTitleFontStylesReadable()
+  {
+    return isReadable(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public boolean isLegendTitleFontStylesModified()
+  {
+    return isModified(LEGENDTITLEFONTSTYLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getLegendTitleFontStylesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDTITLEFONTSTYLES).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
@@ -718,6 +1200,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+  }
+  
+  public Boolean getShowLegendBorder()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWLEGENDBORDER));
+  }
+  
+  public void setShowLegendBorder(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SHOWLEGENDBORDER, "");
+    }
+    else
+    {
+      setValue(SHOWLEGENDBORDER, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isShowLegendBorderWritable()
+  {
+    return isWritable(SHOWLEGENDBORDER);
+  }
+  
+  public boolean isShowLegendBorderReadable()
+  {
+    return isReadable(SHOWLEGENDBORDER);
+  }
+  
+  public boolean isShowLegendBorderModified()
+  {
+    return isModified(SHOWLEGENDBORDER);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getShowLegendBorderMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWLEGENDBORDER).getAttributeMdDTO();
   }
   
   public Boolean getShowThematicValue()

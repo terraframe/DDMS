@@ -35,17 +35,11 @@ public class StylesController extends StylesControllerBase implements com.terraf
     
   }  
   
-  protected static void populateRequestForStyles(HttpServletRequest req, StylesDTO styles)
+  protected static void setFontStylesAndFamiles(HttpServletRequest req, ClientRequestIF request)
   {
-    ClientRequestIF request = styles.getRequest();
-    
-    req.setAttribute("styles", styles);
-    
     List<FontStyleDTO> fontStyles =  FontStylesDTO.allItems(request);
     Collections.sort(fontStyles, new FontStyleComparator());
-    
     req.setAttribute("allFontStyles", fontStyles);
-    req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(request));
     
     synchronized (lockObj) {
       if(fontFamilies == null)
@@ -55,8 +49,18 @@ public class StylesController extends StylesControllerBase implements com.terraf
       }
     }
     
- 
     req.setAttribute("fontFamilies", fontFamilies);
+  }
+  
+  protected static void populateRequestForStyles(HttpServletRequest req, StylesDTO styles)
+  {
+    ClientRequestIF request = styles.getRequest();
+    
+    req.setAttribute("styles", styles);
+    
+    req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(request));
+    
+    setFontStylesAndFamiles(req, request);
   }
   
   public void cancel(dss.vector.solutions.query.StylesDTO dto) throws java.io.IOException, javax.servlet.ServletException

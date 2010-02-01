@@ -131,7 +131,12 @@ var MDSS = {
       modal.render(document.body);
       modal.bringToTop();
       
-      modal.subscribe('hide', function(){this.destroy();});
+      modal.subscribe('hide', function(){
+        var that = this;
+        setTimeout(function(){
+          that.destroy();
+        }, 15);
+      });
   },
 
   /**
