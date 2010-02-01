@@ -81,6 +81,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    
     AbstractSpray.setWithQuerySQL(abstractSprayQuery, valueQuery);
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
