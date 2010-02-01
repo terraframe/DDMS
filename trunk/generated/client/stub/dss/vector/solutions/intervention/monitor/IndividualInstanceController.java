@@ -72,9 +72,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   @Override
   public void failUpdate(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
-    req.setAttribute("item", dto);
-    req.setAttribute("symptoms", Arrays.asList(symptoms));
-    render("editComponent.jsp");
+    this.renderEdit(dto, symptoms);
   }
   
   @Override
@@ -169,12 +167,17 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void renderEdit(IndividualInstanceDTO dto) throws IOException, ServletException
   {
-    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+    this.renderEdit(dto, dto.getSymptoms());
+  }
+
+  private void renderEdit(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
+  {
+    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();    
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", dto.getHealthFacility());
-    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
+    req.setAttribute("symptoms", Arrays.asList(symptoms));
     render("editComponent.jsp");
   }
 
