@@ -234,7 +234,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   {
     Date today = new Date();
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
-    query.ORDER_BY_ASC(query.getStartDate());
+    query.ORDER_BY_DESC(query.getStartDate());
 
     LinkedList<MalariaSeason> seasons = new LinkedList<MalariaSeason>();
     seasons.addAll(query.getIterator().getAll());
