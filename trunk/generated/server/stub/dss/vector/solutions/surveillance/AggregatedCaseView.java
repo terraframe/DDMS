@@ -289,16 +289,21 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     {
       Date _startDate = this.getStartDate();
       Date _endDate = this.getEndDate();
-      
-      if(_startDate == null || _endDate == null)
+
+      if (_startDate == null || _endDate == null)
       {
         PeriodType pt = this.getPeriodType().get(0);
-        EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod() - 1, this.getPeriodYear());        
+        
+        // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
+        // need to offset the 'period' for WEEK
+        Integer _period = ( pt.equals(PeriodType.WEEK) ? this.getPeriod() - 1 : this.getPeriod() );
+
+        EpiDate date = EpiDate.getInstanceByPeriod(pt, _period, this.getPeriodYear());
         
         _startDate = date.getStartDate();
         _endDate = date.getEndDate();
       }
-            
+
       concrete.setStartDate(_startDate);
       concrete.setEndDate(_endDate);
       concrete.setStartAge(this.getAgeGroup().getStartAge());
@@ -337,16 +342,21 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     {
       Date _startDate = this.getStartDate();
       Date _endDate = this.getEndDate();
-      
-      if(_startDate == null || _endDate == null)
+
+      if (_startDate == null || _endDate == null)
       {
         PeriodType pt = this.getPeriodType().get(0);
-        EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod() - 1, this.getPeriodYear());        
+        
+        // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
+        // need to offset the 'period' for WEEK
+        Integer _period = ( pt.equals(PeriodType.WEEK) ? this.getPeriod() - 1 : this.getPeriod() );
+
+        EpiDate date = EpiDate.getInstanceByPeriod(pt, _period, this.getPeriodYear());
         
         _startDate = date.getStartDate();
         _endDate = date.getEndDate();
       }
-            
+
       concrete.setStartDate(_startDate);
       concrete.setEndDate(_endDate);
       concrete.setStartAge(this.getAgeGroup().getStartAge());
@@ -354,16 +364,16 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       concrete.setAgeGroup(this.getAgeGroup());
       concrete.setGeoEntity(this.getGeoEntity());
     }
-    
+
     this.buildAttributeMap(concrete);
-    
+
     this.populateConcrete(concrete);
 
     concrete.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
 
     this.populateView(concrete);
   }
-  
+
   private void buildAttributeMap(AggregatedCase concrete)
   {
     new AttributeNotificationMap(concrete, AggregatedCase.ID, this, AggregatedCaseView.CASEID);
@@ -535,9 +545,13 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     PeriodType type = PeriodType.valueOf(periodType);
 
-    EpiDate.validate(type, period - 1, year);
+    // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
+    // need to offset the 'period' for WEEK
+    Integer _period = ( type.equals(PeriodType.WEEK) ? period - 1 : period );
 
-    EpiDate date = EpiDate.getInstanceByPeriod(type, period - 1, year);
+    EpiDate.validate(type, _period, year);
+
+    EpiDate date = EpiDate.getInstanceByPeriod(type, _period, year);
 
     Date current = new Date();
 

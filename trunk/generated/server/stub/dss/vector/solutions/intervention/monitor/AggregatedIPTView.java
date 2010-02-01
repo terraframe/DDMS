@@ -45,8 +45,13 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terr
     if (_startDate == null || _endDate == null)
     {
       PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod() - 1, this.getPeriodYear());
+      
+      // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
+      // need to offset the 'period' for WEEK
+      Integer _period = ( pt.equals(PeriodType.WEEK) ? this.getPeriod() - 1 : this.getPeriod() );
 
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, _period, this.getPeriodYear());
+      
       _startDate = date.getStartDate();
       _endDate = date.getEndDate();
     }

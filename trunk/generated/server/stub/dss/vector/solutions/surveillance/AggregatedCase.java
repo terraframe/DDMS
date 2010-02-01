@@ -355,10 +355,14 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   @Transaction
   public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
-    EpiDate.validate(periodType, period - 1, year);
+    // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
+    // need to offset the 'period' for WEEK
+    Integer _period = ( periodType.equals(PeriodType.WEEK) ? period - 1 : period );
 
-    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period - 1, year);
+    EpiDate.validate(periodType, _period, year);
 
+    EpiDate date = EpiDate.getInstanceByPeriod(periodType, _period, year);
+    
     Date startDate = date.getStartDate();
     Date endDate = date.getEndDate();
     
