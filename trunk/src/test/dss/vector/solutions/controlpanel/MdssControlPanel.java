@@ -52,6 +52,7 @@ public class MdssControlPanel extends JFrame {
 	private static final String STOP = "stop";
 	private static final String BACKUP = "backup";
 	private static final String RESTORE = "restore";
+	private static final String IMPORT = "import";
 	private static final String TIMEOUT = "timeout";
 
 	private static final String COUNTRY = "country.";
@@ -66,6 +67,7 @@ public class MdssControlPanel extends JFrame {
 	private JButton stopButton;
 	private JButton backupButton;
 	private JButton restoreButton;
+	private JButton importButton;
 
 	private JTextField timeoutField;
 
@@ -171,6 +173,12 @@ public class MdssControlPanel extends JFrame {
 			}
 		});
 
+		importButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				importSynch();
+			}
+		});
+
 		this.setVisible(true);
 	}
 
@@ -201,6 +209,7 @@ public class MdssControlPanel extends JFrame {
 		stopButton.setEnabled(started);
 		backupButton.setEnabled(!started);
 		restoreButton.setEnabled(!started);
+		importButton.setEnabled(!started);
 
 		Enumeration<AbstractButton> e = group.getElements();
 		while (e.hasMoreElements()) {
@@ -214,6 +223,7 @@ public class MdssControlPanel extends JFrame {
 		stopButton.setEnabled(false);
 		backupButton.setEnabled(false);
 		restoreButton.setEnabled(false);
+		importButton.setEnabled(false);
 	}
 
 	private JPanel createCountryPanel() {
@@ -244,11 +254,13 @@ public class MdssControlPanel extends JFrame {
 		stopButton = new JButton(this.getText(STOP));
 		backupButton = new JButton(this.getText(BACKUP));
 		restoreButton = new JButton(this.getText(RESTORE));
+		importButton = new JButton(this.getText(IMPORT));
 
 		actionsPanel.add(startButton);
 		actionsPanel.add(stopButton);
 		actionsPanel.add(backupButton);
 		actionsPanel.add(restoreButton);
+		actionsPanel.add(importButton);
 
 		return actionsPanel;
 	}
@@ -457,6 +469,13 @@ public class MdssControlPanel extends JFrame {
 		File file = chooseFile(false);
 		if (file != null) {
 			runCommand(RESTORE, file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - (file.getName().length() + 1)), file.getName());
+		}
+	}
+
+	private void importSynch() {
+		File file = chooseFile(false);
+		if (file != null) {
+			runCommand(IMPORT, file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - (file.getName().length() + 1)), file.getName());
 		}
 	}
 
