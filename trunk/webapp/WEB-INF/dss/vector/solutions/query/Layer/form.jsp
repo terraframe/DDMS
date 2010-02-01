@@ -272,5 +272,5 @@ setTimeout(function(){
     }
   });
 
-}, 15);
+}, 150);
 </script>

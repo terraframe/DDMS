@@ -21,6 +21,24 @@ public class RangeCategory extends RangeCategoryBase implements
     String upper = this.getUpperBoundStr();
     return upper != null && upper.length() > 0;
   }
+  
+  public String toString()
+  {
+    String s = "";
+    if(hasLowerBounds())
+    {
+      s += this.getLowerBoundStr();
+    }
+    
+    s += " < ";
+    
+    if(hasUpperBounds())
+    {
+      s += this.getUpperBoundStr();
+    }
+    
+    return s;
+  }
 
   /**
    * This method ensures that at least one bounds value is specified.
@@ -69,7 +87,6 @@ public class RangeCategory extends RangeCategoryBase implements
       throw new IncompatibleBoundsException(error);
     }
     
-    /*
     if(hasLower && hasUpper
         && isLowerNum && isUpperNum
         && Double.valueOf(lower) > Double.valueOf(upper))
@@ -81,7 +98,6 @@ public class RangeCategory extends RangeCategoryBase implements
     {
       throw new LowerGreaterThanUpperBoundsException();
     }
-    */
   }
 
   protected void checkAgainstRangeNumbers(Double lowerD, Double upperD, Double lowerD2, Double upperD2)
@@ -112,48 +128,6 @@ public class RangeCategory extends RangeCategoryBase implements
     String lower = this.getLowerBoundStr();
     String upper = this.getUpperBoundStr();
 
-    Double lowerD = null;
-    Double upperD = null;
-    try
-    {
-      lowerD = Double.valueOf(lower);
-      upperD = Double.valueOf(upper);
-    }
-    catch (NumberFormatException e)
-    {
-      // The Range is not numeric
-    }
-
-    if (category instanceof NonRangeCategory)
-    {
-      NonRangeCategory nonRange = (NonRangeCategory) category;
-      nonRange.checkBounds(this);
-    }
-    else
-    {
-      RangeCategory range = (RangeCategory) category;
-      String lower2 = range.getLowerBoundStr();
-      String upper2 = range.getUpperBoundStr();
-
-      try
-      {
-        Double lowerD2 = Double.valueOf(lower2);
-        Double upperD2 = Double.valueOf(upper2);
-
-        // Numeric comparison
-        if (lowerD != null)
-        {
-          this.checkAgainstRangeNumbers(lowerD, upperD, lowerD2, upperD2);
-        }
-      }
-      catch (NumberFormatException e)
-      {
-        if (lowerD == null)
-        {
-          // The values are not numeric, so try a string comparison
-          checkAgainstRangeStrings(lower, upper, lower2, upper2);
-        }
-      }
-    }
+    
   }
 }

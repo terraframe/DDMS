@@ -960,8 +960,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._drawLineBtn.disabled = false;
           that._addTextBtn.disabled = false;
           
-          console.log(that._map.getResolutionForZoom(2));
-          
           that._removeDragNDropDivs();
           
           that._addLegends(layers);

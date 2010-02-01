@@ -45,7 +45,7 @@ public abstract class AbstractCategory extends AbstractCategoryBase
   
   public void applyWithLayer(Layer layer, boolean isNew)
   {
-    //this.preValidate();
+    this.preValidate();
     
     this.applyWithLayerPostValidation(layer, isNew);
   }
@@ -53,7 +53,7 @@ public abstract class AbstractCategory extends AbstractCategoryBase
   @AbortIfProblem
   private void applyWithLayerPostValidation(Layer layer, boolean isNew)
   {
-    //this.checkBoundsForAll(layer.getAllHasCategory().getAll());
+    this.checkBoundsForAll(layer.getAllHasCategory().getAll());
     
     this.apply();
     

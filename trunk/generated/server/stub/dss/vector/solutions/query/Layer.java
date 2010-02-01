@@ -11,6 +11,7 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
+import com.terraframe.mojo.query.CategorySorter;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -128,6 +129,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     }
     
     List<AbstractCategory> categories = factory.create(this, categoryGen);
+    CategorySorter.sort(categories);
     
     // Save the new generated categories
     String layerId = categoryGen.getLayerId();

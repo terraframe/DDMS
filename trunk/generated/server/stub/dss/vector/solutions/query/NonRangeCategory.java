@@ -18,6 +18,11 @@ public class NonRangeCategory extends NonRangeCategoryBase implements com.terraf
     return this.getId();
   }
   
+  public String toString()
+  {
+    return this.getExactValueStr();
+  }
+  
   @Override
   protected void preValidate()
   {

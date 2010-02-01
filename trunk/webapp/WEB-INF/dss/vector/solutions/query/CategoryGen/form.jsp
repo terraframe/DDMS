@@ -93,7 +93,6 @@
 (function(){
 	var required = ${required};
 	var dts = YAHOO.util.Selector.query('dt.factoryAttribute');
-console.log(dts);
 	
 	var toggle = function(type) {
 	  var attributes = required[type];

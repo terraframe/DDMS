@@ -1,7 +1,8 @@
 package dss.vector.solutions.query;
 
 public class RangeCategoryDTO extends RangeCategoryDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.terraframe.mojo.generation.loader.Reloadable
+ {
   private static final long serialVersionUID = 1241158118899L;
   
   public RangeCategoryDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -18,6 +19,27 @@ public class RangeCategoryDTO extends RangeCategoryDTOBase
   protected RangeCategoryDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
+  }
+  
+  public String toString()
+  {
+    String s = "";
+    String lower = this.getLowerBoundStr();
+    String upper = this.getUpperBoundStr();
+    
+    if(lower != null && lower.trim().length() > 0)
+    {
+      s += lower;
+    }
+    
+    s += " < ";
+    
+    if(upper != null && upper.trim().length() > 0)
+    {
+      s += upper;
+    }
+    
+    return s;
   }
   
 }

@@ -22,6 +22,7 @@ import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.CategorySorter;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
@@ -135,7 +136,10 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
             JSONArray categories = new JSONArray();
             legend.put("categories", categories);
 
-            for (AbstractCategory cat : layer.getAllHasCategory())
+            List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
+            CategorySorter.sort(cats);
+            
+            for (AbstractCategory cat : cats)
             {
               JSONObject category = new JSONObject();
 

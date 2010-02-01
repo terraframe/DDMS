@@ -1,7 +1,6 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,47 +31,6 @@ public class LayerController extends LayerControllerBase implements
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
-  }
-  
-  private class CategoryComparator implements Comparator<AbstractCategoryDTO>, com.terraframe.mojo.generation.loader.Reloadable
-  {
-
-    public int compare(AbstractCategoryDTO c1, AbstractCategoryDTO c2)
-    {
-      Double min1;
-      if(c1 instanceof RangeCategoryDTO)
-      {
-        min1 = Double.valueOf(((RangeCategoryDTO)c1).getLowerBoundStr());
-      }
-      else
-      {
-        min1 = Double.valueOf(((NonRangeCategoryDTO)c1).getExactValueStr());
-      }
-      
-      Double min2;
-      if(c2 instanceof RangeCategoryDTO)
-      {
-        min2 = Double.valueOf(((RangeCategoryDTO)c2).getLowerBoundStr());
-      }
-      else
-      {
-        min2 = Double.valueOf(((NonRangeCategoryDTO)c2).getExactValueStr());
-      }
-      
-      if(min1 == min2)
-      {
-        return 0;
-      }
-      else if(min1 > min2)
-      {
-        return 1;
-      }
-      else
-      {
-        return -1;
-      }
-    }
-    
   }
   
   private void populateRequestForLayer(LayerDTO layer, StylesDTO styles)
@@ -153,7 +111,7 @@ public class LayerController extends LayerControllerBase implements
         geoHierarchyId = layer.getValue(LayerDTO.GEOHIERARCHY);
         
         List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
-        //Collections.sort(categories, new CategoryComparator());
+        CategoryDTOSorter.sort(categories);
         
         req.setAttribute("categories", categories);
         

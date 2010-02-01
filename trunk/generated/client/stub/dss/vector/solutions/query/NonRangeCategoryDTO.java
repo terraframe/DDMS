@@ -20,4 +20,9 @@ public class NonRangeCategoryDTO extends NonRangeCategoryDTOBase
     super(businessDTO, clientRequest);
   }
   
+  public String toString()
+  {
+    return this.getExactValueStr();
+  }
+  
 }
