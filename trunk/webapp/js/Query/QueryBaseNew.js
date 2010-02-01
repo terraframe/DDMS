@@ -789,6 +789,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
+        
+        if(visibleObj.isAggregate){
+        	visibleObj.displayLabel += MDSS.localize("selectable_is_aggreated");
+        }
+        
         var attribute = new MDSS.BasicAttribute(visibleObj);
         attribute.mainQueryClass = mainQueryClass;
 
