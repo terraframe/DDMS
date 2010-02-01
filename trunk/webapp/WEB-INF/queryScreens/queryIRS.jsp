@@ -307,19 +307,41 @@ YAHOO.util.Event.onDOMReady(function(){
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Unit Operational Coverage",
-                                     key:"unit_operational_coverage",
-                                     type:"sqldouble",
-                                     attributeName:"unit_operational_coverage",
-                                     isAggregate:true
-                                   },
-                                   {
                                      displayLabel:"Unit Application Ratio",
                                      key:"unit_application_ratio",
                                      type:"sqldouble",
                                      attributeName:"unit_application_ratio",
                                      isAggregate:true
                                    },
+                                   {
+                                     displayLabel:"Unit Operational Coverage",
+                                     key:"unit_operational_coverage",
+                                     type:"sqldouble",
+                                     attributeName:"unit_operational_coverage",
+                                     isAggregate:true
+                                   },                      
+                                   {
+                                     displayLabel:"Calculated # Rooms Sprayed",
+                                     key:"calculated_rooms_sprayed",
+                                     type:"sqldouble",
+                                     attributeName:"calculated_rooms_sprayed",
+                                     isAggregate:true
+                                   },
+                                   {
+                                     displayLabel:"Calculated # Structures Sprayed",
+                                     key:"calculated_structures_sprayed",
+                                     type:"sqldouble",
+                                     attributeName:"calculated_structures_sprayed",
+                                     isAggregate:true
+                                   },
+                                   {
+                                     displayLabel:"Calculated # Households Sprayed",
+                                     key:"calculated_households_sprayed",
+                                     type:"sqldouble",
+                                     attributeName:"calculated_households_sprayed",
+                                     isAggregate:true
+                                   },
+                                   
                                   
                                 ];
 

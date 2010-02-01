@@ -22,11 +22,17 @@
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.InfectionAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.InfectionAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.PooledInfectionAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.PooledInfectionAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MolecularAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.MolecularAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.BiochemicalAssayDTO"%>
+<%@page import="dss.vector.solutions.entomology.BiochemicalAssayViewDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
@@ -41,7 +47,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,InfectionAssayDTO.CLASS,PooledInfectionAssayDTO.CLASS,BiochemicalAssayDTO.CLASS,MolecularAssayDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,InfectionAssayDTO.CLASS,PooledInfectionAssayDTO.CLASS,BiochemicalAssayDTO.CLASS,MolecularAssayDTO.CLASS,MosquitoCollectionViewDTO.CLASS,InfectionAssayViewDTO.CLASS,PooledInfectionAssayViewDTO.CLASS,BiochemicalAssayViewDTO.CLASS,MolecularAssayViewDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
