@@ -307,38 +307,4 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     return valueQuery;
   }
-
-  /*
-   * FIXME check with Marlize/Miguel on proper implementation private static
-   * void addPrevalenceColumn(String prevalenceSel, ValueQuery valueQuery,
-   * PersonQuery personQuery, RDTResult rdtResult) { try { SelectableSQLDouble
-   * prevalence = (SelectableSQLDouble) valueQuery.getSelectable(prevalenceSel);
-   * 
-   * // shorten the column alias to avoid truncation. if(rdtResult != null) {
-   * prevalence.setColumnAlias(rdtResult.name()); }
-   * 
-   * ValueQuery innerVQ = new ValueQuery(valueQuery.getQueryFactory());
-   * 
-   * PersonQuery prevalencePQ = new PersonQuery(valueQuery.getQueryFactory());
-   * // PersonQuery for Prevalence
-   * 
-   * // total tested Condition or =
-   * OR.get(prevalencePQ.getPerformedRDT().containsAny(RDTResponse.YES),
-   * prevalencePQ.getBloodslide().containsAny(BloodslideResponse.DONE));
-   * prevalencePQ.WHERE(or);
-   * 
-   * // total positive if(rdtResult != null) {
-   * prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(rdtResult)); }
-   * else {prevalencePQ.AND(prevalencePQ.getRDTResult().containsAny(RDTResult.
-   * MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE, RDTResult.OVALE_POSITIVE,
-   * RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE)); }
-   * 
-   * innerVQ.SELECT(F.COUNT(prevalencePQ.getId()));
-   * 
-   * prevalence.setSQL("100 * AVG( ("+innerVQ.getSQL()+" AND "+prevalencePQ.
-   * getTableAlias()+".id = "+personQuery.getTableAlias()+".id))");
-   * 
-   * } catch(QueryException e) { // no precision query } }
-   */
-
 }
