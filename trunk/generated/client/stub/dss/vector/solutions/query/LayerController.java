@@ -144,7 +144,7 @@ public class LayerController extends LayerControllerBase implements
       }
       else
       {
-        currentLegendColor = layer.getValue(Layer.LEGENDCOLOR);
+        currentLegendColor = layer.getValue(LayerDTO.LEGENDCOLOR);
         
         req.setAttribute("hasThematic", layer.getThematicUserAlias() != null && layer.getThematicUserAlias().length() > 0);
         String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
