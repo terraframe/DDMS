@@ -925,7 +925,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _buildQueryItems : function(selectableGroups)
     {
-      this.addGeoAttributes(this._geoEntityAttribs);
+     // this.addGeoAttributes(this._geoEntityAttribs);
 
       this._queryPanel.addQueryItem({
         html: this._getCountDiv(this,"Group_By",this._groupByClass,true),

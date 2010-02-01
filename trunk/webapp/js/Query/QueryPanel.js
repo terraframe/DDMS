@@ -351,13 +351,14 @@ MDSS.QueryPanel.prototype = {
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'end_date_range');
-//    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
+    //YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
 
-    // add the date fields
 
+  
+    // add the date fields
     if(this._queryClass._dateAttribs){
     	this._queryClass._buildDateAttributesSelect(dateRange);
     }
@@ -389,6 +390,14 @@ MDSS.QueryPanel.prototype = {
     }
     dateRange.appendChild(dateGroupLabel);
     dateRange.appendChild(this._dateGroupBy);
+    
+    
+    //add geo entity chooser    
+    if(this._queryClass._geoEntityAttribs)
+    {
+    	this._queryClass._addGeoAttributes(dateRange);
+    }
+    
 
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);

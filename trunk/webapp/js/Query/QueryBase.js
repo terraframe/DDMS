@@ -1237,8 +1237,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
     },
     
-    addGeoAttributes : function(attributes)
+    _addGeoAttributes : function(div)
     {
+    	var attributes = this._geoEntityAttribs
       var html;
       var attributeKeys = [];
       if(attributes.length > 1)
@@ -1269,12 +1270,21 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
     
       var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      this._queryPanel.addQueryItem({
-        html: html + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>',
-        id: "areaItem"
-      });
+      
+      var geospan = document.createElement('span');
+      geospan.id = MDSS.QueryBase.GEO_ATTRIBUTES + 'Span';
+      
+      geospan.innerHTML = html + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>';
+      
+      div.appendChild(geospan);
+//      this._queryPanel.addQueryItem({
+//        html: 
+//        id: "areaItem"
+//      });
+      
       
       this._config.setGeoAttributes(attributeKeys);
+      return html;
     },
   
     /**
