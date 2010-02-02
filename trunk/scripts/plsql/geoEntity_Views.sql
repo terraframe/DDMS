@@ -284,7 +284,7 @@ BEGIN
    WHEN _date >= _nextStartDate THEN
       _epiWeek := 1;
    WHEN _date < _startDate THEN
-      _epiWeek := EXTRACT('epoch' FROM AGE(_startDate,_prevStartDate))::INT /(60*60*24*7) ;
+      _epiWeek := EXTRACT('epoch' FROM AGE(_startDate,_prevStartDate))::INT /(60*60*24*7) + 1;
   END CASE;
 
 END;

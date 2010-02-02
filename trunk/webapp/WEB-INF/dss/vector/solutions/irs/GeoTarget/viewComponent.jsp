@@ -90,24 +90,16 @@ MalariaSeasonDTO season = item.getSeason();
 
 int i = 0;
 
-while(i<startWeek)
-{
-  colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
-  i++;
-}
 
 for (EpiDateDTO epiWeek : weeks){
   String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
   String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
-  colConfig += ",\n{width:20, sum:true, key:'Target_" + i%numWeeks + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  colConfig += ",\n{width:20, sum:true, key:'Target_" + (epiWeek.getPeriod()%numWeeks) + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
   i++;
 }
-while(i<54)
-{
-  colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
-  i++;
-}
+
 %>
+<%=Halp.loadTypes(Arrays.asList(types_to_load))%>
 <script type="text/javascript" defer ="defer">
 
 <%
@@ -118,8 +110,6 @@ while(i<54)
    }
    out.println("var calculatedTargets = "+calcuatedTargets+";");
 %>
-
-<%=com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true)%>
 
 GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
        columnDefs: [<%=colConfig%>],
