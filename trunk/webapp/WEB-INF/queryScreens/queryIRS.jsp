@@ -184,7 +184,7 @@ YAHOO.util.Event.onDOMReady(function(){
      var Planed_Targets = [
 
                                   {
-                                    displayLabel:"Oprator Target (P)",
+                                    displayLabel:"Operator Target (P)",
                                     key:"planed_operator_target",
                                     type:"sqlinteger",
                                     attributeName:"planed_operator_target",
