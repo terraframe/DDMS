@@ -345,7 +345,7 @@ public class SavedSearch extends SavedSearchBase implements
 
     VaultFileDAOIF file = VaultFileDAO.get(template);
 
-    return file.getFile();
+    return file.getFileStream();
   }
 
   public static SavedSearchView loadSearch(String searchId)
