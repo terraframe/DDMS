@@ -640,6 +640,24 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       var thisRef = this;
 
+      
+      var dateRestrictions = thisRef._config.getDateAttribute();
+      if(dateRestrictions)
+      {
+        if(dateRestrictions.start)
+        {
+          var start = thisRef._queryPanel.getStartDate();
+          var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.start);
+          start.value = formatted;
+        }
+        if(dateRestrictions.end)
+        {
+          var end = thisRef._queryPanel.getEndDate();
+          var formatted = MDSS.Calendar.getLocalizedString(dateRestrictions.end);
+          end.value = formatted;
+        }
+      }
+      
       var xml = view.getQueryXml();
       var parser = new MDSS.Query.Parser(xml);
 
@@ -685,7 +703,23 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         },
         sqlcharacter : function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(attributeName);
+          var key = userAlias + '_li';
+        	var browser = thisRef._browsers[key];
+          if(browser){
+          	thisRef._checkBox(userAlias);
+          	var termList = thisRef._config._config.terms[userAlias];
+            for(var termId in termList){
+                browser.addTerm(termId);
+                attribute = browser.getAttribute();
+                display = browser.getDisplay(termId);
+                thisRef._queryPanel.addWhereCriteria(attribute.getKey(), termId, display);
+            }
+        	}
+          else
+          {
+          	thisRef._checkBox(attributeName);
+          }
+          
         },
         sqlinteger: function(entityAlias, attributeName, userAlias){
           

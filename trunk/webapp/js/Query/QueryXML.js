@@ -903,6 +903,11 @@ MDSS.Query.Config.prototype = {
     this._config.date_attribute = value;
   },
 
+  getDateAttribute : function(value)
+  {
+    return(this._config.date_attribute);
+  },
+  
   setProperty : function(key, value)
   {
     this._config[key] = value;
