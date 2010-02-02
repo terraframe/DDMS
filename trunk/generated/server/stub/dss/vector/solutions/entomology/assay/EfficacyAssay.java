@@ -12,8 +12,11 @@ import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoin;
+import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.general.Insecticide;
@@ -223,10 +226,25 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
    
     EfficacyAssayQuery efficacyAssayQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
     
+    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    
     if (efficacyAssayQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS,efficacyAssayQuery);
       QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getTestDate().getDefiningTableAlias());
+      if(abstractAssayQuery != null)
+      {
+        valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
+      }
+      else
+      {
+        //ensure date is allways joined
+        SelectableMoment dateAttribute = efficacyAssayQuery.getTestDate();
+        for (Join join : dateAttribute.getJoinStatements())
+        {
+          valueQuery.WHERE((InnerJoin) join);
+        }
+      }
     }
     
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
