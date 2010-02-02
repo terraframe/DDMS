@@ -658,6 +658,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       }
       
+      
       var xml = view.getQueryXml();
       var parser = new MDSS.Query.Parser(xml);
 
@@ -665,16 +666,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         attribute : function(entityAlias, attributeName, userAlias){
             thisRef._checkBox(userAlias);
            
-           	var key = userAlias + '_li';
-          	var browser = thisRef._browsers[key];
-	          if(browser){
-	          	var termList = thisRef._config._config.terms[userAlias];
-	            for(var termId in termList){
-	                browser.addTerm(termId);
-	                attribute = browser.getAttribute();
-	                display = browser.getDisplay(termId);
-	                thisRef._queryPanel.addWhereCriteria(attribute.getKey(), termId, display);
-	            }
+           	var key = userAlias + 'Criteria';
+           	var crit = thisRef._config.getProperty(key);
+	          if(crit){
+	          	thisRef._queryPanel.addWhereCriteria(userAlias, crit, crit);
+	          	if(crit.indexOf(' - ')>0)
+	          	{
+	          		crit = crit.split(' - ');	          		
+      			  	thisRef._toggleRange(userAlias, true, crit[0],crit[1]);
+	          	}
+      			  else
+      			  {
+      			  	thisRef._toggleSingle(userAlias, true, crit);
+      			  }
           	}
         },
         sum: function(entityAlias, attributeName, userAlias){
@@ -1246,9 +1250,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       };
     },
-    _toggleSingle : function(attribute, toggleOverride)
+    _toggleSingle : function(attribute, toggleOverride, value)
     {
-      var item = this._menuItems[attribute.getKey()+'-single'];
+    	var key = (Mojo.Util.isString(attribute) ? attribute: attribute.getKey())+'-single';
+    	
+    	var item = this._menuItems[key];
       // The single criteria is optional, so return if null
       if(item == null)
       {
@@ -1257,10 +1263,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       item.checked = Mojo.Util.isBoolean(toggleOverride) ? toggleOverride : !item.checked; 
     
-      var single = document.getElementById(attribute.getKey()+"-single");
+      var single = document.getElementById(key);
       if(item.checked)
       {
         YAHOO.util.Dom.setStyle(single, 'display', 'inline');
+        if(value)
+        {
+        	single.value = value;
+        	
+        }
       }
       else
       {
@@ -1271,9 +1282,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       return item.checked;
     },
     
-    _toggleRange : function(attribute, toggleOverride)
+    _toggleRange : function(attribute, toggleOverride, value1, value2)
     {
-      var item = this._menuItems[attribute.getKey()+'-range'];
+    	var key = Mojo.Util.isString(attribute) ? attribute: attribute.getKey();
+    	
+      var item = this._menuItems[key+'-range'];
       // The range criteria is optional, so return if null
       if(item == null)
       {
@@ -1282,15 +1295,23 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       item.checked = Mojo.Util.isBoolean(toggleOverride) ? toggleOverride : !item.checked;
       
-      var range1 = document.getElementById(attribute.getKey()+"-range1");
-      var rangeSign = document.getElementById(attribute.getKey()+"-rangeSign");
-      var range2 = document.getElementById(attribute.getKey()+"-range2");
+      var range1 = document.getElementById(key+"-range1");
+      var rangeSign = document.getElementById(key+"-rangeSign");
+      var range2 = document.getElementById(key+"-range2");
       
       if(item.checked)
       {
         YAHOO.util.Dom.setStyle(range1, 'display', 'inline');
         YAHOO.util.Dom.setStyle(rangeSign, 'display', 'inline');
         YAHOO.util.Dom.setStyle(range2, 'display', 'inline');
+        if(value1)
+        {
+        	range1.value = value1;
+        }
+        if(value2)
+        {
+        	range2.value = value2;
+        }
       }
       else
       {
@@ -1382,13 +1403,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       {
         var range1 = document.getElementById(attribute.getKey()+"-range1");
         var range2 = document.getElementById(attribute.getKey()+"-range2");
-        value = range1.value+'-'+range2.value; // Will be split up in this._setPersonCriteria
+        value = range1.value+' - '+range2.value; // Will be split up later
       }
       
       // DOB uses the json config because WHERE criteria is not easily passed
       // between a date and sql integer.
 
-      if(value === '' || value === '-')
+      if(value === '' || value === ' - ')
       {
         value = null;
       }
