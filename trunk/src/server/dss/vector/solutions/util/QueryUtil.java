@@ -825,6 +825,7 @@ public class QueryUtil implements Reloadable
       if (xml.indexOf(START_DATE_RANGE) > 0)
       {
         SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
+        dateGroup.setSQL("''");
         if (start != null)
         {
           dateGroup.setSQL("'" + start + "'");
@@ -941,8 +942,6 @@ public class QueryUtil implements Reloadable
           + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
-
-    String sql = valueQuery.getSQL();
 
     return setQueryDates(xml, valueQuery);
   }
