@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 645593278)
+@com.terraframe.mojo.business.ClassSignature(hash = -998402401)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 645593278;
+  private static final long serialVersionUID = -998402401;
   
   public ThresholdCalculationTypeViewBase()
   {
@@ -681,6 +681,12 @@ public abstract class ThresholdCalculationTypeViewBase extends com.terraframe.mo
   }
   
   public static dss.vector.solutions.general.ThresholdCalculationTypeView getCalculationThreshold()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdCalculationTypeView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.Integer getPercentComplete()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdCalculationTypeView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
