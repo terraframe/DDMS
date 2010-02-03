@@ -181,6 +181,7 @@ public class MdssLocalizationImporter
       String key = getStringValue(row.getCell(0));
       
       MetaData metadata = MetaData.getByKey(key);
+      metadata.lock();
       
       MetaDataDisplayLabel label = null;
       if (metadata instanceof MdType)

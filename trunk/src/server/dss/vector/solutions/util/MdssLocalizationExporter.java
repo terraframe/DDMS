@@ -25,18 +25,13 @@ import com.terraframe.mojo.dataaccess.MdLocalStructDAOIF;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.XMLParseException;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
-import com.terraframe.mojo.generation.loader.TerraFrameClassLoader;
-import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdAttributeConcrete;
-import com.terraframe.mojo.system.metadata.MdAttributeQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
 import com.terraframe.mojo.system.metadata.MdEnumeration;
 import com.terraframe.mojo.system.metadata.MdLocalizable;
 import com.terraframe.mojo.system.metadata.MdLocalizableQuery;
-import com.terraframe.mojo.system.metadata.MdType;
-import com.terraframe.mojo.system.metadata.MdTypeQuery;
 import com.terraframe.mojo.system.metadata.MetaData;
 import com.terraframe.mojo.system.metadata.MetaDataDisplayLabel;
 import com.terraframe.mojo.system.metadata.MetaDataQuery;
@@ -68,6 +63,20 @@ public class MdssLocalizationExporter
   
   public MdssLocalizationExporter()
   {
+    locales = new LinkedList<Locale>();
+    locales.add(Locale.ENGLISH);
+  }
+  
+  public void addLocale(Locale l)
+  {
+    if (!locales.contains(l))
+    {
+      locales.add(l);
+    }
+  }
+  
+  public void export()
+  {
     workbook = new HSSFWorkbook();
     customSheet = workbook.createSheet(MD_EXCEPTIONS);
     serverSheet = workbook.createSheet(SERVER_EXCEPTIONS);
@@ -76,14 +85,7 @@ public class MdssLocalizationExporter
     labelSheet = workbook.createSheet(DISPLAY_LABELS);
     propertySheet = workbook.createSheet(MDSS_PROPERTIES);
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
-    locales = new LinkedList<Locale>();
-    locales.add(Locale.ENGLISH);
-    locales.add(Locale.FRENCH);
-    locales.add(new Locale("pt"));
-  }
-  
-  public void export()
-  {
+    
     prepareExceptions();
     prepareTypes();
     prepareProperties("MDSS", propertySheet);
