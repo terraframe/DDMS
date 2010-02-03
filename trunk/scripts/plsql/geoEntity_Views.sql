@@ -302,16 +302,35 @@ RETURNS DATE AS $$
 DECLARE
   _yearT TEXT;
   _fourthOfJanWeekDay INT;
+  _janFourth DATE;
 BEGIN 
-  _fourthOfJanWeekDay := EXTRACT(DOW FROM  to_date(_year::TEXT || '-4', 'YYYY-DDD'));
+  _janFourth := to_date(_year::TEXT || '-4', 'YYYY-DDD');
+  _fourthOfJanWeekDay := EXTRACT(DOW FROM _janFourth);
 
   IF (_fourthOfJanWeekDay >= _firstDayOfEpiWeek )THEN
-	_startDate := to_date(_year::TEXT  || '-' || (4 - _fourthOfJanWeekDay), 'YYYY-DDD'); 
+	_startDate  := _janFourth - ((_fourthOfJanWeekDay - _firstDayOfEpiWeek)::text || ' days')::interval;
+	--RAISE NOTICE 'A: % % %', _year,_fourthOfJanWeekDay,_startDate;
   ELSE
-	_startDate := to_date(_year::TEXT  || '-' || (4 + 7 + - _fourthOfJanWeekDay), 'YYYY-DDD'); 	
+	_startDate  := _janFourth - ((7 + _fourthOfJanWeekDay - _firstDayOfEpiWeek)::text || ' days')::interval;
+	--RAISE NOTICE 'B: % % %', _year,_fourthOfJanWeekDay,_startDate;
   END IF;
+
+  
 END;
 $$ LANGUAGE plpgsql;
+
+/*
+SELECT ser as year, 
+get_epistart(ser,0) sun,
+get_epistart(ser,1) mon,
+get_epistart(ser,2) tues
+,get_epistart(ser,3) wens,
+get_epistart(ser,4) thurs,
+get_epistart(ser,5) fri,
+get_epistart(ser,6) sat
+FROM
+(SELECT generate_series(1990,2020)  as ser) as s;
+*/
 
 --SELECT EXTRACT(week FROM '2010-01-01'::date)-1;
 --SELECT get_seasonal_spray_target_by_geoEntityId_and_date((SELECT id FROM geoentity WHERE geoid = '2828009'),'2010-01-01'::date)
