@@ -3,6 +3,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component param="dto" item="${item}">
+  <mjl:dt attribute="keyName">
+    ${item.keyName}
+  </mjl:dt>
   <mjl:dt attribute="isOnscreenActive">
     <mjl:boolean param="isOnscreenActive" />
   </mjl:dt>
@@ -29,9 +32,7 @@
   </mjl:dt>
   <mjl:dt attribute="emailTemplateVariables">
     <mjl:struct param="emailTemplateVariables">
-      <mjl:dt attribute="defaultLocale">
-        <mjl:input param="defaultLocale" type="text" />
-      </mjl:dt>
+        ${item.emailTemplateVariables}
     </mjl:struct>
   </mjl:dt>
 </mjl:component>

@@ -35,9 +35,7 @@
       </mjl:dt>
       <mjl:dt attribute="emailTemplateVariables">
         <mjl:struct param="emailTemplateVariables">
-          <mjl:dt attribute="defaultLocale">
-            ${item.emailTemplateVariables.defaultLocale}
-          </mjl:dt>
+            ${item.emailTemplateVariables}
         </mjl:struct>
       </mjl:dt>
     </mjl:component>
