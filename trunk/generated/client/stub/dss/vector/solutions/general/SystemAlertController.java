@@ -15,7 +15,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
   public void cancel(dss.vector.solutions.general.SystemAlertDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    this.viewAll();
   }
   public void failCancel(dss.vector.solutions.general.SystemAlertDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -75,7 +75,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(id);
+    this.viewAll();
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -93,7 +93,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.viewAll();
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
