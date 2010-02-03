@@ -195,7 +195,6 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
     // endingEpiWeek.getActualYear());
     if (!calculationPeriod.startingEpiWeek.getEndDate().after(calculationPeriod.endingEpiWeek.getEndDate()))
     {
-      ThresholdData thresholdData = this.getThresholdData(geoEntity, calculationPeriod.season);
       // For EACH EpiWeek in the calculation period
       for (EpiDate currentEpiWeek = calculationPeriod.startingEpiWeek; !currentEpiWeek.getStartDate().after(calculationPeriod.endingEpiWeek.getStartDate()); currentEpiWeek = currentEpiWeek.getNext())
       {
@@ -232,7 +231,8 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
         {
           t2 = this.calculate(t2Method, geoEntity, period, year, weightedSeasonalMeans);
         }
-        this.createWeeklyThreshold(thresholdData, currentEpiWeek, t1, t2);
+
+        this.createWeeklyThreshold(geoEntity, calculationPeriod.season, currentEpiWeek, t1, t2);
       }
     }
   }
@@ -394,7 +394,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
   }
 
   @Transaction
-  protected void createWeeklyThreshold(ThresholdData thresholdData, EpiDate epiDate, long t1, long t2)
+  protected void createWeeklyThreshold(GeoEntity geoEntity, MalariaSeason season, EpiDate epiDate, long t1, long t2)
   {
     if (t1 > 0 || t2 > 0)
     {
@@ -403,6 +403,8 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
       // epiDate.getActualPeriod() + "/" + epiDate.getActualYear() +
       // ") = " + t1 + ", " + t2);
       EpiWeek epiWeek = EpiWeek.getEpiWeek(epiDate);
+      ThresholdData thresholdData = this.getThresholdData(geoEntity, season);
+
       WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);
       if (weeklyThreshold == null)
       {
