@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1819404094)
+@com.terraframe.mojo.business.ClassSignature(hash = -346954465)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = 1819404094;
+  private static final long serialVersionUID = -346954465;
   
   protected ThresholdCalculationTypeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -841,6 +841,14 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.terraframe
     Object[] _parameters = new Object[]{};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO.CLASS, "getCalculationThreshold", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdCalculationTypeViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Integer getPercentComplete(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO.CLASS, "getPercentComplete", _declaredTypes);
+    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static ThresholdCalculationTypeViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
