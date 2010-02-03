@@ -107,7 +107,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
   {
     if (this.getNumberOfReceivedITNs() != null && ( this.getReceivedITN() == null || !this.getReceivedITN() ))
     {
-      String msg = "Number of nets recieved is not applicable when no nets are recieved.";
+      String msg = "Number of nets received is not applicable when no nets are received.";
 
       MdAttributeBooleanDAOIF retrievedMd = (MdAttributeBooleanDAOIF) getReceivedITNMd();
       Locale locale = Session.getCurrentLocale();
