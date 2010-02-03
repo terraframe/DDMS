@@ -45,7 +45,7 @@ public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implement
     }
     else
     {
-      throw new DataNotFoundException("Malaria season not found", MdTypeDAO.getMdTypeDAO(MalariaSeason.CLASS));
+      throw new DataNotFoundException("Transmission season not found", MdTypeDAO.getMdTypeDAO(MalariaSeason.CLASS));
     }
     
     view.setIdentification_0(this.getIdentification_0());

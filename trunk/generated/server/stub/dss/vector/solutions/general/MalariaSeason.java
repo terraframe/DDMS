@@ -126,7 +126,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   {
     if (this.getStartDate() != null && this.getEndDate() != null && this.getOverlap() != null)
     {
-      String msg = "This malaria season overlaps with an existing season";
+      String msg = "This transmission season overlaps with an existing season";
       MalariaSeasonOverlapProblem e = new MalariaSeasonOverlapProblem(msg);
       e.setOverlap(this.getOverlap().getSeasonName());
       e.apply();

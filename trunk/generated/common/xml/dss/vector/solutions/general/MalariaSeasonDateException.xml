@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {seasonName} seasonName
     - {weekDate} weekDate
     -->
-  <locale language="en"> The malaria season [{seasonName}] does not contain the date [{weekDate}]</locale>
+  <locale language="en"> The transmission season [{seasonName}] does not contain the date [{weekDate}]</locale>
 </exception>

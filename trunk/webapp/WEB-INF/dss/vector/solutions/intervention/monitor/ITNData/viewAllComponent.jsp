@@ -13,7 +13,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="currencyReceived">
       <mjl:header>
-        The amount of monitory currency received
+        The amount of currency received
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="endDate">
