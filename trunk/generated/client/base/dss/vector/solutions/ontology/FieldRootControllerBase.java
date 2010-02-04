@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1243357941)
+@com.terraframe.mojo.business.ClassSignature(hash = -933622660)
 public class FieldRootControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.FieldRootController";
@@ -10,7 +10,7 @@ public class FieldRootControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1243357941;
+  private static final long serialVersionUID = -933622660;
   
   public FieldRootControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

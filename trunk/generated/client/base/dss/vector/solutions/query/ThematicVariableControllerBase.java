@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -350476346)
+@com.terraframe.mojo.business.ClassSignature(hash = 735539277)
 public class ThematicVariableControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.ThematicVariableController";
@@ -10,7 +10,7 @@ public class ThematicVariableControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -350476346;
+  private static final long serialVersionUID = 735539277;
   
   public ThematicVariableControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -583935947)
+@com.terraframe.mojo.business.ClassSignature(hash = -691593606)
 public class OntologyRelationshipControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.OntologyRelationshipController";
@@ -10,7 +10,7 @@ public class OntologyRelationshipControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -583935947;
+  private static final long serialVersionUID = -691593606;
   
   public OntologyRelationshipControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

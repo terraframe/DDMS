@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 103213567)
+@com.terraframe.mojo.business.ClassSignature(hash = 1545977614)
 public class TransactionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.synchronization.TransactionController";
@@ -10,7 +10,7 @@ public class TransactionControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 103213567;
+  private static final long serialVersionUID = 1545977614;
   
   public TransactionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

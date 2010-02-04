@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1097637055)
+@com.terraframe.mojo.business.ClassSignature(hash = 1819668385)
 public class FileControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.FileController";
@@ -10,7 +10,7 @@ public class FileControllerBase implements com.terraframe.mojo.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1097637055;
+  private static final long serialVersionUID = 1819668385;
   
   public FileControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

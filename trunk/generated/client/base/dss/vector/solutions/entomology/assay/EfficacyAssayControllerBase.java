@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1028316270)
+@com.terraframe.mojo.business.ClassSignature(hash = 2120110348)
 public class EfficacyAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssayController";
@@ -10,7 +10,7 @@ public class EfficacyAssayControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1028316270;
+  private static final long serialVersionUID = 2120110348;
   
   public EfficacyAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

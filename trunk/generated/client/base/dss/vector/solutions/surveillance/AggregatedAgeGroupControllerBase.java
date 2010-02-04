@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1923850673)
+@com.terraframe.mojo.business.ClassSignature(hash = -302848514)
 public class AggregatedAgeGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.surveillance.AggregatedAgeGroupController";
@@ -10,7 +10,7 @@ public class AggregatedAgeGroupControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1923850673;
+  private static final long serialVersionUID = -302848514;
   
   public AggregatedAgeGroupControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

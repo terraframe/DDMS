@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1422224797)
+@com.terraframe.mojo.business.ClassSignature(hash = 883702678)
 public class NonRangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.NonRangeCategoryController";
@@ -10,7 +10,7 @@ public class NonRangeCategoryControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1422224797;
+  private static final long serialVersionUID = 883702678;
   
   public NonRangeCategoryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

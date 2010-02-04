@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1971332454)
+@com.terraframe.mojo.business.ClassSignature(hash = 1830802244)
 public class OperatorSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.OperatorSprayController";
@@ -10,7 +10,7 @@ public class OperatorSprayControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1971332454;
+  private static final long serialVersionUID = 1830802244;
   
   public OperatorSprayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1921087107)
+@com.terraframe.mojo.business.ClassSignature(hash = 1596634821)
 public class ResourceTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.ResourceTargetController";
@@ -10,7 +10,7 @@ public class ResourceTargetControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1921087107;
+  private static final long serialVersionUID = 1596634821;
   
   public ResourceTargetControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

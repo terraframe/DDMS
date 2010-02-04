@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1986388706)
+@com.terraframe.mojo.business.ClassSignature(hash = 1642680693)
 public class SurveyedPersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.SurveyedPersonController";
@@ -10,7 +10,7 @@ public class SurveyedPersonControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1986388706;
+  private static final long serialVersionUID = 1642680693;
   
   public SurveyedPersonControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

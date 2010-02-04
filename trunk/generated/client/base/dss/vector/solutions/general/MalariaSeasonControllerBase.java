@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -11072291)
+@com.terraframe.mojo.business.ClassSignature(hash = 79448786)
 public class MalariaSeasonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.MalariaSeasonController";
@@ -10,7 +10,7 @@ public class MalariaSeasonControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -11072291;
+  private static final long serialVersionUID = 79448786;
   
   public MalariaSeasonControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

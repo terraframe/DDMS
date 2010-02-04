@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1434154325)
+@com.terraframe.mojo.business.ClassSignature(hash = 751396752)
 public class IndividualIPTControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTController";
@@ -10,7 +10,7 @@ public class IndividualIPTControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1434154325;
+  private static final long serialVersionUID = 751396752;
   
   public IndividualIPTControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

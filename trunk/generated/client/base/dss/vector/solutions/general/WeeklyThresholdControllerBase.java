@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1565571710)
+@com.terraframe.mojo.business.ClassSignature(hash = 1430640175)
 public class WeeklyThresholdControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.WeeklyThresholdController";
@@ -10,7 +10,7 @@ public class WeeklyThresholdControllerBase implements com.terraframe.mojo.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1565571710;
+  private static final long serialVersionUID = 1430640175;
   
   public WeeklyThresholdControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

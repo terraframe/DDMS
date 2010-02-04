@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1273907636)
+@com.terraframe.mojo.business.ClassSignature(hash = -1091762800)
 public class MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionController";
@@ -10,7 +10,7 @@ public class MosquitoCollectionControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1273907636;
+  private static final long serialVersionUID = -1091762800;
   
   public MosquitoCollectionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

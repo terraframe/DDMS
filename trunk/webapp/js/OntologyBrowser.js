@@ -789,52 +789,127 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
   }
 });
 
+Mojo.Meta.newClass("MDSS.OntologyValidator", {
+  Instance : {
+    initialize : function(attributeName, search, getParameters, setField){
+      this._attributeEl = document.getElementById(attributeName);
+      this._displayEl = document.getElementById(attributeName + 'Display');        
+      this._button = document.getElementById(attributeName + 'Btn');        
+      
+      this._search = search;
+      this._getParameters = getParameters;
+      this.setField = setField;
+      
+      // Setup the validator
+      YAHOO.util.Event.on(this._displayEl, "blur", this._validateSelection, this, this);      
+    },
+
+    _validateSelection : function() {
+      var termId = this._displayEl.value;        
+      var concreteId = this._attributeEl.value;
+      
+      if((termId != null && termId != '') && (concreteId == null || concreteId == '')) {
+        var parameters = this._getParameters();
+        var request = this._getValidationRequest();
+      
+        Mojo.$.dss.vector.solutions.ontology.Term.getTermById(request, termId, parameters);    
+      }      
+      else {
+       MDSS.Calendar.removeError(this._button);      
+     }
+   },
+  
+   _getValidationRequest : function() {
+      var request = new MDSS.Request({
+        that : this,
+        onSend : function(){}, 
+        onComplete : function(){},        
+        onFailure : function(e){          
+          MDSS.Calendar.removeError(this.that._button);
+                
+          MDSS.Calendar.addError(this.that._button, e.getMessage());
+        },
+        onProblemExceptionDTO : function(e){
+          MDSS.Calendar.removeError(this.that._button);
+                
+          var problems = e.getProblems();
+          for(var i = 0; i < problems.length; i++) {
+            var problem = problems[i];
+            MDSS.Calendar.addError(this.that._button, problem.getMessage());
+          }
+        },
+        onSuccess : function(view) {
+          MDSS.Calendar.removeError(this.that._button);
+        
+          if(view != null){
+            this.that.setField([view]);
+            this.that._search.hide();
+          }
+        }            
+      });
+    
+      return request;
+    },
+  }
+});
+
 Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
   Instance : {
     initialize : function(className, configs) {
-      configs = Mojo.Util.isArray(configs) ? configs : [configs];
+      var config = Mojo.Util.isArray(configs) && configs.length > 0 ? configs[0] : configs;
     
-      Mojo.Iter.forEach(configs, function(config){
-        var attributeName = config.attributeName;
-        var attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
-        var browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;
-        var enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
+      this._attributeName = config.attributeName;
+      this._attributeClass = Mojo.Util.isString(config.className) ? config.className : className;
+      this._browserField = Mojo.Util.isString(config.browserField) ? config.browserField : config.attributeName;
+      this._enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
         
-        var attributeEl = document.getElementById(attributeName);
-        var displayEl = document.getElementById(attributeName + 'Display');        
+      this._attributeEl = document.getElementById(this._attributeName);
+      this._displayEl = document.getElementById(this._attributeName + 'Display');        
+      this._button = document.getElementById(this._attributeName + 'Btn');        
        
-        // Setup the ontology browser
-        var browser = new MDSS.OntologyBrowser(false, attributeClass, browserField);            
-        browser.setHandler(Mojo.Util.curry(this.setField, attributeName));
+      // Setup the ontology browser
+      this._browser = new MDSS.OntologyBrowser(false, this._attributeClass, this._browserField);            
+      this._browser.setHandler(Mojo.Util.bind(this, this.setField));
         
-        if(enabled) {
-          YAHOO.util.Event.on(attributeName + 'Btn', "click", this.openBrowser, {browser:browser, attributeName:attributeName});
-        }
-        
-        // Setup the ontology search
-        var searchFunction = function(request, value) {
-          var parameters = [attributeClass, attributeName]
-          Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
-        }        
-        
-        this._attachSearch(attributeEl, displayEl, searchFunction);
-      }, this);    
+      if(this._enabled) {
+        YAHOO.util.Event.on(this._button, "click", this.openBrowser, {browser:this._browser, attributeName:this._attributeName});
+      }
+               
+      var dF = Mojo.Util.bind(this, this._displayFunction);
+      var iF = Mojo.Util.bind(this, this._idFunction);
+      var lF = Mojo.Util.bind(this, this._displayFunction);
+      var sF = Mojo.Util.bind(this, this._searchFunction);
+      
+      this._search = new MDSS.GenericSearch(this._displayEl, this._attributeEl, lF, dF, iF, sF, null);     
+      
+      // Setup validator
+      var gP = Mojo.Util.bind(this, this._getParameters);
+      var sF = Mojo.Util.bind(this, this.setField);
+      
+      new MDSS.OntologyValidator(this._attributeName, this._search, gP, sF);
     },
-
-    setField : function(attribute, selected) {
-      // this: the browser instances    
-      var attributeEl = document.getElementById(attribute);
-      var displayEl = document.getElementById(attribute + 'Display');        
-
+    
+    _getParameters : function() {
+      return [this._attributeClass, this._attributeName];
+    },
+    
+    _searchFunction : function(request, value) {
+      var parameters = this._getParameters();
+      
+      Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
+    },
+        
+    setField : function(selected) {
       if(selected.length > 0) {
         var sel = selected[0];
-        attributeEl.value = this._idFunction(sel);
-        displayEl.value = this._displayFunction(sel);
+        
+        this._attributeEl.value = this._idFunction(sel);
+        this._displayEl.value = this._displayFunction(sel);
       }
       else
       {
-        attributeEl.value = '';
-        displayEl.value = '';
+        this._attributeEl.value = '';
+        this._displayEl.value = '';
       }
     },
     
@@ -883,13 +958,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     
     _attachSearch : function(attributeElement, displayElement, searchFunction)
     {
-      var dF = Mojo.Util.bind(this, this._displayFunction);
-      var iF = Mojo.Util.bind(this, this._idFunction);
-      var lF = Mojo.Util.bind(this, this._displayFunction);
-      
-      var search = new MDSS.GenericSearch(displayElement, attributeElement, lF, dF, iF, searchFunction, null);      
-    }
-    
+    }    
   }
 });
 

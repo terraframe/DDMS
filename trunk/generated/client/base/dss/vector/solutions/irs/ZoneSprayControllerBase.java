@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1668498847)
+@com.terraframe.mojo.business.ClassSignature(hash = 1165027933)
 public class ZoneSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.ZoneSprayController";
@@ -10,7 +10,7 @@ public class ZoneSprayControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1668498847;
+  private static final long serialVersionUID = 1165027933;
   
   public ZoneSprayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

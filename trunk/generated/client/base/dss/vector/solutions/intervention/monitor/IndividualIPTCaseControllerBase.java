@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1951417340)
+@com.terraframe.mojo.business.ClassSignature(hash = 100768023)
 public class IndividualIPTCaseControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController";
@@ -10,7 +10,7 @@ public class IndividualIPTCaseControllerBase implements com.terraframe.mojo.gene
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1951417340;
+  private static final long serialVersionUID = 100768023;
   
   public IndividualIPTCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

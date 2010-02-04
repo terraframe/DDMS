@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -595714665)
+@com.terraframe.mojo.business.ClassSignature(hash = -512391790)
 public class ExportControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.synchronization.ExportController";
@@ -10,7 +10,7 @@ public class ExportControllerBase implements com.terraframe.mojo.generation.load
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -595714665;
+  private static final long serialVersionUID = -512391790;
   
   public ExportControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

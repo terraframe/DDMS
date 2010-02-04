@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1900449904)
+@com.terraframe.mojo.business.ClassSignature(hash = -1807921145)
 public class SprayTeamControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.SprayTeamController";
@@ -10,7 +10,7 @@ public class SprayTeamControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1900449904;
+  private static final long serialVersionUID = -1807921145;
   
   public SprayTeamControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

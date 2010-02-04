@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2058271194)
+@com.terraframe.mojo.business.ClassSignature(hash = 66262653)
 public class ThresholdDataControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.ThresholdDataController";
@@ -10,7 +10,7 @@ public class ThresholdDataControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 2058271194;
+  private static final long serialVersionUID = 66262653;
   
   public ThresholdDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

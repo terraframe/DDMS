@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 453976849)
+@com.terraframe.mojo.business.ClassSignature(hash = -1002648926)
 public class EmailConfigurationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.EmailConfigurationController";
@@ -10,7 +10,7 @@ public class EmailConfigurationControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 453976849;
+  private static final long serialVersionUID = -1002648926;
   
   public EmailConfigurationControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

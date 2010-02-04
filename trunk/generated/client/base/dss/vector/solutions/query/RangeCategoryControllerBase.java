@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1632887754)
+@com.terraframe.mojo.business.ClassSignature(hash = -293037371)
 public class RangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.RangeCategoryController";
@@ -10,7 +10,7 @@ public class RangeCategoryControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1632887754;
+  private static final long serialVersionUID = -293037371;
   
   public RangeCategoryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

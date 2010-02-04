@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1351220496)
+@com.terraframe.mojo.business.ClassSignature(hash = -2067904833)
 public class SystemAlertControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.SystemAlertController";
@@ -10,7 +10,7 @@ public class SystemAlertControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1351220496;
+  private static final long serialVersionUID = -2067904833;
   
   public SystemAlertControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1097050570)
+@com.terraframe.mojo.business.ClassSignature(hash = -1512697083)
 public class StockItemControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.stock.StockItemController";
@@ -10,7 +10,7 @@ public class StockItemControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1097050570;
+  private static final long serialVersionUID = -1512697083;
   
   public StockItemControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

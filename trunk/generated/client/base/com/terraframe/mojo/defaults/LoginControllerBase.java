@@ -1,6 +1,6 @@
 package com.terraframe.mojo.defaults;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 696608174)
+@com.terraframe.mojo.business.ClassSignature(hash = -138852855)
 public class LoginControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "com.terraframe.mojo.defaults.LoginController";
@@ -10,7 +10,7 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 696608174;
+  private static final long serialVersionUID = -138852855;
   
   public LoginControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

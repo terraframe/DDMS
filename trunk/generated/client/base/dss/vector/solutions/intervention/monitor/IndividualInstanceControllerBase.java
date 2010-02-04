@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1559015621)
+@com.terraframe.mojo.business.ClassSignature(hash = 1514780604)
 public class IndividualInstanceControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstanceController";
@@ -10,7 +10,7 @@ public class IndividualInstanceControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1559015621;
+  private static final long serialVersionUID = 1514780604;
   
   public IndividualInstanceControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

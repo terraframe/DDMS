@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -964594487)
+@com.terraframe.mojo.business.ClassSignature(hash = 1121111270)
 public class InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.InsecticideController";
@@ -10,7 +10,7 @@ public class InsecticideControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -964594487;
+  private static final long serialVersionUID = 1121111270;
   
   public InsecticideControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

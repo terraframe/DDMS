@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1114504973)
+@com.terraframe.mojo.business.ClassSignature(hash = -455434751)
 public class AbstractCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.AbstractCategoryController";
@@ -10,7 +10,7 @@ public class AbstractCategoryControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1114504973;
+  private static final long serialVersionUID = -455434751;
   
   public AbstractCategoryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

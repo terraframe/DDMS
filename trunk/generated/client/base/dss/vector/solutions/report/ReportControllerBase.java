@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1695329640)
+@com.terraframe.mojo.business.ClassSignature(hash = 1612413766)
 public class ReportControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.report.ReportController";
@@ -10,7 +10,7 @@ public class ReportControllerBase implements com.terraframe.mojo.generation.load
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1695329640;
+  private static final long serialVersionUID = 1612413766;
   
   public ReportControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

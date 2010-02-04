@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -412724714)
+@com.terraframe.mojo.business.ClassSignature(hash = 456875773)
 public class WellKnownNamesMasterControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.WellKnownNamesMasterController";
@@ -10,7 +10,7 @@ public class WellKnownNamesMasterControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -412724714;
+  private static final long serialVersionUID = 456875773;
   
   public WellKnownNamesMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

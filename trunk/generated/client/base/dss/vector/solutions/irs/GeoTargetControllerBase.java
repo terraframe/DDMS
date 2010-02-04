@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -143626470)
+@com.terraframe.mojo.business.ClassSignature(hash = 351478824)
 public class GeoTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.GeoTargetController";
@@ -10,7 +10,7 @@ public class GeoTargetControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -143626470;
+  private static final long serialVersionUID = 351478824;
   
   public GeoTargetControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

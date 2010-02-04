@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 65038274)
+@com.terraframe.mojo.business.ClassSignature(hash = -1488544947)
 public class RenderTypesControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.RenderTypesController";
@@ -10,7 +10,7 @@ public class RenderTypesControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 65038274;
+  private static final long serialVersionUID = -1488544947;
   
   public RenderTypesControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

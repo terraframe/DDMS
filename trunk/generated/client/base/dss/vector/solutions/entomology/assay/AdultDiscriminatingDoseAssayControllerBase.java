@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1095084562)
+@com.terraframe.mojo.business.ClassSignature(hash = 823042721)
 public class AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController";
@@ -10,7 +10,7 @@ public class AdultDiscriminatingDoseAssayControllerBase implements com.terrafram
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1095084562;
+  private static final long serialVersionUID = 823042721;
   
   public AdultDiscriminatingDoseAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

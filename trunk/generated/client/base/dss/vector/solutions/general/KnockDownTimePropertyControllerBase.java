@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 16755933)
+@com.terraframe.mojo.business.ClassSignature(hash = 1962700293)
 public class KnockDownTimePropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.KnockDownTimePropertyController";
@@ -10,7 +10,7 @@ public class KnockDownTimePropertyControllerBase implements com.terraframe.mojo.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 16755933;
+  private static final long serialVersionUID = 1962700293;
   
   public KnockDownTimePropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

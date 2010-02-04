@@ -244,7 +244,10 @@ MDSS.GeoHierarchyTree = (function(){
     
     // hook events to launch ontology browser
     YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-    new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+    var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+    
+    // Setup validator
+    new MDSS.OntologyValidator('term', search, _getParameters, _setField);
   }
   
   function _displayFunction(valueObject)
@@ -266,10 +269,16 @@ MDSS.GeoHierarchyTree = (function(){
   
     return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
   }  
+  
+  function _getParameters()
+  {
+    return ['dss.vector.solutions.geo.GeoEntityDefinition', 'term'];
+  }
     
   function  _searchFunction(request, value)
   {
-    var params = ['dss.vector.solutions.geo.GeoEntityDefinition', 'term'];
+    var params = _getParameters();
+    
     Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
   }    
 
@@ -795,8 +804,8 @@ MDSS.GeoHierarchyTree = (function(){
     if(selected.length > 0)
     {
       var sel = selected[0];
-      el.value = this._idFunction(sel);
-      dEl.value = this._displayFunction(sel);
+      el.value = _idFunction(sel);
+      dEl.value = _displayFunction(sel);
     }
     else
     {

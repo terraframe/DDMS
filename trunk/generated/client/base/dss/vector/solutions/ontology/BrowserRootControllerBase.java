@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2091304165)
+@com.terraframe.mojo.business.ClassSignature(hash = -1706349143)
 public class BrowserRootControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.BrowserRootController";
@@ -10,7 +10,7 @@ public class BrowserRootControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -2091304165;
+  private static final long serialVersionUID = -1706349143;
   
   public BrowserRootControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

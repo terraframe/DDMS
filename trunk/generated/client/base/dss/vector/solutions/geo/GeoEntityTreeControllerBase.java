@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -398496022)
+@com.terraframe.mojo.business.ClassSignature(hash = -1220725279)
 public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.GeoEntityTreeController";
@@ -10,7 +10,7 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -398496022;
+  private static final long serialVersionUID = -1220725279;
   
   public GeoEntityTreeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

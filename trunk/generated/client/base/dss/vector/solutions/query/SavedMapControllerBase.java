@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1850766410)
+@com.terraframe.mojo.business.ClassSignature(hash = 1984137309)
 public class SavedMapControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.SavedMapController";
@@ -10,7 +10,7 @@ public class SavedMapControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1850766410;
+  private static final long serialVersionUID = 1984137309;
   
   public SavedMapControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

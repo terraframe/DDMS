@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 599145029)
+@com.terraframe.mojo.business.ClassSignature(hash = 1233992364)
 public class PersistsSearchControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.PersistsSearchController";
@@ -10,7 +10,7 @@ public class PersistsSearchControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 599145029;
+  private static final long serialVersionUID = 1233992364;
   
   public PersistsSearchControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

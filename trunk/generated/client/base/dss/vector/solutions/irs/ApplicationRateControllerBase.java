@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1867490202)
+@com.terraframe.mojo.business.ClassSignature(hash = -989086849)
 public class ApplicationRateControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.ApplicationRateController";
@@ -10,7 +10,7 @@ public class ApplicationRateControllerBase implements com.terraframe.mojo.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1867490202;
+  private static final long serialVersionUID = -989086849;
   
   public ApplicationRateControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

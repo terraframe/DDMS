@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1059886334)
+@com.terraframe.mojo.business.ClassSignature(hash = -1368754437)
 public class HasCategoriesControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.HasCategoriesController";
@@ -10,7 +10,7 @@ public class HasCategoriesControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1059886334;
+  private static final long serialVersionUID = -1368754437;
   
   public HasCategoriesControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

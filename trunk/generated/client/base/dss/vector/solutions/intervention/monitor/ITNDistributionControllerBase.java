@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -751747665)
+@com.terraframe.mojo.business.ClassSignature(hash = -890971861)
 public class ITNDistributionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.ITNDistributionController";
@@ -10,7 +10,7 @@ public class ITNDistributionControllerBase implements com.terraframe.mojo.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -751747665;
+  private static final long serialVersionUID = -890971861;
   
   public ITNDistributionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

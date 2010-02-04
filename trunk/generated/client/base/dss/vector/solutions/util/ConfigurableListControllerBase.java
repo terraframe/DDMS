@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1148659587)
+@com.terraframe.mojo.business.ClassSignature(hash = 1486229746)
 public class ConfigurableListControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.ConfigurableListController";
@@ -10,7 +10,7 @@ public class ConfigurableListControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1148659587;
+  private static final long serialVersionUID = 1486229746;
   
   public ConfigurableListControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

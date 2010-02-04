@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1261771290)
+@com.terraframe.mojo.business.ClassSignature(hash = 1240208361)
 public class AreaStandardsControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.AreaStandardsController";
@@ -10,7 +10,7 @@ public class AreaStandardsControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1261771290;
+  private static final long serialVersionUID = 1240208361;
   
   public AreaStandardsControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

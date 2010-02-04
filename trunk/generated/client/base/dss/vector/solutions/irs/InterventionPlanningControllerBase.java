@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -944822265)
+@com.terraframe.mojo.business.ClassSignature(hash = 2053190576)
 public class InterventionPlanningControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.irs.InterventionPlanningController";
@@ -10,7 +10,7 @@ public class InterventionPlanningControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -944822265;
+  private static final long serialVersionUID = 2053190576;
   
   public InterventionPlanningControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

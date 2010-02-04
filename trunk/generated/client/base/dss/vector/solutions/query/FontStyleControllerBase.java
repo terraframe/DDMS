@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -126209785)
+@com.terraframe.mojo.business.ClassSignature(hash = 1078232552)
 public class FontStyleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.FontStyleController";
@@ -10,7 +10,7 @@ public class FontStyleControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -126209785;
+  private static final long serialVersionUID = 1078232552;
   
   public FontStyleControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

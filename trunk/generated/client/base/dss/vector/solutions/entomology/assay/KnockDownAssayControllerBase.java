@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 696893884)
+@com.terraframe.mojo.business.ClassSignature(hash = 531055507)
 public class KnockDownAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssayController";
@@ -10,7 +10,7 @@ public class KnockDownAssayControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 696893884;
+  private static final long serialVersionUID = 531055507;
   
   public KnockDownAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

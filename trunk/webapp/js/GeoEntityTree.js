@@ -398,8 +398,11 @@ MDSS.GeoEntityTree = (function(){
           YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
         }
         
-        new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
-
+        var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+        
+        // Setup validator
+        new MDSS.OntologyValidator('term', search, _getParameters, _setField);
+        
         eval(executable);
       }
     });
@@ -408,7 +411,7 @@ MDSS.GeoEntityTree = (function(){
     controller.setCreateListener(Mojo.Util.curry(_createNode, type));
     controller.newInstance(request);
   }
-  
+    
   function _setField(selected)
   {
     var el = document.getElementById('term');
@@ -416,8 +419,8 @@ MDSS.GeoEntityTree = (function(){
     if(selected.length > 0)
     {
       var sel = selected[0];
-      el.value = this._idFunction(sel);
-      dEl.value = this._displayFunction(sel);
+      el.value = _idFunction(sel);
+      dEl.value = _displayFunction(sel);
     }
     else
     {
@@ -909,7 +912,10 @@ MDSS.GeoEntityTree = (function(){
           YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
         }
         
-        new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+        var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+
+        // Setup validator
+        new MDSS.OntologyValidator('term', search, _getParameters, _setField);
 
         eval(executable);
       }
@@ -941,10 +947,16 @@ MDSS.GeoEntityTree = (function(){
   
     return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
   }  
+  
+  function _getParameters()
+  {
+    return [_currentType, null];
+  }
         
   function _searchFunction(request, value)
   {
-    var params = [_currentType, null];
+    var params = _getParameters();
+    
     Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
   }
 

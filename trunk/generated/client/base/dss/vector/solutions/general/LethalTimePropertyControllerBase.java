@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 181006061)
+@com.terraframe.mojo.business.ClassSignature(hash = 923608755)
 public class LethalTimePropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.LethalTimePropertyController";
@@ -10,7 +10,7 @@ public class LethalTimePropertyControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 181006061;
+  private static final long serialVersionUID = 923608755;
   
   public LethalTimePropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

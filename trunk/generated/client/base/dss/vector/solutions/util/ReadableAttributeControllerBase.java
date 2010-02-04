@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1750336707)
+@com.terraframe.mojo.business.ClassSignature(hash = 396542066)
 public class ReadableAttributeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.ReadableAttributeController";
@@ -10,7 +10,7 @@ public class ReadableAttributeControllerBase implements com.terraframe.mojo.gene
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1750336707;
+  private static final long serialVersionUID = 396542066;
   
   public ReadableAttributeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
