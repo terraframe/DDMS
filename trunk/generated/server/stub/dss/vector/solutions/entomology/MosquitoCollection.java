@@ -274,37 +274,46 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       setAbundance(valueQuery, 1000, "1000");
       
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
-      valueQuery.setSqlPrefix(getWithQuerySQL(viewName, valueQuery));
+      
+      String withQuery = getWithQuerySQL(viewName, valueQuery);
       
       
-      String sql = "";
+      ValueQuery overrideQuery = new ValueQuery(queryFactory);
+      
+
+      
       for (Selectable s : valueQuery.getSelectableRefs())
       {
         String columnAlias = s.getColumnAlias();
+        String columnName = s.getColumnAlias();
         
         if (columnAlias.equals("abundance_1"))
         {
-          columnAlias = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1";
+          columnName = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
         if (columnAlias.equals("abundance_10"))
         {
-          columnAlias = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_10";
+          columnName = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
         if (columnAlias.equals("abundance_100"))
         {
-          columnAlias = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_100";
+          columnName = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
         if (columnAlias.equals("abundance_1000"))
         {
-          columnAlias = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count) AS abundance_1000";
+          columnName = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
         
-        sql +=  "," + columnAlias;
+        overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+        
       }
 
-      sql = "\nSELECT "+sql.substring(1)+" FROM " +viewName + "\n";
       
-      valueQuery.setSqlOverride(sql);
+      overrideQuery.setSqlPrefix(withQuery);
+      overrideQuery.FROM(viewName, viewName);
+      return overrideQuery;
+      
+
 
     }
 
