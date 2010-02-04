@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1449547836)
+@com.terraframe.mojo.business.ClassSignature(hash = -300948606)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,6 @@ public abstract class TeamSprayViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String RECEIVED = "received";
-  public static java.lang.String REFILLS = "refills";
-  public static java.lang.String RETURNED = "returned";
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
@@ -25,8 +22,7 @@ public abstract class TeamSprayViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -1449547836;
+  private static final long serialVersionUID = -300948606;
   
   public TeamSprayViewBase()
   {
@@ -145,90 +141,6 @@ public abstract class TeamSprayViewBase extends com.terraframe.mojo.business.Vie
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
     return mdClassIF.definesAttribute(ID);
-  }
-  
-  public Integer getReceived()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
-  }
-  
-  public void validateReceived()
-  {
-    this.validateAttribute(RECEIVED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReceivedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVED);
-  }
-  
-  public void setReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RECEIVED, "");
-    }
-    else
-    {
-      setValue(RECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getRefills()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
-  }
-  
-  public void validateRefills()
-  {
-    this.validateAttribute(REFILLS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRefillsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
-    return mdClassIF.definesAttribute(REFILLS);
-  }
-  
-  public void setRefills(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFILLS, "");
-    }
-    else
-    {
-      setValue(REFILLS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getReturned()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
-  }
-  
-  public void validateReturned()
-  {
-    this.validateAttribute(RETURNED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReturnedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
-    return mdClassIF.definesAttribute(RETURNED);
-  }
-  
-  public void setReturned(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RETURNED, "");
-    }
-    else
-    {
-      setValue(RETURNED, java.lang.Integer.toString(value));
-    }
   }
   
   public java.util.Date getSprayDate()
@@ -455,34 +367,6 @@ public abstract class TeamSprayViewBase extends com.terraframe.mojo.business.Vie
     else
     {
       setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
-  }
-  
-  public void validateUsed()
-  {
-    this.validateAttribute(USED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUsedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayView.CLASS);
-    return mdClassIF.definesAttribute(USED);
-  }
-  
-  public void setUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(USED, "");
-    }
-    else
-    {
-      setValue(USED, java.lang.Integer.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2105379646)
+@com.terraframe.mojo.business.ClassSignature(hash = -1340489398)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class TeamSprayExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2105379646;
+private static final long serialVersionUID = -1340489398;
 
   public TeamSprayExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -333,42 +333,6 @@ private static final long serialVersionUID = 2105379646;
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReceived()
-  {
-    return getReceived(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.RECEIVED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.RECEIVED, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills()
-  {
-    return getRefills(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.REFILLS, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.REFILLS, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.AttributeInteger getRefused()
   {
     return getRefused(null);
@@ -384,24 +348,6 @@ private static final long serialVersionUID = 2105379646;
   public com.terraframe.mojo.query.AttributeInteger getRefused(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.REFUSED, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned()
-  {
-    return getReturned(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.RETURNED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.RETURNED, alias, displayLabel);
 
   }
  
@@ -618,24 +564,6 @@ private static final long serialVersionUID = 2105379646;
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.TEAMSPRAYWEEK, alias, displayLabel);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed()
-  {
-    return getUsed(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.USED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.USED, alias, displayLabel);
 
   }
  

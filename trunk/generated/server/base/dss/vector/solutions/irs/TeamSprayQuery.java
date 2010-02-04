@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1254165105)
+@com.terraframe.mojo.business.ClassSignature(hash = 717835059)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class TeamSprayQuery extends dss.vector.solutions.irs.AbstractSprayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1254165105;
+private static final long serialVersionUID = 717835059;
 
   public TeamSprayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -83,57 +83,6 @@ private static final long serialVersionUID = 1254165105;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geoEntityForIndex");
 
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.GEOENTITYFORINDEX, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getReceived()
-  {
-    return getReceived(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.RECEIVED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.RECEIVED, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getRefills()
-  {
-    return getRefills(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.REFILLS, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.REFILLS, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getReturned()
-  {
-    return getReturned(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.RETURNED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.RETURNED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getSprayDateForIndex()
@@ -250,23 +199,6 @@ private static final long serialVersionUID = 1254165105;
     return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getUsed()
-  {
-    return getUsed(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.USED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.USED, alias, displayLabel);
-
-  }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -331,15 +263,6 @@ private static final long serialVersionUID = 1254165105;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getReceived();
-    public com.terraframe.mojo.query.AttributeInteger getReceived(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getRefills();
-    public com.terraframe.mojo.query.AttributeInteger getRefills(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getReturned();
-    public com.terraframe.mojo.query.AttributeInteger getReturned(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeMoment getSprayDateForIndex();
     public com.terraframe.mojo.query.AttributeMoment getSprayDateForIndex(String alias);
     public com.terraframe.mojo.query.AttributeMoment getSprayDateForIndex(String alias, String displayLabel);
@@ -358,9 +281,6 @@ private static final long serialVersionUID = 1254165105;
     public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek();
     public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias);
     public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getUsed();
-    public com.terraframe.mojo.query.AttributeInteger getUsed(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.irs.TeamSpray teamSpray);
 
@@ -376,7 +296,7 @@ private static final long serialVersionUID = 1254165105;
  implements TeamSprayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 61084175;
+private static final long serialVersionUID = 715087189;
 
   public TeamSprayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -427,57 +347,6 @@ private static final long serialVersionUID = 61084175;
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel)
   {
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.GEOENTITYFORINDEX,  alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getReceived()
-  {
-    return getReceived(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.RECEIVED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.RECEIVED, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getRefills()
-  {
-    return getRefills(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.REFILLS, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.REFILLS, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getReturned()
-  {
-    return getReturned(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.RETURNED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.RETURNED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeMoment getSprayDateForIndex()
@@ -580,23 +449,6 @@ private static final long serialVersionUID = 61084175;
   public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
-
-  }
-  public com.terraframe.mojo.query.AttributeInteger getUsed()
-  {
-    return getUsed(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.USED, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.TeamSpray.USED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

@@ -93,10 +93,6 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       
       tsv.setTeamSprayWeek(this.getTeamSprayWeek());
       tsv.setTarget(this.getTarget());
-      tsv.setReceived(this.getReceived());
-      tsv.setRefills(this.getRefills());
-      tsv.setReturned(this.getReturned());
-      tsv.setUsed(this.getUsed());      
       tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
       tsv.apply();
     }
@@ -106,10 +102,6 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       OperatorSprayStatusView view = new OperatorSprayStatusView();
       view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       view.setOperatorSprayWeek(this.getOperatorSprayWeek());
-      view.setReceived(this.getReceived());
-      view.setRefills(this.getRefills());
-      view.setReturned(this.getReturned());
-      view.setUsed(this.getUsed());
       view.setSpray(TeamSpray.get(tsv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());

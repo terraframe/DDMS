@@ -96,9 +96,6 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
     new AttributeNotificationMap(spray, TeamSpray.TEAMLEADER, this, TeamSprayView.TEAMLEADER);
     new AttributeNotificationMap(spray, TeamSpray.TARGET, this, TeamSprayView.TARGET);
     new AttributeNotificationMap(spray, TeamSpray.TEAMSPRAYWEEK, this, TeamSprayView.TEAMSPRAYWEEK);
-    new AttributeNotificationMap(spray, TeamSpray.RECEIVED, this, TeamSprayView.RECEIVED);
-    new AttributeNotificationMap(spray, TeamSpray.REFILLS, this, TeamSprayView.REFILLS);
-    new AttributeNotificationMap(spray, TeamSpray.RETURNED, this, TeamSprayView.RETURNED);        
     new AttributeNotificationMap(spray, TeamSpray.SPRAYTEAM, this, TeamSprayView.SPRAYTEAM);
   }
 
@@ -111,10 +108,6 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setTarget(this.getTarget());
     concrete.setTeamSprayWeek(this.getTeamSprayWeek());    
-    concrete.setReceived(this.getReceived());
-    concrete.setRefills(this.getRefills());
-    concrete.setReturned(this.getReturned());
-    concrete.setUsed(this.getUsed());
     concrete.setTeamLeader(this.getTeamLeader());
     concrete.clearSprayMethod();
 
@@ -135,10 +128,6 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
     this.setSprayTeam(concrete.getSprayTeam());
     this.setTarget(concrete.getTarget());
     this.setTeamSprayWeek(concrete.getTeamSprayWeek());    
-    this.setReceived(concrete.getReceived());
-    this.setRefills(concrete.getRefills());
-    this.setReturned(concrete.getReturned());
-    this.setUsed(concrete.getUsed());
     this.setTeamLeader(concrete.getTeamLeader());
     this.clearSprayMethod();
     

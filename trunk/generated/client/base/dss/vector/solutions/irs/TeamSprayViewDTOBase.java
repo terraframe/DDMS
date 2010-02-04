@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 795604548)
+@com.terraframe.mojo.business.ClassSignature(hash = 1207669250)
 public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayView";
-  private static final long serialVersionUID = 795604548;
+  private static final long serialVersionUID = 1207669250;
   
   protected TeamSprayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,9 +20,6 @@ public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String RECEIVED = "received";
-  public static java.lang.String REFILLS = "refills";
-  public static java.lang.String RETURNED = "returned";
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
@@ -30,7 +27,6 @@ public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  public static java.lang.String USED = "used";
   public dss.vector.solutions.irs.InsecticideBrandDTO getBrand()
   {
     if(getValue(BRAND) == null || getValue(BRAND).trim().equals(""))
@@ -154,117 +150,6 @@ public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
-  }
-  
-  public Integer getReceived()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
-  }
-  
-  public void setReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RECEIVED, "");
-    }
-    else
-    {
-      setValue(RECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isReceivedWritable()
-  {
-    return isWritable(RECEIVED);
-  }
-  
-  public boolean isReceivedReadable()
-  {
-    return isReadable(RECEIVED);
-  }
-  
-  public boolean isReceivedModified()
-  {
-    return isModified(RECEIVED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
-  }
-  
-  public Integer getRefills()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
-  }
-  
-  public void setRefills(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFILLS, "");
-    }
-    else
-    {
-      setValue(REFILLS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isRefillsWritable()
-  {
-    return isWritable(REFILLS);
-  }
-  
-  public boolean isRefillsReadable()
-  {
-    return isReadable(REFILLS);
-  }
-  
-  public boolean isRefillsModified()
-  {
-    return isModified(REFILLS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
-  }
-  
-  public Integer getReturned()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
-  }
-  
-  public void setReturned(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RETURNED, "");
-    }
-    else
-    {
-      setValue(RETURNED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isReturnedWritable()
-  {
-    return isWritable(RETURNED);
-  }
-  
-  public boolean isReturnedReadable()
-  {
-    return isReadable(RETURNED);
-  }
-  
-  public boolean isReturnedModified()
-  {
-    return isModified(RETURNED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public java.util.Date getSprayDate()
@@ -554,43 +439,6 @@ public abstract class TeamSprayViewDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
-  }
-  
-  public Integer getUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
-  }
-  
-  public void setUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(USED, "");
-    }
-    else
-    {
-      setValue(USED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isUsedWritable()
-  {
-    return isWritable(USED);
-  }
-  
-  public boolean isUsedReadable()
-  {
-    return isReadable(USED);
-  }
-  
-  public boolean isUsedModified()
-  {
-    return isModified(USED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()

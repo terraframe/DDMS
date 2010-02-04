@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1822422009)
+@com.terraframe.mojo.business.ClassSignature(hash = -496418349)
 public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.TeamSprayExcelView";
-  private static final long serialVersionUID = -1822422009;
+  private static final long serialVersionUID = -496418349;
   
   protected TeamSprayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -33,10 +33,7 @@ public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
-  public static java.lang.String RECEIVED = "received";
-  public static java.lang.String REFILLS = "refills";
   public static java.lang.String REFUSED = "refused";
-  public static java.lang.String RETURNED = "returned";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String ROOMSWITHBEDNETS = "roomsWithBedNets";
   public static java.lang.String SPRAYDATE = "sprayDate";
@@ -49,7 +46,6 @@ public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  public static java.lang.String USED = "used";
   public Integer getBedNets()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
@@ -649,80 +645,6 @@ public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.busi
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
-  public Integer getReceived()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
-  }
-  
-  public void setReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RECEIVED, "");
-    }
-    else
-    {
-      setValue(RECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isReceivedWritable()
-  {
-    return isWritable(RECEIVED);
-  }
-  
-  public boolean isReceivedReadable()
-  {
-    return isReadable(RECEIVED);
-  }
-  
-  public boolean isReceivedModified()
-  {
-    return isModified(RECEIVED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
-  }
-  
-  public Integer getRefills()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
-  }
-  
-  public void setRefills(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFILLS, "");
-    }
-    else
-    {
-      setValue(REFILLS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isRefillsWritable()
-  {
-    return isWritable(REFILLS);
-  }
-  
-  public boolean isRefillsReadable()
-  {
-    return isReadable(REFILLS);
-  }
-  
-  public boolean isRefillsModified()
-  {
-    return isModified(REFILLS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
-  }
-  
   public Integer getRefused()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
@@ -758,43 +680,6 @@ public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefusedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
-  }
-  
-  public Integer getReturned()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
-  }
-  
-  public void setReturned(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RETURNED, "");
-    }
-    else
-    {
-      setValue(RETURNED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isReturnedWritable()
-  {
-    return isWritable(RETURNED);
-  }
-  
-  public boolean isReturnedReadable()
-  {
-    return isReadable(RETURNED);
-  }
-  
-  public boolean isReturnedModified()
-  {
-    return isModified(RETURNED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public Integer getRooms()
@@ -1239,43 +1124,6 @@ public abstract class TeamSprayExcelViewDTOBase extends com.terraframe.mojo.busi
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
-  }
-  
-  public Integer getUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
-  }
-  
-  public void setUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(USED, "");
-    }
-    else
-    {
-      setValue(USED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isUsedWritable()
-  {
-    return isWritable(USED);
-  }
-  
-  public boolean isUsedReadable()
-  {
-    return isReadable(USED);
-  }
-  
-  public boolean isUsedModified()
-  {
-    return isModified(USED);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
   public static TeamSprayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

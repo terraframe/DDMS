@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1981617529)
+@com.terraframe.mojo.business.ClassSignature(hash = 469860435)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,10 +28,7 @@ public abstract class TeamSprayExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
   public static java.lang.String PREVSPRAYEDSTRUCTURES = "prevSprayedStructures";
-  public static java.lang.String RECEIVED = "received";
-  public static java.lang.String REFILLS = "refills";
   public static java.lang.String REFUSED = "refused";
-  public static java.lang.String RETURNED = "returned";
   public static java.lang.String ROOMS = "rooms";
   public static java.lang.String ROOMSWITHBEDNETS = "roomsWithBedNets";
   public static java.lang.String SPRAYDATE = "sprayDate";
@@ -44,8 +41,7 @@ public abstract class TeamSprayExcelViewBase extends com.terraframe.mojo.busines
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
-  public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -1981617529;
+  private static final long serialVersionUID = 469860435;
   
   public TeamSprayExcelViewBase()
   {
@@ -523,62 +519,6 @@ public abstract class TeamSprayExcelViewBase extends com.terraframe.mojo.busines
     }
   }
   
-  public Integer getReceived()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
-  }
-  
-  public void validateReceived()
-  {
-    this.validateAttribute(RECEIVED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReceivedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(RECEIVED);
-  }
-  
-  public void setReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RECEIVED, "");
-    }
-    else
-    {
-      setValue(RECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getRefills()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
-  }
-  
-  public void validateRefills()
-  {
-    this.validateAttribute(REFILLS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRefillsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(REFILLS);
-  }
-  
-  public void setRefills(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFILLS, "");
-    }
-    else
-    {
-      setValue(REFILLS, java.lang.Integer.toString(value));
-    }
-  }
-  
   public Integer getRefused()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
@@ -604,34 +544,6 @@ public abstract class TeamSprayExcelViewBase extends com.terraframe.mojo.busines
     else
     {
       setValue(REFUSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getReturned()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
-  }
-  
-  public void validateReturned()
-  {
-    this.validateAttribute(RETURNED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getReturnedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(RETURNED);
-  }
-  
-  public void setReturned(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(RETURNED, "");
-    }
-    else
-    {
-      setValue(RETURNED, java.lang.Integer.toString(value));
     }
   }
   
@@ -968,34 +880,6 @@ public abstract class TeamSprayExcelViewBase extends com.terraframe.mojo.busines
     else
     {
       setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getUsed()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
-  }
-  
-  public void validateUsed()
-  {
-    this.validateAttribute(USED);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUsedMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(USED);
-  }
-  
-  public void setUsed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(USED, "");
-    }
-    else
-    {
-      setValue(USED, java.lang.Integer.toString(value));
     }
   }
   
