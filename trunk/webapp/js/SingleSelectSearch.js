@@ -386,8 +386,24 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       return request;
     },
     
-    _validateSelection : function()
+    _validateSelection : function(e)
     {
+      // Don't validate if the blur was caused by a selection
+      // in the drop-down list.
+      // FIXME : Smethie, put this in a better place, possibly in its own function
+      // for the blur handler. You generally don't want to mix function handlers + normal functions
+      /*
+      if(e)
+      {
+        var blurEl = e.explicitOriginalTarget || document.activeElement;
+        var ul = YAHOO.util.Dom.getAncestorByClassName(blurEl, "selectableList")
+        if(ul)
+        {
+          return; 
+        }
+      }
+      */ 
+      
       var geoId = this._geoInput.value;
       
       if(Mojo.Util.isString(geoId) && geoId != '')
