@@ -70,7 +70,7 @@
               <td>
                 ${current.child.displayLabel}
               </td>
-              <td>
+              <td class="integerColumn">
                 ${current.amount}
                 <mjl:messages attribute="amount">
                   <mjl:message />
@@ -97,7 +97,7 @@
               <td>
                 ${current.child.displayLabel}
               </td>
-              <td>
+              <td class="integerColumn">
                 ${current.amount}
                 <mjl:messages attribute="amount">
                   <mjl:message />
@@ -124,7 +124,7 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               ${current.amount}
               <mjl:messages attribute="amount">
                 <mjl:message />

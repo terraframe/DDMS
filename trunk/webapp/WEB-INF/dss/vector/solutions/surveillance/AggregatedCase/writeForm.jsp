@@ -119,7 +119,7 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amount" />
               <mjl:messages attribute="amount">
                 <mjl:message />
@@ -148,13 +148,13 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amount" />
               <mjl:messages attribute="amount">
                 <mjl:message />
               </mjl:messages>
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amountPositive" />
               <mjl:messages attribute="amountPositive">
                 <mjl:message />
@@ -180,7 +180,7 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amount" />
               <mjl:messages attribute="amount">
                 <mjl:message />
@@ -207,7 +207,7 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amount" />
               <mjl:messages attribute="amount">
                 <mjl:message />

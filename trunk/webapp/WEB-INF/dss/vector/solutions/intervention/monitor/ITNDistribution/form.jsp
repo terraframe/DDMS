@@ -48,7 +48,7 @@
             <td>
               ${current.child.displayLabel}
             </td>
-            <td>
+            <td class="integerColumn">
               <mjl:input type="text" param="amount" />
               <mjl:messages attribute="amount">
                 <mjl:message />
