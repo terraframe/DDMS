@@ -63,7 +63,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, SurveyPointDTO.SURVEYDATE, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
