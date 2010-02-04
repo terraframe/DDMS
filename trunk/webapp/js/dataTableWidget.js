@@ -24,7 +24,8 @@ Mojo.Meta.newClass('MDSS.Event', {
     AFTER_SAVE : 3,
     AFTER_PROBLEM : 4,
     AFTER_FAILURE : 5,
-    AFTER_SELECTION : 6
+    AFTER_SELECTION : 6,
+    AFTER_DELETE : 7
   }
 });
 
@@ -776,29 +777,36 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
           var record = this.myDataTable.getRecord(target);
           var row_id = record.getData(this.tableData.fields[0].key);
           var row_index = this.myDataTable.getRecordIndex(record);
+          
           if (confirm(MDSS.Localized.Confirm_Delete_Row + (row_index + 1) + '?')) {
             if (typeof row_id !== 'undefined' && row_id.length > 1) {
               var request = new MDSS.Request( {
+            	row_id : row_id,
                 dataTable : this.myDataTable,
                 row_index : row_index,
                 thisRef : this,
                 onSuccess : function(deletedRow) {
-                  this.thisRef.tableData.rows.splice(request.row_index, 1);
-                  request.dataTable.deleteRow(target);
+                  this.thisRef.removeRow(this.row_index, this.row_id);
                 }
               });
               Mojo.Facade.deleteEntity(request, row_id);
-            } else {
-              this.myDataTable.deleteRow(target);
-              this.tableData.rows.splice(row_index, 1);
             }
-
+            else {
+              this.thisRef.removeRow(row_index, row_id);
+            }
           }
           break;
         default:
           this.myDataTable.onEventShowCellEditor(oArgs);
           break;
       }
+    },
+    
+    removeRow : function(index, id) {
+      this.tableData.rows.splice(index, 1);
+      this.myDataTable.deleteRow(index);    	
+
+      this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_DELETE, {id:id}));
     },
 
     addListener : function(listener){

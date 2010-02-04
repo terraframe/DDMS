@@ -99,7 +99,10 @@
 
 
 <script type="text/javascript">
-	var validateAmount = function(oData) {
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){ 
+
+	  var validateAmount = function(oData) {
 	    var re = /^(100|[0-9]?[0-9])$/;
 	    
 	    // Validate
@@ -110,58 +113,60 @@
 	        alert(MDSS.localize("Value_Not_Between_0_and_100"));
 	        return undefined;
 	    }
-	}
+    }
+
+	  var onSaveAndDelete = function(event) {
+		  if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
+ 		    window.location.reload( false );
+		  }
+	  }
 	
     <%=Halp.getDropdownSetup(brandDTO, brandAttributes, deleteColumn, clientRequest)%>
 
-
     brandData = {
-              rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
-              columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true, brandMap)%>,
-              defaults:<%=Halp.getDefaultValues(brandDTO, brandAttributes)%>,
-              copy_from_above: [],
-              div_id: "InsecticideBrand",
-              data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
-              saveFunction:"applyAll",
-              excelButtons:false,
-              after_save:function(){window.location.reload( false );}
-          };
+      rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
+      columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true, brandMap)%>,
+      defaults:<%=Halp.getDefaultValues(brandDTO, brandAttributes)%>,
+      copy_from_above: [],
+      div_id: "InsecticideBrand",
+      data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
+      saveFunction:"applyAll",
+      excelButtons:false
+    };
 
     <%=Halp.getDropdownSetup(nozzleDTO, nozzleAttributes, deleteColumn, clientRequest)%>
 
 
     nozzleData = {
-              rows:<%=Halp.getDataMap(nozzleRows, nozzleAttributes, nozzleDTO)%>,
-              columnDefs:<%=Halp.getColumnSetup(nozzleDTO, nozzleAttributes, deleteColumn, true)%>,
-              defaults:<%=Halp.getDefaultValues(nozzleDTO, nozzleAttributes)%>,
-              copy_from_above: [],
-              div_id: "Nozzle",
-              data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
-              saveFunction:"applyAll",
-              excelButtons:false,
-              after_save:function(){window.location.reload( false );}
-          };
+      rows:<%=Halp.getDataMap(nozzleRows, nozzleAttributes, nozzleDTO)%>,
+      columnDefs:<%=Halp.getColumnSetup(nozzleDTO, nozzleAttributes, deleteColumn, true)%>,
+      defaults:<%=Halp.getDefaultValues(nozzleDTO, nozzleAttributes)%>,
+      copy_from_above: [],
+      div_id: "Nozzle",
+      data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
+      saveFunction:"applyAll",
+      excelButtons:false
+    };
 
     <%=Halp.getDropdownSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, clientRequest, map)%>
 
-
     insecticideNozzleData = {
-              rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO, rowMap)%>,
-              columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
-              defaults:<%=Halp.getDefaultValues(insecticideNozzleDTO, insecticideNozzleAttributes)%>,
-              copy_from_above: [],
-              div_id: "InsecticideNozzle",
-              excelButtons:false,
-              data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
-              saveFunction:"applyAll"
-          };
+      rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO, rowMap)%>,
+      columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
+      defaults:<%=Halp.getDefaultValues(insecticideNozzleDTO, insecticideNozzleAttributes)%>,
+      copy_from_above: [],
+      div_id: "InsecticideNozzle",
+      excelButtons:false,
+      data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
+      saveFunction:"applyAll"
+    };
 
+    var brandGrid = MojoGrid.createDataTable(brandData);
+    var nozzleGrid = MojoGrid.createDataTable(nozzleData);
+    var configurationGrid = MojoGrid.createDataTable(insecticideNozzleData);
 
-    YAHOO.util.Event.onDOMReady(function(){
-      MojoGrid.createDataTable(brandData);
-      MojoGrid.createDataTable(nozzleData);
-      MojoGrid.createDataTable(insecticideNozzleData);
-    });
-
-
+    brandGrid.addListener(onSaveAndDelete);
+    nozzleGrid.addListener(onSaveAndDelete);        
+  });
+})();
 </script>
