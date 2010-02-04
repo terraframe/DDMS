@@ -16,7 +16,38 @@
 
 
 <%@page import="dss.vector.solutions.ontology.TermDTO"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO"%><c:set var="page_title" value="Enter_Infection_Assays"  scope="request"/>
+<%@page import="com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO"%>
+
+<c:set var="page_title" value="Enter_Infection_Assays"  scope="request"/>
+
+<dl>
+  <mjl:component item="${item}" param="dto">
+    <mjl:dt attribute="collectionId">
+      ${item.collectionId}
+    </mjl:dt>    
+    <mjl:dt attribute="collectionMethod">
+      ${collectionMethod.displayLabel}
+    </mjl:dt>
+    <mjl:dt attribute="collectionDate">
+      <span class="formatDate">${item.collectionDate}</span>
+    </mjl:dt>
+    <mjl:dt attribute="geoEntity">
+      ${entity.displayString}
+    </mjl:dt>
+    <mjl:dt attribute="lifeStage">
+      <ul>
+        <c:forEach items="${item.lifeStageEnumNames}" var="enumName">
+          <li>
+            ${item.lifeStageMd.enumItems[enumName]}
+          </li>
+        </c:forEach>
+      </ul>
+    </mjl:dt> 
+    <mjl:dt attribute="abundance">
+      ${item.abundance ? item.abundanceMd.positiveDisplayLabel :  item.abundanceMd.negativeDisplayLabel}
+    </mjl:dt>
+  </mjl:component>
+</dl>
 
 <dt>
   <label><fmt:message key="Infection_Assay"/></label>

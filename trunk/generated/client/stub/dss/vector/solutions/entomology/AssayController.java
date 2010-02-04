@@ -94,6 +94,10 @@ public class AssayController extends AssayControllerBase implements Reloadable
       this.setupInfection(clientRequest, view);
       this.setupPooledInfection(clientRequest, view);
 
+      req.setAttribute("entity", view.getGeoEntity());
+      req.setAttribute("collectionMethod", view.getCollectionMethod());
+      req.setAttribute("item", view);
+
       render("viewInfectionComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -248,6 +252,10 @@ public class AssayController extends AssayControllerBase implements Reloadable
       this.setupBiochemical(clientRequest, view);
       this.setupMolecular(clientRequest, view);
 
+      req.setAttribute("entity", view.getGeoEntity());
+      req.setAttribute("collectionMethod", view.getCollectionMethod());
+      req.setAttribute("item", view);
+      
       render("viewMechanismComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
