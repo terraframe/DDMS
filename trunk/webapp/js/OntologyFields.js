@@ -114,15 +114,9 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       return valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
     },
     
-    _getParmeters : function()
-    {
-      return [null, null];
-    },
-    
     _searchFunction : function(request, value)
     {
-      var params = this._getParameters();
-      
+      var params = [null, null];
       Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
     },    
     
@@ -152,13 +146,6 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       this._rootSearch = new MDSS.GenericSearch(this._currentRootDisplay, this._currentRootInput, lF, dF, iF, sF);
 
       YAHOO.util.Event.on(this._currentRootBtn, 'click', this._openBrowser, null, this);
-      
-      
-      // Setup validator
-      var gP = Mojo.Util.bind(this, this._getParameters);
-      var sF = Mojo.Util.bind(this, this._setField);
-      
-      new MDSS.OntologyValidator(this._currentRootInput.id, this._rootSearch, gP, sF);
       
       return modal;
     },
