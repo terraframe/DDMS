@@ -220,6 +220,10 @@ dd {
 	padding: 5px;
 }
 
+.integerColumn, .integerColumn input {
+	text-align: right;
+}
+
 .displayTable th a {
 	padding: 5px;
 	font-weight: bold;
