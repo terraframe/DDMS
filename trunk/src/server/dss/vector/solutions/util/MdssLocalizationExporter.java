@@ -25,6 +25,7 @@ import com.terraframe.mojo.dataaccess.MdLocalStructDAOIF;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.XMLParseException;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdAttributeConcrete;
@@ -38,7 +39,7 @@ import com.terraframe.mojo.system.metadata.MetaDataQuery;
 import com.terraframe.mojo.util.FileIO;
 import com.terraframe.mojo.util.LocalizeUtil;
 
-public class MdssLocalizationExporter
+public class MdssLocalizationExporter implements Reloadable
 {
   public static final String CONTROL_PANEL_PROPERTIES = "Control Panel";
   public static final String MDSS_PROPERTIES = "UI Text";

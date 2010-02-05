@@ -15,25 +15,30 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     super();
   }
   
+  public static Locale getLocaleFromString(String localeString)
+  {
+    String[] split = localeString.split("_", 3);
+    if (split.length==1)
+    {
+      return new Locale(split[0]);
+    }
+    else if (split.length==2)
+    {
+      return new Locale(split[0], split[1]);
+    }
+    else
+    {
+      return new Locale(split[0], split[1], split[2]);
+    }
+  }
+  
   public static InputStream exportFile(String[] locales)
   {
     MdssLocalizationExporter mdssLocalizer = new MdssLocalizationExporter();
     
     for (String s : locales)
     {
-      String[] split = s.split("_", 3);
-      if (split.length==1)
-      {
-        mdssLocalizer.addLocale(new Locale(split[0]));
-      }
-      else if (split.length==2)
-      {
-        mdssLocalizer.addLocale(new Locale(split[0], split[1]));
-      }
-      else if (split.length==3)
-      {
-        mdssLocalizer.addLocale(new Locale(split[0], split[1], split[2]));
-      }
+      mdssLocalizer.addLocale(getLocaleFromString(s));
     }
     
     mdssLocalizer.export();

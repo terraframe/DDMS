@@ -27,6 +27,7 @@ import com.terraframe.mojo.dataaccess.io.FileWriteException;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
 import com.terraframe.mojo.dataaccess.metadata.SupportedLocaleDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdLocalizable;
@@ -35,7 +36,7 @@ import com.terraframe.mojo.system.metadata.MetaData;
 import com.terraframe.mojo.system.metadata.MetaDataDisplayLabel;
 import com.terraframe.mojo.util.FileIO;
 
-public class MdssLocalizationImporter
+public class MdssLocalizationImporter implements Reloadable
 {
   private HSSFSheet customSheet;
   private HSSFSheet clientSheet;
@@ -88,7 +89,11 @@ public class MdssLocalizationImporter
     while (cellIterator.hasNext())
     {
       HSSFCell cell = cellIterator.next();
-      locales.add(new Locale(cell.getRichStringCellValue().getString()));
+      String localeString = getStringValue(cell);
+      if (localeString!=null)
+      {
+        locales.add(LocalizationFacade.getLocaleFromString(localeString));
+      }
     }
   }
 
