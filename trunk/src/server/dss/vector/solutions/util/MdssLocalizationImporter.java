@@ -38,39 +38,46 @@ import com.terraframe.mojo.util.FileIO;
 
 public class MdssLocalizationImporter implements Reloadable
 {
-  private HSSFSheet customSheet;
-  private HSSFSheet clientSheet;
-  private HSSFSheet serverSheet;
-  private HSSFSheet commonSheet;
-  private HSSFSheet labelSheet;
-  private HSSFSheet propertySheet;
-  private HSSFSheet controlPanelSheet;
+  private HSSFSheet    customSheet;
+
+  private HSSFSheet    clientSheet;
+
+  private HSSFSheet    serverSheet;
+
+  private HSSFSheet    commonSheet;
+
+  private HSSFSheet    labelSheet;
+
+  private HSSFSheet    propertySheet;
+
+  private HSSFSheet    controlPanelSheet;
+
   private List<Locale> locales;
-  
+
   @StartSession
   public static void main(String[] args) throws FileNotFoundException
   {
     long start = System.currentTimeMillis();
-    
+
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
     mli.read(new FileInputStream("testLoc.xls"));
 
     long stop = System.currentTimeMillis();
     System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
   }
-  
+
   public MdssLocalizationImporter()
   {
     locales = new LinkedList<Locale>();
   }
-  
+
   @StartSession
   public void read(InputStream stream)
   {
     openStream(stream);
-    
+
     parseLocales();
-    
+
     updateProperties("MDSS", propertySheet);
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
@@ -90,7 +97,7 @@ public class MdssLocalizationImporter implements Reloadable
     {
       HSSFCell cell = cellIterator.next();
       String localeString = getStringValue(cell);
-      if (localeString!=null)
+      if (localeString != null)
       {
         locales.add(LocalizationFacade.getLocaleFromString(localeString));
       }
@@ -109,7 +116,7 @@ public class MdssLocalizationImporter implements Reloadable
     {
       e.printStackTrace();
     }
-    
+
     int c = 0;
     for (Locale l : locales)
     {
@@ -117,24 +124,24 @@ public class MdssLocalizationImporter implements Reloadable
       String data = new String();
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
       rowIterator.next();
-      while(rowIterator.hasNext())
+      while (rowIterator.hasNext())
       {
         HSSFRow row = rowIterator.next();
         String key = getStringValue(row.getCell(0));
-        if (key==null)
+        if (key == null)
         {
           continue;
         }
-        
+
         HSSFCell cell = row.getCell(c);
-        if (cell==null)
+        if (cell == null)
         {
           continue;
         }
-        
+
         data += key + '=' + getStringValue(cell) + '\n';
       }
-      
+
       String suffix = l.toString();
       if (suffix.equals(Locale.ENGLISH.toString()))
       {
@@ -144,7 +151,7 @@ public class MdssLocalizationImporter implements Reloadable
       {
         suffix = '_' + suffix;
       }
-      
+
       File file = new File(dir, bundle + suffix + ".properties");
       try
       {
@@ -159,17 +166,17 @@ public class MdssLocalizationImporter implements Reloadable
 
   private String getStringValue(HSSFCell cell)
   {
-    if (cell==null)
+    if (cell == null)
     {
       return null;
     }
-    else if(cell.getCellType() == HSSFCell.CELL_TYPE_BLANK)
+    else if (cell.getCellType() == HSSFCell.CELL_TYPE_BLANK)
     {
       return null;
     }
-    else if(cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
+    else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
     {
-      return (new BigDecimal(cell.getNumericCellValue())).toString();
+      return ( new BigDecimal(cell.getNumericCellValue()) ).toString();
     }
     else if (cell.getCellType() == HSSFCell.CELL_TYPE_BOOLEAN)
     {
@@ -180,7 +187,7 @@ public class MdssLocalizationImporter implements Reloadable
       return cell.getRichStringCellValue().getString().trim();
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   @Transaction
   private void updateLabels()
@@ -197,29 +204,29 @@ public class MdssLocalizationImporter implements Reloadable
   private void readLabelRow(HSSFRow row)
   {
     String key = getStringValue(row.getCell(0));
-    if (key==null)
+    if (key == null)
     {
       return;
     }
-    
+
     MetaData metadata = MetaData.getByKey(key);
     metadata.lock();
-    
+
     MetaDataDisplayLabel label = null;
     if (metadata instanceof MdType)
     {
-      label = ((MdType) metadata).getDisplayLabel();
+      label = ( (MdType) metadata ).getDisplayLabel();
     }
     if (metadata instanceof MdAttribute)
     {
-      label = ((MdAttribute) metadata).getDisplayLabel();
+      label = ( (MdAttribute) metadata ).getDisplayLabel();
     }
-    
-    int c=1;
+
+    int c = 1;
     for (Locale l : locales)
     {
       String value = getStringValue(row.getCell(c++));
-      if (value!=null)
+      if (value != null)
       {
         if (l.equals(Locale.ENGLISH))
         {
@@ -233,19 +240,19 @@ public class MdssLocalizationImporter implements Reloadable
     }
     metadata.apply();
   }
-  
+
   @Transaction
   private void ensureInstalledLocales()
   {
     for (Locale l : locales)
     {
       String localeString = l.toString();
-      
+
       if (localeString.equals(Locale.ENGLISH.toString()))
       {
         continue;
       }
-      
+
       try
       {
         SupportedLocaleDAO.getEnumeration(SupportedLocaleInfo.CLASS, localeString);
@@ -269,15 +276,15 @@ public class MdssLocalizationImporter implements Reloadable
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      
+
       String key = getStringValue(row.getCell(0));
-      if (key==null)
+      if (key == null)
       {
         continue;
       }
-      
-      MdLocalizableDAO dao = (MdLocalizableDAO)MdLocalizableDAO.get(MdLocalizable.CLASS, key);
-      
+
+      MdLocalizableDAO dao = (MdLocalizableDAO) MdLocalizableDAO.get(MdLocalizable.CLASS, key);
+
       String xmlString;
       File xmlFile = dao.getXmlFile();
       if (xmlFile.exists())
@@ -295,23 +302,23 @@ public class MdssLocalizationImporter implements Reloadable
       {
         xmlString = dao.getValue(MdLocalizableInfo.MESSAGES);
       }
-      
+
       int start = xmlString.indexOf("<locale");
       int end = xmlString.lastIndexOf("/locale>");
       String prefix = xmlString.substring(0, start).trim();
       String suffix = "\n" + xmlString.substring(end + 8).trim();
-      
+
       int c = 1;
       String middle = new String();
       for (Locale l : locales)
       {
         String value = getStringValue(row.getCell(c++));
-        if (value!=null)
+        if (value != null)
         {
           middle += "\n  <locale language=\"" + l.toString() + "\">" + value + "</locale>";
         }
       }
-      
+
       try
       {
         FileIO.write(xmlFile, prefix + middle + suffix);
@@ -325,7 +332,7 @@ public class MdssLocalizationImporter implements Reloadable
 
   /**
    * Opens the stream and parses the sheet based on name
-   *
+   * 
    * @param stream
    */
   private void openStream(InputStream stream)

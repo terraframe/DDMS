@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 110815571)
+@com.terraframe.mojo.business.ClassSignature(hash = -1021694573)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class SystemAlertEmailTemplateVariablesQuery extends com.terraframe.mojo.query.GeneratedStructQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 110815571;
+private static final long serialVersionUID = -1021694573;
 
   public SystemAlertEmailTemplateVariablesQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -53,6 +53,23 @@ private static final long serialVersionUID = 110815571;
   public com.terraframe.mojo.query.AttributeChar getDefaultLocale(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.DEFAULTLOCALE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south()
+  {
+    return getEn_US_south(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.EN_US_SOUTH, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.EN_US_SOUTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()
@@ -141,6 +158,9 @@ private static final long serialVersionUID = 110815571;
     public com.terraframe.mojo.query.AttributeChar getDefaultLocale();
     public com.terraframe.mojo.query.AttributeChar getDefaultLocale(String alias);
     public com.terraframe.mojo.query.AttributeChar getDefaultLocale(String alias, String displayLabel);
+    public com.terraframe.mojo.query.AttributeChar getEn_US_south();
+    public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias);
+    public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias, String displayLabel);
     public com.terraframe.mojo.query.AttributeChar getId();
     public com.terraframe.mojo.query.AttributeChar getId(String alias);
     public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
@@ -159,7 +179,7 @@ private static final long serialVersionUID = 110815571;
  **/
   public static class SystemAlertEmailTemplateVariablesQueryStruct extends com.terraframe.mojo.query.AttributeLocal implements SystemAlertEmailTemplateVariablesQueryStructIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1518708431;
+private static final long serialVersionUID = -28615529;
 
   public SystemAlertEmailTemplateVariablesQueryStruct(com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -182,6 +202,23 @@ private static final long serialVersionUID = 1518708431;
   public com.terraframe.mojo.query.AttributeChar getDefaultLocale(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.DEFAULTLOCALE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south()
+  {
+    return getEn_US_south(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.EN_US_SOUTH, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getEn_US_south(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.EN_US_SOUTH, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.AttributeChar getId()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1613781412)
+@com.terraframe.mojo.business.ClassSignature(hash = 1883639914)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,10 +12,11 @@ public abstract class SystemAlertEmailTemplateVariablesBase extends com.terrafra
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertEmailTemplateVariables";
   public static java.lang.String DEFAULTLOCALE = "defaultLocale";
+  public static java.lang.String EN_US_SOUTH = "en_US_south";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String SITEMASTER = "siteMaster";
-  private static final long serialVersionUID = -1613781412;
+  private static final long serialVersionUID = 1883639914;
   
   public SystemAlertEmailTemplateVariablesBase()
   {
@@ -35,34 +36,6 @@ public abstract class SystemAlertEmailTemplateVariablesBase extends com.terrafra
   public static SystemAlertEmailTemplateVariables getByKey(String key)
   {
     return (SystemAlertEmailTemplateVariables) com.terraframe.mojo.business.Struct.get(CLASS, key);
-  }
-  
-  public String getDefaultLocale()
-  {
-    return getValue(DEFAULTLOCALE);
-  }
-  
-  public void validateDefaultLocale()
-  {
-    this.validateAttribute(DEFAULTLOCALE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDefaultLocaleMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlertEmailTemplateVariables.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTLOCALE);
-  }
-  
-  public void setDefaultLocale(String value)
-  {
-    if(value == null)
-    {
-      setValue(DEFAULTLOCALE, "");
-    }
-    else
-    {
-      setValue(DEFAULTLOCALE, value);
-    }
   }
   
   public String getId()

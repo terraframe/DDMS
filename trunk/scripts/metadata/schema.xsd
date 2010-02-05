@@ -211,7 +211,9 @@
 <xs:complexType name="mdattribute">
   <xs:complexContent>
     <xs:extension base="metadata">
-	  <xs:sequence/>
+	  <xs:sequence>
+      <xs:element name="generateAccessor" type="xs:string" minOccurs="0"/>    
+    </xs:sequence>
 	</xs:extension>
   </xs:complexContent>
 </xs:complexType>

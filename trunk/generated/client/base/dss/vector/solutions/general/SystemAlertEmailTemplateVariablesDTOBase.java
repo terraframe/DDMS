@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1400084516)
+@com.terraframe.mojo.business.ClassSignature(hash = 1575395050)
 public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terraframe.mojo.business.LocalStructDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertEmailTemplateVariables";
-  private static final long serialVersionUID = -1400084516;
+  private static final long serialVersionUID = 1575395050;
   
   protected SystemAlertEmailTemplateVariablesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -28,46 +28,10 @@ public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terra
   }
   
   public static java.lang.String DEFAULTLOCALE = "defaultLocale";
+  public static java.lang.String EN_US_SOUTH = "en_US_south";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public String getDefaultLocale()
-  {
-    return getValue(DEFAULTLOCALE);
-  }
-  
-  public void setDefaultLocale(String value)
-  {
-    if(value == null)
-    {
-      setValue(DEFAULTLOCALE, "");
-    }
-    else
-    {
-      setValue(DEFAULTLOCALE, value);
-    }
-  }
-  
-  public boolean isDefaultLocaleWritable()
-  {
-    return isWritable(DEFAULTLOCALE);
-  }
-  
-  public boolean isDefaultLocaleReadable()
-  {
-    return isReadable(DEFAULTLOCALE);
-  }
-  
-  public boolean isDefaultLocaleModified()
-  {
-    return isModified(DEFAULTLOCALE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getDefaultLocaleMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DEFAULTLOCALE).getAttributeMdDTO();
-  }
-  
   public String getKeyName()
   {
     return getValue(KEYNAME);

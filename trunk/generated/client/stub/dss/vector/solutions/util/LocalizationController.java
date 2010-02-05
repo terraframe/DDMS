@@ -2,10 +2,7 @@ package dss.vector.solutions.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,19 +37,10 @@ public class LocalizationController extends LocalizationControllerBase implement
 
   private void renderSelectLocales() throws IOException, ServletException
   {
-//    List<SupportedLocaleDTO> list = new LinkedList<SupportedLocaleDTO>();
-//    
-    Locale[] array = new Locale[] { Locale.ENGLISH, Locale.FRENCH, new Locale("pt")};
-//    for (Locale l : array)
-//    {
-//      SupportedLocaleDTO dto = new SupportedLocaleDTO(getClientRequest());
-//      dto.setEnumName(l.toString());
-//      dto.setLocaleLabel(l.getDisplayName());
-//      list.add(dto);
-//    }
+    SupportedLocaleQueryDTO allInstances = SupportedLocaleDTO.getAllInstances(getClientRequest(), SupportedLocaleDTO.ENUMNAME, true, 0, 0);
+    List<? extends SupportedLocaleDTO> locales = allInstances.getResultSet();
     
-//    SupportedLocaleQueryDTO allInstances = SupportedLocaleDTO.getAllInstances(getClientRequest(), SupportedLocaleDTO.ENUMNAME, true, 20, 1);
-    req.setAttribute("supported", Arrays.asList(array));
+    req.setAttribute("supported", locales);
     render("selectLocales.jsp");
   }
   
