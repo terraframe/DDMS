@@ -801,7 +801,21 @@ Mojo.Meta.newClass("MDSS.OntologyValidator", {
       this.setField = setField;
       
       // Setup the validator
-      YAHOO.util.Event.on(this._displayEl, "blur", this._validateSelection, this, this);      
+      YAHOO.util.Event.on(this._displayEl, "blur", this._blurHandler, this, this);      
+    },
+    
+    _blurHandler : function(e) {
+      if(e) {
+        var blurEl = e.explicitOriginalTarget || document.activeElement;
+          
+        var ul = YAHOO.util.Dom.getAncestorByClassName(blurEl, "selectableList")
+          
+        if(ul) {
+          return; 
+        }
+          
+        this._validateSelection();
+      }       	
     },
 
     _validateSelection : function() {
@@ -879,8 +893,9 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       var iF = Mojo.Util.bind(this, this._idFunction);
       var lF = Mojo.Util.bind(this, this._displayFunction);
       var sF = Mojo.Util.bind(this, this._searchFunction);
+      var selF = Mojo.Util.bind(this, this._selectFunction);
       
-      this._search = new MDSS.GenericSearch(this._displayEl, this._attributeEl, lF, dF, iF, sF, null);     
+      this._search = new MDSS.GenericSearch(this._displayEl, this._attributeEl, lF, dF, iF, sF, selF);     
       
       // Setup validator
       var gP = Mojo.Util.bind(this, this._getParameters);
@@ -897,6 +912,10 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       var parameters = this._getParameters();
       
       Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
+    },
+    
+    _selectFunction : function () {
+      MDSS.Calendar.removeError(this._button);      
     },
         
     setField : function(selected) {
