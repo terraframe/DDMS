@@ -115,7 +115,12 @@ public class MdssLocalizationImporter
       while(rowIterator.hasNext())
       {
         HSSFRow row = rowIterator.next();
-        String key = row.getCell(0).getRichStringCellValue().getString();
+        String key = getStringValue(row.getCell(0));
+        if (key==null)
+        {
+          continue;
+        }
+        
         HSSFCell cell = row.getCell(c);
         if (cell==null)
         {
@@ -153,6 +158,10 @@ public class MdssLocalizationImporter
     {
       return null;
     }
+    else if(cell.getCellType() == HSSFCell.CELL_TYPE_BLANK)
+    {
+      return null;
+    }
     else if(cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
     {
       return (new BigDecimal(cell.getNumericCellValue())).toString();
@@ -171,46 +180,53 @@ public class MdssLocalizationImporter
   @Transaction
   private void updateLabels()
   {
-    ensureInstalledLocales();
-    
     Iterator<HSSFRow> rowIterator = labelSheet.rowIterator();
     rowIterator.next();
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      String key = getStringValue(row.getCell(0));
-      
-      MetaData metadata = MetaData.getByKey(key);
-      metadata.lock();
-      
-      MetaDataDisplayLabel label = null;
-      if (metadata instanceof MdType)
+      readLabelRow(row);
+    }
+  }
+
+  private void readLabelRow(HSSFRow row)
+  {
+    String key = getStringValue(row.getCell(0));
+    if (key==null)
+    {
+      return;
+    }
+    
+    MetaData metadata = MetaData.getByKey(key);
+    metadata.lock();
+    
+    MetaDataDisplayLabel label = null;
+    if (metadata instanceof MdType)
+    {
+      label = ((MdType) metadata).getDisplayLabel();
+    }
+    if (metadata instanceof MdAttribute)
+    {
+      label = ((MdAttribute) metadata).getDisplayLabel();
+    }
+    
+    int c=1;
+    for (Locale l : locales)
+    {
+      String value = getStringValue(row.getCell(c++));
+      if (value!=null)
       {
-        label = ((MdType) metadata).getDisplayLabel();
-      }
-      if (metadata instanceof MdAttribute)
-      {
-        label = ((MdAttribute) metadata).getDisplayLabel();
-      }
-      
-      int c=1;
-      for (Locale l : locales)
-      {
-        String value = getStringValue(row.getCell(c++));
-        if (value!=null)
+        if (l.equals(Locale.ENGLISH))
         {
-          if (l.equals(Locale.ENGLISH))
-          {
-            label.setDefaultLocale(value);
-          }
-          else
-          {
-            label.setValue(l, value);
-          }
+          label.setDefaultLocale(value);
+        }
+        else
+        {
+          label.setValue(l, value);
         }
       }
-      metadata.apply();
     }
+    metadata.apply();
   }
   
   @Transaction
@@ -249,7 +265,12 @@ public class MdssLocalizationImporter
     {
       HSSFRow row = rowIterator.next();
       
-      String key = row.getCell(0).getRichStringCellValue().getString();
+      String key = getStringValue(row.getCell(0));
+      if (key==null)
+      {
+        continue;
+      }
+      
       MdLocalizableDAO dao = (MdLocalizableDAO)MdLocalizableDAO.get(MdLocalizable.CLASS, key);
       
       String xmlString;
