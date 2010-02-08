@@ -34,12 +34,14 @@ public class UniversalImporter {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		String geoid = "";
 		String filename = "";
-		if (args.length > 0) {
-			filename = args[0];
+		if (args.length == 2) {
+			geoid = args[0];
+			filename = args[1];
 		}
 
-		UniversalImporter ui = new UniversalImporter(filename);
+		UniversalImporter ui = new UniversalImporter(geoid, filename);
 		ui.importUniversals();
 	}
 
@@ -48,14 +50,16 @@ public class UniversalImporter {
 		this.addUniversal(Universal.EARTH);
 	}
 
-	public UniversalImporter(String filename) {
+	public UniversalImporter(String geoid, String filename) {
 		this();
+		this.geoid = geoid;
 		this.filename = filename;
 	}
 
 	private Map<String, Universal> universals = new LinkedHashMap<String, Universal>();
 	private int errorCount = 0;
 	private String filename;
+	private String geoid;
 
 	public void importUniversals() {
 		this.importExcelFile(filename);
@@ -190,8 +194,13 @@ public class UniversalImporter {
 			}
 		}
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
+		
+		//4) Create countryGeoId element
+		System.out.println("<"+XMLTags.CREATE_TAG+">");
+		System.out.println(Universal.EARTH.getCountryGeoIdTag(this.geoid));
+		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
 
-		//4) Define all necessary permissions
+		//5) Define all necessary permissions
 		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
 
 		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.GUI_VISIBILITY + "\">");

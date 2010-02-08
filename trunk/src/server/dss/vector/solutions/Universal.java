@@ -230,6 +230,39 @@ public class Universal {
 		sb.append("</"+XMLTags.OBJECT_TAG+">\n");
 		return sb.toString();
 	}
+	
+	public String getCountryGeoIdTag(String geoid) {
+	StringBuffer sb = new StringBuffer();
+		sb.append("<"+XMLTags.OBJECT_TAG+"\n");
+		sb.append("   "+XMLTags.TYPE_ATTRIBUTE+"=\"dss.vector.solutions.Property\"\n");
+		sb.append("   "+XMLTags.KEY_ATTRIBUTE+"=\"countryGeoId\">\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyName\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"countryGeoId\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"displayLabel\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"Country Geo ID\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyPackage\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"dss.vector.solutions.install\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyValue\"\n");
+        sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + geoid + "\"/>\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyType\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"STRING\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyValidator\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"^[0-9A-Za-z]{1,16}$\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"validValues\"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"12323,ABCD,23AB,ZZZ456\" />\n");
+		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"description\"\n");
+        sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"The GeoID of the Country in which this server is installed\"/>\n");
+		sb.append("</"+XMLTags.OBJECT_TAG+">\n");
+		return sb.toString();
+	}
 
 	public List<Universal> getAllowedInAncestors() {
 		ArrayList<Universal> ancestors = new ArrayList<Universal>();
