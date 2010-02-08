@@ -31,6 +31,8 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.query.QueryException;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -213,26 +215,62 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       }
 
       String sql;
-      if (i != 0 && layer.getClipToBaseLayer())
+      if(i !=0 && layer.getClipToBaseLayer())
       {
-        valueQuery.FROM("(SELECT buffer(collect("+QueryConstants.GEOMETRY_NAME_COLUMN+"), 0) AS "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
+        List<Selectable> selectables = valueQuery.getSelectableRefs();
+        Selectable geoSelectable = null;
+        int count = 0;
+        int removeInd = 0;
+        for(Selectable selectable : selectables)
+        {
+          if(selectable.getColumnAlias().equals(QueryConstants.GEOMETRY_NAME_COLUMN))
+          {
+            geoSelectable = selectable;
+            removeInd = count;
+          }
+          
+          count++;
+        }
+        
+        selectables.remove(removeInd);
+        
+        String geoAttr = geoSelectable.getDefiningTableAlias()+"."+geoSelectable.getDbColumnName();
+        
+        SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN,
+          "collect(intersection("+geoAttr+", geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN + "))");
+        selectables.add(geoS);
+        
+        valueQuery.clearSelectClause();
+        valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
+        
+        valueQuery.FROM("(SELECT "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
         sql = valueQuery.getSQL();
-
-        String inter = "intersection(buffer($2, 0), geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
-            + ")";
-        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+" + QueryConstants.GEOMETRY_NAME_COLUMN
-            + ")(.*)$";
-        Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
-        Matcher m = p.matcher(sql);
-        m.matches();
-
-        sql = m.replaceFirst("$1" + inter + "$3$4 AND $2 && geoentity_clipping."
-            + QueryConstants.GEOMETRY_NAME_COLUMN);
       }
       else
       {
         sql = valueQuery.getSQL();
       }
+      
+//      if (i != 0 && layer.getClipToBaseLayer())
+//      {
+//        valueQuery.FROM("(SELECT buffer(collect("+QueryConstants.GEOMETRY_NAME_COLUMN+"), 0) AS "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
+//        sql = valueQuery.getSQL();
+//
+//        String inter = "intersection(buffer($2, 0), geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
+//            + ")";
+//        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+" + QueryConstants.GEOMETRY_NAME_COLUMN
+//            + ")(.*)$";
+//        Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
+//        Matcher m = p.matcher(sql);
+//        m.matches();
+//
+//        sql = m.replaceFirst("$1" + inter + "$3$4 AND $2 && geoentity_clipping."
+//            + QueryConstants.GEOMETRY_NAME_COLUMN);
+//      }
+//      else
+//      {
+//        sql = valueQuery.getSQL();
+//      }
 
 
       // Create a new view that will reflect the current state of the query.
