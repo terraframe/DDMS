@@ -136,10 +136,10 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
         var request = new MDSS.Request({
           obj : this,        
           onFailure : function(){
-          this.obj.clearAll();
+            this.obj.clearAll();
           },
           onProblemExceptionDTO : function(){
-          this.obj.clearAll();
+            this.obj.clearAll();
           },          
           onSuccess : function(teams){
             // Remove all of the current options in the select list

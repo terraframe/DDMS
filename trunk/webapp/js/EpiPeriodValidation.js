@@ -99,6 +99,12 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
       return '';
     },
     
+    _clearMessages : function() {
+      MDSS.Calendar.removeError(this._geoId);
+      MDSS.Calendar.removeError(this._year);
+      MDSS.Calendar.removeError(this._period);   	
+    },
+    
     validate : function() {
       this.disableButton();
                 
@@ -106,6 +112,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
         var request = new MDSS.Request({
           that : this,
           onSuccess : function(){
+        	this.that._clearMessages();
             this.that.enableButton();
             
             if(this.e && e.keyCode === 9 ){
@@ -113,9 +120,13 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
             }
           },
           onFailure : function(e){
+        	this.that._clearMessages();
+        	
             MDSS.Calendar.addError(this.that._geoId,e.getLocalizedMessage());            
           },
           onProblemExceptionDTO : function(e){
+          	this.that._clearMessages();        	
+        	  
             var problems = e.getProblems();
 
             for each (p in problems) {
@@ -128,11 +139,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
             }
           }
         });
-          
-        MDSS.Calendar.removeError(this._geoId);
-        MDSS.Calendar.removeError(this._year);
-        MDSS.Calendar.removeError(this._period);
-        
+                  
         var periodValue = parseInt(this._period.value);
         var yearValue = parseInt(this._year.value);
         var selectedType = this._getSelectedEpiType();
