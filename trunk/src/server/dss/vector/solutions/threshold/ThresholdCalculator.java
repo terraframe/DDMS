@@ -72,6 +72,12 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 				// }
 				season = instance.calculateThresholds(currentPeriod);
 			}
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			clearInstance();
 		}
@@ -90,18 +96,10 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 		return instance;
 	}
 
-	private synchronized static ThresholdCalculator newInstance(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType) {
+	private synchronized static ThresholdCalculator newInstance(Class<? extends ThresholdCalculator> clazz, ThresholdCalculationType calculationType) throws InstantiationException, IllegalAccessException {
 		if (instance == null) {
-			try {
-				instance = (ThresholdCalculator) clazz.newInstance();
-				instance.calculationType = calculationType;
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			instance = (ThresholdCalculator) clazz.newInstance();
+			instance.calculationType = calculationType;
 		} else {
 			String msg = "Thresholds are already being calculated";
 
