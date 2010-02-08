@@ -12,14 +12,14 @@
 			<mdUtil
 				name="dss.vector.solutions.query.EqualSizeCategoryFactory"
 				extends="dss.vector.solutions.query.AbstractCategoryFactory"
-				label="Equal Size Category Factory"
+				label="Equal Size Category"
 				description="Factory to create equally sized ranges">
 			</mdUtil>
 			
 			<mdUtil
 				name="dss.vector.solutions.query.ExactCategoryFactory"
 				extends="dss.vector.solutions.query.AbstractCategoryFactory"
-				label="Exact Category Factory"
+				label="Exact Category"
 				description="Factory to create exact categories">
 			</mdUtil>
 		</create>
