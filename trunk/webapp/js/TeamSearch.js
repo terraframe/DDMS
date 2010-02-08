@@ -93,8 +93,6 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       {
         var request = new MDSS.Request({
           that : this,
-          onSend: function(){},
-          onComplete: function(){},
           onFailure : function(){
             this.that.clearTeamMembers();
           },
@@ -115,8 +113,6 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       {
         var request = new MDSS.Request({
           that : this,
-          onSend: function(){},
-          onComplete: function(){},
           onFailure : function(){
             this.that.clearTeamMembers();
           },
@@ -139,8 +135,6 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       {
         var request = new MDSS.Request({
           obj : this,        
-          onSend: function(){},
-          onComplete: function(){},
           onFailure : function(){
           this.obj.clearAll();
           },
