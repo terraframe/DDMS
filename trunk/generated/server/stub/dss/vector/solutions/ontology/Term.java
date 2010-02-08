@@ -628,124 +628,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   }
 
-  private static class TermByIdQueryBuilder extends ViewQueryBuilder implements Reloadable
-  {
-    private TermQuery         termQuery;
-
-    // AllPaths is used to restrict the query by parent term Ids.
-    private AllPathsQuery     pathsQuery;
-
-    private BrowserRootQuery  rootQuery             = null;
-
-    private BrowserRootQuery  unselectableRootQuery = null;
-
-    private String            termId;
-    
-    protected TermByIdQueryBuilder(QueryFactory queryFactory, String termId, String className, String attribute)
-    {
-      super(queryFactory);
-      
-      this.termId = termId;
-      this.termQuery = new TermQuery(queryFactory);
-      this.pathsQuery = new AllPathsQuery(queryFactory);
-      
-      this.rootQuery = BrowserRoot.getAttributeRoots(className, attribute, queryFactory);
-      this.unselectableRootQuery = BrowserRoot.getAttributeRoots(className, attribute, queryFactory);
-      this.unselectableRootQuery.WHERE(unselectableRootQuery.getSelectable().EQ(false));
-    }
-
-    @Override
-    protected void buildSelectClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();
-
-      query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getDisplay());
-      query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
-    }
-
-    @Override
-    protected void buildWhereClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();
-
-      query.WHERE(termQuery.getTermId().EQi(this.termId));
-
-      if (this.rootQuery != null)
-      {
-        query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
-        query.AND(this.pathsQuery.getParentTerm().EQ(rootQuery.getTerm()));
-
-        long count = unselectableRootQuery.getCount();
-
-        if (count > 0)
-        {
-          query.AND(this.termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));
-        }
-      }
-
-      query.AND(termQuery.getObsolete().EQ(false));
-    }
-
-  }
-
-  private static class GeoEntityTermQueryBuilder extends ViewQueryBuilder implements Reloadable
-  {
-    private TermQuery         termQuery;
-    
-    // AllPaths is used to restrict the query by parent term Ids.
-    private AllPathsQuery     pathsQuery;
-    
-    private String            termId;
-    
-    private String            geoEntityType;
-    
-    protected GeoEntityTermQueryBuilder(QueryFactory queryFactory, String termId, String geoEntityType)
-    {
-      super(queryFactory);
-      
-      this.termId = termId;
-      this.geoEntityType = geoEntityType;
-      
-      this.termQuery = new TermQuery(queryFactory);
-      this.pathsQuery = new AllPathsQuery(queryFactory);
-    }
-    
-    @Override
-    protected void buildSelectClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();
-      
-      query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getDisplay());
-      query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
-    }
-    
-    @Override
-    protected void buildWhereClause()
-    {
-      GeneratedViewQuery query = this.getViewQuery();
-      
-      query.WHERE(termQuery.getTermId().EQi(this.termId));
-      
-      BrowserRootView[] views = BrowserRoot.getDefaultGeoRoots(geoEntityType);
-
-      if (views.length == 1)
-      {
-        query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
-        query.AND(this.pathsQuery.getParentTerm().EQ(views[0].getTermId()));
-      }
-      else
-      {
-        query.AND(this.pathsQuery.getChildTerm().EQ(this.termQuery));
-        query.AND(this.pathsQuery.getParentTerm().EQ(""));
-      }
-
-      query.AND(termQuery.getObsolete().EQ(false));
-    }
-    
-  }
-  
   /**
    * Query builder for searching on Terms by name and id.
    */
@@ -934,8 +816,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     String className = parameters[0];
     String attribute = parameters[1];
 
-    ViewQueryBuilder builder = Term.getQueryBuilder(f, termId, className, attribute);
-    
+    ViewQueryBuilder builder = new TermQueryFactory(f, termId, className, attribute).getBuilder();
+
     TermViewQuery q = new TermViewQuery(f, builder);
 
     OIterator<? extends TermView> it = q.getIterator();
@@ -960,18 +842,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       it.close();
     }
-  }
-
-  private static ViewQueryBuilder getQueryBuilder(QueryFactory f, String termId, String className, String attribute)
-  {
-    if(className != null && attribute != null)
-    {
-      return new TermByIdQueryBuilder(f, termId, className, attribute);
-    }
-//    else if(className != null)
-//    {
-      return new GeoEntityTermQueryBuilder(f, termId, className);
-//    }
   }
 
   @Transaction
@@ -1286,7 +1156,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     List<Condition> conditions = new LinkedList<Condition>();
 
-    if (className != null && attribute != null)
+    if (attribute != null)
     {
 
       BrowserRootQuery countQuery = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());

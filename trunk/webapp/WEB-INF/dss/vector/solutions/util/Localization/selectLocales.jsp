@@ -17,10 +17,10 @@
       <c:forEach var="current" items="${supported}">
         <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
           <td>
-            ${current.displayName}
+            ${current.displayLabel}
           </td>
           <td>
-            <mjl:input type="checkbox" param="locales" value="${current}"/>
+            <mjl:input type="checkbox" param="locales" value="${current.enumName}"/>
           </td>
         </tr>
       </c:forEach>

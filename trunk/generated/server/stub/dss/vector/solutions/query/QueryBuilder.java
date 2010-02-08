@@ -193,6 +193,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
   private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
+    
+    token = token.replace("%", "!%");
 
     // Build select clause. This would be cleaner if the API supported
     // incrementally adding

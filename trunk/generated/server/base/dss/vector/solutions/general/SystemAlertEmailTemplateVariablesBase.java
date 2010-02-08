@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1883639914)
+@com.terraframe.mojo.business.ClassSignature(hash = -1613781412)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,11 +12,10 @@ public abstract class SystemAlertEmailTemplateVariablesBase extends com.terrafra
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertEmailTemplateVariables";
   public static java.lang.String DEFAULTLOCALE = "defaultLocale";
-  public static java.lang.String EN_US_SOUTH = "en_US_south";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String SITEMASTER = "siteMaster";
-  private static final long serialVersionUID = 1883639914;
+  private static final long serialVersionUID = -1613781412;
   
   public SystemAlertEmailTemplateVariablesBase()
   {

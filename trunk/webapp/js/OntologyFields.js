@@ -69,11 +69,23 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
         var display = mdAttributeId+this.constructor.DEFAULT_DISPLAY_SUFFIX;
         var input = mdAttributeId+this.constructor.DEFAULT_TERM_SUFFIX;
       
-        new MDSS.GenericSearch(display, input, lF, dF, iF, sF, sEH);
+        // IMPORTANT: We must disable search caching because the valid search values
+        //            can change as new roots are added and existing roots are modified.
+        //            Instead of setting a bunch of handlers to reset the caching every
+        //            time a change action occurs, it is easier to disable the caching
+        //            altogether.
+        var search = new MDSS.GenericSearch(display, input, lF, dF, iF, sF, sEH);        
+        search.disableCache();
+        
+        // Setup the validator for the default value search
+        var _getter = Mojo.Util.bind(this, this._getDefaultParameters, mdAttributeId);
+        var _setter = Mojo.Util.bind(this, this._setDefault);
+        
+        new MDSS.OntologyValidator(input, search, _getter, _setter);
           
       }, this);
     },
-    
+        
     _selectEventHandler : function(mdAttributeId, selected)
     {
       var view = new Mojo.$.dss.vector.solutions.ontology.FieldDefaultView();
@@ -86,11 +98,19 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       // set the default term
       view.setDefaultValue(selected.id);
       view.applyDefaultValue(request);
+      
+      MDSS.Calendar.removeError(document.getElementById(mdAttributeId + this.constructor.DEFAULT_TERM_BUTTON_SUFFIX));      
+    },
+    
+    _getDefaultParameters : function(mdAttributeId)
+    {
+      return [null, mdAttributeId];
     },
     
     _defaultSearch : function(mdAttributeId, request, value)
     {
       var params = [null, mdAttributeId];
+      
       Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, params);
     },
     
@@ -144,6 +164,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       var sF = Mojo.Util.bind(this, this._searchFunction);
       
       this._rootSearch = new MDSS.GenericSearch(this._currentRootDisplay, this._currentRootInput, lF, dF, iF, sF);
+      this._rootSearch.disableCache();
 
       YAHOO.util.Event.on(this._currentRootBtn, 'click', this._openBrowser, null, this);
       

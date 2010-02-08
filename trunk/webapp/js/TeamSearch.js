@@ -582,6 +582,7 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       this.requestCount = 0;
       this.currentRequest = 0;
       this.cache = {};
+      this._enabled = true;
     },
     
     nextNumber : function() {
@@ -632,8 +633,16 @@ Mojo.Meta.newClass('MDSS.DataSource', {
       }        
     },
     
+    enable : function() {
+      this._enabled = true;
+    },
+    
+    disable : function() {
+      this._enabled = false;
+    },
+    
     getResults : function(value, parameters) {
-      if(this.cache[value]) {
+      if(this.cache[value] && this._enabled) {
         var requestNumber = this.nextNumber();
         this.retrievedResults(value, requestNumber, this.cache[value]);
       }
@@ -871,6 +880,10 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       }
       
       this.minLength = (Mojo.Util.isNumber(prop.minLength * 1) ? prop.minLength * 1 : 2);
+    },
+    
+    disableCache : function() {
+      this._dataSource.disable();
     },
 
     preventFormSubmit : function(e)
