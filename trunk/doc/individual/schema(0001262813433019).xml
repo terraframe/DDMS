@@ -75,7 +75,8 @@
               defaultValue="0" />
             <decimal
               name="polygonFillOpacity"
-              label="Polygon Fill Opacity"
+              label="Polygon Color Opacity"
+              description="The color opacity of a polygon."
               required="true"
               rejectNegative="true"
               defaultValue="1.0"
@@ -83,7 +84,8 @@
               length="3"/>
             <decimal
               name="polygonStrokeOpacity"
-              label="Polygon Stroke Opacity"
+              label="Polygon Border Opacity"
+              description="The border opacity of a polygon."
               required="true"
               rejectNegative="true"
               defaultValue="1.0"
@@ -91,7 +93,8 @@
               length="3"/>
             <decimal
               name="pointStrokeOpacity"
-              label="Point Stroke Opacity"
+              label="Point Border Opacity"
+              description="The border opacity of a point."
               required="true"
               rejectNegative="true"
               defaultValue="1.0"

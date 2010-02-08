@@ -1,51 +1,47 @@
-package com.terraframe.mojo.query;
+package dss.vector.solutions.query;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.generation.loader.Reloadable;
-
-import dss.vector.solutions.query.AbstractCategory;
-import dss.vector.solutions.query.NonRangeCategory;
-import dss.vector.solutions.query.RangeCategory;
 
 public class CategorySorter implements Reloadable
 {
   
-    private static class AbstractComparator implements Comparator<AbstractCategory>, Reloadable
+    private static class AbstractComparator implements Comparator<AbstractCategoryIF>, Reloadable
     {
 
-      public int compare(AbstractCategory o1, AbstractCategory o2)
+      public int compare(AbstractCategoryIF o1, AbstractCategoryIF o2)
       {
         int ret;
 
         // Exact Vs Exact
-        if (o1 instanceof NonRangeCategory && o2 instanceof NonRangeCategory)
+        if (o1 instanceof NonRangeCategoryIF && o2 instanceof NonRangeCategoryIF)
         {
-          ret = exactVsExact((NonRangeCategory) o1, (NonRangeCategory) o2);
+          ret = exactVsExact((NonRangeCategoryIF) o1, (NonRangeCategoryIF) o2);
         }
         // Range Vs Range
-        else if (o1 instanceof RangeCategory && o2 instanceof RangeCategory)
+        else if (o1 instanceof RangeCategoryIF && o2 instanceof RangeCategoryIF)
         {
-          ret = rangeVsRange((RangeCategory) o1, (RangeCategory) o2);
+          ret = rangeVsRange((RangeCategoryIF) o1, (RangeCategoryIF) o2);
         }
         // Range Vs Exact
-        else if (o1 instanceof RangeCategory && o2 instanceof NonRangeCategory)
+        else if (o1 instanceof RangeCategoryIF && o2 instanceof NonRangeCategoryIF)
         {
-          ret = rangeVsExact((RangeCategory) o1, (NonRangeCategory) o2);
+          ret = rangeVsExact((RangeCategoryIF) o1, (NonRangeCategoryIF) o2);
         }
         // Exact Vs Range
-        else if (o1 instanceof NonRangeCategory && o2 instanceof RangeCategory)
+        else if (o1 instanceof NonRangeCategoryIF && o2 instanceof RangeCategoryIF)
         {
-          ret = exactVsRange((NonRangeCategory) o1, (RangeCategory) o2);
+          ret = exactVsRange((NonRangeCategoryIF) o1, (RangeCategoryIF) o2);
         }
         else
         {
           String error = "Could not compare the categories" + " [" + o1.getClass().getSimpleName()
               + "] and [" + o2.getClass().getSimpleName() + "]";
-          throw new ProgrammingErrorException(error);
+          throw new ApplicationException(error);
         }
 
         return ret;
@@ -58,7 +54,7 @@ public class CategorySorter implements Reloadable
       return value != null && value.trim().length() > 0;
     }
 
-    private static int exactVsExact(NonRangeCategory e1, NonRangeCategory e2)
+    private static int exactVsExact(NonRangeCategoryIF e1, NonRangeCategoryIF e2)
     {
       try
       {
@@ -70,7 +66,7 @@ public class CategorySorter implements Reloadable
       }
     }
 
-    private static int rangeVsRange(RangeCategory r1, RangeCategory r2)
+    private static int rangeVsRange(RangeCategoryIF r1, RangeCategoryIF r2)
     {
       String lower1 = r1.getLowerBoundStr();
       String upper1 = r1.getUpperBoundStr();
@@ -116,12 +112,12 @@ public class CategorySorter implements Reloadable
       }
       else
       {
-        throw new ProgrammingErrorException("Could not compare the ranges [" + r1 + "] and [" + r2 + "].");
+        throw new ApplicationException("Could not compare the ranges [" + r1 + "] and [" + r2 + "].");
       }
 
     }
 
-    private static int rangeVsExact(RangeCategory r, NonRangeCategory e)
+    private static int rangeVsExact(RangeCategoryIF r, NonRangeCategoryIF e)
     {
       String exact = e.getExactValueStr();
       String lower = r.getLowerBoundStr();
@@ -151,7 +147,7 @@ public class CategorySorter implements Reloadable
       }
     }
 
-    private static int exactVsRange(NonRangeCategory e, RangeCategory r)
+    private static int exactVsRange(NonRangeCategoryIF e, RangeCategoryIF r)
     {
       String exact = e.getExactValueStr();
       String lower = r.getLowerBoundStr();
@@ -181,7 +177,7 @@ public class CategorySorter implements Reloadable
       }
     }
 
-    public static void sort(List<? extends AbstractCategory> categories)
+    public static void sort(List<? extends AbstractCategoryIF> categories)
     {
       Collections.sort(categories, new AbstractComparator());
       Collections.reverse(categories);

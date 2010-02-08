@@ -22,7 +22,7 @@ import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.CategorySorter;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
@@ -249,6 +249,28 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
 
     return input;
   }
+  
+  private void copyStyles(Styles source, Styles dest)
+  {
+    for (MdAttributeDAOIF mdAttr : source.getMdClass().definesAttributes())
+    {
+      if (!mdAttr.isSystem())
+      {
+        String name = mdAttr.definesAttribute();
+
+        if (mdAttr instanceof MdAttributeEnumerationDAOIF)
+        {
+          String value = source.getEnumValues(name).get(0).getId();
+          dest.addEnumItem(name, value);
+        }
+        else
+        {
+          String value = source.getValue(name);
+          dest.setValue(name, value);
+        }
+      }
+    }
+  }
 
   /**
    * Creates a SavedMap and clones the given layers to be applied as layers on
@@ -286,37 +308,52 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
         }
       }
 
-      // copy the styles
+      // copy the default layer styles
       Styles existingStyles = existingLayer.getDefaultStyles();
       Styles styles = new Styles();
-      for (MdAttributeDAOIF mdAttr : styles.getMdClass().definesAttributes())
-      {
-        if (!mdAttr.isSystem())
-        {
-          String name = mdAttr.definesAttribute();
-
-          if (mdAttr instanceof MdAttributeEnumerationDAOIF)
-          {
-            String value = existingStyles.getEnumValues(name).get(0).getId();
-            styles.addEnumItem(name, value);
-          }
-          else
-          {
-            String value = existingStyles.getValue(name);
-            styles.setValue(name, value);
-          }
-        }
-      }
-
+      copyStyles(existingStyles, styles);
       styles.apply();
 
       layer.setDefaultStyles(styles);
       layer.apply();
 
-      // copy the relationship
+      // copy all the categories on the layer
+      for(AbstractCategory category : existingLayer.getAllHasCategory().getAll())
+      {
+        AbstractCategory copy;
+        try
+        {
+          copy = (AbstractCategory) LoaderDecorator.load(category.getType()).newInstance();
+        }
+        catch(Throwable t)
+        {
+          throw new ProgrammingErrorException(t);
+        }
+        
+        for(MdAttributeDAOIF mdAttr : copy.getMdClass().definesAttributes())
+        {
+          String name = mdAttr.definesAttribute();
+          if(!mdAttr.isSystem() && !name.equals(AbstractCategory.STYLES))
+          {
+            copy.setValue(name, category.getValue(name));
+          }
+        }
+        
+        Styles cStyles = new Styles();
+        copyStyles(category.getStyles(), cStyles);
+        cStyles.apply();
+        
+        copy.setStyles(cStyles);
+        copy.apply();
+        
+        layer.addHasCategory(copy).apply();
+      }
+
+      // copy the relationship between the SavedMap and Layer
       HasLayers rel = this.addLayer(layer);
       rel.setLayerPosition(existingRel.getLayerPosition());
       rel.apply();
+      
     }
 
     return this.getAllLayers();

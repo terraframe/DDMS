@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,15 +49,20 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
     {
       category.applyWithStyles(styles, layerId);
       
-      req.setAttribute("category", category);
+      List<? extends AbstractCategoryDTO> categories = LayerDTO.getAllHasCategory(this.getClientRequest(), layerId);
+      CategorySorter.sort(categories);
       
-      if(category instanceof NonRangeCategoryDTO)
+      for(AbstractCategoryDTO cat : categories)
       {
-        req.getRequestDispatcher(NonRangeCategoryController.SUMMARY_VIEW).forward(req, resp);
-      }
-      else
-      {
-        req.getRequestDispatcher(RangeCategoryController.SUMMARY_VIEW).forward(req, resp);
+        req.setAttribute("category", cat);
+        if(cat instanceof NonRangeCategoryDTO)
+        {
+          req.getRequestDispatcher(NonRangeCategoryController.SUMMARY_VIEW).include(req, resp);
+        }
+        else
+        {
+          req.getRequestDispatcher(RangeCategoryController.SUMMARY_VIEW).include(req, resp);
+        }
       }
     }
     catch(ProblemExceptionDTO e)

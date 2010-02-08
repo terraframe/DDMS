@@ -460,20 +460,31 @@ MDSS.GeoEntityTree = (function(){
    */
   function _createModal(html, closeWin)
   {
-    _modal = new YAHOO.widget.Panel("select",
+    _modal = new YAHOO.widget.Panel(Mojo.Util.generateId()+'_modal',
       { width:"400px",
         height: "400px",
         fixedcenter:true,
-        close: arguments.length > 1 ? closeWin : true,
+        close: closeWin || false,
         draggable:false,
         zindex:4,
         modal:true,
         visible:true
       }
     );
+    
+    if(closeWin)
+    {
+      _modal.subscribe('hide', _destroyModal);
+    }
 
     _modal.setBody(html);
     _modal.render(document.body);
+  }
+  
+  function _destroyModal()
+  {
+    _modal.destroy();
+    _modal = null;
   }
 
   /**
@@ -588,7 +599,7 @@ MDSS.GeoEntityTree = (function(){
         listDiv.appendChild(ul);
         outer.appendChild(listDiv);
 
-        _createModal(outer);
+        _createModal(outer, true);
       }
     });
 
@@ -679,7 +690,7 @@ MDSS.GeoEntityTree = (function(){
     listDiv.appendChild(ulRaw);
     outer.appendChild(listDiv);
 
-    _createModal(outer);
+    _createModal(outer, true);
   }
 
   /**

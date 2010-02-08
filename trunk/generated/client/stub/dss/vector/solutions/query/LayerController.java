@@ -111,7 +111,7 @@ public class LayerController extends LayerControllerBase implements
         geoHierarchyId = layer.getValue(LayerDTO.GEOHIERARCHY);
         
         List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
-        CategoryDTOSorter.sort(categories);
+        CategorySorter.sort(categories);
         
         req.setAttribute("categories", categories);
         
@@ -146,7 +146,6 @@ public class LayerController extends LayerControllerBase implements
       
       for(AbstractCategoryDTO category : categories)
       {
-        resp.getWriter().write("<li>");
         req.setAttribute("category", category);
         if(category instanceof NonRangeCategoryDTO)
         {
@@ -156,8 +155,6 @@ public class LayerController extends LayerControllerBase implements
         {
           req.getRequestDispatcher(RangeCategoryController.SUMMARY_VIEW).include(req, resp);
         }
-        
-        resp.getWriter().write("</li>");
       }
     }
     catch(ProblemExceptionDTO e)

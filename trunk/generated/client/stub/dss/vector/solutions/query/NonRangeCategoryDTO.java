@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
 public class NonRangeCategoryDTO extends NonRangeCategoryDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.terraframe.mojo.generation.loader.Reloadable, NonRangeCategoryIF {
   private static final long serialVersionUID = 1241158039455L;
   
   public NonRangeCategoryDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

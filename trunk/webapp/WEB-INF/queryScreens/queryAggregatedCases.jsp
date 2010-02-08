@@ -43,7 +43,7 @@
 (function(){
 
   YAHOO.util.Event.onDOMReady(function(){
-
+	  
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
@@ -65,7 +65,7 @@
 
     var query = new MDSS.QueryAggregatedCases(ageGroups, visibleAttributes, orderedGrids, queryList);
     query.render();
-
+    
     // attach load listener to Iframe to receive message when error occurs during
     // export operations
     YAHOO.util.Event.on('messageFrame', 'load', function(e){

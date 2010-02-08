@@ -173,7 +173,7 @@
           <attributes>
             <decimal
               name="opacity"
-              label="Opacity"
+              label="Layer Opacity"
               required="true"
               rejectNegative="true"
               defaultValue="1.0"

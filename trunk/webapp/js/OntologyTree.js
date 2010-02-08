@@ -331,7 +331,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         that: this,
         onSuccess: function(html)
         {
-           this.that._createModal(html);
+           this.that._createModal(html, false, true);
         }     
       });
       
@@ -347,7 +347,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         that: this,
         onSuccess: function(html)
         {
-           this.that._createModal(html);
+           this.that._createModal(html, false);
         }
       });
       
@@ -478,7 +478,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
      * Creates a modal with the given html. Any scripts in the
      * html will be extracted and executed after the modal is rendered. 
      */
-    _createModal : function(html, useSmall)
+    _createModal : function(html, useSmall, closeIt)
     {
       var executable = MDSS.util.extractScripts(html);
       html = MDSS.util.removeScripts(html);
@@ -488,12 +488,17 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           width: (useSmall ? '300px' : '400px'),
           height: (useSmall ? '200px' : '410px'),
           fixedcenter:true,
-          close: useSmall || false,
+          close: closeIt || false,
           draggable:false,
           zindex:4,
           modal:true,
           visible:true
         });
+
+      if(!useSmall)
+      {
+        html = '<h3>&nbsp;</h3><div class="innerContentModal">' + html +"</div>";
+      }
 
       this._panel.setBody(html);
       this._panel.render(document.body);

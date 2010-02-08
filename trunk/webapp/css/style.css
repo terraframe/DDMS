@@ -687,7 +687,6 @@ div.scrollable {
   margin-right: 5px;
 }
 
-
 #paginationSection .currentPage
 {
   text-decoration: underline;
@@ -903,7 +902,10 @@ input.browserOpenBtn {
 {
 	display:none;	
 }
-	
+
+#yui-picker-controls {
+  display: none;
+}
 
 .ontologyDisplay
 {
@@ -956,6 +958,7 @@ table.legend {
 table.legend td {
   border: 1px solid black;
   padding: 3px;
+  text-align: center;
 }
 
 /*---------------------------------------------------------------*/

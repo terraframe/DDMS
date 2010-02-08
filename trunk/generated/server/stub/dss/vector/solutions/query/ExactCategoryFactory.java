@@ -41,7 +41,7 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
 			try {
 				while (iter.hasNext()) {
 					String value = iter.next().getValue("layer_value");
-					categories.add(this.createExact(layer, value, categoryGen, i, count));
+					categories.add(this.createExact(layer, value, categoryGen, i++, count));
 				}
 			} finally {
 				iter.close();

@@ -57,8 +57,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // is not null, then these layers belong to that SavedSearch.
       this._layers = [];      
       
-      this._annotation = new MDSS.Annotation(this);
-      
       this._currentModal = null;
       this._secondaryModal = null;
       
@@ -89,10 +87,24 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._MappingController.setSetTextListener(Mojo.Util.bind(this, this._setTextListener));
       
       this._map = null;
-      this._drawLineBtn = null; // Ref to the button that lets a user draw a vector line on the map
-      this._addTextBtn = null;
       
       this._ddDivs = [];
+      
+      // offsets when placing floating divs
+      this._offsetInd = 0;
+      this._offsets = [
+        [0,100],
+        [45,45],
+        [100,0],
+        [45,-45],
+        [0,-100],
+        [-45,-45],
+        [-100,0],
+        [-45,45]
+      ];
+      
+      this._northArrow = false;
+      this._scale = false;
     },
     
     render : function()
@@ -387,18 +399,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         categoryId : params['category.componentId'],
         onSuccess : function(html)
         {
-          if(this.isNew)
-          {
-            var li = document.createElement('li');
-            li.innerHTML = html;
-          
-            document.getElementById(MDSS.MapPanel.CATEGORY_LIST).appendChild(li);
-          }
-          else
-          {
-            var div = document.getElementById(this.categoryId+'_div');
-            div.parentNode.innerHTML = html;
-          }
+          document.getElementById(MDSS.MapPanel.CATEGORY_LIST).innerHTML = html;
           
           this.that._destroyModalSec();
         }
@@ -591,44 +592,55 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       loadingDiv.appendChild(saveAsButton);
       loadingDiv.appendChild(deleteButton);
     
+      var annotationsDiv = new YAHOO.util.Element(document.createElement('div'));
+      annotationsDiv.set('id', MDSS.MapPanel.ANNOTATIONS);
+      annotationsDiv.setStyle('float', 'right');
+      
+      // scale
+      var scale = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(scale, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(scale, 'value', MDSS.Localized.Scale);
+      YAHOO.util.Dom.addClass(scale, 'queryButton');
+      YAHOO.util.Event.on(scale, 'click', this._toggleScale, null, this);
+      scale.disabled = true;
+      annotationsDiv.appendChild(scale);
+      
+      // north arrow
+      var northArrow = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(northArrow, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(northArrow, 'value', MDSS.Localized.NorthArrow);
+      YAHOO.util.Dom.addClass(northArrow, 'queryButton');
+      YAHOO.util.Event.on(northArrow, 'click', this._toggleArrow, null, this);
+      northArrow.disabled = true;
+      annotationsDiv.appendChild(northArrow);
+
+      // Add Text
+      var addTextBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(addTextBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(addTextBtn, 'value', MDSS.Localized.Add_Text);
+      YAHOO.util.Dom.addClass(addTextBtn, 'queryButton');
+      YAHOO.util.Event.on(addTextBtn, 'click', this._addText, null, this);
+      addTextBtn.disabled = true;
+      annotationsDiv.appendChild(addTextBtn);
+
+      // Add the draw line button
+      var drawLineBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(drawLineBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(drawLineBtn, 'value', MDSS.Localized.Draw_Line);
+      YAHOO.util.Dom.addClass(drawLineBtn, 'queryButton');
+      YAHOO.util.Event.on(drawLineBtn, 'click', this._drawLine, null, this);
+      drawLineBtn.disabled = true;
+      annotationsDiv.appendChild(drawLineBtn);
+
       var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
       mapButtonDiv.setStyle('float', 'right');
-      
+
       var exportShape = document.createElement('input');
       YAHOO.util.Dom.setAttribute(exportShape, 'type', 'button');
       YAHOO.util.Dom.setAttribute(exportShape, 'value', MDSS.Localized.Export_Shapefile);
       YAHOO.util.Dom.addClass(exportShape, 'queryButton');
       YAHOO.util.Event.on(exportShape, 'click', this._exportShapefile, null, this);
       mapButtonDiv.appendChild(exportShape);
-      
-      
-      // Add Text
-      this._addTextBtn = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(this._addTextBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(this._addTextBtn, 'value', MDSS.Localized.Add_Text);
-      YAHOO.util.Dom.addClass(this._addTextBtn, 'queryButton');
-      YAHOO.util.Event.on(this._addTextBtn, 'click', this._addText, null, this);
-      this._addTextBtn.disabled = true;
-      mapButtonDiv.appendChild(this._addTextBtn);
-
-      // Add the draw line button
-      this._drawLineBtn = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(this._drawLineBtn, 'value', MDSS.Localized.Draw_Line);
-      YAHOO.util.Dom.addClass(this._drawLineBtn, 'queryButton');
-      YAHOO.util.Event.on(this._drawLineBtn, 'click', this._drawLine, null, this);
-      this._drawLineBtn.disabled = true;
-      mapButtonDiv.appendChild(this._drawLineBtn);
-      
-      // Add the map buttons
-      var annotation = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(annotation, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(annotation, 'id', MDSS.MapPanel.ANNOTATIONS);
-      YAHOO.util.Dom.setAttribute(annotation, 'value', MDSS.Localized.Annotations);
-      YAHOO.util.Dom.addClass(annotation, 'queryButton');
-      YAHOO.util.Event.on(annotation, 'click', this._annotation.showModal, null, this._annotation);
-      annotation.disabled = true;
-      mapButtonDiv.appendChild(annotation);
   
       var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
       refreshMapButton.set('type', 'button');
@@ -642,6 +654,91 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mBottom = new YAHOO.util.Element(bottom.body);
       mBottom.appendChild(loadingDiv);
       mBottom.appendChild(mapButtonDiv);
+      mBottom.appendChild(annotationsDiv);
+    },
+    
+    
+    _showScale : function()
+    {
+      var scaleDiv = document.getElementById('scaleDiv');
+      if(scaleDiv == null)
+      {
+        scaleDiv = document.createElement('div');
+        scaleDiv.id = 'scaleDiv';
+  
+        this.addDragDrop(scaleDiv);
+      }
+  
+      // always clear the div just to be safe
+      scaleDiv.innerHTML = '';
+  
+      if(this._map != null)
+      {
+        this._map.addControl(new OpenLayers.Control.ScaleLine({'div':scaleDiv}));
+      }
+  
+      this.position(scaleDiv);
+    },
+  
+    _hideScale : function()
+    {
+      var scaleDiv = document.getElementById('scaleDiv');
+      if(scaleDiv)
+      {
+        YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
+      }
+    },
+  
+    _showArrow : function()
+    {
+      var arrowDiv = document.getElementById('arrowDiv');
+      if(arrowDiv == null)
+      {
+        arrowDiv = document.createElement('div');
+        arrowDiv.id = 'arrowDiv';
+        arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
+  
+        this.addDragDrop(arrowDiv);
+      }
+  
+      this.position(arrowDiv);
+    },
+  
+    _hideArrow : function()
+    {
+      var arrowDiv = document.getElementById('arrowDiv');
+      if(arrowDiv)
+      {
+        YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
+      }
+    },
+    
+    _toggleScale : function()
+    {
+      if(this._scale)
+      {
+        this._hideScale();
+        this._scale = false;
+      }
+      else
+      {
+        this._showScale();
+        this._scale = true;
+      }
+    },
+    
+    _toggleArrow : function()
+    {
+      if(this._northArrow)
+      {
+        this._hideArrow();
+        this._northArrow = false;
+      }
+      else
+      {
+        this._showArrow();
+        this._northArrow = true;
+      }
     },
     
     _exportShapefile : function()
@@ -857,7 +954,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           if(that._map != null)
           {
             that._map.destroy();
-            that._annotation.hideAll();
           }
       
           // pink tile avoidance
@@ -957,19 +1053,44 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           that._map.zoomToExtent(bounds);      
           
-          that._drawLineBtn.disabled = false;
-          that._addTextBtn.disabled = false;
-          
           that._removeDragNDropDivs();
           
           that._addLegends(layers);
+          
+          that._enableAnnotations();
         } 
       });
       
+      this._disableAnnotations();
+      
       var mapId = MDSS.MapPanel.getCurrentMap();
       this._MappingController.refreshMap(request, mapId);
+    },
+    
+    _enableAnnotations : function()
+    {
+      var div = document.getElementById(MDSS.MapPanel.ANNOTATIONS);
+      Mojo.Iter.forEach(div.childNodes, function(child){
+        if(child.nodeName === 'INPUT')
+        {
+          child.disabled = false;
+        }
+      });
       
-      this._drawLineBtn.disabled = true;
+    },
+    
+    _disableAnnotations : function()
+    {
+      var div = document.getElementById(MDSS.MapPanel.ANNOTATIONS);
+      Mojo.Iter.forEach(div.childNodes, function(child){
+        if(child.nodeName === 'INPUT')
+        {
+          child.disabled = true;
+        }
+      });
+      
+      this._hideArrow();
+      this._hideScale();
     },
     
     _removeDragNDropDivs : function()
@@ -1017,8 +1138,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
          var html = '<span style="'+style+'">'+text+'</span>';
          div.innerHTML = html;
          
-         var dd = this._annotation.addDragDrop(div);
-         this._annotation.position(div);
+         var dd = this.addDragDrop(div);
+         this.position(div);
          
          this._ddDivs.push({div:div, dd:dd});
       }
@@ -1080,8 +1201,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           table += '</table>';
 
           div.innerHTML = table;
-          var dd = this._annotation.addDragDrop(div);
-          this._annotation.position(div);
+          var dd = this.addDragDrop(div);
+          this.position(div);
           
           this._ddDivs.push({div:div, dd:dd});
         }
@@ -1183,9 +1304,80 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that._destroyModal();
         }, 15);
       });
+    },
+    
+    position : function(div)
+    {
+      YAHOO.util.Dom.setStyle(div, 'display', 'block');
+  
+      var mapDiv = document.getElementById('mapContainer');
+  
+      var xy = YAHOO.util.Dom.getXY(mapDiv);
+  
+      var mWidth = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'width'), 10);
+      var mHeight = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'height'), 10);
+  
+      var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
+      var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
+
+  
+      var offsets = this._offsets[this._offsetInd];
+      var leftO = offsets[0];
+      var topO = offsets[1];
+      
+      if(this._offsetInd == this._offsets.length-1)
+      {
+        this._offsetInd = 0;
+      }
+      else
+      {
+        this._offsetInd++;
+      }
+
+      var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftO,
+        xy[1] + (mHeight/2) - (dHeight/2) + topO];
+  
+      YAHOO.util.Dom.setXY(div, center);
+  
+      var region = YAHOO.util.Region.getRegion(mapDiv);
+      xy = YAHOO.util.Dom.getXY(div);
+  
+      //Set left to x minus left
+      var left = xy[0] - region.left;
+  
+      //Set right to right minus x minus width
+      var right = region.right - xy[0] - dWidth;
+  
+      //Set top to y minus top
+      var top = xy[1] - region.top;
+  
+      //Set bottom to bottom minus y minus height
+      var bottom = region.bottom - xy[1] - dHeight;
+  
+      //Set the constraints based on the above calculations
+      var dd = YAHOO.util.DragDropMgr.getDDById(div.id);
+      //dd.setXConstraint(left, right);
+      //dd.setYConstraint(top, bottom);
+    },
+  
+    addDragDrop : function(div)
+    {
+      var mapDiv = document.getElementById('mapPanel');
+      var region = YAHOO.util.Region.getRegion(mapDiv);
+  
+      YAHOO.util.Dom.setStyle(div, 'position', 'absolute');
+      YAHOO.util.Dom.setStyle(div, 'display', 'block');
+  
+      mapDiv.appendChild(div);
+  
+      var dd = new YAHOO.util.DD(div, {
+        dragOnly : true
+      });
+      
+      return dd;
     }
 
-  },  
+  },
   
   Static : {
   
@@ -1198,17 +1390,17 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           textfield=attribute+"Converted"
   
       var value = parseInt(document.getElementById(attribute).value);
-      var asPixel = value/2+100;
+      var asPixel = value+50;
 
       var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 200, 1);
+                           thumb, 0, 100, 1);
       
       slider.animate = false;
       slider.setValue(asPixel);
                            
       slider.subscribe("change", function(offsetFromStart) {
         var px = parseInt(offsetFromStart);
-        var dis = 2*px-200;
+        var dis = px-50;
       
         document.getElementById(attribute+'Display').innerHTML = dis;
         document.getElementById(attribute).value = dis;
@@ -1416,408 +1608,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     zIndex : 10 // starting zIndex of Modals
   }
   
-});
-
-Mojo.Meta.newClass("MDSS.Annotation", {
-
-  Constants : {
-    
-  },
-
-  Instance : {
-  
-    initialize : function(queryPanel)
-    {
-      this._queryPanel = queryPanel;
-      this._modal = null;
-      
-      // offsets when placing floating divs
-      this._offsetInd = 0;
-      this._offsets = [
-        [0,100],
-        [45,45],
-        [100,0],
-        [45,-45],
-        [0,-100],
-        [-45,-45],
-        [-100,0],
-        [-45,45]
-      ];
-    },
-    
-    /**
-     * Calculates the left and top offset values
-     * used to stagger the drag and drop divs on top 
-     * of the map.
-     */
-    _calculateOffsets : function()
-    {
-      if(this._left > 100 && this._top > 100)
-      {
-        this._left = 10;
-        this._top = 10;
-      }
-    },
-  
-    showModal : function()
-    {
-  
-      if(this._modal == null)
-      {
-        this._modal = new YAHOO.widget.Panel("editAnnotations", {
-          width:"400px",
-          height: "400px",
-          fixedcenter:true,
-          close: true,
-          draggable:false,
-          zindex:4,
-          modal:true,
-          visible:true
-        });
-  
-        // wrap content in divs
-        var outer = document.createElement('div');
-  
-        var header = document.createElement('div');
-        header.innerHTML = '<h3>'+MDSS.Localized.Annotations+'</h3><hr />';
-        outer.appendChild(header);
-  
-        var html = '';
-        html += '<dl>';
-        html += '  <dt>';
-        html += '    '+MDSS.Localized.Title+'&nbsp;<input id="titleInput" type="text" />';
-        html += '  </dt>';
-        html += '  <dd>';
-        html += '    <input type="checkbox" id="titleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-        html += '  </dd>';
-        html += '  <dt>';
-        html += '    '+MDSS.Localized.NorthArrow;
-        html += '  </dt>';
-        html += '  <dd>';
-        html += '    <input type="checkbox" id="arrowAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-        html += '  </dd>';
-        html += '  <dt>';
-        html += '   '+MDSS.Localized.Legend;
-        html += '  </dt>';
-        html += '  <dd>';
-        html += '    <input type="checkbox" id="legendAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-        html += '  </dd>';
-        html += '  <dt>';
-        html += '   Scale';
-        html += '  </dt>';
-        html += '  <dd>';
-        html += '    <input type="checkbox" id="scaleAnnotationCheck" />&nbsp;'+MDSS.Localized.Enable;
-        html += '  </dd>';
-        html += '</dl>';
-        html += '<input type="button" id="updateAnnotations" value="'+MDSS.Localized.Update+'" />';
-  
-        var contentDiv = document.createElement('div');
-        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
-        contentDiv.innerHTML = html;
-        outer.appendChild(contentDiv);
-  
-        this._modal.setBody(outer);
-        this._modal.render(document.body);
-  
-        header = null; // cleanup
-        contentDiv = null;
-  
-        YAHOO.util.Event.on('updateAnnotations', 'click', this.updateAnnotations, null, this);
-      }
-      else
-      {
-        this._modal.show();
-        this._modal.bringToTop();
-      }
-  
-    },
-  
-    updateAnnotations : function()
-    {
-      var titleC = document.getElementById('titleAnnotationCheck');
-      if(titleC.checked)
-      {
-        this.showTitle();
-      }
-      else
-      {
-        this.hideTitle();
-      }
-  
-      var arrowC = document.getElementById('arrowAnnotationCheck');
-      if(arrowC.checked)
-      {
-        this.showArrow();
-      }
-      else
-      {
-        this.hideArrow();
-      }
-  
-      var legendC = document.getElementById('legendAnnotationCheck');
-      if(legendC.checked)
-      {
-        this.showLegend();
-      }
-      else
-      {
-        this.hideLegend();
-      }
-  
-      var scaleC = document.getElementById('scaleAnnotationCheck');
-      if(scaleC.checked)
-      {
-        this.showScale();
-      }
-      else
-      {
-        this.hideScale();
-      }
-   
-      this.hideModal();
-    },
-  
-    hideModal : function()
-    {
-      this._modal.hide();
-    },
-  
-    showScale : function()
-    {
-      var scaleDiv = document.getElementById('scaleDiv');
-      if(scaleDiv == null)
-      {
-        scaleDiv = document.createElement('div');
-        scaleDiv.id = 'scaleDiv';
-  
-        this.addDragDrop(scaleDiv);
-      }
-  
-      // always clear the div just to be safe
-      scaleDiv.innerHTML = '';
-  
-      if(this._queryPanel._map != null)
-      {
-        this._queryPanel._map.addControl(new OpenLayers.Control.ScaleLine({'div':scaleDiv}));
-      }
-  
-      this.position(scaleDiv, -100, -100);
-    },
-  
-    hideScale : function()
-    {
-      var scaleDiv = document.getElementById('scaleDiv');
-      if(scaleDiv)
-      {
-        YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
-      }
-    },
-  
-    showTitle : function()
-    {
-      var titleDiv = document.getElementById('titleDiv');
-      if(titleDiv == null)
-      {
-        titleDiv = document.createElement('div');
-        titleDiv.id = 'titleDiv';
-  
-        this.addDragDrop(titleDiv);
-      }
-  
-      var title = document.getElementById('titleInput').value;
-      titleDiv.innerHTML = title;
-  
-  
-      this.position(titleDiv, 100, -100);
-    },
-  
-    hideAll : function()
-    {
-      this.hideTitle();
-      this.hideScale();
-      this.hideLegend();
-      this.hideArrow();
-    },
-  
-    hideTitle : function()
-    {
-      var titleDiv = document.getElementById('titleDiv');
-      if(titleDiv)
-      {
-        YAHOO.util.Dom.setStyle(titleDiv, 'display', 'none');
-        document.getElementById('titleInput').value = '';
-      }
-    },
-  
-    position : function(div)
-    {
-      YAHOO.util.Dom.setStyle(div, 'display', 'block');
-  
-      var mapDiv = document.getElementById('mapContainer');
-  
-      var xy = YAHOO.util.Dom.getXY(mapDiv);
-  
-      var mWidth = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'width'), 10);
-      var mHeight = parseInt(YAHOO.util.Dom.getStyle(mapDiv, 'height'), 10);
-  
-      var dWidth = parseInt(YAHOO.util.Dom.getStyle(div, 'width'), 10);
-      var dHeight = parseInt(YAHOO.util.Dom.getStyle(div, 'height'), 10);
-
-  
-      var offsets = this._offsets[this._offsetInd];
-      var leftO = offsets[0];
-      var topO = offsets[1];
-      
-      if(this._offsetInd == this._offsets.length-1)
-      {
-        this._offsetInd = 0;
-      }
-      else
-      {
-        this._offsetInd++;
-      }
-
-      var center = [xy[0] + (mWidth/2) - (dWidth/2) + leftO,
-        xy[1] + (mHeight/2) - (dHeight/2) + topO];
-  
-      YAHOO.util.Dom.setXY(div, center);
-  
-      var region = YAHOO.util.Region.getRegion(mapDiv);
-      xy = YAHOO.util.Dom.getXY(div);
-  
-      //Set left to x minus left
-      var left = xy[0] - region.left;
-  
-      //Set right to right minus x minus width
-      var right = region.right - xy[0] - dWidth;
-  
-      //Set top to y minus top
-      var top = xy[1] - region.top;
-  
-      //Set bottom to bottom minus y minus height
-      var bottom = region.bottom - xy[1] - dHeight;
-  
-      //Set the constraints based on the above calculations
-      var dd = YAHOO.util.DragDropMgr.getDDById(div.id);
-      dd.setXConstraint(left, right);
-      dd.setYConstraint(top, bottom);
-    },
-  
-    addDragDrop : function(div)
-    {
-      var mapDiv = document.getElementById('mapPanel');
-      var region = YAHOO.util.Region.getRegion(mapDiv);
-  
-      YAHOO.util.Dom.setStyle(div, 'position', 'absolute');
-      YAHOO.util.Dom.setStyle(div, 'display', 'block');
-  
-      mapDiv.appendChild(div);
-  
-      var dd = new YAHOO.util.DD(div, {
-        dragOnly : true
-      });
-      
-      return dd;
-    },
-  
-    showArrow : function()
-    {
-      var arrowDiv = document.getElementById('arrowDiv');
-      if(arrowDiv == null)
-      {
-        arrowDiv = document.createElement('div');
-        arrowDiv.id = 'arrowDiv';
-        arrowDiv.innerHTML = '<img src="imgs/northArrow.png" style="width: 50px; height: 50px;" />';
-  
-        this.addDragDrop(arrowDiv);
-      }
-  
-      this.position(arrowDiv, -100, 100);
-    },
-  
-    hideArrow : function()
-    {
-      var arrowDiv = document.getElementById('arrowDiv');
-      if(arrowDiv)
-      {
-        YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
-      }
-    },
-  
-    hideLegend : function()
-    {
-      var legendDiv = document.getElementById('legendDiv');
-      if(legendDiv)
-      {
-        YAHOO.util.Dom.setStyle(legendDiv, 'display', 'none');
-      }
-    },
-  
-    showLegend : function()
-    {
-      var request = new MDSS.Request({
-        thisRef : this,
-        onSuccess : function(legendJSON)
-        {
-          var legendDiv = document.getElementById('legendDiv');
-  
-          legendJSON = MDSS.util.stripWhitespace(legendJSON);
-          if(legendJSON.indexOf('{') == -1)
-          {
-            new MDSS.ErrorModal(legendJSON);
-          }
-          else if(legendDiv == null)
-          {
-            legendDiv = document.createElement('div');
-            legendDiv.id = 'legendDiv';
-            this.thisRef.addDragDrop(legendDiv);
-          }
-  
-          var table = '<table>';
-  
-          var legend = Mojo.Util.getObject(legendJSON);
-          table += '<tr><td colspan="2">'+legend.thematicVariable+'</td></tr>';
-  
-          var categories = legend.categories;
-          for(var i=0; i<categories.length; i++)
-          {
-            var category = categories[i];
-            var color = category.color;
-            var values = category.values;
-  
-            table += '<tr>';
-  
-            if(values.length == 1)
-            {
-              // exact value
-                table += '<td>'+values[0]+'</td>';
-            }
-            else
-            {
-              // range
-              table += '<td>'+values[0]+'  -  '+values[1]+'</td>';
-            }
-  
-            table += '<td><div class="colorPickerValue" style="background-color: '+color+'">&nbsp;</div></td>';
-  
-  
-            table += '</tr>';
-          }
-  
-          table += '</table>';
-  
-          legendDiv.innerHTML = table;
-  
-          this.thisRef.position(legendDiv, 100, 100);
-        }
-  
-      });
-  
-      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
-      var savedSearchId = savedSearchView.getSavedQueryId();
-      Mojo.$.dss.vector.solutions.query.MappingController.getLegend(request, savedSearchId);
-    }
-  }
 });
 
 (function(){
@@ -2062,7 +1852,7 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
           height: "250px",
           fixedcenter : true,
           visible : true,
-          constraintoviewport : true,
+          modal : true,
           draggable: false,
           close: false,
           zindex: 200,
@@ -2076,9 +1866,9 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
   
         this._picker = new YAHOO.widget.ColorPicker("singleton_picker", {
           container: this._dialog,
-          showcontrols: false,
           images: {
-            PICKER_THUMB: "js/yui/build/colorpicker/assets/picker_thumb.png"
+            PICKER_THUMB: "js/yui/build/colorpicker/assets/picker_thumb.png",
+            HUE_THUMB: "js/yui/build/colorpicker/assets/hue_thumb.png" 
           },
         });
       }
@@ -2088,7 +1878,7 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
         this._dialog.bringToTop();
       }
       
-      var val = document.getElementById(this._inputId).value.substring(1);      
+      var val = document.getElementById(this._inputId).value.substring(1);   
       this._picker.set('hex', val);
     }    
   }

@@ -36,8 +36,8 @@
             size="50" />
           <char
             name="textFontFill"
-            label="Text Font Fill"
-            description="The color fill of the text"
+            label="Text Font Color"
+            description="The color of the text"
             required="true"
             defaultValue="#000000"
             size="7" />
@@ -97,8 +97,8 @@
               size="50" />
             <char
               name="legendTitleFontFill"
-              label="Legend Title Font Fill"
-              description="The color fill of the legend text"
+              label="Legend Title Font Color"
+              description="The color of the legend text"
               required="true"
               defaultValue="#000000"
               size="7" />
@@ -124,8 +124,8 @@
               defaultValue="14" />
             <char
               name="legendFontFill"
-              label="Legend Font Fill"
-              description="The color fill of the legend text"
+              label="Legend Font Color"
+              description="The color of the legend text"
               required="true"
               defaultValue="#000000"
               size="7" />

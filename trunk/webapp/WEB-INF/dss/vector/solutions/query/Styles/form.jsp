@@ -93,7 +93,7 @@
   </mjl:dt>
   <mjl:dt attribute="displacementX">
   
-    <div id="${styles.id}_displacementXSliderBG" class="yui-h-slider" style="width: 200px">
+    <div id="${styles.id}_displacementXSliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_displacementXThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
     </div>
     <div>
@@ -104,7 +104,7 @@
   </mjl:dt>
   <mjl:dt attribute="displacementY">
 
-    <div id="${styles.id}_displacementYSliderBG" class="yui-h-slider" style="width: 200px">
+    <div id="${styles.id}_displacementYSliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_displacementYThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
     </div>
     <div>

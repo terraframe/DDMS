@@ -6,7 +6,7 @@ import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 public abstract class AbstractCategory extends AbstractCategoryBase
-  implements com.terraframe.mojo.generation.loader.Reloadable
+  implements com.terraframe.mojo.generation.loader.Reloadable, AbstractCategoryIF
 {
   private static final long serialVersionUID = 1241158096964L;
 
@@ -116,9 +116,18 @@ public abstract class AbstractCategory extends AbstractCategoryBase
   protected void throwsOverlapException(String str1, String str2, String str3, String str4)
   {
     OverlapBoundsException ex = new OverlapBoundsException();
-    ex.setRangeOne(str1+" , "+str2);
-    ex.setRangeTwo(str3+" , "+str4);
+    
+    ex.setRangeOne((str1 != null ? str1 : "")+" < "+(str2 != null ? str2 : ""));
+    ex.setRangeTwo((str3 != null ? str3 : "")+" < "+(str4 != null ? str4 : ""));
     throw ex;
+  }
+  
+  protected void throwsOverlapException(String str1, String str2, String str3)
+  {
+    OverlapBoundsException ex = new OverlapBoundsException();
+    ex.setRangeOne((str1 != null ? str1 : "")+" < "+(str2 != null ? str2 : ""));
+    ex.setRangeTwo(str3);
+    throw ex;   
   }
   
   protected void throwsOverlapException(String str1, String str2)
@@ -129,12 +138,4 @@ public abstract class AbstractCategory extends AbstractCategoryBase
     throw ex;
   }
 
-  protected void throwsOverlapException(String str1, String str2, String str3)
-  {
-    OverlapBoundsException ex = new OverlapBoundsException();
-    ex.setRangeOne(str1);
-    ex.setRangeTwo(str2+" , "+str3);
-    throw ex;
-  }
-  
 }

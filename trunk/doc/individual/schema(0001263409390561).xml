@@ -190,8 +190,8 @@
               length="3"/>
             <char
               name="labelHaloFill"
-              label="Label Halo Fill"
-              description="Label Halo Fill"
+              label="Label Halo Color"
+              description="Label Halo Color"
               required="true"
               defaultValue="#FFFFFF"
               size="7" />

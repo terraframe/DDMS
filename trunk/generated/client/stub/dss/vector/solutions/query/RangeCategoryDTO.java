@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
 public class RangeCategoryDTO extends RangeCategoryDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable
+ implements com.terraframe.mojo.generation.loader.Reloadable, RangeCategoryIF 
  {
   private static final long serialVersionUID = 1241158118899L;
   

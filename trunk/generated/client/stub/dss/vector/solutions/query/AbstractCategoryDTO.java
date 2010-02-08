@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
 public abstract class AbstractCategoryDTO extends AbstractCategoryDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.terraframe.mojo.generation.loader.Reloadable, AbstractCategoryIF {
   private static final long serialVersionUID = 1241158097328L;
   
   public AbstractCategoryDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

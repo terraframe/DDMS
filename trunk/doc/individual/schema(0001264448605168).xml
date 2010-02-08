@@ -19,85 +19,85 @@
             size="64" />
           <integer
             name="categoryCount"
-            label="Count"
+            label="Number Of Categories"
             description="The number of categories to make."
             required="true"
             defaultValue="5" />
           <integer
             name="precisionFigures"
-            label="Precision"
+            label="Significant Figures"
             description="The number of significant figures."
             required="true"
             defaultValue="3" />
           <char
             name="pointStrokeStart"
-            label="Point Stroke Start"
-            description="The start stroke color for a point"
+            label="Point Border Start"
+            description="The start border color for a point"
             required="true"
-            defaultValue="#ffffff"
+            defaultValue="#f8f8f8"
             size="7" />
           <char
             name="pointStrokeEnd"
-            label="Point Stroke End"
-            description="The end stroke color for a point"
+            label="Point Border End"
+            description="The end border color for a point"
             required="true"
-            defaultValue="#000000"
+            defaultValue="#404040"
             size="7" />
           <char
             name="polygonStrokeStart"
-            label="Polygon Stroke Start"
-            description="The start stroke color for a polygon"
+            label="Polygon Border Start"
+            description="The start border color for a polygon"
             required="true"
-            defaultValue="#ffffff"
+            defaultValue="#f8f8f8"
             size="7" />
           <char
             name="polygonStrokeEnd"
-            label="Polygon Stroke End"
-            description="The end stroke color for a polygon"
+            label="Polygon Border End"
+            description="The end border color for a polygon"
             required="true"
-            defaultValue="#000000"
+            defaultValue="#404040"
             size="7" />
           <char
             name="polygonFillStart"
-            label="Polygon Fill Start"
-            description="The start fill color for a polygon"
+            label="Polygon Color Start"
+            description="The start color for a polygon"
             required="true"
-            defaultValue="#ffffff"
+            defaultValue="#f8f8f8"
             size="7" />
           <char
             name="polygonFillEnd"
-            label="Polygon Fill End"
-            description="The end fill color for a polygon"
+            label="Polygon Color End"
+            description="The end color for a polygon"
+            required="true"
+            defaultValue="#404040"
+            size="7" />
+          <char
+            name="fontFillStart"
+            label="Font Color Start"
+            description="The start color for a font"
             required="true"
             defaultValue="#000000"
             size="7" />
           <char
-            name="fontFillStart"
-            label="Font Fill Start"
-            description="The start fill color for a font"
-            required="true"
-            defaultValue="#ffffff"
-            size="7" />
-          <char
             name="fontFillEnd"
-            label="Font Fill End"
-            description="The end fill color for a font"
+            label="Font Color End"
+            description="The end color for a font"
             required="true"
             defaultValue="#000000"
             size="7" />
           <char
             name="labelHaloFillStart"
-            label="Label Halo Fill Start"
-            description="The start fill color for a label halo"
+            label="Label Halo Color Start"
+            description="The start color for a label halo"
             required="true"
-            defaultValue="#ffffff"
+            defaultValue="#f8f8f8"
             size="7" />
           <char
             name="labelHaloFillEnd"
-            label="Label Halo Fill End"
-            description="The end fill color for a label halo"
+            label="Label Halo Color End"
+            description="The end color for a label halo"
             required="true"
-            defaultValue="#000000"
+            defaultValue="#404040"
             size="7" />
         </attributes>
       </mdBusiness>        
