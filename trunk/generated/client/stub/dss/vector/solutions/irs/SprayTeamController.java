@@ -265,7 +265,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMID, true, 20, 1);
     
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
