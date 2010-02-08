@@ -347,6 +347,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:true,
+      copy_from_above: ["IdentMethod", "SubCollectionId"],      
       reloadKeys : ["SubCollectionId"],
       saveLabelKey : "Save_Collection",
       saveHandler : saveCollection,
