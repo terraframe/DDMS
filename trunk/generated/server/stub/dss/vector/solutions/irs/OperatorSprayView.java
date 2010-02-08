@@ -183,7 +183,7 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     condition = AND.get(condition, query.getGeoEntity().getGeoId().EQ(geoId));
     condition = AND.get(condition, query.getSprayDate().EQ(sprayDate));
     condition = AND.get(condition, query.getSprayMethod().containsAny(sprayMethod));
-    condition = AND.get(query.getSprayOperator().EQ(operatorId));
+    condition = AND.get(condition, query.getSprayOperator().EQ(operatorId));
 
     query.WHERE(condition);
     
