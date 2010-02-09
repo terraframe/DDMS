@@ -80,11 +80,7 @@ input[type="button"]:active {
 </head>
 
 <body onload="checkForFF.test()" class="yui-skin-sam">
-<div id="freeText"><strong><fmt:message key="Country_Tagline" /></strong><br /><fmt:message key="Country" /></div>
-<div id="uploadLogo"><img src="./imgs/flags/<fmt:message key="Country" />.gif" width="85" height="57" /></div>
-<div class="header">
-<div class="hTitle"></div>
-</div>
+<%@ include file="/WEB-INF/templates/banner.jsp"%>
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="login" /></div>
 <form method="post" action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">

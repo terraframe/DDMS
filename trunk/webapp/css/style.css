@@ -10,38 +10,46 @@ body {
 	text-align: left;
 }
 
-#freeText {
+#header {
+	background-color: #000000;
+	color: #000000;
+	height: 86px;
+	border-top: 5px solid black;
+}
+
+#headerleft {
+	-moz-border-radius: 5px;
+	height: 58px;
+	width: 200px;
+	margin: 0 0 0 5px;
+	padding: 22px 5px 0 5px;
 	position: absolute;
-	left: 11px;
-	top: 18px;
-	width: 102px;
-	height: 53px;
-	z-index: 1;
-	font-size: 12px;
+	background: #FFFFFF url(/MDSS/imgs/flags/current) no-repeat 95% 50%;
+}
+
+#freeText {
+	width: 100px;
 	text-align: center;
 }
 
-#uploadLogo {
-	position: absolute;
-	left: 124px;
-	top: 14px;
-	width: 79px;
+#headermiddle {
+	-moz-border-radius: 5px;
+	margin: 0 95px 5px 220px;
+	padding: 22px 0 0 10px;
 	height: 58px;
-	z-index: 1;
+	background-color: #CA1413;
+	color: #FFFFFF;
+	font-size: 32px;
 }
 
-.header {
-	background-color: #000000;
-	height: 86px;
-	background-image: url(/MDSS/imgs/design/header_back.gif);
-	background-repeat: no-repeat;
-	background-position: right top;
-}
-
-.hTitle {
-	background-image: url(/MDSS/imgs/design/header_title.gif);
-	height: 86px;
-	width: 670px;
+#headerright {
+	-moz-border-radius: 5px;
+	margin: 0 5px 0 0;
+	float: right;
+	height: 80px;
+	width: 85px;
+	color: #000000;
+	background: #FFFFFF url(/MDSS/imgs/design/logo.gif) no-repeat 50% 50%;
 }
 
 .pageTitle {
