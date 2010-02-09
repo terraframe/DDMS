@@ -284,22 +284,23 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       
       for (Selectable s : valueQuery.getSelectableRefs())
       {
+        String attributeName = s.getDbColumnName();
         String columnAlias = s.getColumnAlias();
         String columnName = s.getColumnAlias();
         
-        if (columnAlias.equals("abundance_1"))
+        if (attributeName.equals("abundance_1"))
         {
           columnName = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
-        if (columnAlias.equals("abundance_10"))
+        if (attributeName.equals("abundance_10"))
         {
           columnName = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
-        if (columnAlias.equals("abundance_100"))
+        if (attributeName.equals("abundance_100"))
         {
           columnName = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
-        if (columnAlias.equals("abundance_1000"))
+        if (attributeName.equals("abundance_1000"))
         {
           columnName = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
