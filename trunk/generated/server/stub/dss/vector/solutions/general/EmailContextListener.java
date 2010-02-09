@@ -35,22 +35,13 @@ public class EmailContextListener implements ServletContextListener
 
     private boolean           running                = false;
 
-    @StartSession
     public void run()
     {
       while (running)
       {
         try
         {
-          LockHolder.lock(this);
-          long current = System.currentTimeMillis();
-          Object config = configInvoke(null, "getDefault");
-          Integer retry = (Integer) configInvoke(config, "getRetry");
-          if (this.lastRun == 0 || ( current >= ( this.lastRun + ( retry * MINUTE_IN_MILLISECONDS ) ) ))
-          {
-            emailInvoke("sendAll");
-            this.lastRun = current;
-          }
+        	runOnce();
         }
         catch (Throwable t)
         {
@@ -72,6 +63,19 @@ public class EmailContextListener implements ServletContextListener
       }
     }
 
+    @StartSession
+    private void runOnce() {
+        LockHolder.lock(this);
+        long current = System.currentTimeMillis();
+        Object config = configInvoke(null, "getDefault");
+        Integer retry = (Integer) configInvoke(config, "getRetry");
+        if (this.lastRun == 0 || ( current >= ( this.lastRun + ( retry * MINUTE_IN_MILLISECONDS ) ) ))
+        {
+          emailInvoke("sendAll");
+          this.lastRun = current;
+        }
+    }
+    
     public void start()
     {
       if (!running)
