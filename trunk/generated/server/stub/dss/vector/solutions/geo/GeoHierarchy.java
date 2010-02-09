@@ -1220,6 +1220,18 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     return list.toArray(new GeoHierarchy[list.size()]);
   }
 
+
+  /**
+   * @return An array of all Geo Hierarchies where Political==true
+   */
+  public static GeoHierarchy[] getAllPoliticals()
+  {
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.WHERE(query.getPolitical().EQ(true));
+    List<? extends GeoHierarchy> list = query.getIterator().getAll();
+    return list.toArray(new GeoHierarchy[list.size()]);
+  }
+  
   /**
    * Returns a {@link GeoHierarchyView} representative of this GeoHierarchy.
    */

@@ -15,7 +15,6 @@ import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCase;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseQuery;
@@ -176,7 +175,10 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, RESIDENTIALLOCATION, builder);
   }
   

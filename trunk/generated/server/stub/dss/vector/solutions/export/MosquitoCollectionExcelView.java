@@ -13,7 +13,6 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -102,7 +101,10 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }

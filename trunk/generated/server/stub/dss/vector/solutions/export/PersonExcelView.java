@@ -7,7 +7,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -74,7 +73,10 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
   private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, attributeName, builder);
   }
 }

@@ -10,7 +10,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
@@ -105,7 +104,10 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.te
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }

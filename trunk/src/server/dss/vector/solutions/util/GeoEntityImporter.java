@@ -150,14 +150,16 @@ public class GeoEntityImporter {
 
 	@StartSession
 	public static void importGeoEntities(String[] args) throws Exception {
-		GeoEntityImporter geoEntityImporter = null;
-
-		try {
-			geoEntityImporter = new GeoEntityImporter(args[0], args[1], args[2], args[3]);
-			geoEntityImporter.importGeoEntities();
-		} finally {
-			if (geoEntityImporter != null && geoEntityImporter.conn != null) {
-				geoEntityImporter.conn.close();
+		if (!"mrc_blank".equals(args[2])) {
+			GeoEntityImporter geoEntityImporter = null;
+	
+			try {
+				geoEntityImporter = new GeoEntityImporter(args[0], args[1], args[2], args[3]);
+				geoEntityImporter.importGeoEntities();
+			} finally {
+				if (geoEntityImporter != null && geoEntityImporter.conn != null) {
+					geoEntityImporter.conn.close();
+				}
 			}
 		}
 	}

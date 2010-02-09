@@ -10,7 +10,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.ITNData;
 import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNNet;
@@ -121,7 +120,10 @@ public class AggregatedITNExcelView extends AggregatedITNExcelViewBase implement
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }

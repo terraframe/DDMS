@@ -16,7 +16,6 @@ import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
@@ -206,7 +205,10 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
   private static DynamicGeoColumnListener createSettlementSubdivisionListener(String attribute)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, attribute, builder);
   }
 

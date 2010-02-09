@@ -9,7 +9,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SettlementSubdivision;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityNet;
 import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;
@@ -131,7 +130,10 @@ public class ITNCommunityExcelView extends ITNCommunityExcelViewBase implements 
   private static DynamicGeoColumnListener createExcelGeoListener(String attribute)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SettlementSubdivision.CLASS));
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    {
+      builder.add(hierarchy);
+    }
     return new DynamicGeoColumnListener(CLASS, attribute, builder);
   }
 
