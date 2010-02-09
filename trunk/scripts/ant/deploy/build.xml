@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_blank" />
+	<property name="geodata.db" value="mrc_zambia" />
 
 	<!--<property name="write_rev" value="false" />-->
 
@@ -307,14 +307,34 @@
 		</exec>
 		<delete file="./dump.sql" />
 	</target>
+		
+  <target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
+    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
+      <jvmarg value="-Xmx${max_memory_use}" />
+      <jvmarg value="-Dmojo.keepSource=true" />
+      <classpath>
+        <pathelement location="${ant.home}/lib/ant-launcher.jar" />
+      </classpath>
+      <arg value="-buildfile" />
+      <arg file="deploy.xml" />
+      <arg value="-Droot.user=${root.user}" />
+      <arg value="-Droot.pass=${root.pass}" />
+      <arg value="-Droot.db=${root.db}" />
+
+      <arg value="rebuild_db" />
+      <arg value="rebuild_model" />
+      <arg value="install_db_procedures" />  	
+    </java>    	
+ 	</target>
+
 
 	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
-<!--
+			<!--
 			<jvmarg value="-Dmojo.skipCodeGenAndCompile=true" />
--->
+			-->
 <!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y" />
@@ -335,6 +355,19 @@
 -->
 			<arg value="import_most_recent" />
 			<arg value="install_db_procedures" />
+		</java>
+	</target>
+
+	<target name="import_working_set" depends="" description="Import Working Set">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="import_working_set" />
 		</java>
 	</target>
 
