@@ -24,7 +24,7 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*", CollectionSiteDTO.CLASS + "*"}); 
+  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
   request.setAttribute("entityUniversals", entityUniversals);
 %>
 
