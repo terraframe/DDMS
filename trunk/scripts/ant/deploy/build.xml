@@ -23,7 +23,7 @@
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
-	<property name="geodata.db" value="mrc_zambia" />
+	<property name="geodata.db" value="mrc_blank" />
 
 	<!--<property name="write_rev" value="false" />-->
 
@@ -733,5 +733,6 @@
 	<target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
 		<echo message="Switching to country: ${geodata.db}" />
 		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/individual/schema(0001238646707001).xml" overwrite="true" />
+		<copy file="../../../webapp/imgs/flags/${geodata.db}.gif" tofile="../../../webapp/imgs/flags/current" overwrite="true" />
 	</target>
 </project>
