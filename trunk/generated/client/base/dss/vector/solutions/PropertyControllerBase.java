@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1833466691)
+@com.terraframe.mojo.business.ClassSignature(hash = -1365032061)
 public class PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.PropertyController";
@@ -10,7 +10,7 @@ public class PropertyControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1833466691;
+  private static final long serialVersionUID = -1365032061;
   
   public PropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -124,6 +124,20 @@ public class PropertyControllerBase implements com.terraframe.mojo.generation.lo
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void editFlag() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.editFlag");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failEditFlag() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failEditFlag");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
@@ -135,6 +149,20 @@ public class PropertyControllerBase implements com.terraframe.mojo.generation.lo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failNewInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void setFlag() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.setFlag");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failSetFlag() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failSetFlag");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.PropertyDTO:dto", post=true)

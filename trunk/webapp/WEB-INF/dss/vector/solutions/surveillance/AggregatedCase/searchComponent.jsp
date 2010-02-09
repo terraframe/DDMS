@@ -17,7 +17,6 @@
 <%@page import="java.util.Arrays"%>
 
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 
 <c:set var="page_title" value="Search_Aggregated_Case"  scope="request"/>
 

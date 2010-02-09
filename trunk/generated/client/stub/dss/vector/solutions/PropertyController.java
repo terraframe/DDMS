@@ -1,13 +1,24 @@
 package dss.vector.solutions;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.DeployProperties;
+import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.general.EpiConfigurationDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -118,6 +129,8 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF clientRequest = super.getClientRequest();
 
     PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
@@ -202,4 +215,129 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     this.viewAll();
   }
+  
+  @Override
+  public void editFlag() throws IOException, ServletException
+  {
+    try
+    {
+      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "editFlag");
+
+      render("editFlagComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEditFlag();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEditFlag();
+    }
+  }
+  
+  @Override
+  public void failEditFlag() throws IOException, ServletException
+  {
+    this.req.getRequestDispatcher("/index").forward(this.req, this.resp);
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public void setFlag() throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      
+      //Ensure the user has permission to update Properties
+      new PropertyDTO(request);
+      
+      // Create a factory for disk-based file items
+      FileItemFactory factory = new DiskFileItemFactory();
+
+      // Create a new file upload handler
+      ServletFileUpload upload = new ServletFileUpload(factory);
+
+      FileItem file = null;
+      List<FileItem> items = upload.parseRequest(this.req);
+      for (FileItem item : items)
+      {
+        if (!item.isFormField() && item.getSize() > 0)
+        {
+          file = item;
+        }
+      }
+
+      if (file == null)
+      {
+        throw new FileRequiredExceptionDTO(request, req.getLocale());
+      }
+      
+      this.setFlag(file.getInputStream());
+      
+      this.editFlag();
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failSetFlag();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failSetFlag();
+    }
+  }
+  
+  @Override
+  public void failSetFlag() throws IOException, ServletException
+  {
+    this.editFlag();
+  }
+  
+  private void setFlag(InputStream stream)
+  {
+    // Upload the template file to the vault
+    try
+    {
+      String directory = DeployProperties.getDeployPath() + "/imgs/flags/";
+      
+      File dir = new File(directory);
+      
+      if(!dir.exists())
+      {
+        dir.mkdirs();
+      }
+
+      File flag = new File(directory + "current");
+
+      if (!flag.exists())
+      {
+        boolean created = flag.createNewFile();
+
+        if (created)
+        {
+          FileIO.write(new FileOutputStream(flag), stream);
+        }
+      }
+      else
+      {
+        FileIO.write(new FileOutputStream(flag), stream);
+      }
+    }
+    catch (IOException e)
+    {
+      UnableToUploadFlagExceptionDTO exception = new UnableToUploadFlagExceptionDTO(this.getClientRequest(), req.getLocale());
+      exception.setReason(e.getLocalizedMessage());      
+      
+      throw exception;
+    }        
+  }
+
 }

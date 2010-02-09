@@ -1,16 +1,23 @@
 package dss.vector.solutions;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.util.FileIO;
+import com.terraframe.mojo.vault.VaultException;
 
 public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -32,11 +39,11 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getDisplayLabel() != null)
+    else if (this.getDisplayLabel() != null)
     {
       return this.getDisplayLabel();
     }
-    
+
     return super.toString();
   }
 
@@ -284,6 +291,10 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     property.lock();
     property.setPropertyValue(unitsPerDay.toString());
     property.apply();
+  }
+
+  public static void setFlag(InputStream stream)
+  {
   }
 
 }
