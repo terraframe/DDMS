@@ -1021,8 +1021,8 @@
             name="subCollectionId"
             label="Sub-Collection Id"
             size="255"
-            required="true"
-            indexType="unique index" />
+            required="false"
+            indexType="no index" />
           <reference
             name="collection"
             label="Collection"
