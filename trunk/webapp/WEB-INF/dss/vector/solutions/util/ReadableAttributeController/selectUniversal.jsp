@@ -110,9 +110,11 @@
   <dl>
     <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
     <c:forEach items="${ageGroups}" varStatus="status" var="ageGroup">
-      <dd>
-        <span id="dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}" class="roleLink"><f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/> </span>
-      </dd>    
+      <c:if test="${ageGroup.active == true}">
+        <dd>
+          <span id="dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}" class="roleLink"><f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/> </span>
+        </dd>    
+      </c:if>
     </c:forEach>
     <dd>
       <span id="dss.vector.solutions.general.EpiDate" class="roleLink"><f:message key="Epi_Date"/></span>
