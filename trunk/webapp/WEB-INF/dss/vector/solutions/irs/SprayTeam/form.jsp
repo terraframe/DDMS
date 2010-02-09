@@ -78,13 +78,13 @@
         <td align="center" width="15%">
                 <input type="button" name="left" value="&lt;&lt;" onClick="Selectbox.moveSelectedOptions(onOtherTeam,onTeam,true)"><br>
         <br>
-        <input type="button" name="right" value="&gt;&gt;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)"><br>
+        <input type="button" name="right" value="&gt;&gt;" style="display:none;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)"><br>
         <br>
 
         <input type="button" name="left" value="&lt;&lt; <fmt:message key="All"/>" onClick="Selectbox.moveAllOptions(onOtherTeam,onTeam,true,teamRegex)"><br>
         <br>
 
-        <input type="button" name="right" value="<fmt:message key="All"/> &gt;&gt;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)">
+        <input type="button" name="right" value="<fmt:message key="All"/> &gt;&gt;" style="display:none;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)">
 
         </td>
         <td>
