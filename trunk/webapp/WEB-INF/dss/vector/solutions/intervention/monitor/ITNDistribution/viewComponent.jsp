@@ -28,6 +28,34 @@
       <mjl:dt attribute="batchNumber">
         ${item.batchNumber}
       </mjl:dt>
+      
+      <c:if test="${item.isTargetGroupsReadable}">    
+        <dt>
+    
+        </dt>
+        <dd>
+          <table class="displayTable">
+            <tr> 
+              <th>${item.targetGroupsMd.displayLabel}</th>
+              <th><fmt:message key="Amount"/></th>
+            </tr>      
+            <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
+              <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+                <td>
+                  ${current.child.displayLabel}
+                </td>
+                <td class="integerColumn">
+                  ${current.amount}
+                  <mjl:messages attribute="amount">
+                    <mjl:message />
+                  </mjl:messages>
+                </td>
+              </tr>
+            </mjl:components>
+          </table>
+        </dd>
+      </c:if>
+      
       <mjl:dt attribute="net">
         <c:if test="${net != null}">
           ${net.displayLabel}
@@ -46,33 +74,6 @@
         ${item.distributorSurname}
       </mjl:dt>
     </mjl:component>
-
-    <c:if test="${item.isTargetGroupsReadable}">    
-      <dt>
-    
-      </dt>
-      <dd>
-        <table class="displayTable">
-          <tr> 
-            <th>${item.targetGroupsMd.displayLabel}</th>
-            <th><fmt:message key="Amount"/></th>
-          </tr>      
-          <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
-            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-              <td>
-                ${current.child.displayLabel}
-              </td>
-              <td class="integerColumn">
-                ${current.amount}
-                <mjl:messages attribute="amount">
-                  <mjl:message />
-                </mjl:messages>
-              </td>
-            </tr>
-          </mjl:components>
-        </table>
-      </dd>
-    </c:if>
       
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.edit.button" />
     <mjl:command value="Create_New_ITN_Distribution_Button" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo" name="ITNDistributionController.search" />
