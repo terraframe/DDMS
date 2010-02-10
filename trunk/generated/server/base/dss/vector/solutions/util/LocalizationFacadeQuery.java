@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 22155358)
+@com.terraframe.mojo.business.ClassSignature(hash = -862377350)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.util;
 public  class LocalizationFacadeQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 22155358;
+private static final long serialVersionUID = -862377350;
 
   public LocalizationFacadeQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -387,7 +387,7 @@ private static final long serialVersionUID = 22155358;
  implements LocalizationFacadeQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1137886336;
+private static final long serialVersionUID = -240661480;
 
   public LocalizationFacadeQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {

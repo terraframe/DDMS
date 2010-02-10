@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 982855797)
+@com.terraframe.mojo.business.ClassSignature(hash = 1339409155)
 public abstract class LocalizationFacadeDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.LocalizationFacade";
-  private static final long serialVersionUID = 982855797;
+  private static final long serialVersionUID = 1339409155;
   
   protected LocalizationFacadeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -368,11 +368,27 @@ public abstract class LocalizationFacadeDTOBase extends com.terraframe.mojo.busi
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final com.terraframe.mojo.system.metadata.SupportedLocaleQueryDTO getInstalledLocales(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "getInstalledLocales", _declaredTypes);
+    return (com.terraframe.mojo.system.metadata.SupportedLocaleQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final void importFile(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.io.InputStream file)
   {
     String[] _declaredTypes = new String[]{"java.io.InputStream"};
     Object[] _parameters = new Object[]{file};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "importFile", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void installLocale(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String localeString)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{localeString};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "installLocale", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

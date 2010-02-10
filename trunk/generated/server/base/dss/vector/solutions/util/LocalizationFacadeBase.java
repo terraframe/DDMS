@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 504857077)
+@com.terraframe.mojo.business.ClassSignature(hash = 1776943491)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class LocalizationFacadeBase extends com.terraframe.mojo.busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 504857077;
+  private static final long serialVersionUID = 1776943491;
   
   public LocalizationFacadeBase()
   {
@@ -321,7 +321,19 @@ public abstract class LocalizationFacadeBase extends com.terraframe.mojo.busines
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static com.terraframe.mojo.system.metadata.SupportedLocaleQuery getInstalledLocales()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static void importFile(java.io.InputStream file)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void installLocale(java.lang.String localeString)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
