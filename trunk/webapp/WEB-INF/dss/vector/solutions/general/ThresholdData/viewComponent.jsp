@@ -160,9 +160,14 @@ String deleteColumn = "";
                         }
                       }
                           
-                      
-                      innerHTML += '<input type="hidden" name="views_' + i + '.outbreak_' + j +'" value="' + outbreak + '"/>\n';
-                      innerHTML += '<input type="hidden" name="views_' + i + '.identification_' + j + '" value="' + identification + '"/>\n'                    
+
+                      if(outbreak != null) {
+                        innerHTML += '<input type="hidden" name="views_' + i + '.outbreak_' + j +'" value="' + outbreak + '"/>\n';
+                      }
+
+                      if(identification != null) {
+                        innerHTML += '<input type="hidden" name="views_' + i + '.identification_' + j + '" value="' + identification + '"/>\n'                    
+                      }
                     }
                 }                     
             }

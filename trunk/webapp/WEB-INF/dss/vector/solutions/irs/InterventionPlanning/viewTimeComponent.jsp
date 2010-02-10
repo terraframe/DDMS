@@ -157,14 +157,23 @@ map.put("RequiredDays", new ColumnSetup(false, false));
                 for(var i = 0; i < objects.length; i++) {
                     // Decompose the objects for the action parameters
                     var object = objects[i];
-                                        
+
                     innerHTML += '<input type="hidden" name="views_' + i + '.componentId" value="' + object.getId() + '" />\n';
                     innerHTML += '<input type="hidden" name="views_' + i + '.isNew" value="true" />\n';
                     innerHTML += '<input type="hidden" name="#views_' + i + '.actualType" value="dss.vector.solutions.irs.TimeInterventionPlanningView" />\n';
                     innerHTML += '<input type="hidden" name="views_' + i + '.entityLabel" value="' + object.getEntityLabel() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.operators" value="' + object.getOperators() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.requiredDays" value="' + object.getRequiredDays() + '"/>\n'                    
+
+                    if(object.getTargets() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
+                    }
+                        
+                    if(object.getOperators() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.operators" value="' + object.getOperators() + '"/>\n';
+                    }
+
+                    if(object.getRequiredDays() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.requiredDays" value="' + object.getRequiredDays() + '"/>\n'                    
+                    }
                 }                     
             }
 

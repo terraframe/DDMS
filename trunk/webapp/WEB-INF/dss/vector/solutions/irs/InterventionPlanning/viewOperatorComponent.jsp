@@ -141,10 +141,23 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
                     innerHTML += '<input type="hidden" name="views_' + i + '.isNew" value="true" />\n';
                     innerHTML += '<input type="hidden" name="#views_' + i + '.actualType" value="dss.vector.solutions.irs.OperatorInterventionPlanningView" />\n';
                     innerHTML += '<input type="hidden" name="views_' + i + '.entityLabel" value="' + object.getEntityLabel() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.numberofDays" value="' + object.getNumberofDays() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.unitsPerDay" value="' + object.getUnitsPerDay() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.requiredOperators" value="' + object.getRequiredOperators() + '"/>\n';                    
+
+                    if(object.getTargets() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
+                    }
+
+                    if(object.getNumberofDays() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.numberofDays" value="' + object.getNumberofDays() + '"/>\n';
+                    }
+
+                    if(object.getUnitsPerDay() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.unitsPerDay" value="' + object.getUnitsPerDay() + '"/>\n';
+                    }
+
+                    if(object.getRequiredOperators() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.requiredOperators" value="' + object.getRequiredOperators() + '"/>\n';                    
+                    }
+                    
                 }                     
             }
 

@@ -138,8 +138,15 @@ map.put("RequiredInsecticide", new ColumnSetup(false, false));
                     innerHTML += '<input type="hidden" name="views_' + i + '.isNew" value="true" />\n';
                     innerHTML += '<input type="hidden" name="#views_' + i + '.actualType" value="dss.vector.solutions.irs.InsecticideInterventionPlanningView" />\n';
                     innerHTML += '<input type="hidden" name="views_' + i + '.entityLabel" value="' + object.getEntityLabel() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
-                    innerHTML += '<input type="hidden" name="views_' + i + '.requiredInsecticide" value="' + object.getRequiredInsecticide() + '"/>\n'                    
+
+                    if(object.getTargets() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.targets" value="' + object.getTargets() + '"/>\n';
+                    }
+
+                    if(object.getRequiredInsecticide() != null) {
+                      innerHTML += '<input type="hidden" name="views_' + i + '.requiredInsecticide" value="' + object.getRequiredInsecticide() + '"/>\n'                    
+                    }
+                        
                 }                     
             }
 
