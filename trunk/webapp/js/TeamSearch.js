@@ -1069,17 +1069,20 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
       // DOM element where the id of the selected result is stored
       this._concreteElement = Mojo.Util.isString(concreteElement) ? document.getElementById(concreteElement) : concreteElement;       
   
-      var dataSource = new MDSS.DataSource(this, searchFunction);
-      var optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
-      var panel = new MDSS.ResultPanel(this, this._displayElement);
+      if(this._displayElement != null)
+      {
+        var dataSource = new MDSS.DataSource(this, searchFunction);
+        var optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
+        var panel = new MDSS.ResultPanel(this, this._displayElement);
 
-      this.$initialize(dataSource, optionBuilder, panel, selectEventHandler, prop);
+        this.$initialize(dataSource, optionBuilder, panel, selectEventHandler, prop);
 
-      // Disable the browser autocomplete function for the element we provide an auto-complete
-      this._displayElement.setAttribute("autocomplete", "off");
+        // Disable the browser autocomplete function for the element we provide an auto-complete
+        this._displayElement.setAttribute("autocomplete", "off");
       
-      YAHOO.util.Event.on(this._displayElement, 'keypress', this.preventFormSubmit, null, this);
-      YAHOO.util.Event.on(this._displayElement, 'keyup', this.keyHandler, this, this);
+        YAHOO.util.Event.on(this._displayElement, 'keypress', this.preventFormSubmit, null, this);
+        YAHOO.util.Event.on(this._displayElement, 'keyup', this.keyHandler, this, this);
+      }
     },
     
     getDisplayElement : function() {

@@ -45,7 +45,7 @@
     <dd>
       <mjl:commandLink
         name="Universal"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayTeam">
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayTeamView">
         <f:message key="Spray_Team"/>
       </mjl:commandLink>    
     </dd>

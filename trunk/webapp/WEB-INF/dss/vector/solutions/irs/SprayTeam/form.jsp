@@ -14,7 +14,7 @@
 <%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%><c:set var="SprayZone" scope="request"><%= SprayZoneDTO.CLASS %></c:set>
 
 
-<dt><label> ${item.teamIdMd.displayLabel} </label></dt>
+<dt><label> ${view.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
       <mjl:input type="text" param="teamId" id="teamId" />
@@ -23,25 +23,27 @@
       </mjl:messages>
     </mjl:component>
     </dd>
-    <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
+    <dt><label> ${view.sprayZoneMd.displayLabel} </label></dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" value="${item.sprayZone}" political="false" spray="true" filter="${SprayZone}" />
     </dd>
-    <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
-    <dd>
-      <mjl:input id="leaderInput" param="leaderInput" type="text" value="${leaderLabel}"/>
-      <mjl:input id="leaderId" param="leaderId" type="hidden" value="${leaderId}"/>        
-      <mjl:messages attribute="leaderId">
-        <mjl:message />
-      </mjl:messages>
-    </dd>
+    <c:if test="${view.isTeamLeaderReadable}">
+      <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
+      <dd>
+        <mjl:input id="leaderInput" param="leaderInput" type="text" value="${leaderLabel}"/>
+        <mjl:input id="leaderId" param="leaderId" type="hidden" value="${leaderId}"/>        
+        <mjl:messages attribute="leaderId">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+    </c:if>
     <dt></dt>
     <dd>
     <table>
       <tr>
-        <th colspan="2" width="33%" ><label><fmt:message key="Spray_Team_Current_Operators" /></label></th>
-        <th colspan="2" width="33%" ><label><fmt:message key="Spray_Team_Available_Operators" /></label></th>
-        <th width="33%"><label><fmt:message key="Spray_Team_Assigned_Operators" /></label></th>
+        <th colspan="2" width="33%" ><label>${view.currentOperatorsMd.displayLabel}</label></th>
+        <th colspan="2" width="33%" ><label>${view.availableOperatorsMd.displayLabel}</label></th>
+        <th width="33%"><label>${view.assignedOperatorsMd.displayLabel}</label></th>
       </tr>
       <tr>
         <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>

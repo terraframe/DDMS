@@ -16,29 +16,13 @@
         ${item.sprayZone.entityName}
       </mjl:row>
     </mjl:attributeColumn>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
-    <mjl:freeColumn>
-      <mjl:header>
-        <fmt:message key="Spray_Team_Leader" />
-      </mjl:header>
-      <mjl:row>
-        <c:if test="${item.allTeamLeader[0] != null}">
-          <c:set scope="request" var="person" value="${item.allTeamLeader[0].person.view}" />
-          ${person.firstName}
-          ${person.lastName}
-        </c:if>
-      </mjl:row>
-      <mjl:footer>
-      
-      </mjl:footer>
-    </mjl:freeColumn>
     <mjl:freeColumn>
       <mjl:header>
         
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.irs.SprayTeamController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>

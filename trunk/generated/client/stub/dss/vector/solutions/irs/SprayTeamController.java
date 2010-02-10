@@ -94,6 +94,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
     req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
     req.setAttribute("assigned", assignedOperators);
+    req.setAttribute("view", new SprayTeamViewDTO(this.getClientRequest()));
 
     render("createComponent.jsp");
   }
@@ -154,6 +155,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       req.setAttribute("current", currentOperators);
       req.setAttribute("available", availableOperators);
       req.setAttribute("assigned", assignedOperators);
+      req.setAttribute("view", new SprayTeamViewDTO(this.getClientRequest()));
 
       render("editComponent.jsp");
     }
@@ -206,6 +208,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
     
     req.setAttribute("operators", TeamMemberViewDTO.getAllOperatorsForTeam(super.getClientRequest(), sprayTeamDTO));
     req.setAttribute("item", sprayTeamDTO);
+    req.setAttribute("view", new SprayTeamViewDTO(this.getClientRequest()));
     render("viewComponent.jsp");
   }
 
@@ -250,7 +253,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    SprayTeamViewQueryDTO query = SprayTeamViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -265,7 +268,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    SprayTeamQueryDTO query = SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMID, true, 20, 1);
+    SprayTeamViewQueryDTO query = SprayTeamViewDTO.getPage(clientRequest, SprayTeamDTO.TEAMID, true, 20, 1);
     
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
