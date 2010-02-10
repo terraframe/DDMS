@@ -202,18 +202,21 @@
       <mjl:commandLink
         name="ITNData"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDataView">
-        <f:message key="ITN_Data_Distribution"/>
+        <f:message key="Aggregated_ITN_Data_Distribution"/>
       </mjl:commandLink>
     </dd>
-    
-  </dl>
-  <dl>
-    <dt><label><f:message key="ITN_Community_Distribution"/></label></dt>
     <dd>
       <mjl:commandLink
         name="ITNCommunityDistribution"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
         <f:message key="ITN_Community_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="ITNDistribution"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDistributionView">
+        <f:message key="ITN_Facility_Distribution"/>
       </mjl:commandLink>
     </dd>
     
