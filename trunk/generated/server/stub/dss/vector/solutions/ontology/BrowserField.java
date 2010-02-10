@@ -11,6 +11,7 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
@@ -109,7 +110,10 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
         if (view.getMdAttributeLabel().length() == 0)
         {
           MdAttributeVirtual mdAttr = (MdAttributeVirtual) MdAttribute.get(view.getMdAttributeId());
-          view.setMdAttributeLabel(mdAttr.getMdAttributeConcrete().getDisplayLabel().getDefaultLocale());
+         
+          String display = mdAttr.getMdAttributeConcrete().getDisplayLabel().getValue(Session.getCurrentLocale());
+
+          view.setMdAttributeLabel(display);
 
         }
 
@@ -137,7 +141,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
       {
         if (roots.next().getTerm().equals(term))
         {
-          String display = this.getMdAttribute().getDisplayLabel().getDefaultLocale();
+          String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
 
           String msg = "The field [" + display + "] already defines the root [" + term.getName() + "].";
           DuplicateRootException ex = new DuplicateRootException(msg);
