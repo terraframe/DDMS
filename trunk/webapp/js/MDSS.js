@@ -390,14 +390,16 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
       var oldOnProblemExceptionDTO = request.onProblemExceptionDTO;
       var newOnProblemExceptionDTO = function(e) {
         oldOnProblemExceptionDTO.apply(request, [e]);
-        
+
+        this.that._destroyModal();
         this.that._stopPolling();
       }
       
       var oldOnFailure = request.onFailure;
       var newOnFailure = function(e) {
         oldOnFailure.apply(request, [e]);
-        
+
+        this.that._destroyModal();
         this.that._stopPolling();
       }
 
@@ -424,7 +426,18 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
         onProblemExceptionDTO : function(){},
         onSuccess : function(percent)
         {
-          this.that._setPercent(percent);
+          if(percent == -1)
+          {
+            if(this.that._modal != null)
+            {
+              this.that._destroyModal();            	
+              this.that._stopPolling();                            	
+            }
+          }
+          else
+          {
+            this.that._setPercent(percent);
+          }
         }
       });
           

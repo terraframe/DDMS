@@ -5,7 +5,6 @@ import java.util.List;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
 
-import dss.vector.solutions.Property;
 import dss.vector.solutions.ResponseMaster;
 import dss.vector.solutions.intervention.monitor.NotApplicableProblem;
 
@@ -27,7 +26,6 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
   @Override
   public void apply()
   {
-    this.populateCollectionId();
     this.populateTotal();
 
     this.validateFemale();
@@ -201,14 +199,6 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     }
 
     this.setTotal(total);
-  }
-
-  private void populateCollectionId()
-  {
-    if (this.getSubCollectionId() == null || this.getSubCollectionId().equals(""))
-    {
-      this.setSubCollectionId(Property.getNextId());
-    }
   }
 
   @Override

@@ -242,6 +242,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();
       List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
       ThresholdCalculationTypeViewDTO item = ThresholdCalculationTypeViewDTO.getCalculationThreshold(request);
+      Integer percentComplete = ThresholdCalculationTypeViewDTO.getPercentComplete(request);
 
       req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
       req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
@@ -250,6 +251,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       req.setAttribute("thresholdCalculation", item);
       req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
+      req.setAttribute("active", percentComplete != -1);
 
       render("editThresholdConfiguration.jsp");
     }

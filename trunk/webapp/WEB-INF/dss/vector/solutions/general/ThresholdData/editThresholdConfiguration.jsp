@@ -124,9 +124,16 @@
       <input type="radio" name="currentYear" value="false"/> ${thresholdCalculation.calculationIntervalMd.negativeDisplayLabel}  
     </dd>
     <dd>
-      <input type="button" id="calculatePolitical.button" value="" />
-      <input type="button" id="calculateFacility.button" value="" />
-      (<fmt:message key="Calculations_may_take_time"/>)
+      <c:if test="${!active}">
+        <input type="button" id="calculatePolitical.button" value=""  />
+        <input type="button" id="calculateFacility.button" value="" />
+        (<fmt:message key="Calculations_may_take_time"/>)
+      </c:if>
+      <c:if test="${active}">
+        <input type="button" id="calculatePolitical.button" disabled="disabled" value=""  />
+        <input type="button" id="calculateFacility.button" disabled="disabled" value="" />
+        (<fmt:message key="Calculations_already_in_progress"/>)
+      </c:if>
     </dd>
     
     <hr />
@@ -204,7 +211,7 @@
         }
       }
 
-      YAHOO.util.Event.addListener('priorYears', "blur", priorYearsHandler);  
+      YAHOO.util.Event.addListener('priorYears', "keyup", priorYearsHandler);  
       YAHOO.util.Event.on(politicalButton, 'click', calculatePoliticalThresholds);    
       YAHOO.util.Event.on(facilityButton, 'click', calculateFacilityThresholds);    
       
