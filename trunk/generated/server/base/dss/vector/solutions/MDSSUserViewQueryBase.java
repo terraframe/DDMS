@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 429482201)
+@com.terraframe.mojo.business.ClassSignature(hash = 44181204)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class MDSSUserViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 429482201;
+private static final long serialVersionUID = 44181204;
 
   public MDSSUserViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -95,6 +95,24 @@ private static final long serialVersionUID = 429482201;
   public com.terraframe.mojo.query.AttributeChar getPersonId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.MDSSUserView.PERSONID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoles()
+  {
+    return getRoles(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoles(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeChar getRoles(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, displayLabel);
 
   }
  

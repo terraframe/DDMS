@@ -6,6 +6,7 @@ import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.business.rbac.RoleDAOIF;
 import com.terraframe.mojo.business.rbac.UserDAO;
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.CreatePermissionException;
 import com.terraframe.mojo.session.DeletePermissionException;
 import com.terraframe.mojo.session.Session;
@@ -29,7 +30,7 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
   {
     // Change for ticket #664
     this.setSessionLimit(5);
-    
+
     super.apply();
 
     // Assign this user to the GUIVisibility role
@@ -37,7 +38,7 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
 
     RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).assignMember(userDAO);
   }
-  
+
   @Override
   protected String buildKey()
   {
@@ -45,6 +46,7 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
   }
 
   @Override
+  @Transaction
   public void updateRoles(String[] assign, String[] revoke)
   {
     // Since permissions are not checked when modifying DAOs
@@ -55,9 +57,27 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
 
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
 
-    for (String roleName : assign)
+    // First clear all existing roles except GUI visibility
+    String[] roles = MDSSUser.getAssignableRoles();
+
+    for (String roleName : roles)
     {
-      RoleDAOIF role = RoleDAO.findRole(roleName);
+      RoleDAOIF roleDAO = RoleDAO.findRole(roleName);
+
+      if (session != null && !session.checkTypeAccess(Operation.DELETE, Assignments.CLASS))
+      {
+        String msg = "The user does not have permissions to assign members to roles";
+        Assignments entity = new Assignments(this, Roles.get(roleDAO.getId()));
+
+        throw new DeletePermissionException(msg, entity, session.getUser());
+      }
+
+      RoleDAO.findRole(roleName).getBusinessDAO().deassignMember(userDAO);
+    }
+
+    for (String id : assign)
+    {
+      RoleDAOIF role = RoleDAO.get(id);
 
       if (session != null && !session.checkTypeAccess(Operation.CREATE, Assignments.CLASS))
       {
@@ -69,20 +89,11 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
 
       role.assignMember(userDAO);
     }
-    for (String roleName : revoke)
-    {
-      RoleDAOIF role = RoleDAO.findRole(roleName);
+  }
 
-      if (session != null && !session.checkTypeAccess(Operation.DELETE, Assignments.CLASS))
-      {
-        String msg = "The user does not have permissions to assign members to roles";
-        Assignments entity = new Assignments(this, Roles.get(role.getId()));
-
-        throw new DeletePermissionException(msg, entity, session.getUser());
-      }
-
-      RoleDAO.findRole(roleName).getBusinessDAO().deassignMember(userDAO);
-    }
+  private static String[] getAssignableRoles()
+  {
+    return new String[] { MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.MDSS, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.STOCK_STAFF, };
   }
 
   public static void changeRootGeoEntity(String geoEntityId)

@@ -128,12 +128,14 @@
             name="personId"
             label="Person Id"
             description="Person Id"
-            size="64"/>
+            size="64"
+            required="true"/>
           <char
             name="userId"
             label="MDSS User Id"
             description="MDSS User Id"
-            size="64"/>
+            size="64"
+            required="true"/>
           <virtual
             name="username"
             concrete="username"

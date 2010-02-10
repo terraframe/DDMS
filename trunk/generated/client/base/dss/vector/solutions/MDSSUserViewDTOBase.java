@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2039773730)
+@com.terraframe.mojo.business.ClassSignature(hash = 1869625693)
 public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUserView";
-  private static final long serialVersionUID = 2039773730;
+  private static final long serialVersionUID = 1869625693;
   
   protected MDSSUserViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,6 +20,7 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
   public static java.lang.String ID = "id";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String PERSONID = "personId";
+  public static java.lang.String ROLES = "roles";
   public static java.lang.String USERID = "userId";
   public static java.lang.String USERNAME = "username";
   public String getFirstName()
@@ -131,6 +132,43 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
+  }
+  
+  public String getRoles()
+  {
+    return getValue(ROLES);
+  }
+  
+  public void setRoles(String value)
+  {
+    if(value == null)
+    {
+      setValue(ROLES, "");
+    }
+    else
+    {
+      setValue(ROLES, value);
+    }
+  }
+  
+  public boolean isRolesWritable()
+  {
+    return isWritable(ROLES);
+  }
+  
+  public boolean isRolesReadable()
+  {
+    return isReadable(ROLES);
+  }
+  
+  public boolean isRolesModified()
+  {
+    return isModified(ROLES);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRolesMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROLES).getAttributeMdDTO();
   }
   
   public String getUserId()

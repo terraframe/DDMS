@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,13 +16,11 @@ import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class RoleController extends RoleControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class RoleController extends RoleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242168689001L;
 
-  public RoleController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public RoleController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
     this.dir = "WEB-INF/dss/vector/solutions/RoleController/";
@@ -40,12 +39,10 @@ public class RoleController extends RoleControllerBase implements
   }
 
   @Override
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    MDSSUserViewQueryDTO query = MDSSUserViewDTO.getPage(clientRequest, sortAttribute, isAscending,
-        pageSize, pageNumber);
+    MDSSUserViewQueryDTO query = MDSSUserViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAll.jsp");
   }
@@ -57,31 +54,36 @@ public class RoleController extends RoleControllerBase implements
     {
       ClientRequestIF clientRequest = super.getClientRequest();
       MDSSUserDTO userDTO = MDSSUserDTO.get(clientRequest, id);
-      List<RolesDTO> assigned = new LinkedList<RolesDTO>();
 
       // Start by assuming that the user has no roles
-      List<RolesDTO> revoked = new LinkedList<RolesDTO>(Arrays.asList(FacadeDTO
-          .getMDSSRoles(clientRequest)));
+      List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(FacadeDTO.getMDSSRoles(clientRequest)));
+      List<? extends RolesDTO> assigned = userDTO.getAllAssignedRole();
+      List<String> list = new LinkedList<String>();
+     
+      Iterator<RolesDTO> it = roles.iterator();
 
-      for (RolesDTO assignedRole : userDTO.getAllAssignedRole())
+      // Remove GUIVisibility from the list of roles
+      while(it.hasNext())
       {
-        // If the user has the role, move it from revoked to assigned
-        if (revoked.contains(assignedRole))
+        RolesDTO role = it.next();
+        
+        if(role.getRoleName().equals(MDSSRoleInfo.GUI_VISIBILITY))
         {
-          revoked.remove(assignedRole);
-          
-          // People cannot have the option to remove the GUI visibility role
-          if(!assignedRole.getRoleName().equals(MDSSRoleInfo.GUI_VISIBILITY))
-          {
-            assigned.add(assignedRole);
-          }
+          it.remove();
         }
+      }
+            
+      for(RolesDTO role : assigned)
+      {
+        list.add(role.getId());
       }
 
       req.setAttribute("id", id);
-      req.setAttribute("assigned", assigned.toArray());
-      req.setAttribute("revoked", revoked.toArray());
-
+      req.setAttribute("assigned", list);
+      req.setAttribute("roles", roles);
+      req.setAttribute("user", userDTO);
+      req.setAttribute("view", new MDSSUserViewDTO(clientRequest));
+      
       render("edit.jsp");
     }
     catch (ProblemExceptionDTO e)

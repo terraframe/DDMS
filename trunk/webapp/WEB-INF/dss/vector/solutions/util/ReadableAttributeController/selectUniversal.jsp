@@ -39,6 +39,9 @@
     <dd>
       <span id="dss.vector.solutions.PersonView" class="roleLink"><f:message key="Person"/></span>
     </dd>
+    <dd>
+      <span id="dss.vector.solutions.MDSSUserView" class="roleLink"><f:message key="User"/></span>
+    </dd>
   </dl>
   <dl>
     <dt><label><f:message key="IRS_Team_Management"/></label></dt>

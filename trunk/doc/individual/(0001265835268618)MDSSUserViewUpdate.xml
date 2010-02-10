@@ -1,0 +1,49 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.MDSSUserView">
+        <create>
+          <attributes>
+            <char
+              name="roles"
+              label="Roles"
+              size="255"
+              required="true" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdViewPermission
+            type="dss.vector.solutions.MDSSUserView">
+            <operation
+              name="CREATE" />
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdViewPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.MDSSUserView.roles"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

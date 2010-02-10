@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -198666078)
+@com.terraframe.mojo.business.ClassSignature(hash = 1866823645)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,10 @@ public abstract class MDSSUserViewBase extends com.terraframe.mojo.business.View
   public static java.lang.String ID = "id";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String PERSONID = "personId";
+  public static java.lang.String ROLES = "roles";
   public static java.lang.String USERID = "userId";
   public static java.lang.String USERNAME = "username";
-  private static final long serialVersionUID = -198666078;
+  private static final long serialVersionUID = 1866823645;
   
   public MDSSUserViewBase()
   {
@@ -121,6 +122,34 @@ public abstract class MDSSUserViewBase extends com.terraframe.mojo.business.View
     else
     {
       setValue(PERSONID, value);
+    }
+  }
+  
+  public String getRoles()
+  {
+    return getValue(ROLES);
+  }
+  
+  public void validateRoles()
+  {
+    this.validateAttribute(ROLES);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getRolesMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUserView.CLASS);
+    return mdClassIF.definesAttribute(ROLES);
+  }
+  
+  public void setRoles(String value)
+  {
+    if(value == null)
+    {
+      setValue(ROLES, "");
+    }
+    else
+    {
+      setValue(ROLES, value);
     }
   }
   
