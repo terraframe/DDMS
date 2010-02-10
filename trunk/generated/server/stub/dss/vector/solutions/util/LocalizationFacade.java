@@ -4,7 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Locale;
 
+import com.terraframe.mojo.dataaccess.cache.ObjectCache;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
+import com.terraframe.mojo.generation.loader.LockHolder;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.system.metadata.SupportedLocale;
+import com.terraframe.mojo.system.metadata.SupportedLocaleQuery;
 
 public abstract class LocalizationFacade extends LocalizationFacadeBase implements Reloadable
 {
@@ -13,6 +20,35 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public LocalizationFacade()
   {
     super();
+  }
+  
+  public static SupportedLocaleQuery getInstalledLocales()
+  {
+    SupportedLocaleQuery query = new SupportedLocaleQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getLocaleLabel());
+    return query;
+  }
+  
+  public static void installLocale(String localeString)
+  {
+    install(localeString);
+    
+    LockHolder.lock(LoaderDecorator.instance());
+    ObjectCache.refreshCache();
+    LockHolder.unlock();
+  }
+
+  @Transaction
+  private static void install(String localeString)
+  {
+    Locale l = getLocaleFromString(localeString);
+    String displayName = l.getDisplayName(Locale.ENGLISH);
+    
+    SupportedLocale sl = new SupportedLocale();
+    sl.setEnumName(localeString);
+    sl.setLocaleLabel(displayName);
+    sl.getDisplayLabel().setDefaultValue(displayName);
+    sl.apply();
   }
   
   public static Locale getLocaleFromString(String localeString)

@@ -8,27 +8,30 @@
 
 <mjl:form name="LocalizationController.name" id="LocalizationController.form.id" method="POST">
   <dl>
-    <table class="displayTable">
-      <tr> 
-        <th><fmt:message key="Locale"/></th>
-        <th><fmt:message key="Export"/></th>
-      </tr>      
-      <%--<mjl:components items="${supported}" param="types" var="current" varStatus="status">--%>
-      <c:forEach var="current" items="${supported}">
-        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-          <td>
-            ${current.displayLabel}
-          </td>
-          <td>
-            <mjl:input type="checkbox" param="locales" value="${current.enumName}"/>
-          </td>
-        </tr>
-      </c:forEach>
-      <%--</mjl:components>--%>
-    </table>
+    <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
+      <mjl:freeColumn>
+        <mjl:header>
+          <fmt:message key="Locale" />
+        </mjl:header>
+        <mjl:row>
+          ${item.localeLabel}
+        </mjl:row>
+      </mjl:freeColumn>
+      <mjl:freeColumn>
+        <mjl:header>
+          <fmt:message key="Export" />
+        </mjl:header>
+        <mjl:row>
+          <mjl:input type="checkbox" param="locales" value="${item.enumName}"/>
+        </mjl:row>
+      </mjl:freeColumn>
+    </mjl:table>
     <mjl:command value="exportFile" action="dss.vector.solutions.util.LocalizationController.exportFile.mojo" name="LocalizationController.form.exportFile.button" />
   </dl>
 </mjl:form>
+<mjl:commandLink name="LocalizationController.add" action="dss.vector.solutions.util.LocalizationController.newLocale.mojo">
+  <fmt:message key="Add_New_Locale" />
+</mjl:commandLink>
 
 <div class="pageTitle"><fmt:message key="Import_Localization" /></div>
 <dl>

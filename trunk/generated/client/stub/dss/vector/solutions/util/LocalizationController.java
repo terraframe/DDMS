@@ -2,7 +2,11 @@ package dss.vector.solutions.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +18,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.system.metadata.SupportedLocaleDTO;
 import com.terraframe.mojo.system.metadata.SupportedLocaleQueryDTO;
 
 public class LocalizationController extends LocalizationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -37,10 +40,8 @@ public class LocalizationController extends LocalizationControllerBase implement
 
   private void renderSelectLocales() throws IOException, ServletException
   {
-    SupportedLocaleQueryDTO allInstances = SupportedLocaleDTO.getAllInstances(getClientRequest(), SupportedLocaleDTO.ENUMNAME, true, 0, 0);
-    List<? extends SupportedLocaleDTO> locales = allInstances.getResultSet();
-    
-    req.setAttribute("supported", locales);
+    SupportedLocaleQueryDTO query = LocalizationFacadeDTO.getInstalledLocales(getClientRequest());
+    req.setAttribute("query", query);
     render("selectLocales.jsp");
   }
   
@@ -96,5 +97,53 @@ public class LocalizationController extends LocalizationControllerBase implement
     InputStream stream = LocalizationFacadeDTO.exportFile(clientRequest, locales);
     
     FileDownloadUtil.writeXLS(resp, "Localization", stream);
+  }
+  
+  public void newLocale() throws IOException, ServletException
+  {
+    renderNewLocale();
+  }
+
+  private void renderNewLocale() throws IOException, ServletException
+  {
+    List<Locale> languages = new LinkedList<Locale>();
+    List<Locale> countries = new LinkedList<Locale>();
+    for (String s : Locale.getISOLanguages())
+    {
+      languages.add(new Locale(s));
+    }
+    
+    for (String s : Locale.getISOCountries())
+    {
+      countries.add(new Locale("en", s));
+    }
+    
+    Collections.sort(languages, new LocaleLanguageComparator());
+    Collections.sort(countries, new LocaleCountryComparator());
+    
+    req.setAttribute("languages", languages);
+    req.setAttribute("countries", countries);
+    render("newLocale.jsp");
+  }
+  
+  public void installLocale(String language, String country, String variant) throws IOException, ServletException
+  {
+    String localeString = language;
+    if (country!=null)
+    {
+      localeString += "_" + country;
+      if (variant!=null)
+      {
+        localeString += "_" + variant;
+      }
+    }
+    LocalizationFacadeDTO.installLocale(getClientRequest(), localeString);
+    renderSelectLocales();
+  }
+  
+  @Override
+  public void failInstallLocale(String language, String country, String variant) throws IOException, ServletException
+  {
+    renderNewLocale();
   }
 }
