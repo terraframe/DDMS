@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {entityLabel} entityLabel
     -->
-  <locale language="en">Please fill in the total number of spray operators, or permanently define in Manage IRS Teams, for entity [{entityLabel}]</locale>
+  <locale language="defaultLocale">Please fill in the total number of spray operators, or permanently define in Manage IRS Teams, for entity [{entityLabel}]</locale>
 </exception>

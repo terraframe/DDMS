@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {slots} slots
     -->
-  <locale language="en">The length [{hierarchyLength}] of the hierarchy cannot exceed the number of allocated spots [{slots}] for the geo entity attribute.</locale>
+  <locale language="defaultLocale">The length [{hierarchyLength}] of the hierarchy cannot exceed the number of allocated spots [{slots}] for the geo entity attribute.</locale>
 </exception>

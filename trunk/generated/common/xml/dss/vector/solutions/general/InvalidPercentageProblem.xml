@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {invalidPercent} invalidPercent
     -->
-  <locale language="en">The percent value [{invalidPercent}] cannot be greater than 100%</locale>
+  <locale language="defaultLocale">The percent value [{invalidPercent}] cannot be greater than 100%</locale>
 </exception>

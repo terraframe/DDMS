@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.util.LocaleNotInstalledException">
+  <!--
+    - {id} id
+    - {localeString} localeString
+    -->
+  <locale language="defaultLocale">Locale [{localeString}] is not installed. Please install it through the web site before importing.</locale>
+</exception>

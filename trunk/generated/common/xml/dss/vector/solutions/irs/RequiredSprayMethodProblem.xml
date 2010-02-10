@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Spray Method requires a value.</locale>
+  <locale language="defaultLocale">Spray Method requires a value.</locale>
 </exception>

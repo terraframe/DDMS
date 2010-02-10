@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.NetSumProblem">
   <!--
     -->
-  <locale language="en">The sum of all individual nets must equal the total number of nets</locale>
+  <locale language="defaultLocale">The sum of all individual nets must equal the total number of nets</locale>
 </exception>

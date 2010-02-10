@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Spray method may not be modified if individual IRS rows already exist because it may invalidate existing row data.</locale>
+  <locale language="defaultLocale">Spray method may not be modified if individual IRS rows already exist because it may invalidate existing row data.</locale>
 </exception>

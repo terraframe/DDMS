@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {currentDate} currentDate
     - {givenDate} givenDate
     -->
-  <locale language="en">The given date [{givenDate}] may not be after the current date [{currentDate}]</locale>
+  <locale language="defaultLocale">The given date [{givenDate}] may not be after the current date [{currentDate}]</locale>
 </exception>

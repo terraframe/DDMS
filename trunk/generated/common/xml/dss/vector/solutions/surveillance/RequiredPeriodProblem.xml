@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Period requires a value</locale>
+  <locale language="defaultLocale">Period requires a value</locale>
 </exception>

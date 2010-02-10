@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">A collection with the given id does not exist.</locale>
+  <locale language="defaultLocale">A collection with the given id does not exist.</locale>
 </exception>

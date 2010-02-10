@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.PrevSprayedStructureValueNotApplicableProblem">
   <!--
     -->
-  <locale language="en">The [Previously Sprayed Structure] attribute is not applicable on a mop of spray.</locale>
+  <locale language="defaultLocale">The [Previously Sprayed Structure] attribute is not applicable on a mop of spray.</locale>
 </exception>

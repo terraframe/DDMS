@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot save categories without first selecting a thematic variable.</locale>
+  <locale language="defaultLocale">Cannot save categories without first selecting a thematic variable.</locale>
 </exception>

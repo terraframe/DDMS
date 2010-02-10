@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {entityName} entityName
     - {id} id
     -->
-  <locale language="en">The given geo entity is unknown.</locale>
+  <locale language="defaultLocale">The given geo entity is unknown.</locale>
 </exception>

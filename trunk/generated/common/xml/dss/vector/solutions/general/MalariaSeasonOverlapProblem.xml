@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {overlap} overlap
     -->
-  <locale language="en">This Season Overlaps with: {overlap}</locale>
+  <locale language="defaultLocale">This Season Overlaps with: {overlap}</locale>
 </exception>

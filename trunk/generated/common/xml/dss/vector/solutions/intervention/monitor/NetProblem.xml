@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {id} id
     - {netName} netName
     -->
-  <locale language="en">The amount of [{netName}] nets cannot be set when the household has zero nets</locale>
+  <locale language="defaultLocale">The amount of [{netName}] nets cannot be set when the household has zero nets</locale>
 </exception>

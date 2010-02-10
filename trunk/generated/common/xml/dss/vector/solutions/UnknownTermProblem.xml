@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {id} id
     - {termName} termName
     -->
-  <locale language="en">A(n) {attributeLabel} with the name [{termName}] does not exist.</locale>
+  <locale language="defaultLocale">A(n) {attributeLabel} with the name [{termName}] does not exist.</locale>
 </exception>

@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">BIRT report generator is configured incorrectly.</locale>
+  <locale language="defaultLocale">BIRT report generator is configured incorrectly.</locale>
 </exception>

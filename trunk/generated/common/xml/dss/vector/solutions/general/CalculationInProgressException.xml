@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {percentComplete} percentComplete
     -->
-  <locale language="en">A threshold calculation is already in progress, it is currently {percentComplete}% complete.</locale>
+  <locale language="defaultLocale">A threshold calculation is already in progress, it is currently {percentComplete}% complete.</locale>
 </exception>

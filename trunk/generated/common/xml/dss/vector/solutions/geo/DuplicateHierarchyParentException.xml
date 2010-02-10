@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {parentDisplayLabel} parentDisplayLabel
     -->
-  <locale language="en">The child [{childDisplayLabel}] is already located in the parent [{parentDisplayLabel}].</locale>
+  <locale language="defaultLocale">The child [{childDisplayLabel}] is already located in the parent [{parentDisplayLabel}].</locale>
 </exception>

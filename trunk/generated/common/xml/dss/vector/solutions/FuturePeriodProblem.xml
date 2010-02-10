@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.FuturePeriodProblem">
   <!--
     -->
-  <locale language="en">Cannot search for periods which contain future dates. </locale>
+  <locale language="defaultLocale">Cannot search for periods which contain future dates.</locale>
 </exception>

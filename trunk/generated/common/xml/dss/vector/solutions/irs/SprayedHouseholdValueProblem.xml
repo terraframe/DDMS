@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.SprayedHouseholdValueProblem">
   <!--
     -->
-  <locale language="en">The [Sprayed Household] attribute is not applicable on a mop of spray for household [{householdId}] and structure [{structureId}] </locale>
+  <locale language="defaultLocale">The [Sprayed Household] attribute is not applicable on a mop of spray for household [{householdId}] and structure [{structureId}]</locale>
 </exception>

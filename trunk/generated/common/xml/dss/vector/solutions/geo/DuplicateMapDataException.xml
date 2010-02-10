@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot create a map because duplicate geo entities exist in the query results. Please restrict the query.</locale>
+  <locale language="defaultLocale">Cannot create a map because duplicate geo entities exist in the query results. Please restrict the query.</locale>
 </exception>

@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {rangeOne} rangeOne
     - {rangeTwo} rangeTwo
     -->
-  <locale language="en">The value [{rangeOne}] overlaps with [{rangeTwo}]. Please change the values such that no overlapping occurs.</locale>
+  <locale language="defaultLocale">The value [{rangeOne}] overlaps with [{rangeTwo}]. Please change the values such that no overlapping occurs.</locale>
 </exception>

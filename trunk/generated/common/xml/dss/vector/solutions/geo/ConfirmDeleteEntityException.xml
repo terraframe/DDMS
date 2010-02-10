@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {entityName} entityName
     - {id} id
     -->
-  <locale language="en">Do you want to delete the entity or its relationship with [{entityName}]?</locale>
+  <locale language="defaultLocale">Do you want to delete the entity or its relationship with [{entityName}]?</locale>
 </exception>

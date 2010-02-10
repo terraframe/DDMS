@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem">
   <!--
     -->
-  <locale language="en">A mosquito collection cannot have a morphological specie group with zero mosquitos.</locale>
+  <locale language="defaultLocale">A mosquito collection cannot have a morphological specie group with zero mosquitos.</locale>
 </exception>

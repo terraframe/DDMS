@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot generate a map without having first added a layer.</locale>
+  <locale language="defaultLocale">Cannot generate a map without having first added a layer.</locale>
 </exception>

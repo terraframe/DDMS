@@ -10,5 +10,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {definingTypeDisplayLabel} definingTypeDisplayLabel
     - {id} id
     -->
-  <locale language="en">This is abstract and will never be displayed</locale>
+  <locale language="defaultLocale">This is abstract and will never be displayed</locale>
 </exception>

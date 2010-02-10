@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {netCount} netCount
     - {quantity} quantity
     -->
-  <locale language="en">The net count [{netCount}] cannot be greater than the number of household nets [{quantity}]</locale>
+  <locale language="defaultLocale">The net count [{netCount}] cannot be greater than the number of household nets [{quantity}]</locale>
 </exception>

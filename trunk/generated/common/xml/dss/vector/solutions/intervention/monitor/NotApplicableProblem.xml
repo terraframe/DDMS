@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {inputAttribute} inputAttribute
     - {inputValue} inputValue
     -->
-  <locale language="en">The attribute [{attributeDisplayLabel}] is not applicable when [{inputAttribute}] is [{inputValue}].</locale>
+  <locale language="defaultLocale">The attribute [{attributeDisplayLabel}] is not applicable when [{inputAttribute}] is [{inputValue}].</locale>
 </exception>

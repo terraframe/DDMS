@@ -8,5 +8,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {sprayedObjectLabel} sprayedObjectLabel
     - {sprayedObjects} sprayedObjects
     -->
-  <locale language="en">{sprayedObjectLabel} [{sprayedObjects}] cannot be greater than {objectLabel} [{objects}]</locale>
+  <locale language="defaultLocale">{sprayedObjectLabel} [{sprayedObjects}] cannot be greater than {objectLabel} [{objects}]</locale>
 </exception>

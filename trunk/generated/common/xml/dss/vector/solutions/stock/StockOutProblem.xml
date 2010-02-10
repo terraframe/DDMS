@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {itemLabel} itemLabel
     - {stockOut} stockOut
     -->
-  <locale language="en">The item [{itemLabel}] can not have more stock removed [{stockOut}] than is available [{availableStock}]. </locale>
+  <locale language="defaultLocale">The item [{itemLabel}] can not have more stock removed [{stockOut}] than is available [{availableStock}]. </locale>
 </exception>

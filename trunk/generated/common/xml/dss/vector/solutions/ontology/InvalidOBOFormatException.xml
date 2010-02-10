@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {fileName} fileName
     - {id} id
     -->
-  <locale language="en">File [{fileName}] is not a valid OBO file.</locale>
+  <locale language="defaultLocale">File [{fileName}] is not a valid OBO file.</locale>
 </exception>

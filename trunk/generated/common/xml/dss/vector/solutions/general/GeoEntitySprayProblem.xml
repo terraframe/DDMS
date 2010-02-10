@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {entityLabel} entityLabel
     - {id} id
     -->
-  <locale language="en">The Geo Entity [{entityLabel}] does not allow spray targets.</locale>
+  <locale language="defaultLocale">The Geo Entity [{entityLabel}] does not allow spray targets.</locale>
 </exception>

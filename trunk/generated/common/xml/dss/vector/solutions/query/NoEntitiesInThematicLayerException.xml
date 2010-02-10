@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The map cannot be generated because the base layer contains no entities.</locale>
+  <locale language="defaultLocale">The map cannot be generated because the base layer contains no entities.</locale>
 </exception>

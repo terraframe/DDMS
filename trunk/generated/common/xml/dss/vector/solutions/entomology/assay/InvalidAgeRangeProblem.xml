@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {endPoint} endPoint
     - {startPoint} startPoint
     -->
-  <locale language="en">The start point [{startPoint}] cannont be after the end point [{endPoint}] of an age range.</locale>
+  <locale language="defaultLocale">The start point [{startPoint}] cannont be after the end point [{endPoint}] of an age range.</locale>
 </exception>

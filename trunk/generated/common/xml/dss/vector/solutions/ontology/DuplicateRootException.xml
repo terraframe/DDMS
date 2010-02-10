@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {browserRoot} browserRoot
     - {id} id
     -->
-  <locale language="en">The field [{browserField}] already defines the root [{browserRoot}].</locale>
+  <locale language="defaultLocale">The field [{browserField}] already defines the root [{browserRoot}].</locale>
 </exception>

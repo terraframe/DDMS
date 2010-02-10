@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The sum of RR, RS and SS must be GT 0</locale>
+  <locale language="defaultLocale">The sum of RR, RS and SS must be GT 0</locale>
 </exception>

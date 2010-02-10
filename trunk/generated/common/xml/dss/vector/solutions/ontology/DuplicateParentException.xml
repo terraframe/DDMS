@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {parentTerm} parentTerm
     -->
-  <locale language="en">The child [{childTerm}] is already located in the parent [{parentTerm}].</locale>
+  <locale language="defaultLocale">The child [{childTerm}] is already located in the parent [{parentTerm}].</locale>
 </exception>

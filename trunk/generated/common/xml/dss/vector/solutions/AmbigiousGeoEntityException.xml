@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {entityName} entityName
     - {id} id
     -->
-  <locale language="en">The given Geo Entity is ambiguous (It has more than one possible solution)"</locale>
+  <locale language="defaultLocale">The given Geo Entity is ambiguous (It has more than one possible solution)"</locale>
 </exception>

@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {earthName} earthName
     - {id} id
     -->
-  <locale language="en">There cannot be more than one [{earthName}].</locale>
+  <locale language="defaultLocale">There cannot be more than one [{earthName}].</locale>
 </exception>

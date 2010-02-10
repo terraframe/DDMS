@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">You cannot run a query without having first added columns.</locale>
+  <locale language="defaultLocale">You cannot run a query without having first added columns.</locale>
 </exception>

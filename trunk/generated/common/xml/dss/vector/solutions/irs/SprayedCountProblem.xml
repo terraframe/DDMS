@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {householdId} householdId
     -->
-  <locale language="en">The household [{householdId}] has already been counted as sprayed.</locale>
+  <locale language="defaultLocale">The household [{householdId}] has already been counted as sprayed.</locale>
 </exception>

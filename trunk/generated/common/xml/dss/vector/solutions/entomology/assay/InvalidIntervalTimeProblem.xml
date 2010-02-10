@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {exposureTime} exposureTime
     - {intervalTime} intervalTime
     -->
-  <locale language="en">The interval time [{intervalTime}] cannot exceed the exposure time [{exposureTime}]</locale>
+  <locale language="defaultLocale">The interval time [{intervalTime}] cannot exceed the exposure time [{exposureTime}]</locale>
 </exception>

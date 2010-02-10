@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {isAParentLabel} isAParentLabel
     - {spatialLabel} spatialLabel
     -->
-  <locale language="en">The parent [{isAParentLabel}] already defines the geometry type [{spatialLabel}], which cannot be overwritten.</locale>
+  <locale language="defaultLocale">The parent [{isAParentLabel}] already defines the geometry type [{spatialLabel}], which cannot be overwritten.</locale>
 </exception>

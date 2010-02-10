@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.RequiredAttributeProblem">
   <!--
     -->
-  <locale language="en">The attribute [{attributeDisplayLabel}] is required.</locale>
+  <locale language="defaultLocale">The attribute [{attributeDisplayLabel}] is required.</locale>
 </exception>

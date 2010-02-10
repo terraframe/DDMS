@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {displayLabel} displayLabel
     - {id} id
     -->
-  <locale language="en">The universal [{displayLabel}] cannot be located in itself.</locale>
+  <locale language="defaultLocale">The universal [{displayLabel}] cannot be located in itself.</locale>
 </exception>

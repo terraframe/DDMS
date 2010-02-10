@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Property already exists.</locale>
+  <locale language="defaultLocale">Property already exists.</locale>
 </exception>

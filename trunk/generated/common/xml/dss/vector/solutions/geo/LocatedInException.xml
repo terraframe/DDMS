@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {parentDisplayLabel} parentDisplayLabel
     -->
-  <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
+  <locale language="defaultLocale">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
 </exception>

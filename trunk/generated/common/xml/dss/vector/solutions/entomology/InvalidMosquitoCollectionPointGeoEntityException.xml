@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {geoId} geoId
     - {id} id
     -->
-  <locale language="en">The GeoEntity [{geoId}] is not a fixed trap or a permenant water body. A mosquito collection can only have a fixed trap or permenant water body GeoEntity</locale>
+  <locale language="defaultLocale">The GeoEntity [{geoId}] is not a fixed trap or a permenant water body. A mosquito collection can only have a fixed trap or permenant water body GeoEntity</locale>
 </exception>

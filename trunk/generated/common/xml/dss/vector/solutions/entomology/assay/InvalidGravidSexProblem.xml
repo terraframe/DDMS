@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidGravidSexProblem">
   <!--
     -->
-  <locale language="en">Gravid values must be zero when a collection sex is male or unknown.</locale>
+  <locale language="defaultLocale">Gravid values must be zero when a collection sex is male or unknown.</locale>
 </exception>

@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem">
   <!--
     -->
-  <locale language="en">The attribute [{attributeLabel}] cannont be set on a morphological specie group with zero mosquitos.</locale>
+  <locale language="defaultLocale">The attribute [{attributeLabel}] cannont be set on a morphological specie group with zero mosquitos.</locale>
 </exception>

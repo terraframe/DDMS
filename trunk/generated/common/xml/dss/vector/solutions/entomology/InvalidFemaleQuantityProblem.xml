@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {quantity} quantity
     - {quantityFemale} quantityFemale
     -->
-  <locale language="en">The number of female mosquitos [{quantityFemale}] cannot be greater than the total number of mosquitos [{quantity}]</locale>
+  <locale language="defaultLocale">The number of female mosquitos [{quantityFemale}] cannot be greater than the total number of mosquitos [{quantity}]</locale>
 </exception>

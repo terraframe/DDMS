@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {term} term
     -->
-  <locale language="en">The Term [{term}] cannot be its own parent.</locale>
+  <locale language="defaultLocale">The Term [{term}] cannot be its own parent.</locale>
 </exception>

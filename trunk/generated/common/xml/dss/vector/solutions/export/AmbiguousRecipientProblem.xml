@@ -8,5 +8,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {lastName} lastName
     -->
-  <locale language="en">Multiple people found with first name [{firstName}], last name [{lastName}], and Date of Birth [{dob}].  Please fill in any blank fields and try again.</locale>
+  <locale language="defaultLocale">Multiple people found with first name [{firstName}], last name [{lastName}], and Date of Birth [{dob}].  Please fill in any blank fields and try again.</locale>
 </exception>

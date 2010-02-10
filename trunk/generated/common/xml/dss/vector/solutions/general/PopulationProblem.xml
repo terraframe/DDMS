@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.PopulationProblem">
   <!--
     -->
-  <locale language="en">Population must be greater than or equal to 0</locale>
+  <locale language="defaultLocale">Population must be greater than or equal to 0</locale>
 </exception>

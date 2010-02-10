@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.HouseholdValueProblem">
   <!--
     -->
-  <locale language="en">The [Household] attribute for household [{householdId}] and structure [{structureId}] can only have a value of 0 or 1.</locale>
+  <locale language="defaultLocale">The [Household] attribute for household [{householdId}] and structure [{structureId}] can only have a value of 0 or 1.</locale>
 </exception>

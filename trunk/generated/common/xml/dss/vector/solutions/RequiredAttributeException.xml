@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {attributeLabel} attributeLabel
     - {id} id
     -->
-  <locale language="en">[{attributeLabel}] requires a value.</locale>
+  <locale language="defaultLocale">[{attributeLabel}] requires a value.</locale>
 </exception>

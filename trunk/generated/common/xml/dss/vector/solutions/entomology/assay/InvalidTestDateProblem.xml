@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {collectionDate} collectionDate
     - {testDate} testDate
     -->
-  <locale language="en">The assay test date [{testDate}] may not occur before the collection date [{collectionDate}] </locale>
+  <locale language="defaultLocale">The assay test date [{testDate}] may not occur before the collection date [{collectionDate}]</locale>
 </exception>

@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.CurrencyAmountProblem">
   <!--
     -->
-  <locale language="en">Currency received cannot be set when no ITNs were sold.</locale>
+  <locale language="defaultLocale">Currency received cannot be set when no ITNs were sold.</locale>
 </exception>

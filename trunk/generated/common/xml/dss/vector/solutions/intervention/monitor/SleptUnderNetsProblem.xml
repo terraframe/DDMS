@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.SleptUnderNetsProblem">
   <!--
     -->
-  <locale language="en">Slept under nets is not valid when the total number of nets is 0.</locale>
+  <locale language="defaultLocale">Slept under nets is not valid when the total number of nets is 0.</locale>
 </exception>

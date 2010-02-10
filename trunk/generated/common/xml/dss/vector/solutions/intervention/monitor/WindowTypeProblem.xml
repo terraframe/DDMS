@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.WindowTypeProblem">
   <!--
     -->
-  <locale language="en">A window type cannot be select when the household does not have windows</locale>
+  <locale language="defaultLocale">A window type cannot be select when the household does not have windows</locale>
 </exception>

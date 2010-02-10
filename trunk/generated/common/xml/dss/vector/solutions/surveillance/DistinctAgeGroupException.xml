@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {startAge} startAge
     -->
-  <locale language="en">An age group in the given range [{startAge}] - [{endAge}] already exists.</locale>
+  <locale language="defaultLocale">An age group in the given range [{startAge}] - [{endAge}] already exists.</locale>
 </exception>

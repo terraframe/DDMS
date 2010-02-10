@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Property does not conform to the date format.</locale>
+  <locale language="defaultLocale">Property does not conform to the date format.</locale>
 </exception>

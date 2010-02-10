@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">There are no compatible types available.</locale>
+  <locale language="defaultLocale">There are no compatible types available.</locale>
 </exception>

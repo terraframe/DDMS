@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {amount} amount
     - {amountPositive} amountPositive
     -->
-  <locale language="en">It is impossible to have more positive tests than tests.</locale>
+  <locale language="defaultLocale">It is impossible to have more positive tests than tests.</locale>
 </exception>

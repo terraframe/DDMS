@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Spray Team may not be modified if individual IRS Level 2 rows already exist because it will invalidate existing spray operator row data.</locale>
+  <locale language="defaultLocale">Spray Team may not be modified if individual IRS Level 2 rows already exist because it will invalidate existing spray operator row data.</locale>
 </exception>

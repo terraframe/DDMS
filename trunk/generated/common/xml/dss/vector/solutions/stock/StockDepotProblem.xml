@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {geoId} geoId
     - {id} id
     -->
-  <locale language="en">The Geo Id [{geoId}] must refer to a Stock Depot.</locale>
+  <locale language="defaultLocale">The Geo Id [{geoId}] must refer to a Stock Depot.</locale>
 </exception>

@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {entityLabel} entityLabel
     - {threshold} threshold
     -->
-  <locale language="en">The threshold [{attributeDisplayLabel}] on Geo Entity [{entityLabel}] must be greater than 0.</locale>
+  <locale language="defaultLocale">The threshold [{attributeDisplayLabel}] on Geo Entity [{entityLabel}] must be greater than 0.</locale>
 </exception>

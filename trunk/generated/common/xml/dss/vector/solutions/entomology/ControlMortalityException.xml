@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The mortality rate of the control collection exceeds 20% invalidating this test.</locale>
+  <locale language="defaultLocale">The mortality rate of the control collection exceeds 20% invalidating this test.</locale>
 </exception>

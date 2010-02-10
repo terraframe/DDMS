@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   <!--
     - {months} months
     -->
-  <locale language="en">The value of last sprayed date in months [{months}] cannot be greater than 13 </locale>
+  <locale language="defaultLocale">The value of last sprayed date in months [{months}] cannot be greater than 13</locale>
 </exception>

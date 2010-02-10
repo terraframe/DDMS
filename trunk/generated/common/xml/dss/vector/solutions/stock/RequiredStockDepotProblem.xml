@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Stock Depot is required.</locale>
+  <locale language="defaultLocale">Stock Depot is required.</locale>
 </exception>

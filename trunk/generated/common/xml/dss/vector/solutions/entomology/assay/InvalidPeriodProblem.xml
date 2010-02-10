@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   <!--
     - {period} period
     -->
-  <locale language="en">The test period [{period}] is invalid</locale>
+  <locale language="defaultLocale">The test period [{period}] is invalid</locale>
 </exception>

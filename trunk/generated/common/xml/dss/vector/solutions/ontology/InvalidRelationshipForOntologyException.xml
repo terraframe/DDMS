@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {ontology} ontology
     - {relationship} relationship
     -->
-  <locale language="en">Ontology relationship {relationship} cannot participate with a term from ontology {ontology}.</locale>
+  <locale language="defaultLocale">Ontology relationship {relationship} cannot participate with a term from ontology {ontology}.</locale>
 </exception>

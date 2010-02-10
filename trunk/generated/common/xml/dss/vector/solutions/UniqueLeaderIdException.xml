@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The spray leader id is already used.</locale>
+  <locale language="defaultLocale">The spray leader id is already used.</locale>
 </exception>

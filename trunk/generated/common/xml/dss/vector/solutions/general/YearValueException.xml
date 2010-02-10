@@ -8,5 +8,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {minYear} minYear
     - {yearValue} yearValue
     -->
-  <locale language="en">The year [{yearValue}] must be between [{minYear}] and [{maxYear}].</locale>
+  <locale language="defaultLocale">The year [{yearValue}] must be between [{minYear}] and [{maxYear}].</locale>
 </exception>

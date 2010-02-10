@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {sprayOperator} sprayOperator
     -->
-  <locale language="en">A level 1 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayOperator}]) values.</locale>
+  <locale language="defaultLocale">A level 1 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayOperator}]) values.</locale>
 </exception>

@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.KnockDownTimePropertyProblem">
   <!--
     -->
-  <locale language="en">Lower time must be less then upper time for Knockdown Time Properties</locale>
+  <locale language="defaultLocale">Lower time must be less then upper time for Knockdown Time Properties</locale>
 </exception>

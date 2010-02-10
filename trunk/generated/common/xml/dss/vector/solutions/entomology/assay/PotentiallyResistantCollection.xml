@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The collection is potentially resistant to this assay.</locale>
+  <locale language="defaultLocale">The collection is potentially resistant to this assay.</locale>
 </exception>

@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Cannot create a legend without having first selected a thematic variable.</locale>
+  <locale language="defaultLocale">Cannot create a legend without having first selected a thematic variable.</locale>
 </exception>

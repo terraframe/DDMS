@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {householdId} householdId
     -->
-  <locale language="en">Total # households for the first row of household [{householdId}] must be 1</locale>
+  <locale language="defaultLocale">Total # households for the first row of household [{householdId}] must be 1</locale>
 </exception>

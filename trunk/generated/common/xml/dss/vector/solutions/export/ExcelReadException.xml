@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">Error reading excel file.  Please ensure that the file type is correct and try again.</locale>
+  <locale language="defaultLocale">Error reading excel file.  Please ensure that the file type is correct and try again.</locale>
 </exception>

@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {termId} termId
     -->
-  <locale language="en">No term found for term id [{termId}]</locale>
+  <locale language="defaultLocale">No term found for term id [{termId}]</locale>
 </exception>

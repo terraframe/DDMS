@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {entityLabel} entityLabel
     - {id} id
     -->
-  <locale language="en">The entity [{entityLabel}] is not a valid selection for this input.</locale>
+  <locale language="defaultLocale">The entity [{entityLabel}] is not a valid selection for this input.</locale>
 </exception>

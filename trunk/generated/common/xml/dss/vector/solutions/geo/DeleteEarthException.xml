@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {earthName} earthName
     - {id} id
     -->
-  <locale language="en">[{earthName}] cannot be deleted.</locale>
+  <locale language="defaultLocale">[{earthName}] cannot be deleted.</locale>
 </exception>

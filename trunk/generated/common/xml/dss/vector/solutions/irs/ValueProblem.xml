@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {householdId} householdId
     - {structureId} structureId
     -->
-  <locale language="en">Value may only be 0 or 1</locale>
+  <locale language="defaultLocale">Value may only be 0 or 1</locale>
 </exception>

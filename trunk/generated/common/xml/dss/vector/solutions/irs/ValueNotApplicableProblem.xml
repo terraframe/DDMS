@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {householdId} householdId
     - {structureId} structureId
     -->
-  <locale language="en">{attributeDisplayLabel} is not applicable on a mop-up spray</locale>
+  <locale language="defaultLocale">{attributeDisplayLabel} is not applicable on a mop-up spray</locale>
 </exception>

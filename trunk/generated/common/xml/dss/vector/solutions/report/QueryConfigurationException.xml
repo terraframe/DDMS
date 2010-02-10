@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="en">The provided query does not contain all of the columns needed to generate this report</locale>
+  <locale language="defaultLocale">The provided query does not contain all of the columns needed to generate this report</locale>
 </exception>

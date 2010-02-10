@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {id} id
     - {validValues} validValues
     -->
-  <locale language="en">The Property failed to validate.  Valid values are formated like: [{validValues}]</locale>
+  <locale language="defaultLocale">The Property failed to validate.  Valid values are formated like: [{validValues}]</locale>
 </exception>

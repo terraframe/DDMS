@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {quantityDead} quantityDead
     - {quantityTested} quantityTested
     -->
-  <locale language="en">The quantity of dead mosquitos [{quantityDead}] cannot exceed the total quantity of mosquitos tested [{quantityTested}].</locale>
+  <locale language="defaultLocale">The quantity of dead mosquitos [{quantityDead}] cannot exceed the total quantity of mosquitos tested [{quantityTested}].</locale>
 </exception>

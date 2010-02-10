@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {lowerLimit} lowerLimit
     - {upperLimit} upperLimit
     -->
-  <locale language="en">{attributeDisplayLabel} must be between [{lowerLimit}] and [{upperLimit}].</locale>
+  <locale language="defaultLocale">{attributeDisplayLabel} must be between [{lowerLimit}] and [{upperLimit}].</locale>
 </exception>

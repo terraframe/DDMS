@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   <!--
     - {age} age
     -->
-  <locale language="en">The mosquito age [{age}] must be between 0 and 20.</locale>
+  <locale language="defaultLocale">The mosquito age [{age}] must be between 0 and 20.</locale>
 </exception>

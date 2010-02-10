@@ -4,5 +4,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.irs.PrevSprayedStructureValueProblem">
   <!--
     -->
-  <locale language="en">The [Previously Sprayed Structure] attribute for household [{householdId}] and structure [{structureId}] can only have a value of 0 or 1.</locale>
+  <locale language="defaultLocale">The [Previously Sprayed Structure] attribute for household [{householdId}] and structure [{structureId}] can only have a value of 0 or 1.</locale>
 </exception>

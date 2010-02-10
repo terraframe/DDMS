@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {layerName} layerName
     - {queryName} queryName
     -->
-  <locale language="en">The query [{queryName}] is no longer compatible with the layer [{layerName}]. Please fix the query or delete the layer.</locale>
+  <locale language="defaultLocale">The query [{queryName}] is no longer compatible with the layer [{layerName}]. Please fix the query or delete the layer.</locale>
 </exception>

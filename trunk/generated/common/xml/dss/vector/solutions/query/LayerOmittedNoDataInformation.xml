@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {layerName} layerName
     -->
-  <locale language="en">The layer [{layerName}] has been omitted because it contains no mappable data.</locale>
+  <locale language="defaultLocale">The layer [{layerName}] has been omitted because it contains no mappable data.</locale>
 </exception>
