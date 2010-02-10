@@ -12,7 +12,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.dataaccess.EntityDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -78,19 +77,19 @@ public class AttributeRootExporter
       MdAttribute mdAttribute = field.getMdAttribute();
       MdClass mdClass = mdAttribute.getAllDefiningClass().next();
       
-      String attributeLabel = mdAttribute.getDisplayLabel().getDefaultLocale();
+      String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
       if (attributeLabel.length()==0 && mdAttribute instanceof MdAttributeVirtual)
       {
         MdAttributeVirtual virtual = (MdAttributeVirtual)mdAttribute;
         MdAttributeConcrete concrete = virtual.getAllConcreteAttribute().next();
-        attributeLabel = concrete.getDisplayLabel().getDefaultLocale();
+        attributeLabel = concrete.getDisplayLabel().getDefaultValue();
       }
       
       HSSFRow row = sheet.createRow(rowCount++);
       
       int cellCount = 0;
       row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdAttribute.getKey()));
-      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultLocale()));
+      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultValue()));
       row.createCell(cellCount++).setCellValue(new HSSFRichTextString(attributeLabel));
       
       MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);

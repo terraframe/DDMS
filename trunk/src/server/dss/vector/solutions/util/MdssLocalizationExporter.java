@@ -20,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.SystemException;
+import com.terraframe.mojo.constants.MdAttributeLocalInfo;
 import com.terraframe.mojo.constants.ServerProperties;
 import com.terraframe.mojo.dataaccess.MdLocalStructDAOIF;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
@@ -65,7 +66,6 @@ public class MdssLocalizationExporter implements Reloadable
   public MdssLocalizationExporter()
   {
     locales = new LinkedList<Locale>();
-    locales.add(Locale.ENGLISH);
   }
   
   public void addLocale(Locale l)
@@ -106,6 +106,8 @@ public class MdssLocalizationExporter implements Reloadable
       int i=0;
       sheet.autoSizeColumn((short)i);
       row.createCell(i++).setCellValue(new HSSFRichTextString("Key"));
+      sheet.autoSizeColumn((short)i);
+      row.createCell(i++).setCellValue(new HSSFRichTextString(MdAttributeLocalInfo.DEFAULT_LOCALE));
       for (Locale l : locales)
       {
         sheet.autoSizeColumn((short)i);
@@ -141,15 +143,21 @@ public class MdssLocalizationExporter implements Reloadable
       HSSFRow row = customSheet.createRow(r++);
       int c = 0;
       row.createCell(c++).setCellValue(new HSSFRichTextString(localizable.definesType()));
+      setExceptionMessage(templates, row, c++, MdAttributeLocalInfo.DEFAULT_LOCALE);
       for (Locale l : locales)
       {
-        HSSFCell cell = row.createCell(c++);
-        String message = templates.get(l.toString());
-        if (message!=null)
-        {
-          cell.setCellValue(new HSSFRichTextString(message));
-        }
+        setExceptionMessage(templates, row, c++, l.toString());
       }
+    }
+  }
+
+  private void setExceptionMessage(Map<String, String> templates, HSSFRow row, int c, String localeString)
+  {
+    HSSFCell cell = row.createCell(c);
+    String message = templates.get(localeString);
+    if (message!=null)
+    {
+      cell.setCellValue(new HSSFRichTextString(message));
     }
   }
   
@@ -208,16 +216,13 @@ public class MdssLocalizationExporter implements Reloadable
       HSSFRow row = labelSheet.createRow(r++);
       int c=0;
       row.createCell(c++).setCellValue(new HSSFRichTextString(md.getKeyName()));
+      row.createCell(c++).setCellValue(new HSSFRichTextString(label.getDefaultValue()));
       for (Locale l : locales)
       {
         HSSFCell cell = row.createCell(c++);
         String localeString = l.toString();
         
-        if (c==2)
-        {
-          localeString = MetaDataDisplayLabel.DEFAULTLOCALE;
-        }
-        else if (mdLocalStruct.definesAttribute(localeString)==null)
+        if (mdLocalStruct.definesAttribute(localeString)==null)
         {
           continue;
         }
@@ -266,14 +271,10 @@ public class MdssLocalizationExporter implements Reloadable
     }
     
     // Now read each locale
-    int c=0;
+    int c=1;
     for (Locale l : locales)
     {
       c++;
-      if (c==1)
-      {
-        continue;
-      }
       
       File localFile = new File(dir, "MDSS_" + l.toString() + ".properties");
       if (!localFile.exists())

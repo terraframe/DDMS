@@ -88,7 +88,7 @@ public class PermissionTable
     for (MdType type : allTypes)
     {
       openRow();
-      writeCellWithTitle(type.getDisplayLabel().getDefaultLocale(), type.definesType());
+      writeCellWithTitle(type.getDisplayLabel().getDefaultValue(), type.definesType());
       MdTypeDAO typeDAO = (MdTypeDAO)BusinessFacade.getEntityDAO(type);
       for (Roles role : allRoles)
       {
