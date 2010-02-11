@@ -2335,8 +2335,6 @@ Mojo.Meta.newClass('Mojo.AjaxCall', {
   
           if(this.xmlHttp.readyState == 4)
           {
-            this.clientRequest.setTransport(this.xmlHttp);
-            
             // signal that the load is complete
             if(Mojo.Util.isFunction(this.clientRequest.onComplete))
             {
@@ -2358,6 +2356,8 @@ Mojo.Meta.newClass('Mojo.AjaxCall', {
             this.cleanup();
           }
         };
+        
+        this.clientRequest.setTransport(this.xmlHttp);
   
         // signal that the Ajax call is about to take place.
         if(Mojo.Util.isFunction(this.clientRequest.onSend))
