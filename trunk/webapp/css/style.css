@@ -18,7 +18,7 @@ body {
 }
 
 #headerleft {
-	-moz-border-radius: 5px;
+	-moz-border-radius: 10px;
 	height: 58px;
 	width: 200px;
 	margin: 0 0 0 5px;
@@ -33,7 +33,7 @@ body {
 }
 
 #headermiddle {
-	-moz-border-radius: 5px;
+	-moz-border-radius: 10px;
 	margin: 0 95px 5px 220px;
 	padding: 22px 0 0 10px;
 	height: 58px;
@@ -43,7 +43,7 @@ body {
 }
 
 #headerright {
-	-moz-border-radius: 5px;
+	-moz-border-radius: 10px;
 	margin: 0 5px 0 0;
 	float: right;
 	height: 80px;
