@@ -11,6 +11,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 
 public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
+  public static final String ROOT_PREFIX = "Root__";
   private static final long serialVersionUID = 1252959715750L;
 
   public BrowserRoot()
@@ -42,7 +43,7 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
       return ""; // object not properly constructed.
     }
 
-    return "Root__"+term.getKeyName();
+    return ROOT_PREFIX+term.getKeyName();
   }
 
   public static BrowserRootViewQuery getAsViews()
@@ -264,5 +265,24 @@ public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.
     rootQuery.AND(rootQuery.field(fieldQuery));
 
     return (rootQuery.getCount() > 0);
+  }
+  
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof BrowserRoot))
+    {
+      return false;
+    }
+    
+    BrowserRoot other = (BrowserRoot) obj;
+    Term otherTerm = other.getTerm();
+    Term thisTerm = this.getTerm();
+    if (otherTerm==null || thisTerm==null)
+    {
+      return false;
+    }
+    
+    return otherTerm.getTermId().equals(thisTerm.getTermId());
   }
 }

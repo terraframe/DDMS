@@ -57,12 +57,6 @@ public class AttributeRootExporter
     workbook = new HSSFWorkbook();
     
     sheet = workbook.createSheet();
-    HSSFRow header = sheet.createRow(0);
-
-    header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
-    header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
-    header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
-    header.createCell(3).setCellValue(new HSSFRichTextString("Default"));    
   }
   
   public void exportTemplate()
@@ -70,13 +64,18 @@ public class AttributeRootExporter
     BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
     OIterator<? extends BrowserField> iterator = query.getIterator();
     
-    int rowCount = 1;
+    int rowCount = 0;
+    HSSFRow header = sheet.createRow(rowCount++);
+    header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
+    header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
+    header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
+    header.createCell(3).setCellValue(new HSSFRichTextString("Default"));
+    
     short maxCellCount = 0;
     for (BrowserField field : iterator)
     {
       MdAttribute mdAttribute = field.getMdAttribute();
       MdClass mdClass = mdAttribute.getAllDefiningClass().next();
-      
       String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
       if (attributeLabel.length()==0 && mdAttribute instanceof MdAttributeVirtual)
       {
@@ -88,9 +87,9 @@ public class AttributeRootExporter
       HSSFRow row = sheet.createRow(rowCount++);
       
       int cellCount = 0;
-      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdAttribute.getKey()));
-      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(mdClass.getDisplayLabel().getDefaultValue()));
-      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(attributeLabel));
+      createAndSet(row, cellCount++, mdAttribute.getKey());
+      createAndSet(row, cellCount++, mdClass.getDisplayLabel().getDefaultValue());
+      createAndSet(row, cellCount++, attributeLabel);
       
       MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
       String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
@@ -99,11 +98,12 @@ public class AttributeRootExporter
       {
         defaultTermValue = Term.get(defaultTermId).getTermId();
       }
-      row.createCell(cellCount++).setCellValue(new HSSFRichTextString(defaultTermValue));
+      createAndSet(row, cellCount++, defaultTermValue);
       
       for (BrowserRoot root : field.getAllroot())
       {
-        row.createCell(cellCount++).setCellValue(new HSSFRichTextString(root.getTerm().getTermId()));
+        createAndSet(row, cellCount++, root.getTerm().getTermId());
+        row.createCell(cellCount++).setCellValue(root.getSelectable().booleanValue());
       }
       if (cellCount>maxCellCount)
       {
@@ -113,8 +113,22 @@ public class AttributeRootExporter
     
     for (short s=0; s<maxCellCount; s++)
     {
+      if (s>3 && s%2==0)
+      {
+        createAndSet(header, s, "Root ID #" + (s/2-1));
+      }
+      if (s>3 && s%2==1)
+      {
+        createAndSet(header, s, "Selectable #" + (s/2-1));
+      }
+      
       sheet.autoSizeColumn(s);
     }
+  }
+
+  private void createAndSet(HSSFRow row, int cellNum, String value)
+  {
+    row.createCell(cellNum).setCellValue(new HSSFRichTextString(value));
   }
   
   /**

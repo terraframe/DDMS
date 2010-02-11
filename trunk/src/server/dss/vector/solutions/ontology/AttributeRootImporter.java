@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -19,9 +20,11 @@ import com.terraframe.mojo.dataaccess.BusinessDAO;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 
@@ -34,7 +37,7 @@ import com.terraframe.mojo.system.metadata.MdAttribute;
  * 
  * @author Eric Grunzke
  */
-public class AttributeRootImporter
+public class AttributeRootImporter implements Reloadable
 {
   @StartSession
   public static void main(String[] args) throws Exception
@@ -135,30 +138,31 @@ public class AttributeRootImporter
     }
 
     BrowserField browserField = BrowserField.getFieldForAttribute(mdAttribute.definedByClass().definesType(), mdAttribute.definesAttribute());
+    List<? extends BrowserRoot> allRoots = browserField.getAllroot().getAll();
 
     int i = 4;
 
     // Iterate over all remaining columns. Each should have a Mo Term ID
-    while (row.getCell(i) != null)
+    while (row.getCell(i) != null && row.getCell(i+1) != null)
     {
-      HSSFCell cell = row.getCell(i);
-      String termId = cell.getRichStringCellValue().getString();
-
+      String termId = row.getCell(i++).getRichStringCellValue().getString();
       Term term = Term.getByTermId(termId);
-
-      try
+      Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
+      
+      BrowserRoot browserRoot = new BrowserRoot();
+      browserRoot.setTerm(term);
+      int index = allRoots.indexOf(browserRoot);
+      if (index!=-1)
       {
-        BrowserRoot browserRoot = new BrowserRoot();
-        browserRoot.setTerm(term);
+        browserRoot = allRoots.get(index);
+        browserRoot.setSelectable(selectable);
+        browserRoot.apply();
+      }
+      else
+      {
+        browserRoot.setSelectable(selectable);
         browserField.addBrowserRoot(browserRoot);
       }
-      catch (DuplicateRootException e)
-      {
-        // We'll ignore this. It's cheaper to catch the exception than to fetch
-        // and iterate over the entire list of existing roots
-      }
-
-      i++;
     }
 
     browserField.apply();
