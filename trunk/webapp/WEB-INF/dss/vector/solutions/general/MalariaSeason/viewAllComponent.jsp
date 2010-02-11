@@ -41,4 +41,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Transmission Season" action="dss.vector.solutions.general.MalariaSeasonController.newInstance.mojo" name="MalariaSeasonController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.general.MalariaSeasonController.newInstance.mojo" name="MalariaSeasonController.newInstance">
+<fmt:message key="Create_a_new_Transmission_Season" /> 
+</mjl:commandLink>
