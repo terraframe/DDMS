@@ -56,13 +56,6 @@
   <param-value>en_US</param-value>
 </context-param>
 
-<context-param>
-  <param-name>
-    javax.servlet.jsp.jstl.fmt.locale
-    </param-name>
-  <param-value>en_US</param-value>
-</context-param>
-
 <servlet>
   <servlet-name>ExcelImportServlet</servlet-name>
   <display-name>ExcelImportServlet</display-name>
