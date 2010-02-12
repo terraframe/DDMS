@@ -2,8 +2,6 @@ package dss.vector.solutions.general;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 
-import dss.vector.solutions.surveillance.AggregatedCaseDTO;
-import dss.vector.solutions.surveillance.AggregatedCaseViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class SystemAlertController extends SystemAlertControllerBase implements com.terraframe.mojo.generation.loader.Reloadable {

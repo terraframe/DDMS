@@ -2,13 +2,12 @@ package dss.vector.solutions;
 
 import java.util.HashMap;
 
+import junit.framework.TestCase;
+
 import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.general.Email;
-import dss.vector.solutions.general.EmailProtocol;
 import dss.vector.solutions.general.SystemAlert;
-
-import junit.framework.TestCase;
 
 public class EmailTest extends TestCase {
 	protected void setUp() throws Exception {

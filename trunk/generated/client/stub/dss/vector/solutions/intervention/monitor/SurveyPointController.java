@@ -10,7 +10,6 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;

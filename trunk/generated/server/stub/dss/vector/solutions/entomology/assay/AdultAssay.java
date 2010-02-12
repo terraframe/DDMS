@@ -1,11 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public abstract class AdultAssay extends AdultAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

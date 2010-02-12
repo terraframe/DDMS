@@ -18,8 +18,6 @@ import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.AllPathsQuery;
-import dss.vector.solutions.ontology.BrowserFieldQuery;
-import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 

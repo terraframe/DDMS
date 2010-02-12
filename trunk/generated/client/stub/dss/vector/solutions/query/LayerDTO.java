@@ -1,6 +1,5 @@
 package dss.vector.solutions.query;
 
-import java.math.BigDecimal;
 
 public class LayerDTO extends LayerDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

@@ -13,7 +13,6 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.TestFixture;
-import dss.vector.solutions.ontology.Term;
 
 public class KnockDownPropertyTest extends TestCase
 {
