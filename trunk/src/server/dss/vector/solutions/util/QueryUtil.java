@@ -67,7 +67,7 @@ import dss.vector.solutions.query.QueryConstants;
 public class QueryUtil implements Reloadable
 {
 
-  private static final String GEO_DISPLAY_LABEL = "geo_displayLabel";
+  private static final String GEO_DISPLAY_LABEL =         "geo_displayLabel";
 
   private static final String DATEGROUP_EPIWEEK            = "dategroup_epiweek";
 
@@ -92,6 +92,8 @@ public class QueryUtil implements Reloadable
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
+  
+  public static final String  SHORT_DISPLAY_LABEL          = "shortDisplayLabel";
 
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
@@ -677,12 +679,14 @@ public class QueryUtil implements Reloadable
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
       String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYNAME;
       String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
-
+      
       Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
+      String displaySQL = "SELECT "+SHORT_DISPLAY_LABEL+" FROM "+GEO_DISPLAY_LABEL+" gd WHERE gd.id = "+selectable1.getDefiningTableAlias()+".id";
+      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, displaySQL, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
 
-      selectables.add(selectable1);
       selectables.add(selectable2);
+      selectables.add(selectable4);
 
       SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
       selectables.add(selectable3);
