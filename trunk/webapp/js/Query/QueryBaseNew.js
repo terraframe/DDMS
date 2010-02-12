@@ -228,7 +228,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }else{
             var whereIds = items.filter(
                 function(a){return a.checked && a.uuid;}).map(
-                    function(a){return a.uuid;});
+                    function(a){
+                    	  if(a.uuid === 'false')return 0;
+                    	  if(a.uuid === 'true' )return 1;
+                    		return a.uuid;
+                    	});
             if(whereIds.length == 1)
             {
               var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[0]);
@@ -803,8 +807,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-      //labelDiv.innerHTML = MDSS.localize(divName);
-      labelDiv.innerHTML = divName;
+      labelDiv.innerHTML = MDSS.localize(divName);
 
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
@@ -829,7 +832,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var visibleObj = visibleAttributes[i];
         
         if(visibleObj.isAggregate){
-        	visibleObj.displayLabel += MDSS.localize("selectable_is_aggreated");
+        	visibleObj.displayLabel = MDSS.localize(visibleObj.key) +  MDSS.localize("selectable_is_aggreated");
         }
         
         var attribute = new MDSS.BasicAttribute(visibleObj);
@@ -937,7 +940,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         {
         	li.id = attribute.getKey()+'_li';
         	var n =  attribute.getAttributeName().replace(/.name/,'');
-          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+        	if(this._moUsesView !== false)
+        	{
+        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+        	}
+        	else
+        	{
+        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type , n, true);
+        	}
         }
 
         visibleUl.appendChild(li);
@@ -971,7 +981,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      // this.addGeoAttributes(this._geoEntityAttribs);
 
       this._queryPanel.addQueryItem({
-        html: this._getCountDiv(this,"Group_By",this._groupByClass,true),
+        html: this._getCountDiv(this,"Dates_And_Count",this._groupByClass,true),
         id: 'globalCount'
       });
 
@@ -1482,7 +1492,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        }else{
          row.attributeName = attribName;
          row.type = 'sqlinteger';
-         row.displayLabel = attribName;
+         row.displayLabel = MDSS.localize(attribName);
          row.key = attribName;
          row.dtoType = "AttributeIntegerDTO";
          

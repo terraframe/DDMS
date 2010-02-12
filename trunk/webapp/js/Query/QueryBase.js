@@ -1367,7 +1367,14 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     {
       this._type = obj.type;
       this._dtoType = obj.dtoType;
+      if(obj.displayLabel)
+      {
       this._displayLabel = obj.displayLabel;
+      }
+      else
+      {
+      	this._displayLabel = MDSS.localize(obj.key);
+      }
       this._attributeName = obj.attributeName;
       this._entityAlias = obj.entityAlias || this._type;
       this._whereValues = [];
