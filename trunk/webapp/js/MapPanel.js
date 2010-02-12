@@ -113,6 +113,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Event.on('imageIframe', 'load', this._handleUpload, null, this);
       
       this._drawLineControl = null;
+      this._measureControle = null;
     },
     
     _handleUpload : function(e)
@@ -688,6 +689,14 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Event.on(drawLineBtn, 'click', this._drawLine, null, this);
       drawLineBtn.disabled = true;
       annotationsDiv.appendChild(drawLineBtn);
+      
+      var measureBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(measureBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(measureBtn, 'value', MDSS.Localized.Measure);
+      YAHOO.util.Dom.addClass(measureBtn, 'queryButton');
+      YAHOO.util.Event.on(measureBtn, 'click', this._measure, null, this);
+      measureBtn.disabled = true;
+      annotationsDiv.appendChild(measureBtn);
 
       var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
       mapButtonDiv.setStyle('float', 'right');
@@ -842,6 +851,22 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
     },
     
+    _measure : function(e)
+    {
+      var btn = e.target;
+    
+      if(this._measureControl.active)
+      {
+        this._measureControl.deactivate();
+        this._markOff(btn);
+      }
+      else
+      {
+        this._measureControl.activate();
+        this._markOn(btn);
+      }    
+    },
+    
     _saveMap : function()
     {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
@@ -849,6 +874,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       if(mapId && mapId.length > 0)
       {
+        // FIXME anything to persist? Eventually annotation locations.
       }
       else
       {
@@ -1126,8 +1152,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
   
           var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-          that._drawLineControl = new OpenLayers.Control.DrawFeature(lineLayer,
-                        OpenLayers.Handler.Path);
+          that._drawLineControl = new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path);
           
           mapLayers.push(lineLayer);
           
@@ -1139,12 +1164,38 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           }));
           that._map.addControl(new OpenLayers.Control.Navigation({zoomWheelEnabled:false}));
           that._map.addControl(new OpenLayers.Control.MousePosition());
-          //that._map.addControl(new OpenLayers.Control.Measure());
           that._map.addControl(that._drawLineControl);
+          
+          var sketchSymbolizers = {
+              "Line": {
+                  strokeWidth: 3,
+                  strokeOpacity: 1,
+                  strokeColor: "#000000"
+              }
+          };
+          var style = new OpenLayers.Style();
+          style.addRules([
+              new OpenLayers.Rule({symbolizer: sketchSymbolizers})
+          ]);
+          var styleMap = new OpenLayers.StyleMap({"default": style});
+          
+          that._measureControl = new OpenLayers.Control.Measure(
+                  OpenLayers.Handler.Path, {
+                      persist: true,
+                      handlerOptions: {
+                          layerOptions: {styleMap: styleMap}
+                      }
+                  }
+          );
+          
+          var handleMeasurements = Mojo.Util.bind(that, that._handleMeasurements);
+          
+          that._measureControl.events.on({
+                  "measure": handleMeasurements
+          });
+          that._map.addControl(that._measureControl);
 
           that._map.zoomToExtent(bounds);      
-          
-          that._removeDragNDropDivs();
           
           that._addLegends(layers);
           
@@ -1152,10 +1203,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         } 
       });
       
+      this._removeDragNDropDivs();
       this._disableAnnotations();
       
       var mapId = MDSS.MapPanel.getCurrentMap();
       this._MappingController.refreshMap(request, mapId);
+    },
+    
+    _handleMeasurements : function(event)
+    {
+      var geometry = event.geometry;
+      var units = event.units;
+      var order = event.order;
+      var measure = event.measure;
+      var out = '<div style="text-align:center; margin-top: 30%;"><h2>';
+      if(order == 1) {
+          out += measure.toFixed(3) + " " + units;
+      } else {
+          out += measure.toFixed(3) + " " + units + "<sup>2</" + "sup>";
+      }
+      out += '</h2></div>';
+      
+      this._createModal(out, MDSS.Localized.Measure, false, true);
     },
     
     _enableAnnotations : function()
