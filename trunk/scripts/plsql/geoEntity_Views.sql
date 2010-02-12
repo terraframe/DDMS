@@ -1,3 +1,5 @@
+DROP VIEW geo_displayLabel;
+
 CREATE OR REPLACE VIEW geo_displayLabel AS
 SELECT  
   geo0.id, 
