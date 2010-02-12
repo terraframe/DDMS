@@ -55,7 +55,7 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
   public void viewAll() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvacideQueryDTO query = LarvacideDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    LarvacideQueryDTO query = LarvacideDTO.getAllInstances(clientRequest, LarvacideDTO.STARTDATE, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
