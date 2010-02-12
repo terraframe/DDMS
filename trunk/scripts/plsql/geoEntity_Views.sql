@@ -4,6 +4,7 @@ SELECT
   geo0.geoID,
   dl1.defaultlocale AS type_displayLabel,
   geo0.entityName|| ' (' || dl1.defaultlocale ||  COALESCE(' : ' || ter.display,'')   || ') - ' || geo0.geoId AS displayLabel,
+  geo0.entityName|| COALESCE(' : ' || ter.display,'')   AS shortDisplayLabel,
   (t1.packagename || '.' || t1.typename) AS parent_type,
   g1.political AS political,
   g1.spraytargetallowed AS spraytargetallowed, 
