@@ -1,9 +1,12 @@
 package com.terraframe.mojo.defaults;
 
+import java.io.IOException;
 import java.util.Locale;
 
+import javax.servlet.ServletException;
+
 import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.business.LoginExceptionDTO;
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.CommonProperties;
@@ -11,6 +14,7 @@ import com.terraframe.mojo.constants.MdActionInfo;
 import com.terraframe.mojo.web.ServletUtility;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
 
 public class LoginController extends LoginControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -47,21 +51,24 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
-    catch (LoginExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      req.setAttribute("bad_password", true);
-      req.setAttribute("exception", e);
-      req.getRequestDispatcher("login.jsp").forward(req, resp);
+      ErrorUtility.prepareProblems(e, req);
 
+      this.failLogin(username, password);
     }
-    // catch (Exception e) {
-    // e.printStackTrace();
-    // req.setAttribute("bad_password", true);
-    // req.setAttribute("exception", e);
-    // req.getRequestDispatcher("login.jsp").forward(req, resp);
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
 
-    // }
-
+      this.failLogin(username, password);
+    }
+  }
+  
+  @Override
+  public void failLogin(String username, String password) throws IOException, ServletException
+  {
+    req.getRequestDispatcher("login.jsp").forward(req, resp);
   }
 
   @Override

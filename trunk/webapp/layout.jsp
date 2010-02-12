@@ -18,6 +18,7 @@
 <div class="pageTitle"><fmt:message key="${page_title}"/></div>
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
+
 <%= jsp_as_string %>
 <%out.flush(); %>
 </div>

@@ -38,20 +38,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     try
     {
-      RedirectUtility utility = new RedirectUtility(req, resp);
-      utility.put("id", id);
-      utility.checkURL(this.getClass().getSimpleName(), "view");
-      ClientRequestIF clientRequest = super.getClientRequest();
-
-      ITNDistributionViewDTO dto = ITNDistributionDTO.getView(clientRequest, id);
-
-      this.setupReferences(dto);
-
-      req.setAttribute("facility", AttributeUtil.getGeoEntityFromGeoId(ITNDistributionViewDTO.FACILITY, dto));
-      req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
-      req.setAttribute("item", dto);
-
-      render("viewComponent.jsp");
+      view(ITNDistributionDTO.getView(super.getClientRequest(), id));
     }
     catch (ProblemExceptionDTO e)
     {
@@ -65,6 +52,21 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     }
   }
 
+  private void view(ITNDistributionViewDTO dto) throws IOException, ServletException
+  {
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getConcreteId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
+
+    this.setupReferences(dto);
+
+    req.setAttribute("facility", AttributeUtil.getGeoEntityFromGeoId(ITNDistributionViewDTO.FACILITY, dto));
+    req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
+    req.setAttribute("item", dto);
+
+    render("viewComponent.jsp");
+  }
+
   public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
@@ -76,7 +78,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     try
     {
       dto.applyAll(targetGroups);
-      this.view(dto.getConcreteId());
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -189,7 +191,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      
+
       // Ensure the user has permissions to create a new ITN Distribution
       new ITNDistributionDTO(clientRequest);
 
@@ -227,14 +229,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   public void failNewInstance(String person, String facility, String batchNumber, String distributionDate) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientSession().getRequest();
-    
+
     Date date = (Date) new DefaultConverter(Date.class).parse(distributionDate, req.getLocale());
     ITNDistributionViewDTO view = new ITNDistributionViewDTO(request);
     view.setValue(ITNDistributionViewDTO.PERSON, person);
     view.setValue(ITNDistributionViewDTO.FACILITY, facility);
     view.setValue(ITNDistributionViewDTO.BATCHNUMBER, batchNumber);
     view.setDistributionDate(date);
-    
+
     this.viewHistory(view);
   }
 
@@ -271,10 +273,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   @Override
   public void cancel(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
-    ClientRequestIF request = this.getClientRequest();
-    ITNDistributionDTO.lockView(request, dto.getConcreteId());
-
-    this.view(dto.getId());
+    this.view(ITNDistributionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
   }
 
   @Override
@@ -302,7 +301,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     try
     {
       dto.applyAll(targetGroups);
-      this.view(dto.getConcreteId());
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -346,7 +345,10 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     ClientRequestIF request = this.getClientRequest();
 
     req.setAttribute("item", new ITNDistributionViewDTO(request));
-    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
+    // this
+    // for
+    // labels
     render("searchComponent.jsp");
   }
 

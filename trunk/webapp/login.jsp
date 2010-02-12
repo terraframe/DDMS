@@ -83,6 +83,9 @@ input[type="button"]:active {
 <%@ include file="/WEB-INF/templates/banner.jsp"%>
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="login" /></div>
+
+<jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
+
 <form method="post" action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
   <div class="alert alertbox">
   <p>${exception.localizedMessage}</p>

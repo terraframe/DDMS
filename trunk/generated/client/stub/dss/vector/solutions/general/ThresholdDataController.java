@@ -226,6 +226,12 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
     FileDownloadUtil.writeXLS(resp, "threshold", stream);
   }
+  
+  @Override
+  public void failExportThresholdData(ThresholdDataViewDTO[] views) throws IOException, ServletException
+  {
+    this.search();
+  }
 
   @Override
   public void editThresholdConfiguration() throws IOException, ServletException
