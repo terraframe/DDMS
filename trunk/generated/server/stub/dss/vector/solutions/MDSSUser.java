@@ -38,6 +38,12 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
 
     RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).assignMember(userDAO);
   }
+  
+  @Transaction
+  public void directApply()
+  {
+    super.apply();
+  }
 
   @Override
   protected String buildKey()

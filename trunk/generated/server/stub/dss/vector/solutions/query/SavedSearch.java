@@ -232,7 +232,7 @@ public class SavedSearch extends SavedSearchBase implements
     {
       mdssUser.appLock();
       mdssUser.setDefaultSearch(this);
-      mdssUser.apply();
+      mdssUser.directApply();
     }
     else
     {
