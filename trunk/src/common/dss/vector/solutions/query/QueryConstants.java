@@ -31,6 +31,8 @@ public class QueryConstants implements Reloadable
   
   public static final String SLD_EXTENSION = "sld";
   
+  public static final String MAP_IMAGES_DIR = "imgs/maps/";
+  
   // Query types
   public static final String SELECTED_UNIVERSALS = "selectedUniversals";
   

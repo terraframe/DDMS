@@ -119,10 +119,11 @@ public class QueryUtil implements Reloadable
 
       if (s instanceof SelectableSQL)
       {
-        String columnAlias = s.getColumnAlias();
+//        String columnAlias = s.getColumnAlias();
+        String attributeName = s.getDbColumnName();
         for (String termAttrib : Arrays.asList(attributes))
         {
-          if (columnAlias.equals(termAttrib + DISPLAY_LABEL_SUFFIX))
+          if (attributeName.startsWith(termAttrib) && attributeName.endsWith(DISPLAY_LABEL_SUFFIX))
           {
             selectedTerms.add(termAttrib);
           }
@@ -637,6 +638,7 @@ public class QueryUtil implements Reloadable
       valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
+      
       if (thematicUserAlias != null && thematicUserAlias.length() > 0)
       {
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;

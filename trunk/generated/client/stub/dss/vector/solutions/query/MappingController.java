@@ -1,17 +1,25 @@
 package dss.vector.solutions.query;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.transport.conversion.json.JSONReturnObject;
+import com.terraframe.mojo.util.FileIO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
@@ -134,6 +142,74 @@ public class MappingController extends MappingControllerBase implements
       JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
+  @Override
+  public void uploadMapImage() throws IOException, ServletException
+  {
+    boolean success = false;
+    String message = "";
+    try
+    {
+      // Create a factory for disk-based file items
+      FileItemFactory factory = new DiskFileItemFactory();
+
+      // Create a new file upload handler
+      ServletFileUpload upload = new ServletFileUpload(factory);
+
+      FileItem file = null;
+      List<FileItem> items = upload.parseRequest(this.req);
+      for (FileItem item : items)
+      {
+        if (item.getFieldName().equals("imageFile"))
+        {
+          file = item;
+        }
+      }
+      
+      if(file != null)
+      {
+        String ext = file.getName().length() == 0 ? "" : file.getName().substring(file.getName().lastIndexOf("."));
+        
+        if(ext.length() == 0 || !ext.matches("\\.(?i)(jpg|jpeg|bmp|png|tiff|gif)"))
+        {
+          ImageUploadOnlyExceptionDTO ex = new ImageUploadOnlyExceptionDTO(this.getClientRequest(), this.req.getLocale());
+          resp.setStatus(500);
+          message = ex.getLocalizedMessage();
+          return;
+        }
+        
+        String name = QueryConstants.MAP_IMAGES_DIR+System.currentTimeMillis()+ext;
+        String deploy = DeployProperties.getDeployPath();
+        if(!deploy.endsWith("/"))
+        {
+          deploy += "/";
+        }
+        
+        String path = deploy+name;
+        
+        FileIO.write(path, file.get());
+        
+        success = true;
+        message = name;
+      }
+      else
+      {
+        ImageUploadOnlyExceptionDTO ex = new ImageUploadOnlyExceptionDTO(this.getClientRequest(), this.req.getLocale());
+        resp.setStatus(500);
+        message = ex.getLocalizedMessage();
+      }
+    }
+    catch(Throwable t)
+    {
+      ApplicationException ex = new ApplicationException(t);
+      message = ex.getLocalizedMessage();
+    }
+    finally
+    {
+      message = JSONObject.quote(message);
+      resp.getWriter().write("{\"success\":"+success+", \"message\":"+message+"}");
     }
   }
   

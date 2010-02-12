@@ -43,10 +43,13 @@ var MDSS = {
     {
       var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
       var executables = [];
-      for(var i=0; i<scripts.length; i++)
+      if(scripts != null)
       {
-        var scriptM = scripts[i].match(/<script\b[^>]*>([\s\S]*?)<\/script>/im);
-        executables.push(scriptM[1]);
+        for(var i=0; i<scripts.length; i++)
+        {
+          var scriptM = scripts[i].match(/<script\b[^>]*>([\s\S]*?)<\/script>/im);
+          executables.push(scriptM[1]);
+        }
       }
 
       return executables.join('');

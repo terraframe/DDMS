@@ -94,7 +94,8 @@ public class RangeCategory extends RangeCategoryBase implements
     {
       throw new LowerGreaterThanUpperBoundsException();
     }
-    else if (hasLower && hasUpper && lower.compareTo(upper) > 0)
+    else if (hasLower && hasUpper && !isLowerNum && !isUpperNum
+        && lower.compareTo(upper) > 0)
     {
       throw new LowerGreaterThanUpperBoundsException();
     }

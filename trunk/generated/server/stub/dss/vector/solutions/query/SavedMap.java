@@ -2,6 +2,8 @@ package dss.vector.solutions.query;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -27,6 +30,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.util.ShapefileExporter;
@@ -533,6 +537,27 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       {
         // This can happen if there's a view that matches the prefix but doesn't
         // have the timestamp. Just ignore it.
+      }
+    }
+    
+    // Also clean up any old map images (the directory will be recreated when an image is uploaded)
+    
+    String deploy = DeployProperties.getDeployPath();
+    if(!deploy.endsWith("/"))
+    {
+      deploy += "/";
+    }
+    String imageDir = deploy+QueryConstants.MAP_IMAGES_DIR;
+    File dir = new File(imageDir);
+    if(dir.exists())
+    {
+      try
+      {
+        FileIO.deleteDirectory(dir);
+      }
+      catch (IOException e)
+      {
+        throw new ProgrammingErrorException(e);
       }
     }
   }

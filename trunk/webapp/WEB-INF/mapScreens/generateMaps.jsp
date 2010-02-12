@@ -23,7 +23,8 @@
 
 
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
-<%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%><c:set var="page_title" value="Generate_Maps"  scope="request"/>
+<%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%>
+<c:set var="page_title" value="Generate_Maps"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
@@ -31,22 +32,6 @@
 
 <script type="text/javascript">
 
-
-YAHOO.util.Event.onDOMReady(function(){
-
-    // attach load listener to Iframe to receive message when error occurs during
-    // export operations
-    YAHOO.util.Event.on('exportIframe', 'load', function(e){
-      var body = e.target.contentDocument.getElementsByTagName('body')[0];
-      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
-      text = MDSS.util.stripWhitespace(text);
-      if(text.length > 0)
-      {
-        new MDSS.ErrorModal(text);
-      }
-
-    }, null, this);
-});
 
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -65,9 +50,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
   var mapList = <%= (String) request.getAttribute("mapList") %>
 
-	
   new MDSS.MapPanel('mapPanel', mapList).render();
-	  
 });
 </script>
 
@@ -76,6 +59,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </div>
 
 <iframe id="exportIframe" name="exportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
+<iframe id="imageIframe" name="imageIframe" style="display: none; width: 1px; height: 1px;"></iframe>
 
 <div style="display: none">
   <form id="exportShapefile" target="exportIframe" method="POST" action="dss.vector.solutions.query.MappingController.exportShapefile.mojo">

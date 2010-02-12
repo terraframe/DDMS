@@ -105,6 +105,54 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       this._northArrow = false;
       this._scale = false;
+      
+      // attach load listener to Iframe to receive message when error occurs during
+      // export operations
+      YAHOO.util.Event.on('exportIframe', 'load', this._handleExport, null, this);
+    
+      YAHOO.util.Event.on('imageIframe', 'load', this._handleUpload, null, this);
+      
+      this._drawLineControl = null;
+    },
+    
+    _handleUpload : function(e)
+    {
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        var obj = Mojo.Util.getObject(text);
+        if(obj.success)
+        {
+          var img = document.createElement('img');
+          img.src = obj.message;
+        
+          var div = document.createElement('div');
+          div.appendChild(img);
+          
+          var dd = this.addDragDrop(div);
+          this.position(div);
+            
+          this._ddDivs.push({div:div, dd:dd});
+          this._destroyModal();
+        }
+        else
+        {
+          new MDSS.ErrorModal(obj.message);
+        }
+      }
+    },
+    
+    _handleExport : function(e)
+    {
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        new MDSS.ErrorModal(text);
+      }
     },
     
     render : function()
@@ -622,6 +670,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Event.on(addTextBtn, 'click', this._addText, null, this);
       addTextBtn.disabled = true;
       annotationsDiv.appendChild(addTextBtn);
+      
+      // add image
+      var imageBtn = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(imageBtn, 'type', 'button');
+      YAHOO.util.Dom.setAttribute(imageBtn, 'value', MDSS.Localized.Add_Image);
+      YAHOO.util.Dom.addClass(imageBtn, 'queryButton');
+      YAHOO.util.Event.on(imageBtn, 'click', this._addImage, null, this);
+      imageBtn.disabled = true;
+      annotationsDiv.appendChild(imageBtn);
 
       // Add the draw line button
       var drawLineBtn = document.createElement('input');
@@ -657,6 +714,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       mBottom.appendChild(annotationsDiv);
     },
     
+    _addImage : function()
+    {
+      var html = '<form action="dss.vector.solutions.query.MappingController.uploadMapImage.mojo"'
+        +' method="POST" enctype="multipart/form-data" target="imageIframe">';
+      html += '<input type="file" name="imageFile" />';
+      html += '<input type="submit" value="'+MDSS.localize('Submit')+'" />';
+      html += '</form>';
+      
+      this._createModal(html, MDSS.Localized.Add_Image, false, true);
+    },
     
     _showScale : function()
     {
@@ -678,6 +745,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
   
       this.position(scaleDiv);
+      
+      this._scale = true;
     },
   
     _hideScale : function()
@@ -687,6 +756,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       {
         YAHOO.util.Dom.setStyle(scaleDiv, 'display', 'none');
       }
+      
+      this._scale = false;
     },
   
     _showArrow : function()
@@ -702,6 +773,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
   
       this.position(arrowDiv);
+      
+      this._northArrow = true;
     },
   
     _hideArrow : function()
@@ -711,33 +784,39 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       {
         YAHOO.util.Dom.setStyle(arrowDiv, 'display', 'none');
       }
+      
+      this._northArrow = false;
     },
     
-    _toggleScale : function()
+    _toggleScale : function(e)
     {
+      var btn = e.target;
+
       if(this._scale)
       {
         this._hideScale();
-        this._scale = false;
+        this._markOff(btn);
       }
       else
       {
         this._showScale();
-        this._scale = true;
+        this._markOn(btn);
       }
     },
     
-    _toggleArrow : function()
+    _toggleArrow : function(e)
     {
+      var btn = e.target;
+
       if(this._northArrow)
       {
         this._hideArrow();
-        this._northArrow = false;
+        this._markOff(btn);
       }
       else
       {
         this._showArrow();
-        this._northArrow = true;
+        this._markOn(btn);
       }
     },
     
@@ -747,9 +826,20 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       form.submit();
     },
     
-    _drawLine : function()
+    _drawLine : function(e)
     {
-      this._drawLineControl.activate();
+      var btn = e.target;
+    
+      if(this._drawLineControl.active)
+      {
+        this._drawLineControl.deactivate();
+        this._markOff(btn);
+      }
+      else
+      {
+        this._drawLineControl.activate();
+        this._markOn(btn);
+      }
     },
     
     _saveMap : function()
@@ -1049,6 +1139,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           }));
           that._map.addControl(new OpenLayers.Control.Navigation({zoomWheelEnabled:false}));
           that._map.addControl(new OpenLayers.Control.MousePosition());
+          //that._map.addControl(new OpenLayers.Control.Measure());
           that._map.addControl(that._drawLineControl);
 
           that._map.zoomToExtent(bounds);      
@@ -1076,7 +1167,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           child.disabled = false;
         }
       });
-      
+    },
+    
+    _markOn : function(input)
+    {
+      input.style.color = 'blue';
+    },
+    
+    _markOff : function(input)
+    {
+      input.style.color = 'black';
     },
     
     _disableAnnotations : function()
@@ -1085,9 +1185,10 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       Mojo.Iter.forEach(div.childNodes, function(child){
         if(child.nodeName === 'INPUT')
         {
+          this._markOff(child);
           child.disabled = true;
         }
-      });
+      }, this);
       
       this._hideArrow();
       this._hideScale();

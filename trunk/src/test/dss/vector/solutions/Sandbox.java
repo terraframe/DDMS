@@ -2,16 +2,23 @@ package dss.vector.solutions;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
@@ -27,7 +34,6 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 
 public class Sandbox
 {
@@ -37,12 +43,32 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
+    String s = "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
+    Pattern p = Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
+    Matcher m = p.matcher(s);
+    
+    m.matches();
+    
+    String matched = m.group(2);
 
-
-    testNoLogin();
+    String[] split = matched.split(",\\s");
+    String[] done = new String[split.length-1];
+    int count = 0;
+    for(String piece : split)
+    {
+      if(!piece.equals("geometry_v"))
+      {
+        done[count++] = piece;
+      }
+    }
+    
+    String groupBy = StringUtils.join(done, ", ");
+    
+    String sql = m.replaceFirst("$1"+groupBy+"$4");
+    
 //try
 //{
-//    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", Locale.ENGLISH);
+//    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", new Locale[]{Locale.ENGLISH});
 //    gogo(session.getSessionId(), session);
 ////    OntologyDefinitionDTO od = new OntologyDefinitionDTO(session.getRequest());
 ////    od.setOntologyName("MO");
@@ -106,6 +132,11 @@ public class Sandbox
   @StartSession
   private static void gogo(String sessionId, ClientSession session)
   {
+    
+    MdAttributeDAOIF dao = MdAttributeDAO.getByKey("dss.vector.solutions.ontology.Term.namespace");
+    dao.getBusinessDAO().apply();
+    
+    
 //    AllPaths.get("2d3373900f3c9635c73f7b50b126220c0ng41xiuq0nzo8wjdn1v9cunh9f1icac").printAttributes();
 
 //    QueryFactory queryFactory = new QueryFactory();
