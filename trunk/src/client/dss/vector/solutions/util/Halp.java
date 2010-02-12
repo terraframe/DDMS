@@ -66,6 +66,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     SimpleDateFormat formatter = (SimpleDateFormat) df;
     String pattern = formatter.toPattern();
     pattern = pattern.replace("yy", "yyyy");
+    pattern = pattern.replace("yyyyyyyy", "yyyy");
     request.setAttribute("dateFormatPattern", pattern);
 
     return pattern;
