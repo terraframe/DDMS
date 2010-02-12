@@ -792,7 +792,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
               Mojo.Facade.deleteEntity(request, row_id);
             }
             else {
-              this.thisRef.removeRow(row_index, row_id);
+              this.removeRow(row_index, row_id);
             }
           }
           break;
