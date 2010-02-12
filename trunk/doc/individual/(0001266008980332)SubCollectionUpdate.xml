@@ -8,7 +8,8 @@
         <attributes>
           <char
             name="subCollectionId"
-            indexType="no index" />
+            indexType="no index"
+            required="false" />
         </attributes>
       </mdBusiness>
     </update>
