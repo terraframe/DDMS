@@ -101,7 +101,7 @@ YAHOO.util.Event.onDOMReady(function(){
     stockItemColumns = stockItemColumns.concat([
 
                                           {
-                                             displayLabel:"Quanity In Stock",
+                                             
                                              key:"quanity_instock",
                                              type:"sqlinteger",
                                              attributeName:"quanity_instock"

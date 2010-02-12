@@ -88,28 +88,28 @@ YAHOO.util.Event.onDOMReady(function(){
 
     subCollectionColumns = subCollectionColumns.concat([
                                                        {
-                                                         displayLabel:"Abundance x 1",
+                                                         
                                                          key:"abundance_1",
                                                          type:"sqlfloat",
                                                          attributeName:"abundance_1",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"Abundance x 10",
+                                                         
                                                          key:"abundance_10",
                                                          type:"sqlfloat",
                                                          attributeName:"abundance_10",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"Abundance x 100",
+                                                         
                                                          key:"abundance_100",
                                                          type:"sqlfloat",
                                                          attributeName:"abundance_100",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"Abundance x 1000",
+                                                         
                                                          key:"abundance_1000",
                                                          type:"sqlfloat",
                                                          attributeName:"abundance_1000",

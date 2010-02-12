@@ -109,28 +109,28 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var calculations = ([
                           {
-                           displayLabel:"Instances",
+                           
                            key:"instances",
                            type:"sqlinteger",
                            attributeName:"instances",
                            isAggregate:true  
                           },
                           {
-                           displayLabel:"Cases",
+                           
                            key:"cases",
                            type:"sqlinteger",
                            attributeName:"cases",
                            isAggregate:true
                           },
                           {
-                           displayLabel:"Deaths",
+                           
                            key:"deaths",
                            type:"sqlinteger",
                            attributeName:"deaths",
                            isAggregate:true
                           },                       
                           {
-                            displayLabel:"Incidence 100",
+                            
                             key:"incidence_100",
                             type:"sqlfloat",
                             attributeName:"incidence_100",
@@ -138,7 +138,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
 
                           {
-                            displayLabel:"Incidence 1,000",
+                            
                             key:"incidence_1000",
                             type:"sqlfloat",
                             attributeName:"incidence_1000",
@@ -146,7 +146,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
 
                           {
-                            displayLabel:"Incidence 10,000",
+                            
                             key:"incidence_10000",
                             type:"sqlfloat",
                             attributeName:"incidence_10000",
@@ -154,7 +154,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
 
                           {
-                            displayLabel:"Incidence 100,000",
+                            
                             key:"incidence_100000",
                             type:"sqlfloat",
                             attributeName:"incidence_100000",
@@ -163,7 +163,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
                           
                           {
-                            displayLabel:"CFR",
+                            
                             key:"cfr",
                             type:"sqlfloat",
                             attributeName:"cfr",

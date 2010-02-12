@@ -111,7 +111,7 @@ YAHOO.util.Event.onDOMReady(function(){
         key:"resistance_result",
     	attributeName:"resistance_result",
       	type:"sqlcharacter",
-      	displayLabel:"Resistance"
+      	
      };
 
     var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();

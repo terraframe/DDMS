@@ -94,7 +94,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     infectionColumns = infectionColumns.concat([
                                                       {
-                                                         displayLabel:"% Prevalence",
+                                                         
                                                          key:"prevalence",
                                                          type:"sqlfloat",
                                                          attributeName:"prevalence",
@@ -111,7 +111,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     pooledInfectionColumns = pooledInfectionColumns.concat([
                                                 {
-                                                   displayLabel:"% Mininum Prevalence",
+                                                   
                                                    key:"minPrevalence",
                                                    type:"sqlfloat",
                                                    attributeName:"minPrevalence",
@@ -128,7 +128,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     biochemicalColumns = biochemicalColumns.concat([
                                                         {
-                                                           displayLabel:"% Elevated",
+                                                           
                                                            key:"elevated",
                                                            type:"sqlfloat",
                                                            attributeName:"elevated",
@@ -146,35 +146,35 @@ YAHOO.util.Event.onDOMReady(function(){
 
     molecularColumns = molecularColumns.concat([
                                                       {
-                                                         displayLabel:"% RR",
+                                                         
                                                          key:"percentRR",
                                                          type:"sqlfloat",
                                                          attributeName:"percentRR",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"% RS",
+                                                         
                                                          key:"percentRS",
                                                          type:"sqlfloat",
                                                          attributeName:"percentRS",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"% SS",
+                                                         
                                                          key:"percentSS",
                                                          type:"sqlfloat",
                                                          attributeName:"percentSS",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"% R Frequency",
+                                                         
                                                          key:"frequencyR",
                                                          type:"sqlfloat",
                                                          attributeName:"frequencyR",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         displayLabel:"% S Frequency",
+                                                         
                                                          key:"frequencyS",
                                                          type:"sqlfloat",
                                                          attributeName:"frequencyS",

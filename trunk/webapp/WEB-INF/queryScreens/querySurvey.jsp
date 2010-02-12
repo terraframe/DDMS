@@ -99,7 +99,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     personColumns = personColumns.concat(
         [                          {
-          displayLabel:"prevalence",
+          
           key:"prevalence",
           type:"sqlfloat",
           attributeName:"prevalence",

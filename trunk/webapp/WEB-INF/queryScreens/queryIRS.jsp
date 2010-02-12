@@ -115,37 +115,37 @@ YAHOO.util.Event.onDOMReady(function(){
     Insecticide_Details = Insecticide_Details.concat([
 
                                                       {
-                                                         displayLabel:"Nozzle",
+                                                         
                                                          key:"nozzle_defaultLocale",
                                                          type:"sqlcharacter",
                                                          attributeName:"nozzle_defaultLocale",
                                                        },
                                                        {
-                                                         displayLabel:"Nozzle Ratio",
+                                                         
                                                          key:"nozzle_ratio",
                                                          type:"sqldouble",
                                                          attributeName:"nozzle_ratio",
                                                        },
                                                        {
-                                                         displayLabel:"Active Ingredient per Can (g)",
+                                                         
                                                          key:"active_ingredient_per_can",
                                                          type:"sqldouble",
                                                          attributeName:"active_ingredient_per_can",
                                                        },
                                                        {
-                                                         displayLabel:"Recommended Application Rate (g/m²)",
+                                                         
                                                          key:"standard_application_rate",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate",
                                                        },
                                                        {
-                                                         displayLabel:"Recommended Application Rate (mg/m²)",
+                                                         
                                                          key:"standard_application_rate_mg",
                                                          type:"sqldouble",
                                                          attributeName:"standard_application_rate_mg",
                                                        },
                                                        {
-                                                         displayLabel:"Sprayable Units per Can",
+                                                         
                                                          key:"units_per_can",
                                                          type:"sqldouble",
                                                          attributeName:"units_per_can",
@@ -159,7 +159,7 @@ YAHOO.util.Event.onDOMReady(function(){
    
     var Spray_Details = ([
                           {
-                            displayLabel:"Aggregation Level",
+                            
                             key:"aggregation_level",
                             type:"sqlcharacter",
                             attributeName:"aggregation_level",
@@ -184,25 +184,25 @@ YAHOO.util.Event.onDOMReady(function(){
      var Planed_Targets = [
 
                                   {
-                                    displayLabel:"Operator Target (P)",
+                                    
                                     key:"planed_operator_target",
                                     type:"sqlinteger",
                                     attributeName:"planed_operator_target",
                                   },
                                   {
-                                    displayLabel:"Team Target (P)",
+                                    
                                     key:"planed_team_target",
                                     type:"sqlinteger",
                                     attributeName:"planed_team_target",
                                   },
                                   {
-                                    displayLabel:"Spray Area Target (P)",
+                                    
                                     key:"planed_area_target",
                                     type:"sqlinteger",
                                     attributeName:"planed_area_target",
                                   },
                                   /* {
-                                  displayLabel:"Planned Coverage",
+                                  
                                   key:"planned_coverage",
                                   type:"sqldouble",
                                   attributeName:"planned_coverage",
@@ -211,25 +211,25 @@ YAHOO.util.Event.onDOMReady(function(){
 
      var Actual_Targets = [
                                   {
-                                    displayLabel:"Operator Target (A)",
+                                    
                                     key:"operator_target",
                                     type:"sqlinteger",
                                     attributeName:"operator_target",
                                   },
                                   {
-                                    displayLabel:"Team Target (A)",
+                                    
                                     key:"team_target",
                                     type:"sqlinteger",
                                     attributeName:"team_target",
                                   },
                                   {
-                                    displayLabel:"Zone Target (A)",
+                                    
                                     key:"zone_target",
                                     type:"sqlinteger",
                                     attributeName:"zone_target",
                                   },
                                   {
-                                    displayLabel:"Target Unit",
+                                    
                                     key:"targetUnit_displayLabel",
                                     type:"sqlcharacter",
                                     attributeName:"targetUnit_displayLabel",
@@ -238,31 +238,31 @@ YAHOO.util.Event.onDOMReady(function(){
 
    Spray_Details = Spray_Details.concat([
                                   {
-                                    displayLabel:"Units Sprayed #",
+                                    
                                     key:"sprayedunits",
                                     type:"sqlinteger",
                                     attributeName:"sprayedunits",
                                   },   
                                   {
-                                     displayLabel:"Unsprayed Strucures",
+                                     
                                      key:"structure_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"structure_unsprayed",
                                    },
                                    {
-                                     displayLabel:"Unsprayed Households",
+                                     
                                      key:"household_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"household_unsprayed",
                                    },
                                    {
-                                     displayLabel:"Unsprayed Rooms",
+                                     
                                      key:"room_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"room_unsprayed",
                                    },
                                    {
-                                      displayLabel:"Unsprayed Units",
+                                      
                                       key:"unit_unsprayed",
                                       type:"sqlinteger",
                                       attributeName:"unit_unsprayed",
@@ -276,13 +276,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
    HouseHold_Structure_Detail = HouseHold_Structure_Detail.concat([
                                          {
-                                           displayLabel:"Household ID",
+                                           
                                            key:"household_id",
                                            type:"sqlcharacter",
                                            attributeName:"household_id",
                                          },
                                          {
-                                           displayLabel:"Structure ID",
+                                           
                                            key:"structure_id",
                                            type:"sqlcharacter",
                                            attributeName:"structure_id",
@@ -293,49 +293,49 @@ YAHOO.util.Event.onDOMReady(function(){
     var Coverage = [
 
                                    {
-                                     displayLabel:"Unit Application Rate (g/m²)",
+                                     
                                      key:"unit_application_rate",
                                      type:"sqldouble",
                                      attributeName:"unit_application_rate",
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Unit Application Rate (mg/m²)",
+                                     
                                      key:"unit_application_rate_mg",
                                      type:"sqldouble",
                                      attributeName:"unit_application_rate_mg",
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Unit Application Ratio",
+                                     
                                      key:"unit_application_ratio",
                                      type:"sqldouble",
                                      attributeName:"unit_application_ratio",
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Unit Operational Coverage",
+                                     
                                      key:"unit_operational_coverage",
                                      type:"sqldouble",
                                      attributeName:"unit_operational_coverage",
                                      isAggregate:true
                                    },                      
                                    {
-                                     displayLabel:"Calculated # Rooms Sprayed",
+                                     
                                      key:"calculated_rooms_sprayed",
                                      type:"sqldouble",
                                      attributeName:"calculated_rooms_sprayed",
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Calculated # Structures Sprayed",
+                                     
                                      key:"calculated_structures_sprayed",
                                      type:"sqldouble",
                                      attributeName:"calculated_structures_sprayed",
                                      isAggregate:true
                                    },
                                    {
-                                     displayLabel:"Calculated # Households Sprayed",
+                                     
                                      key:"calculated_households_sprayed",
                                      type:"sqldouble",
                                      attributeName:"calculated_households_sprayed",
@@ -347,43 +347,43 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var Spray_Team_Detail = [
                                 {
-                                  displayLabel:"Spray Operator",
+                                  
                                   key:"sprayoperator_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayoperator_defaultLocale",
                                 },
                                 {
-                                  displayLabel:"Operator Week",
+                                  
                                   key:"operator_week",
                                   type:"sqlinteger",
                                   attributeName:"operator_week",
                                 },
                                 {
-                                  displayLabel:"Spray Team Leader",
+                                  
                                   key:"sprayleader_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayleader_defaultLocale",
                                 },
                                 {
-                                  displayLabel:"Spray Team",
+                                  
                                   key:"sprayteam_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayteam_defaultLocale",
                                 },
                                 {
-                                  displayLabel:"Team Week",
+                                  
                                   key:"team_week",
                                   type:"sqlinteger",
                                   attributeName:"team_week",
                                 },
                                 {
-                                  displayLabel:"Zone Supervisor",
+                                  
                                   key:"zone_supervisor",
                                   type:"sqlcharacter",
                                   attributeName:"zone_supervisor",
                                 },
                                 {
-                                  displayLabel:"Zone Week",
+                                  
                                   key:"zone_week",
                                   type:"sqlinteger",
                                   attributeName:"zone_week",
