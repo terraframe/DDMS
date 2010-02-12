@@ -842,11 +842,13 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       if(this._drawLineControl.active)
       {
         this._drawLineControl.deactivate();
+        this._drawLineControl.layer.display(false);
         this._markOff(btn);
       }
       else
       {
         this._drawLineControl.activate();
+        this._drawLineControl.layer.display(true);
         this._markOn(btn);
       }
     },
@@ -1150,7 +1152,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
             mapLayers.push(extraLayer);
           }
           
-  
           var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
           that._drawLineControl = new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path);
           
