@@ -17,10 +17,16 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       this._currentSelection = null;
       this._CURRENT_SELECTION = 'currentSelection';
       this._listeners = [];
+      this._geoId = null;
       
       // Set this.selectHandler as the default handler
       this.setSelectHandler(Mojo.Util.bind(this, this.selectHandler));
       this.setTreeSelectHandler(Mojo.Util.bind(this, this.selectHandler));
+    },
+    
+    setGeoId : function(geoId)
+    {
+      this._geoId = geoId;
     },
     
     selectHandler : function(selected, ignoreSetting)
@@ -183,8 +189,15 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     _disableAllowed : function()
     {
       return true;
-    }
-
+    },
+    
+    _postCreateRoot : function()
+    {
+      if(this._geoId != null)
+      {
+        this.populateSelections(this._geoId);
+      }
+    }    
   }
 });
 
@@ -201,7 +214,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       this._selectSearch = selectSearch || null; // 101 widget reference
       
       this._geoInput = Mojo.Util.isString(geoInput) ? document.getElementById(geoInput) : geoInput;
-
+      
       // Some pages also have a field that takes the geoentity id.
       // Those fields are namespaced as the geo id field+"_geoEntityId",
       // so a geo input with an id of "geoIdEl" may have another field
@@ -232,7 +245,6 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       var sF = Mojo.Util.bind(this, this._searchFunction);
       var sEH = Mojo.Util.bind(this, this._selectEventHandler);
       
-      YAHOO.util.Event.on(this._opener, "click", this._openPicker, this._geoInput, this);     
       //YAHOO.util.Event.on(geoInput, 'blur', this._checkManualEntry, null, this);
       
       // add generic ajax search
@@ -240,7 +252,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       // IMPORTANT: We must reset the search cache because new geo entities made be created/deleted in 101.
       //            As such the existing search results may no longer be valid.
-      YAHOO.util.Event.on(this._opener, "click", this._genericSearch.resetCache, this._genericSearch, this._genericSearch);
+      YAHOO.util.Event.on(this._opener, "click", this._clickHandler, this, this); 
 
       YAHOO.util.Event.on(this._geoInput, 'focus', this._setCurrentInput, null, this);
 
@@ -274,14 +286,27 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       {
         this._selectSearch.addListener(this);
       }
+    },
+    
+    _clickHandler : function(e)
+    {
+      var initialized = this._selectSearch.isInitialized();
+      var geoId = this._geoInput.value;
       
-      // Setup the tree validator
-      YAHOO.util.Event.on(this._opener, "click", this._setTreeValidator, this, this);
+      this._selectSearch.setGeoId(geoId);
+      this._openPicker(e, this._geoInput);
+      this._genericSearch.resetCache();
+      this._setTreeValidator();
+
+      if(initialized)
+      {
+        this._selectSearch.populateSelections(geoId);
+      }
     },
     
     _setTreeValidator : function()
     {
-      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          	
+      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          
     },
     
     destroy : function()
@@ -400,7 +425,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         }
         
         this._validateSelection();
-      }    	
+      }    
     },
     
     _validateSelection : function()
@@ -431,7 +456,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
            
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
-      }    	
+      }    
     },
     
     showGeoInfo : function(selected,currentGeoIdInput,valid)

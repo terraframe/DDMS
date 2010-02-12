@@ -634,6 +634,22 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return geoEntity.collectAllLocatedIn(true, filter);
   }
+  
+  public static GeoEntityView[] collectAllLocatedInByGeoId(String geoId, Boolean includeParents, String filter)
+  {
+    try
+    {
+      GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+      
+      return entity.collectAllLocatedIn(includeParents, filter);
+    }
+    catch(InvalidIdException e)
+    {
+      // DO NOTHING
+    }
+    
+    return new GeoEntityView[0];
+  } 
 
   /**
    * Collects all children and parents (optional) for the located in

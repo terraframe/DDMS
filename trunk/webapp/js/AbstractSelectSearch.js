@@ -130,6 +130,10 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     {
       this._hideHandler = handler;
     },
+    
+    _postCreateRoot : function()
+    {
+    },
   
     /**
      * Sets the root entity
@@ -142,6 +146,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         onSuccess : function(results){
   
           this.searchRef._clearAndAddAll(0, results);
+          
+          this.searchRef._postCreateRoot();
         }
       });
   
@@ -567,6 +573,23 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       return id;
     },
     
+    _clearAndAddAllFindIndex : function(results, geoId)
+    {
+      var selectIndex = 0;
+      
+      for(var i=0; i<results.length; i++)
+      {
+        var childView = results[i];
+        if(childView.getGeoId() == geoId)
+        {
+          var type = childView.getEntityType();
+          selectIndex = this._typeAndSelectMap[type];
+        }
+      }
+      
+      this._clearAndAddAll(selectIndex, results, geoId);
+    },
+    
     /**
      * Clears all select lists and adds the given results
      * as new select list options.
@@ -620,6 +643,20 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       });
   
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, geoEntityId, true, this._filterType);
+    },
+    
+    populateSelections : function(geoId)
+    {
+      var request = new MDSS.Request({
+        that: this,
+        geoId : geoId,
+        onSuccess: function(results)
+        {
+          this.that._clearAndAddAllFindIndex(results, geoId);
+        }
+      });
+      
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedInByGeoId(request, geoId, true, this._filterType);    
     },
   
     /**
