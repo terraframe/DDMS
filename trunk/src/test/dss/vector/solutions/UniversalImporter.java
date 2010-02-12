@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.dataaccess.io.dataDefinition.XMLTags;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 /*
 SELECT DISTINCT
 	universal,
@@ -118,15 +119,7 @@ public class UniversalImporter {
 	}
 
 	private String getCellValue(HSSFRow row, int col) {
-		String value = null;
-		HSSFCell cell = row.getCell(col);
-		if (cell != null) {
-			HSSFRichTextString cellValue = cell.getRichStringCellValue();
-			if (cellValue != null) {
-				value = cellValue.toString().trim();
-			}
-		}
-		return value;
+		return ExcelUtil.getString(row.getCell(col));
 	}
 
 	private void processUniversal(String description, String allowedIn, boolean political, boolean sprayTarget, boolean populationAllowed, String moRoot) {

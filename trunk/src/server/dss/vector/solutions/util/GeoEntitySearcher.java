@@ -19,6 +19,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessQuery;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.ColumnInfo;
 import com.terraframe.mojo.query.F;
@@ -163,7 +164,7 @@ public class GeoEntitySearcher implements Reloadable
 
             if (cell != null)
             {
-              String geoEntityName = cell.getRichStringCellValue().getString().trim();
+              String geoEntityName = ExcelUtil.getString(cell);
 
               if (!geoEntityName.trim().equals(""))
               {
@@ -341,7 +342,7 @@ public class GeoEntitySearcher implements Reloadable
     {
       HSSFCell nameCell = nameIterator.next();
 
-      String nameValue = nameCell.getRichStringCellValue().getString().trim();
+      String nameValue = ExcelUtil.getString(nameCell).trim();
       if (nameValue.startsWith(DynamicGeoColumnListener.PREFIX))
       {
         String[] nameComponents = nameValue.split(" ");
@@ -441,6 +442,7 @@ public class GeoEntitySearcher implements Reloadable
       parentGeoEntityQuery.
       WHERE(
           OR.get(parentGeoEntityQuery.getEntityName().EQi(parentGeoEntityName),
+              parentGeoEntityQuery.getGeoId().EQi(parentGeoEntityName),
               parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
       geoEntityIdQuery.

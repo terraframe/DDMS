@@ -25,6 +25,7 @@ import com.terraframe.mojo.constants.ServerProperties;
 import com.terraframe.mojo.dataaccess.MdLocalStructDAOIF;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.XMLParseException;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
@@ -296,7 +297,7 @@ public class MdssLocalizationExporter implements Reloadable
       while (rowIterator.hasNext())
       {
         HSSFRow row = rowIterator.next();
-        String key = row.getCell(0).getRichStringCellValue().toString();
+        String key = ExcelUtil.getString(row.getCell(0));
         String value = properties.get(key);
         
         if (value!=null)

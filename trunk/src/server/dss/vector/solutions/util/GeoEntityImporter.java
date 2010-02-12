@@ -14,7 +14,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -27,6 +26,7 @@ import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.gis.dataaccess.database.PostGIS;
@@ -401,15 +401,7 @@ public class GeoEntityImporter {
 	}
 	
 	private String getCellValue(HSSFRow row, int col) {
-		String value = null;
-		HSSFCell cell = row.getCell(col);
-		if (cell != null) {
-			HSSFRichTextString cellValue = cell.getRichStringCellValue();
-			if (cellValue != null) {
-				value = cellValue.toString().trim();
-			}
-		}
-		return value;
+		return ExcelUtil.getString(row.getCell(col));
 	}
 
 	@Transaction

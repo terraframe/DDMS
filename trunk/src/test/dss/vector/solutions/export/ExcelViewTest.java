@@ -3,7 +3,7 @@ package dss.vector.solutions.export;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
@@ -22,6 +22,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.facade.Facade;
 import com.terraframe.mojo.query.OIterator;
@@ -107,7 +108,11 @@ public class ExcelViewTest extends TestCase
     john = new Person();
     john.setFirstName("John");
     john.setLastName("Wayne");
-    john.setDateOfBirth(new Date());
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(1907, 4, 26);
+    john.setDateOfBirth(calendar.getTime());
+    john.setResidentialGeoEntity(GeoEntity.searchByGeoId("700707"));
     john.apply();
     
     TeamMember member = new TeamMember();
@@ -163,7 +168,83 @@ public class ExcelViewTest extends TestCase
 //    // If we get here the import was successful.  Clean up the imported records
 //    
 //  }
+  
+  public void testSuccessfulIndividualCase() throws IOException
+  {
+    importIndividualCaseExcelView(sessionId, "(001) IndividualCaseExcelView.xls");
+  }
 
+//  public void testSuccessfulMorphologicalSpecieGroup() throws IOException
+//  {
+//    importMorphologicalSpecieGroup(sessionId, "(016) MorphologicalSpecieGroupExcelView.xls");
+//    
+//    Calendar calendar = Calendar.getInstance();
+//    calendar.clear();
+//    calendar.set(2009, 10, 2);
+//    MosquitoCollectionPoint mcp = MosquitoCollectionPoint.findOrCreate(GeoEntity.searchByGeoId("1110000"), calendar.getTime());
+//    
+//    MorphologicalSpecieGroupQuery query = new MorphologicalSpecieGroupQuery(new QueryFactory());
+//    query.WHERE(query.getCollection().EQ(mcp));
+//    OIterator<? extends MorphologicalSpecieGroup> iterator = query.getIterator();
+//    
+//    if (!iterator.hasNext())
+//    {
+//      fail("No morphological specie group created");
+//    }
+//    
+//    MorphologicalSpecieGroup msg = iterator.next();
+//    if (iterator.hasNext())
+//    {
+//      iterator.close();
+//      fail("Multiple morphological specie groups created.  Expected only one.  Data may be corrupt.");
+//    }
+//    
+//    try
+//    {
+//      assertEquals("MIRO:30000042", msg.getIdentificationMethod().getTermId());
+//      assertEquals(10, msg.getQuantity().intValue());
+//      assertEquals(6, msg.getQuantityFemale().intValue());
+//      assertEquals(4, msg.getQuantityMale().intValue());
+//      assertEquals("MIRO:40002525", msg.getSpecie().getTermId());
+//    }
+//    finally
+//    {
+//      delete(sessionId, msg);
+//      delete(sessionId, mcp);
+//    }
+//  }
+//  
+//  public void testSuccessfulMosquitoCollection() throws IOException
+//  {
+//    importMosquitoCollection(sessionId, "(024) MosquitoCollectionView.xls");
+//    
+//    Calendar calendar = Calendar.getInstance();
+//    calendar.clear();
+//    calendar.set(2009, 9, 31);
+//    MosquitoCollection collection = MosquitoCollection.searchByGeoEntityAndDate(GeoEntity.searchByGeoId("100011"), calendar.getTime());
+//    assertNotNull(collection);
+//    
+//    MorphologicalSpecieGroup msg = null;
+//    try
+//    {
+//      assertEquals("MDSS:0000316", collection.getCollectionMethod().getTermId());
+//      MorphologicalSpecieGroupView[] groups = collection.getMorphologicalSpecieGroups();
+//      assertEquals(1, groups.length);
+//      
+//      msg = MorphologicalSpecieGroup.get(groups[0].getGroupId());
+//      assertEquals("MIRO:30000042", msg.getIdentificationMethod().getTermId());
+//      assertEquals(10, msg.getQuantity().intValue());
+//      assertEquals(6, msg.getQuantityFemale().intValue());
+//      assertEquals(4, msg.getQuantityMale().intValue());
+//      assertEquals("MIRO:40002525", msg.getSpecie().getTermId());
+//    }
+//    finally
+//    {
+//      delete(sessionId, msg);
+//      delete(sessionId, collection);
+//    }
+//  }
+  
   public void testSuccessfulEfficacyAssay() throws IOException
   {
     importEfficacyAssay(sessionId, "(025) EfficacyAssayExcelView.xls");
@@ -310,6 +391,14 @@ public class ExcelViewTest extends TestCase
   }
   
   @StartSession
+  private void importIndividualCaseExcelView(String sessionId, String fileName) throws IOException
+  {
+    ExcelImporter importer = new ExcelImporter();
+    IndividualCaseExcelView.setupImportListener(importer);
+    printImportErrors(importer, DIRECTORY + fileName);
+  }
+  
+  @StartSession
   private void importOperatorSprayView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter();
@@ -370,9 +459,9 @@ public class ExcelViewTest extends TestCase
         if (row.getCell(0) != null)
           errorMessage += "  [" + row.getCell(0).getNumericCellValue();
         if (row.getCell(1) != null)
-          errorMessage += ", " + row.getCell(1).getRichStringCellValue().getString();
+          errorMessage += ", " + ExcelUtil.getString(row.getCell(1));
         if (row.getCell(2) != null)
-          errorMessage += ", " + row.getCell(2).getRichStringCellValue().getString();
+          errorMessage += ", " + ExcelUtil.getString(row.getCell(2));
         errorMessage += "]\n";
       }
       System.err.println(errorMessage);

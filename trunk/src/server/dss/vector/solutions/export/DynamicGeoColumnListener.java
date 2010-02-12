@@ -15,6 +15,7 @@ import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExportListener;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -81,7 +82,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
         {
           if (column.getAttributeName().equals(excelAttribute))
           {
-            entityName = cell.getRichStringCellValue().getString().trim();
+            entityName = ExcelUtil.getString(cell).trim();
 
             if (entityName.length()>0)
             {

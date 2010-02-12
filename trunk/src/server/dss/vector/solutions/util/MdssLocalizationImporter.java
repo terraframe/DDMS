@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,6 +29,7 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.FileWriteException;
 import com.terraframe.mojo.dataaccess.io.XMLException;
+import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
 import com.terraframe.mojo.dataaccess.metadata.SupportedLocaleDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -203,25 +203,14 @@ public class MdssLocalizationImporter implements Reloadable
 
   private String getStringValue(HSSFCell cell)
   {
-    if (cell == null)
+    String value = ExcelUtil.getString(cell);
+    if (value.length()==0)
     {
       return null;
-    }
-    else if (cell.getCellType() == HSSFCell.CELL_TYPE_BLANK)
-    {
-      return null;
-    }
-    else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
-    {
-      return ( new BigDecimal(cell.getNumericCellValue()) ).toString();
-    }
-    else if (cell.getCellType() == HSSFCell.CELL_TYPE_BOOLEAN)
-    {
-      return new Boolean(cell.getBooleanCellValue()).toString();
     }
     else
     {
-      return cell.getRichStringCellValue().getString().trim();
+      return value;
     }
   }
 

@@ -88,7 +88,7 @@ public class AttributeRootImporter implements Reloadable
 
   private void importDefault(HSSFRow row)
   {
-    String key = row.getCell(0).getRichStringCellValue().getString();
+    String key = ExcelUtil.getString(row.getCell(0));
 
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
     if (mdAttribute == null)
@@ -101,7 +101,7 @@ public class AttributeRootImporter implements Reloadable
 
     if (cell != null && cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
     {
-      String termId = cell.getRichStringCellValue().getString();
+      String termId = ExcelUtil.getString(cell);
       if (termId.length()==0)
       {
         return;
@@ -128,7 +128,7 @@ public class AttributeRootImporter implements Reloadable
 
   private void importRoots(HSSFRow row)
   {
-    String key = row.getCell(0).getRichStringCellValue().getString();
+    String key = ExcelUtil.getString(row.getCell(0));
 
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
 
@@ -145,7 +145,7 @@ public class AttributeRootImporter implements Reloadable
     // Iterate over all remaining columns. Each should have a Mo Term ID
     while (row.getCell(i) != null && row.getCell(i+1) != null)
     {
-      String termId = row.getCell(i++).getRichStringCellValue().getString();
+      String termId = ExcelUtil.getString(row.getCell(i++));
       Term term = Term.getByTermId(termId);
       Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
       
