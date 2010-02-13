@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 376740444)
+@com.terraframe.mojo.business.ClassSignature(hash = 1358993983)
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 376740444;
+  private static final long serialVersionUID = 1358993983;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -678,6 +678,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{id, includeParents, filter};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedIn", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedInByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Boolean includeParents, java.lang.String filter)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
+    Object[] _parameters = new Object[]{geoId, includeParents, filter};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedInByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -26,111 +26,111 @@ private static final long serialVersionUID = 1310756675;
   {
     return dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeBoolean getAbundance()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance()
   {
     return getAbundance(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getAbundance(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ABUNDANCE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ABUNDANCE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getAbundance(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ABUNDANCE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ABUNDANCE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCollectionDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate()
   {
     return getCollectionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCollectionDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCollectionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId()
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId()
   {
     return getCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionMethod()
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod()
   {
     return getCollectionMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionMethod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEggs()
+  public com.terraframe.mojo.query.SelectableSingleInteger getEggs()
   {
     return getEggs(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEggs(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getEggs(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.EGGS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.EGGS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEggs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getEggs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.EGGS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.EGGS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFemale()
+  public com.terraframe.mojo.query.SelectableSingleInteger getFemale()
   {
     return getFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFemale(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getFemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, displayLabel);
 
   }
  
@@ -153,165 +153,165 @@ private static final long serialVersionUID = 1310756675;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod()
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod()
   {
     return getIdentMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.IDENTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.IDENTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.IDENTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.IDENTMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLarvae()
+  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae()
   {
     return getLarvae(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLarvae(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LARVAE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LARVAE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLarvae(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LARVAE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LARVAE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLifeStage()
+  public com.terraframe.mojo.query.SelectableSingleChar getLifeStage()
   {
     return getLifeStage(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLifeStage(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getLifeStage(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LIFESTAGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LIFESTAGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLifeStage(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getLifeStage(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LIFESTAGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.LIFESTAGE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getMale()
+  public com.terraframe.mojo.query.SelectableSingleInteger getMale()
   {
     return getMale(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getMale(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getMale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPupae()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPupae()
   {
     return getPupae(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPupae(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPupae(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PUPAE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PUPAE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPupae(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPupae(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PUPAE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PUPAE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSubCollectionId()
+  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId()
   {
     return getSubCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSubCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.SUBCOLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.SUBCOLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSubCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.SUBCOLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.SUBCOLLECTIONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTaxon()
+  public com.terraframe.mojo.query.SelectableSingleChar getTaxon()
   {
     return getTaxon(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTaxon(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTaxon(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.TAXON, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.TAXON, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTaxon(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTaxon(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.TAXON, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.TAXON, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUnknowns()
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns()
   {
     return getUnknowns(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUnknowns(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.UNKNOWNS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.UNKNOWNS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUnknowns(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.UNKNOWNS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.UNKNOWNS, alias, displayLabel);
 
   }
  

@@ -26,237 +26,237 @@ private static final long serialVersionUID = -383614;
   {
     return dss.vector.solutions.export.MolecularAssayExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getAssayMethod()
+  public com.terraframe.mojo.query.SelectableSingleChar getAssayMethod()
   {
     return getAssayMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAssayMethod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getAssayMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ASSAYMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ASSAYMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAssayMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getAssayMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ASSAYMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ASSAYMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId()
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId()
   {
     return getCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.COLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.COLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.COLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.COLLECTIONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeneration()
+  public com.terraframe.mojo.query.SelectableSingleChar getGeneration()
   {
     return getGeneration(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeneration(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeneration(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.GENERATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.GENERATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeneration(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeneration(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.GENERATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.GENERATION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod()
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod()
   {
     return getIdentMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.IDENTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.IDENTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getIdentMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.IDENTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.IDENTMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale()
   {
     return getIsofemale(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ISOFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ISOFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ISOFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.ISOFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId()
   {
     return getMosquitoId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.MOSQUITOID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.MOSQUITOID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.MOSQUITOID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.MOSQUITOID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRR()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRR()
   {
     return getNumberRR(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRR(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRR(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRR(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRR(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRR, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRS()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRS()
   {
     return getNumberRS(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRS(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRS(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberRS(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRS(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERRS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSS()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSS()
   {
     return getNumberSS(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSS(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSS(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERSS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERSS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSS(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSS(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERSS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.NUMBERSS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSex()
+  public com.terraframe.mojo.query.SelectableSingleChar getSex()
   {
     return getSex(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSex(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SEX, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSpecies()
+  public com.terraframe.mojo.query.SelectableSingleChar getSpecies()
   {
     return getSpecies(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSpecies(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSpecies(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SPECIES, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SPECIES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSpecies(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSpecies(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SPECIES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.SPECIES, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTarget()
+  public com.terraframe.mojo.query.SelectableSingleChar getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.MolecularAssayExcelView.TARGET, alias, displayLabel);
 
   }
  

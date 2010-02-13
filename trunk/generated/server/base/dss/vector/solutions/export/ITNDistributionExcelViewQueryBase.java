@@ -26,93 +26,93 @@ private static final long serialVersionUID = -1335726309;
   {
     return dss.vector.solutions.export.ITNDistributionExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber()
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber()
   {
     return getBatchNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.BATCHNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.BATCHNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.BATCHNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.BATCHNUMBER, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived()
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived()
   {
     return getCurrencyReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.CURRENCYRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.CURRENCYRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.CURRENCYRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.CURRENCYRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate()
   {
     return getDistributionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTIONDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName()
   {
     return getDistributorName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname()
   {
     return getDistributorSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.DISTRIBUTORSURNAME, alias, displayLabel);
 
   }
  
@@ -135,129 +135,129 @@ private static final long serialVersionUID = -1335726309;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.FACILITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNet()
+  public com.terraframe.mojo.query.SelectableSingleChar getNet()
   {
     return getNet(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNet(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getNet(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NET, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNet(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getNet(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NET, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold()
   {
     return getNumberSold(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NUMBERSOLD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NUMBERSOLD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NUMBERSOLD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.NUMBERSOLD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getRecipientDOB()
+  public com.terraframe.mojo.query.SelectableSingleMoment getRecipientDOB()
   {
     return getRecipientDOB(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getRecipientDOB(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getRecipientDOB(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTDOB, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTDOB, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getRecipientDOB(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getRecipientDOB(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTDOB, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTDOB, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientFirstName()
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientFirstName()
   {
     return getRecipientFirstName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientFirstName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientFirstName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTFIRSTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTFIRSTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientFirstName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientFirstName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTFIRSTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTFIRSTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientLastName()
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientLastName()
   {
     return getRecipientLastName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientLastName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientLastName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTLASTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTLASTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRecipientLastName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getRecipientLastName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTLASTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.RECIPIENTLASTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getService()
+  public com.terraframe.mojo.query.SelectableSingleChar getService()
   {
     return getService(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getService(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getService(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.SERVICE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.SERVICE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getService(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getService(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.SERVICE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ITNDistributionExcelView.SERVICE, alias, displayLabel);
 
   }
  

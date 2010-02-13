@@ -45,75 +45,75 @@ private static final long serialVersionUID = 1801635789;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getGrowthRate()
+  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate()
   {
     return getGrowthRate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.GROWTHRATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.GROWTHRATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getGrowthRate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.GROWTHRATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.GROWTHRATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getPopulation()
+  public com.terraframe.mojo.query.SelectableSingleLong getPopulation()
   {
     return getPopulation(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getPopulation(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getPopulation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.POPULATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.POPULATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getPopulation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getPopulation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.POPULATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.POPULATION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearOfData()
+  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData()
   {
     return getYearOfData(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearOfData(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.YEAROFDATA, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.YEAROFDATA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getYearOfData(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.YEAROFDATA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PopulationDataExcelView.YEAROFDATA, alias, displayLabel);
 
   }
  
