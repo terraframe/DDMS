@@ -39,21 +39,21 @@ private static final long serialVersionUID = 785954807;
   {
     return dss.vector.solutions.irs.ResourceTarget.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -102,55 +102,55 @@ private static final long serialVersionUID = 785954807;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ResourceTarget.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -245,939 +245,939 @@ private static final long serialVersionUID = 785954807;
     return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ResourceTarget.SEASON, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0()
   {
     return getTarget_0(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1()
   {
     return getTarget_1(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10()
   {
     return getTarget_10(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11()
   {
     return getTarget_11(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12()
   {
     return getTarget_12(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13()
   {
     return getTarget_13(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14()
   {
     return getTarget_14(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15()
   {
     return getTarget_15(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16()
   {
     return getTarget_16(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17()
   {
     return getTarget_17(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18()
   {
     return getTarget_18(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19()
   {
     return getTarget_19(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2()
   {
     return getTarget_2(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20()
   {
     return getTarget_20(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21()
   {
     return getTarget_21(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22()
   {
     return getTarget_22(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23()
   {
     return getTarget_23(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24()
   {
     return getTarget_24(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25()
   {
     return getTarget_25(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26()
   {
     return getTarget_26(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27()
   {
     return getTarget_27(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28()
   {
     return getTarget_28(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29()
   {
     return getTarget_29(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3()
   {
     return getTarget_3(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30()
   {
     return getTarget_30(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31()
   {
     return getTarget_31(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32()
   {
     return getTarget_32(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33()
   {
     return getTarget_33(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34()
   {
     return getTarget_34(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35()
   {
     return getTarget_35(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36()
   {
     return getTarget_36(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37()
   {
     return getTarget_37(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38()
   {
     return getTarget_38(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39()
   {
     return getTarget_39(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4()
   {
     return getTarget_4(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40()
   {
     return getTarget_40(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41()
   {
     return getTarget_41(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42()
   {
     return getTarget_42(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43()
   {
     return getTarget_43(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44()
   {
     return getTarget_44(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45()
   {
     return getTarget_45(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46()
   {
     return getTarget_46(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47()
   {
     return getTarget_47(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48()
   {
     return getTarget_48(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49()
   {
     return getTarget_49(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5()
   {
     return getTarget_5(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50()
   {
     return getTarget_50(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51()
   {
     return getTarget_51(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52()
   {
     return getTarget_52(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6()
   {
     return getTarget_6(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7()
   {
     return getTarget_7(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8()
   {
     return getTarget_8(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9()
   {
     return getTarget_9(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF getTargeter()
@@ -1203,21 +1203,21 @@ private static final long serialVersionUID = 785954807;
     return (dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ResourceTarget.TARGETER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -1291,24 +1291,24 @@ private static final long serialVersionUID = 785954807;
   public interface ResourceTargetQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -1321,177 +1321,177 @@ private static final long serialVersionUID = 785954807;
     public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason();
     public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason(String alias);
     public dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF getSeason(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_0();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_1();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_10();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_11();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_12();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_13();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_14();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_15();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_16();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_17();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_18();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_19();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_2();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_20();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_21();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_22();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_23();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_24();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_25();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_26();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_27();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_28();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_29();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_3();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_30();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_31();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_32();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_33();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_34();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_35();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_36();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_37();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_38();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_39();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_4();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_40();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_41();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_42();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_43();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_44();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_45();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_46();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_47();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_48();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_49();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_5();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_50();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_51();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_52();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_6();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_7();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_8();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_9();
-    public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9();
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias, String displayLabel);
     public dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF getTargeter();
     public dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF getTargeter(String alias);
     public dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF getTargeter(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.irs.ResourceTarget resourceTarget);
 
@@ -1526,21 +1526,21 @@ private static final long serialVersionUID = 1913482389;
       return this.NE(resourceTarget.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.ResourceTarget.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -1577,55 +1577,55 @@ private static final long serialVersionUID = 1913482389;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.ResourceTarget.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.ResourceTarget.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1696,939 +1696,939 @@ private static final long serialVersionUID = 1913482389;
     return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.get(dss.vector.solutions.irs.ResourceTarget.SEASON,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.irs.ResourceTarget.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0()
   {
     return getTarget_0(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_0(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_0, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1()
   {
     return getTarget_1(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_1(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_1, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10()
   {
     return getTarget_10(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_10(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_10, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11()
   {
     return getTarget_11(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_11(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_11, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12()
   {
     return getTarget_12(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_12(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_12, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13()
   {
     return getTarget_13(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_13(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_13, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14()
   {
     return getTarget_14(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_14(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_14, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15()
   {
     return getTarget_15(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_15(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_15, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16()
   {
     return getTarget_16(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_16(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_16, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17()
   {
     return getTarget_17(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_17(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_17, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18()
   {
     return getTarget_18(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_18(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_18, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19()
   {
     return getTarget_19(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_19(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_19, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2()
   {
     return getTarget_2(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_2(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_2, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20()
   {
     return getTarget_20(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_20(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_20, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21()
   {
     return getTarget_21(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_21(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_21, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22()
   {
     return getTarget_22(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_22(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_22, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23()
   {
     return getTarget_23(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_23(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_23, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24()
   {
     return getTarget_24(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_24(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_24, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25()
   {
     return getTarget_25(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_25(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_25, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26()
   {
     return getTarget_26(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_26(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_26, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27()
   {
     return getTarget_27(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_27(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_27, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28()
   {
     return getTarget_28(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_28(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_28, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29()
   {
     return getTarget_29(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_29(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_29, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3()
   {
     return getTarget_3(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_3(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_3, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30()
   {
     return getTarget_30(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_30(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_30, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31()
   {
     return getTarget_31(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_31(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_31, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32()
   {
     return getTarget_32(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_32(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_32, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33()
   {
     return getTarget_33(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_33(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_33, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34()
   {
     return getTarget_34(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_34(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_34, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35()
   {
     return getTarget_35(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_35(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_35, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36()
   {
     return getTarget_36(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_36(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_36, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37()
   {
     return getTarget_37(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_37(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_37, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38()
   {
     return getTarget_38(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_38(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_38, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39()
   {
     return getTarget_39(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_39(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_39, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4()
   {
     return getTarget_4(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_4(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_4, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40()
   {
     return getTarget_40(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_40(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_40, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41()
   {
     return getTarget_41(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_41(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_41, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42()
   {
     return getTarget_42(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_42(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_42, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43()
   {
     return getTarget_43(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_43(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_43, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44()
   {
     return getTarget_44(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_44(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_44, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45()
   {
     return getTarget_45(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_45(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_45, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46()
   {
     return getTarget_46(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_46(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_46, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47()
   {
     return getTarget_47(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_47(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_47, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48()
   {
     return getTarget_48(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_48(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_48, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49()
   {
     return getTarget_49(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_49(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_49, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5()
   {
     return getTarget_5(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_5(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_5, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50()
   {
     return getTarget_50(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_50(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_50, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51()
   {
     return getTarget_51(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_51(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_51, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52()
   {
     return getTarget_52(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_52(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_52, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6()
   {
     return getTarget_6(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_6(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_6, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7()
   {
     return getTarget_7(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_7(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_7, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8()
   {
     return getTarget_8(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_8(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_8, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9()
   {
     return getTarget_9(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget_9(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.ResourceTarget.TARGET_9, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF getTargeter()
@@ -2648,21 +2648,21 @@ private static final long serialVersionUID = 1913482389;
     return (dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF)this.get(dss.vector.solutions.irs.ResourceTarget.TARGETER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.ResourceTarget.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

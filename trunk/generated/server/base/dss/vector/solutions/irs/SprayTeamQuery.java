@@ -62,21 +62,21 @@ private static final long serialVersionUID = -282733287;
     return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.SprayTeam.SPRAYZONE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getTeamId()
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId()
   {
     return getTeamId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -360,9 +360,9 @@ private static final long serialVersionUID = -282733287;
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone();
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias);
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getTeamId();
-    public com.terraframe.mojo.query.AttributeChar getTeamId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getTeamId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getTeamId();
+    public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.irs.SprayTeam sprayTeam);
 
@@ -470,21 +470,21 @@ private static final long serialVersionUID = -698739013;
     return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.SPRAYZONE,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getTeamId()
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId()
   {
     return getTeamId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.SprayTeam.TEAMID, alias, displayLabel);
 
   }
 

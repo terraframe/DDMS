@@ -26,57 +26,57 @@ private static final long serialVersionUID = 1844395679;
   {
     return dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFacility()
+  public com.terraframe.mojo.query.SelectableSingleChar getFacility()
   {
     return getFacility(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFacility(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getFacility(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.FACILITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.FACILITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFacility(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getFacility(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.FACILITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.FACILITY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.ID, alias, displayLabel);
 
   }
  
@@ -99,39 +99,39 @@ private static final long serialVersionUID = 1844395679;
     return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.PATIENT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getResidentialLocation()
+  public com.terraframe.mojo.query.SelectableSingleChar getResidentialLocation()
   {
     return getResidentialLocation(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidentialLocation(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidentialLocation(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.RESIDENTIALLOCATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.RESIDENTIALLOCATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidentialLocation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidentialLocation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.RESIDENTIALLOCATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.RESIDENTIALLOCATION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getServiceDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate()
   {
     return getServiceDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getServiceDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.SERVICEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.SERVICEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getServiceDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.SERVICEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.SERVICEDATE, alias, displayLabel);
 
   }
  

@@ -45,39 +45,39 @@ private static final long serialVersionUID = 1327112764;
     return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.AGEGROUP, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getCaseId()
+  public com.terraframe.mojo.query.SelectableSingleChar getCaseId()
   {
     return getCaseId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCaseId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getCaseId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCaseId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getCaseId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ENDDATE, alias, displayLabel);
 
   }
  
@@ -100,39 +100,39 @@ private static final long serialVersionUID = 1327112764;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod()
   {
     return getPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, displayLabel);
 
   }
  
@@ -153,39 +153,39 @@ private static final long serialVersionUID = 1327112764;
     return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODTYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getPeriodYear()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear()
   {
     return getPeriodYear(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriodYear(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriodYear(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.STARTDATE, alias, displayLabel);
 
   }
  

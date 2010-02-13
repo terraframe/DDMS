@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 208636892)
+@com.terraframe.mojo.business.ClassSignature(hash = 1054239679)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 208636892;
+  private static final long serialVersionUID = 1054239679;
   
   public GeoEntityBase()
   {
@@ -688,6 +688,12 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.collectAllLocatedIn(includeParents, filter);
+  }
+  
+  public static dss.vector.solutions.geo.GeoEntityView[] collectAllLocatedInByGeoId(java.lang.String geoId, java.lang.Boolean includeParents, java.lang.String filter)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void confirmChangeParent(java.lang.String parentId)

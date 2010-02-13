@@ -45,129 +45,129 @@ private static final long serialVersionUID = 791888810;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ACTIVEINGREDIENT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getAmount()
+  public com.terraframe.mojo.query.SelectableSingleInteger getAmount()
   {
     return getAmount(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAmount(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAmount(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.AMOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.AMOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAmount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAmount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.AMOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.AMOUNT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBrandName()
+  public com.terraframe.mojo.query.SelectableSingleChar getBrandName()
   {
     return getBrandName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBrandName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getBrandName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.BRANDNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.BRANDNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBrandName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getBrandName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.BRANDNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.BRANDNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled()
   {
     return getEnabled(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ENABLED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ENABLED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ENABLED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ENABLED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getInsecticdeId()
+  public com.terraframe.mojo.query.SelectableSingleChar getInsecticdeId()
   {
     return getInsecticdeId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getInsecticdeId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getInsecticdeId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.INSECTICDEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.INSECTICDEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getInsecticdeId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getInsecticdeId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.INSECTICDEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.INSECTICDEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getSachetsPerRefill()
+  public com.terraframe.mojo.query.SelectableSingleInteger getSachetsPerRefill()
   {
     return getSachetsPerRefill(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getSachetsPerRefill(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getSachetsPerRefill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.SACHETSPERREFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.SACHETSPERREFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getSachetsPerRefill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getSachetsPerRefill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.SACHETSPERREFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.SACHETSPERREFILL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getWeight()
+  public com.terraframe.mojo.query.SelectableSingleDecimal getWeight()
   {
     return getWeight(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getWeight(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getWeight(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.WEIGHT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.WEIGHT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getWeight(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getWeight(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.WEIGHT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandView.WEIGHT, alias, displayLabel);
 
   }
  

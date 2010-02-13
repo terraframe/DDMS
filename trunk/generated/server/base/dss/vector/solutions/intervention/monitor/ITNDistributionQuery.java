@@ -39,38 +39,38 @@ private static final long serialVersionUID = 709538538;
   {
     return dss.vector.solutions.intervention.monitor.ITNDistribution.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber()
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber()
   {
     return getBatchNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -96,72 +96,72 @@ private static final long serialVersionUID = 709538538;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived()
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived()
   {
     return getCurrencyReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate()
   {
     return getDistributionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDistributorName()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName()
   {
     return getDistributorName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname()
   {
     return getDistributorSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -210,55 +210,55 @@ private static final long serialVersionUID = 709538538;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.ITNDistribution.FACILITY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -330,21 +330,21 @@ private static final long serialVersionUID = 709538538;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.ITNDistribution.NET, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold()
   {
     return getNumberSold(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -393,21 +393,21 @@ private static final long serialVersionUID = 709538538;
     return (dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.ITNDistribution.RECIPIENT, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService()
@@ -433,38 +433,38 @@ private static final long serialVersionUID = 709538538;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.ITNDistribution.SERVICE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -662,42 +662,42 @@ private static final long serialVersionUID = 709538538;
   public interface ITNDistributionQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.AttributeChar getBatchNumber();
-    public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias);
-    public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber();
+    public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived();
-    public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias);
-    public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getDistributionDate();
-    public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getDistributorName();
-    public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getDistributorSurname();
-    public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias);
-    public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived();
+    public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias);
+    public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorName();
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname();
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
     public dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF getFacility();
     public dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF getFacility(String alias);
     public dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF getFacility(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -707,27 +707,27 @@ private static final long serialVersionUID = 709538538;
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNet();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNet(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getNet(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeInteger getNumberSold();
-    public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold();
+    public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
     public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient();
     public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient(String alias);
     public dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF getRecipient(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.ITNDistribution iTNDistribution);
 
@@ -790,38 +790,38 @@ private static final long serialVersionUID = 827222412;
       return this.NE(iTNDistribution.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber()
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber()
   {
     return getBatchNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBatchNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.BATCHNUMBER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -841,72 +841,72 @@ private static final long serialVersionUID = 827222412;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CREATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived()
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived()
   {
     return getCurrencyReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getCurrencyReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getCurrencyReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.CURRENCYRECEIVED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate()
   {
     return getDistributionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDistributionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDistributionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTIONDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDistributorName()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName()
   {
     return getDistributorName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname()
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname()
   {
     return getDistributorSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDistributorSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDistributorSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.DISTRIBUTORSURNAME, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -943,55 +943,55 @@ private static final long serialVersionUID = 827222412;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.FACILITY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1045,21 +1045,21 @@ private static final long serialVersionUID = 827222412;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.NET,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold()
   {
     return getNumberSold(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberSold(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberSold(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.NUMBERSOLD, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1096,21 +1096,21 @@ private static final long serialVersionUID = 827222412;
     return (dss.vector.solutions.intervention.monitor.ITNRecipientQuery.ITNRecipientQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.RECIPIENT,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SEQ, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getService()
@@ -1130,38 +1130,38 @@ private static final long serialVersionUID = 827222412;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SERVICE,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.ITNDistribution.TYPE, alias, displayLabel);
 
   }
 

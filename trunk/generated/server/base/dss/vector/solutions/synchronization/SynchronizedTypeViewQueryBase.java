@@ -26,111 +26,111 @@ private static final long serialVersionUID = -1064787560;
   {
     return dss.vector.solutions.synchronization.SynchronizedTypeView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getDescription()
+  public com.terraframe.mojo.query.SelectableSingleChar getDescription()
   {
     return getDescription(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDescription(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDescription(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DESCRIPTION, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DESCRIPTION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDescription(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDescription(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DESCRIPTION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DESCRIPTION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel()
   {
     return getDisplayLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DISPLAYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DISPLAYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DISPLAYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.DISPLAYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getExported()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getExported()
   {
     return getExported(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getExported(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getExported(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.EXPORTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.EXPORTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getExported(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getExported(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.EXPORTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.EXPORTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdTypeId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMdTypeId()
   {
     return getMdTypeId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdTypeId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdTypeId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.MDTYPEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.MDTYPEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdTypeId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdTypeId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.MDTYPEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.MDTYPEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getQualifiedType()
+  public com.terraframe.mojo.query.SelectableSingleChar getQualifiedType()
   {
     return getQualifiedType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getQualifiedType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getQualifiedType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.QUALIFIEDTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.QUALIFIEDTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getQualifiedType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getQualifiedType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.QUALIFIEDTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.SynchronizedTypeView.QUALIFIEDTYPE, alias, displayLabel);
 
   }
  

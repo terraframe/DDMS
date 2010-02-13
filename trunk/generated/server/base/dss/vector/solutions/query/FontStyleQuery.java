@@ -39,21 +39,21 @@ private static final long serialVersionUID = 1011170390;
   {
     return dss.vector.solutions.query.FontStyle.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeInteger getPriority()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority()
   {
     return getPriority(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   /**  
@@ -126,9 +126,9 @@ private static final long serialVersionUID = 1011170390;
   public interface FontStyleQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.AttributeInteger getPriority();
-    public com.terraframe.mojo.query.AttributeInteger getPriority(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority();
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.FontStyle fontStyle);
 
@@ -163,21 +163,21 @@ private static final long serialVersionUID = 1995445876;
       return this.NE(fontStyle.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeInteger getPriority()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority()
   {
     return getPriority(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   }
@@ -189,9 +189,9 @@ private static final long serialVersionUID = 1995445876;
   public interface FontStyleQueryEnumerationIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumerationIF
   {
 
-    public com.terraframe.mojo.query.AttributeInteger getPriority();
-    public com.terraframe.mojo.query.AttributeInteger getPriority(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority();
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias, String displayLabel);
 
   }
 
@@ -210,21 +210,21 @@ private static final long serialVersionUID = -1724970970;
 
   }
 
-  public com.terraframe.mojo.query.AttributeInteger getPriority()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority()
   {
     return getPriority(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPriority(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPriority(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.FontStyle.PRIORITY, alias, displayLabel);
 
   }
   }

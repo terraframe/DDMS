@@ -26,21 +26,21 @@ private static final long serialVersionUID = -291836300;
   {
     return dss.vector.solutions.ontology.BrowserFieldView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getBrowserFieldId()
+  public com.terraframe.mojo.query.SelectableSingleChar getBrowserFieldId()
   {
     return getBrowserFieldId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBrowserFieldId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getBrowserFieldId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.BROWSERFIELDID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.BROWSERFIELDID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getBrowserFieldId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getBrowserFieldId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.BROWSERFIELDID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.BROWSERFIELDID, alias, displayLabel);
 
   }
  
@@ -63,93 +63,93 @@ private static final long serialVersionUID = -291836300;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.DEFAULTVALUE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId()
   {
     return getMdAttributeId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeLabel()
   {
     return getMdAttributeLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTELABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTELABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdAttributeLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTELABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDATTRIBUTELABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassId()
   {
     return getMdClassId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassLabel()
   {
     return getMdClassLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMdClassLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMdClassLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.BrowserFieldView.MDCLASSLABEL, alias, displayLabel);
 
   }
  

@@ -26,21 +26,21 @@ private static final long serialVersionUID = 911271642;
   {
     return dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeBoolean getSearchType()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSearchType()
   {
     return getSearchType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSearchType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.SEARCHTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.SEARCHTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSearchType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSearchType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.SEARCHTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.SEARCHTYPE, alias, displayLabel);
 
   }
  

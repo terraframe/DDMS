@@ -26,39 +26,39 @@ private static final long serialVersionUID = -25586811;
   {
     return dss.vector.solutions.irs.TimeInterventionPlanningView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeInteger getOperators()
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperators()
   {
     return getOperators(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getOperators(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperators(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.OPERATORS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.OPERATORS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getOperators(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperators(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.OPERATORS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.OPERATORS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRequiredDays()
+  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredDays()
   {
     return getRequiredDays(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRequiredDays(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredDays(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.REQUIREDDAYS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.REQUIREDDAYS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRequiredDays(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredDays(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.REQUIREDDAYS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.TimeInterventionPlanningView.REQUIREDDAYS, alias, displayLabel);
 
   }
  

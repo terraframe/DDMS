@@ -26,21 +26,21 @@ private static final long serialVersionUID = -1640679805;
   {
     return dss.vector.solutions.irs.InterventionPlanningView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getEntityLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel()
   {
     return getEntityLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getEntityLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ENTITYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ENTITYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getEntityLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ENTITYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ENTITYLABEL, alias, displayLabel);
 
   }
  
@@ -63,21 +63,21 @@ private static final long serialVersionUID = -1640679805;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.ID, alias, displayLabel);
 
   }
  
@@ -100,21 +100,21 @@ private static final long serialVersionUID = -1640679805;
     return (dss.vector.solutions.general.MalariaSeasonQuery.MalariaSeasonQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.SEASON, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTargets()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTargets()
   {
     return getTargets(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTargets(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTargets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.TARGETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.TARGETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTargets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTargets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.TARGETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.InterventionPlanningView.TARGETS, alias, displayLabel);
 
   }
  

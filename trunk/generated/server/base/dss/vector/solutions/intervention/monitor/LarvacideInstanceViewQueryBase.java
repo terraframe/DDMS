@@ -26,39 +26,39 @@ private static final long serialVersionUID = 1541008488;
   {
     return dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getControlId()
+  public com.terraframe.mojo.query.SelectableSingleChar getControlId()
   {
     return getControlId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getControlId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getControlId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONTROLID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONTROLID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getControlId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getControlId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONTROLID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONTROLID, alias, displayLabel);
 
   }
  
@@ -81,21 +81,21 @@ private static final long serialVersionUID = 1541008488;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.CONTROLMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.ID, alias, displayLabel);
 
   }
  
@@ -137,21 +137,21 @@ private static final long serialVersionUID = 1541008488;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.TARGET, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTreated()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTreated()
   {
     return getTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTreated(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.TREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.TREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.TREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.TREATED, alias, displayLabel);
 
   }
  
@@ -174,21 +174,21 @@ private static final long serialVersionUID = 1541008488;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.UNIT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getUnitsUsed()
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed()
   {
     return getUnitsUsed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.UNITSUSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.UNITSUSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUnitsUsed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.UNITSUSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.LarvacideInstanceView.UNITSUSED, alias, displayLabel);
 
   }
  

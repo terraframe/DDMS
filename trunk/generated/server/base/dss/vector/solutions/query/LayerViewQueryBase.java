@@ -26,75 +26,75 @@ private static final long serialVersionUID = 1907530904;
   {
     return dss.vector.solutions.query.LayerView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerId()
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerId()
   {
     return getLayerId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerName()
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerName()
   {
     return getLayerName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLayerName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getLayerName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLayerPosition()
+  public com.terraframe.mojo.query.SelectableSingleInteger getLayerPosition()
   {
     return getLayerPosition(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLayerPosition(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLayerPosition(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLayerPosition(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLayerPosition(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.LayerView.LAYERPOSITION, alias, displayLabel);
 
   }
  

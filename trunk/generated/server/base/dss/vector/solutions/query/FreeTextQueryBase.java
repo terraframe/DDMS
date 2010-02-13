@@ -26,93 +26,93 @@ private static final long serialVersionUID = -1979600108;
   {
     return dss.vector.solutions.query.FreeText.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getCustomText()
+  public com.terraframe.mojo.query.SelectableSingleChar getCustomText()
   {
     return getCustomText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCustomText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getCustomText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.CUSTOMTEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.CUSTOMTEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getCustomText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getCustomText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.CUSTOMTEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.CUSTOMTEXT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFamily()
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFamily()
   {
     return getTextFontFamily(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFamily(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFamily(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFAMILY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFAMILY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFamily(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFamily(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFAMILY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFAMILY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFill()
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFill()
   {
     return getTextFontFill(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFill(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFill(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTextFontFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTextFontFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTFILL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTextFontSize()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTextFontSize()
   {
     return getTextFontSize(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTextFontSize(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTextFontSize(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTSIZE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTSIZE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTextFontSize(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTextFontSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTSIZE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.FreeText.TEXTFONTSIZE, alias, displayLabel);
 
   }
  

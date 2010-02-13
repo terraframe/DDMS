@@ -26,129 +26,129 @@ private static final long serialVersionUID = 952961085;
   {
     return dss.vector.solutions.irs.AreaStandardsView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getAreaStandardsId()
+  public com.terraframe.mojo.query.SelectableSingleChar getAreaStandardsId()
   {
     return getAreaStandardsId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAreaStandardsId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getAreaStandardsId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.AREASTANDARDSID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.AREASTANDARDSID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAreaStandardsId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getAreaStandardsId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.AREASTANDARDSID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.AREASTANDARDSID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ENDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getHousehold()
+  public com.terraframe.mojo.query.SelectableSingleFloat getHousehold()
   {
     return getHousehold(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getHousehold(String alias)
+  public com.terraframe.mojo.query.SelectableSingleFloat getHousehold(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.HOUSEHOLD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.HOUSEHOLD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getHousehold(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleFloat getHousehold(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.HOUSEHOLD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.HOUSEHOLD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getRoom()
+  public com.terraframe.mojo.query.SelectableSingleFloat getRoom()
   {
     return getRoom(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getRoom(String alias)
+  public com.terraframe.mojo.query.SelectableSingleFloat getRoom(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ROOM, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ROOM, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getRoom(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleFloat getRoom(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ROOM, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.ROOM, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STARTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getStructureArea()
+  public com.terraframe.mojo.query.SelectableSingleFloat getStructureArea()
   {
     return getStructureArea(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getStructureArea(String alias)
+  public com.terraframe.mojo.query.SelectableSingleFloat getStructureArea(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STRUCTUREAREA, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STRUCTUREAREA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getStructureArea(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleFloat getStructureArea(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STRUCTUREAREA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.STRUCTUREAREA, alias, displayLabel);
 
   }
  
@@ -169,21 +169,21 @@ private static final long serialVersionUID = 952961085;
     return (dss.vector.solutions.irs.TargetUnitMasterQuery.TargetUnitQueryIF)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.TARGETUNIT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeFloat getUnitNozzleAreaCoverage()
+  public com.terraframe.mojo.query.SelectableSingleFloat getUnitNozzleAreaCoverage()
   {
     return getUnitNozzleAreaCoverage(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getUnitNozzleAreaCoverage(String alias)
+  public com.terraframe.mojo.query.SelectableSingleFloat getUnitNozzleAreaCoverage(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.UNITNOZZLEAREACOVERAGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.UNITNOZZLEAREACOVERAGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getUnitNozzleAreaCoverage(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleFloat getUnitNozzleAreaCoverage(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.UNITNOZZLEAREACOVERAGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.irs.AreaStandardsView.UNITNOZZLEAREACOVERAGE, alias, displayLabel);
 
   }
  

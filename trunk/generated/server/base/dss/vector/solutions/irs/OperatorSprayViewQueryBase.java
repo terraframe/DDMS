@@ -26,21 +26,21 @@ private static final long serialVersionUID = -1276675585;
   {
     return dss.vector.solutions.irs.OperatorSprayView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getAssignedOperator()
+  public com.terraframe.mojo.query.SelectableSingleChar getAssignedOperator()
   {
     return getAssignedOperator(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAssignedOperator(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getAssignedOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ASSIGNEDOPERATOR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ASSIGNEDOPERATOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getAssignedOperator(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getAssignedOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ASSIGNEDOPERATOR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ASSIGNEDOPERATOR, alias, displayLabel);
 
   }
  
@@ -63,39 +63,39 @@ private static final long serialVersionUID = -1276675585;
     return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.BRAND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFloatingOperator()
+  public com.terraframe.mojo.query.SelectableSingleChar getFloatingOperator()
   {
     return getFloatingOperator(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFloatingOperator(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getFloatingOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.FLOATINGOPERATOR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.FLOATINGOPERATOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFloatingOperator(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getFloatingOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.FLOATINGOPERATOR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.FLOATINGOPERATOR, alias, displayLabel);
 
   }
  
@@ -118,111 +118,111 @@ private static final long serialVersionUID = -1276675585;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getOperatorSprayWeek()
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperatorSprayWeek()
   {
     return getOperatorSprayWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getOperatorSprayWeek(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperatorSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getOperatorSprayWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getOperatorSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReceived()
+  public com.terraframe.mojo.query.SelectableSingleInteger getReceived()
   {
     return getReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getReceived(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRefills()
+  public com.terraframe.mojo.query.SelectableSingleInteger getRefills()
   {
     return getRefills(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRefills(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.REFILLS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.REFILLS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRefills(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRefills(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.REFILLS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.REFILLS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReturned()
+  public com.terraframe.mojo.query.SelectableSingleInteger getReturned()
   {
     return getReturned(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getReturned(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RETURNED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RETURNED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getReturned(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getReturned(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RETURNED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.RETURNED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getSprayDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate()
   {
     return getSprayDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getSprayDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.SPRAYDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.SPRAYDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getSprayDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.SPRAYDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.SPRAYDATE, alias, displayLabel);
 
   }
  
@@ -300,21 +300,21 @@ private static final long serialVersionUID = -1276675585;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.SURFACETYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTarget()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TARGET, alias, displayLabel);
 
   }
  
@@ -337,57 +337,57 @@ private static final long serialVersionUID = -1276675585;
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMLEADER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getTeamOperator()
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamOperator()
   {
     return getTeamOperator(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamOperator(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMOPERATOR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMOPERATOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTeamOperator(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTeamOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMOPERATOR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMOPERATOR, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek()
   {
     return getTeamSprayWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTeamSprayWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUsed()
+  public com.terraframe.mojo.query.SelectableSingleInteger getUsed()
   {
     return getUsed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUsed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.USED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.USED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getUsed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.USED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.USED, alias, displayLabel);
 
   }
  

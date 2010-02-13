@@ -39,38 +39,38 @@ private static final long serialVersionUID = -1756970942;
   {
     return dss.vector.solutions.query.RangeCategory.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr()
   {
     return getLowerBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr()
   {
     return getUpperBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
 
   }
   /**  
@@ -105,12 +105,12 @@ private static final long serialVersionUID = -1756970942;
   public interface RangeCategoryQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr();
-    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias);
-    public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr();
-    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias);
-    public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr();
+    public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr();
+    public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.RangeCategory rangeCategory);
 
@@ -145,38 +145,38 @@ private static final long serialVersionUID = -947697308;
       return this.NE(rangeCategory.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr()
   {
     return getLowerBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getLowerBoundStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getLowerBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.RangeCategory.LOWERBOUNDSTR, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr()
   {
     return getUpperBoundStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getUpperBoundStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getUpperBoundStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.RangeCategory.UPPERBOUNDSTR, alias, displayLabel);
 
   }
   }

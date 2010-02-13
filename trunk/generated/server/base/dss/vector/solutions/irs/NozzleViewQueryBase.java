@@ -26,93 +26,93 @@ private static final long serialVersionUID = 1591487018;
   {
     return dss.vector.solutions.irs.NozzleView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel()
   {
     return getDisplayLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.DISPLAYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.DISPLAYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplayLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplayLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.DISPLAYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.DISPLAYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled()
   {
     return getEnabled(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.irs.NozzleView.ENABLED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.irs.NozzleView.ENABLED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getEnabled(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.irs.NozzleView.ENABLED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.irs.NozzleView.ENABLED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNozzleId()
+  public com.terraframe.mojo.query.SelectableSingleChar getNozzleId()
   {
     return getNozzleId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNozzleId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getNozzleId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.NOZZLEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.NOZZLEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNozzleId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getNozzleId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.NOZZLEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.NozzleView.NOZZLEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getRatio()
+  public com.terraframe.mojo.query.SelectableSingleDecimal getRatio()
   {
     return getRatio(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getRatio(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getRatio(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.irs.NozzleView.RATIO, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.irs.NozzleView.RATIO, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getRatio(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getRatio(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.irs.NozzleView.RATIO, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.irs.NozzleView.RATIO, alias, displayLabel);
 
   }
  

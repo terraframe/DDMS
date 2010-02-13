@@ -26,75 +26,75 @@ private static final long serialVersionUID = 1844300114;
   {
     return dss.vector.solutions.query.QueryInfo.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMaximum()
+  public com.terraframe.mojo.query.SelectableSingleChar getMaximum()
   {
     return getMaximum(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMaximum(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMaximum(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MAXIMUM, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MAXIMUM, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMaximum(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMaximum(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MAXIMUM, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MAXIMUM, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMinimum()
+  public com.terraframe.mojo.query.SelectableSingleChar getMinimum()
   {
     return getMinimum(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMinimum(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMinimum(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MINIMUM, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MINIMUM, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMinimum(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMinimum(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MINIMUM, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.QueryInfo.MINIMUM, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTotalResults()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTotalResults()
   {
     return getTotalResults(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTotalResults(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTotalResults(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.QueryInfo.TOTALRESULTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.QueryInfo.TOTALRESULTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTotalResults(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTotalResults(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.query.QueryInfo.TOTALRESULTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.query.QueryInfo.TOTALRESULTS, alias, displayLabel);
 
   }
  

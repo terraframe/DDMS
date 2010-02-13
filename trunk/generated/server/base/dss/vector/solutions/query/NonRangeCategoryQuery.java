@@ -39,21 +39,21 @@ private static final long serialVersionUID = 887251959;
   {
     return dss.vector.solutions.query.NonRangeCategory.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr()
   {
     return getExactValueStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, displayLabel);
 
   }
   /**  
@@ -88,9 +88,9 @@ private static final long serialVersionUID = 887251959;
   public interface NonRangeCategoryQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.query.AbstractCategoryQuery.AbstractCategoryQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.AttributeChar getExactValueStr();
-    public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias);
-    public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr();
+    public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.NonRangeCategory nonRangeCategory);
 
@@ -125,21 +125,21 @@ private static final long serialVersionUID = -1670896619;
       return this.NE(nonRangeCategory.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr()
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr()
   {
     return getExactValueStr(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getExactValueStr(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getExactValueStr(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.NonRangeCategory.EXACTVALUESTR, alias, displayLabel);
 
   }
   }

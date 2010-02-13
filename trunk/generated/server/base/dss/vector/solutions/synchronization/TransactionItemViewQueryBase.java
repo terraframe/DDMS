@@ -26,111 +26,111 @@ private static final long serialVersionUID = -2009840270;
   {
     return dss.vector.solutions.synchronization.TransactionItemView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getActionLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getActionLabel()
   {
     return getActionLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getActionLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getActionLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ACTIONLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ACTIONLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getActionLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getActionLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ACTIONLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ACTIONLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentId()
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentId()
   {
     return getComponentId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentLabel()
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentLabel()
   {
     return getComponentLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentLabel(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentLabel(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComponentLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getComponentLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getComponentSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getComponentSeq()
   {
     return getComponentSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getComponentSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getComponentSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTSEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTSEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getComponentSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getComponentSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTSEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.COMPONENTSEQ, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getItemId()
+  public com.terraframe.mojo.query.SelectableSingleChar getItemId()
   {
     return getItemId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getItemId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getItemId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ITEMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ITEMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getItemId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getItemId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ITEMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemView.ITEMID, alias, displayLabel);
 
   }
  

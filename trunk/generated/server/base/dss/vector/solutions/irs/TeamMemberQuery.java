@@ -39,55 +39,55 @@ private static final long serialVersionUID = 409435567;
   {
     return dss.vector.solutions.irs.TeamMember.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader()
   {
     return getIsSprayLeader(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator()
   {
     return getIsSprayOperator(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getMemberId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId()
   {
     return getMemberId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -391,15 +391,15 @@ private static final long serialVersionUID = 409435567;
   public interface TeamMemberQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader();
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator();
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getMemberId();
-    public com.terraframe.mojo.query.AttributeChar getMemberId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getMemberId();
+    public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias, String displayLabel);
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson();
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias);
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel);
@@ -485,55 +485,55 @@ private static final long serialVersionUID = -230824495;
       return this.NE(teamMember.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader()
   {
     return getIsSprayLeader(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayLeader(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayLeader(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYLEADER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator()
   {
     return getIsSprayOperator(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsSprayOperator(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsSprayOperator(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.irs.TeamMember.ISSPRAYOPERATOR, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getMemberId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId()
   {
     return getMemberId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMemberId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMemberId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.TeamMember.MEMBERID, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()

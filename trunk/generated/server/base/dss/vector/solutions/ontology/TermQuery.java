@@ -39,38 +39,38 @@ private static final long serialVersionUID = 1718662262;
   {
     return dss.vector.solutions.ontology.Term.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getComment()
+  public com.terraframe.mojo.query.SelectableSingleChar getComment()
   {
     return getComment(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComment(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.COMMENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.COMMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComment(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.COMMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.COMMENT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -96,38 +96,38 @@ private static final long serialVersionUID = 1718662262;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDef()
+  public com.terraframe.mojo.query.SelectableSingleChar getDef()
   {
     return getDef(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDef(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DEF, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DEF, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDisplay()
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay()
   {
     return getDisplay(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -153,55 +153,55 @@ private static final long serialVersionUID = 1718662262;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -250,55 +250,55 @@ private static final long serialVersionUID = 1718662262;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getName()
+  public com.terraframe.mojo.query.SelectableSingleChar getName()
   {
     return getName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getNamespace()
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace()
   {
     return getNamespace(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNamespace(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNamespace(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete()
   {
     return getObsolete(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
@@ -347,72 +347,72 @@ private static final long serialVersionUID = 1718662262;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getTermId()
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId()
   {
     return getTermId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTermId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TERMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TERMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTermId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TERMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TERMID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -2802,66 +2802,66 @@ private static final long serialVersionUID = 1718662262;
   public interface TermQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.AttributeChar getComment();
-    public com.terraframe.mojo.query.AttributeChar getComment(String alias);
-    public com.terraframe.mojo.query.AttributeChar getComment(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getComment();
+    public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getDef();
-    public com.terraframe.mojo.query.AttributeChar getDef(String alias);
-    public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getDisplay();
-    public com.terraframe.mojo.query.AttributeChar getDisplay(String alias);
-    public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getDef();
+    public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getDisplay();
+    public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getName();
-    public com.terraframe.mojo.query.AttributeChar getName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getNamespace();
-    public com.terraframe.mojo.query.AttributeChar getNamespace(String alias);
-    public com.terraframe.mojo.query.AttributeChar getNamespace(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getObsolete();
-    public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getName();
+    public com.terraframe.mojo.query.SelectableSingleChar getName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getNamespace();
+    public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias, String displayLabel);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology();
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getTermId();
-    public com.terraframe.mojo.query.AttributeChar getTermId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getTermId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getTermId();
+    public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.ontology.Term term);
 
@@ -3380,38 +3380,38 @@ private static final long serialVersionUID = 855534100;
       return this.NE(term.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeChar getComment()
+  public com.terraframe.mojo.query.SelectableSingleChar getComment()
   {
     return getComment(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComment(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.COMMENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.COMMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getComment(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getComment(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.COMMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.COMMENT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.ontology.Term.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -3431,38 +3431,38 @@ private static final long serialVersionUID = 855534100;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Term.CREATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDef()
+  public com.terraframe.mojo.query.SelectableSingleChar getDef()
   {
     return getDef(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDef(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.DEF, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.DEF, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDef(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDef(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getDisplay()
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay()
   {
     return getDisplay(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getDisplay(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getDisplay(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -3482,55 +3482,55 @@ private static final long serialVersionUID = 855534100;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.ontology.Term.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.ontology.Term.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -3567,55 +3567,55 @@ private static final long serialVersionUID = 855534100;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.ontology.Term.LOCKEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getName()
+  public com.terraframe.mojo.query.SelectableSingleChar getName()
   {
     return getName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.NAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.NAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.NAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.NAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getNamespace()
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace()
   {
     return getNamespace(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNamespace(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getNamespace(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getNamespace(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete()
   {
     return getObsolete(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getObsolete(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getObsolete(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
@@ -3652,72 +3652,72 @@ private static final long serialVersionUID = 855534100;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.ontology.Term.OWNER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.ontology.Term.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.ontology.Term.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.ontology.Term.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.ontology.Term.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getTermId()
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId()
   {
     return getTermId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTermId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.TERMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.TERMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getTermId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.TERMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.TERMID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.ontology.Term.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.ontology.Term.TYPE, alias, displayLabel);
 
   }
 

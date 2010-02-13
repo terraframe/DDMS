@@ -26,21 +26,21 @@ private static final long serialVersionUID = -278066545;
   {
     return dss.vector.solutions.intervention.monitor.HouseholdView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.CONCRETEID, alias, displayLabel);
 
   }
  
@@ -61,129 +61,129 @@ private static final long serialVersionUID = -278066545;
     return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASBEENSPRAYED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasHouseholdNets()
   {
     return getHasHouseholdNets(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasHouseholdNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getHasHouseholdNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasHouseholdNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASHOUSEHOLDNETS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getHasWindows()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasWindows()
   {
     return getHasWindows(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getHasWindows(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasWindows(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASWINDOWS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASWINDOWS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getHasWindows(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getHasWindows(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASWINDOWS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HASWINDOWS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getHouseholdName()
+  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName()
   {
     return getHouseholdName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getHouseholdName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HOUSEHOLDNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HOUSEHOLDNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getHouseholdName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HOUSEHOLDNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.HOUSEHOLDNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLastSprayed()
+  public com.terraframe.mojo.query.SelectableSingleInteger getLastSprayed()
   {
     return getLastSprayed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLastSprayed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLastSprayed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.LASTSPRAYED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.LASTSPRAYED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getLastSprayed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getLastSprayed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.LASTSPRAYED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.LASTSPRAYED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNets()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNets()
   {
     return getNets(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNets(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNets(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.NETS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeople()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeople()
   {
     return getPeople(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeople(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.PEOPLE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.PEOPLE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeople(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.PEOPLE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.PEOPLE, alias, displayLabel);
 
   }
  
@@ -206,39 +206,39 @@ private static final long serialVersionUID = -278066545;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOF, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getRoofInfo()
+  public com.terraframe.mojo.query.SelectableSingleChar getRoofInfo()
   {
     return getRoofInfo(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRoofInfo(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getRoofInfo(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOFINFO, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOFINFO, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getRoofInfo(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getRoofInfo(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOFINFO, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOFINFO, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRooms()
+  public com.terraframe.mojo.query.SelectableSingleInteger getRooms()
   {
     return getRooms(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRooms(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOMS, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOMS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getRooms(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOMS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.ROOMS, alias, displayLabel);
 
   }
  
@@ -261,21 +261,21 @@ private static final long serialVersionUID = -278066545;
     return (dss.vector.solutions.intervention.monitor.SurveyPointQuery.SurveyPointQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.SURVEYPOINT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getUrban()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getUrban()
   {
     return getUrban(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getUrban(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getUrban(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.URBAN, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.URBAN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getUrban(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getUrban(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.URBAN, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.URBAN, alias, displayLabel);
 
   }
  
@@ -298,21 +298,21 @@ private static final long serialVersionUID = -278066545;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.WALL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getWallInfo()
+  public com.terraframe.mojo.query.SelectableSingleChar getWallInfo()
   {
     return getWallInfo(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWallInfo(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getWallInfo(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.WALLINFO, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.WALLINFO, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWallInfo(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getWallInfo(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.WALLINFO, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.HouseholdView.WALLINFO, alias, displayLabel);
 
   }
  

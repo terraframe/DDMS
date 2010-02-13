@@ -39,72 +39,72 @@ private static final long serialVersionUID = 1228403541;
   {
     return dss.vector.solutions.intervention.monitor.IndividualCase.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeInteger getAge()
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge()
   {
     return getAge(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate()
   {
     return getCaseEntryDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate()
   {
     return getCaseReportDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -130,21 +130,21 @@ private static final long serialVersionUID = 1228403541;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate()
   {
     return getDiagnosisDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -170,55 +170,55 @@ private static final long serialVersionUID = 1228403541;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -336,21 +336,21 @@ private static final long serialVersionUID = 1228403541;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText()
   {
     return getProbableSourceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence()
@@ -376,72 +376,72 @@ private static final long serialVersionUID = 1228403541;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getResidenceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText()
   {
     return getResidenceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace()
@@ -467,21 +467,21 @@ private static final long serialVersionUID = 1228403541;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText()
   {
     return getWorkplaceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -563,36 +563,36 @@ private static final long serialVersionUID = 1228403541;
   public interface IndividualCaseQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.AttributeInteger getAge();
-    public com.terraframe.mojo.query.AttributeInteger getAge(String alias);
-    public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate();
-    public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCaseReportDate();
-    public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleInteger getAge();
+    public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias);
+    public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate();
-    public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -608,30 +608,30 @@ private static final long serialVersionUID = 1228403541;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getProbableSource(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getProbableSourceText();
-    public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias);
-    public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText();
+    public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias, String displayLabel);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getResidenceText();
-    public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias);
-    public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getResidenceText();
+    public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getWorkplaceText();
-    public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias);
-    public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText();
+    public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.IndividualCase individualCase);
 
@@ -666,72 +666,72 @@ private static final long serialVersionUID = -695738765;
       return this.NE(individualCase.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeInteger getAge()
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge()
   {
     return getAge(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.AGE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate()
   {
     return getCaseEntryDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseEntryDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseEntryDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEENTRYDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate()
   {
     return getCaseReportDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCaseReportDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CASEREPORTDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -751,21 +751,21 @@ private static final long serialVersionUID = -695738765;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.CREATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate()
   {
     return getDiagnosisDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDiagnosisDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.DIAGNOSISDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -785,55 +785,55 @@ private static final long serialVersionUID = -695738765;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -921,21 +921,21 @@ private static final long serialVersionUID = -695738765;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCE,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText()
   {
     return getProbableSourceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getProbableSourceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getProbableSourceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.PROBABLESOURCETEXT, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getResidence()
@@ -955,72 +955,72 @@ private static final long serialVersionUID = -695738765;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCE,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getResidenceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText()
   {
     return getResidenceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getResidenceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getResidenceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.RESIDENCETEXT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkplace()
@@ -1040,21 +1040,21 @@ private static final long serialVersionUID = -695738765;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACE,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText()
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText()
   {
     return getWorkplaceText(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getWorkplaceText(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getWorkplaceText(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.WORKPLACETEXT, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

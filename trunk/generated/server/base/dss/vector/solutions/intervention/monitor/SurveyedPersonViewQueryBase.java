@@ -26,21 +26,21 @@ private static final long serialVersionUID = -1325149596;
   {
     return dss.vector.solutions.intervention.monitor.SurveyedPersonView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeInteger getAge()
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge()
   {
     return getAge(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.AGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.AGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getAge(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.AGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.AGE, alias, displayLabel);
 
   }
  
@@ -101,39 +101,39 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.BLOODSLIDEREASON, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getBloodslideResult()
   {
     return getBloodslideResult(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getBloodslideResult(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.BLOODSLIDERESULT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.BLOODSLIDERESULT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getBloodslideResult(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getBloodslideResult(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.BLOODSLIDERESULT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.BLOODSLIDERESULT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.CONCRETEID, alias, displayLabel);
 
   }
  
@@ -175,21 +175,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.DISPLAYTREATMENTS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getDob()
+  public com.terraframe.mojo.query.SelectableSingleMoment getDob()
   {
     return getDob(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDob(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDob(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.DOB, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.DOB, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getDob(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getDob(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.DOB, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.DOB, alias, displayLabel);
 
   }
  
@@ -210,21 +210,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ResponseMasterQuery.ResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.FEVER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin()
+  public com.terraframe.mojo.query.SelectableSingleDecimal getHaemoglobin()
   {
     return getHaemoglobin(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getHaemoglobin(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.HAEMOGLOBIN, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.HAEMOGLOBIN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDecimal getHaemoglobin(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDecimal getHaemoglobin(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.HAEMOGLOBIN, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.HAEMOGLOBIN, alias, displayLabel);
 
   }
  
@@ -283,21 +283,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.intervention.monitor.HouseholdQuery.HouseholdQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.HOUSEHOLD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.ID, alias, displayLabel);
 
   }
  
@@ -320,21 +320,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.IMMUNECOMPROMISED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getIron()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIron()
   {
     return getIron(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIron(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.IRON, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.IRON, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIron(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIron(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.IRON, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.IRON, alias, displayLabel);
 
   }
  
@@ -393,21 +393,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PAYMENT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPerformedBloodslide()
   {
     return getPerformedBloodslide(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPerformedBloodslide(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERFORMEDBLOODSLIDE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERFORMEDBLOODSLIDE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPerformedBloodslide(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPerformedBloodslide(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERFORMEDBLOODSLIDE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERFORMEDBLOODSLIDE, alias, displayLabel);
 
   }
  
@@ -428,39 +428,39 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ResponseMasterQuery.RefusedResponseQueryIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERFORMEDRDT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getPersonId()
+  public com.terraframe.mojo.query.SelectableSingleChar getPersonId()
   {
     return getPersonId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getPersonId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERSONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERSONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getPersonId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getPersonId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERSONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PERSONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant()
   {
     return getPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.PREGNANT, alias, displayLabel);
 
   }
  
@@ -483,21 +483,21 @@ private static final long serialVersionUID = -1325149596;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.RDTDETAIL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getRdtResult()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getRdtResult()
   {
     return getRdtResult(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRdtResult(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getRdtResult(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.RDTRESULT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.RDTRESULT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getRdtResult(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getRdtResult(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.RDTRESULT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.SurveyedPersonView.RDTRESULT, alias, displayLabel);
 
   }
  

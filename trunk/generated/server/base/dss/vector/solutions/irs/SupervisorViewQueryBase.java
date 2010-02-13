@@ -26,21 +26,21 @@ private static final long serialVersionUID = 577149248;
   {
     return dss.vector.solutions.irs.SupervisorView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getSupervisorId()
+  public com.terraframe.mojo.query.SelectableSingleChar getSupervisorId()
   {
     return getSupervisorId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSupervisorId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.SupervisorView.SUPERVISORID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.SupervisorView.SUPERVISORID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSupervisorId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSupervisorId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.irs.SupervisorView.SUPERVISORID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.SupervisorView.SUPERVISORID, alias, displayLabel);
 
   }
  
