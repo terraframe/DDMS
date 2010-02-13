@@ -1,13 +1,13 @@
 package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.AttributeChar;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
+import com.terraframe.mojo.query.SelectableSingleChar;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
@@ -233,7 +233,7 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
     PersonQuery personQuery = new PersonQuery(valueQuery);
     TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
 
-    AttributeChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);    
+    SelectableSingleChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);    
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
 
     Condition[] conditions = new Condition[] { leaderQuery.getIsSprayLeader().EQ(true), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };

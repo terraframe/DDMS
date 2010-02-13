@@ -8,11 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.SelectableSingleMoment;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
@@ -192,7 +192,7 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
     {
       valueQuery.WHERE(stockEventQuery.getItem().EQ(stockItemQuery.getId()));
       
-      AttributeMoment dateAttribute = stockEventQuery.getEventDate();
+      SelectableSingleMoment dateAttribute = stockEventQuery.getEventDate();
 
       QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
       

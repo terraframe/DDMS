@@ -9,12 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.SelectableSingle;
+import com.terraframe.mojo.query.SelectableSingleMoment;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.Person;
@@ -134,7 +134,7 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    AttributeMoment dateAttribute = larvacideQuery.getStartDate();
+    SelectableSingleMoment dateAttribute = larvacideQuery.getStartDate();
 
     return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
 

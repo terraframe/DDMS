@@ -11,17 +11,17 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
+import com.terraframe.mojo.query.SelectableSingleMoment;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualIPT extends IndividualIPTBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -209,7 +209,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    AttributeMoment dateAttribute = individualIPTQuery.getServiceDate();
+    SelectableSingleMoment dateAttribute = individualIPTQuery.getServiceDate();
 
     return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
 

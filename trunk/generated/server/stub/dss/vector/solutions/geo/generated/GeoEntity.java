@@ -44,7 +44,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.gis.dataaccess.AttributeGeometryIF;
 import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.AttributeChar;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
@@ -54,6 +53,7 @@ import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectablePrimitive;
+import com.terraframe.mojo.query.SelectableSingleChar;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
@@ -423,7 +423,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
-    AttributeChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectableSingleChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
         q.getId(GeoEntity.ID),
         orderBy,
