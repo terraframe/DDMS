@@ -71,36 +71,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          row.attributeName += '.name';
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlcharacter';
-        row.displayLabel = attribName;
-        row.key = attribName;
-
-      }
-      return row;
-    };
+   
 
 
     var mapMo = function(term,index){
@@ -130,11 +101,11 @@ YAHOO.util.Event.onDOMReady(function(){
     var aggreatedIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT();
 
     
-    var aIPTAttribs = ["startDate","endDate","numberNatalCare","numberPregnant","numberPregnantITN","numberPregnantIron","totalITN"];
+    var aIPTAttribs = ["geoEntity","startDate","endDate","numberNatalCare","numberPregnant","numberPregnantITN","numberPregnantIron","totalITN"];
 
 
     
-    var aIPTColumns =   aIPTAttribs.map(mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
+    var aIPTColumns =   aIPTAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
 
     
     //IPTANCVisit[] getIPTANCVisits()
