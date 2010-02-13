@@ -307,6 +307,12 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
    
     AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
     
+    
+    //this is a hack to force valueQuery to include the aggreated cases table
+    valueQuery.WHERE(aggregatedIPTQuery.id().NE("0"));
+    
+    QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedIPT.CLASS, aggregatedIPTQuery);
+    
     QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
