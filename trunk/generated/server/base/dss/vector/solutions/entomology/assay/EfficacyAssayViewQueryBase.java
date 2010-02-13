@@ -44,147 +44,147 @@ private static final long serialVersionUID = -2040256849;
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getColonyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getColonyName()
   {
     return getColonyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getColonyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getColonyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.COLONYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.COLONYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getColonyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getColonyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.COLONYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.COLONYNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getExposureTime()
+  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime()
   {
     return getExposureTime(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.EXPOSURETIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.EXPOSURETIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getExposureTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.EXPOSURETIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.EXPOSURETIME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFed()
+  public com.terraframe.mojo.query.SelectableSingleInteger getFed()
   {
     return getFed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.FED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.FED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getFed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.FED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.FED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoId()
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoId()
   {
     return getGeoId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GEOID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GEOID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GEOID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GEOID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getGravid()
+  public com.terraframe.mojo.query.SelectableSingleInteger getGravid()
   {
     return getGravid(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getGravid(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GRAVID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GRAVID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getGravid(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GRAVID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.GRAVID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getHoldingTime()
+  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime()
   {
     return getHoldingTime(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getHoldingTime(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.HOLDINGTIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.HOLDINGTIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getHoldingTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.HOLDINGTIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.HOLDINGTIME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.ID, alias, displayLabel);
 
   }
  
@@ -207,75 +207,75 @@ private static final long serialVersionUID = -2040256849;
     return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.INSECTICIDE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeFloat getMortality()
+  public com.terraframe.mojo.query.SelectableSingleFloat getMortality()
   {
     return getMortality(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getMortality(String alias)
+  public com.terraframe.mojo.query.SelectableSingleFloat getMortality(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.MORTALITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.MORTALITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeFloat getMortality(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleFloat getMortality(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.MORTALITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.MORTALITY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityDead()
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead()
   {
     return getQuantityDead(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityDead(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYDEAD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYDEAD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityDead(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYDEAD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYDEAD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityLive()
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityLive()
   {
     return getQuantityLive(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityLive(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityLive(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYLIVE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYLIVE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityLive(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityLive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYLIVE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYLIVE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityTested()
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested()
   {
     return getQuantityTested(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getQuantityTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.QUANTITYTESTED, alias, displayLabel);
 
   }
  
@@ -336,21 +336,21 @@ private static final long serialVersionUID = -2040256849;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.SURFACEPOSTION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getTestDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate()
   {
     return getTestDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getTestDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TESTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TESTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getTestDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TESTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TESTDATE, alias, displayLabel);
 
   }
  
@@ -373,21 +373,21 @@ private static final long serialVersionUID = -2040256849;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TESTMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeInteger getTimeOnSurface()
+  public com.terraframe.mojo.query.SelectableSingleInteger getTimeOnSurface()
   {
     return getTimeOnSurface(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTimeOnSurface(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTimeOnSurface(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TIMEONSURFACE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TIMEONSURFACE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getTimeOnSurface(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getTimeOnSurface(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TIMEONSURFACE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TIMEONSURFACE, alias, displayLabel);
 
   }
  

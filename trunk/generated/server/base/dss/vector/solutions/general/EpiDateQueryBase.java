@@ -26,75 +26,75 @@ private static final long serialVersionUID = 1369703170;
   {
     return dss.vector.solutions.general.EpiDate.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.ENDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEpiYear()
+  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear()
   {
     return getEpiYear(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEpiYear(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.EPIYEAR, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.EPIYEAR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getEpiYear(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.EPIYEAR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.EPIYEAR, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiDate.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiDate.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiDate.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiDate.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod()
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod()
   {
     return getPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.PERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.PERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.PERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.EpiDate.PERIOD, alias, displayLabel);
 
   }
  
@@ -115,21 +115,21 @@ private static final long serialVersionUID = 1369703170;
     return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.general.EpiDate.PERIODTYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.EpiDate.STARTDATE, alias, displayLabel);
 
   }
  

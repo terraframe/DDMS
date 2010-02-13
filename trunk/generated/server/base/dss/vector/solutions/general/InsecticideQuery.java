@@ -62,38 +62,38 @@ private static final long serialVersionUID = -685024496;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.Insecticide.ACTIVEINGREDIENT, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getAmount()
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount()
   {
     return getAmount(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getAmount(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getAmount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -142,55 +142,55 @@ private static final long serialVersionUID = -685024496;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.Insecticide.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -262,55 +262,55 @@ private static final long serialVersionUID = -685024496;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.Insecticide.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.general.Insecticide.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnits()
@@ -410,27 +410,27 @@ private static final long serialVersionUID = -685024496;
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getActiveIngredient();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getActiveIngredient(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getActiveIngredient(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeDouble getAmount();
-    public com.terraframe.mojo.query.AttributeDouble getAmount(String alias);
-    public com.terraframe.mojo.query.AttributeDouble getAmount(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleDouble getAmount();
+    public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias);
+    public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -440,15 +440,15 @@ private static final long serialVersionUID = -685024496;
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnits();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnits(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnits(String alias, String displayLabel);
@@ -503,38 +503,38 @@ private static final long serialVersionUID = -1076894414;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.general.Insecticide.ACTIVEINGREDIENT,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeDouble getAmount()
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount()
   {
     return getAmount(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getAmount(String alias)
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeDouble getAmount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleDouble getAmount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeDouble)this.get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleDouble)this.get(dss.vector.solutions.general.Insecticide.AMOUNT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.general.Insecticide.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -571,55 +571,55 @@ private static final long serialVersionUID = -1076894414;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.Insecticide.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.general.Insecticide.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -673,55 +673,55 @@ private static final long serialVersionUID = -1076894414;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.Insecticide.OWNER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.general.Insecticide.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.general.Insecticide.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.general.Insecticide.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.general.Insecticide.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.general.Insecticide.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.general.Insecticide.TYPE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getUnits()

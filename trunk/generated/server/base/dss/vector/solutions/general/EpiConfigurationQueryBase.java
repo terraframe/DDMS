@@ -26,39 +26,39 @@ private static final long serialVersionUID = -633799995;
   {
     return dss.vector.solutions.general.EpiConfiguration.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeChar getFirstDay()
+  public com.terraframe.mojo.query.SelectableSingleChar getFirstDay()
   {
     return getFirstDay(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFirstDay(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getFirstDay(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.FIRSTDAY, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.FIRSTDAY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getFirstDay(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getFirstDay(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.FIRSTDAY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.FIRSTDAY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.EpiConfiguration.ID, alias, displayLabel);
 
   }
  

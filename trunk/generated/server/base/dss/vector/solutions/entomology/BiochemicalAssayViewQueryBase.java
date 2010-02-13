@@ -64,21 +64,21 @@ private static final long serialVersionUID = -725781959;
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.COLLECTION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.CONCRETEID, alias, displayLabel);
 
   }
  
@@ -101,21 +101,21 @@ private static final long serialVersionUID = -725781959;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.GENERATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ID, alias, displayLabel);
 
   }
  
@@ -138,75 +138,75 @@ private static final long serialVersionUID = -725781959;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.IDENTMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale()
   {
     return getIsofemale(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ISOFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ISOFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getIsofemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ISOFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.ISOFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId()
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId()
   {
     return getMosquitoId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.MOSQUITOID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.MOSQUITOID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getMosquitoId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getMosquitoId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.MOSQUITOID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.MOSQUITOID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberElevated()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberElevated()
   {
     return getNumberElevated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberElevated(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberElevated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERELEVATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERELEVATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberElevated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberElevated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERELEVATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERELEVATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberTested()
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberTested()
   {
     return getNumberTested(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberTested(String alias)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberTested(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeInteger getNumberTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleInteger getNumberTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.BiochemicalAssayView.NUMBERTESTED, alias, displayLabel);
 
   }
  

@@ -85,21 +85,21 @@ private static final long serialVersionUID = 805238809;
     return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTSEARCH, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot()
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot()
   {
     return getGeoRoot(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()
@@ -328,9 +328,9 @@ private static final long serialVersionUID = 805238809;
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch();
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias);
     public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getGeoRoot();
-    public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias);
-    public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot();
+    public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias, String displayLabel);
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson();
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias);
     public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel);
@@ -433,21 +433,21 @@ private static final long serialVersionUID = -841333833;
     return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTSEARCH,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot()
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot()
   {
     return getGeoRoot(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getGeoRoot(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getGeoRoot(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.MDSSUser.GEOROOT, alias, displayLabel);
 
   }
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson()

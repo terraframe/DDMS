@@ -39,21 +39,21 @@ private static final long serialVersionUID = 856622060;
   {
     return dss.vector.solutions.geo.GeoHierarchy.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -125,55 +125,55 @@ private static final long serialVersionUID = 856622060;
     return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.GEOENTITYCLASS, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -245,89 +245,89 @@ private static final long serialVersionUID = 856622060;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical()
   {
     return getPolitical(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed()
   {
     return getPopulationAllowed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed()
   {
     return getSprayTargetAllowed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm()
@@ -353,38 +353,38 @@ private static final long serialVersionUID = 856622060;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.TERM, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated()
   {
     return getViewCreated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -690,9 +690,9 @@ private static final long serialVersionUID = 856622060;
   public interface GeoHierarchyQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate();
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
@@ -702,15 +702,15 @@ private static final long serialVersionUID = 856622060;
     public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass();
     public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass(String alias);
     public com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF getGeoEntityClass(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getId();
-    public com.terraframe.mojo.query.AttributeChar getId(String alias);
-    public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getKeyName();
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias);
-    public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getId();
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -720,30 +720,30 @@ private static final long serialVersionUID = 856622060;
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getPolitical();
-    public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed();
-    public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeLong getSeq();
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias);
-    public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster();
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed();
-    public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeChar getType();
-    public com.terraframe.mojo.query.AttributeChar getType(String alias);
-    public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel);
-    public com.terraframe.mojo.query.AttributeBoolean getViewCreated();
-    public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias);
-    public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleChar getType();
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated();
+    public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias);
+    public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.geo.GeoHierarchy geoHierarchy);
 
@@ -830,21 +830,21 @@ private static final long serialVersionUID = 1822706446;
       return this.NE(geoHierarchy.getId());
     }
 
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -898,55 +898,55 @@ private static final long serialVersionUID = 1822706446;
     return (com.terraframe.mojo.system.metadata.MdBusinessQuery.MdBusinessQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.GEOENTITYCLASS,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getKeyName()
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1000,89 +1000,89 @@ private static final long serialVersionUID = 1822706446;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.OWNER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical()
   {
     return getPolitical(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPolitical(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPolitical(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POLITICAL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed()
   {
     return getPopulationAllowed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getPopulationAllowed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.POPULATIONALLOWED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeLong getSeq()
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.geo.GeoHierarchy.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed()
   {
     return getSprayTargetAllowed(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getSprayTargetAllowed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getSprayTargetAllowed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTerm()
@@ -1102,38 +1102,38 @@ private static final long serialVersionUID = 1822706446;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.TERM,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeChar getType()
+  public com.terraframe.mojo.query.SelectableSingleChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated()
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated()
   {
     return getViewCreated(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeBoolean getViewCreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleBoolean getViewCreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.VIEWCREATED, alias, displayLabel);
 
   }
 

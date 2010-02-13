@@ -26,75 +26,75 @@ private static final long serialVersionUID = -882995552;
   {
     return dss.vector.solutions.general.MalariaSeasonView.CLASS;
   }
-  public com.terraframe.mojo.query.AttributeMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ENDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId()
+  public com.terraframe.mojo.query.SelectableSingleChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSeasonName()
+  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName()
   {
     return getSeasonName(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSeasonName(String alias)
+  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.SEASONNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.SEASONNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeChar getSeasonName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.SEASONNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.SEASONNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.AttributeMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.STARTDATE, alias, displayLabel);
 
   }
  
