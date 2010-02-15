@@ -196,12 +196,13 @@
                 var event = this.grid.addRow();
                 var record = event.getValue().record;
                 var index = event.getValue().index;
+                var structureId = householdId + "-" + (i + 1);                
                   
                 record.setData("HouseholdId", householdId);
-                record.setData("StructureId", i);
+                record.setData("StructureId", structureId);
                 
                 this.data.rows[index]['HouseholdId'] = householdId;
-                this.data.rows[index]['StructureId'] = i;
+                this.data.rows[index]['StructureId'] = structureId;
               }
               
               this.data.myDataTable.render();
