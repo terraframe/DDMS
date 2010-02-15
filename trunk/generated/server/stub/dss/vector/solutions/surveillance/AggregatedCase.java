@@ -635,7 +635,10 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
     ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
+    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
+
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
+    
     return exporter.exportStream();
   }
 }

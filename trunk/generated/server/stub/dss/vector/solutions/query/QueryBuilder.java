@@ -2,6 +2,8 @@ package dss.vector.solutions.query;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -19,6 +21,7 @@ import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -101,8 +104,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     }
 
     ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
+    
+    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
     return exporter.exportStream();
   }
 
