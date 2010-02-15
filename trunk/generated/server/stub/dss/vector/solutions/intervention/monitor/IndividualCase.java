@@ -146,7 +146,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       Date[] window = IndividualCase.getWindow(date);
 
       // Get all relevant Geo Entities
-      GeoEntity[] entities = geoEntity.getPoliticalAncestors();
+      GeoEntity[] entities = geoEntity.getPopulationAncestors();
 
       // First get the Threshold data for the relevant GeoEntities
       for (GeoEntity entity : entities)

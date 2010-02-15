@@ -238,6 +238,7 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     sql += "    WHERE weeklythreshold.child_id = '" + week.getId() + "'";
     sql += "    AND thresholddata.geoentity = locatedin.child_id";
     sql += "    AND weeklythreshold.parent_id = thresholddata.id";
+    sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
     sql += "  ),0)as sumvalue";
     sql += "  FROM locatedin, geohierarchy_flags, geoentity";
     // --zambia";
@@ -245,23 +246,24 @@ public class ThresholdData extends ThresholdDataBase implements com.terraframe.m
     sql += "  AND locatedin.child_id = geoentity.id";
     sql += "  AND geoentity.type = geohierarchy_flags.parent_type";
     sql += "  AND geohierarchy_flags.parent_political = 1";
-    sql += "  AND geohierarchy_flags.parent_populationallowed = 1 ";
     sql += " UNION";
     sql += " SELECT b.child_id, b.parent_id, a.depth+1 , geoentity.type , ";
-    // this is how we sum";
+    // this is how we sum.  We only sum if population is allowed";
     sql += " a.sumvalue +  COALESCE((";
     sql += "  SELECT " + attribute + " FROM weeklythreshold, thresholddata  ";
     sql += "    WHERE weeklythreshold.child_id = '" + week.getId() + "'";
     sql += "    AND thresholddata.geoentity = b.child_id";
     sql += "    AND weeklythreshold.parent_id = thresholddata.id";
+    sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
     sql += " ),0)";
     sql += " FROM recursive_rollup a, locatedin b , geohierarchy_flags, geoentity ";
     sql += " WHERE a.child_id = b.parent_id";
     sql += " AND b.child_id = geoentity.id";
     sql += " AND geoentity.type = geohierarchy_flags.parent_type";
     // --must have political and populated allowed set to be counted";
+    // --however recursion does not stop when political = true and
+    // --population allowed = false";
     sql += " AND geohierarchy_flags.parent_political = 1";
-    sql += " AND geohierarchy_flags.parent_populationallowed = 1";
     // --this will stop the recursion as soon as sumvalue is not null";
     sql += " AND a.sumvalue = 0";
     sql += " )";
