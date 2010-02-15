@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
+<jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
+
 <c:choose>
   <c:when test="${!(empty problems)}">
     <div class="pageTitle"><fmt:message key="Excel_Import_Fail" /></div>

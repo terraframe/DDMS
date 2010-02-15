@@ -170,6 +170,8 @@ public class ExcelImportServlet extends HttpServlet
     }
     else
     {
+      ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
+
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
   }
