@@ -148,7 +148,9 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     if (value != null && !value.equals(""))
     {
       String[] array = value.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] {leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
+      
+      QueryBuilder.textLookup(valueQuery, factory, array, searchables, selectables, conditions);
     }
     else
     {
@@ -170,14 +172,26 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     InTeamQuery inTeamQuery = new InTeamQuery(valueQuery);
 
     SelectableSingleChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
-
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
+        leaderQuery.getId(TeamMemberView.ID),
+        leaderQuery.getMemberId(TeamMemberView.MEMBERID),
+        orderBy,
+        personQuery.getLastName(TeamMemberView.LASTNAME)
+    };
+    
     Condition[] conditions = new Condition[] { leaderQuery.getIsSprayOperator().EQ(true), leaderQuery.getId().SUBSELECT_NOT_IN(inTeamQuery.childId()), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
 
     if (value != null && !value.equals(""))
     {
       String[] array = value.split(" ");
-      QueryBuilder.textLookup(valueQuery, factory, array, selectables, selectables, conditions);
+      
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] {
+          leaderQuery.getMemberId(TeamMemberView.MEMBERID),
+          orderBy,
+          personQuery.getLastName(TeamMemberView.LASTNAME)
+      };
+
+      QueryBuilder.textLookup(valueQuery, factory, array, searchables, selectables, conditions);
     }
     else
     {
