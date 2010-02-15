@@ -175,6 +175,11 @@
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
+        <name>exported</name>
+        <value>1</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
         <name>stubDTOSource</name>
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdClass</definingComponent>
@@ -368,6 +373,7 @@
         <description>
           <defaultLocale>Projection ID</defaultLocale>
         </description>
+        <generateAccessor>1</generateAccessor>
         <displayLabel>
           <defaultLocale>SRID Projection</defaultLocale>
         </displayLabel>
@@ -421,6 +427,7 @@
         <description>
           <defaultLocale>Dimension</defaultLocale>
         </description>
+        <generateAccessor>1</generateAccessor>
         <displayLabel>
           <defaultLocale>Dimension</defaultLocale>
         </displayLabel>
@@ -590,6 +597,11 @@
       <attribute>
         <name>packageName</name>
         <value>com.terraframe.mojo.system.gis.metadata</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
+        <name>exported</name>
+        <value>1</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
@@ -1039,6 +1051,11 @@
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
+        <name>exported</name>
+        <value>1</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
         <name>stubDTOSource</name>
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdClass</definingComponent>
@@ -1348,6 +1365,11 @@
       <attribute>
         <name>packageName</name>
         <value>com.terraframe.mojo.system.gis.metadata</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
+        <name>exported</name>
+        <value>1</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
@@ -1663,6 +1685,11 @@
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
+        <name>exported</name>
+        <value>1</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
         <name>stubDTOSource</name>
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdClass</definingComponent>
@@ -1975,6 +2002,11 @@
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
+        <name>exported</name>
+        <value>1</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
         <name>stubDTOSource</name>
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdClass</definingComponent>
@@ -2284,6 +2316,11 @@
       <attribute>
         <name>packageName</name>
         <value>com.terraframe.mojo.system.gis.metadata</value>
+        <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
+      </attribute>
+      <attribute>
+        <name>exported</name>
+        <value>1</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
