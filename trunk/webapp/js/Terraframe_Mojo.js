@@ -1255,7 +1255,11 @@ Mojo.Meta.newClass('Mojo.Util', {
       
       var tempDate = date;
          
-      var zeropad = function (num) { return ((num < 10) ? '0' : '') + num; }
+      var zeropad = function (num) {
+    	var value = (num < 0 ? num * -1 : num);
+    	
+        return (value < 10 ? '0' + value : value);
+      }
 
       var str = "";
 
@@ -1270,7 +1274,8 @@ Mojo.Meta.newClass('Mojo.Util', {
       // Set ss
       str += ":" + zeropad(tempDate.getUTCSeconds());        
       // Set TZD
-      str += '-' + zeropad(offset) + '00';
+      str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
+      
       return str;
     },
     
