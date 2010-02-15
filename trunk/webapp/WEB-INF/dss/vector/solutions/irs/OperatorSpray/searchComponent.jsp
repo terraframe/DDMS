@@ -70,9 +70,9 @@
     
     <mjl:component item="${item}" param="#none">
       <mjl:dt attribute="teamOperator">
-        <mjl:select var="current" valueAttribute="actorId" items="${operators}" id="#teamOperator" param="#teamOperator" >
+        <mjl:select var="current" valueAttribute="actorId" items="${operators}" id="#teamOperator" param="#teamOperator" includeBlank="true" >
           <mjl:option selected="${operator != null && current.actorId == operator.id ? 'selected' : 'false'}">
-            ${current.operatorId} - ${current.lastName}, ${current.firstName}
+            ${current.memberId} - ${current.lastName}, ${current.firstName}
           </mjl:option>
         </mjl:select>
       </mjl:dt>
@@ -88,8 +88,8 @@
       <label><fmt:message key="Spray_Operator"/></label>
     </dt>
     <dd>
-      <mjl:input type="text" disabled="true" param="#operatorLabel" id="#operatorLabel"/>
-      <mjl:input type="hidden" param="operator.componentId" id="operator.componentId"/>    
+      <mjl:input type="text" disabled="true" param="#operatorLabel" id="#operatorLabel" value="${operator != null ? operator.label : ''}"/>
+      <mjl:input type="hidden" param="operator.componentId" id="operator.componentId" value="${operator != null ? operator.actorId : ''}"/>    
     </dd>    
     <mjl:command classes="submitButton" action="dss.vector.solutions.irs.OperatorSprayController.searchByParameters.mojo" name="search.button" value="Search" />
   </dl>
@@ -123,14 +123,17 @@
 
       operatorIdEl.value = operatorId;
       operatorLabelEl.value = operatorLabel;
-    }
 
-    new MDSS.UnassignedOperatorsSearch({search:'#floatingOperator', concrete:'operator.componentId', label:'#operatorLabel'});
-    new MDSS.AssignedOperatorsSearch({search:'#assignedOperator', concrete:'operator.componentId', label:'#operatorLabel',  team:'teamSelect'});
+      document.getElementById('#assignedOperator').value = '';
+      document.getElementById('#floatingOperator').value = '';      
+    }
+    
+    new MDSS.UnassignedOperatorsSearch({search:'#floatingOperator', concrete:'operator.componentId', label:'#operatorLabel', teamOps:'#teamOperator', unassigned:'#assignedOperator'});
+    new MDSS.AssignedOperatorsSearch({search:'#assignedOperator', concrete:'operator.componentId', label:'#operatorLabel',  team:'teamSelect', teamOps:'#teamOperator', unassigned:'#floatingOperator'});
 
     var search = new MDSS.TeamSearch(geoId, teamSelect, operatorSelect, null);
 
-    YAHOO.util.Event.addListener(operatorSelect, "change", teamOperatorHandler);             
+    YAHOO.util.Event.addListener(operatorSelect, "change", teamOperatorHandler);          
   });
 })();               
 </script>

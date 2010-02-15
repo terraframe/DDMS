@@ -199,9 +199,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void search() throws IOException, ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.checkURL(this.getClass().getSimpleName(), "search");
-
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
@@ -365,7 +362,11 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("brand", brand);
     req.setAttribute("method", method);
     req.setAttribute("date", date);
-    req.setAttribute("operator", operator);
+    
+    if(operator != null)
+    {
+      req.setAttribute("operator", operator.getView());
+    }
     
     if(geoId != null)
     {

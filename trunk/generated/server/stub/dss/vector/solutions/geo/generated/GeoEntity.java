@@ -314,26 +314,37 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
 
     ValueQuery valueQuery = new ValueQuery(f);
+    
+    SelectableSingleChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
+        q.getId(GeoEntity.ID),
+        orderBy,
+        q.getGeoId(GeoEntity.GEOID),
+        q.getType(GeoEntity.TYPE),
+        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+        tq.getName(GeoEntityView.MOSUBTYPE) };
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
+    Condition[] conditions = new Condition[] {F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+    LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
-    valueQuery.SELECT(selectables);
+    if (name != null && !name.equals(""))
+    {
+      String[] tokens = name.split(" ");
+      SelectablePrimitive[] searchables = new SelectablePrimitive[]{
+        orderBy,
+        q.getGeoId(GeoEntity.GEOID)
+      };
 
-    String searchable = name.replace(" ", "% ") + "%";
-
-    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
-
-    valueQuery.WHERE(or);
-    valueQuery.AND(F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()));
-    valueQuery.AND(q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")));
-    valueQuery.ORDER_BY_ASC((SelectablePrimitive) valueQuery.getSelectableRef(GeoEntity.ENTITYNAME));
+      QueryBuilder.textLookup(valueQuery, f, tokens, searchables, selectables, conditions, joins);
+    }
+    else
+    {
+      QueryBuilder.orderedLookup(valueQuery, f, orderBy, selectables, conditions, joins);
+    }
 
     valueQuery.restrictRows(20, 1);
 
-    // String sql = valueQuery.getSQL();
-    // System.out.println(sql);
-
-    return valueQuery;
+    return valueQuery;    
   }
 
   @Transaction
