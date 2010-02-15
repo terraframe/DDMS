@@ -1,4 +1,3 @@
-DROP VIEW geo_displayLabel;
 
 CREATE OR REPLACE VIEW geo_displayLabel AS
 SELECT  
