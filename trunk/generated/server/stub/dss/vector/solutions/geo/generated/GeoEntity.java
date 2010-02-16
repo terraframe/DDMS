@@ -292,28 +292,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   {
     QueryFactory f = new QueryFactory();
 
-    MdBusinessQuery mdQ = new MdBusinessQuery(f);
-    GeoEntityQuery q;
-    TermQuery tq = new TermQuery(f);
-    if (type == null || type.trim().length() == 0)
-    {
-      q = new GeoEntityQuery(f);
-    }
-    else
-    {
-      Class<?> klass = LoaderDecorator.load(type + "Query");
-      try
-      {
-        Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
-        q = (GeoEntityQuery) constructor.newInstance(f);
-      }
-      catch (Throwable t)
-      {
-        throw new ProgrammingErrorException(t);
-      }
-    }
-
     ValueQuery valueQuery = new ValueQuery(f);
+    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
+    GeoEntityQuery q  = new GeoEntityQuery(valueQuery);
+    TermQuery tq = new TermQuery(valueQuery);
     
     SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
@@ -324,7 +306,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
         mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL),
         tq.getName(GeoEntityView.MOSUBTYPE) };
 
-    Condition[] conditions = new Condition[] {F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+    Condition[] conditions = new Condition[] {q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
     if (name != null && !name.equals(""))
