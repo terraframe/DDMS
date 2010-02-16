@@ -26,93 +26,93 @@ private static final long serialVersionUID = -373880340;
   {
     return dss.vector.solutions.ontology.TermView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSelectable()
+  public com.terraframe.mojo.query.SelectableBoolean getSelectable()
   {
     return getSelectable(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSelectable(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getSelectable(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSelectable(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getSelectable(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.SELECTABLE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermId()
+  public com.terraframe.mojo.query.SelectableChar getTermId()
   {
     return getTermId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTermId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTermId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermName()
+  public com.terraframe.mojo.query.SelectableChar getTermName()
   {
     return getTermName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTermName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTermName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermOntologyId()
+  public com.terraframe.mojo.query.SelectableChar getTermOntologyId()
   {
     return getTermOntologyId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermOntologyId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTermOntologyId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMONTOLOGYID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMONTOLOGYID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTermOntologyId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTermOntologyId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMONTOLOGYID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.TERMONTOLOGYID, alias, displayLabel);
 
   }
  

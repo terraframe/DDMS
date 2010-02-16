@@ -39,55 +39,55 @@ private static final long serialVersionUID = 773590082;
   {
     return dss.vector.solutions.query.Styles.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX()
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX()
   {
     return getAnchorPointX(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY()
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY()
   {
     return getAnchorPointY(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -113,38 +113,38 @@ private static final long serialVersionUID = 773590082;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX()
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX()
   {
     return getDisplacementX(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY()
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY()
   {
     return getDisplacementY(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -170,55 +170,55 @@ private static final long serialVersionUID = 773590082;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFill()
+  public com.terraframe.mojo.query.SelectableChar getFill()
   {
     return getFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily()
+  public com.terraframe.mojo.query.SelectableChar getFontFamily()
   {
     return getFontFamily(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize()
+  public com.terraframe.mojo.query.SelectableInteger getFontSize()
   {
     return getFontSize(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
 
   }
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
@@ -244,123 +244,123 @@ private static final long serialVersionUID = 773590082;
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("fontStyles", mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill()
   {
     return getLabelHaloFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity()
   {
     return getLabelHaloOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius()
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius()
   {
     return getLabelHaloRadius(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation()
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation()
   {
     return getLabelRotation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -455,225 +455,225 @@ private static final long serialVersionUID = 773590082;
     return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.getComponentQuery().internalAttributeFactory("pointMarker", mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation()
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation()
   {
     return getPointRotation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize()
+  public com.terraframe.mojo.query.SelectableInteger getPointSize()
   {
     return getPointSize(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke()
+  public com.terraframe.mojo.query.SelectableChar getPointStroke()
   {
     return getPointStroke(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity()
   {
     return getPointStrokeOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth()
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth()
   {
     return getPointWidth(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill()
   {
     return getPolygonFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity()
   {
     return getPolygonFillOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke()
   {
     return getPolygonStroke(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity()
   {
     return getPolygonStrokeOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth()
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth()
   {
     return getPolygonWidth(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -758,60 +758,60 @@ private static final long serialVersionUID = 773590082;
   public interface StylesQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX();
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY();
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX();
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY();
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementX();
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementY();
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getFill();
-    public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFamily();
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getFontSize();
-    public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getFill();
+    public com.terraframe.mojo.query.SelectableChar getFill(String alias);
+    public com.terraframe.mojo.query.SelectableChar getFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getFontFamily();
+    public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias);
+    public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getFontSize();
+    public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias, String displayLabel);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getId();
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill();
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius();
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation();
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getId();
+    public com.terraframe.mojo.query.SelectableChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getKeyName();
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFill();
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity();
+    public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius();
+    public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getLabelRotation();
+    public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
@@ -824,45 +824,45 @@ private static final long serialVersionUID = 773590082;
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker();
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias);
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointSize();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStroke();
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity();
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias);
-    public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getType();
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPointRotation();
+    public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPointSize();
+    public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPointStroke();
+    public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity();
+    public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPointWidth();
+    public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFill();
+    public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity();
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStroke();
+    public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity();
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias);
+    public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPolygonWidth();
+    public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableLong getSeq();
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getType();
+    public com.terraframe.mojo.query.SelectableChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.Styles styles);
 
@@ -897,55 +897,55 @@ private static final long serialVersionUID = -1369012764;
       return this.NE(styles.getId());
     }
 
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX()
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX()
   {
     return getAnchorPointX(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointX(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY()
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY()
   {
     return getAnchorPointY(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getAnchorPointY(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.Styles.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -965,38 +965,38 @@ private static final long serialVersionUID = -1369012764;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.CREATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX()
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX()
   {
     return getDisplacementX(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementX(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementX(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY()
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY()
   {
     return getDisplacementY(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDisplacementY(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDisplacementY(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1016,55 +1016,55 @@ private static final long serialVersionUID = -1369012764;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.Styles.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFill()
+  public com.terraframe.mojo.query.SelectableChar getFill()
   {
     return getFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.FILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily()
+  public com.terraframe.mojo.query.SelectableChar getFontFamily()
   {
     return getFontFamily(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFamily(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFamily(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.FONTFAMILY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize()
+  public com.terraframe.mojo.query.SelectableInteger getFontSize()
   {
     return getFontSize(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFontSize(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getFontSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.FONTSIZE, alias, displayLabel);
 
   }
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles()
@@ -1084,123 +1084,123 @@ private static final long serialVersionUID = -1369012764;
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Styles.FONTSTYLES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill()
   {
     return getLabelHaloFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.LABELHALOFILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity()
   {
     return getLabelHaloOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getLabelHaloOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getLabelHaloOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.LABELHALOOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius()
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius()
   {
     return getLabelHaloRadius(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelHaloRadius(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLabelHaloRadius(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.LABELHALORADIUS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation()
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation()
   {
     return getLabelRotation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLabelRotation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLabelRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.LABELROTATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.Styles.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -1271,225 +1271,225 @@ private static final long serialVersionUID = -1369012764;
     return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.get(dss.vector.solutions.query.Styles.POINTMARKER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation()
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation()
   {
     return getPointRotation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointRotation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointRotation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTROTATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize()
+  public com.terraframe.mojo.query.SelectableInteger getPointSize()
   {
     return getPointSize(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointSize(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointSize(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTSIZE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke()
+  public com.terraframe.mojo.query.SelectableChar getPointStroke()
   {
     return getPointStroke(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStroke(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POINTSTROKE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity()
   {
     return getPointStrokeOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPointStrokeOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPointStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POINTSTROKEOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth()
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth()
   {
     return getPointWidth(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPointWidth(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPointWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POINTWIDTH, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill()
   {
     return getPolygonFill(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFill(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFill(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POLYGONFILL, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity()
   {
     return getPolygonFillOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonFillOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonFillOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONFILLOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke()
   {
     return getPolygonStroke(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStroke(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStroke(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity()
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity()
   {
     return getPolygonStrokeOpacity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getPolygonStrokeOpacity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.POLYGONSTROKEOPACITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth()
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth()
   {
     return getPolygonWidth(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPolygonWidth(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPolygonWidth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.POLYGONWIDTH, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.query.Styles.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

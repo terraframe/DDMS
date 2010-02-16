@@ -26,93 +26,93 @@ private static final long serialVersionUID = -1862635317;
   {
     return dss.vector.solutions.stock.StockEventView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getAvailableStock()
+  public com.terraframe.mojo.query.SelectableInteger getAvailableStock()
   {
     return getAvailableStock(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getAvailableStock(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getAvailableStock(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.AVAILABLESTOCK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.AVAILABLESTOCK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getAvailableStock(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getAvailableStock(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.AVAILABLESTOCK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.AVAILABLESTOCK, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCost()
+  public com.terraframe.mojo.query.SelectableDecimal getCost()
   {
     return getCost(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCost(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getCost(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.stock.StockEventView.COST, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.stock.StockEventView.COST, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCost(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getCost(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.stock.StockEventView.COST, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.stock.StockEventView.COST, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEventDate()
+  public com.terraframe.mojo.query.SelectableMoment getEventDate()
   {
     return getEventDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEventDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getEventDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.stock.StockEventView.EVENTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.stock.StockEventView.EVENTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEventDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getEventDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.stock.StockEventView.EVENTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.stock.StockEventView.EVENTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ID, alias, displayLabel);
 
   }
  
@@ -135,57 +135,57 @@ private static final long serialVersionUID = -1862635317;
     return (dss.vector.solutions.stock.StockItemQuery.StockItemQueryReferenceIF)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEM, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getItemLabel()
+  public com.terraframe.mojo.query.SelectableChar getItemLabel()
   {
     return getItemLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getItemLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getItemLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEMLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEMLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getItemLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getItemLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEMLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.ITEMLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getOtherParty()
+  public com.terraframe.mojo.query.SelectableChar getOtherParty()
   {
     return getOtherParty(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getOtherParty(String alias)
+  public com.terraframe.mojo.query.SelectableChar getOtherParty(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getOtherParty(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getOtherParty(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.OTHERPARTY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantity()
+  public com.terraframe.mojo.query.SelectableInteger getQuantity()
   {
     return getQuantity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantity(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getQuantity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.QUANTITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.QUANTITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getQuantity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.QUANTITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.stock.StockEventView.QUANTITY, alias, displayLabel);
 
   }
  
@@ -208,21 +208,21 @@ private static final long serialVersionUID = -1862635317;
     return (dss.vector.solutions.stock.StockStaffQuery.StockStaffQueryReferenceIF)this.getSelectable(dss.vector.solutions.stock.StockEventView.STAFF, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getStaffLabel()
+  public com.terraframe.mojo.query.SelectableChar getStaffLabel()
   {
     return getStaffLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStaffLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getStaffLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.STAFFLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.STAFFLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStaffLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getStaffLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.STAFFLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.stock.StockEventView.STAFFLABEL, alias, displayLabel);
 
   }
  

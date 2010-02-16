@@ -26,21 +26,21 @@ private static final long serialVersionUID = -1846867763;
   {
     return dss.vector.solutions.irs.InsecticideInterventionPlanningView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleDouble getRequiredInsecticide()
+  public com.terraframe.mojo.query.SelectableDouble getRequiredInsecticide()
   {
     return getRequiredInsecticide(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getRequiredInsecticide(String alias)
+  public com.terraframe.mojo.query.SelectableDouble getRequiredInsecticide(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.irs.InsecticideInterventionPlanningView.REQUIREDINSECTICIDE, alias, null);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.irs.InsecticideInterventionPlanningView.REQUIREDINSECTICIDE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getRequiredInsecticide(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDouble getRequiredInsecticide(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.irs.InsecticideInterventionPlanningView.REQUIREDINSECTICIDE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.irs.InsecticideInterventionPlanningView.REQUIREDINSECTICIDE, alias, displayLabel);
 
   }
  

@@ -39,21 +39,21 @@ private static final long serialVersionUID = -1681760144;
   {
     return dss.vector.solutions.surveillance.PeriodTypeMaster.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod()
   {
     return getMaximumPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   /**  
@@ -126,9 +126,9 @@ private static final long serialVersionUID = -1681760144;
   public interface PeriodTypeMasterQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryReferenceIF
   {
 
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod();
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod();
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.surveillance.PeriodTypeMaster periodTypeMaster);
 
@@ -163,21 +163,21 @@ private static final long serialVersionUID = 1137722510;
       return this.NE(periodTypeMaster.getId());
     }
 
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod()
   {
     return getMaximumPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   }
@@ -189,9 +189,9 @@ private static final long serialVersionUID = 1137722510;
   public interface PeriodTypeMasterQueryEnumerationIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumerationIF
   {
 
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod();
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod();
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias, String displayLabel);
 
   }
 
@@ -210,21 +210,21 @@ private static final long serialVersionUID = 1609047104;
 
   }
 
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod()
   {
     return getMaximumPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMaximumPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getMaximumPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.PeriodTypeMaster.MAXIMUMPERIOD, alias, displayLabel);
 
   }
   }

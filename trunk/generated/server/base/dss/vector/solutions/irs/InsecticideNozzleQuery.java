@@ -105,38 +105,38 @@ private static final long serialVersionUID = -138853213;
     }
   }
 
-  public com.terraframe.mojo.query.SelectableSingleMoment getConfigurationDate()
+  public com.terraframe.mojo.query.SelectableMoment getConfigurationDate()
   {
     return getConfigurationDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getConfigurationDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getConfigurationDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getConfigurationDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getConfigurationDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CONFIGURATIONDATE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -162,21 +162,21 @@ private static final long serialVersionUID = -138853213;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.InsecticideNozzle.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled()
+  public com.terraframe.mojo.query.SelectableBoolean getEnabled()
   {
     return getEnabled(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getEnabled(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ENABLED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ENABLED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEnabled(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getEnabled(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ENABLED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ENABLED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -202,55 +202,55 @@ private static final long serialVersionUID = -138853213;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.InsecticideNozzle.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -322,55 +322,55 @@ private static final long serialVersionUID = -138853213;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.InsecticideNozzle.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.InsecticideNozzle.TYPE, alias, displayLabel);
 
   }
   /**  

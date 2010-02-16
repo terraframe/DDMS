@@ -45,21 +45,21 @@ private static final long serialVersionUID = 2005246564;
     return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.BRAND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.CONCRETEID, alias, displayLabel);
 
   }
  
@@ -82,39 +82,39 @@ private static final long serialVersionUID = 2005246564;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate()
+  public com.terraframe.mojo.query.SelectableMoment getSprayDate()
   {
     return getSprayDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYDATE, alias, displayLabel);
 
   }
  
@@ -135,21 +135,21 @@ private static final long serialVersionUID = 2005246564;
     return (dss.vector.solutions.irs.SprayMethodMasterQuery.SprayMethodQueryIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayWeek()
+  public com.terraframe.mojo.query.SelectableInteger getSprayWeek()
   {
     return getSprayWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayWeek(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SPRAYWEEK, alias, displayLabel);
 
   }
  
@@ -191,21 +191,21 @@ private static final long serialVersionUID = 2005246564;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.SURFACETYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget()
+  public com.terraframe.mojo.query.SelectableInteger getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.ZoneSprayView.TARGET, alias, displayLabel);
 
   }
  

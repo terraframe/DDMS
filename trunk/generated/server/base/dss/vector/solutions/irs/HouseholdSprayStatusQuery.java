@@ -39,38 +39,38 @@ private static final long serialVersionUID = 1696117878;
   {
     return dss.vector.solutions.irs.HouseholdSprayStatus.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets()
+  public com.terraframe.mojo.query.SelectableInteger getBedNets()
   {
     return getBedNets(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -119,89 +119,89 @@ private static final long serialVersionUID = 1696117878;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId()
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId()
   {
     return getHouseholdId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds()
   {
     return getHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -227,21 +227,21 @@ private static final long serialVersionUID = 1696117878;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked()
+  public com.terraframe.mojo.query.SelectableInteger getLocked()
   {
     return getLocked(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLocked(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLocked(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -267,21 +267,21 @@ private static final long serialVersionUID = 1696117878;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther()
+  public com.terraframe.mojo.query.SelectableInteger getOther()
   {
     return getOther(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOther(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOther(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -307,140 +307,140 @@ private static final long serialVersionUID = 1696117878;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople()
+  public com.terraframe.mojo.query.SelectableInteger getPeople()
   {
     return getPeople(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeople(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeople(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds()
   {
     return getPrevSprayedHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures()
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures()
   {
     return getPrevSprayedStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused()
+  public com.terraframe.mojo.query.SelectableInteger getRefused()
   {
     return getRefused(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRefused(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRefused(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms()
+  public com.terraframe.mojo.query.SelectableInteger getRooms()
   {
     return getRooms(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRooms(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets()
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets()
   {
     return getRoomsWithBedNets(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF getSpray()
@@ -466,106 +466,106 @@ private static final long serialVersionUID = 1696117878;
     return (dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds()
   {
     return getSprayedHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms()
   {
     return getSprayedRooms(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures()
   {
     return getSprayedStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId()
+  public com.terraframe.mojo.query.SelectableChar getStructureId()
   {
     return getStructureId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getStructureId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getStructureId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures()
+  public com.terraframe.mojo.query.SelectableInteger getStructures()
   {
     return getStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -635,93 +635,93 @@ private static final long serialVersionUID = 1696117878;
   public interface HouseholdSprayStatusQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.SelectableSingleInteger getBedNets();
-    public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getBedNets();
+    public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId();
-    public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds();
-    public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getId();
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getHouseholdId();
+    public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getHouseholds();
+    public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getId();
+    public com.terraframe.mojo.query.SelectableChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getKeyName();
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLocked();
-    public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getLocked();
+    public com.terraframe.mojo.query.SelectableInteger getLocked(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getLocked(String alias, String displayLabel);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getOther();
-    public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getOther();
+    public com.terraframe.mojo.query.SelectableInteger getOther(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getOther(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPeople();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRefused();
-    public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRooms();
-    public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets();
-    public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPeople();
+    public com.terraframe.mojo.query.SelectableInteger getPeople(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPeople(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds();
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures();
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getRefused();
+    public com.terraframe.mojo.query.SelectableInteger getRefused(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getRefused(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getRooms();
+    public com.terraframe.mojo.query.SelectableInteger getRooms(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getRooms(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets();
+    public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableLong getSeq();
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel);
     public dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF getSpray();
     public dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF getSpray(String alias);
     public dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF getSpray(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds();
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms();
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures();
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getStructureId();
-    public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getStructures();
-    public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getType();
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds();
+    public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedRooms();
+    public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedStructures();
+    public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getStructureId();
+    public com.terraframe.mojo.query.SelectableChar getStructureId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getStructureId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getStructures();
+    public com.terraframe.mojo.query.SelectableInteger getStructures(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getStructures(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getType();
+    public com.terraframe.mojo.query.SelectableChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.irs.HouseholdSprayStatus householdSprayStatus);
 
@@ -756,38 +756,38 @@ private static final long serialVersionUID = 1700929684;
       return this.NE(householdSprayStatus.getId());
     }
 
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets()
+  public com.terraframe.mojo.query.SelectableInteger getBedNets()
   {
     return getBedNets(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getBedNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.BEDNETS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -824,89 +824,89 @@ private static final long serialVersionUID = 1700929684;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId()
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId()
   {
     return getHouseholdId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds()
   {
     return getHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.HOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -926,21 +926,21 @@ private static final long serialVersionUID = 1700929684;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked()
+  public com.terraframe.mojo.query.SelectableInteger getLocked()
   {
     return getLocked(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLocked(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLocked(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLocked(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -960,21 +960,21 @@ private static final long serialVersionUID = 1700929684;
     return (com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther()
+  public com.terraframe.mojo.query.SelectableInteger getOther()
   {
     return getOther(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOther(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOther(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOther(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.OTHER, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -994,140 +994,140 @@ private static final long serialVersionUID = 1700929684;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.OWNER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople()
+  public com.terraframe.mojo.query.SelectableInteger getPeople()
   {
     return getPeople(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeople(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeople(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeople(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PEOPLE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds()
   {
     return getPrevSprayedHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures()
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures()
   {
     return getPrevSprayedStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrevSprayedStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrevSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused()
+  public com.terraframe.mojo.query.SelectableInteger getRefused()
   {
     return getRefused(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRefused(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRefused(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRefused(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.REFUSED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms()
+  public com.terraframe.mojo.query.SelectableInteger getRooms()
   {
     return getRooms(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRooms(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRooms(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets()
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets()
   {
     return getRoomsWithBedNets(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRoomsWithBedNets(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRoomsWithBedNets(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.ROOMSWITHBEDNETS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SITEMASTER, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF getSpray()
@@ -1147,106 +1147,106 @@ private static final long serialVersionUID = 1700929684;
     return (dss.vector.solutions.irs.OperatorSprayQuery.OperatorSprayQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds()
   {
     return getSprayedHouseholds(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedHouseholds(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedHouseholds(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDHOUSEHOLDS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms()
   {
     return getSprayedRooms(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedRooms(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedRooms(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDROOMS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures()
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures()
   {
     return getSprayedStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getSprayedStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getSprayedStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.SPRAYEDSTRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId()
+  public com.terraframe.mojo.query.SelectableChar getStructureId()
   {
     return getStructureId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getStructureId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStructureId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getStructureId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTUREID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures()
+  public com.terraframe.mojo.query.SelectableInteger getStructures()
   {
     return getStructures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStructures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStructures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStructures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

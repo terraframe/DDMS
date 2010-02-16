@@ -85,38 +85,38 @@ private static final long serialVersionUID = 717835059;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.GEOENTITYFORINDEX, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex()
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex()
   {
     return getSprayDateForIndex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex()
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex()
   {
     return getSprayMethodForIndex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam()
@@ -142,21 +142,21 @@ private static final long serialVersionUID = 717835059;
     return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget()
+  public com.terraframe.mojo.query.SelectableInteger getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader()
@@ -182,21 +182,21 @@ private static final long serialVersionUID = 717835059;
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.TeamSpray.TEAMLEADER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek()
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek()
   {
     return getTeamSprayWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -263,24 +263,24 @@ private static final long serialVersionUID = 717835059;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex();
-    public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex();
-    public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex();
+    public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex();
+    public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias);
+    public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias, String displayLabel);
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam();
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias);
     public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getTarget();
-    public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getTarget();
+    public com.terraframe.mojo.query.SelectableInteger getTarget(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getTarget(String alias, String displayLabel);
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader();
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias);
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek();
-    public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek();
+    public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.irs.TeamSpray teamSpray);
 
@@ -349,38 +349,38 @@ private static final long serialVersionUID = 715087189;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.GEOENTITYFORINDEX,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex()
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex()
   {
     return getSprayDateForIndex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSprayDateForIndex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getSprayDateForIndex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYDATEFORINDEX, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex()
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex()
   {
     return getSprayMethodForIndex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSprayMethodForIndex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSprayMethodForIndex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF getSprayTeam()
@@ -400,21 +400,21 @@ private static final long serialVersionUID = 715087189;
     return (dss.vector.solutions.irs.SprayTeamQuery.SprayTeamQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.SPRAYTEAM,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget()
+  public com.terraframe.mojo.query.SelectableInteger getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSpray.TARGET, alias, displayLabel);
 
   }
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader()
@@ -434,21 +434,21 @@ private static final long serialVersionUID = 715087189;
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.get(dss.vector.solutions.irs.TeamSpray.TEAMLEADER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek()
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek()
   {
     return getTeamSprayWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTeamSprayWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.irs.TeamSpray.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

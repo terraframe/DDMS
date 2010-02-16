@@ -26,57 +26,57 @@ private static final long serialVersionUID = 1800223817;
   {
     return dss.vector.solutions.synchronization.ImportLogView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getExportSeq()
+  public com.terraframe.mojo.query.SelectableInteger getExportSeq()
   {
     return getExportSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExportSeq(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getExportSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExportSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getExportSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSourceSite()
+  public com.terraframe.mojo.query.SelectableChar getSourceSite()
   {
     return getSourceSite(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSourceSite(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSourceSite(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.SOURCESITE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.SOURCESITE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSourceSite(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSourceSite(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.SOURCESITE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.SOURCESITE, alias, displayLabel);
 
   }
  

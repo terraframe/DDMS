@@ -26,111 +26,111 @@ private static final long serialVersionUID = 144960577;
   {
     return dss.vector.solutions.query.SavedSearchView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getConfig()
+  public com.terraframe.mojo.query.SelectableChar getConfig()
   {
     return getConfig(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConfig(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConfig(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.CONFIG, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.CONFIG, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConfig(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConfig(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.CONFIG, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.CONFIG, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryName()
+  public com.terraframe.mojo.query.SelectableChar getQueryName()
   {
     return getQueryName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getQueryName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getQueryName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryType()
+  public com.terraframe.mojo.query.SelectableChar getQueryType()
   {
     return getQueryType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getQueryType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getQueryType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryXml()
+  public com.terraframe.mojo.query.SelectableChar getQueryXml()
   {
     return getQueryXml(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryXml(String alias)
+  public com.terraframe.mojo.query.SelectableChar getQueryXml(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYXML, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYXML, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getQueryXml(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getQueryXml(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYXML, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.QUERYXML, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSavedQueryId()
+  public com.terraframe.mojo.query.SelectableChar getSavedQueryId()
   {
     return getSavedQueryId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSavedQueryId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSavedQueryId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.SAVEDQUERYID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.SAVEDQUERYID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSavedQueryId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSavedQueryId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.SAVEDQUERYID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.SAVEDQUERYID, alias, displayLabel);
 
   }
  

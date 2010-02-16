@@ -26,57 +26,57 @@ private static final long serialVersionUID = 789784613;
   {
     return dss.vector.solutions.irs.OperatorInterventionPlanningView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberofDays()
+  public com.terraframe.mojo.query.SelectableInteger getNumberofDays()
   {
     return getNumberofDays(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberofDays(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberofDays(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.NUMBEROFDAYS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.NUMBEROFDAYS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberofDays(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberofDays(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.NUMBEROFDAYS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.NUMBEROFDAYS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredOperators()
+  public com.terraframe.mojo.query.SelectableInteger getRequiredOperators()
   {
     return getRequiredOperators(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredOperators(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getRequiredOperators(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.REQUIREDOPERATORS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.REQUIREDOPERATORS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getRequiredOperators(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getRequiredOperators(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.REQUIREDOPERATORS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.REQUIREDOPERATORS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsPerDay()
+  public com.terraframe.mojo.query.SelectableInteger getUnitsPerDay()
   {
     return getUnitsPerDay(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsPerDay(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getUnitsPerDay(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.UNITSPERDAY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.UNITSPERDAY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsPerDay(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getUnitsPerDay(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.UNITSPERDAY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorInterventionPlanningView.UNITSPERDAY, alias, displayLabel);
 
   }
  

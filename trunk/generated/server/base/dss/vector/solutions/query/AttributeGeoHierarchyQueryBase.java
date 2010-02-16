@@ -26,93 +26,93 @@ private static final long serialVersionUID = 961558570;
   {
     return dss.vector.solutions.query.AttributeGeoHierarchy.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getAttributeDisplayLabel()
+  public com.terraframe.mojo.query.SelectableChar getAttributeDisplayLabel()
   {
     return getAttributeDisplayLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAttributeDisplayLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAttributeDisplayLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ATTRIBUTEDISPLAYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ATTRIBUTEDISPLAYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAttributeDisplayLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAttributeDisplayLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ATTRIBUTEDISPLAYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ATTRIBUTEDISPLAYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyDisplayLabel()
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyDisplayLabel()
   {
     return getGeoHierarchyDisplayLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyDisplayLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyDisplayLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYDISPLAYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYDISPLAYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyDisplayLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyDisplayLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYDISPLAYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYDISPLAYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyId()
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyId()
   {
     return getGeoHierarchyId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoHierarchyId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoHierarchyId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.GEOHIERARCHYID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId()
+  public com.terraframe.mojo.query.SelectableChar getMdAttributeId()
   {
     return getMdAttributeId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getMdAttributeId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.MDATTRIBUTEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.MDATTRIBUTEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMdAttributeId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getMdAttributeId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.MDATTRIBUTEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.AttributeGeoHierarchy.MDATTRIBUTEID, alias, displayLabel);
 
   }
  

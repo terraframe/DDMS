@@ -39,38 +39,38 @@ private static final long serialVersionUID = 381873223;
   {
     return dss.vector.solutions.query.CategoryGen.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount()
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount()
   {
     return getCategoryCount(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -119,140 +119,140 @@ private static final long serialVersionUID = 381873223;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.CategoryGen.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType()
+  public com.terraframe.mojo.query.SelectableChar getFactoryType()
   {
     return getFactoryType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd()
   {
     return getFontFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart()
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart()
   {
     return getFontFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd()
   {
     return getLabelHaloFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart()
   {
     return getLabelHaloFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -278,21 +278,21 @@ private static final long serialVersionUID = 381873223;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.CategoryGen.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId()
+  public com.terraframe.mojo.query.SelectableChar getLayerId()
   {
     return getLayerId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLayerId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLayerId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -341,174 +341,174 @@ private static final long serialVersionUID = 381873223;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.CategoryGen.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd()
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd()
   {
     return getPointStrokeEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart()
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart()
   {
     return getPointStrokeStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd()
   {
     return getPolygonFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart()
   {
     return getPolygonFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd()
   {
     return getPolygonStrokeEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart()
   {
     return getPolygonStrokeStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures()
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures()
   {
     return getPrecisionFigures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -574,84 +574,84 @@ private static final long serialVersionUID = 381873223;
   public interface CategoryGenQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.SelectableReference
   {
 
-    public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount();
-    public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getCategoryCount();
+    public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate();
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getFactoryType();
-    public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd();
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart();
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getId();
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd();
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart();
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate();
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias);
-    public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getFactoryType();
+    public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias);
+    public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getFontFillEnd();
+    public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias);
+    public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getFontFillStart();
+    public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias);
+    public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getId();
+    public com.terraframe.mojo.query.SelectableChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getKeyName();
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd();
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart();
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias);
+    public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate();
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias);
+    public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getLayerId();
-    public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getLayerId();
+    public com.terraframe.mojo.query.SelectableChar getLayerId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getLayerId(String alias, String displayLabel);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd();
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart();
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart();
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures();
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq();
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias);
-    public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getType();
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd();
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeStart();
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd();
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillStart();
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd();
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart();
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias);
+    public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures();
+    public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableLong getSeq();
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias);
+    public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getType();
+    public com.terraframe.mojo.query.SelectableChar getType(String alias);
+    public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.query.CategoryGen categoryGen);
 
@@ -686,38 +686,38 @@ private static final long serialVersionUID = 808339689;
       return this.NE(categoryGen.getId());
     }
 
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount()
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount()
   {
     return getCategoryCount(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCategoryCount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCategoryCount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.CATEGORYCOUNT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate()
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCreateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCreateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.CategoryGen.CREATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy()
@@ -754,140 +754,140 @@ private static final long serialVersionUID = 808339689;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.query.CategoryGen.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType()
+  public com.terraframe.mojo.query.SelectableChar getFactoryType()
   {
     return getFactoryType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFactoryType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFactoryType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FACTORYTYPE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd()
   {
     return getFontFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart()
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart()
   {
     return getFontFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFontFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFontFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.FONTFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd()
   {
     return getLabelHaloFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart()
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart()
   {
     return getLabelHaloFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabelHaloFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabelHaloFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LABELHALOFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate()
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate()
   {
     return getLastUpdateDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLastUpdateDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLastUpdateDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDATE, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy()
@@ -907,21 +907,21 @@ private static final long serialVersionUID = 808339689;
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.CategoryGen.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId()
+  public com.terraframe.mojo.query.SelectableChar getLayerId()
   {
     return getLayerId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLayerId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLayerId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLayerId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.LAYERID, alias, displayLabel);
 
   }
   public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
@@ -958,174 +958,174 @@ private static final long serialVersionUID = 808339689;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.CategoryGen.OWNER,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd()
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd()
   {
     return getPointStrokeEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKEEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart()
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart()
   {
     return getPointStrokeStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPointStrokeStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPointStrokeStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POINTSTROKESTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd()
   {
     return getPolygonFillEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart()
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart()
   {
     return getPolygonFillStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonFillStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonFillStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONFILLSTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd()
   {
     return getPolygonStrokeEnd(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeEnd(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeEnd(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKEEND, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart()
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart()
   {
     return getPolygonStrokeStart(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPolygonStrokeStart(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPolygonStrokeStart(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.POLYGONSTROKESTART, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures()
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures()
   {
     return getPrecisionFigures(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPrecisionFigures(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPrecisionFigures(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.PRECISIONFIGURES, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq()
+  public com.terraframe.mojo.query.SelectableLong getSeq()
   {
     return getSeq(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.query.CategoryGen.SEQ, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.query.CategoryGen.SEQ, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getSeq(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getSeq(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.get(dss.vector.solutions.query.CategoryGen.SEQ, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.get(dss.vector.solutions.query.CategoryGen.SEQ, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getType()
+  public com.terraframe.mojo.query.SelectableChar getType()
   {
     return getType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.TYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.TYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.query.CategoryGen.TYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.CategoryGen.TYPE, alias, displayLabel);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

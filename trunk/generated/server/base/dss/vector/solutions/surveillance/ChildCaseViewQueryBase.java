@@ -121,651 +121,651 @@ private static final long serialVersionUID = 903294287;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASETREATMENTS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases()
+  public com.terraframe.mojo.query.SelectableInteger getCases()
   {
     return getCases(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCases(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCases(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASES, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale()
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale()
   {
     return getCasesFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale()
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale()
   {
     return getCasesMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant()
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant()
   {
     return getCasesPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESPREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESPREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESPREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CASESPREGNANT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed()
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed()
   {
     return getClinicallyDiagnosed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath()
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath()
   {
     return getClinicallyDiagnosedDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSEDDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSEDDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock()
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock()
   {
     return getDaysOutOfStock(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DAYSOUTOFSTOCK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DAYSOUTOFSTOCK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DAYSOUTOFSTOCK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DAYSOUTOFSTOCK, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths()
+  public com.terraframe.mojo.query.SelectableInteger getDeaths()
   {
     return getDeaths(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeaths(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeaths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale()
   {
     return getDeathsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale()
   {
     return getDeathsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant()
   {
     return getDeathsPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSPREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSPREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSPREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEATHSPREGNANT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed()
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed()
   {
     return getDefinitivelyDiagnosed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath()
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath()
   {
     return getDefinitivelyDiagnosedDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients()
+  public com.terraframe.mojo.query.SelectableInteger getInPatients()
   {
     return getInPatients(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatients(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia()
   {
     return getInPatientsAnemia(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSANEMIA, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSANEMIA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSANEMIA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSANEMIA, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically()
   {
     return getInPatientsClinically(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSCLINICALLY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSCLINICALLY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSCLINICALLY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSCLINICALLY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive()
   {
     return getInPatientsDefinitive(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDEFINITIVE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDEFINITIVE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDEFINITIVE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDEFINITIVE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged()
   {
     return getInPatientsDischarged(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDISCHARGED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDISCHARGED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDISCHARGED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSDISCHARGED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale()
   {
     return getInPatientsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale()
   {
     return getInPatientsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated()
   {
     return getInPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia()
   {
     return getInPatientsPregnantAnemia(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTANEMIA, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTANEMIA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis()
   {
     return getInPatientsPregnantDianosis(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTDIANOSIS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTDIANOSIS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal()
   {
     return getInPatientsTotal(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSTOTAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSTOTAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSTOTAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.INPATIENTSTOTAL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients()
   {
     return getOutPatients(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale()
   {
     return getOutPatientsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale()
   {
     return getOutPatientsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated()
   {
     return getOutPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal()
   {
     return getOutPatientsTotal(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSTOTAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSTOTAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSTOTAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.OUTPATIENTSTOTAL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated()
   {
     return getPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis()
   {
     return getPregnantDiagnosis(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSIS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSIS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSIS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSIS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath()
   {
     return getPregnantDiagnosisDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSISDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSISDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived()
   {
     return getPregnantReferralsReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTREFERRALSRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTREFERRALSRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived()
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived()
   {
     return getReferralsReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent()
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent()
   {
     return getReferralsSent(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSSENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSSENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSSENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.REFERRALSSENT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths()
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths()
   {
     return getStillBirths(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.STILLBIRTHS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.STILLBIRTHS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.STILLBIRTHS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.ChildCaseView.STILLBIRTHS, alias, displayLabel);
 
   }
  
