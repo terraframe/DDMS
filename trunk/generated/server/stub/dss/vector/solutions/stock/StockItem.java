@@ -49,7 +49,11 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
   @Override
   protected String buildKey()
   {
-    return this.getItemName().getKey() + "-" + this.getQuantity() + "-" + this.getUnit().getKey();
+	  if (this.getItemName() != null && this.getUnit() != null) {
+		 return this.getItemName().getKey() + "-" + this.getQuantity() + "-" + this.getUnit().getKey();
+	  } else {
+		  return super.buildKey();
+	  }
   }
 
   @Override
