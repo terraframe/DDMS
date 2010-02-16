@@ -36,7 +36,7 @@ public class KnockDownAssayView extends KnockDownAssayViewBase implements com.te
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
+      attribute = ( (AttributeLocal) attribute ).localize();
     }
 
     if (isAscending)

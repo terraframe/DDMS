@@ -70,11 +70,11 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
 
 		MdUtil parent = MdUtil.getMdUtil(AbstractCategoryFactory.CLASS);
 
-		vq.SELECT(F.CONCAT(utilQ.getPackageName(), F.CONCAT(".", utilQ.getTypeName()), QueryConstants.CATEGORY_FACTORY_TYPE), utilQ.getDisplayLabel().getSessionLocale(QueryConstants.CATEGORY_FACTORY_DISPLAY));
+		vq.SELECT(F.CONCAT(utilQ.getPackageName(), F.CONCAT(".", utilQ.getTypeName()), QueryConstants.CATEGORY_FACTORY_TYPE), utilQ.getDisplayLabel().localize(QueryConstants.CATEGORY_FACTORY_DISPLAY));
 		vq.WHERE(inheritQ.parentId().EQ(parent.getId()));
 		vq.WHERE(utilQ.superClass(inheritQ));
 
-		vq.ORDER_BY_ASC(utilQ.getDisplayLabel().getSessionLocale());
+		vq.ORDER_BY_ASC(utilQ.getDisplayLabel().localize());
 
 		return vq;
 	}

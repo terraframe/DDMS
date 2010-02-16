@@ -69,8 +69,8 @@ public class SynchronizedTypeViewQuery extends SynchronizedTypeViewQueryBase  im
       vQuery.map(SynchronizedTypeView.MDTYPEID, mdTypeQuery.getId());
       vQuery.map(SynchronizedTypeView.EXPORTED, mdTypeQuery.getExported());
       vQuery.map(SynchronizedTypeView.QUALIFIEDTYPE, F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."), mdTypeQuery.getTypeName()));
-      vQuery.map(SynchronizedTypeView.DISPLAYLABEL, mdTypeQuery.getDisplayLabel().getSessionLocale());
-      vQuery.map(SynchronizedTypeView.DESCRIPTION, mdTypeQuery.getDescription().getSessionLocale());
+      vQuery.map(SynchronizedTypeView.DISPLAYLABEL, mdTypeQuery.getDisplayLabel().localize());
+      vQuery.map(SynchronizedTypeView.DESCRIPTION, mdTypeQuery.getDescription().localize());
     }
 
     /**

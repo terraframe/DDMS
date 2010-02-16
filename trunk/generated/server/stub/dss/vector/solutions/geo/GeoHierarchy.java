@@ -1755,9 +1755,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
-      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().getDefaultLocale());
-      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription().getDefaultLocale());
-      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().getDefaultLocale());
+      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
+      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription().localize());
+      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().localize());
     }
 
     /**
@@ -1770,7 +1770,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       vQuery.WHERE(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
       vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
-      vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().getDefaultLocale());
+      vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().localize());
     }
 
   }
@@ -1813,9 +1813,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
-      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().getDefaultLocale());
-      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription().getDefaultLocale());
-      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().getDefaultLocale());
+      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
+      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription().localize());
+      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().localize());
     }
 
     @Override
@@ -1831,7 +1831,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
 
       vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
-      vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().getDefaultLocale());
+      vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().localize());
     }
   }
 

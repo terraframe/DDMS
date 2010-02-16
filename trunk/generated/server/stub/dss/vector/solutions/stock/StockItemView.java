@@ -101,7 +101,7 @@ public class StockItemView extends StockItemViewBase implements com.terraframe.m
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
+      attribute = ( (AttributeLocal) attribute ).localize();
     }
 
     if (isAscending)
