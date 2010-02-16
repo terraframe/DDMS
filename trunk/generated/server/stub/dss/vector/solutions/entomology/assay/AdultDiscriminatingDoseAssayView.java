@@ -36,7 +36,7 @@ public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAss
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).currentLocale();
+      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
     }
 
     if (isAscending)

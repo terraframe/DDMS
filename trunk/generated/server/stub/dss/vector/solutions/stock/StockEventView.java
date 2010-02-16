@@ -221,7 +221,7 @@ public class StockEventView extends StockEventViewBase implements com.terraframe
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).currentLocale();
+      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
     }
 
     if (isAscending)

@@ -5,9 +5,9 @@ import java.util.Date;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSingleChar;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.ontology.Term;
@@ -360,9 +360,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 
-    SelectableSingleChar orderBy = personQuery.getFirstName(PersonView.FIRSTNAME);
+    SelectableChar orderBy = personQuery.getFirstName(PersonView.FIRSTNAME);
 
-    SelectableSingleChar idReference = personQuery.getId(PersonView.ID);
+    SelectableChar idReference = personQuery.getId(PersonView.ID);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
         idReference,
         orderBy, personQuery.getLastName(PersonView.LASTNAME),

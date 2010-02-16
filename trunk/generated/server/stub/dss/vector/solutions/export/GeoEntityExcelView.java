@@ -68,7 +68,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.te
     
     MdBusinessQuery query = new MdBusinessQuery(new QueryFactory());
     query.WHERE(query.getPackageName().EQ(geoPackage));
-    query.AND(OR.get(query.getTypeName().EQ(geoType), query.getDisplayLabel().currentLocale().EQ(geoType)));
+    query.AND(OR.get(query.getTypeName().EQ(geoType), query.getDisplayLabel().getSessionLocale().EQ(geoType)));
     OIterator<? extends MdBusiness> iterator = query.getIterator();
     try
     {

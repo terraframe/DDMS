@@ -151,7 +151,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).currentLocale();
+      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
     }
 
     if (isAscending)
@@ -193,7 +193,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.terr
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).currentLocale();
+      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
     }
 
     if (isAscending)

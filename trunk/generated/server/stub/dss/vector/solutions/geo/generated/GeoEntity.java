@@ -52,8 +52,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.SelectableSingleChar;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
@@ -268,7 +268,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
@@ -315,13 +315,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     ValueQuery valueQuery = new ValueQuery(f);
     
-    SelectableSingleChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
         q.getId(GeoEntity.ID),
         orderBy,
         q.getGeoId(GeoEntity.GEOID),
         q.getType(GeoEntity.TYPE),
-        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+        mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL),
         tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] {F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
@@ -434,13 +434,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
-    SelectableSingleChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
         q.getId(GeoEntity.ID),
         orderBy,
         q.getGeoId(GeoEntity.GEOID),
         q.getType(GeoEntity.TYPE),
-        mdQ.getDisplayLabel().currentLocale(MdBusinessInfo.DISPLAY_LABEL),
+        mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL),
         tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition condition = null;
@@ -1565,7 +1565,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
       vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
-      vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
+      vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().getSessionLocale());
       // vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getName());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getDisplay());
     }

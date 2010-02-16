@@ -64,7 +64,7 @@ private static final long serialVersionUID = 1238962018908L;
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
       vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
-      vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
+      vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().getSessionLocale());
     }
 
     /**

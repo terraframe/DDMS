@@ -10,8 +10,8 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.SelectableSingleChar;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.PersonQuery;
@@ -134,7 +134,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
     SprayTeamQuery teamQuery = new SprayTeamQuery(valueQuery);
 
-    SelectableSingleChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
+    SelectableChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
 
     // IMPORTANT: The conditions teamQuery.getId().NE(teamId) and
@@ -171,7 +171,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
     InTeamQuery inTeamQuery = new InTeamQuery(valueQuery);
 
-    SelectableSingleChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
+    SelectableChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] {
         leaderQuery.getId(TeamMemberView.ID),
         leaderQuery.getMemberId(TeamMemberView.MEMBERID),
@@ -211,7 +211,7 @@ public class TeamMemberView extends TeamMemberViewBase implements Reloadable
     PersonQuery personQuery = new PersonQuery(valueQuery);
     TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
 
-    SelectableSingleChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
+    SelectableChar orderBy = personQuery.getFirstName(TeamMemberView.FIRSTNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { leaderQuery.getId(TeamMemberView.ID), leaderQuery.getMemberId(TeamMemberView.MEMBERID), orderBy, personQuery.getLastName(TeamMemberView.LASTNAME) };
 
     Condition[] conditions = new Condition[] { leaderQuery.getIsSprayOperator().EQ(true), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };

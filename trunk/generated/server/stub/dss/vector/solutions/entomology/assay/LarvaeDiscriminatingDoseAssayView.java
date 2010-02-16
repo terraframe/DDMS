@@ -37,7 +37,7 @@ public class LarvaeDiscriminatingDoseAssayView extends LarvaeDiscriminatingDoseA
     }
     else if (attribute instanceof AttributeLocal)
     {
-      attribute = ( (AttributeLocal) attribute ).currentLocale();
+      attribute = ( (AttributeLocal) attribute ).getSessionLocale();
     }
 
     if (isAscending)

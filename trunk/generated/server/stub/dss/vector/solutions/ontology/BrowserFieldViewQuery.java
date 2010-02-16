@@ -69,18 +69,18 @@ private static final long serialVersionUID = 1252959713156L;
       
       // join concrete attribute with display labels
       this.concreteQuery.SELECT(this.mdClassQuery.getId("classId"),
-          this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+          this.mdClassQuery.getDisplayLabel().getSessionLocale("classLabel"),
           this.mdRefQuery.getId("attributeId"),
-          this.mdRefQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdRefQuery.getDisplayLabel().getSessionLocale("attributeLabel"),
           this.mdRefQuery.getDefaultValue("defaultValue"),
           this.mdRefQuery.getDefiningMdClass().getId("definingMdClass"));
       
       
       // join virtual attribute with display labels
       this.virtualQuery.SELECT(this.mdClassQuery.getId("classId"),
-          this.mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+          this.mdClassQuery.getDisplayLabel().getSessionLocale("classLabel"),
           this.mdVirtualQuery.getId("attributeId"),
-          this.mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
+          this.mdVirtualQuery.getDisplayLabel().getSessionLocale("attributeLabel"),
           this.mdVirtualRefQuery.getDefaultValue("defaultValue"),
           this.mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
       

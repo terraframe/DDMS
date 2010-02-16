@@ -2,10 +2,6 @@ package dss.vector.solutions;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.BusinessQuery;
@@ -29,6 +25,7 @@ import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -41,28 +38,31 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    String s = "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
-    Pattern p = Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
-    Matcher m = p.matcher(s);
     
-    m.matches();
+    testNoLogin();
     
-    String matched = m.group(2);
-
-    String[] split = matched.split(",\\s");
-    String[] done = new String[split.length-1];
-    int count = 0;
-    for(String piece : split)
-    {
-      if(!piece.equals("geometry_v"))
-      {
-        done[count++] = piece;
-      }
-    }
-    
-    String groupBy = StringUtils.join(done, ", ");
-    
-    String sql = m.replaceFirst("$1"+groupBy+"$4");
+//    String s = "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
+//    Pattern p = Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
+//    Matcher m = p.matcher(s);
+//    
+//    m.matches();
+//    
+//    String matched = m.group(2);
+//
+//    String[] split = matched.split(",\\s");
+//    String[] done = new String[split.length-1];
+//    int count = 0;
+//    for(String piece : split)
+//    {
+//      if(!piece.equals("geometry_v"))
+//      {
+//        done[count++] = piece;
+//      }
+//    }
+//    
+//    String groupBy = StringUtils.join(done, ", ");
+//    
+//    String sql = m.replaceFirst("$1"+groupBy+"$4");
     
 //try
 //{
@@ -279,6 +279,13 @@ public class Sandbox
   public static void testNoLogin()
   {
 
+    QueryFactory qf = new QueryFactory();
+    
+    GeoHierarchyViewQuery q = new GeoHierarchyViewQuery(qf, "", true, 20, 1);
+    q.WHERE(q.getIsADisplayLabel().EQ("Geo Entity"));
+    
+    System.out.println(q.getSQL());
+    
 //    ValueQuery valueQuery = new ValueQuery(factory);
 //    AggregatedCaseQuery query = new AggregatedCaseQuery(factory);
 //
