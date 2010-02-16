@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1191046946)
+@com.terraframe.mojo.business.ClassSignature(hash = 360842161)
 public class SurfaceControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.SurfaceController";
@@ -10,7 +10,7 @@ public class SurfaceControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1191046946;
+  private static final long serialVersionUID = 360842161;
   
   public SurfaceControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1268058582)
+@com.terraframe.mojo.business.ClassSignature(hash = 1122119869)
 public class HealthFacilityControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.HealthFacilityController";
@@ -10,7 +10,7 @@ public class HealthFacilityControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1268058582;
+  private static final long serialVersionUID = 1122119869;
   
   public HealthFacilityControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

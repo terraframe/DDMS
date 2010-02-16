@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1446089679)
+@com.terraframe.mojo.business.ClassSignature(hash = -1604412892)
 public class ConstituencyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.ConstituencyController";
@@ -10,7 +10,7 @@ public class ConstituencyControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1446089679;
+  private static final long serialVersionUID = -1604412892;
   
   public ConstituencyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

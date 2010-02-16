@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1116410289)
+@com.terraframe.mojo.business.ClassSignature(hash = 120729470)
 public class CountryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.CountryController";
@@ -10,7 +10,7 @@ public class CountryControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1116410289;
+  private static final long serialVersionUID = 120729470;
   
   public CountryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

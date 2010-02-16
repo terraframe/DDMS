@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 326417058)
+@com.terraframe.mojo.business.ClassSignature(hash = -1261786643)
 public class SprayZoneControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.SprayZoneController";
@@ -10,7 +10,7 @@ public class SprayZoneControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 326417058;
+  private static final long serialVersionUID = -1261786643;
   
   public SprayZoneControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

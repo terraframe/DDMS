@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -502458089)
+@com.terraframe.mojo.business.ClassSignature(hash = 2119240284)
 public class StockDepotControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.StockDepotController";
@@ -10,7 +10,7 @@ public class StockDepotControllerBase implements com.terraframe.mojo.generation.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -502458089;
+  private static final long serialVersionUID = 2119240284;
   
   public StockDepotControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

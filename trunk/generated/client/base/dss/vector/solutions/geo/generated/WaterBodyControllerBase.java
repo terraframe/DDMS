@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1836371006)
+@com.terraframe.mojo.business.ClassSignature(hash = 700820685)
 public class WaterBodyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.WaterBodyController";
@@ -10,7 +10,7 @@ public class WaterBodyControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1836371006;
+  private static final long serialVersionUID = 700820685;
   
   public WaterBodyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

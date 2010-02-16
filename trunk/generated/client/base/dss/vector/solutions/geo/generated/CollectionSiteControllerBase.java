@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2004125264)
+@com.terraframe.mojo.business.ClassSignature(hash = 1402506659)
 public class CollectionSiteControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.CollectionSiteController";
@@ -10,7 +10,7 @@ public class CollectionSiteControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -2004125264;
+  private static final long serialVersionUID = 1402506659;
   
   public CollectionSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

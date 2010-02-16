@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 724010201)
+@com.terraframe.mojo.business.ClassSignature(hash = 938772954)
 public class WardControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.WardController";
@@ -10,7 +10,7 @@ public class WardControllerBase implements com.terraframe.mojo.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 724010201;
+  private static final long serialVersionUID = 938772954;
   
   public WardControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

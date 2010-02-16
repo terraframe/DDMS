@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2088785834)
+@com.terraframe.mojo.business.ClassSignature(hash = 1491941097)
 public class SentinelSiteControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.SentinelSiteController";
@@ -10,7 +10,7 @@ public class SentinelSiteControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 2088785834;
+  private static final long serialVersionUID = 1491941097;
   
   public SentinelSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

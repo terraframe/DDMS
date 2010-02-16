@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1142488907)
+@com.terraframe.mojo.business.ClassSignature(hash = -1650212226)
 public class RoadControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.generated.RoadController";
@@ -10,7 +10,7 @@ public class RoadControllerBase implements com.terraframe.mojo.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1142488907;
+  private static final long serialVersionUID = -1650212226;
   
   public RoadControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
