@@ -26,75 +26,75 @@ private static final long serialVersionUID = 77506268;
   {
     return dss.vector.solutions.export.IndividualIPTExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorName()
+  public com.terraframe.mojo.query.SelectableChar getAdministratorName()
   {
     return getAdministratorName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAdministratorName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAdministratorName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorSurname()
+  public com.terraframe.mojo.query.SelectableChar getAdministratorSurname()
   {
     return getAdministratorSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorSurname(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAdministratorSurname(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAdministratorSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAdministratorSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ADMINISTRATORSURNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseNumber()
+  public com.terraframe.mojo.query.SelectableChar getDoseNumber()
   {
     return getDoseNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseNumber(String alias)
+  public com.terraframe.mojo.query.SelectableChar getDoseNumber(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSENUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSENUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getDoseNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSENUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSENUMBER, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseType()
+  public com.terraframe.mojo.query.SelectableChar getDoseType()
   {
     return getDoseType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getDoseType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSETYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSETYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDoseType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getDoseType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSETYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.DOSETYPE, alias, displayLabel);
 
   }
  
@@ -117,165 +117,165 @@ private static final long serialVersionUID = 77506268;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.FACILITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsANCVisit()
+  public com.terraframe.mojo.query.SelectableBoolean getIsANCVisit()
   {
     return getIsANCVisit(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsANCVisit(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getIsANCVisit(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ISANCVISIT, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ISANCVISIT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsANCVisit(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getIsANCVisit(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ISANCVISIT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.ISANCVISIT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberOfReceivedITNs()
+  public com.terraframe.mojo.query.SelectableInteger getNumberOfReceivedITNs()
   {
     return getNumberOfReceivedITNs(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberOfReceivedITNs(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberOfReceivedITNs(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberOfReceivedITNs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberOfReceivedITNs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.NUMBEROFRECEIVEDITNS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getPatientDOB()
+  public com.terraframe.mojo.query.SelectableMoment getPatientDOB()
   {
     return getPatientDOB(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getPatientDOB(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getPatientDOB(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTDOB, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTDOB, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getPatientDOB(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getPatientDOB(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTDOB, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTDOB, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientFirstName()
+  public com.terraframe.mojo.query.SelectableChar getPatientFirstName()
   {
     return getPatientFirstName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientFirstName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPatientFirstName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTFIRSTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTFIRSTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientFirstName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPatientFirstName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTFIRSTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTFIRSTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientLastName()
+  public com.terraframe.mojo.query.SelectableChar getPatientLastName()
   {
     return getPatientLastName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientLastName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPatientLastName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTLASTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTLASTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientLastName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPatientLastName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTLASTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTLASTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientType()
+  public com.terraframe.mojo.query.SelectableChar getPatientType()
   {
     return getPatientType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPatientType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPatientType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedITN()
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedITN()
   {
     return getReceivedITN(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedITN(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedITN(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDITN, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedSupplement()
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedSupplement()
   {
     return getReceivedSupplement(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedSupplement(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedSupplement(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReceivedSupplement(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getReceivedSupplement(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RECEIVEDSUPPLEMENT, alias, displayLabel);
 
   }
  
@@ -298,39 +298,39 @@ private static final long serialVersionUID = 77506268;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.RESIDENTIALLOCATION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate()
+  public com.terraframe.mojo.query.SelectableMoment getServiceDate()
   {
     return getServiceDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getServiceDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.SERVICEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.SERVICEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getServiceDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getServiceDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.SERVICEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.SERVICEDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getVisitNumber()
+  public com.terraframe.mojo.query.SelectableChar getVisitNumber()
   {
     return getVisitNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getVisitNumber(String alias)
+  public com.terraframe.mojo.query.SelectableChar getVisitNumber(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.VISITNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.VISITNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getVisitNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getVisitNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.VISITNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.VISITNUMBER, alias, displayLabel);
 
   }
  

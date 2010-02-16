@@ -62,38 +62,38 @@ private static final long serialVersionUID = -819535147;
     return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.AGERANGE, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed()
+  public com.terraframe.mojo.query.SelectableInteger getFed()
   {
     return getFed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getFed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getFed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid()
+  public com.terraframe.mojo.query.SelectableInteger getGravid()
   {
     return getGravid(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getGravid(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getGravid(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex()
@@ -182,12 +182,12 @@ private static final long serialVersionUID = -819535147;
     public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange();
     public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias);
     public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getFed();
-    public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getGravid();
-    public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getFed();
+    public com.terraframe.mojo.query.SelectableInteger getFed(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getFed(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getGravid();
+    public com.terraframe.mojo.query.SelectableInteger getGravid(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getGravid(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel);
@@ -242,38 +242,38 @@ private static final long serialVersionUID = -1210646413;
     return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.AGERANGE, com.terraframe.mojo.system.metadata.MdAttributeStruct.CLASS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed()
+  public com.terraframe.mojo.query.SelectableInteger getFed()
   {
     return getFed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getFed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getFed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.FED, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid()
+  public com.terraframe.mojo.query.SelectableInteger getGravid()
   {
     return getGravid(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getGravid(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getGravid(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getGravid(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAssay.GRAVID, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex()

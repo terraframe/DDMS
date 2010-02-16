@@ -26,129 +26,129 @@ private static final long serialVersionUID = 44181204;
   {
     return dss.vector.solutions.MDSSUserView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName()
+  public com.terraframe.mojo.query.SelectableChar getFirstName()
   {
     return getFirstName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFirstName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.FIRSTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.FIRSTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFirstName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.FIRSTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.FIRSTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName()
+  public com.terraframe.mojo.query.SelectableChar getLastName()
   {
     return getLastName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLastName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.LASTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.LASTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLastName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.LASTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.LASTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPersonId()
+  public com.terraframe.mojo.query.SelectableChar getPersonId()
   {
     return getPersonId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPersonId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPersonId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.PERSONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.PERSONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPersonId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPersonId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.PERSONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.PERSONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getRoles()
+  public com.terraframe.mojo.query.SelectableChar getRoles()
   {
     return getRoles(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getRoles(String alias)
+  public com.terraframe.mojo.query.SelectableChar getRoles(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getRoles(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getRoles(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.ROLES, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUserId()
+  public com.terraframe.mojo.query.SelectableChar getUserId()
   {
     return getUserId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUserId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getUserId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUserId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getUserId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUsername()
+  public com.terraframe.mojo.query.SelectableChar getUsername()
   {
     return getUsername(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUsername(String alias)
+  public com.terraframe.mojo.query.SelectableChar getUsername(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUsername(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getUsername(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.MDSSUserView.USERNAME, alias, displayLabel);
 
   }
  

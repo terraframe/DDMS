@@ -26,219 +26,219 @@ private static final long serialVersionUID = -1948249074;
   {
     return dss.vector.solutions.export.IndividualCaseExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivelyDetected()
+  public com.terraframe.mojo.query.SelectableBoolean getActivelyDetected()
   {
     return getActivelyDetected(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivelyDetected(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getActivelyDetected(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ACTIVELYDETECTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ACTIVELYDETECTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivelyDetected(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getActivelyDetected(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ACTIVELYDETECTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ACTIVELYDETECTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getAdmissionDate()
+  public com.terraframe.mojo.query.SelectableMoment getAdmissionDate()
   {
     return getAdmissionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getAdmissionDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getAdmissionDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ADMISSIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ADMISSIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getAdmissionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getAdmissionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ADMISSIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ADMISSIONDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getAge()
+  public com.terraframe.mojo.query.SelectableInteger getAge()
   {
     return getAge(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getAge(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.AGE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.AGE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getAge(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getAge(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.AGE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.AGE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAnaemiaPatient()
+  public com.terraframe.mojo.query.SelectableBoolean getAnaemiaPatient()
   {
     return getAnaemiaPatient(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAnaemiaPatient(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getAnaemiaPatient(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ANAEMIAPATIENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ANAEMIAPATIENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAnaemiaPatient(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getAnaemiaPatient(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ANAEMIAPATIENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ANAEMIAPATIENT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate()
+  public com.terraframe.mojo.query.SelectableMoment getCaseReportDate()
   {
     return getCaseReportDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCaseReportDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEREPORTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEREPORTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCaseReportDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCaseReportDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEREPORTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEREPORTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getClinicalDiagnosis()
+  public com.terraframe.mojo.query.SelectableBoolean getClinicalDiagnosis()
   {
     return getClinicalDiagnosis(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getClinicalDiagnosis(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getClinicalDiagnosis(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLINICALDIAGNOSIS, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLINICALDIAGNOSIS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getClinicalDiagnosis(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getClinicalDiagnosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLINICALDIAGNOSIS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLINICALDIAGNOSIS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateOfBirth()
+  public com.terraframe.mojo.query.SelectableMoment getDateOfBirth()
   {
     return getDateOfBirth(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateOfBirth(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getDateOfBirth(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFBIRTH, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFBIRTH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateOfBirth(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getDateOfBirth(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFBIRTH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFBIRTH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDetectedBy()
+  public com.terraframe.mojo.query.SelectableChar getDetectedBy()
   {
     return getDetectedBy(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDetectedBy(String alias)
+  public com.terraframe.mojo.query.SelectableChar getDetectedBy(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DETECTEDBY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DETECTEDBY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDetectedBy(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getDetectedBy(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DETECTEDBY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DETECTEDBY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate()
+  public com.terraframe.mojo.query.SelectableMoment getDiagnosisDate()
   {
     return getDiagnosisDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getDiagnosisDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDiagnosisDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getDiagnosisDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getDiedInFacility()
+  public com.terraframe.mojo.query.SelectableBoolean getDiedInFacility()
   {
     return getDiedInFacility(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getDiedInFacility(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getDiedInFacility(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIEDINFACILITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIEDINFACILITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getDiedInFacility(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getDiedInFacility(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIEDINFACILITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIEDINFACILITY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getFacilityVisit()
+  public com.terraframe.mojo.query.SelectableMoment getFacilityVisit()
   {
     return getFacilityVisit(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getFacilityVisit(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getFacilityVisit(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FACILITYVISIT, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FACILITYVISIT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getFacilityVisit(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getFacilityVisit(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FACILITYVISIT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FACILITYVISIT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName()
+  public com.terraframe.mojo.query.SelectableChar getFirstName()
   {
     return getFirstName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getFirstName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FIRSTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FIRSTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getFirstName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getFirstName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FIRSTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.FIRSTNAME, alias, displayLabel);
 
   }
  
@@ -261,129 +261,129 @@ private static final long serialVersionUID = -1948249074;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.HEALTHFACILITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabTest()
+  public com.terraframe.mojo.query.SelectableChar getLabTest()
   {
     return getLabTest(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabTest(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLabTest(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTEST, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTEST, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLabTest(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLabTest(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTEST, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTEST, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLabTestDate()
+  public com.terraframe.mojo.query.SelectableMoment getLabTestDate()
   {
     return getLabTestDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLabTestDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getLabTestDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTESTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTESTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getLabTestDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getLabTestDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTESTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LABTESTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName()
+  public com.terraframe.mojo.query.SelectableChar getLastName()
   {
     return getLastName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getLastName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LASTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LASTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getLastName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getLastName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LASTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.LASTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMalariaType()
+  public com.terraframe.mojo.query.SelectableChar getMalariaType()
   {
     return getMalariaType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMalariaType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getMalariaType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.MALARIATYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.MALARIATYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getMalariaType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getMalariaType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.MALARIATYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.MALARIATYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientCategory()
+  public com.terraframe.mojo.query.SelectableChar getPatientCategory()
   {
     return getPatientCategory(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientCategory(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPatientCategory(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PATIENTCATEGORY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PATIENTCATEGORY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPatientCategory(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPatientCategory(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PATIENTCATEGORY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PATIENTCATEGORY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant()
+  public com.terraframe.mojo.query.SelectableBoolean getPregnant()
   {
     return getPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PREGNANT, alias, displayLabel);
 
   }
  
@@ -406,93 +406,93 @@ private static final long serialVersionUID = -1948249074;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROBABLESOURCE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getProperlyRelease()
+  public com.terraframe.mojo.query.SelectableBoolean getProperlyRelease()
   {
     return getProperlyRelease(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getProperlyRelease(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getProperlyRelease(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROPERLYRELEASE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROPERLYRELEASE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getProperlyRelease(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getProperlyRelease(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROPERLYRELEASE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROPERLYRELEASE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getReferralReason()
+  public com.terraframe.mojo.query.SelectableChar getReferralReason()
   {
     return getReferralReason(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getReferralReason(String alias)
+  public com.terraframe.mojo.query.SelectableChar getReferralReason(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERRALREASON, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERRALREASON, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getReferralReason(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getReferralReason(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERRALREASON, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERRALREASON, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredFrom()
+  public com.terraframe.mojo.query.SelectableBoolean getReferredFrom()
   {
     return getReferredFrom(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredFrom(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getReferredFrom(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDFROM, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDFROM, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredFrom(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getReferredFrom(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDFROM, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDFROM, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredTo()
+  public com.terraframe.mojo.query.SelectableBoolean getReferredTo()
   {
     return getReferredTo(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredTo(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getReferredTo(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDTO, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDTO, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getReferredTo(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getReferredTo(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDTO, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.REFERREDTO, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getReleaseDate()
+  public com.terraframe.mojo.query.SelectableMoment getReleaseDate()
   {
     return getReleaseDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getReleaseDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getReleaseDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RELEASEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RELEASEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getReleaseDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getReleaseDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RELEASEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RELEASEDATE, alias, displayLabel);
 
   }
  
@@ -515,147 +515,147 @@ private static final long serialVersionUID = -1948249074;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSampleType()
+  public com.terraframe.mojo.query.SelectableChar getSampleType()
   {
     return getSampleType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSampleType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSampleType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SAMPLETYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SAMPLETYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSampleType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSampleType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SAMPLETYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SAMPLETYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex()
+  public com.terraframe.mojo.query.SelectableChar getSex()
   {
     return getSex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SEX, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSymptomComments()
+  public com.terraframe.mojo.query.SelectableChar getSymptomComments()
   {
     return getSymptomComments(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSymptomComments(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSymptomComments(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMCOMMENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMCOMMENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSymptomComments(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSymptomComments(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMCOMMENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMCOMMENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSymptomOnset()
+  public com.terraframe.mojo.query.SelectableMoment getSymptomOnset()
   {
     return getSymptomOnset(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSymptomOnset(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getSymptomOnset(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMONSET, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMONSET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getSymptomOnset(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMONSET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMONSET, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestSampleDate()
+  public com.terraframe.mojo.query.SelectableMoment getTestSampleDate()
   {
     return getTestSampleDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestSampleDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getTestSampleDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTSAMPLEDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTSAMPLEDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestSampleDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getTestSampleDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTSAMPLEDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTSAMPLEDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatment()
+  public com.terraframe.mojo.query.SelectableChar getTreatment()
   {
     return getTreatment(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatment(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTreatment(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatment(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTreatment(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatmentMethod()
+  public com.terraframe.mojo.query.SelectableChar getTreatmentMethod()
   {
     return getTreatmentMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatmentMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTreatmentMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTreatmentMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTreatmentMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTreatmentStartDate()
+  public com.terraframe.mojo.query.SelectableMoment getTreatmentStartDate()
   {
     return getTreatmentStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTreatmentStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getTreatmentStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTSTARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTSTARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTreatmentStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getTreatmentStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTSTARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TREATMENTSTARTDATE, alias, displayLabel);
 
   }
  

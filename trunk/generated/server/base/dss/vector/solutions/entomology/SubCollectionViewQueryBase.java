@@ -45,75 +45,75 @@ private static final long serialVersionUID = -1520283465;
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.COLLECTION, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEggs()
+  public com.terraframe.mojo.query.SelectableInteger getEggs()
   {
     return getEggs(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEggs(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getEggs(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.EGGS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.EGGS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEggs(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getEggs(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.EGGS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.EGGS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFemale()
+  public com.terraframe.mojo.query.SelectableInteger getFemale()
   {
     return getFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.FEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.FEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.FEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.FEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.ID, alias, displayLabel);
 
   }
  
@@ -136,75 +136,75 @@ private static final long serialVersionUID = -1520283465;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.IDENTMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae()
+  public com.terraframe.mojo.query.SelectableInteger getLarvae()
   {
     return getLarvae(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getLarvae(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.LARVAE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.LARVAE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getLarvae(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getLarvae(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.LARVAE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.LARVAE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMale()
+  public com.terraframe.mojo.query.SelectableInteger getMale()
   {
     return getMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.MALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.MALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.MALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.MALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPupae()
+  public com.terraframe.mojo.query.SelectableInteger getPupae()
   {
     return getPupae(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPupae(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPupae(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.PUPAE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.PUPAE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPupae(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPupae(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.PUPAE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.PUPAE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId()
+  public com.terraframe.mojo.query.SelectableChar getSubCollectionId()
   {
     return getSubCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSubCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.SUBCOLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.SUBCOLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSubCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.SUBCOLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.SUBCOLLECTIONID, alias, displayLabel);
 
   }
  
@@ -227,39 +227,39 @@ private static final long serialVersionUID = -1520283465;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.TAXON, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotal()
+  public com.terraframe.mojo.query.SelectableInteger getTotal()
   {
     return getTotal(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotal(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTotal(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.TOTAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.TOTAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotal(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.TOTAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.TOTAL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns()
+  public com.terraframe.mojo.query.SelectableInteger getUnknowns()
   {
     return getUnknowns(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getUnknowns(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.UNKNOWNS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.UNKNOWNS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnknowns(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getUnknowns(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.UNKNOWNS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.SubCollectionView.UNKNOWNS, alias, displayLabel);
 
   }
  

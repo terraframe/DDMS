@@ -45,165 +45,165 @@ private static final long serialVersionUID = -998440624;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberNatalCare()
+  public com.terraframe.mojo.query.SelectableInteger getNumberNatalCare()
   {
     return getNumberNatalCare(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberNatalCare(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberNatalCare(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERNATALCARE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERNATALCARE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberNatalCare(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberNatalCare(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERNATALCARE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERNATALCARE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnant()
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnant()
   {
     return getNumberPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantITN()
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantITN()
   {
     return getNumberPregnantITN(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantITN(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantITN(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTITN, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTITN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTITN, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTITN, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantIron()
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantIron()
   {
     return getNumberPregnantIron(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantIron(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantIron(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTIRON, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTIRON, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPregnantIron(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPregnantIron(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTIRON, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.NUMBERPREGNANTIRON, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getPeriod()
   {
     return getPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType()
+  public com.terraframe.mojo.query.SelectableChar getPeriodType()
   {
     return getPeriodType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPeriodType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPeriodType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear()
+  public com.terraframe.mojo.query.SelectableInteger getPeriodYear()
   {
     return getPeriodYear(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeriodYear(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODYEAR, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODYEAR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriodYear(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeriodYear(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODYEAR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.PERIODYEAR, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotalITN()
+  public com.terraframe.mojo.query.SelectableInteger getTotalITN()
   {
     return getTotalITN(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotalITN(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTotalITN(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.TOTALITN, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.TOTALITN, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTotalITN(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTotalITN(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.TOTALITN, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedIPTExcelView.TOTALITN, alias, displayLabel);
 
   }
  

@@ -45,1965 +45,1965 @@ private static final long serialVersionUID = 1519200650;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_0()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_0()
   {
     return getIdentification_0(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_0(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_0(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_0, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_0, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_0(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_0, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_0, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_1()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_1()
   {
     return getIdentification_1(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_1(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_1(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_1, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_1, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_1(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_1, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_1, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_10()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_10()
   {
     return getIdentification_10(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_10(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_10(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_10, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_10, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_10(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_10, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_10, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_11()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_11()
   {
     return getIdentification_11(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_11(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_11(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_11, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_11, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_11(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_11, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_11, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_12()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_12()
   {
     return getIdentification_12(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_12(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_12(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_12, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_12, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_12(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_12, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_12, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_13()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_13()
   {
     return getIdentification_13(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_13(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_13(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_13, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_13, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_13(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_13, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_13, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_14()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_14()
   {
     return getIdentification_14(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_14(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_14(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_14, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_14, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_14(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_14, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_14, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_15()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_15()
   {
     return getIdentification_15(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_15(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_15(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_15, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_15, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_15(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_15, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_15, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_16()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_16()
   {
     return getIdentification_16(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_16(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_16(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_16, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_16, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_16(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_16, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_16, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_17()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_17()
   {
     return getIdentification_17(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_17(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_17(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_17, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_17, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_17(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_17, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_17, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_18()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_18()
   {
     return getIdentification_18(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_18(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_18(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_18, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_18, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_18(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_18, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_18, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_19()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_19()
   {
     return getIdentification_19(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_19(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_19(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_19, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_19, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_19(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_19, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_19, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_2()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_2()
   {
     return getIdentification_2(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_2(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_2(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_2, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_2, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_2(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_2, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_2, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_20()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_20()
   {
     return getIdentification_20(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_20(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_20(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_20, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_20, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_20(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_20, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_20, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_21()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_21()
   {
     return getIdentification_21(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_21(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_21(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_21, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_21, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_21(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_21, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_21, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_22()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_22()
   {
     return getIdentification_22(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_22(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_22(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_22, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_22, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_22(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_22, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_22, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_23()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_23()
   {
     return getIdentification_23(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_23(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_23(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_23, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_23, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_23(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_23, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_23, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_24()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_24()
   {
     return getIdentification_24(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_24(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_24(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_24, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_24, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_24(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_24, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_24, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_25()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_25()
   {
     return getIdentification_25(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_25(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_25(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_25, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_25, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_25(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_25, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_25, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_26()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_26()
   {
     return getIdentification_26(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_26(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_26(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_26, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_26, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_26(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_26, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_26, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_27()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_27()
   {
     return getIdentification_27(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_27(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_27(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_27, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_27, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_27(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_27, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_27, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_28()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_28()
   {
     return getIdentification_28(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_28(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_28(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_28, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_28, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_28(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_28, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_28, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_29()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_29()
   {
     return getIdentification_29(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_29(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_29(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_29, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_29, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_29(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_29, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_29, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_3()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_3()
   {
     return getIdentification_3(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_3(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_3(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_3, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_3, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_3(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_3, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_3, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_30()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_30()
   {
     return getIdentification_30(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_30(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_30(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_30, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_30, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_30(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_30, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_30, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_31()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_31()
   {
     return getIdentification_31(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_31(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_31(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_31, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_31, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_31(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_31, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_31, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_32()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_32()
   {
     return getIdentification_32(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_32(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_32(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_32, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_32, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_32(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_32, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_32, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_33()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_33()
   {
     return getIdentification_33(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_33(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_33(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_33, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_33, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_33(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_33, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_33, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_34()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_34()
   {
     return getIdentification_34(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_34(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_34(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_34, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_34, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_34(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_34, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_34, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_35()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_35()
   {
     return getIdentification_35(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_35(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_35(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_35, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_35, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_35(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_35, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_35, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_36()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_36()
   {
     return getIdentification_36(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_36(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_36(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_36, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_36, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_36(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_36, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_36, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_37()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_37()
   {
     return getIdentification_37(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_37(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_37(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_37, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_37, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_37(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_37, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_37, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_38()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_38()
   {
     return getIdentification_38(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_38(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_38(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_38, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_38, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_38(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_38, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_38, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_39()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_39()
   {
     return getIdentification_39(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_39(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_39(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_39, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_39, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_39(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_39, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_39, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_4()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_4()
   {
     return getIdentification_4(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_4(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_4(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_4, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_4, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_4(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_4, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_4, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_40()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_40()
   {
     return getIdentification_40(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_40(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_40(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_40, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_40, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_40(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_40, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_40, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_41()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_41()
   {
     return getIdentification_41(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_41(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_41(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_41, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_41, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_41(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_41, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_41, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_42()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_42()
   {
     return getIdentification_42(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_42(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_42(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_42, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_42, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_42(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_42, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_42, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_43()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_43()
   {
     return getIdentification_43(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_43(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_43(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_43, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_43, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_43(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_43, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_43, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_44()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_44()
   {
     return getIdentification_44(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_44(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_44(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_44, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_44, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_44(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_44, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_44, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_45()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_45()
   {
     return getIdentification_45(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_45(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_45(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_45, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_45, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_45(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_45, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_45, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_46()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_46()
   {
     return getIdentification_46(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_46(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_46(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_46, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_46, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_46(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_46, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_46, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_47()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_47()
   {
     return getIdentification_47(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_47(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_47(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_47, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_47, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_47(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_47, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_47, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_48()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_48()
   {
     return getIdentification_48(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_48(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_48(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_48, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_48, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_48(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_48, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_48, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_49()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_49()
   {
     return getIdentification_49(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_49(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_49(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_49, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_49, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_49(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_49, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_49, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_5()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_5()
   {
     return getIdentification_5(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_5(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_5(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_5, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_5, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_5(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_5, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_5, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_50()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_50()
   {
     return getIdentification_50(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_50(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_50(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_50, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_50, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_50(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_50, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_50, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_51()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_51()
   {
     return getIdentification_51(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_51(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_51(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_51, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_51, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_51(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_51, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_51, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_52()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_52()
   {
     return getIdentification_52(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_52(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_52(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_52, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_52, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_52(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_52, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_52, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_6()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_6()
   {
     return getIdentification_6(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_6(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_6(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_6, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_6, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_6(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_6, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_6, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_7()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_7()
   {
     return getIdentification_7(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_7(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_7(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_7, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_7, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_7(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_7, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_7, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_8()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_8()
   {
     return getIdentification_8(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_8(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_8(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_8, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_8, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_8(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_8, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_8, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_9()
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_9()
   {
     return getIdentification_9(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_9(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_9(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_9, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_9, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getIdentification_9(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getIdentification_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_9, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.IDENTIFICATION_9, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_0()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_0()
   {
     return getOutbreak_0(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_0(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_0(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_0, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_0, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_0(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_0(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_0, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_0, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_1()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_1()
   {
     return getOutbreak_1(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_1(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_1(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_1, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_1, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_1(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_1(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_1, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_1, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_10()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_10()
   {
     return getOutbreak_10(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_10(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_10(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_10, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_10, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_10(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_10(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_10, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_10, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_11()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_11()
   {
     return getOutbreak_11(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_11(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_11(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_11, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_11, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_11(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_11(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_11, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_11, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_12()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_12()
   {
     return getOutbreak_12(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_12(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_12(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_12, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_12, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_12(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_12(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_12, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_12, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_13()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_13()
   {
     return getOutbreak_13(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_13(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_13(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_13, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_13, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_13(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_13(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_13, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_13, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_14()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_14()
   {
     return getOutbreak_14(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_14(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_14(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_14, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_14, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_14(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_14(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_14, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_14, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_15()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_15()
   {
     return getOutbreak_15(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_15(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_15(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_15, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_15, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_15(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_15(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_15, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_15, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_16()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_16()
   {
     return getOutbreak_16(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_16(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_16(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_16, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_16, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_16(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_16(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_16, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_16, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_17()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_17()
   {
     return getOutbreak_17(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_17(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_17(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_17, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_17, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_17(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_17(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_17, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_17, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_18()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_18()
   {
     return getOutbreak_18(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_18(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_18(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_18, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_18, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_18(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_18(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_18, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_18, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_19()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_19()
   {
     return getOutbreak_19(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_19(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_19(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_19, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_19, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_19(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_19(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_19, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_19, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_2()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_2()
   {
     return getOutbreak_2(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_2(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_2(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_2, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_2, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_2(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_2(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_2, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_2, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_20()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_20()
   {
     return getOutbreak_20(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_20(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_20(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_20, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_20, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_20(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_20(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_20, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_20, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_21()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_21()
   {
     return getOutbreak_21(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_21(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_21(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_21, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_21, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_21(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_21(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_21, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_21, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_22()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_22()
   {
     return getOutbreak_22(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_22(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_22(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_22, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_22, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_22(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_22(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_22, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_22, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_23()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_23()
   {
     return getOutbreak_23(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_23(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_23(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_23, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_23, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_23(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_23(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_23, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_23, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_24()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_24()
   {
     return getOutbreak_24(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_24(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_24(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_24, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_24, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_24(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_24(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_24, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_24, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_25()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_25()
   {
     return getOutbreak_25(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_25(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_25(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_25, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_25, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_25(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_25(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_25, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_25, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_26()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_26()
   {
     return getOutbreak_26(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_26(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_26(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_26, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_26, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_26(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_26(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_26, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_26, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_27()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_27()
   {
     return getOutbreak_27(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_27(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_27(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_27, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_27, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_27(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_27(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_27, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_27, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_28()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_28()
   {
     return getOutbreak_28(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_28(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_28(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_28, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_28, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_28(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_28(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_28, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_28, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_29()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_29()
   {
     return getOutbreak_29(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_29(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_29(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_29, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_29, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_29(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_29(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_29, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_29, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_3()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_3()
   {
     return getOutbreak_3(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_3(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_3(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_3, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_3, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_3(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_3(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_3, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_3, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_30()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_30()
   {
     return getOutbreak_30(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_30(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_30(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_30, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_30, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_30(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_30(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_30, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_30, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_31()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_31()
   {
     return getOutbreak_31(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_31(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_31(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_31, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_31, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_31(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_31(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_31, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_31, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_32()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_32()
   {
     return getOutbreak_32(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_32(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_32(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_32, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_32, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_32(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_32(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_32, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_32, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_33()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_33()
   {
     return getOutbreak_33(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_33(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_33(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_33, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_33, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_33(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_33(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_33, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_33, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_34()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_34()
   {
     return getOutbreak_34(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_34(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_34(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_34, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_34, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_34(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_34(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_34, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_34, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_35()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_35()
   {
     return getOutbreak_35(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_35(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_35(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_35, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_35, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_35(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_35(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_35, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_35, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_36()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_36()
   {
     return getOutbreak_36(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_36(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_36(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_36, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_36, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_36(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_36(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_36, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_36, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_37()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_37()
   {
     return getOutbreak_37(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_37(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_37(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_37, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_37, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_37(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_37(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_37, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_37, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_38()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_38()
   {
     return getOutbreak_38(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_38(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_38(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_38, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_38, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_38(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_38(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_38, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_38, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_39()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_39()
   {
     return getOutbreak_39(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_39(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_39(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_39, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_39, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_39(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_39(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_39, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_39, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_4()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_4()
   {
     return getOutbreak_4(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_4(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_4(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_4, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_4, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_4(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_4(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_4, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_4, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_40()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_40()
   {
     return getOutbreak_40(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_40(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_40(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_40, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_40, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_40(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_40(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_40, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_40, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_41()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_41()
   {
     return getOutbreak_41(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_41(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_41(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_41, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_41, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_41(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_41(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_41, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_41, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_42()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_42()
   {
     return getOutbreak_42(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_42(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_42(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_42, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_42, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_42(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_42(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_42, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_42, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_43()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_43()
   {
     return getOutbreak_43(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_43(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_43(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_43, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_43, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_43(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_43(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_43, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_43, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_44()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_44()
   {
     return getOutbreak_44(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_44(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_44(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_44, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_44, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_44(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_44(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_44, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_44, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_45()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_45()
   {
     return getOutbreak_45(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_45(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_45(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_45, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_45, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_45(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_45(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_45, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_45, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_46()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_46()
   {
     return getOutbreak_46(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_46(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_46(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_46, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_46, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_46(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_46(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_46, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_46, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_47()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_47()
   {
     return getOutbreak_47(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_47(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_47(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_47, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_47, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_47(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_47(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_47, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_47, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_48()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_48()
   {
     return getOutbreak_48(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_48(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_48(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_48, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_48, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_48(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_48(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_48, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_48, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_49()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_49()
   {
     return getOutbreak_49(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_49(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_49(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_49, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_49, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_49(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_49(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_49, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_49, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_5()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_5()
   {
     return getOutbreak_5(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_5(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_5(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_5, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_5, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_5(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_5(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_5, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_5, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_50()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_50()
   {
     return getOutbreak_50(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_50(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_50(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_50, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_50, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_50(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_50(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_50, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_50, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_51()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_51()
   {
     return getOutbreak_51(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_51(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_51(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_51, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_51, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_51(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_51(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_51, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_51, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_52()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_52()
   {
     return getOutbreak_52(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_52(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_52(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_52, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_52, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_52(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_52(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_52, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_52, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_6()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_6()
   {
     return getOutbreak_6(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_6(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_6(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_6, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_6, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_6(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_6(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_6, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_6, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_7()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_7()
   {
     return getOutbreak_7(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_7(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_7(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_7, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_7, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_7(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_7(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_7, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_7, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_8()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_8()
   {
     return getOutbreak_8(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_8(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_8(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_8, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_8, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_8(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_8(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_8, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_8, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_9()
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_9()
   {
     return getOutbreak_9(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_9(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_9(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_9, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_9, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutbreak_9(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutbreak_9(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_9, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.OUTBREAK_9, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName()
+  public com.terraframe.mojo.query.SelectableChar getSeasonName()
   {
     return getSeasonName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSeasonName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.SEASONNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.SEASONNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSeasonName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSeasonName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.SEASONNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.SEASONNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getThresholdType()
+  public com.terraframe.mojo.query.SelectableBoolean getThresholdType()
   {
     return getThresholdType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getThresholdType(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getThresholdType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getThresholdType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getThresholdType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.ThresholdDataExcelView.THRESHOLDTYPE, alias, displayLabel);
 
   }
  

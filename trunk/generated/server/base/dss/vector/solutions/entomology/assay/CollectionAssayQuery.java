@@ -62,21 +62,21 @@ private static final long serialVersionUID = -67422567;
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime()
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime()
   {
     return getExposureTime(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration()
@@ -125,38 +125,38 @@ private static final long serialVersionUID = -67422567;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale()
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale()
   {
     return getIsofemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested()
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested()
   {
     return getQuantityTested(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()
@@ -243,21 +243,21 @@ private static final long serialVersionUID = -67422567;
     public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection();
     public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias);
     public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime();
-    public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getExposureTime();
+    public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale();
-    public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias);
-    public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested();
-    public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableBoolean getIsofemale();
+    public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias);
+    public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getQuantityTested();
+    public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel);
@@ -312,21 +312,21 @@ private static final long serialVersionUID = 1226375479;
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime()
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime()
   {
     return getExposureTime(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.EXPOSURETIME, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration()
@@ -363,38 +363,38 @@ private static final long serialVersionUID = 1226375479;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD,  alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale()
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale()
   {
     return getIsofemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.ISOFEMALE, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested()
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested()
   {
     return getQuantityTested(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.QUANTITYTESTED, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod()

@@ -38,89 +38,89 @@ private static final long serialVersionUID = 59976421;
   {
     return dss.vector.solutions.entomology.assay.AdultAgeRange.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint()
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint()
   {
     return getEndPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint()
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint()
   {
     return getStartPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, displayLabel);
 
   }
   /**  
@@ -155,21 +155,21 @@ private static final long serialVersionUID = 59976421;
   public interface AdultAgeRangeQueryStructIF extends com.terraframe.mojo.query.SelectableStruct, com.terraframe.mojo.generation.loader.Reloadable
   {
 
-    public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint();
-    public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getId();
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName();
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster();
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias);
-    public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel);
-    public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint();
-    public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias);
-    public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getEndPoint();
+    public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getId();
+    public com.terraframe.mojo.query.SelectableChar getId(String alias);
+    public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getKeyName();
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias);
+    public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster();
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias);
+    public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getStartPoint();
+    public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias, String displayLabel);
 
   }
 
@@ -187,89 +187,89 @@ private static final long serialVersionUID = 650720865;
 
   }
 
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint()
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint()
   {
     return getEndPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEndPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getEndPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ENDPOINT, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.ID, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName()
+  public com.terraframe.mojo.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getKeyName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.KEYNAME, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster()
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSiteMaster(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.SITEMASTER, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint()
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint()
   {
     return getStartPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStartPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStartPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.AdultAgeRange.STARTPOINT, alias, displayLabel);
 
   }
   }

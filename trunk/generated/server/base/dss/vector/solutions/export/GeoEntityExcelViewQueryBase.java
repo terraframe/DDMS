@@ -26,129 +26,129 @@ private static final long serialVersionUID = -991500767;
   {
     return dss.vector.solutions.export.GeoEntityExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivated()
+  public com.terraframe.mojo.query.SelectableBoolean getActivated()
   {
     return getActivated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivated(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getActivated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ACTIVATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ACTIVATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getActivated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getActivated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ACTIVATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ACTIVATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityName()
+  public com.terraframe.mojo.query.SelectableChar getEntityName()
   {
     return getEntityName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getEntityName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ENTITYNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ENTITYNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getEntityName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ENTITYNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ENTITYNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoId()
+  public com.terraframe.mojo.query.SelectableChar getGeoId()
   {
     return getGeoId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoType()
+  public com.terraframe.mojo.query.SelectableChar getGeoType()
   {
     return getGeoType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeometryWKT()
+  public com.terraframe.mojo.query.SelectableChar getGeometryWKT()
   {
     return getGeometryWKT(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeometryWKT(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeometryWKT(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOMETRYWKT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOMETRYWKT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeometryWKT(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeometryWKT(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOMETRYWKT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.GEOMETRYWKT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubType()
+  public com.terraframe.mojo.query.SelectableChar getSubType()
   {
     return getSubType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSubType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSubType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.SUBTYPE, alias, displayLabel);
 
   }
  

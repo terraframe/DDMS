@@ -26,111 +26,111 @@ private static final long serialVersionUID = -2077979972;
   {
     return dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod()
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethod()
   {
     return getCollectionMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleFloat getControlTestMortality()
+  public com.terraframe.mojo.query.SelectableFloat getControlTestMortality()
   {
     return getControlTestMortality(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleFloat getControlTestMortality(String alias)
+  public com.terraframe.mojo.query.SelectableFloat getControlTestMortality(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableFloat)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleFloat getControlTestMortality(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleFloat)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableFloat)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateCollected()
+  public com.terraframe.mojo.query.SelectableMoment getDateCollected()
   {
     return getDateCollected(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateCollected(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getDateCollected(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getDateCollected(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getDateCollected(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEndPoint()
+  public com.terraframe.mojo.query.SelectableChar getEndPoint()
   {
     return getEndPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEndPoint(String alias)
+  public com.terraframe.mojo.query.SelectableChar getEndPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ENDPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ENDPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEndPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getEndPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ENDPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ENDPOINT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime()
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime()
   {
     return getExposureTime(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.EXPOSURETIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.EXPOSURETIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getExposureTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getExposureTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.EXPOSURETIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.EXPOSURETIME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeneration()
+  public com.terraframe.mojo.query.SelectableChar getGeneration()
   {
     return getGeneration(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeneration(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeneration(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GENERATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GENERATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeneration(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeneration(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GENERATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GENERATION, alias, displayLabel);
 
   }
  
@@ -153,237 +153,237 @@ private static final long serialVersionUID = -2077979972;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime()
+  public com.terraframe.mojo.query.SelectableInteger getHoldingTime()
   {
     return getHoldingTime(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getHoldingTime(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.HOLDINGTIME, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.HOLDINGTIME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getHoldingTime(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getHoldingTime(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.HOLDINGTIME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.HOLDINGTIME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentificationMethod()
+  public com.terraframe.mojo.query.SelectableChar getIdentificationMethod()
   {
     return getIdentificationMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentificationMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getIdentificationMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.IDENTIFICATIONMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.IDENTIFICATIONMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentificationMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getIdentificationMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.IDENTIFICATIONMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.IDENTIFICATIONMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideActiveIngredient()
+  public com.terraframe.mojo.query.SelectableChar getInsecticideActiveIngredient()
   {
     return getInsecticideActiveIngredient(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideActiveIngredient(String alias)
+  public com.terraframe.mojo.query.SelectableChar getInsecticideActiveIngredient(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideActiveIngredient(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getInsecticideActiveIngredient(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getInsecticideAmount()
+  public com.terraframe.mojo.query.SelectableDouble getInsecticideAmount()
   {
     return getInsecticideAmount(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getInsecticideAmount(String alias)
+  public com.terraframe.mojo.query.SelectableDouble getInsecticideAmount(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getInsecticideAmount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDouble getInsecticideAmount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideUnits()
+  public com.terraframe.mojo.query.SelectableChar getInsecticideUnits()
   {
     return getInsecticideUnits(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideUnits(String alias)
+  public com.terraframe.mojo.query.SelectableChar getInsecticideUnits(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getInsecticideUnits(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getInsecticideUnits(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale()
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale()
   {
     return getIsofemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ISOFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ISOFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getIsofemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ISOFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ISOFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead()
+  public com.terraframe.mojo.query.SelectableInteger getQuantityDead()
   {
     return getQuantityDead(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityDead(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYDEAD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYDEAD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityDead(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityDead(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYDEAD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYDEAD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested()
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested()
   {
     return getQuantityTested(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getQuantityTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getQuantityTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.QUANTITYTESTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecie()
+  public com.terraframe.mojo.query.SelectableChar getSpecie()
   {
     return getSpecie(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecie(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSpecie(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.SPECIE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.SPECIE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecie(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSpecie(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.SPECIE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.SPECIE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStartPoint()
+  public com.terraframe.mojo.query.SelectableChar getStartPoint()
   {
     return getStartPoint(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStartPoint(String alias)
+  public com.terraframe.mojo.query.SelectableChar getStartPoint(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.STARTPOINT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.STARTPOINT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getStartPoint(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getStartPoint(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.STARTPOINT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.STARTPOINT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate()
+  public com.terraframe.mojo.query.SelectableMoment getTestDate()
   {
     return getTestDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getTestDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getTestDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getTestDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod()
+  public com.terraframe.mojo.query.SelectableChar getTestMethod()
   {
     return getTestMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTestMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTestMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTMETHOD, alias, displayLabel);
 
   }
  

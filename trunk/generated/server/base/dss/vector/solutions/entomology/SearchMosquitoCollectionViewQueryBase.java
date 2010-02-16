@@ -26,39 +26,39 @@ private static final long serialVersionUID = -1639124566;
   {
     return dss.vector.solutions.entomology.SearchMosquitoCollectionView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.ENDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.SearchMosquitoCollectionView.STARTDATE, alias, displayLabel);
 
   }
  

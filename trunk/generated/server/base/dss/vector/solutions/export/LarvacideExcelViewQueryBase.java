@@ -26,57 +26,57 @@ private static final long serialVersionUID = -989970651;
   {
     return dss.vector.solutions.export.LarvacideExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleMoment getCompletionDate()
+  public com.terraframe.mojo.query.SelectableMoment getCompletionDate()
   {
     return getCompletionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCompletionDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCompletionDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.COMPLETIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.COMPLETIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCompletionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCompletionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.COMPLETIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.COMPLETIONDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getControlMethod()
+  public com.terraframe.mojo.query.SelectableChar getControlMethod()
   {
     return getControlMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getControlMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getControlMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.CONTROLMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.CONTROLMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getControlMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getControlMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.CONTROLMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.CONTROLMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoDescription()
+  public com.terraframe.mojo.query.SelectableChar getGeoDescription()
   {
     return getGeoDescription(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoDescription(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoDescription(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.GEODESCRIPTION, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.GEODESCRIPTION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoDescription(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoDescription(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.GEODESCRIPTION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.GEODESCRIPTION, alias, displayLabel);
 
   }
  
@@ -99,183 +99,183 @@ private static final long serialVersionUID = -989970651;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getNatureOfControl()
+  public com.terraframe.mojo.query.SelectableBoolean getNatureOfControl()
   {
     return getNatureOfControl(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getNatureOfControl(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getNatureOfControl(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.NATUREOFCONTROL, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.NATUREOFCONTROL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getNatureOfControl(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getNatureOfControl(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.NATUREOFCONTROL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.NATUREOFCONTROL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPersonCount()
+  public com.terraframe.mojo.query.SelectableInteger getPersonCount()
   {
     return getPersonCount(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPersonCount(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPersonCount(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.PERSONCOUNT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.PERSONCOUNT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPersonCount(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPersonCount(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.PERSONCOUNT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.PERSONCOUNT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.STARTDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubstance()
+  public com.terraframe.mojo.query.SelectableChar getSubstance()
   {
     return getSubstance(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubstance(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSubstance(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSubstance(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSubstance(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.SUBSTANCE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTarget()
+  public com.terraframe.mojo.query.SelectableChar getTarget()
   {
     return getTarget(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTarget(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTarget(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TARGET, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TARGET, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTarget(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTarget(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TARGET, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TARGET, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTeamLeaderId()
+  public com.terraframe.mojo.query.SelectableChar getTeamLeaderId()
   {
     return getTeamLeaderId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTeamLeaderId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTeamLeaderId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TEAMLEADERID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TEAMLEADERID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTeamLeaderId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTeamLeaderId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TEAMLEADERID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TEAMLEADERID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTreated()
+  public com.terraframe.mojo.query.SelectableInteger getTreated()
   {
     return getTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.TREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUnit()
+  public com.terraframe.mojo.query.SelectableChar getUnit()
   {
     return getUnit(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUnit(String alias)
+  public com.terraframe.mojo.query.SelectableChar getUnit(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNIT, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNIT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getUnit(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getUnit(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNIT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNIT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed()
+  public com.terraframe.mojo.query.SelectableInteger getUnitsUsed()
   {
     return getUnitsUsed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getUnitsUsed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNITSUSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNITSUSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getUnitsUsed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getUnitsUsed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNITSUSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.LarvacideExcelView.UNITSUSED, alias, displayLabel);
 
   }
  

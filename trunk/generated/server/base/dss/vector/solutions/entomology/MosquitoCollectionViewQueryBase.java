@@ -26,57 +26,57 @@ private static final long serialVersionUID = 395406;
   {
     return dss.vector.solutions.entomology.MosquitoCollectionView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance()
+  public com.terraframe.mojo.query.SelectableBoolean getAbundance()
   {
     return getAbundance(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getAbundance(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ABUNDANCE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ABUNDANCE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getAbundance(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getAbundance(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ABUNDANCE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ABUNDANCE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate()
+  public com.terraframe.mojo.query.SelectableMoment getCollectionDate()
   {
     return getCollectionDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getCollectionDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getCollectionDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getCollectionDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId()
+  public com.terraframe.mojo.query.SelectableChar getCollectionId()
   {
     return getCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID, alias, displayLabel);
 
   }
  
@@ -99,39 +99,39 @@ private static final long serialVersionUID = 395406;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHOD, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethodLabel()
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethodLabel()
   {
     return getCollectionMethodLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethodLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethodLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionMethodLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getCollectionMethodLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.CONCRETEID, alias, displayLabel);
 
   }
  
@@ -154,39 +154,39 @@ private static final long serialVersionUID = 395406;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntityLabel()
+  public com.terraframe.mojo.query.SelectableChar getGeoEntityLabel()
   {
     return getGeoEntityLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntityLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoEntityLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.GEOENTITYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.GEOENTITYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntityLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoEntityLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.GEOENTITYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.GEOENTITYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.ID, alias, displayLabel);
 
   }
  

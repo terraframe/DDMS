@@ -26,219 +26,219 @@ private static final long serialVersionUID = -488605385;
   {
     return dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId()
+  public com.terraframe.mojo.query.SelectableChar getCollectionId()
   {
     return getCollectionId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getCollectionId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.COLLECTIONID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.COLLECTIONID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getCollectionId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.COLLECTIONID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.COLLECTIONID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod()
+  public com.terraframe.mojo.query.SelectableChar getIdentMethod()
   {
     return getIdentMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getIdentMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.IDENTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.IDENTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getIdentMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getIdentMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.IDENTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.IDENTMETHOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getInfected()
+  public com.terraframe.mojo.query.SelectableBoolean getInfected()
   {
     return getInfected(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getInfected(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getInfected(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.INFECTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.INFECTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getInfected(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getInfected(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.INFECTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.INFECTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMosquitosTested()
+  public com.terraframe.mojo.query.SelectableInteger getMosquitosTested()
   {
     return getMosquitosTested(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMosquitosTested(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getMosquitosTested(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.MOSQUITOSTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.MOSQUITOSTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getMosquitosTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getMosquitosTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.MOSQUITOSTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.MOSQUITOSTESTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPositive()
+  public com.terraframe.mojo.query.SelectableInteger getNumberPositive()
   {
     return getNumberPositive(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPositive(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPositive(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.NUMBERPOSITIVE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.NUMBERPOSITIVE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberPositive(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberPositive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.NUMBERPOSITIVE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.NUMBERPOSITIVE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getParasite()
+  public com.terraframe.mojo.query.SelectableChar getParasite()
   {
     return getParasite(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getParasite(String alias)
+  public com.terraframe.mojo.query.SelectableChar getParasite(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.PARASITE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.PARASITE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getParasite(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getParasite(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.PARASITE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.PARASITE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPoolId()
+  public com.terraframe.mojo.query.SelectableChar getPoolId()
   {
     return getPoolId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPoolId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPoolId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPoolId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPoolId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPoolsTested()
+  public com.terraframe.mojo.query.SelectableInteger getPoolsTested()
   {
     return getPoolsTested(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPoolsTested(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPoolsTested(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLSTESTED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLSTESTED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPoolsTested(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPoolsTested(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLSTESTED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.POOLSTESTED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex()
+  public com.terraframe.mojo.query.SelectableChar getSex()
   {
     return getSex(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSex(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SEX, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SEX, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSex(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSex(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SEX, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SEX, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecies()
+  public com.terraframe.mojo.query.SelectableChar getSpecies()
   {
     return getSpecies(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecies(String alias)
+  public com.terraframe.mojo.query.SelectableChar getSpecies(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SPECIES, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SPECIES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getSpecies(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getSpecies(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SPECIES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.SPECIES, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod()
+  public com.terraframe.mojo.query.SelectableChar getTestMethod()
   {
     return getTestMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod(String alias)
+  public com.terraframe.mojo.query.SelectableChar getTestMethod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.TESTMETHOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.TESTMETHOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getTestMethod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getTestMethod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.TESTMETHOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PooledInfectionAssayExcelView.TESTMETHOD, alias, displayLabel);
 
   }
  

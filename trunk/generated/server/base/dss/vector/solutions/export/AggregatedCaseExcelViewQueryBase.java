@@ -26,273 +26,273 @@ private static final long serialVersionUID = -86969948;
   {
     return dss.vector.solutions.export.AggregatedCaseExcelView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getAggregatedAgeGroup()
+  public com.terraframe.mojo.query.SelectableChar getAggregatedAgeGroup()
   {
     return getAggregatedAgeGroup(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAggregatedAgeGroup(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAggregatedAgeGroup(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAggregatedAgeGroup(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAggregatedAgeGroup(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases()
+  public com.terraframe.mojo.query.SelectableInteger getCases()
   {
     return getCases(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCases(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASES, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASES, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCases(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCases(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASES, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASES, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale()
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale()
   {
     return getCasesFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale()
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale()
   {
     return getCasesMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant()
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant()
   {
     return getCasesPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getCasesPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getCasesPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed()
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed()
   {
     return getClinicallyDiagnosed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath()
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath()
   {
     return getClinicallyDiagnosedDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock()
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock()
   {
     return getDaysOutOfStock(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDaysOutOfStock(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths()
+  public com.terraframe.mojo.query.SelectableInteger getDeaths()
   {
     return getDeaths(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeaths(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeaths(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeaths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale()
   {
     return getDeathsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale()
   {
     return getDeathsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant()
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant()
   {
     return getDeathsPregnant(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDeathsPregnant(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed()
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed()
   {
     return getDefinitivelyDiagnosed(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath()
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath()
   {
     return getDefinitivelyDiagnosedDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear()
+  public com.terraframe.mojo.query.SelectableInteger getEpiYear()
   {
     return getEpiYear(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getEpiYear(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getEpiYear(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getEpiYear(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, displayLabel);
 
   }
  
@@ -315,471 +315,471 @@ private static final long serialVersionUID = -86969948;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.GEOENTITY, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients()
+  public com.terraframe.mojo.query.SelectableInteger getInPatients()
   {
     return getInPatients(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatients(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatients(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia()
   {
     return getInPatientsAnemia(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsAnemia(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically()
   {
     return getInPatientsClinically(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsClinically(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive()
   {
     return getInPatientsDefinitive(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDefinitive(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged()
   {
     return getInPatientsDischarged(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsDischarged(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale()
   {
     return getInPatientsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale()
   {
     return getInPatientsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated()
   {
     return getInPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia()
   {
     return getInPatientsPregnantAnemia(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis()
   {
     return getInPatientsPregnantDianosis(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal()
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal()
   {
     return getInPatientsTotal(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getInPatientsTotal(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients()
   {
     return getOutPatients(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatients(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatients(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale()
   {
     return getOutPatientsFemale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsFemale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale()
   {
     return getOutPatientsMale(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsMale(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated()
   {
     return getOutPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal()
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal()
   {
     return getOutPatientsTotal(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getOutPatientsTotal(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated()
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated()
   {
     return getPatientsNotTreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPatientsNotTreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getPeriod()
   {
     return getPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType()
+  public com.terraframe.mojo.query.SelectableChar getPeriodType()
   {
     return getPeriodType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getPeriodType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getPeriodType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getPeriodType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis()
   {
     return getPregnantDiagnosis(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosis(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath()
   {
     return getPregnantDiagnosisDeath(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived()
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived()
   {
     return getPregnantReferralsReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPregnantReferralsReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived()
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived()
   {
     return getReferralsReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent()
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent()
   {
     return getReferralsSent(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getReferralsSent(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getReferralsSent(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths()
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths()
   {
     return getStillBirths(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getStillBirths(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getStillBirths(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, displayLabel);
 
   }
  
