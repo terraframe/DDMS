@@ -26,129 +26,129 @@ private static final long serialVersionUID = -1395395176;
   {
     return dss.vector.solutions.general.WeeklyThresholdView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel()
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel()
   {
     return getEntityLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ENTITYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ENTITYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ENTITYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ENTITYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod()
+  public com.terraframe.mojo.query.SelectableInteger getPeriod()
   {
     return getPeriod(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.PERIOD, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.PERIOD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getPeriod(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getPeriod(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.PERIOD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.PERIOD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getThresholdDate()
+  public com.terraframe.mojo.query.SelectableMoment getThresholdDate()
   {
     return getThresholdDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getThresholdDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getThresholdDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getThresholdDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getThresholdDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getThresholdValue()
+  public com.terraframe.mojo.query.SelectableInteger getThresholdValue()
   {
     return getThresholdValue(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getThresholdValue(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getThresholdValue(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getThresholdValue(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getThresholdValue(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getThreshsoldType()
+  public com.terraframe.mojo.query.SelectableChar getThreshsoldType()
   {
     return getThreshsoldType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getThreshsoldType(String alias)
+  public com.terraframe.mojo.query.SelectableChar getThreshsoldType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHSOLDTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHSOLDTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getThreshsoldType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getThreshsoldType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHSOLDTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHSOLDTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfWeek()
+  public com.terraframe.mojo.query.SelectableInteger getYearOfWeek()
   {
     return getYearOfWeek(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfWeek(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getYearOfWeek(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.YEAROFWEEK, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.YEAROFWEEK, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfWeek(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getYearOfWeek(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.YEAROFWEEK, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.YEAROFWEEK, alias, displayLabel);
 
   }
  

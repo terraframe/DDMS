@@ -26,93 +26,93 @@ private static final long serialVersionUID = 2101318348;
   {
     return dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentFirstName()
+  public com.terraframe.mojo.query.SelectableChar getAgentFirstName()
   {
     return getAgentFirstName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentFirstName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAgentFirstName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTFIRSTNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTFIRSTNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentFirstName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAgentFirstName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTFIRSTNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTFIRSTNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentSurname()
+  public com.terraframe.mojo.query.SelectableChar getAgentSurname()
   {
     return getAgentSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentSurname(String alias)
+  public com.terraframe.mojo.query.SelectableChar getAgentSurname(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getAgentSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getAgentSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.AGENTSURNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber()
+  public com.terraframe.mojo.query.SelectableChar getBatchNumber()
   {
     return getBatchNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias)
+  public com.terraframe.mojo.query.SelectableChar getBatchNumber(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.BATCHNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.BATCHNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getBatchNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getBatchNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.BATCHNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.BATCHNUMBER, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCurrencyReceived()
+  public com.terraframe.mojo.query.SelectableDecimal getCurrencyReceived()
   {
     return getCurrencyReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCurrencyReceived(String alias)
+  public com.terraframe.mojo.query.SelectableDecimal getCurrencyReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CURRENCYRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CURRENCYRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDecimal getCurrencyReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDecimal getCurrencyReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CURRENCYRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.CURRENCYRECEIVED, alias, displayLabel);
 
   }
  
@@ -154,273 +154,273 @@ private static final long serialVersionUID = 2101318348;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.DISPLAYTARGETGROUPS, alias, displayLabel);
 
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getDistributionLocation()
+  public com.terraframe.mojo.query.SelectableChar getDistributionLocation()
   {
     return getDistributionLocation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDistributionLocation(String alias)
+  public com.terraframe.mojo.query.SelectableChar getDistributionLocation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.DISTRIBUTIONLOCATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.DISTRIBUTIONLOCATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getDistributionLocation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getDistributionLocation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.DISTRIBUTIONLOCATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.DISTRIBUTIONLOCATION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate()
+  public com.terraframe.mojo.query.SelectableMoment getEndDate()
   {
     return getEndDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getEndDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENDDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENDDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getEndDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENDDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENDDATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEntryType()
+  public com.terraframe.mojo.query.SelectableBoolean getEntryType()
   {
     return getEntryType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEntryType(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENTRYTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENTRYTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEntryType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENTRYTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ENTRYTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getHasBatchNumber()
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber()
   {
     return getHasBatchNumber(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getHasBatchNumber(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HASBATCHNUMBER, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HASBATCHNUMBER, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getHasBatchNumber(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HASBATCHNUMBER, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HASBATCHNUMBER, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdAddress()
+  public com.terraframe.mojo.query.SelectableChar getHouseholdAddress()
   {
     return getHouseholdAddress(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdAddress(String alias)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdAddress(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDADDRESS, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDADDRESS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdAddress(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdAddress(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDADDRESS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDADDRESS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName()
+  public com.terraframe.mojo.query.SelectableChar getHouseholdName()
   {
     return getHouseholdName(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName(String alias)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdName(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdName(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdName(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdSurname()
+  public com.terraframe.mojo.query.SelectableChar getHouseholdSurname()
   {
     return getHouseholdSurname(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdSurname(String alias)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdSurname(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDSURNAME, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDSURNAME, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getHouseholdSurname(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getHouseholdSurname(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDSURNAME, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.HOUSEHOLDSURNAME, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getItnsReceived()
+  public com.terraframe.mojo.query.SelectableInteger getItnsReceived()
   {
     return getItnsReceived(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getItnsReceived(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getItnsReceived(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ITNSRECEIVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ITNSRECEIVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getItnsReceived(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getItnsReceived(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ITNSRECEIVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.ITNSRECEIVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRetrieved()
+  public com.terraframe.mojo.query.SelectableInteger getNumberRetrieved()
   {
     return getNumberRetrieved(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRetrieved(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getNumberRetrieved(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.NUMBERRETRIEVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.NUMBERRETRIEVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getNumberRetrieved(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getNumberRetrieved(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.NUMBERRETRIEVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.NUMBERRETRIEVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPretreated()
+  public com.terraframe.mojo.query.SelectableBoolean getPretreated()
   {
     return getPretreated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPretreated(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getPretreated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.PRETREATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.PRETREATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPretreated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getPretreated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.PRETREATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.PRETREATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getResidents()
+  public com.terraframe.mojo.query.SelectableInteger getResidents()
   {
     return getResidents(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getResidents(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getResidents(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RESIDENTS, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RESIDENTS, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getResidents(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getResidents(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RESIDENTS, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RESIDENTS, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getRetrieved()
+  public com.terraframe.mojo.query.SelectableBoolean getRetrieved()
   {
     return getRetrieved(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getRetrieved(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getRetrieved(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RETRIEVED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RETRIEVED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getRetrieved(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getRetrieved(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RETRIEVED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.RETRIEVED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSold()
+  public com.terraframe.mojo.query.SelectableBoolean getSold()
   {
     return getSold(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSold(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getSold(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.SOLD, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.SOLD, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getSold(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getSold(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.SOLD, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.SOLD, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate()
+  public com.terraframe.mojo.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.STARTDATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.STARTDATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleMoment getStartDate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.STARTDATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableMoment)this.getSelectable(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.STARTDATE, alias, displayLabel);
 
   }
  

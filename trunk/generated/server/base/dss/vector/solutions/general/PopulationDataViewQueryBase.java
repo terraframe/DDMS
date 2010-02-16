@@ -26,165 +26,165 @@ private static final long serialVersionUID = 1505323270;
   {
     return dss.vector.solutions.general.PopulationDataView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId()
+  public com.terraframe.mojo.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.CONCRETEID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.CONCRETEID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getConcreteId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.CONCRETEID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.CONCRETEID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel()
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel()
   {
     return getEntityLabel(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias)
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ENTITYLABEL, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ENTITYLABEL, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getEntityLabel(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getEntityLabel(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ENTITYLABEL, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ENTITYLABEL, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEstimated()
+  public com.terraframe.mojo.query.SelectableBoolean getEstimated()
   {
     return getEstimated(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEstimated(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getEstimated(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ESTIMATED, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ESTIMATED, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getEstimated(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getEstimated(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ESTIMATED, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ESTIMATED, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntity()
+  public com.terraframe.mojo.query.SelectableChar getGeoEntity()
   {
     return getGeoEntity(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntity(String alias)
+  public com.terraframe.mojo.query.SelectableChar getGeoEntity(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GEOENTITY, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GEOENTITY, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getGeoEntity(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getGeoEntity(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GEOENTITY, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GEOENTITY, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate()
+  public com.terraframe.mojo.query.SelectableDouble getGrowthRate()
   {
     return getGrowthRate(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate(String alias)
+  public com.terraframe.mojo.query.SelectableDouble getGrowthRate(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, null);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleDouble getGrowthRate(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableDouble getGrowthRate(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.PopulationDataView.GROWTHRATE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId()
+  public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ID, alias, null);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ID, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleChar getId(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ID, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.general.PopulationDataView.ID, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getPopulation()
+  public com.terraframe.mojo.query.SelectableLong getPopulation()
   {
     return getPopulation(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getPopulation(String alias)
+  public com.terraframe.mojo.query.SelectableLong getPopulation(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATION, alias, null);
+    return (com.terraframe.mojo.query.SelectableLong)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATION, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleLong getPopulation(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableLong getPopulation(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleLong)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATION, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableLong)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATION, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationType()
+  public com.terraframe.mojo.query.SelectableBoolean getPopulationType()
   {
     return getPopulationType(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationType(String alias)
+  public com.terraframe.mojo.query.SelectableBoolean getPopulationType(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, null);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleBoolean getPopulationType(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableBoolean getPopulationType(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.general.PopulationDataView.POPULATIONTYPE, alias, displayLabel);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData()
+  public com.terraframe.mojo.query.SelectableInteger getYearOfData()
   {
     return getYearOfData(null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData(String alias)
+  public com.terraframe.mojo.query.SelectableInteger getYearOfData(String alias)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.PopulationDataView.YEAROFDATA, alias, null);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.PopulationDataView.YEAROFDATA, alias, null);
 
   }
  
-  public com.terraframe.mojo.query.SelectableSingleInteger getYearOfData(String alias, String displayLabel)
+  public com.terraframe.mojo.query.SelectableInteger getYearOfData(String alias, String displayLabel)
   {
-    return (com.terraframe.mojo.query.SelectableSingleInteger)this.getSelectable(dss.vector.solutions.general.PopulationDataView.YEAROFDATA, alias, displayLabel);
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.PopulationDataView.YEAROFDATA, alias, displayLabel);
 
   }
  
