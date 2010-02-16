@@ -31,7 +31,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     try
     {
       dto.delete();
-      
+
       this.search();
     }
     catch (ProblemExceptionDTO e)
@@ -114,7 +114,20 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(LethalTimePropertyDTO.get(super.getClientRequest(), id));
+    try
+    {
+      this.view(LethalTimePropertyDTO.get(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(LethalTimePropertyDTO item) throws IOException, ServletException
@@ -122,7 +135,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", item.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
-   
+
     InsecticideDTO insecticide = item.getInsecticide();
 
     req.setAttribute("insecticide", insecticide);
@@ -133,7 +146,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void viewAll() throws IOException, ServletException
@@ -141,7 +154,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    
+
     LethalTimePropertyQueryDTO query = LethalTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
@@ -241,7 +254,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     {
       LethalTimePropertyDTO item = new LethalTimePropertyDTO(super.getClientRequest());
       item.setInsecticide(insecticide);
-      
+
       req.setAttribute("item", item);
 
       render("createComponent.jsp");

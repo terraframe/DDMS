@@ -77,23 +77,23 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
     req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
-    
-    if(sprayTeam != null)
+
+    if (sprayTeam != null)
     {
       List<? extends TeamMemberDTO> leader = sprayTeam.getAllTeamLeader();
-      
-      if(leader.size() > 0)
+
+      if (leader.size() > 0)
       {
         String leaderId = leader.get(0).getId();
-        
-        req.setAttribute("leaderId", leaderId);        
+
+        req.setAttribute("leaderId", leaderId);
       }
-      
+
       req.setAttribute("members", Arrays.asList(sprayTeam.getTeamMemberViews()));
       req.setAttribute("teamId", sprayTeam.getId());
-    }     
+    }
     else
-    {      
+    {
       req.setAttribute("members", new LinkedList<TeamMemberViewDTO>());
     }
   }
@@ -128,7 +128,20 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(TeamSprayDTO.getView(this.getClientRequest(), id));
+    try
+    {
+      this.view(TeamSprayDTO.getView(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
@@ -177,7 +190,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void edit(String id) throws IOException, ServletException

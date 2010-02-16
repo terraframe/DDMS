@@ -40,7 +40,21 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(ITNDataDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(ITNDataDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void view(ITNDataViewDTO dto) throws IOException, ServletException
@@ -56,7 +70,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void newInstance() throws IOException, ServletException
@@ -317,13 +331,12 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       this.failSearchByView(dto);
     }
   }
-  
-  
+
   @Override
   public void failSearchByView(ITNDataViewDTO dto) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
     {
       GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, dto.getGeoId());
@@ -333,7 +346,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
     req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
     req.setAttribute("item", dto);
-    
+
     render("searchComponent.jsp");
   }
 

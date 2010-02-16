@@ -37,16 +37,16 @@ public class PersonController extends PersonControllerBase implements Reloadable
     PersonWithDelegatesViewQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
-    
+
     this.setupQueryLabels(query);
-    
+
     // Saving the sex is a pain. This is a shortcut.
     TermDTO sex = person.getSex();
-    if(sex != null)
+    if (sex != null)
     {
       req.setAttribute("sex", sex.getId());
     }
-    
+
     render("searchResults.jsp");
   }
 
@@ -82,13 +82,13 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     renderCreate(person);
   }
-  
+
   @Override
   public void failContinueNewInstance(PersonViewDTO person) throws IOException, ServletException
   {
     this.viewAll();
   }
-  
+
   @Override
   public void createFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -247,7 +247,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
       ClientRequestIF clientRequest = super.getClientRequest();
 
       PersonWithDelegatesViewQueryDTO query = PersonWithDelegatesViewDTO.getPage(clientRequest, null, true, 20, 1);
-      
+
       this.setupQueryLabels(query);
 
       req.setAttribute("query", query);
@@ -261,19 +261,19 @@ public class PersonController extends PersonControllerBase implements Reloadable
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSPRAYOPERATOR, "sprayOperatorLabel");
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSPRAYLEADER, "sprayLeaderLabel");
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSTOCKSTAFF, "stockStaffLabel");
-    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSUPERVISOR, "supervisorLabel");    
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSUPERVISOR, "supervisorLabel");
   }
-  
+
   private void setupQueryLabel(PersonWithDelegatesViewQueryDTO query, String accessor, String label)
   {
     AttributeDTO attribute = query.getAttributeDTO(accessor);
-    
-    if(attribute != null && attribute.isReadable())
+
+    if (attribute != null && attribute.isReadable())
     {
       String attributeLabel = attribute.getAttributeMdDTO().getDisplayLabel();
 
       req.setAttribute(label, attributeLabel);
-    }    
+    }
   }
 
   public void failViewAll() throws IOException, ServletException
@@ -283,10 +283,24 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   public void view(String id) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    PersonViewDTO view = PersonDTO.getView(clientRequest, id);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      PersonViewDTO view = PersonDTO.getView(clientRequest, id);
 
-    renderView(view);
+      renderView(view);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void failView(String id) throws IOException, ServletException

@@ -16,7 +16,7 @@
 
 <mjl:component item="${item}" param="dto">
   <mjl:dt attribute="collection">
-    <mjl:input id="collectionInput" param="collectionInput" type="text" value="${collection != null ? collection.collectionId : ''}"/>
+    <mjl:input id="collectionInput" type="text" value="${collection != null ? collection.collectionId : ''}"/>
     <mjl:input id="collectionId" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}" />    
   </mjl:dt>
   <mjl:dt attribute="testDate" type="text" classes="DatePick NoFuture" />

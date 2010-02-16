@@ -199,7 +199,20 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(SurveyedPersonDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(SurveyedPersonDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(SurveyedPersonViewDTO dto) throws IOException, ServletException
@@ -226,7 +239,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    new SurveyPointController(req, resp, isAsynchronous).viewAll();
   }
 
   public void viewAll() throws IOException, ServletException

@@ -70,7 +70,21 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
   public void view(String id) throws IOException, ServletException
   {
-    view(ITNCommunityDistributionDTO.getView(this.getClientRequest(), id));
+    try
+    {
+      view(ITNCommunityDistributionDTO.getView(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   private void view(ITNCommunityDistributionViewDTO dto) throws IOException, ServletException

@@ -166,7 +166,21 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(KnockDownTimePropertyDTO.get(super.getClientRequest(), id));
+    try
+    {
+      this.view(KnockDownTimePropertyDTO.get(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void view(KnockDownTimePropertyDTO dto) throws IOException, ServletException
@@ -182,7 +196,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void viewAll() throws IOException, ServletException

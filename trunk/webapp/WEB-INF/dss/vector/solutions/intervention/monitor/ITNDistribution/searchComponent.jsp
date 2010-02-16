@@ -47,11 +47,12 @@
 		</tr>
 		<tr>
 			<td>
-        		<mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
-        		</td><td>
-        <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
-        </td><td>
-
+        <mjl:input type="text" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+      </td>
+      <td>
+        <mjl:input type="text" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+      </td>
+      <td>
         <mjl:input type="hidden" param="person" id="person"/>
 
         <span class="clickable" id="person.span">

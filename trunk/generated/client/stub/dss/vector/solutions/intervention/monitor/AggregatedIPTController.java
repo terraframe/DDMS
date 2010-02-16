@@ -37,7 +37,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   @Override
   public void searchByView(AggregatedIPTViewDTO dto) throws IOException, ServletException
   {
@@ -59,7 +59,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
         // Load all of the corresponding grid values
         this.prepareRelationships(view);
         req.setAttribute("item", view);
-        render("createComponent.jsp");        
+        render("createComponent.jsp");
       }
 
     }
@@ -72,16 +72,16 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      
+
       this.failSearchByView(dto);
     }
   }
-  
+
   @Override
   public void failSearchByView(AggregatedIPTViewDTO dto) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
     {
       GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, dto.getGeoId());
@@ -91,7 +91,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
     req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
     req.setAttribute("item", dto);
-    
+
     render("searchComponent.jsp");
   }
 
@@ -119,7 +119,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
         // Load all of the corresponding grid values
         this.prepareRelationships(dto);
         req.setAttribute("item", dto);
-        render("createComponent.jsp");        
+        render("createComponent.jsp");
       }
 
     }
@@ -173,7 +173,7 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
       req.setAttribute("geoId", entity);
     }
-    
+
     req.setAttribute("checkedType", periodType);
 
     render("searchComponent.jsp");
@@ -271,7 +271,21 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(AggregatedIPTDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(AggregatedIPTDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void view(AggregatedIPTViewDTO dto) throws IOException, ServletException

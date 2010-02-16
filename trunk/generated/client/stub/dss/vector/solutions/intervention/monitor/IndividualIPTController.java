@@ -60,7 +60,21 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(IndividualIPTDTO.getView(this.getClientRequest(), id));
+    try
+    {
+      this.view(IndividualIPTDTO.getView(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   private void view(IndividualIPTViewDTO dto) throws IOException, ServletException
@@ -76,7 +90,7 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    new IndividualIPTCaseController(req, resp, isAsynchronous).search();
   }
 
   @Override

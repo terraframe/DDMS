@@ -204,13 +204,27 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
 
   public void view(String id) throws IOException, ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
+    try
+    {
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("id", id);
+      utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", MalariaSeasonDTO.get(clientRequest, id));
-    render("viewComponent.jsp");
+      ClientRequestIF clientRequest = super.getClientRequest();
+      req.setAttribute("item", MalariaSeasonDTO.get(clientRequest, id));
+      render("viewComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void failView(String id) throws IOException, ServletException

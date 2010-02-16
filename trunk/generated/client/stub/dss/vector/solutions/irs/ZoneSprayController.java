@@ -105,7 +105,20 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(ZoneSprayDTO.getView(this.getClientRequest(), id));
+    try
+    {
+      this.view(ZoneSprayDTO.getView(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException
@@ -122,7 +135,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
     JSONObject teamMap = buildTeamsMap(teams);
     String operators = buildOperatorsMap(teams);
-    
+
     this.setupReferences(dto);
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
@@ -137,13 +150,13 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
   private void setupReferences(ZoneSprayViewDTO dto)
   {
     SupervisorDTO supervisor = dto.getSupervisor();
-    
-    if(supervisor != null)
+
+    if (supervisor != null)
     {
       PersonViewDTO person = supervisor.getPerson().getView();
       req.setAttribute("person", person);
     }
-    
+
     req.setAttribute("surfaceType", dto.getSurfaceType());
     req.setAttribute("supervisor", supervisor);
   }
@@ -194,7 +207,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -205,7 +218,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
       this.setupRequest(dto);
       this.setupReferences(dto);
-      
+
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }

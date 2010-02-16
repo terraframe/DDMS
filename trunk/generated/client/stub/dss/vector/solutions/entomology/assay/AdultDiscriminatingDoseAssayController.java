@@ -57,9 +57,22 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void view(String id) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    this.view(AdultDiscriminatingDoseAssayDTO.get(clientRequest, id));
+      this.view(AdultDiscriminatingDoseAssayDTO.get(clientRequest, id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   public void view(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException

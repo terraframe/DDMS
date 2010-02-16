@@ -103,9 +103,28 @@ public class RoleController extends RoleControllerBase implements com.terraframe
   @Override
   public void save(String id, String[] assigned, String[] revoked) throws IOException, ServletException
   {
+    try
+    {
     ClientRequestIF clientRequest = super.getClientRequest();
     MDSSUserDTO.updateRoles(clientRequest, id, assigned, revoked);
 
     render("success.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failSave(id, assigned, revoked);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failSave(id, assigned, revoked);
+    }
+  }
+  
+  @Override
+  public void failSave(String id, String[] assigned, String[] revoked) throws IOException, ServletException
+  {
+    this.edit(id);
   }
 }

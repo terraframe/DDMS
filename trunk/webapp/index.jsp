@@ -15,6 +15,9 @@
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="welcome"/></div>
 
+<jsp:include page="/WEB-INF/inlineError.jsp" />
+
+
 <script type="text/javascript">
 
   <%

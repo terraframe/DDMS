@@ -64,7 +64,20 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void view(String id) throws IOException, ServletException
   {
-    view(IndividualIPTCaseDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      view(IndividualIPTCaseDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(IndividualIPTCaseViewDTO view) throws IOException, ServletException
@@ -93,7 +106,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.search();
   }
 
   @Override
@@ -321,7 +334,10 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
-      req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
+      req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
+                                                                              // this
+                                                                              // for
+                                                                              // labels
       render("searchComponent.jsp");
     }
   }
@@ -344,7 +360,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
 
       PersonViewDTO person = PersonDTO.getView(request, patientId);
-      
+
       req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
       req.setAttribute("person", person);
       req.setAttribute("view", new IndividualIPTCaseViewDTO(request));

@@ -200,12 +200,12 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
   private void renderView(SprayTeamDTO sprayTeamDTO) throws IOException, ServletException
   {
     List<? extends TeamMemberDTO> allTeamLeader = sprayTeamDTO.getAllTeamLeader();
-    
+
     if (allTeamLeader.size() > 0)
     {
       req.setAttribute("leader", allTeamLeader.get(0).getPerson().getView());
     }
-    
+
     req.setAttribute("operators", TeamMemberViewDTO.getAllOperatorsForTeam(super.getClientRequest(), sprayTeamDTO));
     req.setAttribute("item", sprayTeamDTO);
     req.setAttribute("view", new SprayTeamViewDTO(this.getClientRequest()));
@@ -269,7 +269,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
     ClientRequestIF clientRequest = super.getClientRequest();
     SprayTeamViewQueryDTO query = SprayTeamViewDTO.getPage(clientRequest, SprayTeamDTO.TEAMID, true, 20, 1);
-    
+
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -286,13 +286,27 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
+    try
+    {
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("id", id);
+      utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    ClientRequestIF clientRequest = super.getClientRequest();
-    SprayTeamDTO sprayTeamDTO = SprayTeamDTO.get(clientRequest, id);
-    renderView(sprayTeamDTO);
+      ClientRequestIF clientRequest = super.getClientRequest();
+      SprayTeamDTO sprayTeamDTO = SprayTeamDTO.get(clientRequest, id);
+      renderView(sprayTeamDTO);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -318,23 +332,23 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void delete(SprayTeamDTO dto) throws IOException, ServletException
   {
-	    try
-	    {
-	      dto.delete();
-	      this.viewAll();
-	    }
-	    catch (ProblemExceptionDTO e)
-	    {
-	      ErrorUtility.prepareProblems(e, req);
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
 
-	      this.failDelete(dto);
-	    }
-	    catch (Throwable t)
-	    {
-	      ErrorUtility.prepareThrowable(t, req);
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
 
-	      this.failDelete(dto);
-	    }
+      this.failDelete(dto);
+    }
   }
 
   public void failDelete(SprayTeamDTO dto) throws IOException, ServletException

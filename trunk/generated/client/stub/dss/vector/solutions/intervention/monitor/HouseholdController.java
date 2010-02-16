@@ -87,7 +87,21 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(HouseholdDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(HouseholdDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void view(HouseholdViewDTO dto) throws IOException, ServletException
@@ -108,7 +122,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    new SurveyPointController(req, resp, isAsynchronous).viewAll();
   }
 
   public void cancel(HouseholdViewDTO dto) throws IOException, ServletException
@@ -145,7 +159,7 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
       // Ensure the use has permissions to create a new Household
       new HouseholdDTO(clientRequest);
-      
+
       HouseholdViewDTO dto = new HouseholdViewDTO(clientRequest);
       dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
 
@@ -268,14 +282,16 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
     req.setAttribute("roof", dto.getRoof());
   }
 
-
-  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
-	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
-	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
-		  if (!responses.contains(response)) {
-			  responses.add(response);
-		  }
-	  }
-	  return responses;
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request)
+  {
+    List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+    for (ResponseMasterDTO response : dss.vector.solutions.ResponseDTO.allItems(request))
+    {
+      if (!responses.contains(response))
+      {
+        responses.add(response);
+      }
+    }
+    return responses;
   }
 }

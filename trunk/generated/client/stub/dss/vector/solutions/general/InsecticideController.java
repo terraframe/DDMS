@@ -186,15 +186,29 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void view(String id) throws IOException, ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
+    try
+    {
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("id", id);
+      utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    InsecticideDTO dto = InsecticideDTO.get(super.getClientRequest(), id);
-    this.setupReferences(dto);
-    req.setAttribute("item", dto);
+      InsecticideDTO dto = InsecticideDTO.get(super.getClientRequest(), id);
+      this.setupReferences(dto);
+      req.setAttribute("item", dto);
 
-    render("viewComponent.jsp");
+      render("viewComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void failView(String id) throws IOException, ServletException

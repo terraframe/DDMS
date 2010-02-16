@@ -43,7 +43,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     resp.sendError(500);
   }
-  
+
   @Override
   public void update(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
@@ -68,13 +68,13 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failUpdate(dto, symptoms);
     }
   }
-  
+
   @Override
   public void failUpdate(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     this.renderEdit(dto, symptoms);
   }
-  
+
   @Override
   public void create(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
@@ -99,13 +99,13 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
       this.failCreate(dto, symptoms);
     }
   }
-  
+
   @Override
   public void failCreate(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
     renderCreate(dto, symptoms, dto.getValue(IndividualInstanceDTO.INDIVIDUALCASE));
   }
-  
+
   @Override
   public void createWithCase(IndividualInstanceDTO dto, IndividualCaseDTO newCase, String personId, TermDTO[] symptoms) throws IOException, ServletException
   {
@@ -148,19 +148,19 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     try
     {
-    IndividualInstanceDTO dto = IndividualInstanceDTO.lock(super.getClientRequest(), id);
-    renderEdit(dto);
+      IndividualInstanceDTO dto = IndividualInstanceDTO.lock(super.getClientRequest(), id);
+      renderEdit(dto);
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failEdit(id);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      
+
       this.failEdit(id);
     }
   }
@@ -172,7 +172,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void renderEdit(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
-    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();    
+    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
@@ -210,13 +210,13 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failNewInstance(caseId);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      
+
       this.failNewInstance(caseId);
     }
 
@@ -244,7 +244,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
 
     req.setAttribute("person", person);
-    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));    
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("caseId", caseId);
     render("createComponent.jsp");
   }
@@ -290,7 +290,20 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(IndividualInstanceDTO.get(super.getClientRequest(), id));
+    try
+    {
+      this.view(IndividualInstanceDTO.get(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(IndividualInstanceDTO dto) throws IOException, ServletException
@@ -310,6 +323,6 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    new IndividualCaseController(req, resp, isAsynchronous).newInstance();
   }
 }

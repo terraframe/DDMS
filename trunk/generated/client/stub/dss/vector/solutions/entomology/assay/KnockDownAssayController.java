@@ -198,7 +198,20 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   public void view(String id) throws IOException, ServletException
   {
-    view(KnockDownAssayDTO.get(super.getClientRequest(), id));
+    try
+    {
+      view(KnockDownAssayDTO.get(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(KnockDownAssayDTO dto) throws IOException, ServletException

@@ -16,7 +16,7 @@
         <mjl:input type="hidden" param="startDate" value="${search.startDate}" classes="DatePick"/>
         <mjl:input type="hidden" param="endDate" value="${search.endDate}" classes="DatePick"/>
         <mjl:dt attribute="ageGroup">
-          <mjl:select var="current" valueAttribute="id" includeBlank="true" items="${ageGroups}"  param="ageGroup" id="search.select.id">
+          <mjl:select var="current" valueAttribute="id" items="${ageGroups}"  param="ageGroup" id="search.select.id">
             <mjl:option selected="${current.id == search.ageGroup.id ? 'selected' : 'false'}">
               ${current.displayLabel}
             </mjl:option>

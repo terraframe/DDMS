@@ -108,10 +108,10 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      
-      //Ensure the user has permissions to create a survey point
+
+      // Ensure the user has permissions to create a survey point
       new SurveyPointDTO(clientRequest);
-      
+
       SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
 
       req.setAttribute("item", dto);
@@ -138,7 +138,21 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    view(SurveyPointDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      view(SurveyPointDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   public void view(SurveyPointViewDTO survey) throws IOException, ServletException
@@ -146,7 +160,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", survey.getConcreteId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     req.setAttribute("entity", AttributeUtil.getGeoEntityFromGeoId(SurveyPointViewDTO.GEOID, survey));
     req.setAttribute("item", survey);
     req.setAttribute("households", Arrays.asList(survey.getHouseholdViews()));

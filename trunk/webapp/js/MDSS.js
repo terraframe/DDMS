@@ -433,8 +433,8 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
           {
             if(this.that._modal != null)
             {
-              this.that._destroyModal();            	
-              this.that._stopPolling();                            	
+              this.that._destroyModal();              
+              this.that._stopPolling();                              
             }
           }
           else
@@ -460,3 +460,17 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
     }
   }  
 });
+
+// GLOBAL FUNCTION TO RUN ON EVERY PAGE
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){    
+    YAHOO.util.Event.on(window, 'beforeunload', function(){
+      var elements = YAHOO.util.Selector.query('input');
+        
+      for(var i = 0; i < elements.length; i++) {
+        elements[i].setAttribute("autocomplete", "on");        
+      }
+    });        
+  });
+})();
+

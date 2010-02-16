@@ -54,7 +54,20 @@ public class StockItemController extends StockItemControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(StockItemDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(StockItemDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }    
   }
 
   private void view(StockItemViewDTO dto) throws IOException, ServletException

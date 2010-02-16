@@ -93,28 +93,41 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
-    utility.checkURL(this.getClass().getSimpleName(), "view");
-
-    ClientRequestIF clientRequest = super.getClientRequest();
-    LarvacideDTO dto = LarvacideDTO.get(clientRequest, id);
-
-    LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
-    view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
-    
-    String leaderId = dto.getValue(LarvacideDTO.TEAMLEADER);
-
-    if(leaderId != null && !leaderId.equals(""))
+    try
     {
-      req.setAttribute("leader", TeamMemberDTO.getView(clientRequest, leaderId));
-    }
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("id", id);
+      utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    req.setAttribute("rows", dto.getInstanceViews());
-    req.setAttribute("view", view);
-    req.setAttribute("item", dto);
-    
-    render("viewComponent.jsp");
+      ClientRequestIF clientRequest = super.getClientRequest();
+      LarvacideDTO dto = LarvacideDTO.get(clientRequest, id);
+
+      LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
+      view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
+
+      String leaderId = dto.getValue(LarvacideDTO.TEAMLEADER);
+
+      if (leaderId != null && !leaderId.equals(""))
+      {
+        req.setAttribute("leader", TeamMemberDTO.getView(clientRequest, leaderId));
+      }
+
+      req.setAttribute("rows", dto.getInstanceViews());
+      req.setAttribute("view", view);
+      req.setAttribute("item", dto);
+
+      render("viewComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   public void failView(String id) throws IOException, ServletException

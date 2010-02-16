@@ -136,8 +136,8 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      
-      //Ensure the user has permissions to create a ITN Instance
+
+      // Ensure the user has permissions to create a ITN Instance
       new ITNInstanceDTO(clientRequest);
 
       ITNInstanceViewDTO dto = new ITNInstanceViewDTO(clientRequest);
@@ -195,7 +195,21 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
   public void view(String id) throws IOException, ServletException
   {
-    view(ITNInstanceDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      view(ITNInstanceDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
+
   }
 
   private void view(ITNInstanceViewDTO dto) throws IOException, ServletException
@@ -211,7 +225,7 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    new SurveyPointController(req, resp, isAsynchronous).viewAll();
   }
 
   public void viewAll() throws IOException, ServletException
@@ -257,15 +271,17 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
     req.setAttribute("washPeriod", dto.getWashPeriod());
     req.setAttribute("washed", this.getResponses(request));
   }
-  
 
-  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
-	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
-	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
-		  if (!responses.contains(response)) {
-			  responses.add(response);
-		  }
-	  }
-	  return responses;
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request)
+  {
+    List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+    for (ResponseMasterDTO response : dss.vector.solutions.ResponseDTO.allItems(request))
+    {
+      if (!responses.contains(response))
+      {
+        responses.add(response);
+      }
+    }
+    return responses;
   }
 }

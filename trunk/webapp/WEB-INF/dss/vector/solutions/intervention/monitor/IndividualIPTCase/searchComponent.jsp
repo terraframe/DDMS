@@ -26,33 +26,33 @@
     <label> ${item.patientMd.displayLabel} </label>
   </dt>
   <dd>
-  	<table>
-  		<tr>
-			<td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
-			<td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td>
-			    <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
-			</td>
-			<td>
-    			<mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
-    		</td>
-    		<td>
-			    <mjl:input type="hidden" param="patientId" id="patient"/>
+    <table>
+      <tr>
+      <td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
+      <td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+          <mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+      </td>
+      <td>
+          <mjl:input type="text" param="lastName.search" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+        </td>
+        <td>
+          <mjl:input type="hidden" param="patientId" id="patient"/>
         
-    			<span class="clickable" id="recipient.span">
-      			<span id="createPatient">
-        			<fmt:message key="Create_new_Patient"/>        
-			      </span>
-      			<span id="editPatient" >
-        			<fmt:message key="Edit_Patient"/>        
-      			</span>
-    			</span>
-    		</td>
-    	</tr>
-   	</table>
+          <span class="clickable" id="recipient.span">
+            <span id="createPatient">
+              <fmt:message key="Create_new_Patient"/>        
+            </span>
+            <span id="editPatient" >
+              <fmt:message key="Edit_Patient"/>        
+            </span>
+          </span>
+        </td>
+      </tr>
+     </table>
   </dd>
 
 <mjl:command name="searchPatient.button" value="Search"action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.viewCasePage.mojo" id="button.id" />
@@ -68,6 +68,7 @@
 <script type="text/javascript" >
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
+
     var prop = {
       elements : ['firstName.search', 'lastName.search'],
       concrete : 'patient',

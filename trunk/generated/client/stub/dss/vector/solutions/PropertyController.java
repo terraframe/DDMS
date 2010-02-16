@@ -48,7 +48,20 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(PropertyDTO.get(this.getClientRequest(), id));
+    try
+    {
+      this.view(PropertyDTO.get(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(PropertyDTO dto) throws IOException, ServletException
@@ -215,7 +228,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     this.viewAll();
   }
-  
+
   @Override
   public void editFlag() throws IOException, ServletException
   {
@@ -238,13 +251,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
       this.failEditFlag();
     }
   }
-  
+
   @Override
   public void failEditFlag() throws IOException, ServletException
   {
     this.req.getRequestDispatcher("/index").forward(this.req, this.resp);
   }
-  
+
   @SuppressWarnings("unchecked")
   @Override
   public void setFlag() throws IOException, ServletException
@@ -252,10 +265,10 @@ public class PropertyController extends PropertyControllerBase implements com.te
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
-      //Ensure the user has permission to update Properties
+
+      // Ensure the user has permission to update Properties
       new PropertyDTO(request);
-      
+
       // Create a factory for disk-based file items
       FileItemFactory factory = new DiskFileItemFactory();
 
@@ -276,9 +289,9 @@ public class PropertyController extends PropertyControllerBase implements com.te
       {
         throw new FileRequiredExceptionDTO(request, req.getLocale());
       }
-      
+
       this.setFlag(file.getInputStream());
-      
+
       this.editFlag();
     }
     catch (ProblemExceptionDTO e)
@@ -294,23 +307,23 @@ public class PropertyController extends PropertyControllerBase implements com.te
       this.failSetFlag();
     }
   }
-  
+
   @Override
   public void failSetFlag() throws IOException, ServletException
   {
     this.editFlag();
   }
-  
+
   private void setFlag(InputStream stream)
   {
     // Upload the template file to the vault
     try
     {
       String directory = DeployProperties.getDeployPath() + "/imgs/flags/";
-      
+
       File dir = new File(directory);
-      
-      if(!dir.exists())
+
+      if (!dir.exists())
       {
         dir.mkdirs();
       }
@@ -334,10 +347,10 @@ public class PropertyController extends PropertyControllerBase implements com.te
     catch (IOException e)
     {
       UnableToUploadFlagExceptionDTO exception = new UnableToUploadFlagExceptionDTO(this.getClientRequest(), req.getLocale());
-      exception.setReason(e.getLocalizedMessage());      
-      
+      exception.setReason(e.getLocalizedMessage());
+
       throw exception;
-    }        
+    }
   }
 
 }

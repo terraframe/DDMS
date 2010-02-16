@@ -148,7 +148,20 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void view(String id) throws IOException, ServletException
   {
-    renderView(IndividualCaseDTO.get(super.getClientRequest(), id));
+    try
+    {
+      renderView(IndividualCaseDTO.get(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void renderView(IndividualCaseDTO individualCaseDTO) throws IOException, ServletException
@@ -169,7 +182,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void failView(String id) throws IOException, ServletException
   {
-    this.viewAll();
+    this.newInstance();
   }
 
   public void delete(IndividualCaseDTO dto) throws IOException, ServletException

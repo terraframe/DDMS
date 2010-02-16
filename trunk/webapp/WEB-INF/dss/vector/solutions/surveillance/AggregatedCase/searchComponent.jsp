@@ -68,7 +68,15 @@
           <mjl:input type="text" param="endDate" classes="DatePick NoFuture"  id="endDate"/>
         </mjl:dt>
       </div>
+      <mjl:dt attribute="ageGroup">
+        <mjl:select var="current" valueAttribute="id" includeBlank="true" items="${ageGroups}"  param="ageGroup" id="search.select.id">
+          <mjl:option selected="${current.id == search.ageGroup.id ? 'selected' : 'false'}">
+            ${current.displayLabel}
+          </mjl:option>
+        </mjl:select>
+      </mjl:dt>      
     </mjl:component>
+    
     <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByView.mojo" name="search.button" id="button.id" value="Search" />
   </dl>
 </mjl:form>

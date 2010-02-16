@@ -99,7 +99,7 @@ public class AreaStandardsController extends AreaStandardsControllerBase impleme
     try
     {
       AreaStandardsViewDTO dto = AreaStandardsDTO.lockView(super.getClientRequest(), id);
-      
+
       this.setupRequest();
       req.setAttribute("item", dto);
       render("editComponent.jsp");
@@ -128,10 +128,10 @@ public class AreaStandardsController extends AreaStandardsControllerBase impleme
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
-      //Ensure the user has permissions to create AreaStandards
+
+      // Ensure the user has permissions to create AreaStandards
       new AreaStandardsDTO(request);
-      
+
       AreaStandardsViewDTO dto = new AreaStandardsViewDTO(request);
 
       this.setupRequest();
@@ -190,7 +190,20 @@ public class AreaStandardsController extends AreaStandardsControllerBase impleme
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(AreaStandardsDTO.getView(super.getClientRequest(), id));
+    try
+    {
+      this.view(AreaStandardsDTO.getView(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   private void view(AreaStandardsViewDTO dto) throws IOException, ServletException

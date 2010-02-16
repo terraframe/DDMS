@@ -212,7 +212,20 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void view(String id) throws IOException, ServletException
   {
-    view(LarvaeDiscriminatingDoseAssayDTO.get(this.getClientRequest(), id));
+    try
+    {
+      view(LarvaeDiscriminatingDoseAssayDTO.get(this.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failView(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failView(id);
+    }
   }
 
   public void view(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
