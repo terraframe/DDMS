@@ -101,7 +101,7 @@ input[type="button"]:active {
 </dl>
 
 <div class="submitButton_bl"></div>
-<input type="submit" value="Login" name="LoginController" id="submitLogin" class="submitButton" /></form>
+<input type="submit" value="<fmt:message key="Login" />" name="LoginController" id="submitLogin" class="submitButton" /></form>
 <script type="text/javascript">
 
 </script></div>
