@@ -17,16 +17,6 @@
 <mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
     <dt>
-      <label>${thresholdCalculation.epidemicUniversalMd.displayLabel}</label>
-    </dt>
-    <dd>    
-      <mjl:select var="current" valueAttribute="geoHierarchyId" param="universal" items="${views}">
-        <mjl:option selected="${epidemicUniversal != null && epidemicUniversal.id == current.geoHierarchyId ? 'selected' : 'false'}">
-          ${current.displayLabel}
-        </mjl:option>    
-      </mjl:select>
-    </dd>
-    <dt>
       <label>${thresholdCalculation.countingMethodMd.displayLabel}</label>
     </dt>
     <dd>
@@ -36,7 +26,14 @@
        </mjl:radioOption>
       </mjl:radioGroup>
     </dd>
-    <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">
+    <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">    
+      <mjl:dt attribute="epidemicUniversal">
+        <mjl:select var="current" valueAttribute="geoHierarchyId" param="epidemicUniversal" items="${views}">
+          <mjl:option selected="${epidemicUniversal != null && epidemicUniversal.id == current.geoHierarchyId ? 'selected' : 'false'}">
+            ${current.displayLabel}
+          </mjl:option>    
+        </mjl:select>
+      </mjl:dt>
       <mjl:dt attribute="caseTypes">
         <mjl:select valueAttribute="enumName" param="caseTypes" items="${thresholdCalculationCaseTypes}" var="current">
           <mjl:option>${current.displayLabel}</mjl:option>

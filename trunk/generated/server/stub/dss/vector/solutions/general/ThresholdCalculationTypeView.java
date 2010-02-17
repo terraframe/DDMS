@@ -1,5 +1,6 @@
 package dss.vector.solutions.general;
 
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
@@ -8,6 +9,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyProperty;
 import dss.vector.solutions.threshold.FacilityThresholdCalculator;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
 import dss.vector.solutions.threshold.ThresholdCalculator;
@@ -65,22 +67,17 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
   private void populateConfiguration()
   {
-    Property hierarchy = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
     Property isEpiWeek = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
 
-    if (hierarchy != null)
+    try
     {
-      try
-      {
-
-        GeoHierarchy epidemicUniversal = GeoHierarchy.get(hierarchy.getPropertyValue());
-
-        this.setEpidemicUniversal(epidemicUniversal);
-      }
-      catch (Exception e)
-      {
-        // Do nothing: Use the default value
-      }
+      GeoHierarchyProperty property = (GeoHierarchyProperty) GeoHierarchyProperty.get(GeoHierarchyProperty.CLASS, PropertyInfo.EPIDEMIC_UNIVERSAL);
+      
+      this.setEpidemicUniversal(property.getGeoHierarchy());
+    }
+    catch (DataNotFoundException e)
+    {
+      // Do nothing
     }
 
     if (isEpiWeek != null)
@@ -163,8 +160,27 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   }
 
   @Override
+  @Transaction
   public void apply()
   {
+    GeoHierarchy universal = this.getEpidemicUniversal();
+
+    GeoHierarchyProperty property;
+
+    try
+    {
+      property = (GeoHierarchyProperty) GeoHierarchyProperty.get(GeoHierarchyProperty.CLASS, PropertyInfo.EPIDEMIC_UNIVERSAL);
+      property.lock();
+    }
+    catch (DataNotFoundException e)
+    {
+      property = new GeoHierarchyProperty();
+      property.setPropertyName(PropertyInfo.EPIDEMIC_UNIVERSAL);
+    }
+
+    property.setGeoHierarchy(universal);
+    property.apply();
+
     ThresholdCalculationType calculationType = this.saveCalculationType();
     this.populateView(calculationType);
   }
@@ -181,7 +197,7 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
     return calculationType;
   }
-  
+
   public static Integer getPercentComplete()
   {
     return ThresholdCalculator.getPercentComplete();
@@ -190,23 +206,23 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   @Transaction
   public static void calculateThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-	  ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-	  ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
-	  ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
+    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+    ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
+    ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
   }
-  
+
   @Transaction
   public static void calculatePoliticalThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-	ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-	ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
+    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+    ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
   }
-  
+
   @Transaction
   public static void calculateFacilityThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
-		ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-		ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
+    ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
+    ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
   }
 
   public static ThresholdCalculationTypeView getCalculationThreshold()

@@ -374,11 +374,6 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   @Authenticate
   public static void setThresholdConfiguration(String universal, String calulationMethod)
   {
-    Property epidemic = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.EPIDEMIC_UNIVERSAL);
-    epidemic.lock();
-    epidemic.setPropertyValue(universal);
-    epidemic.apply();
-
     Property isEpiProperty = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
     isEpiProperty.lock();
     isEpiProperty.setPropertyValue(calulationMethod);

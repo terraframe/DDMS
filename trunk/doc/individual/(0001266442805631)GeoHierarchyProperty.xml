@@ -1,0 +1,64 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchyProperty"
+        label="Geo Hierarchy Property"
+        cacheAlgorithm="everything"
+        generateController="false">
+        <attributes>
+          <char
+            name="propertyName"
+            label="Property Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <reference
+            name="geoHierarchy"
+            label="Geo Hierarchy"
+            required="true"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
+        </attributes>
+      </mdBusiness>
+    </create>
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.geo.GeoHierarchyProperty">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+        </grant>
+      </role>
+      <role
+        roleName="mdss.coordinator">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.geo.GeoHierarchyProperty">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+        </grant>
+      </role>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.geo.GeoHierarchyProperty"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>
