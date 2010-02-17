@@ -38,6 +38,6 @@
 <form method="post" enctype="multipart/form-data" action="dss.vector.solutions.util.LocalizationController.importFile.mojo">
   XLS File: <br />
   <input type="file" name="upfile"/> <br />
-  <input class="submitButton" type="submit" value="Import" style="margin-left: 0px; top: 0px;" />
+  <input class="submitButton" type="submit" value="<fmt:message key="Import" />" style="margin-left: 0px; top: 0px;" />
 </form>
 </dl>
