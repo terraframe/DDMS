@@ -422,7 +422,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
         orderBy,
         q.getGeoId(GeoEntity.GEOID),
         q.getType(GeoEntity.TYPE),
-        mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL),
+        mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL),
         tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition condition = null;
