@@ -89,16 +89,34 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void create(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    if (dto.getLifeStage().size() == 0)
+    try
     {
-      dto.addLifeStage(LifeStageDTO.ADULT);
+      // Ensure the user has permissions to create a MosquitoCollection
+      new MosquitoCollectionDTO(this.getClientRequest());
+      
+      if (dto.getLifeStage().size() == 0)
+      {
+        dto.addLifeStage(LifeStageDTO.ADULT);
+      }
+
+      AdultDiscriminatingDoseAssayQueryDTO ada = this.getADA(dto);
+      LarvaeDiscriminatingDoseAssayQueryDTO lda = this.getLDA(dto);
+      KnockDownAssayQueryDTO kda = this.getKDA(dto);
+
+      this.create(dto, ada, lda, kda);
     }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
 
-    AdultDiscriminatingDoseAssayQueryDTO ada = this.getADA(dto);
-    LarvaeDiscriminatingDoseAssayQueryDTO lda = this.getLDA(dto);
-    KnockDownAssayQueryDTO kda = this.getKDA(dto);
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
 
-    this.create(dto, ada, lda, kda);
+      this.failCreate(dto);
+    }
   }
 
   private void create(MosquitoCollectionViewDTO dto, AdultDiscriminatingDoseAssayQueryDTO ada, LarvaeDiscriminatingDoseAssayQueryDTO lda, KnockDownAssayQueryDTO kda) throws IOException, ServletException
@@ -135,7 +153,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     map.put("Female", new ColumnSetup(!adult, true));
     map.put("Larvae", new ColumnSetup(!immature, true));
     map.put("Pupae", new ColumnSetup(!immature, true));
-    map.put("Unknowns", new ColumnSetup((!immature && !adult), true));
+    map.put("Unknowns", new ColumnSetup( ( !immature && !adult ), true));
     map.put("Eggs", new ColumnSetup(!egg, true));
     map.put("Total", new ColumnSetup(false, false));
 
@@ -163,9 +181,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void failCreate(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    setupReferences(dto);
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    this.search();
   }
 
   public void delete(MosquitoCollectionViewDTO dto) throws IOException, ServletException
@@ -224,9 +240,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     // go back to household view after entering person
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
-    
+
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     this.create(MosquitoCollectionDTO.getView(super.getClientRequest(), id));
   }
 
@@ -276,7 +292,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     // go back to household view after entering person
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.checkURL(this.getClass().getSimpleName(), "search");
-    
+
     ClientRequestIF request = this.getClientRequest();
 
     MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
@@ -311,7 +327,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failSearchByDTO(String sortAttribute, String isAscending, String pageSize, String pageNumber, SearchMosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
-    
+
     MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
 
     this.setupReferences(dto);
@@ -346,12 +362,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     try
     {
       MosquitoCollectionViewDTO collection = MosquitoCollectionViewDTO.getCollection(this.getClientRequest(), dto);
-       
+
       String concreteId = collection.getConcreteId();
-      
-      if(concreteId == null || concreteId.equals(""))
+
+      if (concreteId == null || concreteId.equals(""))
       {
-        this.create(collection);        
+        this.create(collection);
       }
       else
       {
