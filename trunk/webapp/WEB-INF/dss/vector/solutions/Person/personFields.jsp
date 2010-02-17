@@ -247,23 +247,24 @@
     var button = document.getElementById('submit.button');
 
     var validatePassword = function () {
-        button.disabled = true;
         MDSS.Calendar.removeError(password);
 
-        if(password.value !== '' && repassword.value !== '') {
-            if(password.value !== repassword.value) {
+       if(password.value !== '' && repassword.value !== '' && password.value !== repassword.value) {
+         MDSS.Calendar.addError(password,MDSS.localize("Password_Mismatch"));
 
-              MDSS.Calendar.addError(password,MDSS.localize("Password_Mismatch"));
+         // Empty the values of password and repassword to ensure that they re
+         password.value = '';
+         repassword.value = '';
+       }
+    }
 
-              // Empty the values of password and repassword to ensure that they re
-              password.value = '';
-              repassword.value = '';
-            }
-            else {
-              button.disabled = false;        
-            }
-       }    
-   }
+    var validatePasswordButton = function() {
+        button.disabled = true;
+
+        if(password.value !== '' && repassword.value !== '' && password.value === repassword.value) {
+          button.disabled = false;
+        }        
+    }
 
    var memberId = document.getElementById('memberId');
    var operatorId = document.getElementById('operatorId');   
@@ -278,6 +279,9 @@
    
    YAHOO.util.Event.on(password, 'blur', validatePassword);
    YAHOO.util.Event.on(repassword, 'blur', validatePassword);
+
+   YAHOO.util.Event.on(password, 'keyup', validatePasswordButton);
+   YAHOO.util.Event.on(repassword, 'keyup', validatePasswordButton);
   })
 })();
 </script>
