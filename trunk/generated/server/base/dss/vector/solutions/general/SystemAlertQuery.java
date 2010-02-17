@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2086061093)
+@com.terraframe.mojo.business.ClassSignature(hash = 335867675)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class SystemAlertQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2086061093;
+private static final long serialVersionUID = 335867675;
 
   public SystemAlertQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -77,6 +77,29 @@ private static final long serialVersionUID = -2086061093;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
 
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName()
+  {
+    return getDisplayName(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.DISPLAYNAME);
+
+    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel)
+  {
+
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.DISPLAYNAME);
+
+    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.SelectableChar getEmailBccAddresses()
@@ -467,7 +490,11 @@ private static final long serialVersionUID = -2086061093;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
+    if (name.equals(dss.vector.solutions.general.SystemAlert.DISPLAYNAME)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
     {
        return new dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -516,6 +543,9 @@ private static final long serialVersionUID = -2086061093;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName();
+    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias);
+    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel);
     public com.terraframe.mojo.query.SelectableChar getEmailBccAddresses();
     public com.terraframe.mojo.query.SelectableChar getEmailBccAddresses(String alias);
     public com.terraframe.mojo.query.SelectableChar getEmailBccAddresses(String alias, String displayLabel);
@@ -588,7 +618,7 @@ private static final long serialVersionUID = -2086061093;
  implements SystemAlertQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 644806777;
+private static final long serialVersionUID = 696163261;
 
   public SystemAlertQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -639,6 +669,23 @@ private static final long serialVersionUID = 644806777;
   public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.CREATEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName()
+  {
+    return getDisplayName(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, com.terraframe.mojo.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, com.terraframe.mojo.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.SelectableChar getEmailBccAddresses()
@@ -999,7 +1046,11 @@ private static final long serialVersionUID = 644806777;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
+    if (name.equals(dss.vector.solutions.general.SystemAlert.DISPLAYNAME)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
     {
        return new dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

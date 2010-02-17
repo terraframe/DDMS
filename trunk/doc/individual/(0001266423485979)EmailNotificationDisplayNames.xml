@@ -1,0 +1,65 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.general.SystemAlert">
+        <create>
+          <attributes>
+            <localText
+              name="displayName"
+              label="Display Name" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+
+    <create>  
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakIdentification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Political Outbreak Identification" />
+        </attributeStruct>
+      </object>
+            
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakIdentification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Facility Outbreak Identification" />
+        </attributeStruct>
+      </object>
+       
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="PoliticalOutbreakNotification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Political Outbreak Notification" />
+        </attributeStruct>
+      </object>
+            
+      <object
+        type="dss.vector.solutions.general.SystemAlert"
+        key="FacilityOutbreakNotification">
+        <attributeStruct
+          name="displayName">
+          <attribute
+            name="defaultLocale"
+            value="Facility Outbreak Notification" />
+        </attributeStruct>
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

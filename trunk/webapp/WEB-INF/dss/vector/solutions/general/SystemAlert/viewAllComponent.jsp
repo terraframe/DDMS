@@ -10,7 +10,7 @@
 	<mjl:context
 		action="dss.vector.solutions.general.SystemAlertController.viewPage.mojo" />
 	<mjl:columns>
-		<mjl:attributeColumn attributeName="keyName">
+		<mjl:attributeColumn attributeName="displayName">
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isOnscreenActive">
 		</mjl:attributeColumn>

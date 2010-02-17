@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -452763292)
+@com.terraframe.mojo.business.ClassSignature(hash = -274358798)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,9 @@ public abstract class SystemAlertBase extends com.terraframe.mojo.business.Busin
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISPLAYNAME = "displayName";
+  private com.terraframe.mojo.business.Struct displayName = null;
+  
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
@@ -34,11 +37,12 @@ public abstract class SystemAlertBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -452763292;
+  private static final long serialVersionUID = -274358798;
   
   public SystemAlertBase()
   {
     super();
+    displayName = super.getStruct("displayName");
     emailTemplateVariables = super.getStruct("emailTemplateVariables");
   }
   
@@ -79,6 +83,22 @@ public abstract class SystemAlertBase extends com.terraframe.mojo.business.Busin
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.SystemAlertDisplayName getDisplayName()
+  {
+    return (dss.vector.solutions.general.SystemAlertDisplayName) displayName;
+  }
+  
+  public void validateDisplayName()
+  {
+    this.validateAttribute(DISPLAYNAME);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplayNameMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
+    return mdClassIF.definesAttribute(DISPLAYNAME);
   }
   
   public String getEmailBccAddresses()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1447486180)
+@com.terraframe.mojo.business.ClassSignature(hash = 845687922)
 public abstract class SystemAlertDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = 1447486180;
+  private static final long serialVersionUID = 845687922;
   
   protected SystemAlertDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class SystemAlertDTOBase extends com.terraframe.mojo.business.Bu
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISPLAYNAME = "displayName";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
@@ -103,6 +104,31 @@ public abstract class SystemAlertDTOBase extends com.terraframe.mojo.business.Bu
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.SystemAlertDisplayNameDTO getDisplayName()
+  {
+    return (dss.vector.solutions.general.SystemAlertDisplayNameDTO) this.getAttributeStructDTO(DISPLAYNAME).getStructDTO();
+  }
+  
+  public boolean isDisplayNameWritable()
+  {
+    return isWritable(DISPLAYNAME);
+  }
+  
+  public boolean isDisplayNameReadable()
+  {
+    return isReadable(DISPLAYNAME);
+  }
+  
+  public boolean isDisplayNameModified()
+  {
+    return isModified(DISPLAYNAME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getDisplayNameMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO(DISPLAYNAME).getAttributeMdDTO();
   }
   
   public String getEmailBccAddresses()
