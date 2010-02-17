@@ -62,6 +62,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     Condition condition = AND.get(query.getPropertyPackage().NE(PropertyInfo.RESISTANCE_PACKAGE), query.getEditable().EQ(true));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.GENERAL_PACKAGE));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
+    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.MONITOR_PACKAGE));
 
     query.WHERE(condition);
 

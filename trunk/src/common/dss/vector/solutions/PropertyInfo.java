@@ -16,6 +16,8 @@ public interface PropertyInfo
 
   public static final String GEO_PACKAGE             = GENERAL_PACKAGE + ".geo";
 
+  public static final String MONITOR_PACKAGE         = GENERAL_PACKAGE + ".intervention.monitor";
+
   public static final String ADULT_DDA_RESISTANCE    = "aDDAR";
 
   public static final String ADULT_DDA_SUSCEPTIBILE  = "aDDAS";
@@ -49,5 +51,4 @@ public interface PropertyInfo
   public static final String EPIDEMIC_UNIVERSAL      = "epidemicUniversal";
 
   public static final String IS_EPI_WEEK             = "isEpiWeek";
-
 }

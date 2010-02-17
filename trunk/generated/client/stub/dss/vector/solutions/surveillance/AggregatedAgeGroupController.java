@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.PropertyDTO;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.PropertyQueryDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/surveillance/AggregatedAgeGroup/";
 
@@ -21,8 +23,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
 
   private static final long  serialVersionUID = 1238693160988L;
 
-  public AggregatedAgeGroupController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public AggregatedAgeGroupController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -40,18 +41,15 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
     this.viewAll();
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
-      throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest,
-        sortAttribute, isAscending, pageSize, pageNumber);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
-      throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
@@ -181,8 +179,11 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true,
-        20, 1);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    PropertyQueryDTO properties = PropertyDTO.getAllByPackage(clientRequest, PropertyInfo.MONITOR_PACKAGE);
+    
+    
+    req.setAttribute("properties", properties);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

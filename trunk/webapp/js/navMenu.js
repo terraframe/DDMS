@@ -86,8 +86,9 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	        	              { text: "Enter_Thresholds(105)", url: "dss.vector.solutions.general.ThresholdDataController.search.mojo", visibleTo:'Administrator'}
 	        	              ]
 	           		}
-	           }
-	           ]
+	           },
+               { text: "Configure_Case_Surveillance", url: "dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" , visibleTo:'Administrator'}
+	           ]	           
 },
 {
 	id: "Entomology_Surveillance",
