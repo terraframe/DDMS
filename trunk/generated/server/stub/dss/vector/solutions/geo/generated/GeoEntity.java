@@ -269,7 +269,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
@@ -299,7 +299,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     TermQuery tq = new TermQuery(valueQuery);
 
     SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
@@ -409,7 +409,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
     SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().getSessionLocale(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition condition = null;
 
