@@ -18,6 +18,8 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   private static final long serialVersionUID = 1235777070211L;
 
   public static final long  SHORT_ID_LENGTH  = 8;
+  
+  public static final int RESERVED_SHORT_ID_SPACES = 23;
 
   public static final long  MAX_ID           = (long) Math.pow(30, SHORT_ID_LENGTH);
 
@@ -263,7 +265,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
     Long counter = currentValue.getPropertyLong();
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
-    int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
+    int offset = RESERVED_SHORT_ID_SPACES + Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
 
     long totalOffset = ( MAX_ID / segments ) * offset;
 
