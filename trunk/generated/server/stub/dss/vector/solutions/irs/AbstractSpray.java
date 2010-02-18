@@ -87,7 +87,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
-    String unit_operational_coverage = "(SUM("+avilableUnits+") / SUM("+sprayedUnits+"))";
+    String unit_operational_coverage = "SUM("+sprayedUnits+")) / (SUM("+avilableUnits+")";
     String unit_application_rate = "(refills::FLOAT * active_ingredient_per_can) / ("+sprayedUnits+" * unitarea)";
     String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
 
