@@ -305,18 +305,31 @@ Mojo.Meta.newClass('MDSS.HiddenBooleanElement', {
     },
     
     updateValues : function() {
-      this._postivieChecked = this._positiveElement.checked;
-      this._negativeChecked = this._negativeElement.checked;      
+      if(this._positiveElement != null) {
+        this._postivieChecked = this._positiveElement.checked;
+      }
+      
+      if(this._negativeElement != null) {
+        this._negativeChecked = this._negativeElement.checked;      
+      }
     },
     
     clearValues : function() {
-      this._positiveElement.checked = false;
-      this._negativeElement.checked = false;            
+      if(this._positiveElement != null) {
+        this._positiveElement.checked = false;
+      }
+      if(this._negativeElement != null) {
+        this._negativeElement.checked = false;            
+      }
     },
     
     resetValues : function() {
-      this._positiveElement.checked = this._postivieChecked;
-      this._negativeElement.checked = this._negativeChecked;            
+      if(this._positiveElement != null) {   
+        this._positiveElement.checked = this._postivieChecked;
+      }
+      if(this._negativeElement != null) {
+        this._negativeElement.checked = this._negativeChecked;
+      }
     }    
   }
 });
@@ -368,11 +381,13 @@ Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
     },
     
     updateValues : function() {
-      this._selectedIndex = this._inputElement.selectedIndex;
+      if(this._inputElement != null) {      
+        this._selectedIndex = this._inputElement.selectedIndex;
+      }
     },
       
     clearValues : function() {
-      if(this._inputElement.value != '') {
+      if(this._inputElement != null && this._inputElement.value != '') {
         //Add a blank option with a null value
         var blankOption = document.createElement('option');
         blankOption.text = '';
@@ -385,9 +400,11 @@ Mojo.Meta.newClass('MDSS.HiddenSelectElement', {
     },
       
     resetValues : function() {
-      this._inputElement.selectedIndex = this._selectedIndex;
+      if(this._inputElement != null) {          
+        this._inputElement.selectedIndex = this._selectedIndex;
       
-      this._inputElement.remove(this._inputElement.length - 1);      
+        this._inputElement.remove(this._inputElement.length - 1);
+      }
     }    
   }
 });
@@ -407,15 +424,21 @@ Mojo.Meta.newClass('MDSS.HiddenInputElement', {
     },
 
     updateValues : function() {
-      this._inputValue = this._inputElement.value;
+      if(this._inputElement != null) {
+        this._inputValue = this._inputElement.value;
+      }
     },
     
     clearValues : function() {
-      this._inputElement.value = '';
+      if(this._inputElement != null) {
+        this._inputElement.value = '';
+      }
     },
     
     resetValues : function() {
-      this._inputElement.value = this._inputValue;
+      if(this._inputElement != null) {    
+        this._inputElement.value = this._inputValue;
+      }
     }    
   },
   Static: {
@@ -447,18 +470,33 @@ Mojo.Meta.newClass('MDSS.HiddenMultiTermElement', {
     },
 
     updateValues : function() {
-      this._inputValue = this._inputElement.value;
-      this._results = this._resultList.innerHTML;
+      if(this._inputElement != null) {
+        this._inputValue = this._inputElement.value;
+      }
+      
+      if(this._resultList != null) {
+        this._results = this._resultList.innerHTML;
+      }
     },
     
     clearValues : function() {
-      this._inputElement.value = '';
-      this._resultList.innerHTML = '';
+      if(this._inputElement != null) {   
+        this._inputElement.value = '';
+      }
+      
+      if(this._resultList != null) {
+        this._resultList.innerHTML = '';
+      }
     },
     
     resetValues : function() {
-      this._inputElement.value = this._inputValue;
-      this._resultList.innerHTML = this._results;
+      if(this._inputElement != null) {
+        this._inputElement.value = this._inputValue;
+      }
+      
+      if(this._resultList != null) {
+        this._resultList.innerHTML = this._results;
+      }
     }    
   }
 });
@@ -919,7 +957,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     displayResults : function(results) {
       // We only want to display new results when a selection has not be made
       // with the current search value.  It is possible that a selection will
-      // be made, while there are outstanding ajax request for search results.    	
+      // be made, while there are outstanding ajax request for search results.    
       if(!this._hasSelection) {
         var searchValue = this.getValue();
 
