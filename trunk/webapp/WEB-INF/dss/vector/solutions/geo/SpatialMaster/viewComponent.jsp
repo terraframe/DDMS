@@ -42,4 +42,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.geo.SpatialMasterController.viewAll.mojo" name="dss.vector.solutions.geo.SpatialMaster.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.geo.SpatialMasterController.viewAll.mojo" name="dss.vector.solutions.geo.SpatialMaster.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

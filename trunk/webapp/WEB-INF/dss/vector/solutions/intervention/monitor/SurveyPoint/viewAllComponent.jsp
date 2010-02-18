@@ -26,6 +26,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -39,7 +40,9 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Survey Point" action="dss.vector.solutions.intervention.monitor.SurveyPointController.newInstance.mojo" name="SurveyPointController.newInstance" />
+<mjl:commandLink display="Create a new Survey Point" action="dss.vector.solutions.intervention.monitor.SurveyPointController.newInstance.mojo" name="SurveyPointController.newInstance">
+<fmt:message key="Create_a_new_Survey_Point" />
+</mjl:commandLink>
 
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.SurveyExcelView" name="excelType"/>

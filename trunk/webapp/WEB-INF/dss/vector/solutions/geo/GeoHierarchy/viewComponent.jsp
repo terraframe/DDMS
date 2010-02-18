@@ -58,4 +58,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.geo.GeoHierarchyController.viewAll.mojo" name="dss.vector.solutions.geo.GeoHierarchy.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.geo.GeoHierarchyController.viewAll.mojo" name="dss.vector.solutions.geo.GeoHierarchy.viewAll.link">
+  <fmt:message key="View_All" />
+</mjl:commandLink>

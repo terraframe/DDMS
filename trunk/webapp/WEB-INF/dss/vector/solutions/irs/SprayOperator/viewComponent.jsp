@@ -19,4 +19,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.irs.SprayOperatorController.viewAll.mojo" name="dss.vector.solutions.irs.SprayOperator.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.irs.SprayOperatorController.viewAll.mojo" name="dss.vector.solutions.irs.SprayOperator.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

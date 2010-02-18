@@ -22,6 +22,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.LineStyleController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -35,4 +36,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Line Style" action="dss.vector.solutions.LineStyleController.newInstance.mojo" name="LineStyleController.newInstance" />
+<mjl:commandLink display="Create a new Line Style" action="dss.vector.solutions.LineStyleController.newInstance.mojo" name="LineStyleController.newInstance">
+<fmt:message key="Create_a_new_Line_Style" />
+</mjl:commandLink>

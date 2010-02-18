@@ -57,5 +57,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.ontology.FieldRootController.newRelationship.mojo" name="FieldRootController.newRelationship">
-  <fmt:message key="Create_a_new_" />
+  <fmt:message key="Create_a_new" />
 </mjl:commandLink>

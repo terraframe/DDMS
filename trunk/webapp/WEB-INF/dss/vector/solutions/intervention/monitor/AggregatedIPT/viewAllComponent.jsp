@@ -52,6 +52,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.AggregatedIPTController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -65,4 +66,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Aggregated IPT Information" action="dss.vector.solutions.intervention.monitor.AggregatedIPTController.newInstance.mojo" name="AggregatedIPTController.newInstance" />
+<mjl:commandLink display="Create a new Aggregated IPT Information" action="dss.vector.solutions.intervention.monitor.AggregatedIPTController.newInstance.mojo" name="AggregatedIPTController.newInstance">
+<fmt:message key="Create_a_new Aggregated_IPT_Information" />
+</mjl:commandLink>

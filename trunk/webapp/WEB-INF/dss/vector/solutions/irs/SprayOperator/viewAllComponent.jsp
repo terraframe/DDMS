@@ -17,7 +17,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.irs.SprayOperatorController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+          <fmt:message key="View" /><mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -30,4 +30,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Spary Operator" action="dss.vector.solutions.irs.SprayOperatorController.newInstance.mojo" name="SprayOperatorController.newInstance" />
+<mjl:commandLink display="Create a new Spray Operator" action="dss.vector.solutions.irs.SprayOperatorController.newInstance.mojo" name="SprayOperatorController.newInstance" >
+<fmt:message key="Create_a_new_Spray_Operator" />
+</mjl:commandLink>

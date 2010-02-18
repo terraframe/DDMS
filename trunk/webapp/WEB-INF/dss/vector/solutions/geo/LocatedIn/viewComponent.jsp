@@ -30,4 +30,6 @@
   <mjl:command value="Edit" action="dss.vector.solutions.geo.LocatedInController.edit.mojo" name="dss.vector.solutions.geo.LocatedIn.form.edit.button" />
   <br />
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.geo.LocatedInController.viewAll.mojo" name="dss.vector.solutions.geo.LocatedIn.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.geo.LocatedInController.viewAll.mojo" name="dss.vector.solutions.geo.LocatedIn.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

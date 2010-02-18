@@ -33,6 +33,7 @@
       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
         <td>${current.householdName}</td>
         <td><mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
+          <fmt:message key="View" />
           <mjl:property name="id" value="${current.concreteId}" />
         </mjl:commandLink></td>
       </tr>
@@ -40,8 +41,11 @@
   </table>
   </dd>
   <mjl:commandLink display="Add a household" action="dss.vector.solutions.intervention.monitor.HouseholdController.newInstance.mojo" name="Household.newInstance.link">
+    <fmt:message key="Add_a_household" />
     <mjl:property name="surveyId" value="${item.concreteId}" />
   </mjl:commandLink>
 </dl>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

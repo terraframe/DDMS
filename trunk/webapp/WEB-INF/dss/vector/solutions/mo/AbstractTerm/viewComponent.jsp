@@ -19,4 +19,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.AbstractTermController.viewAll.mojo" name="dss.vector.solutions.mo.AbstractTerm.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.mo.AbstractTermController.viewAll.mojo" name="dss.vector.solutions.mo.AbstractTerm.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>
