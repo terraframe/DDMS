@@ -53,7 +53,7 @@ YAHOO.util.Event.onDOMReady(function() {
      
      <c:forEach items="${rootMap[field.mdAttributeId]}" var="root">
        <tr id="${root.browserRootId}_row">
-         <td>${root.termName} (${root.termOntologyId})</td>
+         <td>${root.displayLabel}</td>
          <td>${root.selectable}</td>
          <td><button class="editRootBtn" value="${root.browserRootId}"><fmt:message key="Edit" /></button></td>
          <td><button class="deleteRootBtn" value="${root.browserRootId}"><fmt:message key="Delete" /></button></td>

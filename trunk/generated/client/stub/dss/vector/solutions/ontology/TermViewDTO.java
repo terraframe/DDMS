@@ -11,7 +11,7 @@ public class TermViewDTO extends TermViewDTOBase
   
   public String getDisplayLabel()
   {
-    return this.getTermName() + " (" + this.getTermOntologyId() + ")";
+    return this.getTermName();
   }
 
   public String getTermComponentDisplay()

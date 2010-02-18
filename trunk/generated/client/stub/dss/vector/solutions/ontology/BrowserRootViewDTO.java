@@ -9,4 +9,8 @@ public class BrowserRootViewDTO extends BrowserRootViewDTOBase
     super(clientRequest);
   }
   
+  public String getDisplayLabel()
+  {
+    return this.getTermName();
+  }
 }
