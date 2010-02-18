@@ -45,7 +45,7 @@ public class MdssControlPanel extends JFrame {
 	public final int HEIGHT = 300;
 	public final int WIDTH = 400;
 
-	private static final String URL = "url.server";
+	private static final String URL = "command.url";
 	private static final String TITLE = "title";
 
 	private static final String START = "start";
