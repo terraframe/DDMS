@@ -258,7 +258,8 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 			// add the use case number back in
 			if(text_obj.text.split('(')[1])
 			{
-				label += "<em class=\"helptext\">" + text_obj.text.split('(')[1].substring(0,3)  +"</em>";
+				//commenting out line below disable use case numbers
+				//label += "<em class=\"helptext\">" + text_obj.text.split('(')[1].substring(0,3)  +"</em>";
 			}
 			text_obj.text = label;
 		}
