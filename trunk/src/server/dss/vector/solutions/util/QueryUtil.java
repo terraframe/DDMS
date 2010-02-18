@@ -601,16 +601,14 @@ public class QueryUtil implements Reloadable
         String attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0)
-        {
           String[] selectedUniversals = new String[universals.length()];
+          //we run addUniversalsForAttribute even if length is zero for the case of restricting without selecting 
           for (int i = 0; i < universals.length(); i++)
           {
             selectedUniversals[i] = universals.getString(i);
           }
 
           addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
-        }
       }
     }
     catch (JSONException e)
