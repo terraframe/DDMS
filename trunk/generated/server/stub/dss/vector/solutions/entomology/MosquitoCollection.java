@@ -11,6 +11,7 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
@@ -305,7 +306,18 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
           columnName = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
         }
         
-        overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+        if(s instanceof SelectableSQLFloat)
+        {
+          overrideQuery.SELECT(overrideQuery.aSQLFloat(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+        }
+        else if(s instanceof AttributeMoment)
+        {
+          overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+        }
+        else
+        {
+          overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+        }
         
       }
 
@@ -338,6 +350,17 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   public static String getWithQuerySQL(String viewName, ValueQuery valueQuery)
   {
 
+    String joinGeo = "";
+    
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+       if (s.getDbColumnName().startsWith("geoId_"))
+      {
+        joinGeo += " AND ss." + s.getColumnAlias() + " = taxonCountQuery." + s.getColumnAlias() + " "; 
+      }  
+      
+    }
+    
     String origQuery = valueQuery.getSQL();
     
     origQuery = origQuery.replaceFirst("SELECT", "SELECT taxon,SUM(total) as abundance_sum,COUNT(*) as abundance_count,").replaceFirst("GROUP BY", "GROUP BY taxon,");
@@ -347,16 +370,16 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     sql += "taxonCountQuery AS (\n";
     sql += "SELECT mainQuery.* ,";
-    sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon )as total_of_children, \n";
+    sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon  )as total_of_children, \n";
     sql += "(SELECT parent_id from termrelationship WHERE taxon = child_id ) as parent \n";
     sql += " FROM mainQuery),\n";
     sql += " \n";
 
     sql += " "+viewName+" AS (\n";
     sql += " SELECT taxonCountQuery.*,\n";
-    sql += " coalesce( total_of_children,0) as total_of_children_z, \n";
-    sql += " coalesce( abundance_sum/(select(total_of_children ) from taxonCountQuery as ss where ss.taxon = taxonCountQuery.parent) * \n";
-    sql += " (select(total_of_children+abundance_sum) from taxonCountQuery as ss where ss.taxon = taxonCountQuery.parent)-abundance_sum ,0)as abundance\n";
+    sql += " coalesce( total_of_children,0) AS total_of_children_z, \n";
+    sql += " coalesce( abundance_sum/(SELECT(total_of_children ) FROM taxonCountQuery AS ss WHERE ss.taxon = taxonCountQuery.parent "+joinGeo+") * \n";
+    sql += " (SELECT(total_of_children+abundance_sum) FROM taxonCountQuery AS ss WHERE ss.taxon = taxonCountQuery.parent  "+joinGeo+" )-abundance_sum ,0)as abundance\n";
     sql += " FROM taxonCountQuery )\n";
     sql += " \n";
     
