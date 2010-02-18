@@ -11,6 +11,8 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<!--It is very important to set the content type so that FF knows to read in these strings as UTF-8 -->
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 Locale locale = request.getLocale();
 DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
