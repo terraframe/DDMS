@@ -862,8 +862,12 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       this._dataSource = dataSource;
       this._optionBuilder = optionBuilder;
       this._panel = panel;
-      this._hasChanged = false;
       this._value = this.getValue();
+      this._hasChanged = false;
+      
+      // Flag denoting if a selection has been made without any new search input
+      // from the user.
+      this._hasSelection = false; 
       
       this.listeners = [];
       this.parameters = null;
@@ -913,25 +917,31 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     },
 
     displayResults : function(results) {
-      var searchValue = this.getValue();
+      // We only want to display new results when a selection has not be made
+      // with the current search value.  It is possible that a selection will
+      // be made, while there are outstanding ajax request for search results.    	
+      if(!this._hasSelection) {
+        var searchValue = this.getValue();
 
-      var options = document.createDocumentFragment();
+        var options = document.createDocumentFragment();
 
-      for(var i=0; i<results.length; i++) {
-        var result = results[i];
+        for(var i=0; i<results.length; i++) {
+          var result = results[i];
           
-        var option = this._optionBuilder.createOption(result, searchValue, i); 
+          var option = this._optionBuilder.createOption(result, searchValue, i); 
           
-        options.appendChild(option);
-      }
+          options.appendChild(option);
+        }
         
-      this._panel.setOptions(options);
+        this._panel.setOptions(options);
       
-      this.focus();
+        this.focus();
+      }
     },
                   
     selectHandler : function(selected) {
       if(selected) {
+        this._hasSelection = true;
         this.setOption(selected);
           
         if(Mojo.Util.isFunction(this._selectEventHandler)) {
@@ -995,6 +1005,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         if(this._isDifferent(value)) {
           this._setCurrentValue(value);
         }
+        
         if(value.length >= this.minLength) {        
           this.performSearch(value);
         }
@@ -1034,7 +1045,8 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     _setCurrentValue : function(value) {
       this.resetSelected();
       this.value = value;
-      this._hasChanged = true;      
+      this._hasChanged = true;
+      this._hasSelection = false;      
     },
     
     resetCache : function() {
