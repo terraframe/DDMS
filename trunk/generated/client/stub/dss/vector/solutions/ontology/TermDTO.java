@@ -28,8 +28,8 @@ public class TermDTO extends TermDTOBase implements Reloadable, TermComponentIF
 
   public String getDisplayLabel()
   {
-    // return this.getName() + " (" + this.getTermId() + ")";
-    return this.getDisplay() + " (" + this.getTermId() + ")";
+//    return this.getDisplay() + " (" + this.getTermId() + ")";
+    return this.getDisplay();
   }
 
   public static String getFieldKeyName(String className, String attributeName)

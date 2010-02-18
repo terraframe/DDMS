@@ -1,9 +1,20 @@
 package dss.vector.solutions.ontology;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
-public class BrowserRootController extends BrowserRootControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
+
+public class BrowserRootController extends BrowserRootControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/BrowserRoot/";
 
@@ -11,67 +22,71 @@ public class BrowserRootController extends BrowserRootControllerBase implements
 
   private static final long  serialVersionUID = 1252959712968L;
 
-  public BrowserRootController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public BrowserRootController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.ontology.BrowserRootQueryDTO query = dss.vector.solutions.ontology.BrowserRootDTO
-        .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    BrowserRootQueryDTO query = BrowserRootDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.ontology.BrowserRootQueryDTO query = dss.vector.solutions.ontology.BrowserRootDTO
-        .getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      BrowserRootQueryDTO query = BrowserRootDTO.getAllInstances(clientRequest, null, true, 20, 1);
+      req.setAttribute("query", query);
+      render("viewAllComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      this.failViewAll();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failViewAll();
+    }
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
-    resp.sendError(500);
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
-    dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(
-        req, resp);
+    RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.ontology.BrowserRootDTO.get(clientRequest, id));
+    ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", BrowserRootDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
     try
     {
-      com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.ontology.BrowserRootDTO dto = new dss.vector.solutions.ontology.BrowserRootDTO(
-          clientRequest);
+      ClientRequestIF clientRequest = super.getClientRequest();
+      BrowserRootDTO dto = new BrowserRootDTO(clientRequest);
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
@@ -83,48 +98,45 @@ public class BrowserRootController extends BrowserRootControllerBase implements
     }
   }
 
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void create(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void create(BrowserRootDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
     }
-    catch (java.lang.Throwable t)
+    catch (Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
+      ErrorUtility.prepareThrowable(t, req);
       this.failCreate(dto);
     }
   }
 
-  public void failCreate(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(BrowserRootDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     try
     {
-      dss.vector.solutions.ontology.BrowserRootDTO dto = dss.vector.solutions.ontology.BrowserRootDTO
-          .lock(super.getClientRequest(), id);
-      
+      BrowserRootDTO dto = BrowserRootDTO.lock(super.getClientRequest(), id);
+
       req.setAttribute("item", dto);
       req.setAttribute("term", dto.getTerm());
-      
+
       render("editComponent.jsp");
     }
     catch (Throwable t)
@@ -135,73 +147,67 @@ public class BrowserRootController extends BrowserRootControllerBase implements
     }
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void update(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void update(BrowserRootDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
     }
-    catch (java.lang.Throwable t)
+    catch (Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
+      ErrorUtility.prepareThrowable(t, req);
       this.failUpdate(dto);
     }
   }
 
-  public void failUpdate(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(BrowserRootDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
 
-  public void cancel(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void cancel(BrowserRootDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
 
-  public void failCancel(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCancel(BrowserRootDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
 
-  public void delete(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void delete(BrowserRootDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
     }
-    catch (java.lang.Throwable t)
+    catch (Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
+      ErrorUtility.prepareThrowable(t, req);
       this.failDelete(dto);
     }
   }
 
-  public void failDelete(dss.vector.solutions.ontology.BrowserRootDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failDelete(BrowserRootDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("editComponent.jsp");

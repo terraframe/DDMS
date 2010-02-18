@@ -18,6 +18,7 @@ import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.BasicCondition;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -1102,6 +1103,75 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return q;
   }
 
+  /**
+   * @param value
+   *          term value
+   * 
+   * @param parameters
+   *          [0] = className
+   * @param parameters
+   *          [1] = attributeName
+   * @return
+   */
+  public static ValueQuery searchByRoots(String value, String[][] roots)
+  {
+    QueryFactory factory = new QueryFactory();
+    ValueQuery query = new ValueQuery(factory);
+    
+    AllPathsQuery pathsQuery = new AllPathsQuery(query);
+    TermQuery termQuery = new TermQuery(query);
+    
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
+        termQuery.getId(Term.ID),
+        termQuery.getDisplay(Term.DISPLAY),
+        termQuery.getTermId(Term.TERMID)
+    };
+    
+    List<Condition> list = new LinkedList<Condition>();
+
+    Condition condition = null;
+    
+    for(String[] root : roots)
+    {
+      String id = root[0];
+      Boolean selectable = Boolean.parseBoolean(root[1]);
+      
+      BasicCondition eq = pathsQuery.getParentTerm().EQ(id);
+      
+      condition = (condition != null ) ? OR.get(condition, eq) : eq;
+      
+      if(!selectable)
+      {
+        list.add(termQuery.getId().NEi(id));
+      }
+    }
+    
+    list.add(pathsQuery.getChildTerm().EQ(termQuery));
+    
+    if(condition != null)
+    {
+      list.add(condition);
+    }
+    
+    Condition[] conditions = list.toArray(new Condition[list.size()]);
+    
+    if (value != null && !value.equals(""))
+    {
+      String[] searchable = value.split(" ");
+      
+      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditions);
+    }
+    else
+    {
+      SelectablePrimitive orderBy = selectables[1];
+      
+      QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
+    }
+    
+    query.restrictRows(20, 1);
+    
+    return query;
+  }
   /**
    * @param value
    *          term value

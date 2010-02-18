@@ -775,7 +775,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     formatLabel : function(label, termId) {
-      return label + ' ('+termId+')';
+      return label;
     },
     
     // Extracts the term name from the display created with formatLabelFromView()
@@ -815,7 +815,7 @@ Mojo.Meta.newClass("MDSS.OntologyValidator", {
         }
           
         this._validateSelection();
-      }       	
+      }       
     },
 
     _validateSelection : function() {
@@ -879,7 +879,9 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         
       this._attributeEl = document.getElementById(this._attributeName);
       this._displayEl = document.getElementById(this._attributeName + 'Display');        
-      this._button = document.getElementById(this._attributeName + 'Btn');        
+      this._button = document.getElementById(this._attributeName + 'Btn');
+      
+      this._roots = [];
        
       // Setup the ontology browser
       this._browser = new MDSS.OntologyBrowser(false, this._attributeClass, this._browserField);            
@@ -904,14 +906,23 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       new MDSS.OntologyValidator(this._attributeName, this._search, gP, sF);
     },
     
+    addRoot : function (root) {
+      this._roots.push(root);
+    },
+    
     _getParameters : function() {
       return [this._attributeClass, this._attributeName];
     },
     
     _searchFunction : function(request, value) {
-      var parameters = this._getParameters();
+      if(this._roots.length > 0) {
+        Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+      }
+      else {
+        var parameters = this._getParameters();
       
-      Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
+        Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
+      }
     },
     
     _selectFunction : function () {
@@ -990,6 +1001,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.enabled = Mojo.Util.isBoolean(config.enabled) ? config.enabled : true;
       this.index = -1;
       this.map = {};
+      this._roots = [];
           
       // Setup the ontology browser
       this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);
@@ -1069,6 +1081,10 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     { 
       return ++this.index;
     },
+        
+    addRoot : function (root) {
+      this._roots.push(root);
+    },
     
     addSelection : function(label, id)
     {
@@ -1122,9 +1138,14 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     
     _searchFunction : function(request, value)
     {
-      var parameters = [this.attributeClass, this.browserField];
-      
-      Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
+      if(this._roots.length > 0) {
+        Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+      }
+      else {
+        var parameters = [this.attributeClass, this.browserField];
+            
+        Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
+      }    	
     },
     
     _selectionHandler : function(selection)

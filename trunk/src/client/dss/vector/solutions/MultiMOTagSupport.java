@@ -7,12 +7,17 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspTag;
 
+import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.constants.ClientConstants;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.controller.tag.ComponentMarkerIF;
 import com.terraframe.mojo.controller.tag.InputTagSupport;
 import com.terraframe.mojo.controller.tag.develop.AttributeAnnotation;
 import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.ontology.BrowserRootDTO;
+import dss.vector.solutions.ontology.BrowserRootViewDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
 @TagAnnotation(name = "multimo", bodyContent = "empty", description = "Multiple select MO input tag")
@@ -84,11 +89,20 @@ public class MultiMOTagSupport extends AbstractTermTagSupport implements Reloada
 
     if (_script)
     {
+      ClientSession clientSession = (ClientSession) this.getJspContext().findAttribute(ClientConstants.CLIENTSESSION);
+      ClientRequestIF request = clientSession.getRequest();
+      BrowserRootViewDTO[] roots = BrowserRootDTO.getAttributeRoots(request, _browserClass, _browserAttribute);
+
       out.write("<script type=\"text/javascript\">\n");
       out.write("(function(){\n");
-      out.write("YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("var browser = new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', {attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true, enabled:" + _enabled + "});\n");
-
+      out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
+      out.write("    var browser = new MDSS.GenericMultiOntologyBrowser('" + _browserClass + "', {attributeName:'" + _id + "', browserField:'" + _browserAttribute + "', multipleSelect:true, enabled:" + _enabled + "});\n");
+      
+      for (BrowserRootViewDTO root : roots)
+      {
+        out.write("    browser.addRoot(['" + root.getTermId() + "','" + root.getSelectable() + "']);\n");
+      }
+      
       if (_value != null)
       {
         for (TermDTO term : _value)
@@ -96,7 +110,7 @@ public class MultiMOTagSupport extends AbstractTermTagSupport implements Reloada
           out.write("browser.addSelection('" + term.getDisplayLabel() + "', '" + term.getId() + "');\n");
         }
       }
-
+           
       out.write("})\n");
       out.write("})();\n");
       out.write("</script>\n");
