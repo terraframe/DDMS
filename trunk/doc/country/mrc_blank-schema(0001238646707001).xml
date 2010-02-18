@@ -254,7 +254,7 @@
 					value="dss.vector.solutions.install" />
 				<attribute
 					name="propertyValue"
-					value="0000" />
+					value="000000" />
 				<attribute
 					name="propertyType"
 					value="STRING" />
