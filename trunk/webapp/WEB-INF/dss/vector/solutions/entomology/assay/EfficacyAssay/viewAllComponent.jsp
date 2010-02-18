@@ -99,6 +99,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -112,7 +113,9 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Efficacy Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.newInstance.mojo" name="EfficacyAssayController.newInstance" />
+<mjl:commandLink display="Create a new Efficacy Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.newInstance.mojo" name="EfficacyAssayController.newInstance">
+  <fmt:message key="Create_a_new_Efficacy_Assay" />
+</mjl:commandLink>
 
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.EfficacyAssayExcelView" name="excelType"/>

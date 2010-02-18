@@ -36,4 +36,6 @@
 </mjl:form>
 <dl>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" name="dss.vector.solutions.general.MalariaSeason.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" name="dss.vector.solutions.general.MalariaSeason.viewAll.link">
+  <fmt:message key="View_All" />
+</mjl:commandLink>

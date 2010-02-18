@@ -21,4 +21,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.general.LethalTimePropertyController.edit.mojo" name="dss.vector.solutions.general.LethalTimeProperty.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="Search" action="dss.vector.solutions.general.LethalTimePropertyController.search.mojo" name="search.link" />
+<mjl:commandLink display="Search" action="dss.vector.solutions.general.LethalTimePropertyController.search.mojo" name="search.link">
+  <fmt:message key="Search" />
+</mjl:commandLink>

@@ -71,5 +71,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink name="WeeklyThresholdController.newRelationship" action="dss.vector.solutions.general.WeeklyThresholdController.newRelationship.mojo">
-  <fmt:message key="Create_a_new_" />
+  <fmt:message key="Create_a_new" />
 </mjl:commandLink>

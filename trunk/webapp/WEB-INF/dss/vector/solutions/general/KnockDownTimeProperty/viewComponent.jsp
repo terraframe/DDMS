@@ -20,4 +20,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.general.KnockDownTimePropertyController.edit.mojo" name="dss.vector.solutions.general.KnockDownTimeProperty.form.edit.button" />
   </mjl:form>
 </dl>
-<mjl:commandLink display="Search" action="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" name="search.link" />
+<mjl:commandLink display="Search" action="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" name="search.link">
+  <fmt:message key="Search" />
+</mjl:commandLink>

@@ -42,6 +42,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.general.LethalTimePropertyController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -55,4 +56,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create New" action="dss.vector.solutions.general.LethalTimePropertyController.newInstance.mojo" name="LethalTimePropertyController.newInstance" />
+<mjl:commandLink display="Create New" action="dss.vector.solutions.general.LethalTimePropertyController.newInstance.mojo" name="LethalTimePropertyController.newInstance">
+  <fmt:message key="Create_New" />
+</mjl:commandLink>

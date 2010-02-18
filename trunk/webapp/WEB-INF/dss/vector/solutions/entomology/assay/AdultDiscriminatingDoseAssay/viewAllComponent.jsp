@@ -66,6 +66,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -79,8 +80,9 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Enter New Data" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo"
-  name="AdultDiscriminatingDoseAssayController.newInstance" />
+<mjl:commandLink display="Enter New Data" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" name="AdultDiscriminatingDoseAssayController.newInstance">
+  <fmt:message key="Enter_new_data" />
+</mjl:commandLink>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView" name="excelType"/>
 </jsp:include>

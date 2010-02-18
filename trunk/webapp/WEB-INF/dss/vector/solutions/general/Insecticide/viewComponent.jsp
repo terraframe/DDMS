@@ -40,4 +40,6 @@
   --%><br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.general.InsecticideController.viewAll.mojo" name="dss.vector.solutions.general.Insecticide.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.general.InsecticideController.viewAll.mojo" name="dss.vector.solutions.general.Insecticide.viewAll.link">
+  <fmt:message key="View_All" />
+</mjl:commandLink>

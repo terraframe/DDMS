@@ -38,6 +38,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.geo.AllowedInController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -51,4 +52,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Allowed In" action="dss.vector.solutions.geo.AllowedInController.newRelationship.mojo" name="AllowedInController.newRelationship" />
+<mjl:commandLink display="Create a new Allowed In" action="dss.vector.solutions.geo.AllowedInController.newRelationship.mojo" name="AllowedInController.newRelationship">
+  <fmt:message key="Create_a_new_Allowed_In" />
+</mjl:commandLink>
