@@ -2,8 +2,8 @@
 	xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Thu Nov 12 15:00:59 MST 2009 from
-		/home/chris/TerraFrame/MDSS/doc/country/mrc_zambia-universals.xls
+		Created on Thu Feb 18 11:44:30 MST 2010 from
+		./doc/country/mrc_zambia-universals.xls
 	-->
 	<doIt>
 		<create>
@@ -689,35 +689,36 @@
 
 		<create>
 			<object
-		        type="dss.vector.solutions.Property"
-		        key="countryGeoId">
-		        <attribute
-		          name="propertyName"
-		          value="countryGeoId" />
-		        <attribute
-		          name="displayLabel"
-		          value="Country Geo ID" />
-		        <attribute
-		          name="propertyPackage"
-		          value="dss.vector.solutions.install" />
-		        <attribute
-		          name="propertyValue"
-		          value="1107" />
-		        <attribute
-		          name="propertyType"
-		          value="STRING" />
-		        <attribute
-		          name="propertyValidator"
-		          value="^[0-9A-Za-z]{1,16}$" />
-		        <attribute
-		          name="validValues"
-		          value="12323,ABCD,23AB,ZZZ456" />
-		        <attribute
-		          name="description"
-		          value="The GeoID of the Country in which this server is installed" />
+				type="dss.vector.solutions.Property"
+				key="countryGeoId">
+				<attribute
+					name="propertyName"
+					value="countryGeoId" />
+				<attribute
+					name="displayLabel"
+					value="Country Geo ID" />
+				<attribute
+					name="propertyPackage"
+					value="dss.vector.solutions.install" />
+				<attribute
+					name="propertyValue"
+					value="1100" />
+				<attribute
+					name="propertyType"
+					value="STRING" />
+				<attribute
+					name="propertyValidator"
+					value="^[0-9A-Za-z]{1,16}$" />
+				<attribute
+					name="validValues"
+					value="12323,ABCD,23AB,ZZZ456" />
+				<attribute
+					name="description"
+					value="The GeoID of the Country in which this server is installed" />
 			</object>
+
 		</create>
-		
+
 		<permissions>
 			<role
 				roleName="mdss.GUIVisibility">

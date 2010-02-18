@@ -2,8 +2,8 @@
 	xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Thu Nov 99 99:99:99 MST 2009 from
-		/home/chris/TerraFrame/MDSS/doc/country/mrc_blank-universals.xls
+		Created on Thu Feb 18 11:50:32 MST 2010 from
+		./doc/country/mrc_blank-universals.xls
 	-->
 	<doIt>
 		<create>
@@ -54,6 +54,15 @@
 				removable="true"
 				extends="dss.vector.solutions.geo.generated.GeoEntity">
 			</mdBusiness>
+
+			<mdBusiness
+				name="dss.vector.solutions.geo.generated.CollectionSite"
+				label="Collection Site"
+				description="Collection Site"
+				removable="true"
+				extends="dss.vector.solutions.geo.generated.GeoEntity">
+			</mdBusiness>
+
 		</create>
 
 		<create>
@@ -158,6 +167,24 @@
 					name="geoEntityClass"
 					key="dss.vector.solutions.geo.generated.Surface" />
 			</object>
+
+			<object
+				type="dss.vector.solutions.geo.GeoHierarchy"
+				key="dss.vector.solutions.geo.generated.CollectionSite">
+				<attribute
+					name="political"
+					value="false" />
+				<attribute
+					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="populationAllowed"
+					value="false" />
+				<attributeReference
+					name="geoEntityClass"
+					key="dss.vector.solutions.geo.generated.CollectionSite" />
+			</object>
+
 		</create>
 
 		<create>
@@ -202,39 +229,48 @@
 				childKey="dss.vector.solutions.geo.generated.Surface"
 				parentKey="dss.vector.solutions.geo.generated.Country">
 			</relationship>
+
+			<relationship
+				type="dss.vector.solutions.geo.AllowedIn"
+				key="CollectionSiteInCountry"
+				childKey="dss.vector.solutions.geo.generated.CollectionSite"
+				parentKey="dss.vector.solutions.geo.generated.Country">
+			</relationship>
+
 		</create>
 
 		<create>
 			<object
-		        type="dss.vector.solutions.Property"
-		        key="countryGeoId">
-		        <attribute
-		          name="propertyName"
-		          value="countryGeoId" />
-		        <attribute
-		          name="displayLabel"
-		          value="Country Geo ID" />
-		        <attribute
-		          name="propertyPackage"
-		          value="dss.vector.solutions.install" />
-		        <attribute
-		          name="propertyValue"
-		          value="0000" />
-		        <attribute
-		          name="propertyType"
-		          value="STRING" />
-		        <attribute
-		          name="propertyValidator"
-		          value="^[0-9A-Za-z]{1,16}$" />
-		        <attribute
-		          name="validValues"
-		          value="12323,ABCD,23AB,ZZZ456" />
-		        <attribute
-		          name="description"
-		          value="The GeoID of the Country in which this server is installed" />
+				type="dss.vector.solutions.Property"
+				key="countryGeoId">
+				<attribute
+					name="propertyName"
+					value="countryGeoId" />
+				<attribute
+					name="displayLabel"
+					value="Country Geo ID" />
+				<attribute
+					name="propertyPackage"
+					value="dss.vector.solutions.install" />
+				<attribute
+					name="propertyValue"
+					value="0000" />
+				<attribute
+					name="propertyType"
+					value="STRING" />
+				<attribute
+					name="propertyValidator"
+					value="^[0-9A-Za-z]{1,16}$" />
+				<attribute
+					name="validValues"
+					value="12323,ABCD,23AB,ZZZ456" />
+				<attribute
+					name="description"
+					value="The GeoID of the Country in which this server is installed" />
 			</object>
+
 		</create>
-		
+
 		<permissions>
 			<role
 				roleName="mdss.GUIVisibility">
@@ -286,6 +322,15 @@
 						<operation
 							name="READ_ALL_ATTRIBUTES" />
 					</mdBusinessPermission>
+
+					<mdBusinessPermission
+						type="dss.vector.solutions.geo.generated.CollectionSite">
+						<operation
+							name="READ" />
+						<operation
+							name="READ_ALL_ATTRIBUTES" />
+					</mdBusinessPermission>
+
 				</grant>
 			</role>
 
@@ -363,6 +408,19 @@
 						<operation
 							name="DELETE" />
 					</mdBusinessPermission>
+
+					<mdBusinessPermission
+						type="dss.vector.solutions.geo.generated.CollectionSite">
+						<operation
+							name="CREATE" />
+						<operation
+							name="WRITE" />
+						<operation
+							name="WRITE_ALL_ATTRIBUTES" />
+						<operation
+							name="DELETE" />
+					</mdBusinessPermission>
+
 				</grant>
 			</role>
 
