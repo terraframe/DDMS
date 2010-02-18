@@ -12,6 +12,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -276,6 +277,8 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     req.setAttribute("doseNumber", dto.getDoseNumber());
     req.setAttribute("doseType", dto.getDoseType());
     req.setAttribute("visitNumber", dto.getVisitNumber());
+    req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
+
 
     if (dto.getConcreteId() != null && !dto.getConcreteId().equals(""))
     {

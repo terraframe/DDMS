@@ -5,11 +5,9 @@
 
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
-<c:set scope="request" var="SentinelSite"><%=SentinelSiteDTO.CLASS%></c:set>
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>

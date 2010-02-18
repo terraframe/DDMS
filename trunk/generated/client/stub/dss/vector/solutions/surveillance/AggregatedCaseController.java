@@ -14,8 +14,8 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -224,33 +224,16 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     ClientRequestIF request = this.getClientSession().getRequest();
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
+    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
 
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("periodType", PeriodTypeDTO.allItems(request));
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
     req.setAttribute("item", item);
+    req.setAttribute("entityUniversals", entityUniversals);
+
 
     render("searchComponent.jsp");
-  }
-
-  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
-  {
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
-
-    if (c.hasCaseId())
-    {
-      this.view(c);
-    }
-    else
-    {
-      // Ensure the user has permissions to create a Aggregated Case
-      new AggregatedCaseDTO(this.getClientRequest());
-
-      // Load all of the corresponding grid values
-      this.setupRequest(c);
-      req.setAttribute("item", c);
-      render("createComponent.jsp");
-    }
   }
 
   public void selectAgeGroup(String geoId, String periodType, Integer period, Integer year) throws IOException, ServletException
@@ -360,21 +343,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       throw new ProblemExceptionDTO("", problems);
     }
-  }
-
-  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period, String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
-  {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-
-    req.setAttribute("periodType", allItems);
-    req.setAttribute("period", period);
-    req.setAttribute("year", year);
-    req.setAttribute("geoId", geoId);
-    req.setAttribute("checkedType", periodType);
-    req.setAttribute("ageGroup", ageGroup);
-
-    render("searchComponent.jsp");
   }
 
   @Override

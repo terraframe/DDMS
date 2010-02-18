@@ -2,8 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
-
 <c:set var="page_title" value="Create_Efficacy_bioassay" scope="request" />
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>

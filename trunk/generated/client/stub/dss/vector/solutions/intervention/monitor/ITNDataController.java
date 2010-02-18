@@ -14,7 +14,9 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
 import dss.vector.solutions.surveillance.PeriodTypeMasterDTO;
 import dss.vector.solutions.surveillance.RequiredGeoIdProblemDTO;
@@ -175,13 +177,27 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void search() throws IOException, ServletException
   {
+    this.search(new ITNDataViewDTO(super.getClientSession().getRequest()));
+  }
+
+  private void search(ITNDataViewDTO dto) throws IOException, ServletException
+  {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-
+    
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
+    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS, CollectionSiteDTO.CLASS}); 
 
+    if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
+    {
+      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, dto.getGeoId());
+
+      req.setAttribute("entity", entity);
+    }
+    
+    req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("periodType", allItems);
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
-    req.setAttribute("item", new ITNDataViewDTO(clientRequest));
+    req.setAttribute("item", dto);
 
     render("searchComponent.jsp");
   }
@@ -280,17 +296,13 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
   }
 
   public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year) throws IOException, ServletException
-  {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-
-    req.setAttribute("periodType", allItems);
+  {    
     req.setAttribute("period", period);
     req.setAttribute("year", year);
     req.setAttribute("geoId", geoId);
     req.setAttribute("checkedType", periodType);
 
-    render("searchComponent.jsp");
+    this.search();
   }
 
   @Override
@@ -335,19 +347,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
   @Override
   public void failSearchByView(ITNDataViewDTO dto) throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientSession().getRequest();
-
-    if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
-    {
-      GeoEntityDTO entity = GeoEntityDTO.searchByGeoId(clientRequest, dto.getGeoId());
-
-      req.setAttribute("entity", entity);
-    }
-
-    req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
-    req.setAttribute("item", dto);
-
-    render("searchComponent.jsp");
+    this.search(dto);
   }
 
   private void prepareRelationships(ITNDataViewDTO dto)

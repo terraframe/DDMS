@@ -4,14 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
 
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="abundance">
@@ -25,7 +19,7 @@
     <mdss:mo param="collectionMethod" value="${collectionMethod}" />
   </mjl:dt>
   <mjl:dt attribute="geoEntity">
-    <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${item.geoEntity}" />
+    <mdss:geo param="geoEntity" value="${item.geoEntity}" />
   </mjl:dt>
   <mjl:dt attribute="lifeStage">
     <mjl:select param="lifeStage" items="${lifeStage}" var="current" valueAttribute="enumName">

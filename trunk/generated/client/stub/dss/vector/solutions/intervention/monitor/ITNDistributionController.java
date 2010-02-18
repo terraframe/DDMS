@@ -16,6 +16,7 @@ import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewQueryDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -205,6 +206,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       req.setAttribute("targetGroups", Arrays.asList(groups));
       req.setAttribute("item", view);
+      req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
+
       render("createComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -248,8 +251,10 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       this.setupReferences(itn);
 
+      req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
       req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
       req.setAttribute("item", itn);
+      
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -345,10 +350,11 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     ClientRequestIF request = this.getClientRequest();
 
     req.setAttribute("item", new ITNDistributionViewDTO(request));
-    req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
-    // this
-    // for
-    // labels
+    req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
+    
+    // need this for labels
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
+
     render("searchComponent.jsp");
   }
 

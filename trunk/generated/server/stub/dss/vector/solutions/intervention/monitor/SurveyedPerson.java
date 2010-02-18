@@ -19,19 +19,19 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
       return "New: " + this.getClassDisplayLabel();
-    }    
+    }
     else if (this.getPersonId() != null)
     {
       return this.getClassDisplayLabel() + ": " + this.getPersonId();
     }
-    
+
     return super.toString();
   }
 
@@ -70,15 +70,15 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
       HouseholdSurveyedPerson householdPerson = new HouseholdSurveyedPerson(this.getHousehold(), this);
       householdPerson.apply();
     }
-    
+
     ITNInstance net = this.getSleptUnderNet();
 
-    if(net != null)
+    if (net != null)
     {
       net.lock();
-      
+
       long count = SurveyedPerson.getCount(net);
-      
+
       net.setSleptUnderNet(count);
       net.apply();
     }
@@ -89,10 +89,11 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     if (this.getHaemoglobin() != null)
     {
-      if (!this.getHaemoglobinMeasured().contains(RefusedResponse.YES))
+      List<RefusedResponse> _haemoglobinMeasured = this.getHaemoglobinMeasured();
+      if (_haemoglobinMeasured.size() > 0 && !_haemoglobinMeasured.contains(RefusedResponse.YES))
       {
         String msg = "Cannot have a haemoglobin value when haemoglobin measured is not 'Yes'";
-        String value = ResponseMaster.getValueForErrorMsg(this.getHaemoglobinMeasured());
+        String value = ResponseMaster.getValueForErrorMsg(_haemoglobinMeasured);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, HAEMOGLOBIN);
@@ -109,10 +110,12 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     if (this.getRdtResult() != null)
     {
-      if (!this.getPerformedRDT().contains(RefusedResponse.YES))
+      List<RefusedResponse> _performedRDT = this.getPerformedRDT();
+      
+      if (_performedRDT.size() > 0 && !_performedRDT.contains(RefusedResponse.YES))
       {
         String msg = "Cannot have a RDT result value when performed RDT is not 'Yes'";
-        String value = ResponseMaster.getValueForErrorMsg(this.getPerformedRDT());
+        String value = ResponseMaster.getValueForErrorMsg(_performedRDT);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, RDTRESULT);
@@ -129,10 +132,12 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     if (this.getRdtDetail() != null)
     {
-      if (!this.getPerformedRDT().contains(RefusedResponse.YES))
+      List<RefusedResponse> _performedRDT = this.getPerformedRDT();
+      
+      if (_performedRDT.size() > 0 && !_performedRDT.contains(RefusedResponse.YES))
       {
         String msg = "Cannot have a RDT detail value when performed RDT is not 'Yes'";
-        String value = ResponseMaster.getValueForErrorMsg(this.getPerformedRDT());
+        String value = ResponseMaster.getValueForErrorMsg(_performedRDT);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, RDTDETAIL);
@@ -149,10 +154,12 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   {
     if (this.getRdtTreatment() != null)
     {
-      if (!this.getPerformedRDT().contains(RefusedResponse.YES))
+      List<RefusedResponse> _performedRDT = this.getPerformedRDT();
+      
+      if (_performedRDT.size() > 0 && !_performedRDT.contains(RefusedResponse.YES))
       {
         String msg = "Cannot have a treatment value when performed RDT is not 'Yes'";
-        String value = ResponseMaster.getValueForErrorMsg(this.getPerformedRDT());
+        String value = ResponseMaster.getValueForErrorMsg(_performedRDT);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, RDTTREATMENT);
@@ -221,14 +228,16 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
   @Override
   public void validateMalaria()
   {
-    List<Response> list = this.getMalaria();
+    List<Response> _malaria = this.getMalaria();
 
-    if (list.size() > 0)
+    if (_malaria.size() > 0)
     {
-      if (!this.getFever().contains(Response.YES))
+      List<Response> _fever = this.getFever();
+      
+      if (_fever.size() > 0 && !_fever.contains(Response.YES))
       {
         String msg = "Cannot have a malaria when a fever was not present";
-        String value = ResponseMaster.getValueForErrorMsg(this.getFever());
+        String value = ResponseMaster.getValueForErrorMsg(_fever);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, MALARIA);
@@ -239,16 +248,18 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
       }
     }
   }
-  
+
   @Override
   public void validateMalariaConformationTechnique()
   {
     if (this.getMalariaConformationTechnique() != null)
     {
-      if (!this.getMalaria().contains(Response.YES))
+      List<Response> _malaria = this.getMalaria();
+
+      if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a malaria conformation technique when a malaria was not present";
-        String value = ResponseMaster.getValueForErrorMsg(this.getMalaria());
+        String value = ResponseMaster.getValueForErrorMsg(_malaria);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, MALARIACONFORMATIONTECHNIQUE);
@@ -259,13 +270,15 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
       }
     }
   }
-  
+
   @Override
   public void validatePayment()
   {
     if (this.getPayment() != null)
     {
-      if (!this.getMalaria().contains(Response.YES))
+      List<Response> _malaria = this.getMalaria();
+
+      if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a pay for treatment when malaria was not present";
         String value = ResponseMaster.getValueForErrorMsg(this.getMalaria());
@@ -306,12 +319,12 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe
 
     return view;
   }
-  
+
   public static long getCount(ITNInstance net)
   {
     SurveyedPersonQuery query = new SurveyedPersonQuery(new QueryFactory());
     query.WHERE(query.getSleptUnderNet().EQ(net));
-    
+
     return query.getCount();
   }
 }

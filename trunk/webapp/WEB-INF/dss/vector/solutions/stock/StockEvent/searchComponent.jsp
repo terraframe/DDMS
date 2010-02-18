@@ -5,9 +5,10 @@
 
 <%@page import="dss.vector.solutions.stock.StockEventDTO"%>
 <%@page import="dss.vector.solutions.stock.StockItemViewDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.geo.generated.StockDepotDTO"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
 
 <c:set var="page_title" value="Stock_Detail"  scope="request"/>
 
@@ -17,13 +18,7 @@
   <mjl:message />
 </mjl:messages>
 
-<c:set var="StockDepot" scope="request"><%=StockDepotDTO.CLASS%></c:set>
 <c:set var="StockItemView" scope="request"><%=StockItemViewDTO.CLASS%></c:set>
-
-<%
-List<String> entityUniversals = Arrays.asList(new String[]{StockDepotDTO.CLASS}); 
-request.setAttribute("entityUniversals", entityUniversals);
-%>
 
 <mjl:form name="StockDetail.search.mojo" method="POST">
   <dl>

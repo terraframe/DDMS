@@ -13,6 +13,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
+import dss.vector.solutions.geo.generated.SprayZoneDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -75,6 +76,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   private void renderCreate(ClientRequestIF clientRequest, SprayTeamDTO team) throws IOException, ServletException
   {
+    req.setAttribute("SprayZone", SprayZoneDTO.CLASS);
     req.setAttribute("item", team);
     // req.setAttribute("leaders",
     // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
@@ -106,6 +108,8 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       ClientRequestIF clientRequest = super.getClientRequest();
       SprayTeamDTO team = SprayTeamDTO.lock(clientRequest, id);
       req.setAttribute("item", team);
+      req.setAttribute("SprayZone", SprayZoneDTO.CLASS);
+
       // req.setAttribute("leaders",
       // SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(),
       // "keyName", true, 0, 0).getResultSet());
@@ -227,6 +231,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void failCreate(SprayTeamDTO dto) throws IOException, ServletException
   {
+    req.setAttribute("SprayZone", SprayZoneDTO.CLASS);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -246,6 +251,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void failUpdate(SprayTeamDTO dto) throws IOException, ServletException
   {
+    req.setAttribute("SprayZone", SprayZoneDTO.CLASS);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }

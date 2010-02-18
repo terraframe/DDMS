@@ -8,7 +8,6 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
-<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamMemberDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%>

@@ -240,10 +240,12 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.te
   {
     if (locations != null && locations.length > 0)
     {
-      if (!this.getMalaria().contains(Response.YES))
+      List<Response> _malaria = this.getMalaria();
+      
+      if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a treatment locations when malaria was not present";
-        String value = ResponseMaster.getValueForErrorMsg(this.getMalaria());
+        String value = ResponseMaster.getValueForErrorMsg(_malaria);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, DISPLAYLOCATIONS);
@@ -259,10 +261,12 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.te
   {
     if (treatments != null && treatments.length > 0)
     {
-      if (!this.getMalaria().contains(Response.YES))
+      List<Response> _malaria = this.getMalaria();
+      
+      if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a treatment when malaria was not present";
-        String value = ResponseMaster.getValueForErrorMsg(this.getMalaria());
+        String value = ResponseMaster.getValueForErrorMsg(_malaria);
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, DISPLAYTREATMENTS);

@@ -10,15 +10,9 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <c:set var="page_title" value="Create_Survey_Point"  scope="request"/>
-
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
 
 <mjl:messages>
   <mjl:message />

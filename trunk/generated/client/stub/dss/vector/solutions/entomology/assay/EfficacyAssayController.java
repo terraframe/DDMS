@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.geo.generated.SurfaceDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -283,6 +284,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   private void setupRequest()
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("surface", SurfaceDTO.CLASS);
   }
 
 }

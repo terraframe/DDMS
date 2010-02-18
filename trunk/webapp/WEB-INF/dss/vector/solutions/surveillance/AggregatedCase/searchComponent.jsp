@@ -10,22 +10,14 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
-
 <c:set var="page_title" value="Search_Aggregated_Case"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <dl>

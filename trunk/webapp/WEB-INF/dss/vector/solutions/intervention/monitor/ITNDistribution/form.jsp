@@ -5,23 +5,15 @@
 
 <%@page import="dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="java.util.List"%>
 
-<c:set var="healthFacility" value="<%= HealthFacilityDTO.CLASS %>" scope="page"/>
-
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
-
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}" />
   <mjl:input type="hidden" param="person" value="${item.person.id}" />
   <mjl:dt attribute="facility">
-    <mdss:geo param="facility" concrete="false" value="${item.facility}" universals="${entityUniversals}" filter="${healthFacility}" />
+    <mdss:geo param="facility" concrete="false" value="${item.facility}" filter="${healthFacility}" />
   </mjl:dt>
   <mjl:dt attribute="distributionDate" >
     <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>

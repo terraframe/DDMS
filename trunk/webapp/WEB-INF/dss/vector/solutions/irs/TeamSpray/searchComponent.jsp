@@ -11,14 +11,12 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-
-
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
-<%@page import="dss.vector.solutions.util.Halp"%><c:set var="page_title" value="Search_for_a_Team_Spray" scope="request" />
+<%@page import="dss.vector.solutions.util.Halp"%>
+
+<c:set var="page_title" value="Search_for_a_Team_Spray" scope="request" />
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
@@ -62,7 +60,6 @@
   <jsp:param value="dss.vector.solutions.export.TeamSprayExcelView" name="excelType"/>
 </jsp:include>
 
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
 
 <script type="text/javascript" defer="defer">

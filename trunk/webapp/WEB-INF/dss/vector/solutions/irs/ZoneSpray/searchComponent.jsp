@@ -10,9 +10,6 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
-<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-
 <c:set var="page_title" value="Search_for_a_Zone_Spray"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>

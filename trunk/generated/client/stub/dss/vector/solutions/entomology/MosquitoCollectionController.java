@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDT
 import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
+import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -123,6 +125,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     this.setupReferences(dto);
 
+    List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
+    
     req.setAttribute(ROWS, dto.getSubCollections());
     req.setAttribute(COLLECTION, new SubCollectionViewDTO(this.getClientRequest()));
     req.setAttribute(KEYS, this.getKeys());
@@ -131,6 +135,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("lda", lda);
     req.setAttribute("kda", kda);
     req.setAttribute("item", dto);
+    req.setAttribute("entityUniversals", entityUniversals);
+
 
     render("viewComponent.jsp");
   }
@@ -297,8 +303,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
     SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
+    List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
 
     this.setupReferences(view);
+
+    req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("query", query);
     req.setAttribute("item", view);
 

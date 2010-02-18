@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -10,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -95,9 +97,10 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void failCreate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
-
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+    List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+    
+    req.setAttribute("entityUniversals", entityUniversals);
+    req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -113,6 +116,10 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       new SurveyPointDTO(clientRequest);
 
       SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
+
+      List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+      req.setAttribute("entityUniversals", entityUniversals);
+      req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
 
       req.setAttribute("item", dto);
       render("createComponent.jsp");
@@ -205,10 +212,11 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void failDelete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
-
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+    List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+    req.setAttribute("entityUniversals", entityUniversals);
+    req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
     req.setAttribute("item", dto);
+
     render("editComponent.jsp");
   }
 
@@ -230,8 +238,13 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     try
     {
       SurveyPointViewDTO dto = SurveyPointDTO.lockView(super.getClientRequest(), id);
-
+      
+      List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+      
+      req.setAttribute("entityUniversals", entityUniversals);
+      req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
       req.setAttribute("item", dto);
+
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)

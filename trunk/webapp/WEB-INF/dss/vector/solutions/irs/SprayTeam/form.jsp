@@ -3,16 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-<%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>    
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamMemberDTO"%>
+<%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%>
 
-
-<%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%><c:set var="SprayZone" scope="request"><%= SprayZoneDTO.CLASS %></c:set>
-
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <dt><label> ${view.teamIdMd.displayLabel} </label></dt>
     <dd>

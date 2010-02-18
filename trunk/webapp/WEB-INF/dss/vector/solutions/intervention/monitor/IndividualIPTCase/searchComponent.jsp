@@ -5,7 +5,6 @@
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="dss.vector.solutions.PersonController"%>
 <%@page import="dss.vector.solutions.PersonDTO"%><c:set scope="request" var="page_title" value="Search_IndividualIPTCase" />
 

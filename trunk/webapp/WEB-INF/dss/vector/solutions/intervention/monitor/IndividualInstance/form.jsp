@@ -6,17 +6,9 @@
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualInstanceDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 <%@include file="../IndividualCase/personHeader.jsp" %>
-
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
-
-<c:set var="HEALTH_FACILITY" scope="request"><%=HealthFacilityDTO.CLASS%></c:set>
 
 <mjl:component item="${item}" param="dto">
   <mjl:input type="hidden" param="individualCase" value="${item.individualCase.id}"/>
@@ -25,7 +17,7 @@
   </mjl:dt>
   <div class="healthFacility">
     <mjl:dt attribute="healthFacility">
-      <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}" universals="${entityUniversals}" />
+      <mdss:geo param="healthFacility" value="${healthFacility}" filter="${HEALTH_FACILITY}"/>
     </mjl:dt>
   </div>
   <div class="detectedBy">

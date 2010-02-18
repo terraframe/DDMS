@@ -9,12 +9,9 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
-<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamMemberViewDTO"%>
 

@@ -15,6 +15,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
 import dss.vector.solutions.surveillance.PeriodTypeMasterDTO;
 import dss.vector.solutions.surveillance.RequiredGeoIdProblemDTO;
@@ -183,10 +184,15 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
+    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
+    
     req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
     req.setAttribute("item", new AggregatedIPTViewDTO(clientRequest));
 
+    req.setAttribute("entityUniversals", entityUniversals);
+    req.setAttribute("HealthFacility", HealthFacilityDTO.CLASS);
+    
     render("searchComponent.jsp");
   }
 

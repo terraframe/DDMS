@@ -14,6 +14,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.RequiredEndDateProblemDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.geo.generated.StockDepotDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
@@ -53,6 +54,7 @@ public class StockEventController extends StockEventControllerBase implements co
     String itemId = req.getParameter("itemId");
     String dateString = req.getParameter("date");
     String endDateString = req.getParameter("endDate");
+
     
     if(geoId != null && !geoId.equals(""))
     {
@@ -83,6 +85,11 @@ public class StockEventController extends StockEventControllerBase implements co
       
       req.setAttribute("endDate", date);
     }
+    
+    List<String> entityUniversals = Arrays.asList(new String[]{StockDepotDTO.CLASS}); 
+    
+    req.setAttribute("StockDepot", StockDepotDTO.CLASS);
+    req.setAttribute("entityUniversals", entityUniversals);
   }
 
   private void setupSearchDefaults()

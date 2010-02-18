@@ -6,7 +6,6 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 
 <c:set var="page_title" value="Search_Spray_Team_Targets" scope="request" />

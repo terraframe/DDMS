@@ -12,6 +12,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.AttributeUtil;
@@ -178,6 +179,8 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", dto.getHealthFacility());
     req.setAttribute("symptoms", Arrays.asList(symptoms));
+    req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
+    
     render("editComponent.jsp");
   }
 
@@ -233,7 +236,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     prepareCreateReq(dto, dto.getSymptoms());
     req.setAttribute("newCase", newCase);
-    req.setAttribute("personId", personId);
+    req.setAttribute("personId", personId);    
+    req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
+
     render("createWithCase.jsp");
   }
 
@@ -245,7 +250,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
-    req.setAttribute("caseId", caseId);
+    req.setAttribute("caseId", caseId);    
+    req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
+
     render("createComponent.jsp");
   }
 

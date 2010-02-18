@@ -8,11 +8,9 @@
 <%@page import="dss.vector.solutions.PersonController"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 
-<c:set var="healthFacility" scope="page"><%= HealthFacilityDTO.CLASS %></c:set>
 <c:set var="page_title" value="Search_ITNDistribution" scope="request" />
 
 <mjl:messages>
@@ -21,16 +19,11 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 
-<%
-  List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS + "*"}); 
-  request.setAttribute("entityUniversals", entityUniversals);
-%>
-
 <dl>
   <mjl:form name="dss.vector.solutions.intervention.monitor.ITNDistribution.form.name" id="dss.vector.solutions.intervention.monitor.ITNDistribution.form.id" method="POST">
     <mjl:component item="${item}" param="view">
       <mjl:dt attribute="facility">
-        <mdss:geo param="facility" concrete="false" value="${item.facility}" universals="${entityUniversals}" filter="${healthFacility}" />
+        <mdss:geo param="facility" concrete="false" value="${item.facility}" filter="${healthFacility}" />
       </mjl:dt>
       <mjl:dt attribute="distributionDate" >
         <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>
