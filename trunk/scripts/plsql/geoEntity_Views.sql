@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS geo_displayLabel;
+--DROP VIEW IF EXISTS geo_displayLabel;
 
 CREATE OR REPLACE VIEW geo_displayLabel AS
 SELECT  
