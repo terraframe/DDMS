@@ -5,13 +5,15 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
       this._button = Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button;
       this._geoId = Mojo.Util.isString(prop.geoId) ? document.getElementById(prop.geoId) : prop.geoId;
       this._startDate = Mojo.Util.isString(prop.startDate) ? document.getElementById(prop.startDate) : prop.startDate;
-      this._endDate = Mojo.Util.isString(prop.endDate) ? document.getElementById(prop.endDate) : prop.endDate;	
+      this._endDate = Mojo.Util.isString(prop.endDate) ? document.getElementById(prop.endDate) : prop.endDate;
       
       YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._startDate, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._endDate, 'blur', this.validate, this, this);
-      YAHOO.util.Event.on(this._startDate, 'keyup', this.validate, this, this);
-      YAHOO.util.Event.on(this._endDate, 'keyup', this.validate, this, this);
+      YAHOO.util.Event.on(this._startDate, 'keydown', this.keyHandler, this, this);
+      YAHOO.util.Event.on(this._endDate, 'keydown', this.keyHandler, this, this);
+      
+      this.validate();
     },
 
     disableButton : function() {
@@ -22,13 +24,33 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
       this._button.disabled = false;
     },      
     
+    keyHandler : function(e) {
+      if (e.keyCode == 9 || e.keyCode == 39 || e.keyCode == 37) {
+        this.validateButton();
+      }
+    },
+    
+    validateButton : function() {
+      this.disableButton();
+      
+      if(this._startDate.value != '' && this._endDate.value != '')
+      {
+        var startDate = MDSS.Calendar.parseJavaFormatDate(this._startDate.value);
+        var endDate = MDSS.Calendar.parseJavaFormatDate(this._endDate.value);
+        
+        if(startDate instanceof Date && endDate instanceof Date && this._geoId.value != ''){
+          this.enableButton();
+        }        
+      }      
+    },
+    
     validate : function() {
       this.disableButton();
       
       if(this._startDate.value != '' && this._endDate.value != '')
       {
-        var startDate = MDSS.Calendar.parseDate(this._startDate.value);
-        var endDate = MDSS.Calendar.parseDate(this._endDate.value);
+        var startDate = MDSS.Calendar.parseJavaFormatDate(this._startDate.value);
+        var endDate = MDSS.Calendar.parseJavaFormatDate(this._endDate.value);
         
         if(startDate instanceof Date && endDate instanceof Date) {
           if(startDate > endDate) {
@@ -37,7 +59,7 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
           else if(this._geoId.value != ''){
             this.enableButton();
           }
-        }        	
+        }        
       }
     }
   }
@@ -52,13 +74,12 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
       this._period = Mojo.Util.isString(prop.period) ? document.getElementById(prop.period) : prop.period;
       this._periodType = Mojo.Util.isString(prop.periodType) ? YAHOO.util.Selector.query('.' + prop.periodType) : prop.periodType;
       
-      // Initially disable the search button
-      this.disableButton();
-
       YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._periodType, 'click', this.validate, this, this);
       YAHOO.util.Event.on(this._period, 'keyup', this.validate, this, this);
       YAHOO.util.Event.on(this._year, 'keyup', this.validate, this, this);
+      
+      this.validate();
     },
     
     disableButton : function() {
@@ -84,7 +105,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
       var hasPeriod = (this._period.value != '');
       var hasPeriodType = (selectedType != '');
           
-      return ( hasGeoEntity && hasYear && hasPeriod && hasPeriodType );	
+      return ( hasGeoEntity && hasYear && hasPeriod && hasPeriodType );
     },
     
     _getSelectedEpiType : function() {
@@ -102,7 +123,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
     _clearMessages : function() {
       MDSS.Calendar.removeError(this._geoId);
       MDSS.Calendar.removeError(this._year);
-      MDSS.Calendar.removeError(this._period);   	
+      MDSS.Calendar.removeError(this._period);   
     },
     
     validate : function() {
@@ -112,7 +133,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
         var request = new MDSS.Request({
           that : this,
           onSuccess : function(){
-        	this.that._clearMessages();
+        this.that._clearMessages();
             this.that.enableButton();
             
             if(this.e && e.keyCode === 9 ){
@@ -120,13 +141,13 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
             }
           },
           onFailure : function(e){
-        	this.that._clearMessages();
-        	
+        this.that._clearMessages();
+        
             MDSS.Calendar.addError(this.that._geoId,e.getLocalizedMessage());            
           },
           onProblemExceptionDTO : function(e){
-          	this.that._clearMessages();        	
-        	  
+          this.that._clearMessages();        
+          
             var problems = e.getProblems();
 
             for each (p in problems) {

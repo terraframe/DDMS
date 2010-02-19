@@ -97,8 +97,21 @@ MDSS.Calendar = {};
     	if(date == null && date_str.length > 16) date = new Date(date_str);
     	return date;
     }
+    
+    var var_to_java_date = function (date_str) {
+      if(date_str instanceof Date) return date_str;
+    	
+      if(Mojo.Util.isString(date_str)) {
+        date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      }
+      
+      if(date_str == null || date_str == '') return date_str; 
+
+      return Date.parseString(date_str,java_date_format);    	
+    }
 
     MDSS.Calendar.parseDate = var_to_date;
+    MDSS.Calendar.parseJavaFormatDate = var_to_java_date;
 
     var var_to_db_string = function(date_str) {
     	var date = var_to_date(date_str);
