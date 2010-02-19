@@ -50,10 +50,19 @@ public class EarthController extends EarthControllerBase implements com.terrafra
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.geo.generated.EarthDTO dto = dss.vector.solutions.geo.generated.EarthDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("term", dto.getTerm());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      dss.vector.solutions.geo.generated.EarthDTO dto = dss.vector.solutions.geo.generated.EarthDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("term", dto.getTerm());
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch(java.lang.Throwable t)
+    {
+      com.terraframe.mojo.web.json.JSONMojoExceptionDTO jsonE = new com.terraframe.mojo.web.json.JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
