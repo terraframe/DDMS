@@ -24,22 +24,22 @@ import org.xml.sax.SAXException;
 
 import com.terraframe.mojo.SystemException;
 import com.terraframe.mojo.constants.MdAttributeLocalInfo;
+import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.constants.MdLocalizableInfo;
+import com.terraframe.mojo.dataaccess.EntityDAO;
+import com.terraframe.mojo.dataaccess.StructDAO;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.FileWriteException;
 import com.terraframe.mojo.dataaccess.io.XMLException;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
+import com.terraframe.mojo.dataaccess.metadata.MetaDataDAO;
 import com.terraframe.mojo.dataaccess.metadata.SupportedLocaleDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdLocalizable;
-import com.terraframe.mojo.system.metadata.MdType;
-import com.terraframe.mojo.system.metadata.MetaData;
-import com.terraframe.mojo.system.metadata.MetaDataDisplayLabel;
 import com.terraframe.mojo.system.metadata.SupportedLocale;
 import com.terraframe.mojo.util.FileIO;
 import com.terraframe.mojo.util.LocalizeUtil;
@@ -60,16 +60,20 @@ public class MdssLocalizationImporter implements Reloadable
 
   private HSSFSheet    controlPanelSheet;
 
+  private static int modifiedCount = 0;
+  
   @StartSession
   public static void main(String[] args) throws FileNotFoundException
   {
+    // Force teh cache to boot so it's not included in our timing
+    MetaDataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
     long start = System.currentTimeMillis();
 
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
     mli.read(new FileInputStream("testLoc.xls"));
 
     long stop = System.currentTimeMillis();
-    System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
+    System.out.println("\nModified " + modifiedCount + " rows in " + ( stop - start ) / 1000.0 + " seconds");
   }
 
   public MdssLocalizationImporter()
@@ -125,9 +129,21 @@ public class MdssLocalizationImporter implements Reloadable
   {
     List<String> locales = new LinkedList<String>();
     
+    if (sheet==null)
+    {
+      return locales;
+    }
+    
     HSSFRow row = sheet.getRow(0);
     Iterator<HSSFCell> cellIterator = row.cellIterator();
     cellIterator.next();
+    
+    if (sheet.equals(labelSheet))
+    {
+      cellIterator.next();
+      cellIterator.next();
+    }
+    
     while (cellIterator.hasNext())
     {
       HSSFCell cell = cellIterator.next();
@@ -144,6 +160,12 @@ public class MdssLocalizationImporter implements Reloadable
   @SuppressWarnings("unchecked")
   private void updateProperties(String bundle, HSSFSheet sheet)
   {
+    // Bail if there's no tab for this bundle
+    if (sheet==null)
+    {
+      return;
+    }
+    
     File dir = null;
     try
     {
@@ -204,6 +226,11 @@ public class MdssLocalizationImporter implements Reloadable
   private String getStringValue(HSSFCell cell)
   {
     String value = ExcelUtil.getString(cell);
+    if (value==null)
+    {
+      return null;
+    }
+    
     if (value.length()==0)
     {
       return null;
@@ -218,6 +245,12 @@ public class MdssLocalizationImporter implements Reloadable
   @Transaction
   private void updateLabels()
   {
+    // Bail if there's no tab for labels
+    if (labelSheet==null)
+    {
+      return;
+    }
+    
     List<String> locales = parseLocales(labelSheet);
     
     Iterator<HSSFRow> rowIterator = labelSheet.rowIterator();
@@ -225,53 +258,65 @@ public class MdssLocalizationImporter implements Reloadable
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      readLabelRow(locales, row);
+      readLabelRow2(locales, row);
+      
+      if (row.getRowNum()%50==0)
+        System.out.print(".");
     }
   }
 
-  private void readLabelRow(List<String> locales, HSSFRow row)
+  private void readLabelRow2(List<String> locales, HSSFRow row)
   {
-    String key = getStringValue(row.getCell(0));
-    if (key == null)
+    int c = 0;
+    String type = getStringValue(row.getCell(c++));
+    String attributeName = getStringValue(row.getCell(c++));
+    String key = getStringValue(row.getCell(c++));
+    
+    if (key == null || type == null || attributeName == null)
     {
       return;
     }
+    
+//    EntityDAO entity = EntityDAO.get(type, key).getEntityDAO();
+    StructDAO struct = StructDAO.get(EntityDAO.get(type, key).getValue(attributeName)).getStructDAO();
 
-    MetaData metadata = MetaData.getByKey(key);
-    metadata.lock();
-
-    MetaDataDisplayLabel label = null;
-    if (metadata instanceof MdType)
-    {
-      label = ( (MdType) metadata ).getDisplayLabel();
-    }
-    if (metadata instanceof MdAttribute)
-    {
-      label = ( (MdAttribute) metadata ).getDisplayLabel();
-    }
-
-    int c = 1;
+    boolean apply = false;
     for (String localeString : locales)
     {
       String value = getStringValue(row.getCell(c++));
       if (value != null)
       {
-        if (localeString.equals(MdAttributeLocalInfo.DEFAULT_LOCALE))
+//        String oldValue = entity.getStructValue(attributeName, localeString);
+        String oldValue = struct.getValue(localeString);
+        
+        // To speed things up, only set values that have changed
+        if (!oldValue.equals(value))
         {
-          label.setDefaultValue(value);
-        }
-        else
-        {
-          label.setValue(LocalizationFacade.getLocaleFromString(localeString), value);
+//          entity.setStructValue(attributeName, localeString, value);
+          struct.setValue(localeString, value);
+          apply = true;
         }
       }
     }
-    metadata.apply();
+    
+    // To speed things up, only apply if we actually changed a value
+    if (apply)
+    {
+//      entity.apply();
+      struct.apply();
+      modifiedCount++;
+    }
   }
 
   @SuppressWarnings("unchecked")
   private void updateExceptions()
   {
+    // If there's no tab for custom exceptions, bail
+    if (customSheet==null)
+    {
+      return;
+    }
+    
     Iterator<HSSFRow> rowIterator = customSheet.rowIterator();
     rowIterator.next();
     while (rowIterator.hasNext())

@@ -20,24 +20,39 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.terraframe.mojo.SystemException;
+import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.constants.MdAttributeBooleanUtil;
 import com.terraframe.mojo.constants.MdAttributeLocalInfo;
+import com.terraframe.mojo.constants.MdLocalStructInfo;
 import com.terraframe.mojo.constants.ServerProperties;
+import com.terraframe.mojo.constants.StructInfo;
+import com.terraframe.mojo.dataaccess.EntityDAO;
+import com.terraframe.mojo.dataaccess.EntityDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeCharDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.MdLocalStructDAOIF;
+import com.terraframe.mojo.dataaccess.MdTypeDAOIF;
+import com.terraframe.mojo.dataaccess.StructDAO;
+import com.terraframe.mojo.dataaccess.StructDAOIF;
 import com.terraframe.mojo.dataaccess.io.FileReadException;
 import com.terraframe.mojo.dataaccess.io.XMLParseException;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
 import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.metadata.MdAction;
 import com.terraframe.mojo.system.metadata.MdAttributeConcrete;
-import com.terraframe.mojo.system.metadata.MdClass;
-import com.terraframe.mojo.system.metadata.MdEnumeration;
+import com.terraframe.mojo.system.metadata.MdAttributeLocal;
+import com.terraframe.mojo.system.metadata.MdAttributeLocalQuery;
+import com.terraframe.mojo.system.metadata.MdIndex;
 import com.terraframe.mojo.system.metadata.MdLocalizable;
 import com.terraframe.mojo.system.metadata.MdLocalizableQuery;
+import com.terraframe.mojo.system.metadata.MdMethod;
+import com.terraframe.mojo.system.metadata.MdParameter;
 import com.terraframe.mojo.system.metadata.MetaData;
-import com.terraframe.mojo.system.metadata.MetaDataDisplayLabel;
-import com.terraframe.mojo.system.metadata.MetaDataQuery;
 import com.terraframe.mojo.util.FileIO;
 import com.terraframe.mojo.util.LocalizeUtil;
 
@@ -63,6 +78,21 @@ public class MdssLocalizationExporter implements Reloadable
   private HSSFSheet propertySheet;
   private HSSFSheet controlPanelSheet;
   private List<Locale> locales;
+
+  @StartSession
+  public static void main(String[] args) throws Exception
+  {
+    long start = System.currentTimeMillis();
+
+    MdssLocalizationExporter exporter = new MdssLocalizationExporter();
+    exporter.addLocale(Locale.ENGLISH);
+    exporter.addLocale(Locale.FRENCH);
+    exporter.export();
+    FileIO.write("localizer.xls", exporter.write());
+
+    long stop = System.currentTimeMillis();
+    System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
+  }
   
   public MdssLocalizationExporter()
   {
@@ -89,7 +119,8 @@ public class MdssLocalizationExporter implements Reloadable
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
     
     prepareExceptions();
-    prepareTypes();
+//    prepareTypes();
+    prepareLocalizedAttributes();
     prepareProperties("MDSS", propertySheet);
     prepareProperties("serverExceptions", serverSheet);
     prepareProperties("commonExceptions", commonSheet);
@@ -105,14 +136,23 @@ public class MdssLocalizationExporter implements Reloadable
     {
       HSSFRow row = sheet.createRow(0);
       int i=0;
-      sheet.autoSizeColumn((short)i);
+      
+      if (sheet.equals(labelSheet))
+      {
+        row.createCell(i++).setCellValue(new HSSFRichTextString("Type"));
+        row.createCell(i++).setCellValue(new HSSFRichTextString("Attribute Name"));
+      }
+      
       row.createCell(i++).setCellValue(new HSSFRichTextString("Key"));
-      sheet.autoSizeColumn((short)i);
       row.createCell(i++).setCellValue(new HSSFRichTextString(MdAttributeLocalInfo.DEFAULT_LOCALE));
       for (Locale l : locales)
       {
-        sheet.autoSizeColumn((short)i);
         row.createCell(i++).setCellValue(new HSSFRichTextString(l.toString()));
+      }
+      
+      for (short s=0; s<i; s++)
+      {
+        sheet.autoSizeColumn(s);
       }
     }
   }
@@ -162,76 +202,97 @@ public class MdssLocalizationExporter implements Reloadable
     }
   }
   
-  private void prepareTypes()
+  private void prepareLocalizedAttributes()
   {
+    List<String> exemptions = new LinkedList<String>();
+    exemptions.add(MdAction.CLASS);
+    exemptions.add(MdParameter.CLASS);
+    exemptions.add(MdIndex.CLASS);
+    exemptions.add(MdMethod.CLASS);
+    
     int r=1;
     QueryFactory qf = new QueryFactory();
-    MetaDataQuery query = new MetaDataQuery(qf);
-    query.ORDER_BY_ASC(query.getKeyName());
-    for (MetaData md : query.getIterator())
+    MdAttributeLocalQuery localQuery = new MdAttributeLocalQuery(qf);
+    for (MdAttributeLocal local : localQuery.getIterator())
     {
-      if (!md.getSiteMaster().equalsIgnoreCase(ServerProperties.getDomain()))
+      MdTypeDAOIF mdType = MdTypeDAO.get(local.getValue(MdAttributeLocal.DEFININGMDCLASS));
+      MdLocalStructDAOIF mdLocalStruct = (MdLocalStructDAOIF)BusinessFacade.getEntityDAO(local.getMdStruct());
+      Boolean enforceSiteMaster = MdAttributeBooleanUtil.getTypeSafeValue(mdLocalStruct.getValue(MdLocalStructInfo.ENFORCE_SITE_MASTER));
+      String definingType = mdType.definesType();
+      String attributeName = local.getAttributeName();
+      
+      if (exemptions.contains(definingType) || attributeName.equalsIgnoreCase(MetaData.DESCRIPTION))
       {
         continue;
       }
       
-      MetaDataDisplayLabel label = null;
-      if (md instanceof MdClass)
+      for (String id : EntityDAO.getEntityIdsDB(definingType))
       {
-        label = ((MdClass) md).getDisplayLabel();
-      }
-      if (md instanceof MdEnumeration)
-      {
-        label = ((MdEnumeration) md).getDisplayLabel();
-      }
-      if (md instanceof MdAttribute)
-      {
-        MdAttribute mdAttribute = (MdAttribute) md;
-        String attributeName = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
-        if (attributeName.equalsIgnoreCase(MetaData.ID) ||
-            attributeName.equalsIgnoreCase(MetaData.CREATEDATE) ||
-            attributeName.equalsIgnoreCase(MetaData.CREATEDBY) ||
-            attributeName.equalsIgnoreCase(MetaData.ENTITYDOMAIN) ||
-            attributeName.equalsIgnoreCase(MetaData.ID) ||
-            attributeName.equalsIgnoreCase(MetaData.KEYNAME) ||
-            attributeName.equalsIgnoreCase(MetaData.LASTUPDATEDATE) ||
-            attributeName.equalsIgnoreCase(MetaData.LASTUPDATEDBY) ||
-            attributeName.equalsIgnoreCase(MetaData.LOCKEDBY) ||
-            attributeName.equalsIgnoreCase(MetaData.OWNER) ||
-            attributeName.equalsIgnoreCase(MetaData.SEQ) ||
-            attributeName.equalsIgnoreCase(MetaData.SITEMASTER) ||
-            attributeName.equalsIgnoreCase(MetaData.TYPE))
+        EntityDAOIF entity = EntityDAO.get(id);
+        StructDAOIF struct = StructDAO.get(entity.getValue(attributeName));
+        
+        // Don't export instances mastered at another site
+        if (enforceSiteMaster && !struct.getValue(StructInfo.SITE_MASTER).equals(ServerProperties.getDomain()))
         {
           continue;
         }
+        
+        // Some attributes are re-created at the top of every hierarchy.  Ignore them.
+        if (entity instanceof MdAttributeDAOIF)
+        {
+          MdAttributeDAOIF mdAttribute = (MdAttributeDAOIF) entity;
+          String definedAttribute = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
+          if (definedAttribute.equalsIgnoreCase(MetaData.ID) ||
+              definedAttribute.equalsIgnoreCase(MetaData.CREATEDATE) ||
+              definedAttribute.equalsIgnoreCase(MetaData.CREATEDBY) ||
+              definedAttribute.equalsIgnoreCase(MetaData.ENTITYDOMAIN) ||
+              definedAttribute.equalsIgnoreCase(MetaData.ID) ||
+              definedAttribute.equalsIgnoreCase(MetaData.KEYNAME) ||
+              definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDATE) ||
+              definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDBY) ||
+              definedAttribute.equalsIgnoreCase(MetaData.LOCKEDBY) ||
+              definedAttribute.equalsIgnoreCase(MetaData.OWNER) ||
+              definedAttribute.equalsIgnoreCase(MetaData.SEQ) ||
+              definedAttribute.equalsIgnoreCase(MetaData.SITEMASTER) ||
+              definedAttribute.equalsIgnoreCase(MetaData.TYPE))
+          {
+            continue;
+          }
+        }
+        
+        // We don't want to export the attribute definitions of the locales on our MdLocalStructs 
+        if (entity instanceof MdAttributeCharDAOIF)
+        {
+          MdAttributeCharDAOIF mdAttribute = (MdAttributeCharDAOIF) entity;
+          MdClassDAOIF definedByClass = mdAttribute.definedByClass();
+          if (definedByClass instanceof MdLocalStructDAOIF)
+          {
+            continue;
+          }
+        }
+        
+        HSSFRow row = labelSheet.createRow(r++);
+        int c=0;
+        row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getType()));
+        row.createCell(c++).setCellValue(new HSSFRichTextString(attributeName));
+        row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getKey()));
+        row.createCell(c++).setCellValue(new HSSFRichTextString(struct.getValue(MdAttributeLocalInfo.DEFAULT_LOCALE)));
+        
+        for (Locale l : locales)
+        {
+          HSSFCell cell = row.createCell(c++);
+          String localeString = l.toString();
           
-        label = mdAttribute.getDisplayLabel();
-      }
-      
-      if (label==null)
-      {
-        continue;
-      }
-      MdLocalStructDAOIF mdLocalStruct = label.getMdClass();
-      
-      HSSFRow row = labelSheet.createRow(r++);
-      int c=0;
-      row.createCell(c++).setCellValue(new HSSFRichTextString(md.getKeyName()));
-      row.createCell(c++).setCellValue(new HSSFRichTextString(label.getDefaultValue()));
-      for (Locale l : locales)
-      {
-        HSSFCell cell = row.createCell(c++);
-        String localeString = l.toString();
-        
-        if (mdLocalStruct.definesAttribute(localeString)==null)
-        {
-          continue;
-        }
-        
-        String value = label.getValue(localeString);
-        if (value.trim().length()>0)
-        {
-          cell.setCellValue(new HSSFRichTextString(value));
+          if (mdLocalStruct.definesAttribute(localeString)==null)
+          {
+            continue;
+          }
+          
+          String value = struct.getValue(localeString);
+          if (value.trim().length()>0)
+          {
+            cell.setCellValue(new HSSFRichTextString(value));
+          }
         }
       }
     }
