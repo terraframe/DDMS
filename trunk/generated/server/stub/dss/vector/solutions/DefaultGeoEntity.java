@@ -29,6 +29,12 @@ public class DefaultGeoEntity extends DefaultGeoEntityBase implements com.terraf
   }
   
   @Override
+  public String toString()
+  {
+    return this.getClassDisplayLabel();
+  }
+  
+  @Override
   public void delete()
   {
     String error = "The singleton object of DefaultGeoEntity cannot be deleted.";

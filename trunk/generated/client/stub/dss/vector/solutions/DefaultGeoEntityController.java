@@ -69,9 +69,22 @@ public class DefaultGeoEntityController extends DefaultGeoEntityControllerBase i
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.DefaultGeoEntityDTO dto = dss.vector.solutions.DefaultGeoEntityDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      dss.vector.solutions.DefaultGeoEntityDTO dto = dss.vector.solutions.DefaultGeoEntityDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
+      this.failEdit(id);
+    }
+    catch(java.lang.Throwable t)
+    {
+      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
+      this.failEdit(id);
+    }
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
