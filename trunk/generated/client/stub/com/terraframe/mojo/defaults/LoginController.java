@@ -80,8 +80,9 @@ public class LoginController extends LoginControllerBase implements com.terrafra
     {
       clientSession.logout();
     }
-
     req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
+    req.getSession().removeAttribute(ClientConstants.CLIENTSESSION);
+    req.getSession().invalidate();
 
     req.getRequestDispatcher("login.jsp").forward(req, resp);
   }
