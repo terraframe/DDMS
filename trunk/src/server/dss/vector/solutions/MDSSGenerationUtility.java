@@ -11,6 +11,8 @@ import com.terraframe.mojo.dataaccess.io.MarkupWriter;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.generated.GeoEntity;
+
 public class MDSSGenerationUtility implements Reloadable
 {
   public static final String MESSAGE_TAG = "fmt:message";
@@ -72,7 +74,7 @@ public class MDSSGenerationUtility implements Reloadable
   public static boolean isAGeoEntity(MdBusinessDAOIF mdBusiness)
   {
     List<MdBusinessDAOIF> superClasses = mdBusiness.getSuperClasses();
-    boolean contains = superClasses.contains(MdBusiness.getMdBusiness("dss.vector.solutions.geo.generated.GeoEntity"));
+    boolean contains = superClasses.contains(MdBusiness.getMdBusiness(GeoEntity.CLASS));
 
     return contains;
   }

@@ -12,20 +12,24 @@
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 <%@page import="dss.vector.solutions.geo.AllPathsDTO"%>
+<%@page import="dss.vector.solutions.DefaultGeoEntityDTO"%>
 
 <%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-  if (request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID) == null)
+  String rootId;
+  String tree;
+  if(request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID) != null)
   {
-    //The Earth is the root.
-    //FIXME: use country's default root
-    EarthDTO earth = EarthDTO.getEarthInstance(requestIF);
-    request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
+    rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
+    tree = GeoHierarchyDTO.defineAllowedTree(requestIF, rootId);
   }
-  String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
-  String tree = GeoHierarchyDTO.defineAllowedTree(requestIF, rootId);
+  else
+  {
+    rootId = DefaultGeoEntityDTO.getDefaultGeoEntity(requestIF).getValue(DefaultGeoEntityDTO.GEOENTITY);
+    tree = GeoHierarchyDTO.defineAllowedTree(requestIF, EarthDTO.getEarthInstance(requestIF).getId());
+  }
+  
 %>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS}))%>
 

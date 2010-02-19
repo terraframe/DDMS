@@ -33,8 +33,6 @@ import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
-import dss.vector.solutions.geo.GeoEntityTreeController;
-import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
@@ -153,10 +151,6 @@ public class QueryController extends QueryControllerBase implements com.terrafra
     queryList.put("namespacedType", namespacedType);
 
     req.setAttribute("queryList", queryList.toString());
-
-    // The Earth is the root. FIXME use country's default root
-    EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
   }
 
   @Override

@@ -35,8 +35,6 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   {
     try
     {
-      req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
-
       GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, political, sprayZoneAllowed, extraUniversals);
       req.setAttribute("views", views);
 
@@ -55,8 +53,6 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   {
     try
     {
-      req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
-
       GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, political, sprayZoneAllowed, extraUniversals);
       req.setAttribute("views", views);
 
@@ -80,8 +76,6 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
         EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
         rootGeoEntityId = earth.getId();
       }
-
-      req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
 
       if (this.isAsynchronous())
       {

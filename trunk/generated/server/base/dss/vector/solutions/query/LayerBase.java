@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1490572037)
+@com.terraframe.mojo.business.ClassSignature(hash = -595189032)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -51,7 +51,7 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -1490572037;
+  private static final long serialVersionUID = -595189032;
   
   public LayerBase()
   {
@@ -1279,16 +1279,16 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     return _instance.calculateQueryInfo();
   }
   
-  public dss.vector.solutions.query.AbstractCategory[] generateCategories(dss.vector.solutions.query.CategoryGen categoryGen)
+  public dss.vector.solutions.query.AbstractCategory[] generateCategories(dss.vector.solutions.query.CategoryGen categoryGen, dss.vector.solutions.query.Layer currentLayer)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.query.AbstractCategory[] generateCategories(java.lang.String id, dss.vector.solutions.query.CategoryGen categoryGen)
+  public static final dss.vector.solutions.query.AbstractCategory[] generateCategories(java.lang.String id, dss.vector.solutions.query.CategoryGen categoryGen, dss.vector.solutions.query.Layer currentLayer)
   {
     Layer _instance = Layer.get(id);
-    return _instance.generateCategories(categoryGen);
+    return _instance.generateCategories(categoryGen, currentLayer);
   }
   
   public dss.vector.solutions.query.AttributeGeoHierarchy[] getAttributeGeoHierarchies()

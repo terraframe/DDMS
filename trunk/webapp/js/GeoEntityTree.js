@@ -409,6 +409,7 @@ MDSS.GeoEntityTree = (function(){
 
     var controller = Mojo.Meta.findClass(type+"Controller");
     controller.setCreateListener(Mojo.Util.curry(_createNode, type));
+    controller.setCancelListener(_cancelNode);
     controller.newInstance(request);
   }
     
@@ -696,16 +697,23 @@ MDSS.GeoEntityTree = (function(){
   /**
    * Cancels an action to update a node.
    */
-  function _cancelNode()
+  function _cancelNode(params, a, b)
   {
-    var request = new MDSS.Request({
-      onSuccess: function(){
-        _modal.destroy();
-      }
-    });
+    if(params['dto.isNew'] === 'true')
+    {
+      _modal.destroy();
+    }
+    else
+    {
+      var request = new MDSS.Request({
+        onSuccess: function(){
+          _modal.destroy();
+        }
+      });
 
-    var geoEntityView = _getGeoEntityView(_selectedNode);
-    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.unlock(request, geoEntityView.getGeoEntityId());
+      var geoEntityView = _getGeoEntityView(_selectedNode);
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.unlock(request, geoEntityView.getGeoEntityId());
+    }
   }
 
   /**
@@ -1250,9 +1258,9 @@ MDSS.GeoEntityTree = (function(){
     if(scrapeTerm)
     {
       var display = document.getElementById('termDisplay');
-      if(display && Mojo.Util.trim(display.innerHTML) !== MDSS.Localized.no_value)
+      if(display && Mojo.Util.trim(display.value).length > 0)
       {
-        var termName = MDSS.OntologyBrowser.extractName(display.innerHTML);
+        var termName = MDSS.OntologyBrowser.extractName(display.value);
         geoEntityView.setMoSubType(termName);
       }
     }

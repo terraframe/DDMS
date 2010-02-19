@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -578761774)
+@com.terraframe.mojo.business.ClassSignature(hash = -1181067736)
 public class LayerControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.LayerController";
@@ -10,7 +10,7 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -578761774;
+  private static final long serialVersionUID = -1181067736;
   
   public LayerControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -137,15 +137,15 @@ public class LayerControllerBase implements com.terraframe.mojo.generation.loade
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failEdit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen", post=true)
-  public void generateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen, dss.vector.solutions.query.LayerDTO:layer", post=true)
+  public void generateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO layer) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.generateCategories");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen", post=true)
-  public void failGenerateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.CategoryGenDTO:categoryGen, dss.vector.solutions.query.LayerDTO:layer", post=true)
+  public void failGenerateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO layer) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.LayerController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.LayerController.failGenerateCategories");

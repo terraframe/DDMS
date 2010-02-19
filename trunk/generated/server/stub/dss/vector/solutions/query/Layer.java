@@ -104,7 +104,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
   
   @Override
   @Transaction
-  public AbstractCategory[] generateCategories(CategoryGen categoryGen)
+  public AbstractCategory[] generateCategories(CategoryGen categoryGen, Layer currentLayer)
   {
     String type = categoryGen.getFactoryType();
     AbstractCategoryFactory factory;
@@ -127,7 +127,7 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
       category.delete();
     }
     
-    List<AbstractCategory> categories = factory.create(this, categoryGen);
+    List<AbstractCategory> categories = factory.create(currentLayer, categoryGen);
     CategorySorter.sort(categories);
     
     // Save the new generated categories

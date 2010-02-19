@@ -244,7 +244,7 @@ public class Universal {
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"Country Geo ID\" />\n");
 		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyPackage\"\n");
-		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"dss.vector.solutions.install\" />\n");
+		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\""+PropertyInfo.INSTALL_PACKAGE+"\" />\n");
 		sb.append("   <"+XMLTags.ATTRIBUTE_TAG+"\n");
 		sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_NAME_ATTRIBUTE+"=\"propertyValue\"\n");
         sb.append("      "+XMLTags.ENTITY_ATTRIBUTE_VALUE_ATTRIBUTE+"=\"" + geoid + "\"/>\n");

@@ -817,8 +817,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
   Static : {
   
-    SelectSearchRootId : null, // must be set before instantiating a subclass.
-    
     /**
      * Formats the given GeoEntityView to a standardized string.
      */

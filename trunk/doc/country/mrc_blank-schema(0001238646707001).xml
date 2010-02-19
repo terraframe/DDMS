@@ -251,7 +251,7 @@
 					value="Country Geo ID" />
 				<attribute
 					name="propertyPackage"
-					value="dss.vector.solutions.install" />
+					value="dss.vector.solutions.system.install" />
 				<attribute
 					name="propertyValue"
 					value="000000" />

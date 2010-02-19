@@ -113,18 +113,18 @@
     </div>
 
   </mjl:dt>
-  <mjl:dt attribute="pointMarker">
+  <mjl:dt attribute="pointMarker" classes="POINT_toggle">
     <mjl:select var="current" valueAttribute="enumName" items="${pointMarker}" param="pointMarker">
       <mjl:option selected="${mjl:contains(styles.pointMarkerEnumNames, current.enumName) ? 'selected' : 'false'}">
         ${current.displayLabel}
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-  <mjl:dt attribute="pointStroke">
+  <mjl:dt attribute="pointStroke" classes="POINT_toggle">
     <mjl:input type="hidden" param="pointStroke" value="${styles.pointStroke}" id="${styles.id}_pointStroke" />
     <div class="colorPickerValue" id="${styles.id}_pointStroke_opener" style="background-color: ${styles.pointStroke}">&nbsp;</div>
   </mjl:dt>
-  <mjl:dt attribute="pointSize">
+  <mjl:dt attribute="pointSize" classes="POINT_toggle">
 
     <div id="${styles.id}_pointSizeSliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_pointSizeThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -135,7 +135,7 @@
     </div>
 
   </mjl:dt>
-  <mjl:dt attribute="pointRotation">
+  <mjl:dt attribute="pointRotation" classes="POINT_toggle">
   
     <div>  
       <canvas id="${styles.id}_pointRotationCanvas" style="border: 1px solid gray"></canvas>
@@ -146,7 +146,7 @@
     <mjl:input type="hidden" param="pointRotation" id="${styles.id}_pointRotation" />
     
   </mjl:dt>
-  <mjl:dt attribute="pointStrokeOpacity">
+  <mjl:dt attribute="pointStrokeOpacity" classes="POINT_toggle">
   
     <div id="${styles.id}_pointStrokeOpacitySliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_pointStrokeOpacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -157,7 +157,7 @@
     </div>
     
   </mjl:dt>
-  <mjl:dt attribute="pointWidth">
+  <mjl:dt attribute="pointWidth" classes="POINT_toggle">
 
     <div id="${styles.id}_pointWidthSliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_pointWidthThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -168,11 +168,11 @@
     </div>
 
   </mjl:dt>
-  <mjl:dt attribute="polygonStroke">
+  <mjl:dt attribute="polygonStroke" classes="POLYGON_toggle">
     <mjl:input type="hidden" param="polygonStroke" value="${styles.polygonStroke}" id="${styles.id}_polygonStroke" />
     <div class="colorPickerValue" id="${styles.id}_polygonStroke_opener" style="background-color: ${styles.polygonStroke}">&nbsp;</div>
   </mjl:dt>
-  <mjl:dt attribute="polygonStrokeOpacity">
+  <mjl:dt attribute="polygonStrokeOpacity" classes="POLYGON_toggle">
 
     <div id="${styles.id}_polygonStrokeOpacitySliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_polygonStrokeOpacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -183,11 +183,11 @@
     </div>
 
   </mjl:dt>
-  <mjl:dt attribute="polygonFill">
+  <mjl:dt attribute="polygonFill" classes="POLYGON_toggle">
     <mjl:input type="hidden" param="polygonFill" value="${styles.polygonFill}" id="${styles.id}_polygonFill" />
     <div class="colorPickerValue" id="${styles.id}_polygonFill_opener" style="background-color: ${styles.polygonFill}">&nbsp;</div>
   </mjl:dt>
-  <mjl:dt attribute="polygonFillOpacity">
+  <mjl:dt attribute="polygonFillOpacity" classes="POLYGON_toggle">
   
     <div id="${styles.id}_polygonFillOpacitySliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_polygonFillOpacityThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -198,7 +198,7 @@
     </div>
     
   </mjl:dt>
-  <mjl:dt attribute="polygonWidth">
+  <mjl:dt attribute="polygonWidth" classes="POLYGON_toggle">
 
     <div id="${styles.id}_polygonWidthSliderBG" class="yui-h-slider" style="width: 100px">
       <div id="${styles.id}_polygonWidthThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
@@ -243,10 +243,6 @@ MDSS.MapPanel.attach50Slider('${styles.id}_labelHaloRadius');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointWidth');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointSize');
 MDSS.MapPanel.attach100Slider('${styles.id}_polygonWidth');
-
-
-// Grab the value of the containing layer's RenderAs value to know
-// if we should show or hide the point/polygon styles.
 </script>
 
 </mjl:component>

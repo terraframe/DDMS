@@ -66,6 +66,9 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.MONITOR_PACKAGE));
 
+    // FIXME hide the entry for countryGeoId
+    condition = AND.get(condition, query.getPropertyName().NE(PropertyInfo.COUNTRY_GEO_ID));
+    
     query.WHERE(condition);
 
     return query;

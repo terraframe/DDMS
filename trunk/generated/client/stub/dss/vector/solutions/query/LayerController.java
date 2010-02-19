@@ -137,12 +137,12 @@ public class LayerController extends LayerControllerBase implements
   }
   
   @Override
-  public void generateCategories(CategoryGenDTO categoryGen) throws IOException, ServletException
+  public void generateCategories(CategoryGenDTO categoryGen, LayerDTO layer) throws IOException, ServletException
   {
     try
     {
       String layerId = categoryGen.getLayerId();
-      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId, categoryGen);
+      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId, categoryGen, layer);
       
       for(AbstractCategoryDTO category : categories)
       {

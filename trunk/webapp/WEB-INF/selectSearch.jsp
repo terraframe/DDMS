@@ -11,9 +11,13 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
-<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><jsp:include page="geoEntityTreeComponent.jsp"/>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+
+
+<jsp:include page="geoEntityTreeComponent.jsp"/>
 <%ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
+//String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
+String rootId = EarthDTO.getEarthInstance(requestIF).getId();
 String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS, GeoEntityViewDTO.CLASS };
 //String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 // out.print(js);%>

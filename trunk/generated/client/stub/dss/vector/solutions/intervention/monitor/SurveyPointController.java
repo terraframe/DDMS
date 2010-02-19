@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.geo.GeoEntityTreeController;
-import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -52,9 +50,6 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void failUpdate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
-
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }

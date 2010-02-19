@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1820253051)
+@com.terraframe.mojo.business.ClassSignature(hash = -985668520)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1820253051;
+  private static final long serialVersionUID = -985668520;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -1525,18 +1525,18 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (dss.vector.solutions.query.QueryInfoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen)
+  public final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO currentLayer)
   {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.CategoryGen"};
-    Object[] _parameters = new Object[]{categoryGen};
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.query.CategoryGen", "dss.vector.solutions.query.Layer"};
+    Object[] _parameters = new Object[]{categoryGen, currentLayer};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
     return (dss.vector.solutions.query.AbstractCategoryDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.CategoryGenDTO categoryGen)
+  public static final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO currentLayer)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.CategoryGen"};
-    Object[] _parameters = new Object[]{id, categoryGen};
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.CategoryGen", "dss.vector.solutions.query.Layer"};
+    Object[] _parameters = new Object[]{id, categoryGen, currentLayer};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
     return (dss.vector.solutions.query.AbstractCategoryDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

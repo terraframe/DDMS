@@ -36,6 +36,9 @@ import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdEntity;
 import com.vividsolutions.jts.geom.Geometry;
 
+import dss.vector.solutions.DefaultGeoEntity;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.Universal;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
@@ -75,7 +78,7 @@ public class GeoEntityImporter {
 	private static String GEO_NAME = "geo_name";
 	
 	private static int BATCH_SIZE = 1000;
-
+	
 	private String dbUser;
 	private String dbPassword;
 	private String dbName;
@@ -390,6 +393,24 @@ public class GeoEntityImporter {
 		}
 
 		this.applyBatch(batch);
+		
+		// All GeoEntities have been created so attempt to set the
+		// default based on the system property.
+		try
+		{
+		  String geoId = Property.getStr(PropertyInfo.INSTALL_PACKAGE, PropertyInfo.COUNTRY_GEO_ID);
+		  GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+		  
+		  DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+		  defaultGeoEntity.appLock();
+		  defaultGeoEntity.setGeoEntity(geoEntity);
+		  defaultGeoEntity.apply();
+		}
+		catch(InvalidIdException e)
+		{
+		  // No match found ... keep the current default
+		}
+		
 		System.out.println("\nFINISHED\n");
 	}
 
