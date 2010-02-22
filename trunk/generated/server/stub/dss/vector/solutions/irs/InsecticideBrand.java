@@ -163,6 +163,10 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     String select = "SELECT insecticidebrand.id,\n";
     select += "COALESCE(startdate,'1900-01-01'::date) startdate,\n";
     select += "COALESCE(endDate,'2100-01-01'::date) enddate, \n";
+    select += "COALESCE((SELECT i.configurationDate FROM insecticidenozzle i WHERE insecticidenozzle.parent_id = i.parent_id \n";
+    select += "AND insecticidenozzle.child_id = i.child_id  AND insecticidenozzle.configurationDate < i.configurationDate ORDER BY i.configurationDate DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n"; 
+    select += "COALESCE((SELECT i.configurationDate FROM insecticidenozzle i WHERE insecticidenozzle.parent_id = i.parent_id \n";
+    select += "AND insecticidenozzle.child_id = i.child_id  AND insecticidenozzle.configurationDate > i.configurationDate  ORDER BY i.configurationDate ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n"; 
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
     //select += "insecticidebrand.brandname,\n";
     select += "weight*sachetsperrefill*ratio*(amount/100.0) AS active_ingredient_per_can,\n";
