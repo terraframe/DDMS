@@ -714,22 +714,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     // Define permissions on the new Universal
     RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
     RoleDAO mdssCorrdinator = RoleDAO.findRole(MDSSRoleInfo.MDSS_CORRDINATOR).getBusinessDAO();
-    RoleDAO entomologist = RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
+    //RoleDAO entomologist = RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
 
     // Define all read permissions
     guiVisibility.grantPermission(Operation.READ, mdGeoEntity.getId());
+    
     mdssCorrdinator.grantPermission(Operation.WRITE, mdGeoEntity.getId());
-    entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
     mdssCorrdinator.grantPermission(Operation.CREATE, mdGeoEntity.getId());
-    entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
     mdssCorrdinator.grantPermission(Operation.DELETE, mdGeoEntity.getId());
-    entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
+
+    //entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
+    //entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
+    //entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
 
     for (MdAttribute mdAttribute : mdGeoEntity.getAllAttribute())
     {
       guiVisibility.grantPermission(Operation.READ, mdAttribute.getId());
       mdssCorrdinator.grantPermission(Operation.WRITE, mdAttribute.getId());
-      entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
+      //entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
     }
 
     // create the GeoHeirachy and relationship
@@ -1722,7 +1724,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   public String toString()
   {
     MdBusiness md = this.getGeoEntityClass();
-    return md != null ? md.getDisplayLabel().getValue() : this.getId();
+    return md != null ? md.getDisplayLabel().getValue() : super.toString();
   }
 
   private static class GetAllGeoHierarchyQueryBuilder extends ViewQueryBuilder implements Reloadable
