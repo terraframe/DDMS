@@ -166,6 +166,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     valueQuery.WHERE(new InnerJoinEq(AbstractSpray.BRAND, tableName, tableAlias, "id", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "startdate", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "enddate", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
   }
   
 
