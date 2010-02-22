@@ -202,6 +202,8 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
       
       QueryUtil.joinGeoDisplayLabels(valueQuery,StockEvent.CLASS,stockEventQuery);
       
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery,StockEvent.CLASS,stockEventQuery);
+      
       if(personQuery != null)
       {
         valueQuery.WHERE(stockEventQuery.getStaff().EQ(personQuery.getStockStaffDelegate()));
