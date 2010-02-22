@@ -190,10 +190,11 @@ public class UniversalImporter {
 		System.out.println("<"+XMLTags.CREATE_TAG+">");
 		System.out.println(Universal.EARTH.getCountryGeoIdTag(this.geoid));
 		System.out.println("</"+XMLTags.CREATE_TAG+">\n");
-
+/*
 		//5) Define all necessary permissions
 		System.out.println("<"+XMLTags.PERMISSIONS_TAG+">");
-
+		
+		// GUI_VISIBILITY
 		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.GUI_VISIBILITY + "\">");
 		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
@@ -204,7 +205,8 @@ public class UniversalImporter {
 		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
 		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
-		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.MDSS_CORRDINATOR + ", " + MDSSRoleInfo.ENTOMOLOGIST + "\">");
+		// MDSS_COORDINATOR
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.MDSS_CORRDINATOR + "\">");
 		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
 		for (Universal u : universals.values()) {
 			if (u != Universal.EARTH) {
@@ -214,15 +216,19 @@ public class UniversalImporter {
 		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
 		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
-//		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"entomologist\">");
-//		for (Universal u : universals.values()) {
-//			if (u != Universal.EARTH) {
-//				System.out.println(u.getUpdatePermissionsTag());
-//			}
-//		}
-//		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
+		// ENTOMOLOGIST - Only collection sites
+		System.out.println("   <"+XMLTags.ROLE_TAG+" "+XMLTags.ROLENAME_ATTRIBUTE+"=\"" + MDSSRoleInfo.ENTOMOLOGIST + "\">");
+		System.out.println("   <"+XMLTags.GRANT_TAG + ">");
+		for (Universal u : universals.values()) {
+			if (u.getTypeName().toLowerCase().equals("collectionsite")) {
+				System.out.println(u.getUpdatePermissionsTag());
+			}
+		}
+		System.out.println("   </"+XMLTags.GRANT_TAG + ">");
+		System.out.println("   </"+XMLTags.ROLE_TAG+">\n");
 
 		System.out.println("</"+XMLTags.PERMISSIONS_TAG+">\n");
+*/
 
 		System.out.println("</"+XMLTags.DO_IT_TAG+">");
 		System.out.println("<"+XMLTags.UNDO_IT_TAG+">");
