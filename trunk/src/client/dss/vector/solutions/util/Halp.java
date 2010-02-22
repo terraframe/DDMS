@@ -241,29 +241,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           element.put(attrib, value);
 
         }
-        catch (IllegalAccessException x)
+        catch (Exception x)
         {
+//          throw new ApplicationException(x);
           //System.out.println(x + " " + x.getCause());
         }
-        catch (IllegalArgumentException x)
-        {
-         // System.out.println(x + " " + x.getCause());
-        }
-        catch (InvocationTargetException x)
-        {
-          //System.out.println(x + " " + x.getCause());
-        }
-        catch (NoSuchMethodException x)
-        {
-          //System.out.println("No such method get" + attrib);
-        }
-        catch (NullPointerException x)
-        {
-          //System.out.println("Null Pointer Exception get" + attrib);
-        } // catch (ParseException x) {
-        // System.out.println("Could not parse date" + attrib);
-        // }
-
       }
       map.put(element);
     }
