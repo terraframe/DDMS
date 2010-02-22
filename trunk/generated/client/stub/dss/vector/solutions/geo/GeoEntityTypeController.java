@@ -40,6 +40,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   {
     try
     {
+    	new GeoHierarchyDTO(this.getClientRequest());
       GeoEntityDefinitionDTO def = new GeoEntityDefinitionDTO(this.getClientRequest());
       def.setParentGeoHierarchyId(parentGeoHierarchyId);
 
