@@ -75,53 +75,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name';
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlinteger';
-        row.displayLabel = attribName;
-        row.key = attribName;
-        row.dtoType = "AttributeIntegerDTO";
 
-      }
-      return row;
-    };
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        
-      return row;
-    };
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -138,19 +92,19 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var larvacideAttribs = [ "startDate","completionDate","geoDescription","geoEntity","natureOfControl", "personCount"];
     
-    var larvacideColumns =   larvacideAttribs.map(mapAttribs, {obj:larvacide, suffix:'_lar', dropDownMaps:larvacideMaps});
+    var larvacideColumns =   larvacideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvacide, suffix:'_lar', dropDownMaps:larvacideMaps});
 
     var larvacideInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.LarvacideInstance();
     
     var larvacideInstanceAttribs = ["controlMethod","target","treated","unit","unitsUsed"];
     
-    var larvacideInstanceColumns =   larvacideInstanceAttribs.map(mapAttribs, {obj:larvacideInstance, suffix:'_lar', dropDownMaps:larvacideMaps});
+    var larvacideInstanceColumns =   larvacideInstanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvacideInstance, suffix:'_lar', dropDownMaps:larvacideMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();
     
     var personAttribs = ["firstName","lastName"];
     
-    var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
+    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 
     var selectableGroups = [
               {title:"Spray", values:larvacideColumns, group:"l", klass:larvacide.CLASS},

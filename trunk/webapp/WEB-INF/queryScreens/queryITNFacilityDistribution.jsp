@@ -83,47 +83,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name'dd;
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlinteger';
-        row.displayLabel = attribName;
-        row.key = attribName;
-
-      }
-      return row;
-    };
 
 
-    var mapMo = function(term,index){
-    	var row = {};
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-      return row;
-    };
+
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -140,16 +102,16 @@ YAHOO.util.Event.onDOMReady(function(){
                        "distributionDate","distributorName","distributorSurname",
                        "net","numberSold","currencyReceived"];
     
-    var ITNColumns =   ITNAttribs.map(mapAttribs, {obj:itn, suffix:'_itn', dropDownMaps:{}});
+    var ITNColumns =   ITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:itn, suffix:'_itn', dropDownMaps:{}});
     
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
+   var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
 
    var person = new Mojo.$.dss.vector.solutions.Person();
    
    var personAttribs = ["dateOfBirth","firstName","lastName","sex","age",
                         "residentialGeoEntity","residentialInformation","workGeoEntity","workInformation"];
    
-   var personColumns =  personAttribs.map(mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+   var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
 
    
    var selectableGroups = [

@@ -81,47 +81,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name'dd;
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlinteger';
-        row.displayLabel = attribName;
-        row.key = attribName;
-
-      }
-      return row;
-    };
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-      return row;
-    };
+  
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -132,17 +92,17 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var itnMaps = {<%=(String) request.getAttribute("itnMap")%>};
 
-    var ITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityDistribution();
+    var ITN = new dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
   
     var ITNAttribs = ["startDate","endDate","distributionLocation","agentFirstName","agentSurname","entryType","batchNumber",
                       "householdAddress","householdName","householdSurname","residents",
                       "itnsReceived","retrieved","numberRetrieved","sold", "currencyReceived"];
     
-    var ITNColumns =   ITNAttribs.map(mapAttribs, {obj:ITN, suffix:'_itn', dropDownMaps:itnMaps});
+    var ITNColumns =   ITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:ITN, suffix:'_itn', dropDownMaps:itnMaps});
     
-    var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
+    var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
      
-    var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
+    var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
      
     var selectableGroups = [
                 {title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS},

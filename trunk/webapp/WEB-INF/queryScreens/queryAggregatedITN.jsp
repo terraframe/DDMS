@@ -80,47 +80,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    var mapAttribs = function(attribName,index){
-      var attrib = this.obj.attributeMap[attribName];
-      var row = {};
-      if(attrib){
-        row.attributeName = attrib.attributeName;
-        if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
-        {
-          //row.attributeName += '.name'dd;
-        }
-        if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
-        {
-          row.attributeName += '.displayLabel.currentValue';
-        }
-        row.key = attrib.attributeName + this.suffix;
-        row.type = this.obj.getType();
-        row.dtoType = attrib.dtoType;
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
-        if(this.dropDownMaps[uppFirst]){
-          row.dropDownMap = this.dropDownMaps[uppFirst];
-        }
-      }else{
-        row.attributeName = attribName;
-        row.type = 'sqlinteger';
-        row.displayLabel = attribName;
-        row.key = attribName;
-
-      }
-      return row;
-    };
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-      return row;
-    };
 
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
@@ -134,11 +93,11 @@ YAHOO.util.Event.onDOMReady(function(){
     var aITNAttribs = ["startDate","endDate","batchNumber","currencyReceived",
                        "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
     
-    var aITNColumns =   aITNAttribs.map(mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+    var aITNColumns =   aITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
     
-   var netsColumns = orderedGrids.nets.options.map(mapMo, orderedGrids.nets);
-   var servicesColumns = orderedGrids.services.options.map(mapMo, orderedGrids.services);
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(mapMo, orderedGrids.targetGroups);
+   var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
+   var servicesColumns = orderedGrids.services.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.services);
+   var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
    
    var selectableGroups = [
               {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},

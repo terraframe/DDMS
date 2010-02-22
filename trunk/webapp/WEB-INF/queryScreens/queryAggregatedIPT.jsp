@@ -71,24 +71,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-   
-
-
-    var mapMo = function(term,index){
-    	var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        
-      return row;
-    };
-
+  
     // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
@@ -114,10 +97,10 @@ YAHOO.util.Event.onDOMReady(function(){
     //IPTTreatment[] getIPTTreatments()
 
     
-   var dosesColumns = orderedGrids.doses.options.map(mapMo, orderedGrids.doses);
-   var patientsColumns = orderedGrids.patients.options.map(mapMo, orderedGrids.patients);
-   var treatmentsColumns = orderedGrids.treatments.options.map(mapMo, orderedGrids.treatments);
-   var visitsColumns = orderedGrids.visits.options.map(mapMo, orderedGrids.visits);
+   var dosesColumns = orderedGrids.doses.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.doses);
+   var patientsColumns = orderedGrids.patients.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.patients);
+   var treatmentsColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
+   var visitsColumns = orderedGrids.visits.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.visits);
     
     var selectableGroups = [
               {title:"IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
