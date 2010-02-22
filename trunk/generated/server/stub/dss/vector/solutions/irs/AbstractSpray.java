@@ -100,9 +100,9 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     AbstractSpray.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / SUM("+sprayedUnits+")");
     AbstractSpray.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
     
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , unit_operational_coverage+"*SUM(rooms)");
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" , unit_operational_coverage+"*SUM(structures)");
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_households_sprayed" , unit_operational_coverage+"*SUM(households)");
+    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
+    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
+    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
 
     
     return valueQuery;
