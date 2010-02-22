@@ -6,24 +6,6 @@
     </create>
     <update>
     </update>
-    <permissions>
-      <role roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.Person">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNRecipient">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

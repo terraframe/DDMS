@@ -139,44 +139,6 @@
         </create>
       </mdController>
     </update>
-    <permissions>
-      <role roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission type="dss.vector.solutions.surveillance.AggregatedCaseSearchView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>          
-          <mdViewPermission type="dss.vector.solutions.surveillance.AggregatedCaseView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>          
-          <mdViewPermission type="dss.vector.solutions.intervention.monitor.ITNDataView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>          
-          <mdViewPermission type="dss.vector.solutions.intervention.monitor.AggregatedIPTView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>          
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

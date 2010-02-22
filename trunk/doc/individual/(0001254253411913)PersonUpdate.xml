@@ -47,44 +47,6 @@
         </create>
       </mdView>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission
-            type="dss.vector.solutions.PersonView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="DELETE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-          </mdViewPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.entomologist, mdss.operationalManager, mdss.dataCapturer">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.Person">
-            <operation
-              name="CREATE" />
-            <operation
-              name="DELETE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

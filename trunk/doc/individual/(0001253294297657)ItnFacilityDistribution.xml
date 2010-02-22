@@ -352,69 +352,6 @@
         </create>
       </mdView>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdRelationshipPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdRelationshipPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

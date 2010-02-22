@@ -2,45 +2,6 @@
   xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <permissions>
-      <method
-        methodName="setThresholdConfiguration"
-        type="dss.vector.solutions.general.ThresholdDataView">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.OutbreakCalculationMaster">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.operationalManager">
-        <grant>
-          <mdRelationshipPermission type="dss.vector.solutions.general.WeeklyThreshold">
-            <operation name="CREATE"/>
-            <operation name="DELETE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-          </mdRelationshipPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.general.ThresholdDataView">
-            <mdMethodPermission
-              methodName="setThresholdConfiguration">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

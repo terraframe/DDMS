@@ -162,8 +162,6 @@
     </update>
     <create>
     </create>
-    <permissions>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

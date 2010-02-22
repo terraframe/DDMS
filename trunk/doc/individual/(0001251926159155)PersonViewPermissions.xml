@@ -108,19 +108,6 @@
         </attributes>
       </mdView>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <revoke>
-          <mdBusinessPermission
-            type="dss.vector.solutions.Person">
-            <attributePermission attributeName="residentialGeoEntity">
-              <operation name="READ"/>
-            </attributePermission>
-          </mdBusinessPermission>
-        </revoke>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

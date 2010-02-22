@@ -484,49 +484,6 @@
         </attributes>
       </mdException>
     </create>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission
-            type="dss.vector.solutions.general.ThresholdDataView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.ThresholdData">
-            <operation
-              name="READ" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.operationalManager">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.ThresholdData">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

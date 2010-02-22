@@ -2,21 +2,6 @@
   xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.AggregatedIPT">
-            <operation name="READ"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.IndividualIPT">
-            <operation name="READ"/>
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

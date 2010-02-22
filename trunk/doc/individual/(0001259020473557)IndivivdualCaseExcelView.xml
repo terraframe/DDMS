@@ -126,8 +126,6 @@
         </attributes>
       </mdView>
     </create>
-    <permissions>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

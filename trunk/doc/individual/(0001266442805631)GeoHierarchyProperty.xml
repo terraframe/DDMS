@@ -23,36 +23,6 @@
         </attributes>
       </mdBusiness>
     </create>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.geo.GeoHierarchyProperty">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.geo.GeoHierarchyProperty">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

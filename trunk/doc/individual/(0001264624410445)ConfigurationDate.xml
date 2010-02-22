@@ -25,30 +25,6 @@
         </create>
       </mdView>
     </update>
-    <permissions>
-      <role roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission type="dss.vector.solutions.irs.InsecticideNozzleView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>
-        </grant>
-      </role>
-      <role roleName="mdss.coordinator, mdss.operationalManager">
-        <grant>
-          <mdRelationshipPermission type="dss.vector.solutions.irs.InsecticideNozzle">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdRelationshipPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

@@ -19,24 +19,6 @@
         </create>
       </mdBusiness>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.coordinator, mdss.dataCapturer, mdss.operationalManager">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNInstance">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

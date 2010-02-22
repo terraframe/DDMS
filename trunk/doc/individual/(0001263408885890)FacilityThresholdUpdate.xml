@@ -28,27 +28,6 @@
         </create>
       </mdBusiness>
     </update>
-    <permissions>
-      <method
-        methodName="checkFacilityThresholdViolation"
-        type="dss.vector.solutions.general.ThresholdData">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
-      <role
-        roleName="mdss.coordinator">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.ThresholdData">
-            <mdMethodPermission
-              methodName="checkFacilityThresholdViolation">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

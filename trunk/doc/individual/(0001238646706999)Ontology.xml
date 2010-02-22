@@ -417,67 +417,6 @@
       </object>
 
     </create>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.Ontology">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.OntologyRelationship">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.OntologyHasRelationship">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.Term">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.ontology.TermRelationship">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdRelationshipPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.AllPaths">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-        </grant>
-
-        <!--
-        dss.vector.solutions.ontology.MO
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.Ontology">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.Term">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.GeoUniversal">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.ontology.TermRelationship">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdRelationshipPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.ontology.IsA">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdRelationshipPermission>
-          <mdBusinessPermission type="dss.vector.solutions.ontology.AllPaths">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-        </grant>
-         -->
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

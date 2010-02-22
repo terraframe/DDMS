@@ -1,38 +1,5 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <permissions>
-      <role roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.general.Email">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.general.SystemAlert">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.Person">
-            <attributePermission attributeName="firstName">
-              <operation name="READ"/>
-            </attributePermission>
-            <attributePermission attributeName="dateOfBirth">
-              <operation name="READ"/>
-            </attributePermission>
-            <attributePermission attributeName="lastName">
-              <operation name="READ"/>
-            </attributePermission>
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

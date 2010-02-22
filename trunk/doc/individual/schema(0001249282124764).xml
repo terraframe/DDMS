@@ -1,61 +1,6 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <permissions>
-      <role roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission type="dss.vector.solutions.geo.UnknownGeoEntity">
-            <operation name="READ" />
-            <operation name="READ_ALL_ATTRIBUTES" />
-          </mdViewPermission>
-        </grant>
-      </role>
-    </permissions>
-
-    <permissions>
-      <role roleName="mdss.coordinator">
-        <grant>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.geo.HasSynonym">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="WRITE_CHILD" />
-            <operation name="WRITE_PARENT" />
-            <operation name="DELETE" />
-          </mdRelationshipPermission>
-
-          <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-
-      <role roleName="mdss.entomologist">
-        <grant>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.geo.HasSynonym">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="WRITE_CHILD" />
-            <operation name="WRITE_PARENT" />
-            <operation name="DELETE" />
-          </mdRelationshipPermission>
-
-          <mdBusinessPermission type="dss.vector.solutions.geo.GeoSynonym">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-
-    </permissions>
   </doIt>
   <undoIt>
     <delete></delete>

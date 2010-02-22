@@ -69,28 +69,6 @@
         </mdMethod>
       </mdView>
     </create>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission
-            type="dss.vector.solutions.irs.SprayTeamView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

@@ -280,8 +280,6 @@
           key="dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy" />
       </object>
     </create>
-    <permissions>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

@@ -96,37 +96,6 @@
         </mdAction>
       </mdController>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdViewPermission
-            type="dss.vector.solutions.irs.AreaStandardsView">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-          </mdViewPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.operationalManager">
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
-            <operation name="CREATE" />
-            <operation name="WRITE" />
-            <operation name="WRITE_ALL_ATTRIBUTES" />
-            <operation name="DELETE" />
-          </mdBusinessPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

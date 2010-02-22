@@ -96,38 +96,6 @@
         </create>
       </mdController>
     </update>
-    <permissions>
-      <method
-        methodName="exportHistory"
-        type="dss.vector.solutions.general.WeeklyThresholdView">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
-      <role
-        roleName="mdss.coordinator, mdss.operationalManager">
-        <grant>
-          <mdViewPermission
-            type="dss.vector.solutions.general.WeeklyThresholdView">
-            <mdMethodPermission
-              methodName="exportHistory">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.general.WeeklyThreshold">
-            <operation
-              name="CREATE" />
-            <operation
-              name="DELETE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-          </mdRelationshipPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

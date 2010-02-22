@@ -16,53 +16,6 @@
         </create>
       </mdBusiness>
     </update>
-    <permissions>
-      <role roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Larvacide">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.LarvacideInstance">
-            <operation name="READ"/>
-          </mdBusinessPermission>
-          <mdViewPermission type="dss.vector.solutions.intervention.monitor.LarvacideInstanceView">
-            <operation name="CREATE"/>
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdViewPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.LarvacideAssociation">
-            <operation name="READ"/>
-            <operation name="READ_ALL_ATTRIBUTES"/>
-          </mdRelationshipPermission>          
-        </grant>
-      </role>
-      <role roleName="mdss.coordinator, mdss.operationalManager, mdss.dataCapturer">
-        <grant>
-          <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Larvacide">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdBusinessPermission>
-          <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.LarvacideInstance">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdBusinessPermission>
-          <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.LarvacideAssociation">
-            <operation name="CREATE"/>
-            <operation name="WRITE"/>
-            <operation name="WRITE_ALL_ATTRIBUTES"/>
-            <operation name="DELETE"/>
-          </mdRelationshipPermission>          
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

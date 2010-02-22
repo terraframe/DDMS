@@ -84,68 +84,6 @@
         </create>
       </mdController>
     </update>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation
-              name="READ" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation
-              name="READ" />
-          </mdRelationshipPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-        </grant>
-      </role>
-      <role
-        roleName="mdss.coordinator, mdss.operationalManager, mdss.dataCapturer">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistribution">
-            <operation
-              name="READ" />
-          </mdBusinessPermission>
-          <mdRelationshipPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup">
-            <operation
-              name="READ" />
-          </mdRelationshipPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

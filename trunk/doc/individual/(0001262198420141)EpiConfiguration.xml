@@ -15,57 +15,6 @@
         </attributes>
       </mdView>
     </create>
-    <permissions>
-      <role
-        roleName="mdss.GUIVisibility">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.ThresholdCalculationMethodMaster">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
-            type="dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.general.EpiConfiguration">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.general.ThresholdCalculationTypeView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-        </grant>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>
