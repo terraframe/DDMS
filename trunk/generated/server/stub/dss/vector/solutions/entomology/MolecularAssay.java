@@ -162,6 +162,15 @@ public class MolecularAssay extends MolecularAssayBase implements com.terraframe
 
 
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
+    
+    
+    if (molecularQuery == null && (xml.indexOf(">percent") > 0  ||  xml.indexOf(">frequency") > 0))
+    {
+      molecularQuery = new MolecularAssayQuery(queryFactory);
+    }
+    
+    
+    
     if (molecularQuery != null)
     {
       valueQuery.WHERE(molecularQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));

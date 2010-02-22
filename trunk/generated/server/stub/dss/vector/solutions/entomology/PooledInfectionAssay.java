@@ -158,6 +158,14 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
 
 
     PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
+    
+    
+    if (pooledInfectionQuery == null && xml.indexOf(">minPrevalence<") > 0)
+    {
+      pooledInfectionQuery = new PooledInfectionAssayQuery(queryFactory);
+    }
+    
+    
     if (pooledInfectionQuery != null)
     {
       valueQuery.WHERE(pooledInfectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));

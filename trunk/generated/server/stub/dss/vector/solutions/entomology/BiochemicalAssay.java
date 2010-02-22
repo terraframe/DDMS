@@ -158,16 +158,22 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.terraf
 
 
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
+    
+    if (biochemicalQuery == null && xml.indexOf(">elevated<") > 0)
+    {
+      biochemicalQuery = new BiochemicalAssayQuery(queryFactory);
+    }
+    
     if (biochemicalQuery != null)
     {
       valueQuery.WHERE(biochemicalQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, BiochemicalAssay.CLASS, biochemicalQuery);
-      
       if(xml.indexOf(">elevated<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("elevated");
         s.setSQL("100.0 * SUM(numberElevated) / SUM(numberTested)");
       }
+     
     }
 
 

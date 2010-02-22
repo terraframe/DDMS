@@ -158,25 +158,25 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     ArrayList<ValueQuery>  unionQueries = new ArrayList<ValueQuery>();
     
     InfectionAssayQuery infectionQuery = (InfectionAssayQuery) queryMap.get(InfectionAssay.CLASS);
-    if (infectionQuery != null)
+    if (infectionQuery != null ||  xml.indexOf(">prevalence<") > 0)
     {
       unionQueries.add(InfectionAssay.getUnionSubQuery(xml,config,layer));
     }
 
     PooledInfectionAssayQuery pooledInfectionQuery = (PooledInfectionAssayQuery) queryMap.get(PooledInfectionAssay.CLASS);
-    if (pooledInfectionQuery != null)
+    if (pooledInfectionQuery != null ||  xml.indexOf(">minPrevalence<") > 0)
     {
       unionQueries.add(PooledInfectionAssay.getUnionSubQuery(xml,config,layer));
     }
     
     MolecularAssayQuery molecularQuery = (MolecularAssayQuery) queryMap.get(MolecularAssay.CLASS);
-    if (molecularQuery != null)
+    if (molecularQuery != null ||  xml.indexOf(">percent") > 0  ||  xml.indexOf(">frequency") > 0)
     {
       unionQueries.add(MolecularAssay.getUnionSubQuery(xml,config,layer));
     }
     
     BiochemicalAssayQuery biochemicalQuery = (BiochemicalAssayQuery) queryMap.get(BiochemicalAssay.CLASS);
-    if (biochemicalQuery != null)
+    if (biochemicalQuery != null ||  xml.indexOf(">elevated<") > 0)
     {
       unionQueries.add(BiochemicalAssay.getUnionSubQuery(xml,config,layer));
     }
@@ -235,6 +235,14 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
     InfectionAssayQuery infectionQuery = (InfectionAssayQuery) queryMap.get(InfectionAssay.CLASS);
+    
+    
+    if (infectionQuery == null && xml.indexOf(">prevalence<") > 0)
+    {
+      infectionQuery = new InfectionAssayQuery(queryFactory);
+    }
+    
+    
     if (infectionQuery != null)
     {
       valueQuery.WHERE(infectionQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
