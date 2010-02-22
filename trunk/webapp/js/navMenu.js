@@ -27,7 +27,6 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	id: "Administration",
 	itemdata: [
 	           { text: "Configure_System_Variables(109)", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'Administrator'},
-	           { text: "Default_Geo_Root(122)", url: "dss.vector.solutions.DefaultGeoEntityController.viewAll.mojo" , visibleTo:'Administrator'},
 	           { text: "Update_Country_Image", url: "dss.vector.solutions.PropertyController.editFlag.mojo" , visibleTo:'Administrator'},
 	           { text: "Configure_Malaria_Season(127)", url: "dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" , visibleTo:'Administrator'},
 	           { text: "Configure_Epi_Week(119)", url: "dss.vector.solutions.PropertyController.newInstance.mojo" , visibleTo:'Administrator'},

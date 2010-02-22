@@ -144,7 +144,7 @@ public class DefaultGeoEntityController extends DefaultGeoEntityControllerBase i
     dss.vector.solutions.DefaultGeoEntityQueryDTO query = dss.vector.solutions.DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
     
     // forward to the singleton instance
-    req.setAttribute("item", query.getResultSet().get(0));
+    req.setAttribute("defaultGeoEntity", query.getResultSet().get(0));
     render("viewComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException

@@ -31,10 +31,45 @@
           <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton" />
         </mjl:form>
       </mjl:row>
-      <mjl:footer>
+    </mjl:freeColumn>
+  </mjl:columns>
 
+</mjl:table>
+<br />
+<mjl:table classes="displayTable" var="item" query="${query2}" even="evenRow" odd="oddRow">
+  <mjl:context action="dss.vector.solutions.DefaultGeoEntityController.viewPage.mojo" />
+  <mjl:columns>
+  
+    <mjl:freeColumn>
+      <mjl:header>
+        <fmt:message key="Display_Label" />
+      </mjl:header>
+      <mjl:row>
+        <fmt:message key="Default_Geo_Root" />
+      </mjl:row>
+      
+    </mjl:freeColumn>
+  
+    <mjl:attributeColumn attributeName="geoEntity">
+      <mjl:row>
+        ${item.geoEntity.displayString}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
+        
+      </mjl:header>
+      <mjl:row>
+        <mjl:form name="dss.vector.solutions.Property.form.name" id="${item.id}" method="POST">
+          <mjl:input value="${item.id}" type="hidden" param="id" />
+          <mjl:command value="Edit" action="dss.vector.solutions.DefaultGeoEntityController.edit.mojo" name="dss.vector.solutions.DefaultGeoEntityController.edit.btn" classes="submitButton" />
+        </mjl:form>        
+      </mjl:row>
+      <mjl:footer>
+        
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
 </mjl:table>
+
 <br />
