@@ -993,59 +993,64 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     keyHandler : function(oData) {
       var value = this.getValue();
 
-      // Handle the 'down' arrow key
-      if(oData.keyCode === 40) {    
-        var visible = this._panel.isVisible();
-        YAHOO.util.Event.preventDefault(oData);      
-          
-        if(!visible || !this._panel.hasOptions()) {
-          if(this._hasChanged) {
-            this.performSearch(value);
-          }
-          else {
-            this.performSearch('');
-          }
-        }
-        else {
-          this._panel.selectNext();
-        }
-      }
       // Handle the 'tab', 'left', 'right' key
-      else if (oData.keyCode == 9 || oData.keyCode == 39 || oData.keyCode == 37) {
+      if (oData.keyCode == 9 || oData.keyCode == 39 || oData.keyCode == 37) {
         // DO NOTHING
       }
-      // Handle the 'up' arrow key
-      else if (oData.keyCode === 38) {
-        var visible = this._panel.isVisible();
-        YAHOO.util.Event.preventDefault(oData);     
-        
-        if(!visible || !this._panel.hasOptions()) {
-          if(this._hasChanged) {
-            this.performSearch(value);
+      else
+      {
+        this._hasSelection = false;
+      
+        // Handle the 'down' arrow key
+        if(oData.keyCode === 40) {    
+          var visible = this._panel.isVisible();
+          YAHOO.util.Event.preventDefault(oData);      
+          
+          if(!visible || !this._panel.hasOptions()) {
+            if(this._hasChanged) {
+              this.performSearch(value);
+            }
+            else {
+              this.performSearch('');
+            }
           }
           else {
-            this.performSearch('');
+            this._panel.selectNext();
           }
         }
-        else {
-          this._panel.selectPrevious();
-        }
-      }      
-      // Handle the 'esc' key
-      else if(oData.keyCode === 27) {
-        this.hide();
-      }   
-      // Handle the 'enter' key
-      else if (oData.keyCode === 13) {
-        this._panel.selectCurrent();
-      }
-      else { 
-        if(this._isDifferent(value)) {
-          this._setCurrentValue(value);
-        }
+        // Handle the 'up' arrow key
+        else if (oData.keyCode === 38) {
+          var visible = this._panel.isVisible();
+          YAHOO.util.Event.preventDefault(oData);     
         
-        if(value.length >= this.minLength) {        
-          this.performSearch(value);
+          if(!visible || !this._panel.hasOptions()) {
+            if(this._hasChanged) {
+              this.performSearch(value);
+            }
+            else {
+              this.performSearch('');
+            }
+          }
+          else {
+            this._panel.selectPrevious();
+          }
+        }      
+        // Handle the 'esc' key
+        else if(oData.keyCode === 27) {
+          this.hide();
+        }   
+        // Handle the 'enter' key
+        else if (oData.keyCode === 13) {
+          this._panel.selectCurrent();
+        }
+        else { 
+          if(this._isDifferent(value)) {
+            this._setCurrentValue(value);
+          }
+        
+          if(value.length >= this.minLength) {        
+            this.performSearch(value);
+          }
         }
       }
     },
@@ -1084,7 +1089,6 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       this.resetSelected();
       this.value = value;
       this._hasChanged = true;
-      this._hasSelection = false;      
     },
     
     resetCache : function() {
