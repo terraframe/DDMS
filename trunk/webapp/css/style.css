@@ -969,6 +969,14 @@ table.legend td {
   text-align: center;
 }
 
+.irs_header {
+width: 865px;
+}
+
+.irs_header td {
+vertical-align: top;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
