@@ -18,6 +18,12 @@ public class SystemAlert extends SystemAlertBase implements com.terraframe.mojo.
 		super();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getDisplayName().toString();
+	}
+
 	@Transaction
 	public boolean sendEmail(Map<String,Object> data) {
 		boolean sent = false;
