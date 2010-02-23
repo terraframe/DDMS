@@ -69,31 +69,42 @@
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />      
     
     <mjl:component item="${item}" param="dto">
-      <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
-      <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
-      <mjl:dt attribute="sprayDate">
-        <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
-      </mjl:dt>
-      <mjl:dt attribute="sprayMethod">
-        <ul>
-          <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
-            <li>${item.sprayMethodMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>            
-      </mjl:dt>
-      <mjl:dt attribute="sprayTeam">
-        ${item.sprayTeam.teamId}
-      </mjl:dt>                   
-      <mjl:dt attribute="teamLeader">
-        ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
-      </mjl:dt>
-      <mjl:dt attribute="surfaceType" >          
-        <c:if test="${surfaceType != null}">
-          ${surfaceType.displayLabel}
-        </c:if>
-      </mjl:dt>        
-      <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>      
-      <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
+      <table class="irs_header">
+        <tr>
+	      <td><mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </td></mjl:dt>
+	      <td><mjl:dt attribute="sprayTeam">
+	        ${item.sprayTeam.teamId}
+	      </td></mjl:dt>                   
+        </tr>
+        <tr>
+	      <td><mjl:dt attribute="brand"> ${brand.brandName} </td></mjl:dt>
+	      <td><mjl:dt attribute="teamLeader">
+	        ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
+	      </td></mjl:dt>
+        </tr>
+        <tr>
+	      <td><mjl:dt attribute="sprayDate">
+	        <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
+	      </td></mjl:dt>
+	      <td><mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </td></mjl:dt>      
+        </tr>
+        <tr>
+	      <td><mjl:dt attribute="sprayMethod">
+	        <ul>
+	          <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
+	            <li>${item.sprayMethodMd.enumItems[enumName]}</li>
+	          </c:forEach>
+	        </ul>            
+	      </td></mjl:dt>
+	      <td><mjl:dt attribute="target"> ${item.target} </td></mjl:dt>
+        </tr>
+        <tr>
+	      <td><mjl:dt attribute="surfaceType" >          
+	        <c:if test="${surfaceType != null}">
+	          ${surfaceType.displayLabel}
+	        </c:if>
+	      </td></mjl:dt>        
+	  </table>     
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.irs.TeamSprayController.edit.mojo" name="dss.vector.solutions.irs.TeamSpray.form.edit.button" />
   </dl>  
