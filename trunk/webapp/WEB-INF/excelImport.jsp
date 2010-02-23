@@ -1,5 +1,6 @@
+<%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<c:set var="page_title" value="Excel_Import_Header"  scope="request"/>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
@@ -9,7 +10,7 @@
     <div class="fcTop">
     
     <form method="post" enctype="multipart/form-data" action="excelimport">
-  XLS File: <br />
+  <fmt:message key="xls_file" />:: <br />
   <input type="hidden" name="excelType" value="${excelType}" />
   <input type="file" name="upfile"/> <br />
   <input class="submitButton" type="submit" value="Import" style="margin-left: 0px; top: 0px;" />
