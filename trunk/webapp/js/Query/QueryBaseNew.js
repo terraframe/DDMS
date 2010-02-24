@@ -352,8 +352,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       queryXML.addEntity(mainQuery);
       addedEntities.map(function(klass){
-        var query = new MDSS.QueryXML.Entity(klass, klass);
-        queryXML.addEntity(query);
+      	if(queryXML.getEntity(klass) == null)
+      	{
+      		var query = new MDSS.QueryXML.Entity(klass, klass);
+      		queryXML.addEntity(query);
+      	}
       },this);
       
       return queryXML;
@@ -458,6 +461,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var select = check.nextSibling;
         select.selectedIndex = 0;
         select.disabled = true;
+        var menus = this._menus[liTarget.id];
+        if(menus)
+        {
+          Mojo.Iter.forEach(menus, function(ck){
+            //for display
+          	if(ck.checked) ck.checked = false;
+          }, this); 
+        }
+        
       }
     },
 
@@ -746,7 +758,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
 
-          if(userAlias === thisRef._dateAttribute.getUserAlias())
+          if(!!thisRef._dateAttribute && userAlias === thisRef._dateAttribute.getUserAlias())
           {
             var formatted = MDSS.Calendar.getLocalizedString(value);
             if(operator === MDSS.QueryXML.Operator.GE)
@@ -763,6 +775,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           else
           {
             var item = thisRef._menuItems[userAlias+'-'+value];
+            if(!item)
+            {	
+            	item = (value === '1') ? thisRef._menuItems[userAlias+'-true'] : item;
+              item = (value === '0') ? thisRef._menuItems[userAlias+'-false'] : item;
+            }
             if(item)
             {
               item.checked = true;
@@ -792,6 +809,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var item = this._menuItems[keys[i]];
         item.checked = false;
       }
+      
+      this._queryPanel.clearPagination();
 
 
     },

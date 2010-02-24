@@ -1267,6 +1267,12 @@ MDSS.QueryPanel.prototype = {
     section.appendChild(frag);
   },
 
+  clearPagination : function()
+  {
+    var section = document.getElementById(this.PAGINATION_SECTION);
+    section.innerHTML = '';
+  },
+  
   _paginationHandler : function(e)
   {
     if(e.target.nodeName === 'SPAN' && Mojo.Util.isFunction(this._config.paginationHandler))
