@@ -1,6 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<c:choose>
+  <c:when test="${!(empty problems)}">
+    <c:set var="page_title" value="Excel_Import_Fail"  scope="request"/>
+  </c:when>
+  <c:when test="${!(empty errorMessage)}">
+    <c:set var="page_title" value="Excel_Import_Fail"  scope="request"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="page_title" value="Excel_Import_Success"  scope="request"/>
+  </c:otherwise>
+</c:choose>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 
