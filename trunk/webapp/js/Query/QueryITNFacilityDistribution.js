@@ -8,10 +8,6 @@ Mojo.Meta.newClass('MDSS.QueryITNFacilityDistribution', {
     {
 
       this._itn = Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution;
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._itn.CLASS, this._itn.DISTRIBUTIONDATE, this._itn.DISTRIBUTIONDATE);
-      
-      this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
-      this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
 
       this._mainQueryClass = this._itn.CLASS;
       
