@@ -176,9 +176,9 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
    
-    String sd = itnQuery.getDistributionDate().getQualifiedName();
-
-    return QueryUtil.setQueryDates(xml, valueQuery, sd);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    
+    return valueQuery;
 
   }
   
