@@ -46,39 +46,16 @@ MDSS.Calendar = {};
     }
 
     var parseISO8601 = function (date_string){
-    	
-      if(!Mojo.Util.isString(date_string) || date_string === '')
-      {
-        return null;
+      var tempDate = new Date();
+
+      var success = Mojo.Util.setISO8601(tempDate, date_string, false);
+      
+      if(success)
+      { 
+        return tempDate;
       }
       
-      var regexp = new RegExp("^([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
-          "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
-          "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?$");
-      
-      if(! regexp.test(date_string)){
-      	return null;
-			}
-      
-      var d = date_string.match(regexp);
-
-      var offset = 0;
-      var tempDate = new Date(d[1], 0, 1);
-
-      if (d[3]) { tempDate.setMonth(d[3] - 1); }
-      if (d[5]) { tempDate.setDate(d[5]); }
-      if (d[7]) { tempDate.setHours(d[7]); }
-      if (d[8]) { tempDate.setMinutes(d[8]); }
-      if (d[10]) { tempDate.setSeconds(d[10]); }
-      if (d[12]) { tempDate.setMilliseconds(Number("0." + d[12]) * 1000); }
-      if (d[14]) {
-          offset = (Number(d[16]) * 60) + Number(d[17]);
-          offset *= ((d[15] == '-') ? 1 : -1);
-      }
-
-      offset -= tempDate.getTimezoneOffset();
-      time = (Number(tempDate) + (offset * 60 * 1000));
-      return tempDate;
+      return null;
     }
 
     var var_to_date = function(date_str) {    	

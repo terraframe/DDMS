@@ -1089,7 +1089,8 @@ Mojo.Meta.newClass('Mojo.Util', {
   },
 
   Static : {
-    
+	ISO8601_REGEX : "^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})([-+])([0-9]{2})([0-9]{2})$",
+	  
     isObject : function(o)
     {
       return  o != null && Object.prototype.toString.call(o) === Mojo.IS_OBJECT_TO_STRING;
@@ -1211,35 +1212,41 @@ Mojo.Meta.newClass('Mojo.Util', {
       };
     },
     
-    setISO8601 : function (date, string)
+    setISO8601 : function (date, string, ignoreTimezone)
     {
-      if(!Mojo.Util.isString(string) || string === '')
+      var regexp = new RegExp(Mojo.Util.ISO8601_REGEX);
+
+      if(!Mojo.Util.isString(string) || string === '' || !regexp.test(string))
       {
-        return;
+        return false;
       }
-      
-      var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
-          "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
-          "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
-      var d = string.match(new RegExp(regexp));
+            
+      var d = string.match(regexp);
 
       var offset = 0;
       var tempDate = new Date(d[1], 0, 1);
 
-      if (d[3]) { tempDate.setMonth(d[3] - 1); }
-      if (d[5]) { tempDate.setDate(d[5]); }
-      if (d[7]) { tempDate.setHours(d[7]); }
-      if (d[8]) { tempDate.setMinutes(d[8]); }
-      if (d[10]) { tempDate.setSeconds(d[10]); }
-      if (d[12]) { tempDate.setMilliseconds(Number("0." + d[12]) * 1000); }
-      if (d[14]) {
-          offset = (Number(d[16]) * 60) + Number(d[17]);
-          offset *= ((d[15] == '-') ? 1 : -1);
+      if (d[2]) { tempDate.setMonth(d[2] - 1); }
+      if (d[3]) { tempDate.setDate(d[3]); }
+      if (d[4]) { tempDate.setHours(d[4]); }
+      if (d[5]) { tempDate.setMinutes(d[5]); }
+      if (d[6]) { tempDate.setSeconds(d[6]); }
+      if (d[8]) {
+          offset = (Number(d[8]) * 60) + Number(d[9]);
+          offset *= ((d[7] == '-') ? 1 : -1);
       }
+      
+      var time = Number(tempDate);
 
-      offset -= tempDate.getTimezoneOffset();
-      time = (Number(tempDate) + (offset * 60 * 1000));
+      if(ignoreTimezone !== true)
+      {
+        offset -= tempDate.getTimezoneOffset();
+        time += (offset * 60 * 1000);
+      }
+      
       date.setTime(Number(time));
+      
+      return true;
     },
 
     toISO8601 : function (date)
@@ -1264,15 +1271,15 @@ Mojo.Meta.newClass('Mojo.Util', {
       var str = "";
 
       // Set YYYY
-      str += tempDate.getUTCFullYear();
+      str += tempDate.getFullYear();
       // Set MM
-      str += "-" + zeropad(tempDate.getUTCMonth() + 1);
+      str += "-" + zeropad(tempDate.getMonth() + 1);
       // Set DD
-      str += "-" + zeropad(tempDate.getUTCDate());
+      str += "-" + zeropad(tempDate.getDate());
       // Set Thh:mm
-      str += "T" + zeropad(tempDate.getUTCHours()) + ":" + zeropad(tempDate.getUTCMinutes());
+      str += "T" + zeropad(tempDate.getHours()) + ":" + zeropad(tempDate.getMinutes());
       // Set ss
-      str += ":" + zeropad(tempDate.getUTCSeconds());        
+      str += ":" + zeropad(tempDate.getSeconds());        
       // Set TZD
       str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
       
