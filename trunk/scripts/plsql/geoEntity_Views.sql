@@ -294,6 +294,43 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION get_epiYear_from_date
+(
+  _date      DATE,
+  -- 0 = SUNDAY
+  _firstDayOfEpiWeek INT,
+  OUT _epiYear INT
+  
+)
+RETURNS INT AS $$
+
+DECLARE
+  _year INT;
+  _fourthOfJanWeekDay INT;
+  _startDate date;
+  _nextStartDate date;
+  _prevStartDate date;
+BEGIN 
+  _year := EXTRACT(YEAR FROM _date);
+  
+  _prevStartDate = get_epiStart(_year-1,_firstDayOfEpiWeek);
+  _startDate := get_epiStart(_year,_firstDayOfEpiWeek);
+  _nextStartDate := get_epiStart(_year+1,_firstDayOfEpiWeek);
+
+  RAISE NOTICE '% % % %', _year,_prevStartDate,_startDate,_nextStartDate;
+  CASE
+   WHEN (_date >= _startDate ) AND (_date < _nextStartDate)  THEN
+      _epiYear := _year;
+   WHEN _date >= _nextStartDate THEN
+      _epiYear := _year + 1;
+   WHEN _date < _startDate THEN
+      _epiYear := _year - 1; 
+  END CASE;
+
+END;
+$$ LANGUAGE plpgsql;
+
+
 CREATE OR REPLACE FUNCTION get_epiStart
 (
   _year INT,
