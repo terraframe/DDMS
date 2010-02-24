@@ -11,6 +11,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.UnknownAgeGroupException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -80,9 +81,14 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     AggregatedAgeGroupQuery query = new AggregatedAgeGroupQuery(new QueryFactory());
     query.WHERE(query.getDisplayLabel().EQ(this.getAggregatedAgeGroup()));
     OIterator<? extends AggregatedAgeGroup> iterator = query.getIterator();
+    
+    if (!iterator.hasNext()) {
+    	throw new UnknownAgeGroupException();
+    }
+    
     AggregatedAgeGroup ageGroup = iterator.next();
-
     AggregatedCaseView acv = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getEpiYear(), ageGroup);
+
     acv.setCases(this.getCases());
     acv.setCasesFemale(this.getCasesFemale());
     acv.setCasesMale(this.getCasesMale());
