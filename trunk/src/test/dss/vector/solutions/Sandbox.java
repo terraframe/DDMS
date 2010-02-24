@@ -24,6 +24,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -38,48 +39,51 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    
-    testNoLogin();
-    
-//    String s = "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
-//    Pattern p = Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
-//    Matcher m = p.matcher(s);
-//    
-//    m.matches();
-//    
-//    String matched = m.group(2);
-//
-//    String[] split = matched.split(",\\s");
-//    String[] done = new String[split.length-1];
-//    int count = 0;
-//    for(String piece : split)
-//    {
-//      if(!piece.equals("geometry_v"))
-//      {
-//        done[count++] = piece;
-//      }
-//    }
-//    
-//    String groupBy = StringUtils.join(done, ", ");
-//    
-//    String sql = m.replaceFirst("$1"+groupBy+"$4");
-    
-//try
-//{
-//    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", new Locale[]{Locale.ENGLISH});
-//    gogo(session.getSessionId(), session);
-////    OntologyDefinitionDTO od = new OntologyDefinitionDTO(session.getRequest());
-////    od.setOntologyName("MO");
-////    od.setNamespace("dss.vector.solutions.ontology");
-////    od.apply();
-//
-//
-//
-//
-//}
-//catch(ProblemExceptionDTO e)
-//{
-//}
+    testGeoEntityQuery();
+
+    // String s =
+    // "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
+    // Pattern p =
+    // Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
+    // Matcher m = p.matcher(s);
+    //    
+    // m.matches();
+    //    
+    // String matched = m.group(2);
+    //
+    // String[] split = matched.split(",\\s");
+    // String[] done = new String[split.length-1];
+    // int count = 0;
+    // for(String piece : split)
+    // {
+    // if(!piece.equals("geometry_v"))
+    // {
+    // done[count++] = piece;
+    // }
+    // }
+    //    
+    // String groupBy = StringUtils.join(done, ", ");
+    //    
+    // String sql = m.replaceFirst("$1"+groupBy+"$4");
+
+    // try
+    // {
+    // ClientSession session = ClientSession.createUserSession("MDSS",
+    // "mdsstest2", new Locale[]{Locale.ENGLISH});
+    // gogo(session.getSessionId(), session);
+    // // OntologyDefinitionDTO od = new
+    // OntologyDefinitionDTO(session.getRequest());
+    // // od.setOntologyName("MO");
+    // // od.setNamespace("dss.vector.solutions.ontology");
+    // // od.apply();
+    //
+    //
+    //
+    //
+    // }
+    // catch(ProblemExceptionDTO e)
+    // {
+    // }
 
     //
     // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
@@ -130,53 +134,54 @@ public class Sandbox
   @StartSession
   private static void gogo(String sessionId, ClientSession session)
   {
-    
+
     MdAttributeDAOIF dao = MdAttributeDAO.getByKey("dss.vector.solutions.ontology.Term.namespace");
     dao.getBusinessDAO().apply();
-    
-    
-//    AllPaths.get("2d3373900f3c9635c73f7b50b126220c0ng41xiuq0nzo8wjdn1v9cunh9f1icac").printAttributes();
 
-//    QueryFactory queryFactory = new QueryFactory();
-//
-//    MdClassQuery mdClassQuery;
-//    mdClassQuery = new MdClassQuery(queryFactory);
-//
-//    MdAttributeConcreteQuery mdConcreteQuery = new MdAttributeConcreteQuery(queryFactory);
-//
-//    ValueQuery concreteQuery = new ValueQuery(queryFactory);
-//    ValueQuery virtualQuery = new ValueQuery(queryFactory);
-//
-//    ValueQuery unioned = new ValueQuery(queryFactory);
-//
-//    MdAttributeVirtualQuery mdVirtualQuery = new MdAttributeVirtualQuery(queryFactory);
-//
-//    // join concrete attribute with display labels
-//    concreteQuery.SELECT(mdClassQuery.getId("classId"),
-//        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
-//        mdConcreteQuery.getId("attributeId"),
-//        mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
-//        mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
-//    concreteQuery.WHERE(mdConcreteQuery.getDefiningMdClass().EQ(mdClassQuery));
-//
-//    virtualQuery.SELECT(mdClassQuery.getId("classId"),
-//        mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
-//        mdVirtualQuery.getId("attributeId"),
-//        mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
-//        mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
-//    virtualQuery.WHERE(mdVirtualQuery.getDefiningMdView().EQ(mdClassQuery));
-//
-//    unioned.UNION(concreteQuery, virtualQuery);
-//
-//  for(ValueObject valueObject : unioned.getIterator())
-//  {
-//    valueObject.printAttributes();
-//  }
+    // AllPaths.get("2d3373900f3c9635c73f7b50b126220c0ng41xiuq0nzo8wjdn1v9cunh9f1icac").printAttributes();
+
+    // QueryFactory queryFactory = new QueryFactory();
+    //
+    // MdClassQuery mdClassQuery;
+    // mdClassQuery = new MdClassQuery(queryFactory);
+    //
+    // MdAttributeConcreteQuery mdConcreteQuery = new
+    // MdAttributeConcreteQuery(queryFactory);
+    //
+    // ValueQuery concreteQuery = new ValueQuery(queryFactory);
+    // ValueQuery virtualQuery = new ValueQuery(queryFactory);
+    //
+    // ValueQuery unioned = new ValueQuery(queryFactory);
+    //
+    // MdAttributeVirtualQuery mdVirtualQuery = new
+    // MdAttributeVirtualQuery(queryFactory);
+    //
+    // // join concrete attribute with display labels
+    // concreteQuery.SELECT(mdClassQuery.getId("classId"),
+    // mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+    // mdConcreteQuery.getId("attributeId"),
+    // mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
+    // mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
+    // concreteQuery.WHERE(mdConcreteQuery.getDefiningMdClass().EQ(mdClassQuery));
+    //
+    // virtualQuery.SELECT(mdClassQuery.getId("classId"),
+    // mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
+    // mdVirtualQuery.getId("attributeId"),
+    // mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
+    // mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
+    // virtualQuery.WHERE(mdVirtualQuery.getDefiningMdView().EQ(mdClassQuery));
+    //
+    // unioned.UNION(concreteQuery, virtualQuery);
+    //
+    // for(ValueObject valueObject : unioned.getIterator())
+    // {
+    // valueObject.printAttributes();
+    // }
 
     try
     {
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       t.printStackTrace();
     }
@@ -186,17 +191,17 @@ public class Sandbox
   {
     StringBuilder sb = new StringBuilder();
     sb.append("LOWER(' ' || ");
-    for (int i=0; i < selectableArray.length; i++)
+    for (int i = 0; i < selectableArray.length; i++)
     {
-        if (i > 0)
-        {
-            sb.append(" || ' ' || ");
-        }
-        sb.append(selectableArray[i].getQualifiedName());
+      if (i > 0)
+      {
+        sb.append(" || ' ' || ");
+      }
+      sb.append(selectableArray[i].getQualifiedName());
     }
     sb.append(")");
     return sb.toString();
-}
+  }
 
   private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
@@ -208,7 +213,7 @@ public class Sandbox
 
     if (tokenArray.length > 1)
     {
-      for (int i=0; i<tokenArray.length; i++)
+      for (int i = 0; i < tokenArray.length; i++)
       {
         String token = tokenArray[i].toLowerCase();
         valueQueryArray[i] = buildQueryForToken(qf, token, selectableArray, conditionArray, WEIGHT, i);
@@ -220,11 +225,12 @@ public class Sandbox
       uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
     }
 
-    // Build outermost select clause.  This would be cleaner if the API supported incrementally adding
-    // to the select clause.  One day that will be supported.
+    // Build outermost select clause. This would be cleaner if the API supported
+    // incrementally adding
+    // to the select clause. One day that will be supported.
     ValueQuery resultQuery = qf.valueQuery();
     Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
-    for (int k=0; k<selectableArray.length; k++)
+    for (int k = 0; k < selectableArray.length; k++)
     {
       selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
     }
@@ -236,11 +242,10 @@ public class Sandbox
     resultQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
     for (SelectablePrimitive selectable : selectableArray)
     {
-      resultQuery.ORDER_BY_ASC((AttributePrimitive)uQ.get(selectable.getResultAttributeName()));
+      resultQuery.ORDER_BY_ASC((AttributePrimitive) uQ.get(selectable.getResultAttributeName()));
     }
     resultQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
     System.out.println(resultQuery.getSQL());
-
 
     for (ValueObject valueObject : resultQuery.getIterator())
     {
@@ -250,23 +255,22 @@ public class Sandbox
     return resultQuery;
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token,
-      SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
-    // Build select clause.  This would be cleaner if the API supported incrementally adding
-    // to the select clause.  One day that will be supported.
+    // Build select clause. This would be cleaner if the API supported
+    // incrementally adding
+    // to the select clause. One day that will be supported.
     Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
-    for (int k=0; k<selectableArray.length; k++)
+    for (int k = 0; k < selectableArray.length; k++)
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] =
-      vQ.aSQLDouble("weight", "1.0 / ("+Math.pow(WEIGHT, i)+" * STRPOS(" + concatenate(selectableArray) + ", ' "+token+"'))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
 
     vQ.SELECT(selectClauseArray);
-    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% "+token+"%"));
+    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
 
     for (Condition condition : conditionArray)
     {
@@ -276,161 +280,173 @@ public class Sandbox
   }
 
   @StartSession
+  public static void testGeoEntityQuery()
+  {
+    ValueQuery query = GeoEntity.searchByParameters("kalombo ka", new String[] { "true", "false", "false" });
+
+    OIterator<ValueObject> it = query.getIterator();
+
+    while (it.hasNext())
+    {
+      ValueObject next = it.next();
+
+      System.out.println(next.getValue(GeoEntity.ENTITYNAME) + next.getValue(GeoEntityView.MOSUBTYPE));
+    }
+  }
+
+  @StartSession
   public static void testNoLogin()
   {
 
     QueryFactory qf = new QueryFactory();
-    
+
     GeoHierarchyViewQuery q = new GeoHierarchyViewQuery(qf, "", true, 20, 1);
     q.WHERE(q.getIsADisplayLabel().EQ("Geo Entity"));
-    
-    System.out.println(q.getSQL());
-    
-//    ValueQuery valueQuery = new ValueQuery(factory);
-//    AggregatedCaseQuery query = new AggregatedCaseQuery(factory);
-//
-//    Condition condition = caseQuery.getGeoEntity().EQ(entityQuery);
-//    condition = AND.get(condition, caseQuery.getStartDate().GE(initialWeek.getStartDate()));
-//    condition = AND.get(condition, caseQuery.getEndDate().LE(finalWeek.getEndDate()));
-//    //condition = AND.get(condition, caseQuery.getEndDate().EQ(caseQuery.getStartDate() + 7));
-//    valueQuery.WHERE(caseQuery.getGeoEntity().EQ(entityQuery));
-//    valueQuery.AND(caseQuery.getStartDate().GE(initialWeek.getStartDate()));
-//    valueQuery.AND(caseQuery.getEndDate().LE(finalWeek.getEndDate()));
-//    valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate",  caseQuery.getStartDate().getQualifiedName() + "+ interval '7 days'")));
-//    valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());
 
+    System.out.println(q.getSQL());
+
+    // ValueQuery valueQuery = new ValueQuery(factory);
+    // AggregatedCaseQuery query = new AggregatedCaseQuery(factory);
+    //
+    // Condition condition = caseQuery.getGeoEntity().EQ(entityQuery);
+    // condition = AND.get(condition,
+    // caseQuery.getStartDate().GE(initialWeek.getStartDate()));
+    // condition = AND.get(condition,
+    // caseQuery.getEndDate().LE(finalWeek.getEndDate()));
+    // //condition = AND.get(condition,
+    // caseQuery.getEndDate().EQ(caseQuery.getStartDate() + 7));
+    // valueQuery.WHERE(caseQuery.getGeoEntity().EQ(entityQuery));
+    // valueQuery.AND(caseQuery.getStartDate().GE(initialWeek.getStartDate()));
+    // valueQuery.AND(caseQuery.getEndDate().LE(finalWeek.getEndDate()));
+    // valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate",
+    // caseQuery.getStartDate().getQualifiedName() + "+ interval '7 days'")));
+    // valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(),
+    // caseQuery.getStartDate().getDefiningTableAlias());
 
     /*
-    select name, count(weight) c, sum(weight) s from (
-        select name, 1.0 / (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where lower(' ' || name) like '% b%'
-         union all
-        select name, 1.0 / (256.0 * strpos(lower(' ' || name), ' a')) as weight from term where lower(' ' || name) like '% a%'
-        ) as foo
-        group by name
-        --having count(weight) = 2
-        order by c desc, s desc, name
-*/
+     * select name, count(weight) c, sum(weight) s from ( select name, 1.0 /
+     * (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where
+     * lower(' ' || name) like '% b%' union all select name, 1.0 / (256.0 *
+     * strpos(lower(' ' || name), ' a')) as weight from term where lower(' ' ||
+     * name) like '% a%' ) as foo group by name --having count(weight) = 2 order
+     * by c desc, s desc, name
+     */
 
+    // String[] tokenArray = new String[]{"Plasmodium"};
+    // String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
+    //
+    //
+    // QueryFactory qf = new QueryFactory();
+    // TermQuery tQ = new TermQuery(qf);
+    // GeoEntityQuery gQ = new GeoEntityQuery(qf);
+    //
+    // SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
+    // selectableArray[0] = tQ.getName();
+    // selectableArray[1] = tQ.getTermId();
+    //
+    // // This is a COMPLETELY contrived example that makes no sense in real
+    // ife.
+    // Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
+    // // textLookup(qf, tokenArray, selectableArray, new
+    // Condition[]{joinCondition});
+    //
+    // textLookup(qf, tokenArray, selectableArray, new Condition[]{});
 
-//    String[] tokenArray = new String[]{"Plasmodium"};
-//    String[] tokenArray = new String[]{"Plasmodium", "falciparum"};
-//
-//
-//    QueryFactory qf = new QueryFactory();
-//    TermQuery tQ = new TermQuery(qf);
-//    GeoEntityQuery gQ = new GeoEntityQuery(qf);
-//
-//    SelectablePrimitive[] selectableArray = new SelectablePrimitive[2];
-//    selectableArray[0] = tQ.getName();
-//    selectableArray[1] = tQ.getTermId();
-//
-//    // This is a COMPLETELY contrived example that makes no sense in real ife.
-//   Condition joinCondition = tQ.getName().EQ(gQ.getEntityName());
-////    textLookup(qf, tokenArray, selectableArray, new Condition[]{joinCondition});
-//
-//    textLookup(qf, tokenArray, selectableArray, new Condition[]{});
+    // GeoEntity.buildAllPathsFast();
 
+    // GeoEntity.copyTermFast("xs8cxvues3ab3m879rgl4tu70gy0s3r72a0u0u4o9c8ol44kb9vl8tf3ieviu8co",
+    // "rekttx1h9ehy40ubzbxg2fd044owmwzp2a0u0u4o9c8ol44kb9vl8tf3ieviu8co");
 
+    // AllPaths.rebuildAllPaths();
 
-//    GeoEntity.buildAllPathsFast();
+    // AllPaths.copyTermFast("05brck3zaer5w5vbcee16ry28lzao1e3xeklfgy3bklheiiulqszhfay163qlpta",
+    // "zbdda5r3mmkkwyuhla67ymkn551jmtpnxeklfgy3bklheiiulqszhfay163qlpta",
+    // "05kt1jddumk5qm8juvcxseyist5klwhrzm1g3udb394gw9tn8ca9qvefl9ncyubd");
 
-//    GeoEntity.copyTermFast("xs8cxvues3ab3m879rgl4tu70gy0s3r72a0u0u4o9c8ol44kb9vl8tf3ieviu8co", "rekttx1h9ehy40ubzbxg2fd044owmwzp2a0u0u4o9c8ol44kb9vl8tf3ieviu8co");
-
-//    AllPaths.rebuildAllPaths();
-
-//    AllPaths.copyTermFast("05brck3zaer5w5vbcee16ry28lzao1e3xeklfgy3bklheiiulqszhfay163qlpta",
-//        "zbdda5r3mmkkwyuhla67ymkn551jmtpnxeklfgy3bklheiiulqszhfay163qlpta",
-//        "05kt1jddumk5qm8juvcxseyist5klwhrzm1g3udb394gw9tn8ca9qvefl9ncyubd");
-
-//    try
-//    {
-//      FileInputStream fileInputStream = new FileInputStream(new File("/Users/nathan/workspace3.5/MDSS/PersonExcelView.xls"));
-//
-//      GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
-//      geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);
-//    }
-//    catch (FileNotFoundException e)
-//    {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
-/*
- Mocambique
- Mozambique
-
- select metaphone('Mocambique', 255);
- select metaphone('Mozambique', 255);
-
- select dmetaphone('Mocambique');
- select dmetaphone_alt('Mocambique');
-
- select dmetaphone('Mozambique');
- select dmetaphone_alt('Mozambique');
-
-SELECT levenshtein('Mocambique', 'Mozambique');
-
-Bilene
-Bellene
-
-
- */
-//    QueryFactory qf = new QueryFactory();
-//    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(qf);
-//
-//    geoEntityQuery.WHERE(geoEntityQuery.getEntityName().EQ("Gaza"));
-//
-//    OIterator<? extends GeoEntity> i = geoEntityQuery.getIterator();
-//
-//    try
-//    {
-//      GeoEntity geoEntity = i.next();
-//      System.out.println(geoEntity.getEntityName());
-//
-//      GeoSynonym geoSynonym = new GeoSynonym();
-//      geoSynonym.setEntityName("Gaaza");
-//      geoSynonym.apply();
-//
-//      geoEntity.addSynonyms(geoSynonym).apply();
-//
-//    }
-//    finally
-//    {
-//      i.close();
-//    }
+    // try
+    // {
+    // FileInputStream fileInputStream = new FileInputStream(new
+    // File("/Users/nathan/workspace3.5/MDSS/PersonExcelView.xls"));
+    //
+    // GeoEntitySearcher geoSynonymMatcher = new GeoEntitySearcher();
+    // geoSynonymMatcher.checkExcelGeoHierarchy(fileInputStream);
+    // }
+    // catch (FileNotFoundException e)
+    // {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
+    /*
+     * Mocambique Mozambique
+     * 
+     * select metaphone('Mocambique', 255); select metaphone('Mozambique', 255);
+     * 
+     * select dmetaphone('Mocambique'); select dmetaphone_alt('Mocambique');
+     * 
+     * select dmetaphone('Mozambique'); select dmetaphone_alt('Mozambique');
+     * 
+     * SELECT levenshtein('Mocambique', 'Mozambique');
+     * 
+     * Bilene Bellene
+     */
+    // QueryFactory qf = new QueryFactory();
+    // GeoEntityQuery geoEntityQuery = new GeoEntityQuery(qf);
+    //
+    // geoEntityQuery.WHERE(geoEntityQuery.getEntityName().EQ("Gaza"));
+    //
+    // OIterator<? extends GeoEntity> i = geoEntityQuery.getIterator();
+    //
+    // try
+    // {
+    // GeoEntity geoEntity = i.next();
+    // System.out.println(geoEntity.getEntityName());
+    //
+    // GeoSynonym geoSynonym = new GeoSynonym();
+    // geoSynonym.setEntityName("Gaaza");
+    // geoSynonym.apply();
+    //
+    // geoEntity.addSynonyms(geoSynonym).apply();
+    //
+    // }
+    // finally
+    // {
+    // i.close();
+    // }
   }
 
   @StartSession
   public static void test(String sessionId)
   {
 
-
-//    QueryFactory f = new QueryFactory();
-//
-//    ValueQuery v = new ValueQuery(f);
-//    ValueQuery v2 = new ValueQuery(f);
-//
-//    PersonQuery p1 = new PersonQuery(f); // Original PersonQuery
-//    PersonQuery p2 = new PersonQuery(f); // PersonQuery for Prevalence
-//
-//    // total tested
-//    Condition or = OR.get(p2.getPerformedRDT().containsAny(RDTResponse.YES),
-//        p2.getBloodslide().containsAny(BloodslideResponse.DONE));
-//    p2.WHERE(or);
-//
-//    // total positive
-//    p2.AND(p2.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE, RDTResult.MIXED_POSITIVE,
-//        RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE, RDTResult.VIVAX_POSITIVE));
-//
-//    v2.SELECT(F.COUNT(p2.getId()));
-//
-//    SelectableSQLDouble precision = v.aSQLAggregateDouble("precision", "");
-//    precision.setSQL("100 * AVG( ("+v2.getSQL()+" WHERE "+p2.getTableAlias()+".id = "+p1.getTableAlias()+".id))");
-//
-//
-//    v.SELECT(precision);
-//    v.FROM(p1);
-//
-//    System.out.println(v.getSQL());
+    // QueryFactory f = new QueryFactory();
+    //
+    // ValueQuery v = new ValueQuery(f);
+    // ValueQuery v2 = new ValueQuery(f);
+    //
+    // PersonQuery p1 = new PersonQuery(f); // Original PersonQuery
+    // PersonQuery p2 = new PersonQuery(f); // PersonQuery for Prevalence
+    //
+    // // total tested
+    // Condition or = OR.get(p2.getPerformedRDT().containsAny(RDTResponse.YES),
+    // p2.getBloodslide().containsAny(BloodslideResponse.DONE));
+    // p2.WHERE(or);
+    //
+    // // total positive
+    // p2.AND(p2.getRDTResult().containsAny(RDTResult.MALARIAE_POSITIVE,
+    // RDTResult.MIXED_POSITIVE,
+    // RDTResult.OVALE_POSITIVE, RDTResult.PF_POSITIVE,
+    // RDTResult.VIVAX_POSITIVE));
+    //
+    // v2.SELECT(F.COUNT(p2.getId()));
+    //
+    // SelectableSQLDouble precision = v.aSQLAggregateDouble("precision", "");
+    // precision.setSQL("100 * AVG( ("+v2.getSQL()+" WHERE "+p2.getTableAlias()+".id = "+p1.getTableAlias()+".id))");
+    //
+    //
+    // v.SELECT(precision);
+    // v.FROM(p1);
+    //
+    // System.out.println(v.getSQL());
   }
 
   @StartSession
@@ -452,8 +468,7 @@ Bellene
   @Transaction
   private static void defineDatatypesForAllPaths()
   {
-    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE
-        + "." + "AllPaths");
+    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE + "." + "AllPaths");
     allPathsMdBusinessDAO.getBusinessDAO().delete();
 
     // MdBusinessDAOIF geoEntityMdBusiness =
@@ -531,8 +546,7 @@ Bellene
   {
     updateAllPathsForUniversal(parentGeoHierarchy);
 
-    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity()
-        .getAll();
+    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity().getAll();
 
     for (GeoHierarchy childGeoHierarchy : geoHierarchyChildren)
     {
@@ -559,8 +573,7 @@ Bellene
   {
     MdBusiness mdBusiness = geoHierarchy.getGeoEntityClass();
 
-    System.out.println("\nHeads up: " + mdBusiness.getDisplayLabel() + ": "
-        + mdBusiness.getSuperMdBusiness().getDisplayLabel());
+    System.out.println("\nHeads up: " + mdBusiness.getDisplayLabel() + ": " + mdBusiness.getSuperMdBusiness().getDisplayLabel());
 
     // We only need to do this for the parent most types.
     // The child types will be included when we update paths for
