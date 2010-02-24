@@ -774,7 +774,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
   
   
       this._queryPanel.addQueryItem({
-        html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.surveillance.AggregatedCase),
+        html: this._getCountDiv(this,"Dates_And_Count",Mojo.$.dss.vector.solutions.surveillance.AggregatedCase),
         id: 'globalCount'
       });
   
