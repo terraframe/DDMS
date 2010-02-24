@@ -793,6 +793,24 @@ public class QueryUtil implements Reloadable
     }
   }
 
+  public static String getDefiningClass(String className, String attribute)
+  {
+    MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(className);
+
+    List<MdBusinessDAOIF> classes = mdBusiness.getSuperClasses();
+    classes.add(mdBusiness);
+
+    for (MdBusinessDAOIF business : classes)
+    {
+      if (business.definesAttribute(attribute) != null)
+      {
+        return business.definesType();
+      }
+    }
+
+    return null;
+  }
+
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
   {
     String attributeName = null;
@@ -805,6 +823,7 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
+      klass = getDefiningClass(klass, attributeName);
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
