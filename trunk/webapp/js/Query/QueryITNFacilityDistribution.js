@@ -17,6 +17,13 @@ Mojo.Meta.newClass('MDSS.QueryITNFacilityDistribution', {
       
       this._groupByClass = Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution;
 
+      this._dateAttribs = [
+                           {
+                          	 klass :  this._groupByClass,
+                          	 accessor : this._groupByClass.DISTRIBUTIONDATE,
+                           }
+                           ];
+      
       this._commonQueryClasses = [
                                   Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS,
                                   Mojo.$.dss.vector.solutions.Person.CLASS,
