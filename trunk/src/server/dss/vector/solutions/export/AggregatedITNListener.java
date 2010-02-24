@@ -65,8 +65,10 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(SERVICES + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedITN.addService(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedITN.addService(term, amount);
+          }
         }
       }
     }
@@ -78,8 +80,10 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedITN.addTargetGroup(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedITN.addTargetGroup(term, amount);
+          }
         }
       }
     }
@@ -91,8 +95,10 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(ITNTYPE + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedITN.addITNType(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedITN.addITNType(term, amount);
+          }
         }
       }
     }

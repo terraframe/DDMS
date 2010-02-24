@@ -76,8 +76,8 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
       // Go find the expected column
       for (ExcelColumn column : extraColumns)
       {
+    	String entityName;
         HSSFCell cell = row.getCell(column.getIndex());
-        String entityName;
         if (cell != null)
         {
           if (column.getAttributeName().equals(excelAttribute))

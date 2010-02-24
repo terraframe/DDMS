@@ -57,8 +57,10 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          community.addTargetGroup(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  community.addTargetGroup(term, amount);
+          }
         }
       }
     }
@@ -70,8 +72,10 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
         if (column.getAttributeName().equals(ITNTYPE + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          community.addITNType(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  community.addITNType(term, amount);
+          }
         }
       }
     }

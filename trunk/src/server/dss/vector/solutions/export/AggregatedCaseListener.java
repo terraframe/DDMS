@@ -89,8 +89,10 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(STOCK + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Boolean inStock = ExcelUtil.getBoolean(cell);
-          aggregatedCase.addStock(term, inStock);
+          if (cell != null) {
+        	  Boolean inStock = ExcelUtil.getBoolean(cell);
+        	  aggregatedCase.addStock(term, inStock);
+          }
         }
       }
     }
@@ -102,8 +104,10 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(TREATMENT + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addTreatment(term, count);
+          if (cell != null) {
+        	  int count = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedCase.addTreatment(term, count);
+          }
         }
       }
     }
@@ -115,8 +119,10 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(METHOD + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addMethod(term, count);
+          if (cell != null) {
+        	  int count = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedCase.addMethod(term, count);
+          }
         }
       }
     }
@@ -133,12 +139,16 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(diagnosticName))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          amount = new Double(cell.getNumericCellValue()).intValue();
+          if (cell != null) {
+        	  amount = new Double(cell.getNumericCellValue()).intValue();
+          }
         }
         if (column.getAttributeName().equals(diagnosticName + POSITIVE))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          amountPositive = new Double(cell.getNumericCellValue()).intValue();
+          if (cell != null) {
+        	  amountPositive = new Double(cell.getNumericCellValue()).intValue();
+          }
         }
       }
       
@@ -156,8 +166,10 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
         if (column.getAttributeName().equals(REFERRAL + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          int count = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedCase.addReferral(term, count);
+          if (cell != null) {
+        	  int count = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedCase.addReferral(term, count);
+          }
         }
       }
     }

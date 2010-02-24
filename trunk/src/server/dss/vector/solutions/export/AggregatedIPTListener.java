@@ -73,8 +73,10 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(PATIENTS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedIPT.addPatient(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedIPT.addPatient(term, amount);
+          }
         }
       }
     }
@@ -86,8 +88,10 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(ANCVISITS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedIPT.addVisit(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedIPT.addVisit(term, amount);
+          }
         }
       }
     }
@@ -99,8 +103,10 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(DOSES + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedIPT.addDose(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedIPT.addDose(term, amount);
+          }
         }
       }
     }
@@ -112,8 +118,10 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
         if (column.getAttributeName().equals(TREATMENT + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedIPT.addTreatment(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedIPT.addTreatment(term, amount);
+          }
         }
       }
     }

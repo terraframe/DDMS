@@ -49,8 +49,10 @@ public class ITNDistributionListener implements ExcelExportListener, ImportListe
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          Integer amount = new Double(cell.getNumericCellValue()).intValue();
-          aggregatedITN.addTargetGroup(term, amount);
+          if (cell != null) {
+        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
+        	  aggregatedITN.addTargetGroup(term, amount);
+          }
         }
       }
     }
