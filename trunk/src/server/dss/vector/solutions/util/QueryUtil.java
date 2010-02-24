@@ -75,7 +75,9 @@ public class QueryUtil implements Reloadable
 
   private static final String DATEGROUP_QUARTER            = "dategroup_quarter";
 
-  private static final String DATEGROUP_YEAR               = "dategroup_year";
+  private static final String DATEGROUP_CALENDARYEAR       = "dategroup_year";
+  
+  private static final String DATEGROUP_EPIYEAR            = "dategroup_epiyear";
 
   private static final String DATEGROUP_SEASON             = "dategroup_season";
 
@@ -890,10 +892,17 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL("to_char(" + da + ",'Q')");
     }
 
-    if (xml.indexOf(DATEGROUP_YEAR) > 0)
+    if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_YEAR);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
+    }
+    
+    if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
+    {
+      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
+      dateGroup.setSQL("get_epiYear_from_date(" + da + "," + startDay + ")");
     }
 
     return setQueryDates(xml, valueQuery);
@@ -939,14 +948,23 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL(dateGroupSql);
     }
 
-    if (xml.indexOf(DATEGROUP_YEAR) > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_YEAR);
+    if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
+    {      
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
           + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
+    if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
+    {
+      int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
+          + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+    
     return setQueryDates(xml, valueQuery);
   }
 
