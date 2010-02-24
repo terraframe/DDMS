@@ -178,8 +178,8 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     
     select += "(CASE WHEN enumname = 'ROOM' THEN room  WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS unitarea,\n";
     select += "unitnozzleareacoverage unitnozzleareacoverage,\n";
-    select += "((weight*sachetsperrefill*ratio*(amount/100.0)) / unitnozzleareacoverage )  AS standard_application_rate,\n";
-    select += "(1000.0 * (weight*sachetsperrefill*ratio*(amount/100.0)) / unitnozzleareacoverage ) AS standard_application_rate_mg,\n";
+    select += "((weight*sachetsperrefill*(amount/100.0)) / unitnozzleareacoverage )  AS standard_application_rate,\n";
+    select += "(1000.0 * (weight*sachetsperrefill*(amount/100.0)) / unitnozzleareacoverage ) AS standard_application_rate_mg,\n";
     select += "ratio * unitnozzleareacoverage/(CASE WHEN enumname = 'ROOM' THEN room WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS units_per_can,\n";
     
     
