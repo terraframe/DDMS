@@ -12,13 +12,15 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
   		this._mainQueryClass = Mojo.$.dss.vector.solutions.stock.StockItem.CLASS,
 	
       this._stock = new this._groupByClass();
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.EVENTDATE, this._groupByClass.EVENTDATE);
       
-      this._startDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
+
+      this._dateAttribs = [
+                           {
+                          	 klass :  this._groupByClass,
+                             accessor : this._groupByClass.EVENTDATE,
+                           }
+                          ];
       
-      this._endDateSelectable = new MDSS.QueryXML.Selectable(this._dateAttribute);
-
-
 
       this._commonQueryClasses = [
                                   //this._groupByClass.CLASS,
