@@ -13,7 +13,6 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
@@ -210,14 +209,11 @@ public class StockItem extends StockItemBase implements com.terraframe.mojo.gene
     {
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("quanity_instock");
 
-      String tableAlias = stockItemQuery.getTableAlias();
+      String eventTable = stockEventQuery.getTableAlias();
       
-      String eventTable = MdBusiness.getMdBusiness(StockEvent.CLASS).getTableName();
-      
-      String sql = "(SELECT SUM("
-      +"CASE et."+StockEvent.TRANSACTIONTYPE+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+StockEvent.QUANTITY
-      +" ELSE "+StockEvent.QUANTITY+" * -1 END) FROM "
-      +eventTable+" et WHERE et.item = "+tableAlias+".id GROUP BY et.item)"; 
+      String sql = "SUM("
+      +"CASE "+eventTable+"."+StockEvent.TRANSACTIONTYPE+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+eventTable+"."+StockEvent.QUANTITY
+      +" ELSE "+eventTable+"."+StockEvent.QUANTITY+" * -1 END)";
       
       dobSel.setSQL(sql);
     }
