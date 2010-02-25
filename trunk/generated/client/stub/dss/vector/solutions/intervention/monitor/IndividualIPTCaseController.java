@@ -121,26 +121,10 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       new IndividualIPTCaseDTO(clientRequest);
 
       PersonViewDTO view = PersonDTO.getView(clientRequest, patientId);
-
       IndividualIPTCaseViewDTO dto = new IndividualIPTCaseViewDTO(clientRequest);
-      dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
-      dto.setResidentialLocation(AttributeUtil.getString(PersonViewDTO.RESIDENTIALGEOID, view));
-
       IndividualIPTViewDTO instance = new IndividualIPTViewDTO(clientRequest);
 
-      String serviceDate = req.getParameter("serviceDate");
-
-      if (serviceDate != null && !serviceDate.equals(""))
-      {
-        instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
-      }
-
-      req.setAttribute("item", dto);
-      req.setAttribute("instance", instance);
-      req.setAttribute("person", view);
-      req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
-      
-      render("createComponent.jsp");
+      this.newInstance(view, dto, instance);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -154,6 +138,26 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       this.failNewInstance(patientId);
     }
+  }
+
+  private void newInstance(PersonViewDTO view, IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
+  {
+    dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
+    dto.setResidentialLocation(AttributeUtil.getString(PersonViewDTO.RESIDENTIALGEOID, view));
+    
+    String serviceDate = req.getParameter("serviceDate");
+
+    if (serviceDate != null && !serviceDate.equals(""))
+    {
+      instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+    }
+
+    req.setAttribute("item", dto);
+    req.setAttribute("instance", instance);
+    req.setAttribute("person", view);
+    req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
+    
+    render("createComponent.jsp");
   }
 
   @Override
@@ -215,15 +219,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   @Override
   public void failCreateCaseAndInstance(IndividualIPTCaseViewDTO dto, IndividualIPTViewDTO instance) throws IOException, ServletException
   {
-    String serviceDate = req.getParameter("serviceDate");
-    PersonViewDTO person = dto.getPatientView();
-
-    req.setAttribute("person", person);
-    req.setAttribute("serviceDate", serviceDate);
-    req.setAttribute("instance", instance);
-    req.setAttribute("item", dto);
-
-    render("createComponent.jsp");
+    this.newInstance(dto.getPatientView(), dto, instance);
   }
 
   public void failCreate(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
