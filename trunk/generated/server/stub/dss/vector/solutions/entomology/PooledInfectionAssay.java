@@ -174,7 +174,7 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
       if(xml.indexOf(">minPrevalence<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("minPrevalence");
-        s.setSQL("100.0 * SUM(numberPositive) / SUM(poolsTested)");
+        s.setSQL("100.0 * SUM(numberPositive) / SUM(mosquitostested)");
       }
     }
     
