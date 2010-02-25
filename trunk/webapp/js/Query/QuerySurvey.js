@@ -7,25 +7,16 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
         initialize : function(selectableGroups, queryList)
         {
 
-      		this._groupByClass = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
+      		this._groupByClass = dss.vector.solutions.intervention.monitor.SurveyPoint;
       		this._mainQueryClass = this._groupByClass.CLASS;
     	
-
-          this._SurveyPoint = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
-          this._surveyPoint = new this._SurveyPoint();
-          
-          this._Household = Mojo.$.dss.vector.solutions.intervention.monitor.Household;
-          this._household = new this._Household();
-          
-          this._Person = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyedPerson;
-          this._person = new this._Person();
-          
+          this._surveyPoint = new this._groupByClass;
           
           this._commonQueryClasses = [
                                      ];
           this._geoEntityAttribs = [
                                  {
-                                   keyName :  this._surveyPoint.CLASS+'.'+this._surveyPoint.GEOENTITY,
+                                   keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
                                    display : this._surveyPoint.getGeoEntityMd().getDisplayLabel()
                                  },
                                  
