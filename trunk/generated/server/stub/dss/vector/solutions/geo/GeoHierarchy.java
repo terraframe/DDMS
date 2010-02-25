@@ -691,7 +691,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
     // define the new MdBusiness
-    String typeName = definition.getTypeName();
+    String typeName = getSystemName(definition.getTypeName());
     String label = definition.getDisplayLabel();
     String description = definition.getDescription();
 
@@ -1896,4 +1896,61 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     
     return false;
   }
+  
+	public static String getSystemName(String description)
+	{
+		String systemName = description;
+		String name = description
+			.replace("/", " Or ")
+			.replace("&", " And ");
+		String[] parts = name.split("[^a-zA-Z0-9]");
+		StringBuffer sb = new StringBuffer();
+		if (parts.length==1 && description.equals(description.toUpperCase())) {
+			// It's an acronym, so use it as is.
+			systemName = description;
+		} else {
+			// Create a camelcase representation of the description
+			for (int i = 0; i < parts.length; i++) {
+				String part = parts[i];
+				if (part.length() > 0) {
+					if (i == parts.length - 1) {
+						// Last part
+						String arabicPart = convertRomanToArabic(part);
+						if (arabicPart.equals(part)) {
+							// Not a roman numeral
+							sb.append(part.substring(0,1).toUpperCase());
+							sb.append(part.substring(1).toLowerCase());
+						} else {
+							// Roman numeral converted to arabic
+							sb.append(arabicPart);
+						}
+					} else {
+						sb.append(part.substring(0,1).toUpperCase());
+						sb.append(part.substring(1).toLowerCase());
+					}
+				}
+			}
+			systemName = sb.toString();
+		}
+		return systemName;
+	}
+
+	private static String convertRomanToArabic(String part) {
+		if ("IV".equals(part.toUpperCase())) {
+			return part.substring(0,part.length()-2) + "4";
+		}
+		if ("V".equals(part.toUpperCase())) {
+			return part.substring(0,part.length()-1) + "5";
+		}
+		if ("III".equals(part.toUpperCase())) {
+			return part.substring(0,part.length()-3) + "3";
+		}
+		if ("II".equals(part.toUpperCase())) {
+			return part.substring(0,part.length()-2) + "2";
+		}
+		if ("I".equals(part.toUpperCase())) {
+			return part.substring(0,part.length()-1) + "1";
+		}
+		return part;
+	}
 }

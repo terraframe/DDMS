@@ -6,6 +6,8 @@ import java.util.List;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.dataaccess.io.dataDefinition.XMLTags;
 
+import dss.vector.solutions.geo.GeoHierarchy;
+
 public class Universal {
 	public static Universal EARTH = new Universal("Earth");
 
@@ -14,55 +16,9 @@ public class Universal {
 	public static final int MULTILINESTRING = 2;
 	public static final int ERROR = -1;
 
-	public static String getSystemName(String description)
-	{
-		String systemName = description;
-		String name = description
-			.replace("/", " Or ")
-			.replace("&", " And ");
-		String[] parts = name.split("[^a-zA-Z0-9]");
-		StringBuffer sb = new StringBuffer();
-		if (parts.length==1 && description.equals(description.toUpperCase())) {
-			// It's an acronym, so use it as is.
-			systemName = description;
-		} else {
-			// Create a camelcase representation of the description
-			for (String part: parts) {
-				String arabicPart = convertRomanToArabic(part);
-				if (arabicPart.equals(part)) {
-					sb.append(part.substring(0,1).toUpperCase());
-					sb.append(part.substring(1).toLowerCase());
-				} else {
-					sb.append(arabicPart);
-				}
-			}
-			systemName = sb.toString();
-		}
-		return systemName;
-	}
-
     public static String getSystemType(String description)
     {
-      return "dss.vector.solutions.geo.generated."+getSystemName(description);
-	}
-
-	private static String convertRomanToArabic(String part) {
-		if (part.endsWith("IV")) {
-			return part.substring(0,part.length()-2) + "4";
-		}
-		if (part.endsWith("V")) {
-			return part.substring(0,part.length()-1) + "5";
-		}
-		if (part.endsWith("III")) {
-			return part.substring(0,part.length()-3) + "3";
-		}
-		if (part.endsWith("II")) {
-			return part.substring(0,part.length()-2) + "2";
-		}
-		if (part.endsWith("I")) {
-			return part.substring(0,part.length()-1) + "1";
-		}
-		return part;
+      return MDSSInfo.GENERATED_GEO_PACKAGE + GeoHierarchy.getSystemName(description);
 	}
 
 	private static String geometryXML = "<"+XMLTags.MULTIPOLYGON_TAG+" "+XMLTags.NAME_ATTRIBUTE+"=\"multiPolygon\" "+XMLTags.DISPLAY_LABEL_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.DESCRIPTION_ATTRIBUTE+"=\"Multi Polygon\" "+XMLTags.REMOVE_ATTRIBUTE+"=\"false\" "+XMLTags.REQUIRED_ATTRIBUTE+"=\"false\" "+XMLTags.SRID_ATTRIBUTE+"=\"4326\" "+XMLTags.DIMENSION_ATTRIBUTE+"=\"2\" />";
@@ -82,7 +38,7 @@ public class Universal {
 		super();
 		this.description = description;
 		this.type = getSystemType(description);
-		this.typeName = getSystemName(description);
+		this.typeName = GeoHierarchy.getSystemName(description);
 	}
 
 	public Universal(String description, boolean political, boolean sprayTarget, boolean populationAllowed, String moRoot) {

@@ -453,7 +453,7 @@ public class GeoEntityImporter {
 		// q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
 		// .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getDefaultLocale())).EQ(universalName.trim().toUpperCase())));
 
-		q.WHERE(q.getGeoEntityClass().getTypeName().EQ(Universal.getSystemName(universalName)));
+		q.WHERE(q.getGeoEntityClass().getTypeName().EQ(GeoHierarchy.getSystemName(universalName)));
 
 		OIterator<? extends GeoHierarchy> i = q.getIterator();
 
@@ -464,7 +464,7 @@ public class GeoEntityImporter {
 				i.close();
 			}
 		} else {
-			String errMsg = "Unable to find a universal with the name \"" + universalName + "\" (or \"" + Universal.getSystemName(universalName) + "\")";
+			String errMsg = "Unable to find a universal with the name \"" + universalName + "\" (or \"" + GeoHierarchy.getSystemName(universalName) + "\")";
 			System.err.println(errMsg);
 
 			return null;
