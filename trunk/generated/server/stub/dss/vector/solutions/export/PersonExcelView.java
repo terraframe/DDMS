@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -54,8 +57,32 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     personView.setIsSprayLeader(this.getIsSprayLeader() != null && this.getIsSprayLeader());
     personView.setIsSprayOperator(this.getIsSprayOperator() != null && this.getIsSprayOperator());
     personView.setMemberId(this.getMemberId());
+    
+    personView.setIsStockStaff(this.getIsStockStaff() != null && this.getIsStockStaff());
+    personView.setIsSupervisor(this.getIsSupervisor() != null && this.getIsSupervisor());
         
     personView.apply();
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(FIRSTNAME);
+    list.add(LASTNAME);
+    list.add(DATEOFBIRTH);
+    list.add(SEX);
+    list.add(ISMDSSUSER);
+    list.add(USERNAME);
+    list.add(PASSWORD);
+    list.add(ISSPRAYLEADER);
+    list.add(MEMBERID);
+    list.add(ISSPRAYOPERATOR);
+    list.add(ISSTOCKSTAFF);
+    list.add(ISSUPERVISOR);
+    list.add(ISIPTRECIPIENT);
+    list.add(ISITNRECIPIENT);
+    list.add(ISPATIENT);
+    return list;
   }
   
   public static void setupExportListener(ExcelExporter exporter, String...params)
