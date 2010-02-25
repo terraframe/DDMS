@@ -232,15 +232,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     try
     {
-      IndividualIPTCaseViewDTO dto = IndividualIPTCaseDTO.lockView(super.getClientRequest(), id);
-      String serviceDate = req.getParameter("serviceDate");
-
-      PersonViewDTO person = dto.getPatientView();
-
-      req.setAttribute("person", person);
-      req.setAttribute("serviceDate", serviceDate);
-      req.setAttribute("item", dto);
-      render("editComponent.jsp");
+      this.edit(IndividualIPTCaseDTO.lockView(super.getClientRequest(), id));
     }
     catch (ProblemExceptionDTO e)
     {
@@ -255,6 +247,18 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       this.failEdit(id);
     }
 
+  }
+
+  private void edit(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
+  {
+    String serviceDate = req.getParameter("serviceDate");
+
+    PersonViewDTO person = dto.getPatientView();
+
+    req.setAttribute("person", person);
+    req.setAttribute("serviceDate", serviceDate);
+    req.setAttribute("item", dto);
+    render("editComponent.jsp");
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -283,9 +287,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void failUpdate(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("patient", IPTRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
   public void cancel(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
