@@ -122,10 +122,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       });
 
-      var debug = $('debug_xml')
+      var debug = document.getElementById('debug_xml');
       if(debug){
       	debug.value = xml;
-      	xml = $('debug_xml').value;
+      	xml = document.getElementById('debug_xml').value;
       }
       var page = this.getCurrentPage();
 

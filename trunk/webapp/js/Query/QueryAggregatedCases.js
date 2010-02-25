@@ -189,11 +189,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         }
       });
   
-      var debug = $('debug_xml')
-      if(debug){
-      	debug.value = xml;
-      	xml = $('debug_xml').value;
-      }
       
       var page = this.getCurrentPage();
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
