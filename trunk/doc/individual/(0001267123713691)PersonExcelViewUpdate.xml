@@ -21,7 +21,6 @@
     </create>
   </doIt>
   <undoIt>
-  <!-- 
     <delete>
       <object
         key="dss.vector.solutions.export.PersonExcelView.isStockStaff"
@@ -30,6 +29,5 @@
         key="dss.vector.solutions.export.PersonExcelView.isSupervisor"
         type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
     </delete>
-   -->
   </undoIt>
 </version>
