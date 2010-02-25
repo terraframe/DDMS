@@ -405,7 +405,15 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   {
     SprayMethod method = this.getSprayMethod();
 
-    this.setStructures(1);
+    if(!method.equals(SprayMethod.MOP_UP))
+    {
+      this.setStructures(1);
+    }
+    else
+    {
+      this.setHouseholds(null);
+      this.setStructures(null);
+    }
 
     // Validate MOP-UP
     validateHouseholds(method);
