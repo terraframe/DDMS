@@ -1137,8 +1137,27 @@ MDSS.QueryPanel.prototype = {
       else
       {
       	this._queryClass._resetToDefault();
+        this._queryClass._loadDefaultSearch();
       }
     }
+  },
+  
+  _doDeleteQuery : function(savedSearchId, queries)
+  {
+    var request = new MDSS.Request( {
+      queries : queries,
+      thisRef : this,
+      selectedIndex : queries.selectedIndex,
+      onSuccess : function(deletedRow) {                
+        this.queries.options[this.selectedIndex].selected = false;
+        this.queries.options[0].selected = true;
+        this.queries.options[this.selectedIndex] = null;
+        
+        this.thisRef._queryClass._resetToDefault();
+        this.thisRef._queryClass._loadDefaultSearch();
+      }
+    });
+    Mojo.Facade.deleteEntity(request, savedSearchId);
   },
 
   /**
@@ -1146,28 +1165,15 @@ MDSS.QueryPanel.prototype = {
    */
   _deleteQuery : function()
   {
-      var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
-      // ignore the default, empty option
-      var savedSearchId = queries.options[queries.selectedIndex].value;
-      if(savedSearchId)
-      {
-      	if (confirm(MDSS.Localized.Confirm_Delete_Row + '?')) {          
-            var request = new MDSS.Request( {
-            	queries : queries,
-            	thisRef : this,
-              selectedIndex : queries.selectedIndex,
-              onSuccess : function(deletedRow) {              	
-            	  this.queries.options[this.selectedIndex].selected = false;
-            	  this.queries.options[0].selected = true;
-            	  this.queries.options[this.selectedIndex] = null;
-                this.thisRef._queryClass._resetToDefault();
-              }
-            });
-            Mojo.Facade.deleteEntity(request, savedSearchId);
-      }
+    var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
+    // ignore the default, empty option
+    var savedSearchId = queries.options[queries.selectedIndex].value;
+    if(savedSearchId)
+    {
+      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
+      MDSS.confirmModal(MDSS.Localized.Confirm_Delete_Query, doDel, function(){});
     }
   },
-  
   
   /**
    * Saves a query.
