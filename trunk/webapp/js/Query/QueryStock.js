@@ -23,7 +23,7 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
       
 
       this._commonQueryClasses = [
-                                  //this._groupByClass.CLASS,
+                                  this._groupByClass.CLASS,
                                   Mojo.$.dss.vector.solutions.stock.StockItem.CLASS,
                                   Mojo.$.dss.vector.solutions.Person.CLASS,
                                   ];
