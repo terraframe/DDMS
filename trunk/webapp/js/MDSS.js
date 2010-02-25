@@ -1,11 +1,3 @@
-// Turn on Inspector
-if(/^(127\.0\.0\.1)|(localhost)$/.test(window.location.hostname))
-{
-  YAHOO.util.Event.onDOMReady(function(){
-//    com.terraframe.mojo.inspector.Inspector.launch();
-  });
-}
-
 // Alias all AttributeDTOs to the window
 Mojo.Meta.shorthand('com.terraframe.mojo.transport.attributes.*', window);
 
@@ -71,6 +63,50 @@ var MDSS = {
     {
       return str.replace(/^\s+/, '').replace(/\s+$/, '');
     }
+  },
+  
+  confirmModal : function(message, onYes, onNo)
+  {
+    var modal = new YAHOO.widget.Panel("confirm_"+Mojo.Util.generateId(), {
+      fixedcenter: true,
+      width: '300px',
+      visible: true,
+      draggable: false,
+      zindex: 8000,
+      modal:true,
+      close:false
+    });
+    
+    var upperDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+
+    var span = document.createElement('span');
+    span.innerHTML = message;
+    upperDiv.appendChild(span);
+
+    // yes/no buttons
+    var lowerDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+
+    var no = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(no, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice_No);
+    YAHOO.util.Event.on(no, 'click', function(){ modal.destroy(); onNo()});
+    lowerDiv.appendChild(no);
+
+    var yes = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice_Yes);
+    YAHOO.util.Event.on(yes, 'click', function(){ modal.destroy(); onYes()});
+    lowerDiv.appendChild(yes);
+
+    var wrapperDiv = document.createElement('div');
+    wrapperDiv.appendChild(upperDiv);
+    wrapperDiv.appendChild(lowerDiv);
+
+    modal.setBody(wrapperDiv);
+    modal.render(document.body);
+    modal.bringToTop();
   },
 
   Effect : {
