@@ -154,7 +154,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
 
           throw ex;
         }
-        
+        /*
         AllPathsQuery q = new AllPathsQuery(new QueryFactory());
         Condition parent = AND.get(q.getParentTerm().EQ(root.getTerm()), q.getChildTerm().EQ(existingRoot.getTerm()));
         Condition child = AND.get(q.getParentTerm().EQ(existingRoot.getTerm()), q.getChildTerm().EQ(root.getTerm()));
@@ -169,7 +169,7 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
 
             throw ex;
         }
-        
+        */
       }
     }
     finally
