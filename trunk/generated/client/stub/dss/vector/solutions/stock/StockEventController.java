@@ -42,7 +42,7 @@ public class StockEventController extends StockEventControllerBase implements co
     if (!this.isAsynchronous())
     {
       this.setupSearchParameters();
-            
+
       req.setAttribute("view", new StockEventViewDTO(this.getClientRequest()));
       render("searchComponent.jsp");
     }
@@ -55,39 +55,41 @@ public class StockEventController extends StockEventControllerBase implements co
     String dateString = req.getParameter("date");
     String endDateString = req.getParameter("endDate");
 
-    
-    if(geoId != null && !geoId.equals(""))
+    if (geoId != null && !geoId.equals(""))
     {
       req.setAttribute("geoId", geoId);
     }
-    
-    if(itemId != null && !itemId.equals(""))
+
+    if (req.getAttribute("item") == null)
     {
-      TermDTO item = TermDTO.get(this.getClientRequest(), itemId);
-      
-      req.setAttribute("item", item);
+      if (itemId != null && !itemId.equals(""))
+      {
+        TermDTO item = TermDTO.get(this.getClientRequest(), itemId);
+
+        req.setAttribute("item", item);
+      }
+      else
+      {
+        this.setupSearchDefaults();
+      }
     }
-    else
-    {
-      this.setupSearchDefaults();
-    }
-    
-    if(dateString != null && !dateString.equals(""))
+
+    if (dateString != null && !dateString.equals(""))
     {
       Object date = new DefaultConverter(Date.class).parse(dateString, req.getLocale());
-      
+
       req.setAttribute("date", date);
     }
-    
-    if(endDateString != null && !endDateString.equals(""))
+
+    if (endDateString != null && !endDateString.equals(""))
     {
       Object date = new DefaultConverter(Date.class).parse(endDateString, req.getLocale());
-      
+
       req.setAttribute("endDate", date);
     }
-    
-    List<String> entityUniversals = Arrays.asList(new String[]{StockDepotDTO.CLASS}); 
-    
+
+    List<String> entityUniversals = Arrays.asList(new String[] { StockDepotDTO.CLASS });
+
     req.setAttribute("StockDepot", StockDepotDTO.CLASS);
     req.setAttribute("entityUniversals", entityUniversals);
   }
@@ -178,6 +180,10 @@ public class StockEventController extends StockEventControllerBase implements co
   private void searchByParameters(String geoId, TermDTO item, Date date, EventOptionDTO option) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
+
+    // Ensure the user has the ability to create stock events
+    new StockEventDTO(request);
+
     StockEventViewDTO[] views = StockEventViewDTO.getViews(request, geoId, item, date, option);
     StockStaffDTO[] staff = StockStaffDTO.getAll(request);
 
@@ -284,13 +290,13 @@ public class StockEventController extends StockEventControllerBase implements co
       this.failSearchPage(geoId, item, failDate, failEndDate);
     }
   }
-  
+
   @Override
   public void failSearchPage(String geoId, TermDTO item, String date, String endDate) throws IOException, ServletException
   {
     this.setupFailParameters(geoId, item, date);
     req.setAttribute("endDate", endDate);
-    
+
     this.search();
   }
 

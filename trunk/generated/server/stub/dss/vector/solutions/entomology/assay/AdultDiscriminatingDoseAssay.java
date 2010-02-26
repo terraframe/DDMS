@@ -16,11 +16,11 @@ import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
+import dss.vector.solutions.entomology.ResistanceProperty;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideQuery;
 import dss.vector.solutions.query.Layer;
@@ -124,23 +124,23 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
   protected boolean isResistant()
   {
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_RESISTANCE);
 
     return ( this.getMortality() < resistant );
   }
 
   protected boolean isPotentiallyResistant()
   {
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_RESISTANCE);
 
     return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
   }
 
   protected boolean isSusceptible()
   {
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
-
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
+    
     return ( this.getMortality() > susceptible );
   }
 
@@ -290,8 +290,8 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   public static String getResistanceSQL(String[] labels)
   {
     String assayTable = MdBusiness.getMdBusiness(AdultDiscriminatingDoseAssay.CLASS).getTableName();
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_RESISTANCE);
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
     String mortality = AdultDiscriminatingDoseAssay.MORTALITY;
 
     return CollectionAssay.getCollectionResistanceSQL(assayTable, mortality, resistant.toString(), susceptible.toString(), labels);

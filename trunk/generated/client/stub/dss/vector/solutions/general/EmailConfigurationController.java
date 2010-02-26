@@ -91,10 +91,22 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
 
   public void edit(String id) throws IOException, ServletException
   {
-    EmailConfigurationDTO dto = EmailConfigurationDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("protocol", EmailProtocolDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      EmailConfigurationDTO dto = EmailConfigurationDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("protocol", EmailProtocolDTO.allItems(super.getClientSession().getRequest()));
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failEdit(id);
+      }
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -176,7 +188,7 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
   public void viewAll() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    EmailConfigurationQueryDTO query = EmailConfigurationDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    EmailConfigurationQueryDTO query = EmailConfigurationDTO.getAllInstances(clientRequest, EmailConfiguration.ID, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

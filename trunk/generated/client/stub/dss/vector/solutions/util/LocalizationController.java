@@ -24,14 +24,14 @@ public class LocalizationController extends LocalizationControllerBase implement
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/util/Localization/";
 
   public static final String LAYOUT           = "/layout.jsp";
-  
-  private static final long serialVersionUID = 883845243;
-  
+
+  private static final long  serialVersionUID = 883845243;
+
   public LocalizationController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void selectLocales() throws IOException, ServletException
   {
     renderSelectLocales();
@@ -43,7 +43,7 @@ public class LocalizationController extends LocalizationControllerBase implement
     req.setAttribute("query", query);
     render("selectLocales.jsp");
   }
-  
+
   @SuppressWarnings("unchecked")
   public void importFile() throws IOException, ServletException
   {
@@ -72,7 +72,7 @@ public class LocalizationController extends LocalizationControllerBase implement
         message = MDSSProperties.getString("File_Required");
         return;
       }
-      
+
       LocalizationFacadeDTO.importFile(request, file.getInputStream());
 
       message = MDSSProperties.getString("File_Upload_Success");
@@ -88,16 +88,16 @@ public class LocalizationController extends LocalizationControllerBase implement
       this.resp.getWriter().write(message);
     }
   }
-  
+
   public void exportFile(String[] locales) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     InputStream stream = LocalizationFacadeDTO.exportFile(clientRequest, locales);
-    
+
     FileDownloadUtil.writeXLS(resp, "Localization", stream);
   }
-  
+
   public void newLocale() throws IOException, ServletException
   {
     renderNewLocale();
@@ -111,35 +111,48 @@ public class LocalizationController extends LocalizationControllerBase implement
     {
       languages.add(new Locale(s));
     }
-    
+
     for (String s : Locale.getISOCountries())
     {
       countries.add(new Locale("en", s));
     }
-    
+
     Collections.sort(languages, new LocaleLanguageComparator());
     Collections.sort(countries, new LocaleCountryComparator());
-    
+
     req.setAttribute("languages", languages);
     req.setAttribute("countries", countries);
     render("newLocale.jsp");
   }
-  
+
   public void installLocale(String language, String country, String variant) throws IOException, ServletException
   {
-    String localeString = language;
-    if (country!=null)
+    try
     {
-      localeString += "_" + country;
-      if (variant!=null)
+      String localeString = language;
+      if (country != null)
       {
-        localeString += "_" + variant;
+        localeString += "_" + country;
+        if (variant != null)
+        {
+          localeString += "_" + variant;
+        }
+      }
+      LocalizationFacadeDTO.installLocale(getClientRequest(), localeString);
+      renderSelectLocales();
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failInstallLocale(language, country, variant);
       }
     }
-    LocalizationFacadeDTO.installLocale(getClientRequest(), localeString);
-    renderSelectLocales();
+
   }
-  
+
   @Override
   public void failInstallLocale(String language, String country, String variant) throws IOException, ServletException
   {

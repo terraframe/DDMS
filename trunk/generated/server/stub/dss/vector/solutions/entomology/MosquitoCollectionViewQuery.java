@@ -35,14 +35,11 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
   {
     private MosquitoCollectionQuery query;
 
-//    private ValueQuery              labelQuery;
-
     public DefaultMosquitoCollectionViewBuilder(QueryFactory queryFactory)
     {
       super(queryFactory);
 
       query = new MosquitoCollectionQuery(queryFactory);
-//      labelQuery = new ValueQuery(queryFactory);
     }
 
     protected MosquitoCollectionViewQuery getViewQuery()
@@ -57,8 +54,6 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     {
       MosquitoCollectionViewQuery vQuery = this.getViewQuery();
 
-//      SelectableSQLCharacter label = labelQuery.aSQLCharacter("displayLabel", "displayLabel");
-      
       CONCAT entityLabel = F.CONCAT(query.getGeoEntity().getEntityName(), " (");
       entityLabel = F.CONCAT(entityLabel, query.getGeoEntity().getGeoId());
       entityLabel = F.CONCAT(entityLabel, ")");
@@ -73,8 +68,6 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
       vQuery.map(MosquitoCollectionView.LIFESTAGE, query.getLifeStage());
       vQuery.map(MosquitoCollectionView.ABUNDANCE, query.getAbundance());
       
-//      vQuery.getComponentQuery().FROM("geo_displayLabel", "geo_displayLabel");
-
     }
 
     /**
@@ -82,9 +75,6 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
      */
     protected void buildWhereClause()
     {
-//      MdBusiness mdBusiness = MdBusiness.getMdBusiness(MosquitoCollection.CLASS);
-//
-//      labelQuery.WHERE(new InnerJoinEq("id", mdBusiness.getTableName(), query.getTableAlias(), "id", "geo_displayLabel", "geo_displayLabel"));
     }
 
   }
@@ -223,6 +213,8 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     MosquitoCollectionViewQuery query = new MosquitoCollectionViewQuery(factory, builder);
     query.restrictRows(15, 1);
     query.ORDER_BY_ASC(query.getCollectionId());
+    
+    System.out.println(query.getSQL());
 
     return query;
   }

@@ -270,6 +270,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int period = Calendar.DAY_OF_WEEK;
 
     Calendar cal = new GregorianCalendar();
+    cal.clear();
     cal.setTime(startDate);
     cal = getEpiCalendar(cal.get(Calendar.YEAR));
     cal.setTime(startDate);

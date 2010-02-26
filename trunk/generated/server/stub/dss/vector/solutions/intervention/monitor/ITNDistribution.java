@@ -23,34 +23,34 @@ import dss.vector.solutions.util.QueryUtil;
 public class ITNDistribution extends ITNDistributionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1253142897109L;
-  
+
   public ITNDistribution()
   {
     super();
   }
-    
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getDistributionDate() != null && this.getFacility() != null && this.getRecipient() != null)
+    else if (this.getDistributionDate() != null && this.getFacility() != null && this.getRecipient() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
       Person person = this.getRecipient().getPerson();
-      
+
       String entityLabel = this.getFacility().getLabel();
       String dateLabel = format.format(this.getDistributionDate());
       String personLabel = person.getFirstName() + " " + person.getLastName();
-      
+
       return this.getClassDisplayLabel() + ": (" + entityLabel + ", " + dateLabel + ", " + personLabel + ")";
     }
-    
-    return super.toString();
-  }  
-  
+
+    return this.getClassDisplayLabel();
+  }
+
   public static ITNDistributionView getView(String id)
   {
     return ITNDistribution.get(id).getView();
@@ -80,50 +80,48 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     return this.getView();
   }
 
-    
   @Override
   @Transaction
   public void lock()
   {
     super.lock();
-    
+
     for (ITNDistributionTargetGroup group : this.getAllTargetGroupsRel())
     {
       group.lock();
     }
   }
-  
+
   @Override
   @Transaction
   public void unlock()
   {
     super.unlock();
-    
+
     for (ITNDistributionTargetGroup group : this.getAllTargetGroupsRel())
     {
       group.unlock();
     }
   }
-  
+
   @Override
   protected String buildKey()
   {
     ITNRecipient recip = this.getRecipient();
-    if(recip != null && this.getDistributionDate() != null && this.getFacility() != null)
+    if (recip != null && this.getDistributionDate() != null && this.getFacility() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       Person person = recip.getPerson();
-      
+
       return person.getFirstName() + "." + person.getLastName() + "." + this.getFacility().getGeoId() + "." + format.format(this.getDistributionDate());
     }
     return this.getId();
   }
-  
-  
+
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -138,26 +136,25 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
     {
       throw new ProgrammingErrorException(e1);
     }
-    
+
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);   
-   
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+
     ITNDistributionQuery itnQuery = (ITNDistributionQuery) queryMap.get(ITNDistribution.CLASS);
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery,ITNDistribution.CLASS,itnQuery);
-    QueryUtil.joinTermAllpaths(valueQuery,ITNDistribution.CLASS,itnQuery);
-    QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
-    
-    
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, ITNDistribution.CLASS, itnQuery);
+    QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery);
+    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
+
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
     valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));
-    QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
-    QueryUtil.joinGeoDisplayLabels(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
-    
+    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
+    QueryUtil.joinGeoDisplayLabels(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
+
     try
     {
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
@@ -171,40 +168,39 @@ public class ITNDistribution extends ITNDistributionBase implements com.terrafra
       // Person.DOB not included in query.
     }
 
-    
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
+
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
-   
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-    
+
     return valueQuery;
 
   }
-  
+
   @Override
   public void validateCurrencyReceived()
   {
-    if(this.getCurrencyReceived() != null)
+    if (this.getCurrencyReceived() != null)
     {
-      if(this.getNumberSold() == null || this.getNumberSold() == 0)
+      if (this.getNumberSold() == null || this.getNumberSold() == 0)
       {
         String msg = "Currency received cannot be set when the total number of ITNs sold is zero.";
         CurrencyAmountProblem p = new CurrencyAmountProblem(msg);
         p.setNotification(this, ITNData.CURRENCYRECEIVED);
         p.apply();
-        
+
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void apply()
-  {    
-    //Validate the amount of currency recieved
-    this.validateCurrencyReceived();    
-    
+  {
+    // Validate the amount of currency recieved
+    this.validateCurrencyReceived();
+
     super.apply();
   }
 }

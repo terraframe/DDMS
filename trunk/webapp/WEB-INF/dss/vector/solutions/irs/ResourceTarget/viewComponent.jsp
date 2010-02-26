@@ -40,8 +40,6 @@
 <%
 String sum = request.getAttribute("sumLastRow").toString();
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-ResourceTargetDTO item = new ResourceTargetDTO(clientRequest) ;
-
 
 ResourceTargetViewDTO mdView = (ResourceTargetViewDTO) request.getAttribute("item");
 ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");

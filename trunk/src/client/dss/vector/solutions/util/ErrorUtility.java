@@ -1,11 +1,13 @@
 package dss.vector.solutions.util;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.AttributeNotificationDTO;
 import com.terraframe.mojo.ProblemExceptionDTO;
@@ -13,6 +15,7 @@ import com.terraframe.mojo.business.InformationDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 public class ErrorUtility implements Reloadable
 {
@@ -23,7 +26,7 @@ public class ErrorUtility implements Reloadable
   public static final String  DEVELOPER_MESSAGE   = "developerMessage";
 
   public static final String MESSAGE_ARRAY       = "messageArray";
-
+  
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
     List<String> messages = new LinkedList<String>();
@@ -57,6 +60,31 @@ public class ErrorUtility implements Reloadable
     {
       req.setAttribute(ErrorUtility.MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
     }
+  }
+  
+  public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus) throws IOException
+  {
+    if (isAsynchronus)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+      
+      return true;
+    }
+    else
+    {
+      if(t instanceof ProblemExceptionDTO)
+      {
+        ErrorUtility.prepareProblems((ProblemExceptionDTO) t, req);
+      }
+      else
+      {
+        ErrorUtility.prepareThrowable(t, req);
+      }
+    }
+    
+    return false;
   }
 
   public static void prepareThrowable(Throwable t, HttpServletRequest req)

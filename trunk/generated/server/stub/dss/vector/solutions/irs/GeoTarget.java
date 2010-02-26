@@ -10,7 +10,6 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.MalariaSeason;
-import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -20,6 +19,19 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   public GeoTarget()
   {
     super();
+  }
+  
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
   }
 
   @Override
@@ -120,8 +132,8 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     ValueQuery valueQuery = new ValueQuery(queryFactory);
     Integer sum = 0;
 
-    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
-    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+//    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+//    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
 
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
     String sql = "(WITH RECURSIVE \n";

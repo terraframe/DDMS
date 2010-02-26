@@ -50,6 +50,13 @@ public class AggregatedITNExcelView extends AggregatedITNExcelViewBase implement
     PeriodType periodType = AggregatedCaseExcelView.getPeriodTypeByLabel(this.getPeriodType());
     
     ITNDataView data = ITNData.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getPeriodYear());
+
+    // Lock the instance if it exists
+    if(data.hasConcrete())
+    {
+      data = ITNData.lockView(data.getConcreteId());
+    }    
+    
     data.setBatchNumber(this.getBatchNumber());
     data.setReceivedForTargetGroups(this.getReceivedForTargetGroups());
     data.setReceivedForCommunityResponse(this.getReceivedForCommunityResponse());

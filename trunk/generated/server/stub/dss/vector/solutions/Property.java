@@ -282,13 +282,13 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     return Base30.toBase30String(totalOffset + counter, 8);
   }
 
-  @Authenticate
   @Transaction
+  @Authenticate
   public static void setUnitsPerDay(Integer unitsPerDay)
   {
     Property property = Property.getByPackageAndName(PropertyInfo.STANDARDS_PACKAGE, PropertyInfo.DEFAULT_UNITS);
 
-    property.lock();
+    property.appLock();
     property.setPropertyValue(unitsPerDay.toString());
     property.apply();
   }

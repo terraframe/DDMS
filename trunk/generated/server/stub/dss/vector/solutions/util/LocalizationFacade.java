@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Locale;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.cache.ObjectCache;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
@@ -22,6 +23,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     super();
   }
   
+  @Authenticate
   public static SupportedLocaleQuery getInstalledLocales()
   {
     SupportedLocaleQuery query = new SupportedLocaleQuery(new QueryFactory());
@@ -29,6 +31,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     return query;
   }
   
+  @Authenticate
   public static void installLocale(String localeString)
   {
     install(localeString);
@@ -68,6 +71,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     }
   }
   
+  @Authenticate
   public static InputStream exportFile(String[] locales)
   {
     MdssLocalizationExporter mdssLocalizer = new MdssLocalizationExporter();
@@ -81,6 +85,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     return new ByteArrayInputStream(mdssLocalizer.write());
   }
   
+  @Authenticate
   public static void importFile(InputStream file)
   {
     MdssLocalizationImporter mli = new MdssLocalizationImporter();

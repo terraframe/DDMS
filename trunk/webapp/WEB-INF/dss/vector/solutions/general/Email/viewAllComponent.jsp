@@ -13,6 +13,9 @@
     <mjl:attributeColumn attributeName="subject">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="createDate">
+      <mjl:row>
+        <fmt:formatDate pattern="${dateFormatPattern}" value="${item.createDate}" />
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sentDate">
       <mjl:row>

@@ -244,21 +244,43 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
 
   public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
-    InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);
-
     try
     {
-      this.view(LethalTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide));
+      InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);
+
+      try
+      {
+        this.view(LethalTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide));
+      }
+      catch (UndefinedLethalTimePropertyExceptionDTO e)
+      {
+        LethalTimePropertyDTO item = new LethalTimePropertyDTO(super.getClientRequest());
+        item.setInsecticide(insecticide);
+
+        req.setAttribute("item", item);
+
+        render("createComponent.jsp");
+      }
     }
-    catch (UndefinedLethalTimePropertyExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      LethalTimePropertyDTO item = new LethalTimePropertyDTO(super.getClientRequest());
-      item.setInsecticide(insecticide);
+      ErrorUtility.prepareProblems(e, req);
 
-      req.setAttribute("item", item);
+      this.failSearchByInsecticide(insecticideId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
 
-      render("createComponent.jsp");
+      this.failSearchByInsecticide(insecticideId);
     }
   }
 
+  @Override
+  public void failSearchByInsecticide(String insecticideId) throws IOException, ServletException
+  {
+    req.setAttribute("insecticideId", insecticideId);
+    
+    this.search();
+  }
 }

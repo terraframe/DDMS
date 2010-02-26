@@ -36,6 +36,19 @@ public class Email extends EmailBase implements com.terraframe.mojo.generation.l
     this.setBody(body);
   }
 
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
+  }
+
   public static void sendAll()
   {
     sendAll(EmailConfiguration.getDefault());

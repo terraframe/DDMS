@@ -15,7 +15,7 @@
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticideId">
-        <mjl:option>
+        <mjl:option selected="${(insecticideId != null && current.id == insecticideId) ? true : false}">
           ${current.displayLabel}
         </mjl:option>
       </mjl:select>

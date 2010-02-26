@@ -226,7 +226,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
     FileDownloadUtil.writeXLS(resp, "threshold", stream);
   }
-  
+
   @Override
   public void failExportThresholdData(ThresholdDataViewDTO[] views) throws IOException, ServletException
   {
@@ -400,16 +400,28 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   @Override
   public void exportHistory() throws IOException, ServletException
   {
-    ClientRequestIF request = this.getClientRequest();
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
 
-    InputStream stream = WeeklyThresholdViewDTO.exportHistory(request);
+      InputStream stream = WeeklyThresholdViewDTO.exportHistory(request);
 
-    FileDownloadUtil.writeXLS(resp, "ThresholdHistory", stream);
+      FileDownloadUtil.writeXLS(resp, "ThresholdHistory", stream);
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failExportHistory();
+      }
+    }
   }
 
   @Override
   public void failExportHistory() throws IOException, ServletException
   {
-    super.failExportHistory();
+    this.editThresholdConfiguration();
   }
 }

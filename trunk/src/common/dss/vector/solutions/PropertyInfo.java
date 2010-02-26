@@ -18,13 +18,13 @@ public interface PropertyInfo
 
   public static final String MONITOR_PACKAGE         = GENERAL_PACKAGE + ".intervention.monitor";
 
-  public static final String ADULT_DDA_RESISTANCE    = "aDDAR";
+  public static final String ADULT_DDA_RESISTANCE    = "ADDA Resistant";
 
-  public static final String ADULT_DDA_SUSCEPTIBILE  = "aDDAS";
+  public static final String ADULT_DDA_SUSCEPTIBILE  = "ADDA Susceptible";
 
-  public static final String LARVAE_DDA_RESISTANCE   = "lDDAR";
+  public static final String LARVAE_DDA_RESISTANCE   = "LDDA Resistant";
 
-  public static final String LARVAE_DDA_SUSCEPTIBILE = "lDDAS";
+  public static final String LARVAE_DDA_SUSCEPTIBILE = "LDDA Susceptible";
 
   public static final String UNIT_NOZZLE_COVERAGE    = "8002";
 

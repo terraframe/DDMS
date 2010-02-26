@@ -31,7 +31,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
 
   public static final String VIEWS            = "views";
 
-  public static final String ITEM            = "item";
+  public static final String ITEM             = "item";
 
   private static final long  serialVersionUID = 1254263184991L;
 
@@ -50,11 +50,11 @@ public class InterventionPlanningController extends InterventionPlanningControll
   {
     if (!this.isAsynchronous())
     {
-      if(option == null)
+      if (option == null)
       {
         option = "time";
       }
-      
+
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.put("option", option);
       utility.checkURL(this.getClass().getSimpleName(), "search");
@@ -103,43 +103,43 @@ public class InterventionPlanningController extends InterventionPlanningControll
       this.failSearchForTimePlanning(geoId, season);
     }
   }
-  
+
   @Override
   public void failSearchForTimePlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
     search("time");
   }
-  
+
   @Override
   public void exportTimePlanning(TimeInterventionPlanningViewDTO[] views) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     InputStream stream = TimeInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
-    
+
     FileDownloadUtil.writeXLS(resp, "planning", stream);
   }
-  
+
   @Override
   public void exportInsecticidePlanning(InsecticideInterventionPlanningViewDTO[] views) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     InputStream stream = InsecticideInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
-    
+
     FileDownloadUtil.writeXLS(resp, "planning", stream);
   }
-  
+
   @Override
   public void exportOperatorPlanning(OperatorInterventionPlanningViewDTO[] views) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     InputStream stream = OperatorInterventionPlanningViewDTO.exportToExcel(clientRequest, views);
-    
+
     FileDownloadUtil.writeXLS(resp, "planning", stream);
   }
-  
+
   @Override
   public void searchForInsceticidePlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
@@ -156,7 +156,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
       item.setSeason(season);
 
       InsecticideNozzleViewDTO[] configurations = InsecticideNozzleViewDTO.getAllActive(request);
-      
+
       req.setAttribute("configurations", Arrays.asList(configurations));
       req.setAttribute(VIEWS, views);
       req.setAttribute(ITEM, item);
@@ -176,13 +176,13 @@ public class InterventionPlanningController extends InterventionPlanningControll
       this.failSearchForInsceticidePlanning(geoId, season);
     }
   }
-  
+
   @Override
   public void failSearchForInsceticidePlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
     search("insecticide");
   }
-  
+
   @Override
   public void searchForOperatorPlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
@@ -216,7 +216,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
       this.failSearchForOperatorPlanning(geoId, season);
     }
   }
-  
+
   @Override
   public void failSearchForOperatorPlanning(String geoId, MalariaSeasonDTO season) throws IOException, ServletException
   {
@@ -229,26 +229,21 @@ public class InterventionPlanningController extends InterventionPlanningControll
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       PropertyDTO.setUnitsPerDay(request, unitsPerDay);
 
       search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failUnits = ( unitsPerDay == null ? null : unitsPerDay.toString() );
-
-      this.failSetSprayedUnitsPerDay(failUnits);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failUnits = ( unitsPerDay == null ? null : unitsPerDay.toString() );
+      if (!redirect)
+      {
+        String failUnits = ( unitsPerDay == null ? null : unitsPerDay.toString() );
 
-      this.failSetSprayedUnitsPerDay(failUnits);
+        this.failSetSprayedUnitsPerDay(failUnits);
+      }
     }
   }
 
@@ -263,7 +258,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
     ClientRequestIF request = super.getClientSession().getRequest();
 
     req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
-    
+
     req.setAttribute("time", "");
     req.setAttribute("insecticide", "");
     req.setAttribute("operator", "");

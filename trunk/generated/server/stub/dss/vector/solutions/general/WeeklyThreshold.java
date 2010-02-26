@@ -86,7 +86,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.terrafra
 
     if (!this.isNew())
     {
-      this.lock();
+      this.appLock();
     }
 
     if (this.getDateThresholdWasReached(attribute) == null)

@@ -214,8 +214,8 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
       // Ensure the user has permissions to create an Efficacy Assay
       new EfficacyAssayDTO(clientRequest);
-      
-      this.newInstance(new EfficacyAssayViewDTO(clientRequest));      
+
+      this.newInstance(new EfficacyAssayViewDTO(clientRequest));
     }
     catch (ProblemExceptionDTO e)
     {
@@ -248,7 +248,33 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   @Override
   public void cloneAssay(String id) throws IOException, ServletException
   {
-    this.cloneAssay(EfficacyAssayDTO.getView(this.getClientRequest(), id));
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      
+      // Ensure the user has permissions to create an Efficacy Assay
+      new EfficacyAssayDTO(request);
+
+      this.cloneAssay(EfficacyAssayDTO.getView(request, id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCloneAssay(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failCloneAssay(id);
+    }
+  }
+  
+  @Override
+  public void failCloneAssay(String id) throws IOException, ServletException
+  {
+    this.view(id);
   }
 
   public void cloneAssay(EfficacyAssayViewDTO dto) throws IOException, ServletException

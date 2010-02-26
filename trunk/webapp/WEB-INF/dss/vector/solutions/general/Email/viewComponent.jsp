@@ -10,7 +10,7 @@
     <mjl:input param="id" value="${item.id}" type="hidden" />
     <mjl:component param="dto" item="${item}">
       <mjl:dt attribute="createDate">
-        ${item.createDate}
+        <span class="formatDate">${item.createDate}</span>
       </mjl:dt>
       <mjl:dt attribute="fromAddress">
         ${item.fromAddress}
@@ -31,9 +31,7 @@
         ${item.body}
       </mjl:dt>
       <mjl:dt attribute="sentDate">
-        <span class="formatDate">
-          ${item.sentDate}
-        </span>
+        <span class="formatDate">${item.sentDate}</span>
       </mjl:dt>
       <mjl:dt attribute="error">
         ${item.error}

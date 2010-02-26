@@ -2,9 +2,9 @@ package dss.vector.solutions.entomology.assay;
 
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
-import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.ControlMortalityException;
+import dss.vector.solutions.entomology.ResistanceProperty;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -102,22 +102,22 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
 
   protected boolean isResistant()
   {
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_RESISTANCE);
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_RESISTANCE);
 
     return ( this.getMortality() < resistant );
   }
 
   protected boolean isPotentiallyResistant()
   {
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_RESISTANCE);
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_RESISTANCE);
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
 
     return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
   }
 
   protected boolean isSusceptible()
   {
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
 
     return ( this.getMortality() > susceptible );
   }
@@ -126,8 +126,10 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
   {
 
     String assayTable = MdBusiness.getMdBusiness(LarvaeDiscriminatingDoseAssay.CLASS).getTableName();
-    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_RESISTANCE);
-    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
+
+    Integer resistant = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_RESISTANCE);
+    Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
+
     String mortality = LarvaeDiscriminatingDoseAssay.MORTALITY;
 
     return CollectionAssay.getCollectionResistanceSQL(assayTable, mortality, resistant.toString(), susceptible.toString(),labels);

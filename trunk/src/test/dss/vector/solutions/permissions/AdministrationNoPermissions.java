@@ -30,21 +30,6 @@ public class AdministrationNoPermissions extends PermissionTest implements DoNot
     return TestFixture.getTestSuite(AdministrationNoPermissions.class, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.MANAGER, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.STOCK_STAFF);
   }
 
-  public void testUpdateProperty()
-  {
-    try
-    {
-      PropertyDTO property = PropertyDTO.getByPackageAndName(request, PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
-      property.lock();
-
-      fail("Able to write a property without permissions");
-    }
-    catch (WritePermissionExceptionDTO e)
-    {
-      // This is expected
-    }
-  }
-
   public void testCreateMalariaSeason()
   {
     try

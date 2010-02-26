@@ -14,6 +14,19 @@ public class LethalTimeProperty extends LethalTimePropertyBase implements
   {
     super();
   }
+
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
+  }
   
   @Override
   protected String buildKey()

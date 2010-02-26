@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.terraframe.mojo.business.rbac.ActorDAO;
 import com.terraframe.mojo.business.rbac.ActorDAOIF;
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.business.rbac.UserDAO;
@@ -37,11 +38,14 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
 
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
+
     for (MdAttributeDAOIF mdAttribute : mdClass.getAllDefinedMdAttributes())
     {
       // Don't show 'em system attributes, Owner, or Domain
       if (ignore(mdAttribute))
+      {
         continue;
+      }
 
       ReadableAttributeView view = new ReadableAttributeView();
       view.setAttributeName(mdAttribute.definesAttribute());
@@ -50,11 +54,12 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       view.setAttributeDescription(mdAttribute.getDescription(Session.getCurrentLocale()));
 
       Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
-      if (permissions.contains(Operation.READ))
-        view.setReadPermission(true);
-      else
-        view.setReadPermission(false);
-      view.apply();
+
+      boolean readable = permissions.contains(Operation.READ);
+
+      view.setReadPermission(readable);
+
+      // view.apply();
       list.add(view);
     }
 
@@ -65,21 +70,26 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   }
 
   @Transaction
+  @Authenticate
   public static void setActorAttributes(String universal, String actorName, ReadableAttributeView[] attributeViews)
   {
-    ActorDAO actor = (ActorDAO)getActor(actorName).getBusinessDAO();
+    ActorDAO actor = (ActorDAO) getActor(actorName).getBusinessDAO();
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
     Map<String, ? extends MdAttributeDAOIF> attributeMap = mdClass.getAllDefinedMdAttributeMap();
 
     for (ReadableAttributeView view : attributeViews)
     {
       MdAttributeDAOIF mdAttributeDAO = attributeMap.get(view.getAttributeName().toLowerCase());
+      
       if (ignore(mdAttributeDAO))
+      {
         continue;
+      }
 
       MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
       String oldValue = mdAttribute.getDisplayLabel().getValue();
       String newValue = view.getDisplayLabel();
+      
       if (!oldValue.equals(newValue))
       {
         mdAttribute.lock();
@@ -87,10 +97,14 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         mdAttribute.apply();
       }
 
-      if (view.getReadPermission())
+      if (view.getReadPermission() != null && view.getReadPermission())
+      {
         actor.grantPermission(Operation.READ, mdAttribute.getId());
+      }
       else
+      {
         actor.revokePermission(Operation.READ, mdAttribute.getId());
+      }
     }
     actor.apply();
   }
@@ -120,18 +134,16 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   /**
    * We ignore certain special attributes that don't make sense for this view.
    * This checks to see if the given attribute should be ignored.
-   *
+   * 
    * @param mdAttribute
    * @return
    */
   private static boolean ignore(MdAttributeDAOIF mdAttribute)
   {
-    if (mdAttribute==null)
+    if (mdAttribute == null)
       return true;
 
-    return mdAttribute.isSystem() ||
-           mdAttribute.definesAttribute().equals(MdAttributeInfo.OWNER) ||
-           mdAttribute.definesAttribute().equals(MdAttributeInfo.DOMAIN);
+    return mdAttribute.isSystem() || mdAttribute.definesAttribute().equals(MdAttributeInfo.OWNER) || mdAttribute.definesAttribute().equals(MdAttributeInfo.DOMAIN);
   }
 
   @Override

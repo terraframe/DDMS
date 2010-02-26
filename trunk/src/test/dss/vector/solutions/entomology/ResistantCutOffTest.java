@@ -1,9 +1,8 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
+import dss.vector.solutions.PropertyInfo;
 
 public class ResistantCutOffTest extends TestCase
 {
@@ -21,13 +20,13 @@ public class ResistantCutOffTest extends TestCase
 
   public Integer getProperty(String name)
   {
-    return Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, name);
+    return ResistanceProperty.getPropertyValue(name);
   }
 
   public void setPropertyValue(String name, Integer value)
   {
-    Property p = Property.getByPackageAndName(PropertyInfo.RESISTANCE_PACKAGE, name);
-    p.setPropertyValue(value.toString());
+    ResistanceProperty p = (ResistanceProperty) ResistanceProperty.getByKey(name);
+    p.setPropertyValue(value);
     p.apply();
   }
 

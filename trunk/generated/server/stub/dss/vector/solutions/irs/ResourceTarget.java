@@ -19,6 +19,19 @@ public class ResourceTarget extends ResourceTargetBase implements com.terraframe
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
+  }
+
+  @Override
   protected String buildKey()
   {
     if (this.getTargeter() != null && this.getSeason() != null)

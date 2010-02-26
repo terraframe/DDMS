@@ -20,17 +20,6 @@
               name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="dss.vector.solutions.MDSSUser">
-            <operation
-              name="CREATE" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdBusinessPermission>
-          <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.IPTRecipient">
             <operation
               name="CREATE" />
@@ -580,14 +569,6 @@
               name="DELETE" />
           </mdBusinessPermission>
           <mdViewPermission
-            type="dss.vector.solutions.query.QueryBuilder">
-            <mdMethodPermission
-              methodName="getQueryResults">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
-          <mdViewPermission
             type="dss.vector.solutions.irs.InterventionPlanningView">
             <operation
               name="CREATE" />
@@ -635,14 +616,6 @@
             type="dss.vector.solutions.general.ThresholdDataView">
             <mdMethodPermission
               methodName="setThresholdConfiguration">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.general.WeeklyThresholdView">
-            <mdMethodPermission
-              methodName="exportHistory">
               <operation
                 name="EXECUTE" />
             </mdMethodPermission>
@@ -945,6 +918,19 @@
             <operation
               name="DELETE" />
           </mdRelationshipPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdData">
+            <mdMethodPermission
+              methodName="checkThresholdViolation">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+            <mdMethodPermission
+              methodName="checkFacilityThresholdViolation">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
         </grant>
       </role>
     </permissions>

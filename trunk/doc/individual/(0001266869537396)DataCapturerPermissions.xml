@@ -51,6 +51,13 @@
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
+            type="dss.vector.solutions.entomology.ResistanceProperty">
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.Household">
             <operation
               name="CREATE" />
@@ -1009,8 +1016,21 @@
             <operation
               name="DELETE" />
           </mdRelationshipPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.general.ThresholdData">
+            <mdMethodPermission
+              methodName="checkThresholdViolation">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+            <mdMethodPermission
+              methodName="checkFacilityThresholdViolation">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>
+          </mdBusinessPermission>
         </grant>
-      </role>
+      </role>      
     </permissions>
   </doIt>
   <undoIt>

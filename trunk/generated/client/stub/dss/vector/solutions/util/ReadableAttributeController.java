@@ -54,6 +54,11 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   {
     try
     {
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("universal", universal);
+      utility.put("actor", actor);
+      utility.checkURL(this.getClass().getSimpleName(), "getAttributes");
+      
       ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(super.getClientRequest(), universal, actor);
       req.setAttribute("views", Arrays.asList(attributeViews));
       req.setAttribute("universal", universal);
@@ -71,7 +76,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       this.failGetAttributes(universal, actor);
     }
   }
-  
+
   @Override
   public void failGetAttributes(String universal, String actor) throws IOException, ServletException
   {
@@ -81,7 +86,26 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   @Override
   public void setAttributes(String universal, String actor, ReadableAttributeViewDTO[] attributeViews) throws IOException, ServletException
   {
-    ReadableAttributeViewDTO.setActorAttributes(super.getClientRequest(), universal, actor, attributeViews);
-    render("success.jsp");
+    try
+    {
+      ReadableAttributeViewDTO.setActorAttributes(super.getClientRequest(), universal, actor, attributeViews);
+      render("success.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.forceProblems(e, req);
+      this.failSetAttributes(universal, actor, attributeViews);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+      this.failSetAttributes(universal, actor, attributeViews);
+    }
+  }
+  
+  @Override
+  public void failSetAttributes(String universal, String actor, ReadableAttributeViewDTO[] attributeViews) throws IOException, ServletException
+  {
+    this.getAttributes(universal, actor);
   }
 }

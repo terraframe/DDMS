@@ -238,21 +238,44 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
 
   public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
-    ClientRequestIF request = super.getClientRequest();
-    InsecticideDTO insecticide = InsecticideDTO.get(request, insecticideId);
-
     try
     {
-      this.view(KnockDownTimePropertyDTO.searchByInsecticide(request, insecticide));
+      ClientRequestIF request = super.getClientRequest();
+      InsecticideDTO insecticide = InsecticideDTO.get(request, insecticideId);
+
+      try
+      {
+        this.view(KnockDownTimePropertyDTO.searchByInsecticide(request, insecticide));
+      }
+      catch (UndefinedKnockDownPropertyExceptionDTO e)
+      {
+        KnockDownTimePropertyDTO property = new KnockDownTimePropertyDTO(request);
+        property.setInsecticide(insecticide);
+
+        req.setAttribute("item", property);
+
+        render("createComponent.jsp");
+      }
     }
-    catch (UndefinedKnockDownPropertyExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      KnockDownTimePropertyDTO property = new KnockDownTimePropertyDTO(request);
-      property.setInsecticide(insecticide);
+      ErrorUtility.prepareProblems(e, req);
 
-      req.setAttribute("item", property);
-
-      render("createComponent.jsp");
+      this.failSearchByInsecticide(insecticideId);
     }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failSearchByInsecticide(insecticideId);
+    }
+  }
+  
+  @Override
+  public void failSearchByInsecticide(String insecticideId) throws IOException, ServletException
+  {
+    req.setAttribute("insecticideId", insecticideId);
+    
+    this.search();
   }
 }

@@ -111,7 +111,7 @@ public class ITNDataView extends ITNDataViewBase implements com.terraframe.mojo.
     }
   }
 
-  private boolean hasConcrete()
+  public boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }

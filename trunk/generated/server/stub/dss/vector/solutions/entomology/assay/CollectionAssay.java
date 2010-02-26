@@ -85,8 +85,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     String from = "FROM  " + assayTable + " AS assay,\n";
     String where = "";
 
-    select += "(CASE WHEN (assay." + mortality + " > " + resistant + ") THEN '" + resistantLabel + "'\n";
-    select += "WHEN (assay." + mortality + " > " + susceptible + ")  THEN '" + potentialyResistantLabel + "'\n";
+    select += "(CASE WHEN (assay." + mortality + " < " + resistant + ") THEN '" + resistantLabel + "'\n";
+    select += "WHEN (assay." + mortality + " < " + susceptible + ")  THEN '" + potentialyResistantLabel + "'\n";
     select += "ELSE '" + susceptibleLabel + "' END) AS " + resistance_result + ",\n";
 
     select = select.substring(0, select.length() - 2);

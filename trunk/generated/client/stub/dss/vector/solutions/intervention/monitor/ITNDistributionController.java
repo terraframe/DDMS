@@ -247,15 +247,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     try
     {
-      ITNDistributionViewDTO itn = ITNDistributionDTO.lockView(super.getClientRequest(), id);
-
-      this.setupReferences(itn);
-
-      req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
-      req.setAttribute("targetGroups", Arrays.asList(itn.getDistributionTargetGroups()));
-      req.setAttribute("item", itn);
-      
-      render("editComponent.jsp");
+      edit(ITNDistributionDTO.lockView(super.getClientRequest(), id));
     }
     catch (ProblemExceptionDTO e)
     {
@@ -268,6 +260,22 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       this.failEdit(id);
     }
 
+  }
+
+  private void edit(ITNDistributionViewDTO itn) throws IOException, ServletException
+  {
+    edit(itn, itn.getDistributionTargetGroups());
+  }
+
+  private void edit(ITNDistributionViewDTO itn, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
+  {
+    this.setupReferences(itn);
+
+    req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
+    req.setAttribute("targetGroups", Arrays.asList(targetGroups));
+    req.setAttribute("item", itn);
+    
+    render("editComponent.jsp");
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -323,10 +331,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   @Override
   public void failUpdate(ITNDistributionViewDTO dto, ITNDistributionTargetGroupDTO[] targetGroups) throws IOException, ServletException
   {
-    setupReferences(dto);
-    req.setAttribute("recipient", ITNRecipientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto, targetGroups);
   }
 
   private void renderCreate(ITNDistributionViewDTO itn, ITNDistributionTargetGroupDTO[] distributionTargetGroups) throws IOException, ServletException

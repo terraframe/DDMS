@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,8 +16,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ComponentDTO;
-import com.terraframe.mojo.business.ComponentDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.util.FileIO;
@@ -215,7 +212,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void failEdit(String id) throws IOException, ServletException
   {
-    this.view(id);
+    this.viewAll();
   }
 
   public void newInstance() throws IOException, ServletException

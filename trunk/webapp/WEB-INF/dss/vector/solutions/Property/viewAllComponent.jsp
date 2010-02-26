@@ -36,6 +36,7 @@
 
 </mjl:table>
 <br />
+<c:if test="${query2 != null}">
 <mjl:table classes="displayTable" var="item" query="${query2}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.DefaultGeoEntityController.viewPage.mojo" />
   <mjl:columns>
@@ -71,5 +72,5 @@
     </mjl:freeColumn>
   </mjl:columns>
 </mjl:table>
-
+</c:if>
 <br />

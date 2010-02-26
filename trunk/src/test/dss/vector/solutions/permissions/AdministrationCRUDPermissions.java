@@ -31,27 +31,6 @@ public class AdministrationCRUDPermissions extends PermissionTest implements DoN
     return TestFixture.getTestSuite(AdministrationCRUDPermissions.class, MDSSRoleInfo.MDSS_CORRDINATOR);
   }
 
-  public void testUpdateProperty()
-  {
-    PropertyDTO property = PropertyDTO.getByPackageAndName(request, PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.ADULT_DDA_RESISTANCE);
-    property.lock();
-
-    String value = property.getPropertyValue();
-
-    try
-    {
-      property.setPropertyValue("99");
-      property.apply();
-    }
-    finally
-    {
-
-      property = PropertyDTO.lock(systemRequest, property.getId());
-      property.setPropertyValue(value);
-      property.apply();
-    }
-  }
-
   public void testCreateMalariaSeason()
   {
     MalariaSeasonDTO dto = new MalariaSeasonDTO(request);

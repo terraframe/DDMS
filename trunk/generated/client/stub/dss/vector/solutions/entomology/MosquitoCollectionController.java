@@ -93,9 +93,6 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     try
     {
-      // Ensure the user has permissions to create a MosquitoCollection
-      new MosquitoCollectionDTO(this.getClientRequest());
-      
       if (dto.getLifeStage().size() == 0)
       {
         dto.addLifeStage(LifeStageDTO.ADULT);
@@ -125,8 +122,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     this.setupReferences(dto);
 
-    List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
-    
+    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
+
     req.setAttribute(ROWS, dto.getSubCollections());
     req.setAttribute(COLLECTION, new SubCollectionViewDTO(this.getClientRequest()));
     req.setAttribute(KEYS, this.getKeys());
@@ -136,7 +133,6 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("kda", kda);
     req.setAttribute("item", dto);
     req.setAttribute("entityUniversals", entityUniversals);
-
 
     render("viewComponent.jsp");
   }
@@ -303,7 +299,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
     SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
-    List<String> entityUniversals = Arrays.asList(new String[]{CollectionSiteDTO.CLASS}); 
+    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
 
     this.setupReferences(view);
 
@@ -376,12 +372,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
       if (concreteId == null || concreteId.equals(""))
       {
-        this.create(collection);
+        // Ensure the user has permissions to create a MosquitoCollection
+        new MosquitoCollectionDTO(this.getClientRequest());
       }
-      else
-      {
-        this.view(concreteId);
-      }
+
+      this.create(collection);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -398,7 +393,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   @Override
   public void failForward(MosquitoCollectionViewDTO dto) throws IOException, ServletException
   {
-    this.create(dto);
+    this.search();
   }
 
   @Override

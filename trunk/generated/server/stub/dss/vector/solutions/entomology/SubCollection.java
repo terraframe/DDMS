@@ -39,22 +39,35 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
   }
 
   @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else
+    {
+      return this.getClassDisplayLabel();
+    }
+  }
+
+  @Override
   public void validateFemale()
   {
     if (this.getCollection() != null && this.getFemale() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.ADULT))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, FEMALE);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }
@@ -65,17 +78,17 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     if (this.getCollection() != null && this.getMale() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.ADULT))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, MALE);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }
@@ -86,17 +99,17 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     if (this.getCollection() != null && this.getPupae() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.IMMATURE))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, PUPAE);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }
@@ -107,17 +120,17 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     if (this.getCollection() != null && this.getLarvae() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.IMMATURE))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, LARVAE);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }
@@ -128,17 +141,17 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     if (this.getCollection() != null && this.getUnknowns() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.IMMATURE) && !lifeStage.contains(LifeStage.ADULT))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, UNKNOWNS);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }
@@ -149,17 +162,17 @@ public class SubCollection extends SubCollectionBase implements com.terraframe.m
     if (this.getCollection() != null && this.getEggs() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
-      
+
       if (!lifeStage.contains(LifeStage.EGG))
       {
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
-        
+
         NotApplicableProblem p = new NotApplicableProblem();
         p.setNotification(this, EGGS);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
-        p.throwIt();        
+        p.throwIt();
       }
     }
   }

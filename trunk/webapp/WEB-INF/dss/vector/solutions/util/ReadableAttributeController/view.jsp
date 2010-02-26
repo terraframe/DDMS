@@ -8,6 +8,7 @@
 
       <table class="displayTable">
         <mjl:components items="${views}" param="attributeViews" var="view" varStatus="status">
+          <mjl:input type="hidden" param="attributeName" value="${view.attributeName}"/>
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
             ${view.attributeRequired == true ? "*" : ""}

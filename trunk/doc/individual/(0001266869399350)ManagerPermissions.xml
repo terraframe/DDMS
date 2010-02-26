@@ -139,14 +139,6 @@
                 name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.query.QueryBuilder">
-            <mdMethodPermission
-              methodName="getQueryResults">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.query.PersistsSearch">
             <operation

@@ -1,6 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -93,6 +94,12 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
         availableOperators.add(operator);
       }
     }
+
+    if(!team.isNewInstance())
+    {
+      currentOperators.addAll(Arrays.asList(SprayTeamDTO.getOperatorViews(clientRequest, team.getId())));
+    }
+    
     req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
     req.setAttribute("assigned", assignedOperators);
