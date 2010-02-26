@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
+  name="dss.vector.solutions.OverlappingTermRootException">
+  <!--
+    - {browserField} browserField
+    - {browserRoot} browserRoot
+    - {id} id
+    -->
+  <locale language="defaultLocale">This root overlaps with the existing root [{browserRoot}].</locale>
+</exception>

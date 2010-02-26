@@ -7,6 +7,7 @@ import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
@@ -14,6 +15,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
+
+import dss.vector.solutions.OverlappingTermRootException;
 
 public class BrowserField extends BrowserFieldBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -139,7 +142,8 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     {
       while (roots.hasNext())
       {
-        if (roots.next().getTerm().equals(term))
+    	BrowserRoot existingRoot = roots.next();
+        if (existingRoot.getTerm().equals(term))
         {
           String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
 
@@ -150,6 +154,22 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
 
           throw ex;
         }
+        
+        AllPathsQuery q = new AllPathsQuery(new QueryFactory());
+        Condition parent = AND.get(q.getParentTerm().EQ(root.getTerm()), q.getChildTerm().EQ(existingRoot.getTerm()));
+        Condition child = AND.get(q.getParentTerm().EQ(existingRoot.getTerm()), q.getChildTerm().EQ(root.getTerm()));
+        q.WHERE(OR.get(parent,child));
+        if (q.getCount() > 0) {
+            String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
+
+            String msg = "The root overlaps with the existing root[" + existingRoot.getTerm().getName() + "].";
+            OverlappingTermRootException ex = new OverlappingTermRootException(msg);
+            ex.setBrowserField(display);
+            ex.setBrowserRoot(existingRoot.getTerm().getName());
+
+            throw ex;
+        }
+        
       }
     }
     finally
