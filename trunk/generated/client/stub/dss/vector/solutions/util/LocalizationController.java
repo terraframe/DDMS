@@ -39,6 +39,8 @@ public class LocalizationController extends LocalizationControllerBase implement
 
   private void renderSelectLocales() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "selectLocales");
+    
     SupportedLocaleQueryDTO query = LocalizationFacadeDTO.getInstalledLocales(getClientRequest());
     req.setAttribute("query", query);
     render("selectLocales.jsp");
@@ -91,11 +93,29 @@ public class LocalizationController extends LocalizationControllerBase implement
 
   public void exportFile(String[] locales) throws IOException, ServletException
   {
+    try
+    {
     ClientRequestIF clientRequest = this.getClientRequest();
 
     InputStream stream = LocalizationFacadeDTO.exportFile(clientRequest, locales);
 
     FileDownloadUtil.writeXLS(resp, "Localization", stream);
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failExportFile(locales);
+      }
+    }
+  }
+  
+  @Override
+  public void failExportFile(String[] locales) throws IOException, ServletException
+  {
+    this.selectLocales();
   }
 
   public void newLocale() throws IOException, ServletException

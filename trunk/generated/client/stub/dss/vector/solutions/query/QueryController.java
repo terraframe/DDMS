@@ -778,8 +778,10 @@ public class QueryController extends QueryControllerBase implements com.terrafra
       symptoms.put("relType", IndividualCaseSymptomDTO.CLASS);
       symptoms.put("relAttribute", IndividualCaseSymptomDTO.HASSYMPTOM);
       symptoms.put("options", new JSONArray());
-      IndividualInstanceDTO dto = new IndividualInstanceDTO(request);
-      for (TermDTO term : dto.getSymptoms())
+      
+      TermDTO[] allSymptoms = TermDTO.getRootChildren(request, IndividualInstanceDTO.CLASS, IndividualInstanceDTO.SYMPTOM, false);
+      
+      for (TermDTO term : allSymptoms)
       {
         JSONObject option = new JSONObject();
         option.put("id", term.getId());

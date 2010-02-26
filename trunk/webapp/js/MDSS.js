@@ -88,17 +88,17 @@ var MDSS = {
     var lowerDiv = document.createElement('div');
     YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
 
-    var no = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(no, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice_No);
-    YAHOO.util.Event.on(no, 'click', function(){ modal.destroy(); onNo()});
-    lowerDiv.appendChild(no);
-
     var yes = document.createElement('input');
     YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
     YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice_Yes);
     YAHOO.util.Event.on(yes, 'click', function(){ modal.destroy(); onYes()});
     lowerDiv.appendChild(yes);
+
+    var no = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(no, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice_No);
+    YAHOO.util.Event.on(no, 'click', function(){ modal.destroy(); onNo()});
+    lowerDiv.appendChild(no);
 
     var wrapperDiv = document.createElement('div');
     wrapperDiv.appendChild(upperDiv);
