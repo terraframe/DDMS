@@ -188,7 +188,7 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
   public void viewAll() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    EmailConfigurationQueryDTO query = EmailConfigurationDTO.getAllInstances(clientRequest, EmailConfiguration.ID, true, 20, 1);
+    EmailConfigurationQueryDTO query = EmailConfigurationDTO.getAllInstances(clientRequest, EmailConfigurationDTO.ID, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
