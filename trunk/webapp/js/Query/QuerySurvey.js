@@ -34,8 +34,8 @@ Mojo.Meta.newClass('MDSS.QuerySurvey', {
           this.$initialize(selectableGroups, queryList);   
           
           var picker = this.getGeoPicker();      
-          picker.setPolitical(false);
-          picker.setSprayTargetAllowed(true);
+          picker.setPolitical(true);
+          picker.setSprayTargetAllowed(false);
           picker.addExtraUniversal('dss.vector.solutions.geo.generated.SentinelSite');
           
      
