@@ -1,6 +1,5 @@
 format-version: 1.2
-date: 10:02:2010 15:24
-saved-by: Saul
+date: 22:02:2010 13:44
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
 idspace: span http://www.ifomis.org/bfo/1.1/span#
@@ -5021,6 +5020,7 @@ creation_date: 2009-10-07T09:27:34Z
 id: MDSS:0000395
 name: NGO
 is_a: MDSS:0000392 ! ITN source
+is_a: MDSS:0000480 ! organization conducting active case surveillance
 created_by: Saul
 creation_date: 2009-10-07T09:27:34Z
 
@@ -5618,6 +5618,41 @@ name: each
 is_a: MDSS:0000478 ! quality of equipment
 created_by: Saul
 creation_date: 2010-02-10T03:23:37Z
+
+[Term]
+id: MDSS:0000480
+name: organization conducting active case surveillance
+is_a: IDOMAL:0000001 ! role
+created_by: Saul
+creation_date: 2010-02-22T11:19:51Z
+
+[Term]
+id: MDSS:0000481
+name: government health care organization
+is_a: MDSS:0000480 ! organization conducting active case surveillance
+created_by: Saul
+creation_date: 2010-02-22T11:22:13Z
+
+[Term]
+id: MDSS:0000482
+name: <new term>
+is_obsolete: true
+created_by: Saul
+creation_date: 2010-02-22T11:22:41Z
+
+[Term]
+id: MDSS:0000483
+name: in-country NGO
+is_a: MDSS:0000395 ! NGO
+created_by: Saul
+creation_date: 2010-02-22T11:25:01Z
+
+[Term]
+id: MDSS:0000484
+name: foreign NGO
+is_a: MDSS:0000395 ! NGO
+created_by: Saul
+creation_date: 2010-02-22T11:25:27Z
 
 [Term]
 id: MIRO:00000001
