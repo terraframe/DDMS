@@ -29,7 +29,10 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
   public void apply()
   {
     // Change for ticket #664
-    this.setSessionLimit(5);
+    if (this.isNew())
+    {
+      this.setSessionLimit(5);
+    }
 
     super.apply();
 
