@@ -15,6 +15,7 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
@@ -223,14 +224,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     // Build select clause. This would be cleaner if the API supported
     // incrementally adding
     // to the select clause. One day that will be supported.
-    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 1];
+    SelectablePrimitive[] selectClauseArray = new SelectablePrimitive[selectableArray.length + 1];
     for (int k = 0; k < selectableArray.length; k++)
     {
       selectClauseArray[k] = selectableArray[k];
     }
     selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * STRPOS(" + concatenate(searchableArray) + ", ' " + token + "'))");
-
-    vQ.SELECT(selectClauseArray);
+    vQ.SELECT(new DISTINCT(selectClauseArray));
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + token + "%"));
 
     for (Condition condition : conditionArray)
