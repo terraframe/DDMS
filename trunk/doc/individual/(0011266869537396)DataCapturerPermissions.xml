@@ -9,6 +9,43 @@
           roleName="mdss.GUIVisibility" />
         <grant>
           <mdBusinessPermission
+            type="dss.vector.solutions.irs.TeamMember">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.geo.GeoSynonym">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
+          <mdRelationshipPermission
+            type="dss.vector.solutions.geo.HasSynonym">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="WRITE_CHILD" />
+            <operation
+              name="WRITE_PARENT" />
+            <operation
+              name="DELETE" />
+          </mdRelationshipPermission>
+          <mdBusinessPermission
             type="dss.vector.solutions.surveillance.AggregatedCase">
             <operation
               name="CREATE" />
