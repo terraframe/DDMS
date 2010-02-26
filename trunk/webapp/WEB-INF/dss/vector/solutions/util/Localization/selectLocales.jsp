@@ -56,7 +56,7 @@ document.getElementsByName("LocalizationController.form.exportFile.button")[0].d
 <div class="pageTitle"><fmt:message key="Import_Localization" /></div>
 <dl>
 <form method="post" enctype="multipart/form-data" action="dss.vector.solutions.util.LocalizationController.importFile.mojo">
-  XLS File: <br />
+  <fmt:message key="xls_file"/>: <br />
   <input type="file" name="upfile"/> <br />
   <input class="submitButton" type="submit" value="<fmt:message key="Import" />" style="margin-left: 0px; top: 0px;" />
 </form>
