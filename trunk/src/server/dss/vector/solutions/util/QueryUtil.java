@@ -627,7 +627,7 @@ public class QueryUtil implements Reloadable
 
       if (joinData.geoThematicAlias != null)
       {
-        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, "data");
       }
     }
 
@@ -641,10 +641,24 @@ public class QueryUtil implements Reloadable
 
       // Name the thematic column if a thematic variable has been selected
       
-      if (thematicUserAlias != null && thematicUserAlias.length() > 0)
+      if (layer.hasThematicVariable())
       {
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
-        valueQuery.getSelectableRef(alias).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+        Selectable thematic = valueQuery.getSelectableRef(alias);
+        
+        // Only lock and apply the layer if it's not new to avoid erroring out on a new
+        // instance used for calculations.
+        if(!layer.isNew())
+        {
+          layer.appLock();
+        }
+        
+        layer.setThematicColumnAlias(thematic.getColumnAlias());
+        
+        if(!layer.isNew())
+        {
+          layer.apply();
+        }
       }
 
       // exclude any rows without geometry data
@@ -711,7 +725,7 @@ public class QueryUtil implements Reloadable
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
 
             joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = entityNameAlias + "_" + QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAlias = entityNameAlias + "_entityname_thematic";
             joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
             thematicSel = geoEntityQuery2.getEntityName(joinData.geoThematicAlias);
             selectables.add(thematicSel);
@@ -721,7 +735,7 @@ public class QueryUtil implements Reloadable
             geoEntityQuery2 = new GeoEntityQuery(queryFactory);
 
             joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = geoIdAlias + "_" + QueryConstants.THEMATIC_DATA_COLUMN;
+            joinData.geoThematicAlias = geoIdAlias + "_geoid_thematic";
             joinData.geoThematicAttr = GeoEntity.GEOID;
             thematicSel = geoEntityQuery2.getGeoId(joinData.geoThematicAlias);
             selectables.add(thematicSel);

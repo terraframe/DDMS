@@ -19,7 +19,7 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.WebFile;
 import com.terraframe.mojo.util.FileIO;
 
-public class Layer extends LayerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Layer extends LayerBase implements com.terraframe.mojo.generation.loader.Reloadable, LayerIF
 {
   private static final long serialVersionUID = 1240900978895L;
 
@@ -36,6 +36,12 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     return this.getId().hashCode();
   }
   
+  public boolean hasThematicVariable()
+  {
+    String alias = this.getThematicUserAlias();
+    return alias != null && alias.length() != 0;
+  }
+  
   @Override
   public QueryInfo calculateQueryInfo()
   {
@@ -49,27 +55,29 @@ public class Layer extends LayerBase implements com.terraframe.mojo.generation.l
     ValueQuery wrapper = new ValueQuery(f);
     wrapper.FROM(this.getViewName(), "queryInfo");
     
-    String thematicVar = this.getThematicUserAlias();
     List<Selectable> selectables = new LinkedList<Selectable>();
-    if(thematicVar != null && thematicVar.length() > 0)
+    if(this.hasThematicVariable())
     {
       info.setHasThematicVariable(true);
       
       ValueQuery vq = layersVQ.get(this);
       
-      Selectable selectable = vq.getSelectableRef(thematicVar);
+      String userAlias = this.getThematicUserAlias();
+      Selectable selectable = vq.getSelectableRef(userAlias);
       
+      // NOTE: the column alias was set in the call to MapUtil.createDBViews
+      String columnAlias = this.getThematicColumnAlias();
       if(selectable instanceof SelectableChar)
       {
-        selectables.add(wrapper.aSQLAggregateCharacter("min_data", "MIN("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
-        selectables.add(wrapper.aSQLAggregateCharacter("max_data", "MAX("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+        selectables.add(wrapper.aSQLAggregateCharacter("min_data", "MIN("+columnAlias+")"));
+        selectables.add(wrapper.aSQLAggregateCharacter("max_data", "MAX("+columnAlias+")"));
       }
       else
       {
         info.setIsThematicVariable(true);
         
-        selectables.add(wrapper.aSQLAggregateDouble("min_data", "MIN("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
-        selectables.add(wrapper.aSQLAggregateDouble("max_data", "MAX("+QueryConstants.THEMATIC_DATA_COLUMN+")"));
+        selectables.add(wrapper.aSQLAggregateDouble("min_data", "MIN("+columnAlias+")"));
+        selectables.add(wrapper.aSQLAggregateDouble("max_data", "MAX("+columnAlias+")"));
       }
     }
     

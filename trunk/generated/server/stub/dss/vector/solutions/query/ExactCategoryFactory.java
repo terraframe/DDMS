@@ -59,7 +59,7 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
 
 		wrapper.FROM(layer.getViewName(), "layer_values_view");
 
-		SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT " + QueryConstants.THEMATIC_DATA_COLUMN);
+		SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT " + layer.getThematicColumnAlias());
 
 		wrapper.SELECT(new DISTINCT(layerValues));
 

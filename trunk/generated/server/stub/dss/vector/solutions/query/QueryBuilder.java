@@ -1,10 +1,13 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import com.terraframe.mojo.MojoException;
+import com.terraframe.mojo.business.SmartException;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -33,8 +36,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     super();
   }
 
-  // FIXME have calling code pass in the qualified query type instead of just
-  // the class.
   public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer)
   {
     Class<?> clazz = null;
@@ -47,6 +48,24 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       clazz = Class.forName(queryClass);
       xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class);
       valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);
+    }
+    catch (InvocationTargetException e)
+    {
+      Throwable target = e.getTargetException();
+      if (target instanceof MojoException)
+      {
+        MojoException fwEx = (MojoException) target;
+        throw fwEx;
+      }
+      else if (target instanceof SmartException)
+      {
+        throw (SmartException) target;
+      }
+      else
+      {
+        ProgrammingErrorException ex = new ProgrammingErrorException(e);
+        throw ex;
+      }
     }
     catch (Throwable t)
     {

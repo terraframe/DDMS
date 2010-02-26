@@ -1,6 +1,5 @@
 package dss.vector.solutions.query;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -123,7 +122,7 @@ public class MappingController extends MappingControllerBase implements
       // Re-print all SLD files for the layers
       for(LayerDTO layer : map.getAllLayer())
       {
-        new SLDWriter(map, layer).write();
+        new SLDWriter(layer).write();
       }
       
       JSONReturnObject json = new JSONReturnObject(mapData);

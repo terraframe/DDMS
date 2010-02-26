@@ -22,8 +22,6 @@ import dss.vector.solutions.query.StylesDTO;
 
 public class SLDWriter implements Reloadable
 {
-  private SavedMapDTO map;
-  
   private LayerDTO      layer;
 
   private StringBuilder builder;
@@ -33,9 +31,8 @@ public class SLDWriter implements Reloadable
    * 
    * @param layer
    */
-  public SLDWriter(SavedMapDTO map, LayerDTO layer)
+  public SLDWriter(LayerDTO layer)
   {
-    this.map = map;
     this.layer = layer;
     builder = new StringBuilder();
   }
@@ -51,24 +48,23 @@ public class SLDWriter implements Reloadable
     
     boolean asPoint = this.layer.getRenderAs().get(0).equals(AllRenderTypesDTO.POINT);
 
-    String thematicUserAlias = layer.getThematicUserAlias();
-    if (thematicUserAlias != null && thematicUserAlias.length() > 0)
+    if (layer.hasThematicVariable())
     {
       // The layer is thematic, so write all the category styles/ranges.
       List<? extends AbstractCategoryDTO> categories = this.layer.getAllHasCategory();
       for(AbstractCategoryDTO category : categories)
       {
-        Filter tFilter = new ThematicLabelFilter();
+        Filter tFilter = new ThematicLabelFilter(layer);
         Filter filter;
         if (category instanceof RangeCategoryDTO)
         {
-          filter = new RangeFilter((RangeCategoryDTO) category);
+          filter = new RangeFilter(layer, (RangeCategoryDTO) category);
         }
         else
         {
-          filter = new NonRangeFilter((NonRangeCategoryDTO) category);
+          filter = new NonRangeFilter(layer, (NonRangeCategoryDTO) category);
         }
-        Filter cFilter = new CompositeFilter(tFilter, filter);
+        Filter cFilter = new CompositeFilter(layer, tFilter, filter);
 
         StylesDTO categoryStyle = category.getStyles();
         
@@ -77,7 +73,7 @@ public class SLDWriter implements Reloadable
         Symbolizer tSym;
         if(layer.getShowThematicValue())
         {
-          tSym = new ThematicTextSymbolizer(categoryStyle);
+          tSym = new ThematicTextSymbolizer(layer, categoryStyle);
         }
         else
         {
@@ -96,8 +92,8 @@ public class SLDWriter implements Reloadable
       // Write the default styles for when the thematic value
       // is null. THIS MUST COME BEFORE NON-NULL THEMATIC VALUES
       TextSymbolizer textSym = new TextSymbolizer(defaultStyle);
-      ThematicNullLabelFilter nFilter = new ThematicNullLabelFilter();
-      Filter cFilter = new CompositeFilter(nFilter);
+      ThematicNullLabelFilter nFilter = new ThematicNullLabelFilter(layer);
+      Filter cFilter = new CompositeFilter(layer, nFilter);
       Rule rule = new Rule(cFilter, sym, textSym);
       rule.write(this);
 
@@ -105,13 +101,13 @@ public class SLDWriter implements Reloadable
       Symbolizer tSymbolizer;
       if(layer.getShowThematicValue())
       {
-        tSymbolizer = new ThematicTextSymbolizer(defaultStyle);
+        tSymbolizer = new ThematicTextSymbolizer(layer, defaultStyle);
       }
       else
       {
         tSymbolizer = new TextSymbolizer(defaultStyle);
       }
-      ElseFilter elseFilter = new ElseFilter();
+      ElseFilter elseFilter = new ElseFilter(layer);
       Rule thematicRule = new Rule(elseFilter, sym, tSymbolizer);
       thematicRule.write(this);
     }

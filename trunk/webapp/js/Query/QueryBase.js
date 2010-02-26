@@ -555,7 +555,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var countCheck = document.createElement('input');
         YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
         YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
-        YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j]);
+        YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j].toLowerCase());
         YAHOO.util.Dom.addClass(countCheck,'uncheckMeOnQueryTypeSwitch');
         YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
         this._defaults.push({element: countCheck, checked: false});

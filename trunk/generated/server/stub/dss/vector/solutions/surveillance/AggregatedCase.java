@@ -3,6 +3,7 @@ package dss.vector.solutions.surveillance;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -117,6 +118,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
       }
     }
 
+    Collections.sort(visibleAttributeNameList);
     String[] visibleAttributeNames = new String[visibleAttributeNameList.size()];
 
     visibleAttributeNameList.toArray(visibleAttributeNames);

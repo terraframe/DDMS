@@ -122,11 +122,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       });
 
-      var debug = document.getElementById('debug_xml');
-      if(debug){
-      	debug.value = xml;
-      	xml = document.getElementById('debug_xml').value;
+      if(/^(127\.0\.0\.1)|(localhost)$/.test(window.location.hostname))
+      {
+        var debug = document.getElementById('debug_xml')
+        if(debug){
+        	debug.value = xml;
+        	xml = document.getElementById('debug_xml');
+        }
       }
+      
       var page = this.getCurrentPage();
 
       this._dataQueryFunction(request,this._xmlToValueQueryClass, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
@@ -552,7 +556,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var column = this._queryPanel.getColumn(attribute.getKey());
         this._queryPanel.removeColumn(column);
 
-        this._countSelectable = null;
+        this._ratioSelectable = null;
       }
     },
 
@@ -737,11 +741,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         	}
           else
           {
-          	thisRef._checkBox(attributeName);
+          	thisRef._checkBox(userAlias);
           }
           
         },
         sqlinteger: function(entityAlias, attributeName, userAlias){
+          
+          thisRef._checkBox(userAlias);
+        },
+        sqldouble: function(entityAlias, attributeName, userAlias){
           
           thisRef._checkBox(userAlias);
         },
@@ -1014,8 +1022,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._exclusionClasses.push(group.group);
       };
 
-      selectableGroups.map(setupDiv,this);
-
+      Mojo.Iter.forEach(selectableGroups, setupDiv, this);
     },
 
 

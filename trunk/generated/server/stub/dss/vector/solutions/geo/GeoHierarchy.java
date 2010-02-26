@@ -70,6 +70,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   public static final Integer SRID             = 4326;
 
   private static String       allowedInTree    = null;
+  
+  private static final String THEMATIC_SUFFIX = "_thematic";
 
   // private static Object lockObj = new Object();
 
@@ -118,11 +120,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
         selectables.add(attr);
         
         // Look for the thematic variable. The user alias is the name of the attribute
-        String thematicUserAlias = layer.getThematicUserAlias();
-        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        if(layer.hasThematicVariable())
         {
+          String thematicUserAlias = layer.getThematicUserAlias();
           Attribute thematic = geoQuery2.get(thematicUserAlias);
-          thematic.setUserDefinedAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+          
+          // Set a user alias that differs from any alias specified on the first geoQuery
+          // to avoid an AmbiguousAttributeException.
+          thematic.setUserDefinedAlias(thematicUserAlias+THEMATIC_SUFFIX);
           selectables.add(thematic);
         }
       }
@@ -141,10 +146,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
         geometry.setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
         vq.WHERE(geometry.NE(null));
         
-        String thematicUserAlias = layer.getThematicUserAlias();
-        if(thematicUserAlias != null && thematicUserAlias.length() > 0)
+        if(layer.hasThematicVariable())
         {
-          vq.getSelectableRef(QueryConstants.THEMATIC_DATA_COLUMN).setColumnAlias(QueryConstants.THEMATIC_DATA_COLUMN);
+          Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias()+THEMATIC_SUFFIX);
+          layer.appLock();
+          layer.setThematicColumnAlias(thematic.getColumnAlias());
+          layer.apply();
           
           vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
@@ -913,6 +920,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   public void validateConsistentHierarchy()
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
+    if(parents.size() == 0)
+    {
+      // Don't validate if there are no parents (i.e., Earth)
+      return;
+    }
+    
     boolean isPolitical = this.getPolitical();
     boolean isSpray = this.getSprayTargetAllowed();
 
@@ -1490,74 +1503,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     String sql = vQuery.getSQL();
     return sql;
   }
-
-  /**
-   * FIXME MAP
-   * Creates a database view that represents this GeoHierarchy (i.e., the
-   * underlying GeoEntity MdBusiness and its spatial attribute). If the view
-   * already exists this method does nothing but return the view name.
-   * 
-   * @return The name of the database view
-  public boolean createViewTable(String sessionId)
-  {
-    MdBusiness md = this.getGeoEntityClass();
-    String viewName = md.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
-
-    MdAttributeGeometry mdAttrGeo = getGeometry(md);
-    String sql = this.getViewSQL(md, mdAttrGeo);
-
-    // as with thematic layers, drop the view and recreate
-    // to force a refresh of the sql (in case there was a change)
-    try
-    {
-      Database.dropView(viewName, sql, false);
-    }
-    catch (DatabaseException e)
-    {
-      // View doesn't exist, but that's okay. It may have never
-      // been created or a cleanup task has removed it.
-    }
-    finally
-    {
-      // Create a new view that will reflect the current state of the query.
-      Database.createView(viewName, sql);
-    }
-
-    MapUtil.reload(sessionId, viewName, mdAttrGeo);
-
-    // To avoid a bug in GeoServer, only include the layer if count > 0
-    String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
-    ResultSet resultSet = Database.query(countSQL);
-
-    Long count = 0L;
-
-    try
-    {
-      resultSet.next();
-      String result = resultSet.getString("ct");
-      count = new Long(result.toString());
-    }
-    catch (SQLException sqlEx1)
-    {
-      Database.throwDatabaseException(sqlEx1);
-    }
-    finally
-    {
-      try
-      {
-        java.sql.Statement statement = resultSet.getStatement();
-        resultSet.close();
-        statement.close();
-      }
-      catch (SQLException sqlEx2)
-      {
-        Database.throwDatabaseException(sqlEx2);
-      }
-    }
-
-    return count > 0;
-  }
-   */
 
   public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {

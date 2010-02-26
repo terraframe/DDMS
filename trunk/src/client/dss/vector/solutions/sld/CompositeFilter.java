@@ -2,12 +2,16 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.query.LayerDTO;
+
 public class CompositeFilter extends Filter implements Reloadable
 {
   private Filter[] filters;
   
-  public CompositeFilter(Filter ... filters)
+  protected CompositeFilter(LayerDTO layer, Filter ... filters)
   {
+    super(layer);
+    
     this.filters = filters;  
   }
 

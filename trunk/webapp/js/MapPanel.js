@@ -362,6 +362,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _generateCategoriesListener : function(params)
     {
       var params2 = Mojo.Util.collectFormValues('dss.vector.solutions.query.Layer.form.id');
+      
+      this._convertRefSelectParams(params2);
+      
+      params2['savedMapId'] = MDSS.MapPanel.getCurrentMap();
+      params2['layer.isNew'] = 'true';      
+      
       Mojo.Util.copy(params2, params);
     
       var request = new MDSS.Request({
@@ -1020,6 +1026,25 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._destroyModal();
     },
     
+    _doDeleteMap : function(mapId)
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(){
+
+          // remove the option node for the deleted map
+          var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+          var option = mapList.options[mapList.selectedIndex];
+          mapList.removeChild(option);
+          mapList.selectedIndex = 0;
+          
+          this.that._loadDefaultMap();
+        }
+      });
+        
+      Mojo.Facade.deleteEntity(request, mapId);
+    },
+    
     _deleteMap : function()
     {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
@@ -1028,19 +1053,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var option = mapList.options[mapList.selectedIndex];
         var mapId = option.value;
         
-        var request = new MDSS.Request({
-          that : this,
-          onSuccess : function(){
-
-            // remove the option node for the deleted map
-            mapList.removeChild(option);
-            mapList.selectedIndex = 0;
-            
-            this.that._loadDefaultMap();
-          }
-        });
-        
-        Mojo.Facade.deleteEntity(request, mapId);
+        var doDel = Mojo.Util.bind(this, this._doDeleteMap, mapId);
+        MDSS.confirmModal(MDSS.Localized.Confirm_Delete_Map, doDel, function(){});
       }
     },
     

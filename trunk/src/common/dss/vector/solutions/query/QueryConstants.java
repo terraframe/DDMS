@@ -15,7 +15,7 @@ public class QueryConstants implements Reloadable
 
   public static final String FEATURE_NAMESPACE = "MDSS_maps";
 
-  public static final String THEMATIC_DATA_COLUMN = "data";
+//  public static final String THEMATIC_DATA_COLUMN = "data";
 
   public static final String ENTITY_NAME_COLUMN = "entityname_v";
   

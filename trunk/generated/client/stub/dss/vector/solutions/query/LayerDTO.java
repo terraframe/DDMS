@@ -2,7 +2,7 @@ package dss.vector.solutions.query;
 
 
 public class LayerDTO extends LayerDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.terraframe.mojo.generation.loader.Reloadable, LayerIF {
   private static final long serialVersionUID = 1240900979001L;
   
   public LayerDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -19,6 +19,21 @@ public class LayerDTO extends LayerDTOBase
   protected LayerDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
+  }
+  
+  public boolean hasThematicVariable()
+  {
+    String alias = this.getThematicUserAlias();
+    return alias != null && alias.length() != 0;
+  }
+  
+  /**
+   * This accessor lowercases the column alias to match actual column alias
+   * which is lowercased by the Query API prior to building the SQL.
+   */
+  public String getThematicColumnAlias()
+  {
+    return super.getThematicColumnAlias().toLowerCase();
   }
     
 }

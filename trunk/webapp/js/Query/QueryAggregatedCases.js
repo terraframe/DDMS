@@ -132,9 +132,12 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         },
         sqlcharacter : function(entityAlias, attributeName, userAlias){
   
-          thisRef._checkBox(attributeName);
+          thisRef._checkBox(userAlias);
         },
-        
+        sqldouble : function(entityAlias, attributeName, userAlias){
+  
+          thisRef._checkBox(userAlias);
+        },
         sqldate : function(entityAlias, attributeName, userAlias){
   
           thisRef._checkBox(userAlias);
@@ -189,7 +192,6 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         }
       });
   
-      
       var page = this.getCurrentPage();
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
     },

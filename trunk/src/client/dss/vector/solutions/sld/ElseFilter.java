@@ -2,10 +2,13 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.query.LayerDTO;
+
 public class ElseFilter extends Filter implements Reloadable
 {
-  public ElseFilter()
+  public ElseFilter(LayerDTO layer)
   {
+    super(layer);
   }
 
   protected void write(SLDWriter writer)
