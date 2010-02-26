@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1219672477)
+@com.terraframe.mojo.business.ClassSignature(hash = -552508191)
 public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -1219672477;
+  private static final long serialVersionUID = -552508191;
   
   protected PersonExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -25,6 +25,8 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String ISPATIENT = "isPatient";
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
+  public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
+  public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String MEMBERID = "memberId";
   public static java.lang.String PASSWORD = "password";
@@ -326,6 +328,80 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSprayOperatorMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYOPERATOR).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsStockStaff()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSTOCKSTAFF));
+  }
+  
+  public void setIsStockStaff(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSTOCKSTAFF, "");
+    }
+    else
+    {
+      setValue(ISSTOCKSTAFF, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsStockStaffWritable()
+  {
+    return isWritable(ISSTOCKSTAFF);
+  }
+  
+  public boolean isIsStockStaffReadable()
+  {
+    return isReadable(ISSTOCKSTAFF);
+  }
+  
+  public boolean isIsStockStaffModified()
+  {
+    return isModified(ISSTOCKSTAFF);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsStockStaffMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSTOCKSTAFF).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsSupervisor()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
+  }
+  
+  public void setIsSupervisor(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSUPERVISOR, "");
+    }
+    else
+    {
+      setValue(ISSUPERVISOR, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsSupervisorWritable()
+  {
+    return isWritable(ISSUPERVISOR);
+  }
+  
+  public boolean isIsSupervisorReadable()
+  {
+    return isReadable(ISSUPERVISOR);
+  }
+  
+  public boolean isIsSupervisorModified()
+  {
+    return isModified(ISSUPERVISOR);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSupervisorMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSUPERVISOR).getAttributeMdDTO();
   }
   
   public String getLastName()

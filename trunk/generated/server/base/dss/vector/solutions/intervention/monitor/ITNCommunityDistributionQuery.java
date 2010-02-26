@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1022463127)
+@com.terraframe.mojo.business.ClassSignature(hash = -1526057257)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class ITNCommunityDistributionQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1022463127;
+private static final long serialVersionUID = -1526057257;
 
   public ITNCommunityDistributionQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -225,6 +225,23 @@ private static final long serialVersionUID = 1022463127;
   public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.ENTRYTYPE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber()
+  {
+    return getHasBatchNumber(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.HASBATCHNUMBER, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.HASBATCHNUMBER, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getHouseholdAddress()
@@ -907,6 +924,9 @@ private static final long serialVersionUID = 1022463127;
     public com.terraframe.mojo.query.SelectableBoolean getEntryType();
     public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias);
     public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber();
+    public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias);
+    public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias, String displayLabel);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getHouseholdAddress();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getHouseholdAddress(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getHouseholdAddress(String alias, String displayLabel);
@@ -1035,7 +1055,7 @@ private static final long serialVersionUID = 1022463127;
  implements ITNCommunityDistributionQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1151562933;
+private static final long serialVersionUID = 184407929;
 
   public ITNCommunityDistributionQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1222,6 +1242,23 @@ private static final long serialVersionUID = 1151562933;
   public com.terraframe.mojo.query.SelectableBoolean getEntryType(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.ENTRYTYPE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber()
+  {
+    return getHasBatchNumber(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.HASBATCHNUMBER, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getHasBatchNumber(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.HASBATCHNUMBER, alias, displayLabel);
 
   }
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getHouseholdAddress()

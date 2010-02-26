@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1363985376)
+@com.terraframe.mojo.business.ClassSignature(hash = -1790080466)
 public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistribution";
-  private static final long serialVersionUID = 1363985376;
+  private static final long serialVersionUID = -1790080466;
   
   protected ITNCommunityDistributionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -37,6 +37,7 @@ public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.moj
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTRYTYPE = "entryType";
+  public static java.lang.String HASBATCHNUMBER = "hasBatchNumber";
   public static java.lang.String HOUSEHOLDADDRESS = "householdAddress";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String HOUSEHOLDSURNAME = "householdSurname";
@@ -421,6 +422,43 @@ public abstract class ITNCommunityDistributionDTOBase extends com.terraframe.moj
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEntryTypeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENTRYTYPE).getAttributeMdDTO();
+  }
+  
+  public Boolean getHasBatchNumber()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASBATCHNUMBER));
+  }
+  
+  public void setHasBatchNumber(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(HASBATCHNUMBER, "");
+    }
+    else
+    {
+      setValue(HASBATCHNUMBER, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isHasBatchNumberWritable()
+  {
+    return isWritable(HASBATCHNUMBER);
+  }
+  
+  public boolean isHasBatchNumberReadable()
+  {
+    return isReadable(HASBATCHNUMBER);
+  }
+  
+  public boolean isHasBatchNumberModified()
+  {
+    return isModified(HASBATCHNUMBER);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHasBatchNumberMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASBATCHNUMBER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getHouseholdAddress()

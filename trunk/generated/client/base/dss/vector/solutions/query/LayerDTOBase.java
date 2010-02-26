@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -985668520)
+@com.terraframe.mojo.business.ClassSignature(hash = 2038477599)
 public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = -985668520;
+  private static final long serialVersionUID = 2038477599;
   
   protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -62,6 +62,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
+  public static java.lang.String THEMATICCOLUMNALIAS = "thematicColumnAlias";
   public static java.lang.String THEMATICUSERALIAS = "thematicUserAlias";
   public static java.lang.String THEMATICVARIABLE = "thematicVariable";
   public static java.lang.String TYPE = "type";
@@ -1336,6 +1337,43 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSldFileMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SLDFILE).getAttributeMdDTO();
+  }
+  
+  public String getThematicColumnAlias()
+  {
+    return getValue(THEMATICCOLUMNALIAS);
+  }
+  
+  public void setThematicColumnAlias(String value)
+  {
+    if(value == null)
+    {
+      setValue(THEMATICCOLUMNALIAS, "");
+    }
+    else
+    {
+      setValue(THEMATICCOLUMNALIAS, value);
+    }
+  }
+  
+  public boolean isThematicColumnAliasWritable()
+  {
+    return isWritable(THEMATICCOLUMNALIAS);
+  }
+  
+  public boolean isThematicColumnAliasReadable()
+  {
+    return isReadable(THEMATICCOLUMNALIAS);
+  }
+  
+  public boolean isThematicColumnAliasModified()
+  {
+    return isModified(THEMATICCOLUMNALIAS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicColumnAliasMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICCOLUMNALIAS).getAttributeMdDTO();
   }
   
   public String getThematicUserAlias()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2075494449)
+@com.terraframe.mojo.business.ClassSignature(hash = -27979498)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class LayerQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2075494449;
+private static final long serialVersionUID = -27979498;
 
   public LayerQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -712,6 +712,23 @@ private static final long serialVersionUID = -2075494449;
     return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.SLDFILE, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias()
+  {
+    return getThematicColumnAlias(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.SelectableChar getThematicUserAlias()
   {
     return getThematicUserAlias(null);
@@ -1250,6 +1267,9 @@ private static final long serialVersionUID = -2075494449;
     public com.terraframe.mojo.query.SelectableChar getSldFile();
     public com.terraframe.mojo.query.SelectableChar getSldFile(String alias);
     public com.terraframe.mojo.query.SelectableChar getSldFile(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias();
+    public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias);
+    public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias, String displayLabel);
     public com.terraframe.mojo.query.SelectableChar getThematicUserAlias();
     public com.terraframe.mojo.query.SelectableChar getThematicUserAlias(String alias);
     public com.terraframe.mojo.query.SelectableChar getThematicUserAlias(String alias, String displayLabel);
@@ -1332,7 +1352,7 @@ private static final long serialVersionUID = -2075494449;
  implements LayerQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1255984787;
+private static final long serialVersionUID = 1655236532;
 
   public LayerQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1944,6 +1964,23 @@ private static final long serialVersionUID = -1255984787;
   public com.terraframe.mojo.query.SelectableChar getSldFile(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.SLDFILE, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias()
+  {
+    return getThematicColumnAlias(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getThematicColumnAlias(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.get(dss.vector.solutions.query.Layer.THEMATICCOLUMNALIAS, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.SelectableChar getThematicUserAlias()

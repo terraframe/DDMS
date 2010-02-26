@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2100372634)
+@com.terraframe.mojo.business.ClassSignature(hash = 1239009432)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class PersonExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2100372634;
+private static final long serialVersionUID = 1239009432;
 
   public PersonExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -185,6 +185,42 @@ private static final long serialVersionUID = 2100372634;
   public com.terraframe.mojo.query.SelectableBoolean getIsSprayOperator(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PersonExcelView.ISSPRAYOPERATOR, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsStockStaff()
+  {
+    return getIsStockStaff(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsStockStaff(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PersonExcelView.ISSTOCKSTAFF, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsStockStaff(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PersonExcelView.ISSTOCKSTAFF, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsSupervisor()
+  {
+    return getIsSupervisor(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsSupervisor(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PersonExcelView.ISSUPERVISOR, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableBoolean getIsSupervisor(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.PersonExcelView.ISSUPERVISOR, alias, displayLabel);
 
   }
  

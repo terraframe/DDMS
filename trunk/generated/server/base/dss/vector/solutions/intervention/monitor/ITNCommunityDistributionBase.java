@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -975445408)
+@com.terraframe.mojo.business.ClassSignature(hash = 1597111214)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,6 +21,7 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTRYTYPE = "entryType";
+  public static java.lang.String HASBATCHNUMBER = "hasBatchNumber";
   public static java.lang.String HOUSEHOLDADDRESS = "householdAddress";
   public static java.lang.String HOUSEHOLDNAME = "householdName";
   public static java.lang.String HOUSEHOLDSURNAME = "householdSurname";
@@ -40,7 +41,7 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
   public static java.lang.String SOLD = "sold";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -975445408;
+  private static final long serialVersionUID = 1597111214;
   
   public ITNCommunityDistributionBase()
   {
@@ -321,6 +322,34 @@ public abstract class ITNCommunityDistributionBase extends com.terraframe.mojo.b
     else
     {
       setValue(ENTRYTYPE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getHasBatchNumber()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASBATCHNUMBER));
+  }
+  
+  public void validateHasBatchNumber()
+  {
+    this.validateAttribute(HASBATCHNUMBER);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getHasBatchNumberMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS);
+    return mdClassIF.definesAttribute(HASBATCHNUMBER);
+  }
+  
+  public void setHasBatchNumber(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(HASBATCHNUMBER, "");
+    }
+    else
+    {
+      setValue(HASBATCHNUMBER, java.lang.Boolean.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -595189032)
+@com.terraframe.mojo.business.ClassSignature(hash = -286740065)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -46,12 +46,13 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
   public static java.lang.String SHOWTHEMATICVALUE = "showThematicValue";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SLDFILE = "sldFile";
+  public static java.lang.String THEMATICCOLUMNALIAS = "thematicColumnAlias";
   public static java.lang.String THEMATICUSERALIAS = "thematicUserAlias";
   public static java.lang.String THEMATICVARIABLE = "thematicVariable";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = -595189032;
+  private static final long serialVersionUID = -286740065;
   
   public LayerBase()
   {
@@ -1039,6 +1040,34 @@ public abstract class LayerBase extends com.terraframe.mojo.business.Business im
     else
     {
       setValue(SLDFILE, value);
+    }
+  }
+  
+  public String getThematicColumnAlias()
+  {
+    return getValue(THEMATICCOLUMNALIAS);
+  }
+  
+  public void validateThematicColumnAlias()
+  {
+    this.validateAttribute(THEMATICCOLUMNALIAS);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getThematicColumnAliasMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.Layer.CLASS);
+    return mdClassIF.definesAttribute(THEMATICCOLUMNALIAS);
+  }
+  
+  public void setThematicColumnAlias(String value)
+  {
+    if(value == null)
+    {
+      setValue(THEMATICCOLUMNALIAS, "");
+    }
+    else
+    {
+      setValue(THEMATICCOLUMNALIAS, value);
     }
   }
   
