@@ -11,6 +11,7 @@ import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
@@ -258,17 +259,19 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     String result = "resistance_result";
 
-    if(xml.indexOf(">"+result+"<") > 0)
+    for(Selectable selectable : valueQuery.getSelectableRefs())
     {
-      SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef(result);
-      s.setSQL(result);
-
-      String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
-      valueQuery.setSqlPrefix(AdultDiscriminatingDoseAssay.getResistanceWithQuerySQL(tableName, labels));
-      valueQuery.FROM(tableName, tableName);
-      valueQuery.WHERE(new InnerJoinEq("id", joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), "id", tableName, tableName));
+      if(selectable.getColumnAlias().equals(result))
+      {
+        ((SelectableSQL) selectable).setSQL(result);
+        
+        String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
+        valueQuery.setSqlPrefix(AdultDiscriminatingDoseAssay.getResistanceWithQuerySQL(tableName, labels));
+        valueQuery.FROM(tableName, tableName);
+        valueQuery.WHERE(new InnerJoinEq("id", joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), "id", tableName, tableName));
+      }
     }
-
+    
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     return valueQuery;
