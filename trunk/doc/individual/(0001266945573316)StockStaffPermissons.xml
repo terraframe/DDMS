@@ -65,6 +65,17 @@
                 name="EXECUTE" />
             </mdMethodPermission>
           </mdBusinessPermission>
+          <mdBusinessPermission
+            type="com.terraframe.mojo.system.VaultFile">
+            <operation
+              name="CREATE" />
+            <operation
+              name="WRITE" />
+            <operation
+              name="WRITE_ALL_ATTRIBUTES" />
+            <operation
+              name="DELETE" />
+          </mdBusinessPermission>
         </grant>
       </role>
     </permissions>
