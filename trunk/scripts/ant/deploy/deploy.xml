@@ -399,6 +399,10 @@
 				<exclude name="master.properties" />
 				<include name="*.*" />
 			</fileset>
+            <!-- And make sure MdssControlPanel gets copied as well -->
+			<fileset dir="${profile.root}/controlpanel">
+				<include name="MdssControlPanel.properties" />
+			</fileset>
 		</copy>
 
 		<!-- Finally, delete the temp directory -->
