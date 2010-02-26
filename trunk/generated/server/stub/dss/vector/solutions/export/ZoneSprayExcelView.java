@@ -1,5 +1,8 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
@@ -61,10 +64,10 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.te
 
     if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
     {
+      zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
       zsv.setSprayWeek(this.getSprayWeek());
       zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
       zsv.setTarget(this.getTarget());
-      zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
 
       zsv.apply();
     }
@@ -72,15 +75,15 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.te
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
       TeamSprayStatusView view = new TeamSprayStatusView();
-      view.setTarget(this.getTarget());
+      view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
       view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
       view.setTeamLeader(TeamMember.getMemberById(this.getLeaderId()));
       view.setTeamSprayWeek(this.getTeamSprayWeek());
+      view.setTarget(this.getTeamTarget());
       view.setReceived(this.getTeamReceived());
       view.setRefills(this.getTeamRefills());
       view.setReturned(this.getTeamReturned());
       view.setUsed(this.getTeamUsed());
-      view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());
@@ -93,10 +96,46 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.te
       view.setBedNets(this.getBedNets());
       view.setRoomsWithBedNets(this.getRoomsWithBedNets());
       view.setLocked(this.getLocked());
-      view.setOther(this.getOther());
       view.setRefused(this.getRefused());
+      view.setOther(this.getOther());
       view.apply();
     }
+  }
+  
+  public static List<String> customAttributeOrder()
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(BRANDNAME);
+    list.add(SPRAYDATE);
+    list.add(SPRAYMETHOD);
+    list.add(SURFACETYPE);
+    list.add(SPRAYWEEK);
+    list.add(SUPERVISORNAME);
+    list.add(SUPERVISORSURNAME);
+    list.add(TARGET);
+    list.add(SPRAYTEAM);
+    list.add(LEADERID);
+    list.add(TEAMSPRAYWEEK);
+    list.add(TEAMTARGET);
+    list.add(TEAMRECEIVED);
+    list.add(TEAMREFILLS);
+    list.add(TEAMRETURNED);
+    list.add(TEAMUSED);
+    list.add(HOUSEHOLDS);
+    list.add(STRUCTURES);
+    list.add(SPRAYEDHOUSEHOLDS);
+    list.add(SPRAYEDSTRUCTURES);
+    list.add(PREVSPRAYEDHOUSEHOLDS);
+    list.add(PREVSPRAYEDSTRUCTURES);
+    list.add(ROOMS);
+    list.add(SPRAYEDROOMS);
+    list.add(PEOPLE);
+    list.add(BEDNETS);
+    list.add(ROOMSWITHBEDNETS);
+    list.add(LOCKED);
+    list.add(REFUSED);
+    list.add(OTHER);
+    return list;
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

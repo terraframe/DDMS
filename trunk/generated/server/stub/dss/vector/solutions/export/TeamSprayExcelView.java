@@ -102,6 +102,10 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       OperatorSprayStatusView view = new OperatorSprayStatusView();
       view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       view.setOperatorSprayWeek(this.getOperatorSprayWeek());
+      view.setReceived(this.getOperatorReceived());
+      view.setRefills(this.getOperatorRefills());
+      view.setReturned(this.getOperatorReturned());
+      view.setUsed(this.getOperatorUsed());
       view.setSpray(TeamSpray.get(tsv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
