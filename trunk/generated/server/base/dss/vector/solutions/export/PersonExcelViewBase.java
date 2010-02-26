@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2071288605)
+@com.terraframe.mojo.business.ClassSignature(hash = -1511718047)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,6 +20,8 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String ISPATIENT = "isPatient";
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
+  public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
+  public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String MEMBERID = "memberId";
   public static java.lang.String PASSWORD = "password";
@@ -27,7 +29,7 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = -2071288605;
+  private static final long serialVersionUID = -1511718047;
   
   public PersonExcelViewBase()
   {
@@ -271,6 +273,62 @@ public abstract class PersonExcelViewBase extends com.terraframe.mojo.business.V
     else
     {
       setValue(ISSPRAYOPERATOR, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsStockStaff()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSTOCKSTAFF));
+  }
+  
+  public void validateIsStockStaff()
+  {
+    this.validateAttribute(ISSTOCKSTAFF);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsStockStaffMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(ISSTOCKSTAFF);
+  }
+  
+  public void setIsStockStaff(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSTOCKSTAFF, "");
+    }
+    else
+    {
+      setValue(ISSTOCKSTAFF, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsSupervisor()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
+  }
+  
+  public void validateIsSupervisor()
+  {
+    this.validateAttribute(ISSUPERVISOR);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsSupervisorMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(ISSUPERVISOR);
+  }
+  
+  public void setIsSupervisor(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISSUPERVISOR, "");
+    }
+    else
+    {
+      setValue(ISSUPERVISOR, java.lang.Boolean.toString(value));
     }
   }
   
