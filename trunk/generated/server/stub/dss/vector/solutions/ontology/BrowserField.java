@@ -135,9 +135,19 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
   public BrowserRootView addBrowserRoot(BrowserRoot root)
   {
     root.validateTerm(); // make sure a term value exists
-    Term term = root.getTerm();
 
-    OIterator<? extends BrowserRoot> roots = this.getAllroot();
+    this.validateRoot(root);
+
+    root.apply();
+
+    this.addroot(root).apply();
+
+    return root.toView();
+  }
+
+  public void validateRoot(BrowserRoot root) {
+    Term term = root.getTerm();
+	OIterator<? extends BrowserRoot> roots = this.getAllroot();
     try
     {
       while (roots.hasNext())
@@ -176,11 +186,5 @@ public class BrowserField extends BrowserFieldBase implements com.terraframe.moj
     {
       roots.close();
     }
-
-    root.apply();
-
-    this.addroot(root).apply();
-
-    return root.toView();
   }
 }
