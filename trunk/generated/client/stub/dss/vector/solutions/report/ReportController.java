@@ -44,6 +44,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.query.QueryBuilderDTO;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearchDTO;
 import dss.vector.solutions.query.SavedSearchRequiredExceptionDTO;
 import dss.vector.solutions.util.BirtEngine;
@@ -82,8 +83,9 @@ public class ReportController extends ReportControllerBase implements Reloadable
     ClientRequestIF request = this.getClientRequest();
     SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
     String queryType = search.getQueryType();
+    String className = QueryConstants.getQueryClass(queryType);
     
-    return QueryBuilderDTO.exportQueryToCSV(request, queryType, queryXML, config, savedSearchId);
+    return QueryBuilderDTO.exportQueryToCSV(request, className, queryXML, config, savedSearchId);
     
     /*
     if(type.equals(QueryTypeDTO.AGGREGATED_CASES))
