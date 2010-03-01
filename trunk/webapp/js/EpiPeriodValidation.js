@@ -1,3 +1,35 @@
+Mojo.Meta.newClass('MDSS.SearchValidator', {
+  Instance:{
+    initialize : function(searchType, prop) {
+      this._searchDate = document.getElementById(searchType + '.positive');
+      this._searchPeriod = document.getElementById(searchType + '.negative');
+      
+      this._dateValidator = new MDSS.DateSearchValidator(prop);
+      this._epiValidator = new MDSS.EpiSearchValidator(prop);
+      
+      this.validate();
+      
+      YAHOO.util.Event.on(this._searchDate, 'change', this.validate, this, this);    
+      YAHOO.util.Event.on(this._searchPeriod, 'change', this.validate, this, this);    
+    },
+    
+    validate : function() {
+      if(this._searchDate.checked == true) {
+        this._dateValidator.validate();          
+      }
+      else {
+        this._epiValidator.validate();  
+      }            
+    },
+    
+    eventHandler : function(e) {
+      if(e.getType() == MDSS.Event.AFTER_SELECTION) {
+        this.validate(); 
+      }
+    }
+  }
+});
+
 
 Mojo.Meta.newClass('MDSS.DateSearchValidator', {
   Instance:{
@@ -11,9 +43,7 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
       YAHOO.util.Event.on(this._startDate, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._endDate, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._startDate, 'keydown', this.keyHandler, this, this);
-      YAHOO.util.Event.on(this._endDate, 'keydown', this.keyHandler, this, this);
-      
-      this.validate();
+      YAHOO.util.Event.on(this._endDate, 'keydown', this.keyHandler, this, this);      
     },
 
     disableButton : function() {
@@ -75,11 +105,11 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
       this._periodType = Mojo.Util.isString(prop.periodType) ? YAHOO.util.Selector.query('.' + prop.periodType) : prop.periodType;
       
       YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
-      YAHOO.util.Event.on(this._periodType, 'click', this.validate, this, this);
-      YAHOO.util.Event.on(this._period, 'keyup', this.validate, this, this);
-      YAHOO.util.Event.on(this._year, 'keyup', this.validate, this, this);
-      
-      this.validate();
+      YAHOO.util.Event.on(this._periodType, 'change', this.validate, this, this);
+      YAHOO.util.Event.on(this._period, 'keyup', this.keyUpHandler, this, this);
+      YAHOO.util.Event.on(this._year, 'keyup', this.keyUpHandler, this, this);
+      YAHOO.util.Event.on(this._startDate, 'keydown', this.keyDownHandler, this, this);
+      YAHOO.util.Event.on(this._endDate, 'keydown', this.keyDownHandler, this, this);      
     },
     
     disableButton : function() {
@@ -126,6 +156,19 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
       MDSS.Calendar.removeError(this._period);   
     },
     
+    keyDownHandler : function(e) {
+      if (e.keyCode == 9 || e.keyCode == 39 || e.keyCode == 37) {
+        this.validate();
+      }
+    },
+    
+    keyUpHandler : function(e) {
+      // Do not do anything on arrow keys
+      if (e.keyCode < 37 || e.keyCode > 40) {
+        this.validate();
+      }
+    },
+    
     validate : function() {
       this.disableButton();
                 
@@ -133,7 +176,7 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
         var request = new MDSS.Request({
           that : this,
           onSuccess : function(){
-        this.that._clearMessages();
+            this.that._clearMessages();
             this.that.enableButton();
             
             if(this.e && e.keyCode === 9 ){
@@ -141,12 +184,12 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
             }
           },
           onFailure : function(e){
-        this.that._clearMessages();
+            this.that._clearMessages();
         
             MDSS.Calendar.addError(this.that._geoId,e.getLocalizedMessage());            
           },
           onProblemExceptionDTO : function(e){
-          this.that._clearMessages();        
+            this.that._clearMessages();        
           
             var problems = e.getProblems();
 

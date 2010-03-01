@@ -75,24 +75,6 @@
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-    
-    MDSS.GenericSearch.createYearSearch('periodYear');
-        
-    var dateValidator = new MDSS.DateSearchValidator({button:'button.id', geoId:'geoId', startDate:'startDate', endDate:'endDate'});
-    var epiValidator = new MDSS.EpiSearchValidator({button:'button.id', geoId:'geoId', year:'periodYear', period:'period', periodType:'periodTypeOption'});
-
-    Mojo.GLOBAL.onValidGeoEntitySelected = function() {
-      var searchType = document.getElementById('searchType.positive');
-
-      if(searchType.checked == true) {
-        dateValidator.validate();          
-      }
-      else {
-        epiValidator.validate();  
-      }
-    }
-        
-
     //**********************************************************
     // SETUP FIELD HIDING
     //**********************************************************    
@@ -103,7 +85,16 @@
     var endDate = new MDSS.HiddenInputElement({element:'endDate'});
         
     MDSS.ElementHandler.setupBooleanHandler('searchType.negative', 'searchType.positive', [periodType, period, periodYear]);
-    MDSS.ElementHandler.setupBooleanHandler('searchType.positive', 'searchType.negative', [startDate, endDate]);    
+    MDSS.ElementHandler.setupBooleanHandler('searchType.positive', 'searchType.negative', [startDate, endDate]);   
+
+    var validator = new MDSS.SearchValidator('searchType', {button:'button.id', geoId:'geoId', startDate:'startDate', endDate:'endDate', year:'periodYear', period:'period', periodType:'periodTypeOption'});
+
+    Mojo.GLOBAL.onValidGeoEntitySelected = function() {
+      validator.validate();
+    }
+
+    var autocomplete = MDSS.GenericSearch.createYearSearch('periodYear');
+    autocomplete.addListener(Mojo.Util.bind(validator, validator.eventHandler));     
   })
 })();  
 </script>

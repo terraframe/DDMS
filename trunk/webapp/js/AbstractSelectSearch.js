@@ -157,18 +157,22 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     /**
      * Closes all the result panels.
      */
-    _searchListener : function(value, autocomplete) {
-      var searchedId = autocomplete.getDisplayElement().id;
-      
-      // When a new value is inputed we want to hide all
-      // the other visible search results
-      for(var i=0; i < this._autocompletes.length; i++) {
-        var element = this._autocompletes[i];
-        var elementId = element.getDisplayElement().id;
-    
-        if(searchedId != elementId) {
-          element.hide();
-        }
+    eventHandler : function(e) {
+      if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
+    	var autocomplete = e.getValue().autocomplete;
+    	
+        var searchedId = autocomplete.getDisplayElement().id;
+          
+        // When a new value is inputed we want to hide all
+        // the other visible search results
+        for(var i=0; i < this._autocompletes.length; i++) {
+          var element = this._autocompletes[i];
+          var elementId = element.getDisplayElement().id;
+        
+          if(searchedId != elementId) {
+            element.hide();
+          }
+        }    	  
       }
     },
     
@@ -254,7 +258,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             var lF = this.searchRef._modalListFunction;
             var dF = this.searchRef._modalDisplayFunction;
             var iF = this.searchRef._modalIdFunction;
-            var listener = Mojo.Util.bind(this.searchRef, this.searchRef._searchListener);
+            var listener = Mojo.Util.bind(this.searchRef, this.searchRef.eventHandler);
             
             var autocomplete = new MDSS.GenericSearch(search, null, lF, dF, iF, sFunction, sHandler);                        
             autocomplete.addListener(listener);

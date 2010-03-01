@@ -985,6 +985,8 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         if(Mojo.Util.isFunction(this._selectEventHandler)) {
           this._selectEventHandler(selected);
         }
+        
+        this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected}));
       }
         
       this.hide();
@@ -1060,12 +1062,17 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
       
       this.performSearch(value);
     },
+    
+    fireEvent : function(event) {
+      for(var i = 0; i < this.listeners.length; i++) {
+        this.listeners[i](event);
+      }    	
+    },
       
     performSearch : function(value) {              
       var parameters = this.getParameters();
-      for(var i = 0; i < this.listeners.length; i++) {
-        this.listeners[i](value, this);
-      }
+      
+      this.fireEvent(new MDSS.Event(MDSS.Event.BEFORE_SEARCH, {value:value, autocomplete:this}));
         
       this._dataSource.getResults(value, parameters);
     },

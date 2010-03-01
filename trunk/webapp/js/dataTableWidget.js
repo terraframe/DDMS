@@ -25,7 +25,8 @@ Mojo.Meta.newClass('MDSS.Event', {
     AFTER_PROBLEM : 4,
     AFTER_FAILURE : 5,
     AFTER_SELECTION : 6,
-    AFTER_DELETE : 7
+    AFTER_DELETE : 7,
+    BEFORE_SEARCH : 8
   }
 });
 

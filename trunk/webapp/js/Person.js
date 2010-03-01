@@ -194,10 +194,16 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
        prop.button.disabled=false;
      };
 
-     var showCreatePatient = function() {
+     var showCreatePatient = function(e) {
        prop.editLink.style.display = "none";
        prop.createLink.style.display = "inline";
        prop.button.disabled=true;
+     }
+     
+     var eventHandler = function(e) {
+       if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
+         showCreatePatient();
+       }    
      }
      
      var autocomplete = {
