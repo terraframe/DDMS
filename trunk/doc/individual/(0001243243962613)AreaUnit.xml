@@ -57,8 +57,7 @@
     </create>
     <update>
       <mdBusiness
-        name="dss.vector.solutions.irs.AreaStandards"
-        generateController="false">
+        name="dss.vector.solutions.irs.AreaStandards">
         <create>
           <attributes>
             <enumeration
