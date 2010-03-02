@@ -127,7 +127,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var debug = document.getElementById('debug_xml')
         if(debug){
         	debug.value = xml;
-        	xml = document.getElementById('debug_xml');
+        	xml = debug.value;
         }
       }
       
