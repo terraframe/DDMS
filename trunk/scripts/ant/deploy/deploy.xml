@@ -560,7 +560,7 @@
 		<java classname="com.terraframe.mojo.dataaccess.schemamanager.SchemaManager" failonerror="true">
 			<arg value="-dir" />
 			<arg value="${version.dir}" />
-			<arg value="/home/jsmethie/workspace/MDSS/profiles/version_gis.xsd"/>
+			<arg value="${profile.root}/version_gis.xsd"/>
 			<arg value="${model.dir}(0001238646706998)Merge.xml"/>
 			<classpath>
 				<path refid="framework.classpath" />
