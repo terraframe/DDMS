@@ -59,6 +59,9 @@ public class ExcelImportServlet extends HttpServlet
 
     // Parse the request
     boolean isGeoImport = false;
+    
+    String excelType = null;
+    
     try
     {
       List<FileItem> items = upload.parseRequest(req);
@@ -96,10 +99,10 @@ public class ExcelImportServlet extends HttpServlet
       sourceStream.close();
 
       InputStream errorStream;
-      String type = fields.get(TYPE);
+      excelType = fields.get(TYPE);
       
       // This referenced a constant, GeoEntityExcelViewDTO.CLASS, but was removed for now to eliminate the compile-time reference to a Reloadable class
-      isGeoImport = type.equals("dss.vector.solutions.export.GeoEntityExcelView");
+      isGeoImport = excelType.equals("dss.vector.solutions.export.GeoEntityExcelView");
 
       if (isGeoImport)
       {
@@ -113,7 +116,7 @@ public class ExcelImportServlet extends HttpServlet
         }
         String[] params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
-        errorStream = importExcelFile(clientRequest, bytes, type, params);
+        errorStream = importExcelFile(clientRequest, bytes, excelType, params);
         
         if (errorStream.available()>0)
         {
@@ -127,12 +130,12 @@ public class ExcelImportServlet extends HttpServlet
       {
         Class<?> facadeClass = LoaderDecorator.load("dss.vector.solutions.util.FacadeDTO");
         Method method = facadeClass.getMethod("checkSynonyms", ClientRequestIF.class, InputStream.class, String.class);
-        unknownGeoEntityDTOArray = (ViewDTO[]) method.invoke(null, clientRequest, new ByteArrayInputStream(bytes), type);
+        unknownGeoEntityDTOArray = (ViewDTO[]) method.invoke(null, clientRequest, new ByteArrayInputStream(bytes), excelType);
 
         // all geo entities in the file were identified
         if (unknownGeoEntityDTOArray.length == 0)
         {
-          errorStream = importExcelFile(clientRequest, bytes, type, new String[0]);
+          errorStream = importExcelFile(clientRequest, bytes, excelType, new String[0]);
 
           if (errorStream.available()>0)
           {
@@ -159,6 +162,7 @@ public class ExcelImportServlet extends HttpServlet
 
     if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
     {
+      req.setAttribute("excelType", excelType);
       req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
       req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
     }
