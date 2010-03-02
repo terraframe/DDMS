@@ -122,13 +122,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       });
 
-      if(/^(127\.0\.0\.1)|(localhost)$/.test(window.location.hostname))
-      {
-        var debug = document.getElementById('debug_xml')
-        if(debug){
+      var debug = document.getElementById('debug_xml')
+      if(debug){
         	debug.value = xml;
-        	xml = debug.value;
-        }
+        	//xml = debug.value;
       }
       
       var page = this.getCurrentPage();
