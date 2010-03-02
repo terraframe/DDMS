@@ -218,7 +218,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
      };
  
      var search = new MDSS.MultiInputAutoComplete(autocomplete);
-     search.addListener(showCreatePatient);
+     search.addListener(eventHandler);
 
      
      var modal = new MDSS.PersonModal(prop);
