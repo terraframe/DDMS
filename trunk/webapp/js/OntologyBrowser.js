@@ -941,6 +941,8 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
         this._attributeEl.value = '';
         this._displayEl.value = '';
       }
+
+      MDSS.Calendar.removeError(this._button);
     },
     
     openBrowser : function(e, config) {
