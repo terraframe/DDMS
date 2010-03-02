@@ -353,7 +353,7 @@
 <!--
 			<arg value="delete_generated_base" />
 -->
-			<arg value="import_most_recent" />
+			<arg value="rebuild_model" />
 			<arg value="install_db_procedures" />
 		</java>
 	</target>

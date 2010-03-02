@@ -32,6 +32,7 @@
 
 	<property name="version.dir" value="${local.root}/doc/individual/" />
 	<property name="working.dir" value="${local.root}/doc/working/" />
+	<property name="model.dir" value="${local.root}/doc/model/" />
 
 	<property name="version.xsd" value="/version_gis.xsd" />
 	<property name="geodata.db" value="mrc_zambia" />
@@ -260,13 +261,14 @@
 
 	<target name="install_db_procedures" description="Installs Dabase Procedures" depends="">
 		<echo message="Install Database Stored Procedures:" />
-		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true">
+		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true" fork="true">
+      			
 			<arg file="${local.root}/scripts/plsql/geoEntity_Views.sql" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 		</java>
-    </target>
+  </target>
 
 	<target name="clean_generated" description="Removes all generated classes and directories">
 		<!-- we don't want to fail on error because the dirs may not exist if this is a fresh install -->
@@ -552,6 +554,27 @@
 	<target name="get_version_number" description="Checks for root database and prompts for it if not found." unless="version.number">
 		<property name="${version.number}" value="0" />
 	</target>
+	
+	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
+		<echo message="Merging model" />
+		<java classname="com.terraframe.mojo.dataaccess.schemamanager.SchemaManager" failonerror="true">
+			<arg value="-dir" />
+			<arg value="${version.dir}" />
+			<arg value="/home/jsmethie/workspace/MDSS/profiles/version_gis.xsd"/>
+			<arg value="${model.dir}(0001238646706998)Merge.xml"/>
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+		<echo message="Update domain to the most recent schema" />
+		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+			<arg value="${model.dir}" />
+			<arg value="${version.xsd}"/>
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+  </target>
 
 	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
@@ -627,7 +650,7 @@
 		<diagnostics/>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -650,7 +673,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-
+			
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -669,7 +692,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-
+			
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -689,7 +712,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -710,7 +733,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-
+	    
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -728,7 +751,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx1024m" />
-
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
