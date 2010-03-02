@@ -94,7 +94,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var ITN = new dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
   
-    var ITNAttribs = ["startDate","endDate","distributionLocation","agentFirstName","agentSurname","entryType","batchNumber","pretreated",
+    var ITNAttribs = ["startDate","endDate","distributionLocation","agentFirstName","agentSurname","entryType","hasBatchNumber","batchNumber","pretreated",
                       "householdAddress","householdName","householdSurname","residents",
                       "itnsReceived","retrieved","numberRetrieved","sold", "currencyReceived"];
     
