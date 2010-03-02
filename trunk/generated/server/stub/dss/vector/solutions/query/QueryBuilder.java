@@ -10,6 +10,7 @@ import com.terraframe.mojo.MojoException;
 import com.terraframe.mojo.business.SmartException;
 import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
@@ -229,9 +230,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * STRPOS(" + concatenate(searchableArray) + ", ' " + token + "'))");
+    
+    String sql = Database.instance().escapeSQLCharacters(token);
+    
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql  + "'),0))");
     vQ.SELECT(new DISTINCT(selectClauseArray));
-    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + token + "%"));
+    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + sql + "%"));
 
     for (Condition condition : conditionArray)
     {

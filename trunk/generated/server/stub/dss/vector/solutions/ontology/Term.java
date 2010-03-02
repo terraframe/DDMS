@@ -290,8 +290,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     if (value != null && !value.equals(""))
     {
-      String[] searchable = value.split(" ");
-      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditionArray);
+      String[] tokens = value.split(" ");
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
+
+      QueryBuilder.textLookup(query, factory, tokens, searchables, selectables, conditionArray);
     }
     else
     {
@@ -1157,9 +1159,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
     
     if (value != null && !value.equals(""))
     {
-      String[] searchable = value.split(" ");
+      String[] tokens = value.split(" ");
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
       
-      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditions);
+      QueryBuilder.textLookup(query, factory, tokens, searchables, selectables, conditions);
     }
     else
     {
@@ -1206,9 +1209,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     if (value != null && !value.equals(""))
     {
-      String[] searchable = value.split(" ");
+      String[] tokens = value.split(" ");
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { termQuery.getDisplay(Term.DISPLAY), termQuery.getTermId(Term.TERMID) };
 
-      QueryBuilder.textLookup(query, factory, searchable, selectables, selectables, conditions);
+      QueryBuilder.textLookup(query, factory, tokens, searchables, selectables, conditions);
     }
     else
     {
