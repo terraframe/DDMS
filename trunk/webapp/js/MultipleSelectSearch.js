@@ -12,7 +12,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
      */
     initialize : function()
     {
-      this.$initialize();
+      this.$initialize(true);
   
       // map of currently selected objects
       this._criteriaMap = {};
@@ -172,6 +172,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       var li = document.getElementById(liId);
       var ul = li.parentNode;
       ul.removeChild(li);
+    },
+    
+    _notifySelectHandler : function()
+    {
+      // do nothing
     },
   
     _notifyHideHandler : function()

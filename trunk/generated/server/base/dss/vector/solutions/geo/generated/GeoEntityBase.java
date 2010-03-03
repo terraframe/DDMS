@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1054239679)
+@com.terraframe.mojo.business.ClassSignature(hash = -524036042)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1054239679;
+  private static final long serialVersionUID = -524036042;
   
   public GeoEntityBase()
   {
@@ -828,13 +828,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery searchByEntityName(java.lang.String entityType, java.lang.String entityName)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static com.terraframe.mojo.query.ValueQuery searchByEntityNameOrGeoId(java.lang.String entityType, java.lang.String entityName)
+  public static com.terraframe.mojo.query.ValueQuery searchByEntityNameOrGeoId(java.lang.String entityType, java.lang.String entityName, java.lang.Boolean enforceRoot)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -846,7 +840,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery searchByParameters(java.lang.String value, java.lang.String[] filter)
+  public static com.terraframe.mojo.query.ValueQuery searchByParameters(java.lang.String value, java.lang.String[] filter, java.lang.Boolean enforceRoot)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

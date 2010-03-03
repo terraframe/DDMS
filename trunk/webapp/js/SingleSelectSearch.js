@@ -10,9 +10,9 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     /**
      * Constructor.
      */
-    initialize : function()
+    initialize : function(enforceRoot)
     {
-      this.$initialize();
+      this.$initialize(enforceRoot);
 
       this._currentSelection = null;
       this._CURRENT_SELECTION = 'currentSelection';
@@ -28,6 +28,16 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     {
       this._geoId = geoId;
     },
+    
+    _postRender : function()
+    {
+      // do nothing
+    },
+    
+    _notifyHideHandler : function()
+    {
+      // do nothing
+    },    
     
     selectHandler : function(selected, ignoreSetting)
     {
@@ -373,10 +383,11 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     _searchFunction : function(request, value)
     {
       var type = this._selectSearch.getFilter();
+      var enforceRoot = this._selectSearch.enforcesRoot();
       
       if(Mojo.Util.isString(type) && type != '')
       {
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value, enforceRoot);
       }
       else 
       {
@@ -385,7 +396,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
         var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
         
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters);
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, enforceRoot);
       }
     },
     

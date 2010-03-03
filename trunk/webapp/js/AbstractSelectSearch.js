@@ -7,8 +7,10 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     /**
      * Constructor.
      */
-    initialize : function()
+    initialize : function(enforceRoot)
     {
+      this._enforceRoot = enforceRoot;
+    
       // handler for when a new geo entity is selected
       this._selectHandler = null;
   
@@ -56,6 +58,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._extraUniversals = [],
       
       this._rendered = false;  
+    },
+    
+    enforcesRoot : function()
+    {
+      return this._enforceRoot;
     },
     
     /**
@@ -246,8 +253,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             var search = ajaxSearches[i];            
             var type = search.id.replace(/_search/, '');
             
-            var sFunction = Mojo.Util.curry(function(typeRef, request, value){
-              Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value);
+            var sFunction = Mojo.Util.bind(this.searchRef, function(typeRef, request, value){
+              Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value, this.enforcesRoot());
             }, type);
             
             var sHandler = Mojo.Util.bind(this, function(typeRef, option){
@@ -264,16 +271,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             
             this.searchRef._autocompletes.push(autocomplete);
           }
-  
-          // hook all search events for manual entry
-          /*
-          var manualSearches = YAHOO.util.Selector.query('input.manualSearch', this._SELECT_CONTAINER_ID);
-          for(var i=0; i<manualSearches.length; i++)
-          {
-            var search = manualSearches[i];
-            YAHOO.util.Event.on(search, 'click', this.searchRef._manualSearch, null, this.searchRef);
-          }
-          */
            
           this.searchRef._postRender();
   
@@ -291,11 +288,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      * Calls after render() but before _createRoot(). Subclasses
      * may override this method to do any post render processing.
      */
-    _postRender : function()
+    _postRender :
     {
-      // Abstract
+      IsAbstract : true
     },
-  
+    
     /**
      * Creates the mapping between the given GeoEntity
      * and an option for the select element that represents
@@ -337,40 +334,40 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     /**
      * Calls the handler when the user hides the search modal.
      */
-    _notifyHideHandler : function()
+    _notifyHideHandler :
     {
-      // abstract
+      IsAbstract : true
     },
   
     /**
      * Abstract method to notify the select
      * handler that a GeoEntity has been selected.
      */
-    _notifySelectHandler : function(geoEntityView, updateSelection)
+    _notifySelectHandler :
     {
-      // abstract
+      IsAbstract : true
     },
     
-    _notifyTreeSelectHandler : function(geoEntityView, updateSelection)
+    _notifyTreeSelectHandler :
     {
-      // abstract
+      IsAbstract : true
     },
   
     /**
      * Invokes the appropriate controller action to
      * render the select search component.
      */
-    _getControllerAction : function(request, rootId)
+    _getControllerAction :
     {
-      // abstract
+      IsAbstract : true
     },
   
     /**
      * Updates the HTML area with information about the most recently selected GeoEntity.
      */
-    _updateSelection : function(geoEntity)
+    _updateSelection :
     {
-      // abstract
+      IsAbstract : true
     },
   
     /**
@@ -384,15 +381,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       {
         this._geoTreePanel = new YAHOO.widget.Panel(containerId, {width:'400px', height:'400px', zindex:9});
   
-        /*
-        // Bug Workaround: The Yahoo ContextMenu loses its event handlers in
-        // the tree, so destroy the tree every time the panel is closed, then
-        // use a new tree per request. NO LONGER NEEDED
-        this._geoTreePanel.subscribe('beforeHide', function(e, obj){
-          YAHOO.util.Dom.setStyle(obj.containerId, 'overflow', 'none');
-          //MDSS.GeoEntityTree.destroyAll();
-        }, {containerId:containerId});
-        */
         this._geoTreePanel.render();
         this._geoTreePanel.bringToTop();
   
@@ -665,33 +653,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     },
   
     /**
-     * Searches for a specific GeoEntity.
-    _manualSearch : function(e)
-    {
-      var button = e.target;
-      var input = button.previousSibling;
-  
-      var geoId = input.value;
-      var type = input.id.replace(/_manualEntry/, '');
-  
-      var request = new MDSS.Request({
-        searchRef: this,
-        type: type,
-        input: input,
-        onSuccess : function(results)
-        {
-          this.input.value = "";
-  
-          var selectIndex = this.searchRef._typeAndSelectMap[this.type];
-          this.searchRef._clearAndAddAll(selectIndex, results, geoId);
-        }
-      });
-  
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchAndCollectByGeoId(request, geoId, this._filterType);
-    },
-     */
-  
-    /**
      * Gets the children for a given GeoEntity or
      * does nothing if the event was triggered by
      * an unselect. In either case, all unselected
@@ -780,9 +741,9 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      * Subclasses must override this method to return the index
      * at which non-root select lists start listing GeoEntities.
      */
-    _getStartIndex : function()
+    _getStartIndex :
     {
-      // abstract
+      IsAbstract : true
     },
   
     /**
@@ -813,10 +774,10 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      * Subclasses must override this to denote if empty select
      * lists can be disabled.
      */
-    _disableAllowed : function()
+    _disableAllowed :
     {
-      // abstract
-    }
+      IsAbstract : true
+    },
   
   },
   

@@ -282,7 +282,7 @@ public class Sandbox
   @StartSession
   public static void testGeoEntityQuery()
   {
-    ValueQuery query = GeoEntity.searchByParameters("kalombo ka", new String[] { "true", "false", "false" });
+    ValueQuery query = GeoEntity.searchByParameters("kalombo ka", new String[] { "true", "false", "false" }, true);
 
     OIterator<ValueObject> it = query.getIterator();
 

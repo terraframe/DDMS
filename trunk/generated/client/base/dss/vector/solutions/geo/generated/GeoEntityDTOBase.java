@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1358993983)
+@com.terraframe.mojo.business.ClassSignature(hash = 1553037750)
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 1358993983;
+  private static final long serialVersionUID = 1553037750;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -865,18 +865,10 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByEntityName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String entityType, java.lang.String entityName)
+  public static final com.terraframe.mojo.business.ValueQueryDTO searchByEntityNameOrGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String entityType, java.lang.String entityName, java.lang.Boolean enforceRoot)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{entityType, entityName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByEntityName", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByEntityNameOrGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String entityType, java.lang.String entityName)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{entityType, entityName};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{entityType, entityName, enforceRoot};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByEntityNameOrGeoId", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
@@ -889,10 +881,10 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (dss.vector.solutions.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByParameters(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] filter)
+  public static final com.terraframe.mojo.business.ValueQueryDTO searchByParameters(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] filter, java.lang.Boolean enforceRoot)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
-    Object[] _parameters = new Object[]{value, filter};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{value, filter, enforceRoot};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByParameters", _declaredTypes);
     return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

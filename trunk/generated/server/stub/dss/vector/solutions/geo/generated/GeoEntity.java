@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseInfo;
@@ -65,6 +67,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -240,7 +243,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * @param name
    * @return
    */
-  public static ValueQuery searchByEntityName(String type, String name)
+  public static ValueQuery searchByEntityNameOrGeoId(String type, String name, Boolean enforceRoot)
   {
     QueryFactory f = new QueryFactory();
 
@@ -253,45 +256,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
-    LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
-
-    if (name != null && !name.equals(""))
+    
+    if(enforceRoot)
     {
-      String[] tokens = name.split(" ");
-      SelectablePrimitive[] searchables = new SelectablePrimitive[] { orderBy };
+      DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+      AllPathsQuery allQ = new AllPathsQuery(valueQuery);
 
-      QueryBuilder.textLookup(valueQuery, f, tokens, searchables, selectables, conditions, joins);
+      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[]{allQ.getChildGeoEntity().EQ(q),
+        allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity())});
     }
-    else
-    {
-      QueryBuilder.orderedLookup(valueQuery, f, orderBy, selectables, conditions, joins);
-    }
-
-    valueQuery.restrictRows(20, 1);
-
-    return valueQuery;
-  }
-
-  /**
-   * Searches for a GeoEntity based on the entity name and type.
-   * 
-   * @param type
-   * @param name
-   * @return
-   */
-  public static ValueQuery searchByEntityNameOrGeoId(String type, String name)
-  {
-    QueryFactory f = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(f);
-    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
-    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
-    TermQuery tq = new TermQuery(valueQuery);
-
-    SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
-
-    Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+    
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
     if (name != null && !name.equals(""))
@@ -382,7 +356,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * @param filter
    * @return
    */
-  public static ValueQuery searchByParameters(String value, String[] filter)
+  public static ValueQuery searchByParameters(String value, String[] filter, Boolean enforceRoot)
   {
     QueryFactory factory = new QueryFactory();
 
@@ -431,7 +405,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }
     }
 
-    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+
+    
+    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
+
+    if(enforceRoot)
+    {
+      DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+      AllPathsQuery allQ = new AllPathsQuery(valueQuery);
+
+      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[]{allQ.getChildGeoEntity().EQ(q),
+        allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity())});
+    }
+    
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
     if (value != null && !value.equals(""))
@@ -445,7 +431,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins);
     }
-
+    
+    
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;
