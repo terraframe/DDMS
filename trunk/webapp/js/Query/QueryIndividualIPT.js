@@ -12,14 +12,14 @@ Mojo.Meta.newClass('MDSS.QueryIndividualIPT', {
   		this._mainQueryClass = this._groupByClass.CLASS;
 	
       this._individualIPT = new this._groupByClass();
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
-      
-      var startDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
-      this._startDateSelectable = new MDSS.QueryXML.Selectable(startDateAttr);
-      
-      var endDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.ENDDATE, this._groupByClass.ENDDATE);
-      this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
 
+
+      this._dateAttribs = [
+                           {
+                          	 klass :  this._groupByClass,
+                             accessor : this._groupByClass.SERVICEDATE,
+                           }
+                          ];
 
 
       this._commonQueryClasses = [
