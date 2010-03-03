@@ -54,6 +54,8 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
   
   private IndividualIPTCase searchForCase()
   {
+    GeoEntity residential = this.getResidentialLocation();
+    GeoEntity workGeo = this.getWorkGeoEntity();
     String firstName = this.getPatientFirstName();
     String lastName = this.getPatientLastName();
     Date dob = this.getPatientDOB();
@@ -94,6 +96,9 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
       person.setFirstName(firstName);
       person.setLastName(lastName);
       person.setDateOfBirth(dob);
+      person.setResidentialGeoEntity(residential);
+      person.setWorkGeoEntity(workGeo);
+      person.setWorkInformation(this.getWorkInformation());
       person.apply();
     }
     personIterator.close();
@@ -110,7 +115,6 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
       person.apply();
     }
     
-    GeoEntity residential = this.getResidentialLocation();
     IndividualIPTCaseQuery caseQuery = new IndividualIPTCaseQuery(new QueryFactory());
     caseQuery.WHERE(caseQuery.getResidentialLocation().EQ(residential));
     caseQuery.WHERE(caseQuery.getPatient().EQ(recipient));
@@ -139,6 +143,7 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     list.add(PATIENTFIRSTNAME);
     list.add(PATIENTLASTNAME);
     list.add(PATIENTDOB);
+    list.add(WORKINFORMATION);
     list.add(SERVICEDATE);
     list.add(PATIENTTYPE);
     list.add(ISANCVISIT);
@@ -155,13 +160,15 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(createExcelGeoListener());
+    exporter.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
+    exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
     exporter.addListener(createExcelHealthFacilityListener());
   }
 
   public static void setupImportListener(ExcelImporter importer, String... params)
   {
-    importer.addListener(createExcelGeoListener());
+    importer.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
+    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
     importer.addListener(createExcelHealthFacilityListener());
   }
   
@@ -172,14 +179,14 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     return new DynamicGeoColumnListener(CLASS, FACILITY, builder);
   }
   
-  private static DynamicGeoColumnListener createExcelGeoListener()
+  private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
   {
     HierarchyBuilder builder = new HierarchyBuilder();
     for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
     {
       builder.add(hierarchy);
     }
-    return new DynamicGeoColumnListener(CLASS, RESIDENTIALLOCATION, builder);
+    return new DynamicGeoColumnListener(CLASS, attributeName, builder);
   }
   
 }

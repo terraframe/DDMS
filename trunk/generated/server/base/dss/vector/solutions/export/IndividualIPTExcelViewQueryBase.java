@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 77506268)
+@com.terraframe.mojo.business.ClassSignature(hash = 1549944587)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualIPTExcelViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 77506268;
+private static final long serialVersionUID = 1549944587;
 
   public IndividualIPTExcelViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -331,6 +331,43 @@ private static final long serialVersionUID = 77506268;
   public com.terraframe.mojo.query.SelectableChar getVisitNumber(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.VISITNUMBER, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkGeoEntity()
+  {
+    return getWorkGeoEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkGeoEntity(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.WORKGEOENTITY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getWorkGeoEntity(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.WORKGEOENTITY, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableChar getWorkInformation()
+  {
+    return getWorkInformation(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getWorkInformation(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.WORKINFORMATION, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getWorkInformation(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.WORKINFORMATION, alias, displayLabel);
 
   }
  

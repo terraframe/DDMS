@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -295033613)
+@com.terraframe.mojo.business.ClassSignature(hash = -1728934444)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,9 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
-  private static final long serialVersionUID = -295033613;
+  public static java.lang.String WORKGEOENTITY = "workGeoEntity";
+  public static java.lang.String WORKINFORMATION = "workInformation";
+  private static final long serialVersionUID = -1728934444;
   
   public IndividualIPTExcelViewBase()
   {
@@ -510,6 +512,69 @@ public abstract class IndividualIPTExcelViewBase extends com.terraframe.mojo.bus
     else
     {
       setValue(VISITNUMBER, value);
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getWorkGeoEntity()
+  {
+    if (getValue(WORKGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(WORKGEOENTITY));
+    }
+  }
+  
+  public void validateWorkGeoEntity()
+  {
+    this.validateAttribute(WORKGEOENTITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkGeoEntityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
+    return mdClassIF.definesAttribute(WORKGEOENTITY);
+  }
+  
+  public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(WORKGEOENTITY, "");
+    }
+    else
+    {
+      setValue(WORKGEOENTITY, value.getId());
+    }
+  }
+  
+  public String getWorkInformation()
+  {
+    return getValue(WORKINFORMATION);
+  }
+  
+  public void validateWorkInformation()
+  {
+    this.validateAttribute(WORKINFORMATION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getWorkInformationMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
+    return mdClassIF.definesAttribute(WORKINFORMATION);
+  }
+  
+  public void setWorkInformation(String value)
+  {
+    if(value == null)
+    {
+      setValue(WORKINFORMATION, "");
+    }
+    else
+    {
+      setValue(WORKINFORMATION, value);
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -13331597)
+@com.terraframe.mojo.business.ClassSignature(hash = -1532956844)
 public abstract class IndividualIPTExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.IndividualIPTExcelView";
-  private static final long serialVersionUID = -13331597;
+  private static final long serialVersionUID = -1532956844;
   
   protected IndividualIPTExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -33,6 +33,8 @@ public abstract class IndividualIPTExcelViewDTOBase extends com.terraframe.mojo.
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
+  public static java.lang.String WORKGEOENTITY = "workGeoEntity";
+  public static java.lang.String WORKINFORMATION = "workInformation";
   public String getAdministratorName()
   {
     return getValue(ADMINISTRATORNAME);
@@ -637,6 +639,87 @@ public abstract class IndividualIPTExcelViewDTOBase extends com.terraframe.mojo.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getVisitNumberMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VISITNUMBER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkGeoEntity()
+  {
+    if(getValue(WORKGEOENTITY) == null || getValue(WORKGEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKGEOENTITY));
+    }
+  }
+  
+  public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WORKGEOENTITY, "");
+    }
+    else
+    {
+      setValue(WORKGEOENTITY, value.getId());
+    }
+  }
+  
+  public boolean isWorkGeoEntityWritable()
+  {
+    return isWritable(WORKGEOENTITY);
+  }
+  
+  public boolean isWorkGeoEntityReadable()
+  {
+    return isReadable(WORKGEOENTITY);
+  }
+  
+  public boolean isWorkGeoEntityModified()
+  {
+    return isModified(WORKGEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKGEOENTITY).getAttributeMdDTO();
+  }
+  
+  public String getWorkInformation()
+  {
+    return getValue(WORKINFORMATION);
+  }
+  
+  public void setWorkInformation(String value)
+  {
+    if(value == null)
+    {
+      setValue(WORKINFORMATION, "");
+    }
+    else
+    {
+      setValue(WORKINFORMATION, value);
+    }
+  }
+  
+  public boolean isWorkInformationWritable()
+  {
+    return isWritable(WORKINFORMATION);
+  }
+  
+  public boolean isWorkInformationReadable()
+  {
+    return isReadable(WORKINFORMATION);
+  }
+  
+  public boolean isWorkInformationModified()
+  {
+    return isModified(WORKINFORMATION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getWorkInformationMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WORKINFORMATION).getAttributeMdDTO();
   }
   
   public static IndividualIPTExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
