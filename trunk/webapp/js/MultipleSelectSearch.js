@@ -154,6 +154,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       selections.appendChild(li);
     },
     
+    _doCreateRoot : function(request)
+    {
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, '');
+    },    
+    
     /**
      * Deletes the li element from the current selection list.
      * The GeoEntity associated with that selection will no longer

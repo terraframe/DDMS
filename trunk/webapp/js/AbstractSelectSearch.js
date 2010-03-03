@@ -131,10 +131,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._hideHandler = handler;
     },
     
-    _postCreateRoot : function()
-    {
-    },
-  
     /**
      * Sets the root entity
      */
@@ -146,12 +142,15 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         onSuccess : function(results){
   
           this.searchRef._clearAndAddAll(0, results);
-          
-          this.searchRef._postCreateRoot();
         }
       });
   
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, '');
+      this._doCreateRoot(request);
+    },
+  
+    _doCreateRoot : 
+    {
+      IsAbstract : true
     },
   
     /**
@@ -248,7 +247,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
             var type = search.id.replace(/_search/, '');
             
             var sFunction = Mojo.Util.curry(function(typeRef, request, value){
-              Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName(request, typeRef, value);
+              Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value);
             }, type);
             
             var sHandler = Mojo.Util.bind(this, function(typeRef, option){
@@ -267,13 +266,15 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
           }
   
           // hook all search events for manual entry
+          /*
           var manualSearches = YAHOO.util.Selector.query('input.manualSearch', this._SELECT_CONTAINER_ID);
           for(var i=0; i<manualSearches.length; i++)
           {
             var search = manualSearches[i];
             YAHOO.util.Event.on(search, 'click', this.searchRef._manualSearch, null, this.searchRef);
           }
-  
+          */
+           
           this.searchRef._postRender();
   
           this.searchRef._rendered = true;
@@ -665,7 +666,6 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
     /**
      * Searches for a specific GeoEntity.
-     */
     _manualSearch : function(e)
     {
       var button = e.target;
@@ -689,6 +689,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchAndCollectByGeoId(request, geoId, this._filterType);
     },
+     */
   
     /**
      * Gets the children for a given GeoEntity or

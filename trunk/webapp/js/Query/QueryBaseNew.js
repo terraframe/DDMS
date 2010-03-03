@@ -471,6 +471,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }, this); 
         }
         
+        this.clearBrowserTerms(attribute);
       }
     },
 

@@ -185,19 +185,25 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     {
       return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch;
     },
+    
+    _doCreateRoot : function(request)
+    {
+      if(this._geoId != null && this._geoId !== '')
+      {
+        // Use a custom geo entity
+        this.populateSelections(this._geoId);
+      }
+      else
+      {
+        // Fetch the system default root.
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, this._filterType);
+      }
+    },
 
     _disableAllowed : function()
     {
       return true;
-    },
-    
-    _postCreateRoot : function()
-    {
-      if(this._geoId != null)
-      {
-        this.populateSelections(this._geoId);
-      }
-    }    
+    }
   }
 });
 

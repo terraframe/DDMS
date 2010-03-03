@@ -4,7 +4,7 @@
 <%@page import="dss.vector.solutions.MDSSInfo"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 
-<div style="width: 725px; margin-top: 15px;" >
+<div style="width: 695px; margin-top: 15px;" >
 <div id="selectSearchComponent">
   <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
@@ -30,7 +30,6 @@
             </div>
         </c:when>
         <c:otherwise>
-          <input type="text" class="manualEntry" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_manualEntry" size="6" /><input type="button" class="manualSearch" id="${view.typeName}_manualSearch" value="Search" />
         </c:otherwise>
       </c:choose>
     </div>

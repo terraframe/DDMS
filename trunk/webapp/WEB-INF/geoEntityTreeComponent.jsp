@@ -30,6 +30,9 @@
     tree = GeoHierarchyDTO.defineAllowedTree(requestIF, EarthDTO.getEarthInstance(requestIF).getId());
   }
   
+  // Force the root, which will be used by calling code such as 101 and 061
+  request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, rootId);
+  
 %>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS}))%>
 

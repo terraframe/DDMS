@@ -15,13 +15,18 @@
 
 
 <jsp:include page="geoEntityTreeComponent.jsp"/>
-<%ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-//String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
-String rootId = EarthDTO.getEarthInstance(requestIF).getId();
-String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS, GeoEntityViewDTO.CLASS };
-//String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
-// out.print(js);%>
+<%
+ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+
+// The root will have been set by the code in geoEntityTreeComponent.jsp
+String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
+
+String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS };
+%>
+
 <%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
+
 <script type="text/javascript">
 MDSS.SelectSearchRootId = '<%=rootId%>';
+
 </script>
