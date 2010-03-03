@@ -1006,7 +1006,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      // this.addGeoAttributes(this._geoEntityAttribs);
 
       this._queryPanel.addQueryItem({
-        html: this._getCountDiv(this,"Dates_And_Count",this._groupByClass,true),
+        html: this._getCountDiv(this,"Dates_And_Count",this._groupByClass,!!this._showRatioSelectable),
         id: 'globalCount'
       });
 

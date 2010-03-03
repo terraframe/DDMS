@@ -11,6 +11,8 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
   		this._mainQueryClass = this._groupByClass.CLASS;
 	
       this._mosquitoCollection = new this._groupByClass();
+      
+      this._showRatioSelectable = true;
 
       this._commonQueryClasses = [
                                   Mojo.$.dss.vector.solutions.entomology.SubCollection.CLASS,
