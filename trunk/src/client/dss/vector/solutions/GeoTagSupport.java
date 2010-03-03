@@ -74,6 +74,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   private String                 filter;
 
   private List<FilterTagSupport> radioFilters;
+  
+  /**
+   * Flag denoting if searching on this geo tag should enforce the system geo root
+   */
+  private Boolean                enforceRoot;
 
   public GeoTagSupport()
   {
@@ -81,6 +86,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.populated = false;
     this.spray = false;
     this.concrete = true;
+    this.enforceRoot = true;
     this.universals = new LinkedList<String>();
     this.radioFilters = new LinkedList<FilterTagSupport>();
   }
@@ -200,23 +206,34 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.radioFilters.add(tag);
   }
   
+  @AttributeAnnotation(rtexprvalue = true, required = false, description = "Flag denoting if the searching on this geo tag should use the global geo root")
+  public Boolean getEnforceRoot()
+  {
+    return enforceRoot;
+  }
+
+  public void setEnforceRoot(Boolean enforceRoot)
+  {
+    this.enforceRoot = enforceRoot;
+  }
+
   private Set<String> getExtraUniversals()
   {
     Set<String> set = new LinkedHashSet<String>();
     List<String> list = this.getUniversals();
     String _filter = this.getFilter();
-    
-    if(list != null)
+
+    if (list != null)
     {
       set.addAll(list);
     }
-    
-    if(_filter != null && !_filter.equals(""))
+
+    if (_filter != null && !_filter.equals(""))
     {
       set.add(_filter);
     }
-    
-    return set;    
+
+    return set;
   }
 
   @Override
@@ -310,12 +327,12 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("(function(){\n");
     out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
     out.write("    var geoInput = document.getElementById('" + _id + "');\n");
-    out.write("    var selectSearch = new MDSS.SingleSelectSearch();\n");
-    
+    out.write("    var selectSearch = new MDSS.SingleSelectSearch(" + this.getEnforceRoot() + ");\n");
+
     this.writeFilterScript(out);
 
     out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
-    
+
     this.writeFilterTags(out);
 
     out.write("  })\n");
@@ -335,12 +352,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    selectSearch.setPolitical(" + this.getPolitical() + ");\n");
     out.write("    selectSearch.setPopulated(" + this.getPopulated() + ");\n");
     out.write("    selectSearch.setSprayTargetAllowed(" + this.getSpray() + ");\n");
-    
-    
-    for(String universal : _universals)
+
+    for (String universal : _universals)
     {
-      out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");      
-    }    
+      out.write("    selectSearch.addExtraUniversal('" + universal + "');\n");
+    }
   }
 
   private void writeFilterTags(JspWriter out) throws IOException
