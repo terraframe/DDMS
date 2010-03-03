@@ -14,7 +14,6 @@ import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
@@ -209,9 +208,9 @@ public class IndividualIPT extends IndividualIPTBase implements com.terraframe.m
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    SelectableMoment dateAttribute = individualIPTQuery.getServiceDate();
-
-    return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    
+    return valueQuery;
 
   }
 }
