@@ -35,9 +35,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
   public void search(PersonViewDTO person) throws IOException, ServletException
   {
     PersonWithDelegatesViewQueryDTO query = person.searchForDuplicates();
+    String repassword = req.getParameter("person.repassword");
+    
+    req.setAttribute("repassword", repassword);
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
-
+    
     this.setupQueryLabels(query);
 
     // Saving the sex is a pain. This is a shortcut.
@@ -80,6 +83,10 @@ public class PersonController extends PersonControllerBase implements Reloadable
   @Override
   public void continueNewInstance(PersonViewDTO person) throws IOException, ServletException
   {
+    String repassword = req.getParameter("person.repassword");
+    
+    req.setAttribute("repassword", repassword);
+
     renderCreate(person);
   }
 

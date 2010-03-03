@@ -43,6 +43,7 @@
     <mjl:input type="hidden" param="isMDSSUser" value="${newPerson.isMDSSUser}"/>
     <mjl:input type="hidden" param="username" value="${newPerson.username}"/>
     <mjl:input type="hidden" param="password" value="${newPerson.password}"/>
+    <mjl:input type="hidden" param="repassword" value="${repassword}"/>
     <mjl:input type="hidden" param="isIPTRecipient" value="${newPerson.isIPTRecipient}"/>
     <mjl:input type="hidden" param="isITNRecipient" value="${newPerson.isITNRecipient}"/>
     <mjl:input type="hidden" param="isPatient" value="${newPerson.isPatient}"/>

@@ -12,7 +12,7 @@
     <mjl:message />
   </mjl:messages>
   <mjl:component item="${item}" param="person">
-    <mjl:input type="hidden" param="personId" value="${item.personId}" />
+    <mjl:input type="hidden" param="personId" id="personId" value="${item.personId}" />
     
     <mjl:input type="hidden" param="isIPTRecipient" value="${item.isIPTRecipient}" />
     <mjl:input type="hidden" param="isITNRecipient" value="${item.isITNRecipient}" />
@@ -72,7 +72,7 @@
               </label>
             </dt>
             <dd>
-              <mjl:input type="password" param="repassword" id="repassword" />
+              <mjl:input type="password" param="repassword" id="repassword"  value="${repassword}"/>
               <mjl:messages attribute="repassword">
                 <mjl:message />
               </mjl:messages>
@@ -261,7 +261,7 @@
     var validatePasswordButton = function() {
         button.disabled = true;
 
-        if(password.value !== '' && repassword.value !== '' && password.value === repassword.value) {
+        if(password.value === repassword.value) {
           button.disabled = false;
         }        
     }
@@ -282,6 +282,11 @@
 
    YAHOO.util.Event.on(password, 'keyup', validatePasswordButton);
    YAHOO.util.Event.on(repassword, 'keyup', validatePasswordButton);
+
+   if(document.getElementById('personId').value == '')
+   {	   
+     validatePasswordButton();
+   }
   })
 })();
 </script>
