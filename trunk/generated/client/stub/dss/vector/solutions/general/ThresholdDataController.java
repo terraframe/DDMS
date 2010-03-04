@@ -240,32 +240,35 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     {
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
-
       new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "editThresholdConfiguration");
 
-      ClientRequestIF request = this.getClientRequest();
-
-      List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();
-      List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
-      ThresholdCalculationTypeViewDTO item = ThresholdCalculationTypeViewDTO.getCalculationThreshold(request);
-      Integer percentComplete = ThresholdCalculationTypeViewDTO.getPercentComplete(request);
-
-      req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
-      req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
-      req.setAttribute("methods", countingMethods);
-      req.setAttribute("views", universals);
-
-      req.setAttribute("thresholdCalculation", item);
-      req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
-      req.setAttribute("active", percentComplete != -1);
-
-      render("editThresholdConfiguration.jsp");
+      this.editThresholdConfiguration(ThresholdCalculationTypeViewDTO.getCalculationThreshold(this.getClientRequest()));
     }
+  }
+
+  private void editThresholdConfiguration(ThresholdCalculationTypeViewDTO item) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientSession().getRequest();
+    
+    List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();
+    List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
+    Integer percentComplete = ThresholdCalculationTypeViewDTO.getPercentComplete(request);
+
+    req.setAttribute("thresholdCalculationMethods", ThresholdCalculationMethodDTO.allItems(request));
+    req.setAttribute("thresholdCalculationCaseTypes", ThresholdCalculationCaseTypesDTO.allItems(request));
+    req.setAttribute("methods", countingMethods);
+    req.setAttribute("views", universals);
+
+    req.setAttribute("thresholdCalculation", item);
+    req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
+    req.setAttribute("active", percentComplete != -1);
+
+    render("editThresholdConfiguration.jsp");
   }
 
   private List<GeoHierarchyViewDTO> getPopulationFilterHiearchies()
   {
-    ClientRequestIF request = this.getClientRequest();
+    ClientRequestIF request = this.getClientSession().getRequest();
 
     List<GeoHierarchyViewDTO> list = Arrays.asList(GeoHierarchyDTO.getAllViews(request));
     List<GeoHierarchyViewDTO> views = new LinkedList<GeoHierarchyViewDTO>();
@@ -300,24 +303,21 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       thresholdCalculation.apply();
       this.editThresholdConfiguration();
     }
-    catch (ProblemExceptionDTO e)
+    catch (java.lang.Throwable t)
     {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
-    }
-    catch (Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
+      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      
+      if (!redirect)
+      {
+        this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
+      }
     }
   }
 
   @Override
   public void failSetThresholdConfiguration(String universal, String calculationMethod, ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException
   {
-    this.editThresholdConfiguration();
+    this.editThresholdConfiguration(thresholdCalculation);
   }
 
   private void validateParameters(String geoId, MalariaSeasonDTO season)

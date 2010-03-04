@@ -4,135 +4,161 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-public class ThresholdCalculationType extends ThresholdCalculationTypeBase implements com.terraframe.mojo.generation.loader.Reloadable {
-	private static final long serialVersionUID = 1258003583251L;
+public class ThresholdCalculationType extends ThresholdCalculationTypeBase implements com.terraframe.mojo.generation.loader.Reloadable
+{
+  private static final long  serialVersionUID = 1258003583251L;
 
-	public static final String WEIGHT = "weight";
+  public static final String WEIGHT           = "weight";
 
-	public ThresholdCalculationType() {
-		super();
-	}
+  public ThresholdCalculationType()
+  {
+    super();
+  }
 
-	public ThresholdCalculationTypeView getView() {
-		ThresholdCalculationTypeView view = new ThresholdCalculationTypeView();
-		view.populateView(this);
+  public ThresholdCalculationTypeView getView()
+  {
+    ThresholdCalculationTypeView view = new ThresholdCalculationTypeView();
+    view.populateView(this);
 
-		return view;
-	}
+    return view;
+  }
 
-	@Transaction
-	public static ThresholdCalculationType getCurrent() {
-		ThresholdCalculationTypeQuery query = new ThresholdCalculationTypeQuery(new QueryFactory());
-		query.ORDER_BY_DESC(query.getCreateDate());
+  @Transaction
+  public static ThresholdCalculationType getCurrent()
+  {
+    ThresholdCalculationTypeQuery query = new ThresholdCalculationTypeQuery(new QueryFactory());
+    query.ORDER_BY_DESC(query.getCreateDate());
 
-		OIterator<? extends ThresholdCalculationType> iterator = query.getIterator();
+    OIterator<? extends ThresholdCalculationType> iterator = query.getIterator();
 
-		try {
-			while (iterator.hasNext()) {
-				return iterator.next();
-			}
+    try
+    {
+      while (iterator.hasNext())
+      {
+        return iterator.next();
+      }
 
-			// No ThresholdCalculationType has been created before. Therefore
-			// return one containing the default values.
-			return null;
-		} finally {
-			iterator.close();
-		}
-	}
+      // No ThresholdCalculationType has been created before. Therefore
+      // return one containing the default values.
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
 
-	@Override
-	public void apply() {
-		if (this.isDifferent()) {
-			super.apply();
-		}
-	}
+  @Override
+  public void apply()
+  {
+    if (this.isDifferent())
+    {
+      super.apply();
+    }
+  }
 
-	private boolean isDifferent() {
-		ThresholdCalculationTypeView recent = ThresholdCalculationTypeView.getCalculationThreshold();
+  private boolean isDifferent()
+  {
+    ThresholdCalculationTypeView recent = ThresholdCalculationTypeView.getCalculationThreshold();
 
-		if (!this.getT1Method().containsAll(recent.getT1Method())) {
-			return true;
-		}
+    if (!this.getT1Method().containsAll(recent.getT1Method()))
+    {
+      return true;
+    }
 
-		if (!this.getT2Method().containsAll(recent.getT2Method())) {
-			return true;
-		}
+    if (!this.getT2Method().containsAll(recent.getT2Method()))
+    {
+      return true;
+    }
 
-		if (this.getWeeksBefore() == null || !this.getWeeksBefore().equals(recent.getWeeksBefore())) {
-			return true;
-		}
+    if (this.getWeeksBefore() == null || !this.getWeeksBefore().equals(recent.getWeeksBefore()))
+    {
+      return true;
+    }
 
-		if (this.getWeeksAfter() == null || !this.getWeeksAfter().equals(recent.getWeeksAfter())) {
-			return true;
-		}
+    if (this.getWeeksAfter() == null || !this.getWeeksAfter().equals(recent.getWeeksAfter()))
+    {
+      return true;
+    }
 
-		if (this.getPriorYears() == null || !this.getPriorYears().equals(recent.getPriorYears())) {
-			return true;
-		}
+    if (this.getPriorYears() == null || !this.getPriorYears().equals(recent.getPriorYears()))
+    {
+      return true;
+    }
 
-		for (int i = 0; i < 10; i++) {
-			if (this.getWeight(i) == null || !recent.getWeight(i).equals(this.getWeight(i))) {
-				return true;
-			}
-		}
+    for (int i = 0; i < 10; i++)
+    {
+      if (this.getWeight(i) != null && recent.getWeight(i) != null && !recent.getWeight(i).equals(this.getWeight(i)))
+      {
+        return true;
+      }
+      else if (this.getWeight(i) == null && recent.getWeight(i) != null)
+      {
+        return true;
+      }
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	public String getWeight(int i) {
-		return this.getValue(WEIGHT + i);
-	}
+  public String getWeight(int i)
+  {
+    return this.getValue(WEIGHT + i);
+  }
 
-	public double[] getWeights() {
-		double[] weights = new double[this.getPriorYears()];
-		switch (this.getPriorYears()) {
-		case 10:
-			weights[9] = this.getWeight9();
-		case 9:
-			weights[8] = this.getWeight8();
-		case 8:
-			weights[7] = this.getWeight7();
-		case 7:
-			weights[6] = this.getWeight6();
-		case 6:
-			weights[5] = this.getWeight5();
-		case 5:
-			weights[4] = this.getWeight4();
-		case 4:
-			weights[3] = this.getWeight3();
-		case 3:
-			weights[2] = this.getWeight2();
-		case 2:
-			weights[1] = this.getWeight1();
-		case 1:
-			weights[0] = this.getWeight0();
-		}
-		return weights;
-	}
+  public double[] getWeights()
+  {
+    double[] weights = new double[this.getPriorYears()];
+    switch (this.getPriorYears())
+    {
+      case 10:
+        weights[9] = this.getWeight9();
+      case 9:
+        weights[8] = this.getWeight8();
+      case 8:
+        weights[7] = this.getWeight7();
+      case 7:
+        weights[6] = this.getWeight6();
+      case 6:
+        weights[5] = this.getWeight5();
+      case 5:
+        weights[4] = this.getWeight4();
+      case 4:
+        weights[3] = this.getWeight3();
+      case 3:
+        weights[2] = this.getWeight2();
+      case 2:
+        weights[1] = this.getWeight1();
+      case 1:
+        weights[0] = this.getWeight0();
+    }
+    return weights;
+  }
 
-	public void setWeights(double[] weights) {
-		switch (this.getPriorYears()) {
-		case 10:
-			this.setWeight9(weights[9]);
-		case 9:
-			this.setWeight8(weights[8]);
-		case 8:
-			this.setWeight7(weights[7]);
-		case 7:
-			this.setWeight6(weights[6]);
-		case 6:
-			this.setWeight5(weights[5]);
-		case 5:
-			this.setWeight4(weights[4]);
-		case 4:
-			this.setWeight3(weights[3]);
-		case 3:
-			this.setWeight2(weights[2]);
-		case 2:
-			this.setWeight1(weights[1]);
-		case 1:
-			this.setWeight0(weights[0]);
-		}
-	}
+  public void setWeights(double[] weights)
+  {
+    switch (this.getPriorYears())
+    {
+      case 10:
+        this.setWeight9(weights[9]);
+      case 9:
+        this.setWeight8(weights[8]);
+      case 8:
+        this.setWeight7(weights[7]);
+      case 7:
+        this.setWeight6(weights[6]);
+      case 6:
+        this.setWeight5(weights[5]);
+      case 5:
+        this.setWeight4(weights[4]);
+      case 4:
+        this.setWeight3(weights[3]);
+      case 3:
+        this.setWeight2(weights[2]);
+      case 2:
+        this.setWeight1(weights[1]);
+      case 1:
+        this.setWeight0(weights[0]);
+    }
+  }
 }
-
