@@ -96,6 +96,10 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
       {
         return true;
       }
+      else if (this.getWeight(i) != null && recent.getWeight(i) == null)
+      {
+        return true;
+      }
     }
 
     return false;
