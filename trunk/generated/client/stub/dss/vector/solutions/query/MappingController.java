@@ -63,15 +63,14 @@ public class MappingController extends MappingControllerBase implements
   }
   
   @Override
-  public void exportShapefile(String mapId) throws IOException, ServletException
+  public void exportShapefile(String mapId, String namedMapId) throws IOException, ServletException
   {
     try
     {
-      SavedMapDTO map = SavedMapDTO.get(this.getClientRequest(), mapId);
-    
+      SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), namedMapId);
       InputStream stream = SavedMapDTO.exportShapefile(this.getClientRequest(), mapId);
     
-      FileDownloadUtil.writeZIP(resp, map.getMapName(), stream);
+      FileDownloadUtil.writeZIP(resp, savedMap.getMapName(), stream);
     }
     catch (Throwable t)
     {

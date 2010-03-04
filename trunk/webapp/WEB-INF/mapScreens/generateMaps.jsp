@@ -64,6 +64,7 @@ YAHOO.util.Event.onDOMReady(function(){
 <div style="display: none">
   <form id="exportShapefile" target="exportIframe" method="POST" action="dss.vector.solutions.query.MappingController.exportShapefile.mojo">
     <input type="hidden" id="export_mapId" name="mapId" />
+    <input type="hidden" id="export_namedMapId" name="namedMapId" />
   </form>
 </div>
 

@@ -284,13 +284,24 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
   @Transaction
   public LayerViewQuery createFromExisting(String existingMapId)
   {
-    this.apply();
+    if(this.isNew())
+    {
+      this.apply();
+    }
+    else
+    {
+      for(Layer layer : this.getAllLayer().getAll())
+      {
+        layer.delete();
+      }
+    }
 
     // copy the layers from the existing map
     SavedMap existingMap = SavedMap.get(existingMapId);
-    for (HasLayers existingRel : existingMap.getAllLayerRel().getAll())
+    
+    for(LayerView existingLayerView : existingMap.getAllLayers().getIterator().getAll())
     {
-      Layer existingLayer = existingRel.getChild();
+      Layer existingLayer = Layer.get(existingLayerView.getLayerId());
       Layer layer = new Layer();
 
       for (MdAttributeDAOIF mdAttr : layer.getMdClass().definesAttributes())
@@ -355,7 +366,7 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
 
       // copy the relationship between the SavedMap and Layer
       HasLayers rel = this.addLayer(layer);
-      rel.setLayerPosition(existingRel.getLayerPosition());
+      rel.setLayerPosition(existingLayerView.getLayerPosition());
       rel.apply();
       
     }

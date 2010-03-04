@@ -177,7 +177,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           MDSS.MapPanel.setCurrentMap(defaultMap.getId());
           
           // reset the select list index of maps to the first element
-          document.getElementById(MDSS.MapPanel.MAP_LIST).selectedIndex = 0;
+          var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
+          select.options[0].value = defaultMap.getId();
+          select.selectedIndex = 0;
         }
       });
       
@@ -927,6 +929,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _exportShapefile : function()
     {
+      var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
+      document.getElementById('export_namedMapId').value = mapList.value;
+      
       var form = document.getElementById('exportShapefile');
       form.submit();
     },
@@ -968,16 +973,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     _saveMap : function()
     {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
-      var mapId = mapList.options[mapList.selectedIndex].value;
       
-      if(mapId && mapId.length > 0)
-      {
-        // FIXME anything to persist? Eventually annotation locations.
-      }
-      else
+      if(mapList.selectedIndex == 0)
       {
         // Save as a new map
         this._saveMapAs();
+      }
+      else
+      {
+        var mapId = mapList.value;
+        var defaultMapId = mapList.options[0].value;
+        
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(query)
+          {
+            // repopulate the map list with the layers
+            this.that._setLayers(query.getResultSet());
+          }
+        });        
+        
+        Mojo.$.dss.vector.solutions.query.SavedMap.createFromExisting(request, mapId, defaultMapId);
       }
     },
     
@@ -1008,7 +1024,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           mapId = Mojo.Util.trim(mapId);
           
           that._addSavedMap(mapId, savedMap.getMapName());
-          that._setLayers(query.getResultSet());          
+          
+          // Keep the current layers which are defined on the default saved map
+          //that._setLayers(query.getResultSet());          
           
           that._destroyModal();
         }
@@ -1067,9 +1085,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var mapList = document.getElementById(MDSS.MapPanel.MAP_LIST);
       mapList.appendChild(option);
       mapList.selectedIndex = mapList.options.length-1;
-      
-      // update the current map to the newly created one
-      MDSS.MapPanel.setCurrentMap(mapId);
     },
     
     _clearLayers : function()
@@ -1080,28 +1095,27 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _loadMap : function(e)
     {
-      var mapId = document.getElementById(MDSS.MapPanel.MAP_LIST).value;
+      var select = document.getElementById(MDSS.MapPanel.MAP_LIST);
       
-      if(mapId === '')
+      if(select.selectedIndex == 0)
       {
         this._loadDefaultMap(); // this will reset the current default map
       }
       else
       {
+        var mapId = select.value;
+        var defaultMapId = select.options[0].value;
+
         var request = new MDSS.Request({
-          mapId : mapId,
           that : this,
           onSuccess : function(query)
           {
-            MDSS.MapPanel.setCurrentMap(this.mapId);
-            var that = this.that;
-          
             // repopulate the map list with the layers
-            that._setLayers(query.getResultSet());
+            this.that._setLayers(query.getResultSet());
           }
         });
 
-        Mojo.$.dss.vector.solutions.query.SavedMap.getAllLayers(request, mapId);        
+        Mojo.$.dss.vector.solutions.query.SavedMap.createFromExisting(request, defaultMapId, mapId);
       }
     },
     

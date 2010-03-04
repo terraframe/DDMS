@@ -35,7 +35,8 @@
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="com.terraframe.mojo.business.BusinessDTO"%>
 
-<c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
+
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -112,6 +113,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var query = new MDSS.QueryAggreatedIPT(selectableGroups, queryList);
     query.render();
+
+    var picker = query.getGeoPicker();
+    picker.setPolitical(true);
+    picker.setSprayTargetAllowed(false);
+    picker.setPopulated(false);
+    picker.addExtraUniversal('<%= HealthFacilityDTO.CLASS %>');
 
 });
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 974832963)
+@com.terraframe.mojo.business.ClassSignature(hash = -450170193)
 public class MappingControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
@@ -10,7 +10,7 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 974832963;
+  private static final long serialVersionUID = -450170193;
   
   public MappingControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -137,15 +137,15 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failEditThematicLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId", post=true)
-  public void exportShapefile(java.lang.String mapId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
+  public void exportShapefile(java.lang.String mapId, java.lang.String namedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.exportShapefile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId", post=true)
-  public void failExportShapefile(java.lang.String mapId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
+  public void failExportShapefile(java.lang.String mapId, java.lang.String namedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failExportShapefile");
