@@ -105,8 +105,9 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
       {
         return leaderIterator.next();
       }
-
-      return null;
+      InvalidLeaderIDException e = new InvalidLeaderIDException();
+      e.setLeaderId(id);
+      throw e;
     }
     finally
     {
@@ -127,7 +128,9 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
       {
         return iterator.next();
       }
-      return null;
+      InvalidOperatorIDException e = new InvalidOperatorIDException();
+      e.setOperatorId(operatorId);
+      throw e;
     }
     finally
     {
@@ -172,7 +175,9 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
       {
         return iterator.next();
       }
-      return null;
+      InvalidMemberIDException e = new InvalidMemberIDException();
+      e.setMemberId(operatorId);
+      throw e;
     }
     finally
     {
