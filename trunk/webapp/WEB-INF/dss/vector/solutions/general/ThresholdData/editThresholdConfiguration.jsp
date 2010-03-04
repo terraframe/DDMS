@@ -67,43 +67,43 @@
           </tr>
           <tr class="oddRow" id="weight0" style="display:none;">
             <td>${thresholdCalculation.weight0Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight0" /></td>
+            <td><mjl:input type="text" param="weight0" /><mjl:messages attribute="weight0"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="evenRow" id="weight1" style="display:none;">
             <td>${thresholdCalculation.weight1Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight1" /></td>
+            <td><mjl:input type="text" param="weight1" /><mjl:messages attribute="weight1"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="oddRow" id="weight2" style="display:none;">
             <td>${thresholdCalculation.weight2Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight2" /></td>
+            <td><mjl:input type="text" param="weight2" /><mjl:messages attribute="weight2"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="evenRow" id="weight3" style="display:none;">
             <td>${thresholdCalculation.weight3Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight3" /></td>
+            <td><mjl:input type="text" param="weight3" /><mjl:messages attribute="weight3"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="oddRow" id="weight4" style="display:none;">
             <td>${thresholdCalculation.weight4Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight4" /></td>
+            <td><mjl:input type="text" param="weight4" /><mjl:messages attribute="weight4"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="evenRow" id="weight5" style="display:none;">
             <td>${thresholdCalculation.weight5Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight5" /></td>
+            <td><mjl:input type="text" param="weight5" /><mjl:messages attribute="weight5"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="oddRow" id="weight6" style="display:none;">
             <td>${thresholdCalculation.weight6Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight6" /></td>
+            <td><mjl:input type="text" param="weight6" /><mjl:messages attribute="weight6"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="evenRow" id="weight7" style="display:none;">
             <td>${thresholdCalculation.weight7Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight7" /></td>
+            <td><mjl:input type="text" param="weight7" /><mjl:messages attribute="weight7"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="oddRow" id="weight8" style="display:none;">
             <td>${thresholdCalculation.weight8Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight8" /></td>
+            <td><mjl:input type="text" param="weight8" /><mjl:messages attribute="weight8"><mjl:message /></mjl:messages></td>
           </tr>
           <tr class="evenRow" id="weight9" style="display:none;">
             <td>${thresholdCalculation.weight9Md.displayLabel}</td>
-            <td><mjl:input type="text" param="weight9" /></td>
+            <td><mjl:input type="text" param="weight9" /><mjl:messages attribute="weight9"><mjl:message /></mjl:messages></td>
           </tr>
         </table>    
       </div>
