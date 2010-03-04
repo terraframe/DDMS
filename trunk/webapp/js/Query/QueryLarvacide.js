@@ -17,7 +17,7 @@ Mojo.Meta.newClass('MDSS.QueryLarvacide', {
       var startDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
       this._startDateSelectable = new MDSS.QueryXML.Selectable(startDateAttr);
       
-      var endDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.ENDDATE, this._groupByClass.ENDDATE);
+      var endDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.COMPLETIONDATE, this._groupByClass.COMPLETIONDATE);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
 
 
