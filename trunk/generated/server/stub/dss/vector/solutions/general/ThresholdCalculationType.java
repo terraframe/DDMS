@@ -58,20 +58,20 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 			return true;
 		}
 
-		if (!this.getWeeksBefore().equals(recent.getWeeksBefore())) {
+		if (this.getWeeksBefore() == null || !this.getWeeksBefore().equals(recent.getWeeksBefore())) {
 			return true;
 		}
 
-		if (!this.getWeeksAfter().equals(recent.getWeeksAfter())) {
+		if (this.getWeeksAfter() == null || !this.getWeeksAfter().equals(recent.getWeeksAfter())) {
 			return true;
 		}
 
-		if (!this.getPriorYears().equals(recent.getPriorYears())) {
+		if (this.getPriorYears() == null || !this.getPriorYears().equals(recent.getPriorYears())) {
 			return true;
 		}
 
 		for (int i = 0; i < 10; i++) {
-			if (!recent.getWeight(i).equals(this.getWeight(0))) {
+			if (this.getWeight(i) == null || !recent.getWeight(i).equals(this.getWeight(i))) {
 				return true;
 			}
 		}
