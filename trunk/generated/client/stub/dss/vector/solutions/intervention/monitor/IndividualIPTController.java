@@ -273,10 +273,10 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("person", person);
-    req.setAttribute("patientType", dto.getPatientType());
-    req.setAttribute("doseNumber", dto.getDoseNumber());
-    req.setAttribute("doseType", dto.getDoseType());
-    req.setAttribute("visitNumber", dto.getVisitNumber());
+    req.setAttribute("patientType", AttributeUtil.getValue(IndividualIPTViewDTO.PATIENTTYPE, dto));
+    req.setAttribute("doseNumber", AttributeUtil.getValue(IndividualIPTViewDTO.DOSENUMBER, dto));
+    req.setAttribute("doseType", AttributeUtil.getValue(IndividualIPTViewDTO.DOSETYPE, dto));
+    req.setAttribute("visitNumber", AttributeUtil.getValue(IndividualIPTViewDTO.VISITNUMBER, dto));
     req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
 
 

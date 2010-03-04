@@ -111,7 +111,8 @@
           <char
             name="concreteId"
             label="Concrete Id"
-            size="255" />
+            size="255"
+            required="true" />
           <reference
             name="targetGroups"
             label="ITNs distributed to the target groups"

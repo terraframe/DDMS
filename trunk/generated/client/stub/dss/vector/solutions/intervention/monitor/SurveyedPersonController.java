@@ -16,6 +16,7 @@ import dss.vector.solutions.RefusedResponseDTO;
 import dss.vector.solutions.ResponseDTO;
 import dss.vector.solutions.ResponseMasterDTO;
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -145,7 +146,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
       dto.addPerformedRDT(RefusedResponseDTO.NO);
       dto.addFever(ResponseDTO.NO);
       dto.addMalaria(ResponseDTO.NO);
-      
+
       this.setupReference(dto);
       req.setAttribute("item", dto);
 
@@ -223,7 +224,7 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
     this.setupReference(dto);
 
-    String netId = dto.getValue(SurveyedPersonViewDTO.SLEPTUNDERNET);
+    String netId = AttributeUtil.getString(SurveyedPersonViewDTO.SLEPTUNDERNET, dto);
 
     if (netId != null && !netId.equals(""))
     {
@@ -286,40 +287,45 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
     req.setAttribute("locations", Arrays.asList(locations));
     req.setAttribute("treatments", Arrays.asList(treatments));
     req.setAttribute("sleptUnderNet", Arrays.asList(itns));
-    req.setAttribute("sex", dto.getSex());
-    req.setAttribute("anaemiaTreatment", dto.getAnaemiaTreatment());
-    req.setAttribute("bloodslideDetail", dto.getBloodslideDetail());
-    req.setAttribute("bloodslideReason", dto.getBloodslideReason());
+    req.setAttribute("anaemiaTreatment", AttributeUtil.getValue(SurveyedPersonViewDTO.ANAEMIATREATMENT, dto));
+    req.setAttribute("bloodslideDetail", AttributeUtil.getValue(SurveyedPersonViewDTO.BLOODSLIDEDETAIL, dto));
+    req.setAttribute("bloodslideReason", AttributeUtil.getValue(SurveyedPersonViewDTO.BLOODSLIDEREASON, dto));
     req.setAttribute("fever", this.getResponses(request));
     req.setAttribute("haemoglobinMeasured", this.getRefusedResponses(request));
-    req.setAttribute("headOfHousehold", dto.getHeadOfHousehold());
-    req.setAttribute("immuneCompromised", dto.getImmuneCompromised());
+    req.setAttribute("headOfHousehold", AttributeUtil.getValue(SurveyedPersonViewDTO.HEADOFHOUSEHOLD, dto));
+    req.setAttribute("immuneCompromised", AttributeUtil.getValue(SurveyedPersonViewDTO.IMMUNECOMPROMISED, dto));
     req.setAttribute("malaria", this.getResponses(request));
-    req.setAttribute("malariaConformationTechnique", dto.getMalariaConformationTechnique());
-    req.setAttribute("payment", dto.getPayment());
+    req.setAttribute("malariaConformationTechnique", AttributeUtil.getValue(SurveyedPersonViewDTO.MALARIACONFORMATIONTECHNIQUE, dto));
+    req.setAttribute("payment", AttributeUtil.getValue(SurveyedPersonViewDTO.PAYMENT, dto));
     req.setAttribute("performedRDT", this.getRefusedResponses(request));
-    req.setAttribute("rdtDetail", dto.getRdtDetail());
-    req.setAttribute("rdtTreatment", dto.getRdtTreatment());
-    req.setAttribute("sex", dto.getSex());
+    req.setAttribute("rdtDetail", AttributeUtil.getValue(SurveyedPersonViewDTO.RDTDETAIL, dto));
+    req.setAttribute("rdtTreatment", AttributeUtil.getValue(SurveyedPersonViewDTO.RDTTREATMENT, dto));
+    req.setAttribute("sex", AttributeUtil.getValue(SurveyedPersonViewDTO.SEX, dto));
   }
 
-  private List<ResponseMasterDTO> getResponses(ClientRequestIF request) {
-	  List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
-	  for (ResponseMasterDTO response: dss.vector.solutions.ResponseDTO.allItems(request)) {
-		  if (!responses.contains(response)) {
-			  responses.add(response);
-		  }
-	  }
-	  return responses;
+  private List<ResponseMasterDTO> getResponses(ClientRequestIF request)
+  {
+    List<ResponseMasterDTO> responses = ResponseDTO.items(request, ResponseDTO.YES, ResponseDTO.NO);
+    for (ResponseMasterDTO response : dss.vector.solutions.ResponseDTO.allItems(request))
+    {
+      if (!responses.contains(response))
+      {
+        responses.add(response);
+      }
+    }
+    return responses;
   }
 
-  private List<ResponseMasterDTO> getRefusedResponses(ClientRequestIF request) {
-	  List<ResponseMasterDTO> responses = RefusedResponseDTO.items(request, RefusedResponseDTO.YES, RefusedResponseDTO.NO);
-	  for (ResponseMasterDTO response: dss.vector.solutions.RefusedResponseDTO.allItems(request)) {
-		  if (!responses.contains(response)) {
-			  responses.add(response);
-		  }
-	  }
-	  return responses;
+  private List<ResponseMasterDTO> getRefusedResponses(ClientRequestIF request)
+  {
+    List<ResponseMasterDTO> responses = RefusedResponseDTO.items(request, RefusedResponseDTO.YES, RefusedResponseDTO.NO);
+    for (ResponseMasterDTO response : dss.vector.solutions.RefusedResponseDTO.allItems(request))
+    {
+      if (!responses.contains(response))
+      {
+        responses.add(response);
+      }
+    }
+    return responses;
   }
 }

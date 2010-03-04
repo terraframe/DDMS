@@ -37,10 +37,18 @@
   <dl>
     <dt><label><f:message key="Person_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.PersonView" class="roleLink"><f:message key="Person"/></span>
+      <mjl:commandLink
+        name="PersonView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.PersonView">
+        <f:message key="Person"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.MDSSUserView" class="roleLink"><f:message key="User"/></span>
+      <mjl:commandLink
+        name="MDSSUserView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.MDSSUserView">
+        <f:message key="User"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
@@ -56,58 +64,114 @@
   <dl>
     <dt><label><f:message key="Mosquito_Collection_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.SearchMosquitoCollectionView" class="roleLink"><f:message key="Mosquito_Collection"/></span>
+      <mjl:commandLink
+        name="MosquitoCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.SearchMosquitoCollectionView">
+        <f:message key="Mosquito_Collection"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.SubCollectionView" class="roleLink"><f:message key="Sub_Collection"/></span>
+      <mjl:commandLink
+        name="SubCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.SubCollectionView">
+        <f:message key="Sub_Collection"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.InfectionAssayView" class="roleLink"><f:message key="Infection_Assay"/></span>
+      <mjl:commandLink
+        name="InfectionAssay"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.InfectionAssayView">
+        <f:message key="Infection_Assay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.PooledInfectionAssayView" class="roleLink"><f:message key="Pooled_Infection_Assay"/></span>
+      <mjl:commandLink
+        name="PooledInfectionAssay"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PooledInfectionAssayView">
+        <f:message key="Pooled_Infection_Assay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.BiochemicalAssayView" class="roleLink"><f:message key="Biochemical_Assay"/></span>
+      <mjl:commandLink
+        name="BiochemicalAssayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.BiochemicalAssayView">
+        <f:message key="Biochemical_Assay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.MolecularAssayView" class="roleLink"><f:message key="Molecular_Assay"/></span>
+      <mjl:commandLink
+        name="MolecularAssayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.MolecularAssayView">
+        <f:message key="Molecular_Assay"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Adult_Diagnostic_Assay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay" class="roleLink"><f:message key="Adult_Diagnostic_Assay"/></span>
+      <mjl:commandLink
+        name="AdultDiscriminatingDoseAssay"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+        <f:message key="Adult_Diagnostic_Assay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
+      <mjl:commandLink
+        name="Insecticide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
+        <f:message key="Insecticide"/>
+      </mjl:commandLink>    
     </dd>    
   </dl>
   <dl>
     <dt><label><f:message key="Larvae_Diagnostic_Assay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay" class="roleLink"><f:message key="Larvae_Diagnostic_Assay"/></span>
+      <mjl:commandLink
+        name="LarvaeDiscriminatingDoseAssay"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay">
+        <f:message key="Larvae_Diagnostic_Assay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
+      <mjl:commandLink
+        name="Insecticide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
+        <f:message key="Insecticide"/>
+      </mjl:commandLink>    
     </dd>    
   </dl>
   <dl>
     <dt><label><f:message key="Time_Response_Test_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.KnockDownAssay" class="roleLink"><f:message key="Time_Response_Test"/></span>
+      <mjl:commandLink
+        name="KnockDownAssay"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.KnockDownAssay">
+        <f:message key="Time_Response_Test"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
+      <mjl:commandLink
+        name="Insecticide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
+        <f:message key="Insecticide"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Efficacy_Bioassay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.EfficacyAssayView" class="roleLink"><f:message key="Efficacy_Bioassay"/></span>
+      <mjl:commandLink
+        name="EfficacyAssayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.EfficacyAssayView">
+        <f:message key="Efficacy_Bioassay"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
+      <mjl:commandLink
+        name="Insecticide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
+        <f:message key="Insecticide"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
@@ -115,75 +179,146 @@
     <c:forEach items="${ageGroups}" varStatus="status" var="ageGroup">
       <c:if test="${ageGroup.active == true}">
         <dd>
-          <span id="dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}" class="roleLink"><f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/> </span>
+          <mjl:commandLink
+            name="${ageGroup.mdView.typeName}"
+            action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}">
+            <f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/>
+          </mjl:commandLink>    
         </dd>    
       </c:if>
     </c:forEach>
     <dd>
-      <span id="dss.vector.solutions.general.EpiDate" class="roleLink"><f:message key="Epi_Date"/></span>
+      <mjl:commandLink
+        name="EpiDate"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiDate">
+        <f:message key="Epi_Date"/>
+      </mjl:commandLink>    
     </dd>    
     
   </dl>
   <dl>
     <dt><label><f:message key="Indicator_Survey_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.SurveyPointView" class="roleLink"><f:message key="Survey_Point"/></span>
+      <mjl:commandLink
+        name="SurveyPoint"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyPointView">
+        <f:message key="Survey_Point"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.HouseholdView" class="roleLink"><f:message key="Household"/></span>
+      <mjl:commandLink
+        name="Household"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.HouseholdView">
+        <f:message key="Household"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.ITNInstanceView" class="roleLink"><f:message key="ITNs"/></span>
+      <mjl:commandLink
+        name="ITNInstanceView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNInstanceView">
+        <f:message key="ITNs"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.SurveyedPersonView" class="roleLink"><f:message key="Surveyed_Person"/></span>
+      <mjl:commandLink
+        name="SurveyedPersonView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyedPersonView">
+        <f:message key="Surveyed_Person"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.InsecticideBrandView" class="roleLink"><f:message key="Insecticide_Brand"/></span>
+      <mjl:commandLink
+        name="InsecticideBrandView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrandView">
+        <f:message key="Insecticide_Brand"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.NozzleView" class="roleLink"><f:message key="Nozzle"/></span>
+      <mjl:commandLink
+        name="NozzleView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.NozzleView">
+        <f:message key="Nozzle"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.InsecticideNozzleView" class="roleLink"><f:message key="Insecticide_Nozzle"/></span>
+      <mjl:commandLink
+        name="InsecticideNozzleView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideNozzleView">
+        <f:message key="Insecticide_Nozzle"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.AreaStandardsView" class="roleLink"><f:message key="Area_Standards"/></span>
+      <mjl:commandLink
+        name="AreaStandardsView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.AreaStandardsView">
+        <f:message key="Area_Standards"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Target_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.ResourceTargetView" class="roleLink"><f:message key="Resource_Target"/></span>
+      <mjl:commandLink
+        name="ResourceTarget"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.ResourceTargetView">
+        <f:message key="Resource_Target"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.GeoTargetView" class="roleLink"><f:message key="Geo_Target"/></span>
+      <mjl:commandLink
+        name="GeoTargetView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.GeoTargetView">
+        <f:message key="Geo_Target"/>
+      </mjl:commandLink>    
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="IRS_CRUD_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.OperatorSprayView" class="roleLink"><f:message key="Operator_Spray"/></span>
+      <mjl:commandLink
+        name="OperatorSprayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.OperatorSprayView">
+        <f:message key="Operator_Spray"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.TeamSprayView" class="roleLink"><f:message key="Team_Spray"/></span>
+      <mjl:commandLink
+        name="TeamSprayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.TeamSprayView">
+        <f:message key="Team_Spray"/>
+      </mjl:commandLink>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.ZoneSprayView" class="roleLink"><f:message key="Area_Spray"/></span>
+      <mjl:commandLink
+        name="ZoneSpray"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.ZoneSprayView">
+        <f:message key="Area_Spray"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.HouseholdSprayStatusView" class="roleLink"><f:message key="Household_Spray_Status"/></span>
+      <mjl:commandLink
+        name="HouseholdSprayStatusView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.HouseholdSprayStatusView">
+        <f:message key="Household_Spray_Status"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.OperatorSprayStatusView" class="roleLink"><f:message key="Operator_Spray_Status"/></span>
+      <mjl:commandLink
+        name="OperatorSprayStatusView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.OperatorSprayStatusView">
+        <f:message key="Operator_Spray_Status"/>
+      </mjl:commandLink>    
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.TeamSprayStatusView" class="roleLink"><f:message key="Team_Spray_Status"/></span>
-    </dd>
-    
+      <mjl:commandLink
+        name="TeamSprayStatusView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.TeamSprayStatusView">
+        <f:message key="Team_Spray_Status"/>
+      </mjl:commandLink>    
+    </dd>    
   </dl>
   <dl>
     <dt><label><f:message key="Aggregated_IPT_Information"/></label></dt>
@@ -229,6 +364,8 @@
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTCaseView">
         <f:message key="Individual_IPT_Case"/>
       </mjl:commandLink>
+    </dd>
+    <dd>
       <mjl:commandLink
         name="IndividualIPT"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTView">

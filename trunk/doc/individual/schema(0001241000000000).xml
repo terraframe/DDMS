@@ -118,7 +118,8 @@ Removing this value in accordance with ticket #344
           <char
             name="insecticideNozzleId"
             label="Insecticide Nozzle Id"
-            size="255" />
+            size="255"
+            required="true" />
           <reference
             name="brand"
             label="Insecticide Brand"

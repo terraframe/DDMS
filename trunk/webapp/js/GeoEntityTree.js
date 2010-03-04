@@ -217,15 +217,19 @@ MDSS.GeoEntityTree = (function(){
     var entityName = params['dto.entityName'];
     var geoId = params['dto.geoId'];
     var activatedVal = params['dto.activated'];
-    var term = document.getElementById('term').value;
     var activated = (activatedVal === "true") ? true : false;
     var geoData = params['dto.geoData'];
+    var term = document.getElementById('term');
 
     geoEntity.setEntityName(entityName);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
-    geoEntity.setTerm(term);
     geoEntity.setGeoData(geoData);
+    
+    if(term != null)
+    {
+      geoEntity.setTerm(term.value);
+    }
   }
 
   /**
@@ -391,18 +395,22 @@ MDSS.GeoEntityTree = (function(){
         _modal.setBody(outer);
         
         // FIXME
-        var disabled = document.getElementById('termDisplay').disabled;
+        var termDisplay = document.getElementById('termDisplay')
         
-        if(disabled == false)
+        if(termDisplay != null)
         {
-          YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+          var disabled = termDisplay.disabled;
+        
+          if(disabled == false)
+          {
+            YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+          }
+        
+          var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+        
+          // Setup validator
+          new MDSS.OntologyValidator('term', search, _getParameters, _setField);
         }
-        
-        var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
-        
-        // Setup validator
-        new MDSS.OntologyValidator('term', search, _getParameters, _setField);
-        
         eval(executable);
       }
     });
@@ -924,17 +932,22 @@ MDSS.GeoEntityTree = (function(){
 
         _createModal(outer, false);
 
-        var disabled = document.getElementById('termDisplay').disabled;
+        var termDisplay = document.getElementById('termDisplay');
         
-        if(disabled == false)
+        if(termDisplay != null)
         {
-          YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
-        }
+          var disabled = termDisplay.disabled;
         
-        var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
+          if(disabled == false)
+          {
+            YAHOO.util.Event.on('termBtn', 'click', _openBrowser);
+          }
+        
+          var search = new MDSS.GenericSearch('termDisplay', 'term', _displayFunction, _displayFunction, _idFunction, _searchFunction);
 
-        // Setup validator
-        new MDSS.OntologyValidator('term', search, _getParameters, _setField);
+          // Setup validator
+          new MDSS.OntologyValidator('term', search, _getParameters, _setField);
+        }
 
         eval(executable);
       }

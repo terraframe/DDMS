@@ -1,5 +1,5 @@
 <version
-  xsi:noNamespaceSchemaLocation="/home/jsmethie/workspace/MDSS/profiles/version_gis.xsd"
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
@@ -224,7 +224,8 @@
           <char
             name="facility"
             label="Facility"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="serviceDate"
             concrete="serviceDate"

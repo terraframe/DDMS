@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -270,13 +271,13 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   private void setupReferences(AdultDiscriminatingDoseAssayDTO dto)
   {
-    req.setAttribute("sex", dto.getSex());
-    req.setAttribute("generation", dto.getGeneration());
-    req.setAttribute("identificationMethod", dto.getIdentificationMethod());
-    req.setAttribute("testMethod", dto.getTestMethod());
-    req.setAttribute("specie", dto.getSpecie());
+    req.setAttribute("sex", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.SEX, dto));
+    req.setAttribute("generation", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.GENERATION, dto));
+    req.setAttribute("identificationMethod", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.IDENTIFICATIONMETHOD, dto));
+    req.setAttribute("testMethod", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.TESTMETHOD, dto));
+    req.setAttribute("specie", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.SPECIE, dto));
 
-    String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
+    String collectionId = dto.getValue(AdultDiscriminatingDoseAssayDTO.COLLECTION);
 
     if (collectionId != null && !collectionId.equals(""))
     {

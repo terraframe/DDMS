@@ -14,6 +14,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.ResponseDTO;
 import dss.vector.solutions.ResponseMasterDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -277,9 +278,9 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   private void setupReferences(HouseholdViewDTO dto)
   {
-    req.setAttribute("windowType", dto.getWindowType());
-    req.setAttribute("wall", dto.getWall());
-    req.setAttribute("roof", dto.getRoof());
+    req.setAttribute("windowType", AttributeUtil.getValue(HouseholdViewDTO.WINDOWTYPE, dto));
+    req.setAttribute("wall", AttributeUtil.getValue(HouseholdViewDTO.WALL, dto));
+    req.setAttribute("roof", AttributeUtil.getValue(HouseholdViewDTO.ROOF, dto));
   }
 
   private List<ResponseMasterDTO> getResponses(ClientRequestIF request)

@@ -138,7 +138,8 @@
             name="personId"
             label="Person ID"
             description="ID of the Person theis view represents"
-            size="64" />
+            size="64"
+            required="true" />
           <virtual
             name="firstName"
             concrete="firstName"

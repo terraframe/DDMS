@@ -177,7 +177,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
-    req.setAttribute("healthFacility", dto.getHealthFacility());
+    req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
     
@@ -259,7 +259,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   private void prepareCreateReq(IndividualInstanceDTO dto, TermDTO[] symptoms)
   {
     req.setAttribute("item", dto);
-    req.setAttribute("healthFacility", dto.getHealthFacility());
+    req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
   }
 

@@ -80,7 +80,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     for (ReadableAttributeView view : attributeViews)
     {
       MdAttributeDAOIF mdAttributeDAO = attributeMap.get(view.getAttributeName().toLowerCase());
-      
+
       if (ignore(mdAttributeDAO))
       {
         continue;
@@ -89,7 +89,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
       String oldValue = mdAttribute.getDisplayLabel().getValue();
       String newValue = view.getDisplayLabel();
-      
+
       if (!oldValue.equals(newValue))
       {
         mdAttribute.lock();
@@ -97,16 +97,22 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         mdAttribute.apply();
       }
 
-      if (view.getReadPermission() != null && view.getReadPermission())
+      Boolean permission = view.getReadPermission();
+
+      if (permission != null)
       {
-        actor.grantPermission(Operation.READ, mdAttribute.getId());
-      }
-      else
-      {
-        actor.revokePermission(Operation.READ, mdAttribute.getId());
+        if (permission)
+        {
+          actor.grantPermission(Operation.READ, mdAttribute.getId());
+        }
+        else
+        {
+          actor.revokePermission(Operation.READ, mdAttribute.getId());
+        }
       }
     }
-    actor.apply();
+
+//    actor.apply();
   }
 
   private static ActorDAOIF getActor(String actorName)

@@ -87,7 +87,6 @@
             <operation
               name="DELETE" />
           </mdBusinessPermission>
-
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNDistribution">
             <operation
@@ -98,8 +97,6 @@
               name="WRITE_ALL_ATTRIBUTES" />
             <operation
               name="DELETE" />
-            <operation
-              name="READ" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.Person">
@@ -1349,21 +1346,6 @@
             </mdMethodPermission>
           </mdViewPermission>
           <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
-          </mdViewPermission>
-          <mdViewPermission
             type="dss.vector.solutions.export.PopulationDataExcelView">
             <operation
               name="CREATE" />
@@ -1388,8 +1370,6 @@
               name="WRITE_ALL_ATTRIBUTES" />
             <operation
               name="DELETE" />
-            <operation
-              name="READ" />
           </mdRelationshipPermission>
           <mdRelationshipPermission
             type="dss.vector.solutions.intervention.monitor.HouseholdITNInstance">

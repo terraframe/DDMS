@@ -15,10 +15,23 @@
           </attributes>
         </create>
       </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="hasBatchNumber"
+              type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
+          </attributes>
+        </create>
+      </mdView>
     </update>
   </doIt>
   <undoIt>
     <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.hasBatchNumber"
+        type="com.terraframe.mojo.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.hasBatchNumber"
         type="com.terraframe.mojo.system.metadata.MdAttribute" />

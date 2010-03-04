@@ -345,8 +345,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
   private void setupReferences(ITNDistributionViewDTO itn)
   {
-    req.setAttribute("net", itn.getNet());
-    req.setAttribute("service", itn.getService());
+    req.setAttribute("net", AttributeUtil.getValue(ITNDistributionViewDTO.NET, itn));
+    req.setAttribute("service", AttributeUtil.getValue(ITNDistributionViewDTO.SERVICE, itn));
   }
 
   @Override

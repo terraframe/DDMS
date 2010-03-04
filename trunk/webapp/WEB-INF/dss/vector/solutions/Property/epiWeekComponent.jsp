@@ -67,7 +67,6 @@
       <select name="dto.propertyValue">
           ${options}
        </select>
-       ${item.description}
         <mjl:messages attribute="propertyValue">
           <mjl:message />
         </mjl:messages>

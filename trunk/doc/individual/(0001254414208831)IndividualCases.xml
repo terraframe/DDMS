@@ -30,7 +30,8 @@
             name="patient"
             label="Patient"
             description="Malaria Patient"
-            type="dss.vector.solutions.Patient"/>
+            type="dss.vector.solutions.Patient"
+            required="true"/>
         </attributes>
         <mdMethod
           name="searchForExistingCase"
@@ -74,7 +75,8 @@
             name="individualCase"
             label="Case"
             description="Case"
-            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"
+            required="true"/>
           <!-- Basic Case Information -->
           <boolean
             name="clinicalDiagnosis"

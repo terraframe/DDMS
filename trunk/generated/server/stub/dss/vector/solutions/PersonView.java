@@ -205,7 +205,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
 
     StockStaff staff = person.getStockStaffDelegate();
     
-    if (this.getIsStockStaff())
+    if (this.getIsStockStaff() != null && this.getIsStockStaff())
     {
       if (staff == null)
       {
@@ -225,7 +225,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     
     Supervisor supervisor = person.getSupervisorDelegate();
     
-    if (this.getIsSupervisor())
+    if (this.getIsSupervisor() != null && this.getIsSupervisor())
     {
       if (supervisor == null)
       {

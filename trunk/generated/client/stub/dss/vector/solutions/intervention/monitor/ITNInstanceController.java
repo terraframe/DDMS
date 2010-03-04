@@ -16,6 +16,7 @@ import dss.vector.solutions.MonthOfYearDTO;
 import dss.vector.solutions.MonthOfYearMasterDTO;
 import dss.vector.solutions.ResponseDTO;
 import dss.vector.solutions.ResponseMasterDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.MonthComparator;
 import dss.vector.solutions.util.RedirectUtility;
@@ -263,12 +264,12 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
     req.setAttribute("monthReceived", months);
     req.setAttribute("monthRetreated", months);
-    req.setAttribute("damaged", dto.getDamaged());
-    req.setAttribute("hanging", dto.getHanging());
-    req.setAttribute("netBrand", dto.getNetBrand());
-    req.setAttribute("obtained", dto.getObtained());
-    req.setAttribute("purpose", dto.getPurpose());
-    req.setAttribute("washPeriod", dto.getWashPeriod());
+    req.setAttribute("damaged", AttributeUtil.getValue(ITNInstanceViewDTO.DAMAGED, dto));
+    req.setAttribute("hanging", AttributeUtil.getValue(ITNInstanceViewDTO.HANGING, dto));
+    req.setAttribute("netBrand", AttributeUtil.getValue(ITNInstanceViewDTO.NETBRAND, dto));
+    req.setAttribute("obtained", AttributeUtil.getValue(ITNInstanceViewDTO.OBTAINED, dto));
+    req.setAttribute("purpose", AttributeUtil.getValue(ITNInstanceViewDTO.PURPOSE, dto));
+    req.setAttribute("washPeriod", AttributeUtil.getValue(ITNInstanceViewDTO.WASHPERIOD, dto));
     req.setAttribute("washed", this.getResponses(request));
   }
 

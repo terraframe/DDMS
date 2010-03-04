@@ -5,41 +5,22 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.Property.form.name" id="dss.vector.solutions.Property.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
-  <dl>
-    <dt>
-      <label>
-        ${item.propertyNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.displayLabel}
-    </dd>
-
-    <dt>
-      <label>
-        ${item.descriptionMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.description}
-    </dd>
-    <dt>
-      <label>
-        ${item.propertyTypeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.propertyType}
-    </dd>
-    <dt>
-      <label>
-        ${item.propertyValueMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.propertyValue}
-    </dd>
+  <dl>    
+    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:component item="${item}" param="item">
+      <mjl:dt attribute="propertyName">
+        ${item.displayLabel}        
+      </mjl:dt>
+      <mjl:dt attribute="description">
+        ${item.description}        
+      </mjl:dt>
+      <mjl:dt attribute="propertyType">
+        ${item.propertyType}        
+      </mjl:dt>
+      <mjl:dt attribute="propertyValue">
+        ${item.propertyValue}        
+      </mjl:dt>
+    </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton"/>
   </dl>
 </mjl:form>

@@ -14,6 +14,8 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -293,7 +295,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     InsecticideBrandDTO brand = dto.getBrand();
     String geoId = dto.getGeoEntity().getGeoId();
 
-    SprayTeamDTO sprayTeam = dto.getSprayTeam();
+    SprayTeamDTO sprayTeam = (SprayTeamDTO) AttributeUtil.getValue(OperatorSprayViewDTO.SPRAYTEAM, dto);
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));

@@ -12,6 +12,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -259,11 +260,11 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   private void setupReferences(KnockDownAssayDTO dto)
   {
-    req.setAttribute("sex", dto.getSex());
-    req.setAttribute("generation", dto.getGeneration());
-    req.setAttribute("identificationMethod", dto.getIdentificationMethod());
-    req.setAttribute("testMethod", dto.getTestMethod());
-    req.setAttribute("specie", dto.getSpecie());
+    req.setAttribute("sex", AttributeUtil.getValue(KnockDownAssayDTO.SEX, dto));
+    req.setAttribute("generation", AttributeUtil.getValue(KnockDownAssayDTO.GENERATION, dto));
+    req.setAttribute("identificationMethod", AttributeUtil.getValue(KnockDownAssayDTO.IDENTIFICATIONMETHOD, dto));
+    req.setAttribute("testMethod", AttributeUtil.getValue(KnockDownAssayDTO.TESTMETHOD, dto));
+    req.setAttribute("specie", AttributeUtil.getValue(KnockDownAssayDTO.SPECIE, dto));
 
     String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
 

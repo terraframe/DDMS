@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 274833621)
+@com.terraframe.mojo.business.ClassSignature(hash = 842524836)
 public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView";
-  private static final long serialVersionUID = 274833621;
+  private static final long serialVersionUID = 842524836;
   
   protected ITNCommunityDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

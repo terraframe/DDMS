@@ -301,10 +301,10 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   private void setupReferences(EfficacyAssayViewDTO dto)
   {
     req.setAttribute("geoId", AttributeUtil.getGeoEntityFromGeoId(EfficacyAssayViewDTO.GEOID, dto));
-    req.setAttribute("surfacePostion", dto.getSurfacePostion());
-    req.setAttribute("sex", dto.getSex());
-    req.setAttribute("specie", dto.getSpecie());
-    req.setAttribute("testMethod", dto.getTestMethod());
+    req.setAttribute("surfacePostion", AttributeUtil.getValue(EfficacyAssayViewDTO.SURFACEPOSTION, dto));
+    req.setAttribute("sex", AttributeUtil.getValue(EfficacyAssayViewDTO.SEX, dto));
+    req.setAttribute("specie", AttributeUtil.getValue(EfficacyAssayViewDTO.SPECIE, dto));
+    req.setAttribute("testMethod", AttributeUtil.getValue(EfficacyAssayViewDTO.TESTMETHOD, dto));
   }
 
   private void setupRequest()

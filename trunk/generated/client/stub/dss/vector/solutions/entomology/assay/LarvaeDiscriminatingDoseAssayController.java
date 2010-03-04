@@ -12,6 +12,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -259,14 +260,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   private void setupReferences(LarvaeDiscriminatingDoseAssayDTO dto)
   {
-    req.setAttribute("startPoint", dto.getStartPoint());
-    req.setAttribute("endPoint", dto.getEndPoint());
-    req.setAttribute("generation", dto.getGeneration());
-    req.setAttribute("identificationMethod", dto.getIdentificationMethod());
-    req.setAttribute("testMethod", dto.getTestMethod());
-    req.setAttribute("specie", dto.getSpecie());
+    req.setAttribute("startPoint", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.STARTPOINT, dto));
+    req.setAttribute("endPoint", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.ENDPOINT, dto));
+    req.setAttribute("generation", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.GENERATION, dto));
+    req.setAttribute("identificationMethod", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.IDENTIFICATIONMETHOD, dto));
+    req.setAttribute("testMethod", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.TESTMETHOD, dto));
+    req.setAttribute("specie", AttributeUtil.getValue(LarvaeDiscriminatingDoseAssayDTO.SPECIE, dto));
 
-    String collectionId = dto.getValue(KnockDownAssayDTO.COLLECTION);
+    String collectionId = dto.getValue(LarvaeDiscriminatingDoseAssayDTO.COLLECTION);
 
     if (collectionId != null && !collectionId.equals(""))
     {

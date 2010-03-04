@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.TeamMemberDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -105,11 +106,11 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
       LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
       view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
 
-      String leaderId = dto.getValue(LarvacideDTO.TEAMLEADER);
-
-      if (leaderId != null && !leaderId.equals(""))
+      TeamMemberDTO leader = (TeamMemberDTO) AttributeUtil.getValue(LarvacideDTO.TEAMLEADER, dto);
+      
+      if (leader != null)
       {
-        req.setAttribute("leader", TeamMemberDTO.getView(clientRequest, leaderId));
+        req.setAttribute("leader", leader.getView());
       }
 
       req.setAttribute("rows", dto.getInstanceViews());

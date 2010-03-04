@@ -17,6 +17,7 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
@@ -149,7 +150,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   private void setupReferences(ZoneSprayViewDTO dto)
   {
-    SupervisorDTO supervisor = dto.getSupervisor();
+    SupervisorDTO supervisor = (SupervisorDTO) AttributeUtil.getValue(ZoneSprayViewDTO.SUPERVISOR, dto);
 
     if (supervisor != null)
     {

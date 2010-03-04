@@ -416,8 +416,6 @@
               name="WRITE_ALL_ATTRIBUTES" />
             <operation
               name="DELETE" />
-            <operation
-              name="READ" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.ITNInstance">
@@ -645,21 +643,6 @@
               <operation
                 name="EXECUTE" />
             </mdMethodPermission>
-          </mdViewPermission>
-          <mdViewPermission
-            type="dss.vector.solutions.intervention.monitor.ITNDistributionView">
-            <operation
-              name="CREATE" />
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-            <operation
-              name="DELETE" />
           </mdViewPermission>
           <mdViewPermission
             type="dss.vector.solutions.export.PopulationDataExcelView">

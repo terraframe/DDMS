@@ -60,12 +60,11 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
       ErrorUtility.prepareThrowable(t, req);
       this.failViewAll();
     }
-
   }
 
   public void failViewAll() throws IOException, ServletException
   {
-    resp.sendError(500);
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   public void view(String id) throws IOException, ServletException

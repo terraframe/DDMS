@@ -656,8 +656,6 @@
             type="dss.vector.solutions.intervention.monitor.ITNDistribution">
             <operation
               name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.intervention.monitor.IndividualIPTCase">

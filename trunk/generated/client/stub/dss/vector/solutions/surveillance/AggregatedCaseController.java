@@ -120,7 +120,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     try
     {
-      dto.delete();
+      dto.deleteConcrete();
       this.search();
     }
     catch (ProblemExceptionDTO e)

@@ -172,11 +172,6 @@
             name="agentSurname"
             concrete="agentSurname"
             type="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution" />
-          <boolean
-            name="hasBatchNumber"
-            label="Is there a batch number?"
-            positiveLabel="Yes"
-            negativeLabel="No" />
           <virtual
             name="batchNumber"
             concrete="batchNumber"
@@ -196,7 +191,8 @@
           <char
             name="householdAddress"
             label="Address"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="residents"
             concrete="residents"
@@ -204,7 +200,8 @@
           <char
             name="distributionLocation"
             label="Distribution Location"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="sold"
             concrete="sold"

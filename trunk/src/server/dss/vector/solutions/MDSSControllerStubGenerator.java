@@ -2,12 +2,9 @@ package dss.vector.solutions;
 
 import java.util.Arrays;
 
-import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.business.generation.facade.ControllerStubGenerator;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.JSONMojoExceptionDTOInfo;
 import com.terraframe.mojo.constants.MdAttributeReferenceInfo;
-import com.terraframe.mojo.constants.ProblemExceptionDTOInfo;
 import com.terraframe.mojo.constants.TypeGeneratorInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
@@ -18,8 +15,8 @@ import com.terraframe.mojo.dataaccess.MdMethodDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.util.ErrorUtilityInfo;
+import dss.vector.solutions.util.AttributeUtil;
+import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtilityInfo;
 
 public class MDSSControllerStubGenerator extends ControllerStubGenerator implements Reloadable
@@ -38,68 +35,52 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.apply();");
     getWriter().writeLine("this.view(dto.getId());");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
-    getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
-    getWriter().writeLine("this.failUpdate(" + args + ");");
-    getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
     getWriter().writeLine("this.failUpdate(" + args + ");");
+    getWriter().closeBracket();
     getWriter().closeBracket();
   }
 
   @Override
   protected void writeNewInstanceAction(MdEntityDAOIF mdEntity)
   {
-    // TODO Auto-generated method stub
-    boolean isGeoEntity = mdEntity.getSuperTypes().contains(GeoEntity.CLASS);
-
-    if (isGeoEntity)
-    {
-      getWriter().writeLine("try");
-      getWriter().openBracket();
-    }
+    getWriter().writeLine("try");
+    getWriter().openBracket();
 
     super.writeNewInstanceAction(mdEntity);
 
-    if (isGeoEntity)
-    {
-      getWriter().closeBracket();
-      getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
-      getWriter().openBracket();
-      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new " + JSONMojoExceptionDTOInfo.CLASS + "(t);");
-      getWriter().writeLine("resp.setStatus(500);");
-      getWriter().writeLine("resp.getWriter().print(jsonE.getJSON());");
-      getWriter().closeBracket();
-    }
+    getWriter().closeBracket();
+    getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
+    getWriter().openBracket();
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
+    getWriter().writeLine("this.failNewInstance();");
+    getWriter().closeBracket();
+    getWriter().closeBracket();
   }
 
   @Override
   protected void writeEditAction(MdEntityDAOIF mdEntity)
   {
-    // TODO Auto-generated method stub
-    boolean isGeoEntity = mdEntity.getSuperTypes().contains(GeoEntity.CLASS);
-
-    if (isGeoEntity)
-    {
-      getWriter().writeLine("try");
-      getWriter().openBracket();
-    }
+    getWriter().writeLine("try");
+    getWriter().openBracket();
 
     super.writeEditAction(mdEntity);
 
-    if (isGeoEntity)
-    {
-      getWriter().closeBracket();
-      getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
-      getWriter().openBracket();
-      getWriter().writeLine(JSONMojoExceptionDTOInfo.CLASS + " jsonE = new " + JSONMojoExceptionDTOInfo.CLASS + "(t);");
-      getWriter().writeLine("resp.setStatus(500);");
-      getWriter().writeLine("resp.getWriter().print(jsonE.getJSON());");
-      getWriter().closeBracket();
-    }
+    getWriter().closeBracket();
+    getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
+    getWriter().openBracket();
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
+    getWriter().writeLine("this.failEdit(id);");
+    getWriter().closeBracket();
+    getWriter().closeBracket();
   }
 
   @Override
@@ -110,16 +91,14 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.delete();");
     getWriter().writeLine("this.viewAll();");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
-    getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
-    getWriter().writeLine("this.failDelete(" + args + ");");
-    getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
     getWriter().writeLine("this.failDelete(" + args + ");");
-    getWriter().closeBracket();
+    getWriter().closeBracket();    
+    getWriter().closeBracket();    
   }
 
   @Override
@@ -130,21 +109,22 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("dto.apply();");
     getWriter().writeLine("this.view(dto.getId());");
     getWriter().closeBracket();
-    getWriter().writeLine("catch(" + ProblemExceptionDTOInfo.CLASS + " e)");
-    getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareProblems(e, req);");
-    getWriter().writeLine("this.failCreate(" + args + ");");
-    getWriter().closeBracket();
     getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
     getWriter().openBracket();
-    getWriter().writeLine(ErrorUtilityInfo.CLASS + ".prepareThrowable(t, req);");
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
     getWriter().writeLine("this.failCreate(" + args + ");");
-    getWriter().closeBracket();
+    getWriter().closeBracket();    
+    getWriter().closeBracket();    
   }
 
   @Override
   protected void writeViewAction(MdEntityDAOIF mdEntity)
   {
+    getWriter().writeLine("try");
+    getWriter().openBracket();
+    
     getWriter().writeLine(RedirectUtilityInfo.CLASS + " utility = new " + RedirectUtilityInfo.CLASS + "(req, resp);");
     getWriter().writeLine("utility.put(\"id\", id);");
     getWriter().writeLine("utility.checkURL(this.getClass().getSimpleName(), \"view\");");
@@ -163,6 +143,16 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     getWriter().writeLine("req.setAttribute(\"item\", dto);");
 
     writeRender("View " + mdEntity.getTypeName(), "viewComponent.jsp");
+    getWriter().closeBracket();
+    getWriter().writeLine("catch(" + Throwable.class.getName() + " t)");
+    getWriter().openBracket();
+    getWriter().writeLine("boolean redirect = " + ErrorUtility.class.getName() + ".prepareThrowable(t, req, resp, this.isAsynchronous());");
+    getWriter().writeLine("if (!redirect)");
+    getWriter().openBracket();
+    getWriter().writeLine("this.failView(id);");
+    getWriter().closeBracket();    
+    getWriter().closeBracket();    
+
   }
 
   @Override
@@ -180,15 +170,14 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
     if (isTerm)
     {
       String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.ACCESSOR);
+      String definingType = mdAttribute.definedByClass().definesType() + TypeGeneratorInfo.DTO_SUFFIX;
 
       if (accessor == null || accessor.equals(""))
       {
         accessor = definesAttribute;
       }
 
-      String getter = GenerationUtil.upperFirstCharacter(accessor);
-
-      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", dto.get" + getter + "());");
+      getWriter().writeLine("req.setAttribute(\"" + definesAttribute + "\", " + AttributeUtil.class.getName() +  ".getValue(" + definingType + "." + definesAttribute.toUpperCase() +", dto));");
     }
     else if (published && !isGeoEntity)
     {

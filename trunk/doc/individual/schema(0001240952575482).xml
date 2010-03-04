@@ -168,7 +168,8 @@
           <char
             name="insecticdeId"
             label="Insecticide Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="activeIngredient"
             type="dss.vector.solutions.irs.InsecticideBrand"
@@ -294,7 +295,8 @@
           <char
             name="nozzleId"
             label="Nozzle Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="ratio"
             concrete="ratio"
@@ -529,7 +531,7 @@
             name="surfaceType"
             label="Surface Type"
             required="true"
-            type="dss.vector.solutions.ontology.Term" />        
+            type="dss.vector.solutions.ontology.Term" />
         </attributes>
       </mdBusiness>
 
@@ -557,7 +559,7 @@
             name="sprayMethodForIndex"
             label="Spray Method"
             required="true"
-            size="255" />            
+            size="255" />
           <reference
             name="sprayOperator"
             label="Operator"
@@ -655,7 +657,8 @@
           <char
             name="concreteId"
             label="Spray Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="geoEntity"
             concrete="geoEntity"
@@ -754,7 +757,7 @@
       <mdBusiness
         name="dss.vector.solutions.irs.TeamSpray"
         label="Team Spray"
-        generateController="true"        
+        generateController="true"
         extends="dss.vector.solutions.irs.AbstractSpray">
         <attributes>
           <reference
@@ -775,7 +778,7 @@
             name="sprayMethodForIndex"
             label="Spray Method"
             required="true"
-            size="255" />  
+            size="255" />
           <reference
             name="sprayTeam"
             label="Team"
@@ -868,7 +871,8 @@
           <char
             name="concreteId"
             label="Spray Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="geoEntity"
             concrete="geoEntity"
@@ -963,7 +967,7 @@
       <mdBusiness
         name="dss.vector.solutions.irs.ZoneSpray"
         label="Zone Spray"
-        generateController="true"        
+        generateController="true"
         extends="dss.vector.solutions.irs.AbstractSpray">
         <attributes>
           <reference
@@ -984,7 +988,7 @@
             name="sprayMethodForIndex"
             label="Spray Method"
             required="true"
-            size="255" />  
+            size="255" />
           <integer
             name="sprayWeek"
             label="Location Spray Week"
@@ -1057,7 +1061,8 @@
           <char
             name="concreteId"
             label="Spray Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="geoEntity"
             concrete="geoEntity"

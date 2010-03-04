@@ -1,6 +1,9 @@
 package dss.vector.solutions.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.terraframe.mojo.business.MutableDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
