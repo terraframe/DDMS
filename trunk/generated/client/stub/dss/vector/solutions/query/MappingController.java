@@ -24,6 +24,7 @@ import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.MDSSProperties;
 
 public class MappingController extends MappingControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -70,7 +71,17 @@ public class MappingController extends MappingControllerBase implements
       SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), namedMapId);
       InputStream stream = SavedMapDTO.exportShapefile(this.getClientRequest(), mapId);
     
-      FileDownloadUtil.writeZIP(resp, savedMap.getMapName(), stream);
+      String mapName;
+      if(savedMap instanceof DefaultSavedMapDTO)
+      {
+        mapName = MDSSProperties.getString("Shapefile");
+      }
+      else
+      {
+        mapName = savedMap.getMapName();
+      }
+      
+      FileDownloadUtil.writeZIP(resp, mapName, stream);
     }
     catch (Throwable t)
     {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
+import com.terraframe.mojo.dataaccess.database.IDGenerator;
+
 public class DefaultSavedMap extends DefaultSavedMapBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 188069998;
-  
-  static final String DEFAULT = "__DEFAULT__";
   
   public DefaultSavedMap()
   {
@@ -13,7 +13,10 @@ public class DefaultSavedMap extends DefaultSavedMapBase implements com.terrafra
   
   public void apply()
   {
-    this.setMapName(DEFAULT);
+    // Map names MUST be unique but default maps are not specified
+    // explicitely by the user, so generate a unique string.
+    String mapName = IDGenerator.nextID();
+    this.setMapName(mapName);
     
     super.apply();
   }
