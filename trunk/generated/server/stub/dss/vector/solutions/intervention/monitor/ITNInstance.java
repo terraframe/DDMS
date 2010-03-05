@@ -103,40 +103,40 @@ public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.
         switch(monthOfYear)
         {
           case JANUARY:
-            month = 1;
+            month = 0;
             break;
           case FEBRUARY:
-            month = 2;
+            month = 1;
             break;
           case MARCH:
-            month = 3;
+            month = 2;
             break;
           case APRIL:
-            month = 4;
+            month = 3;
             break;
           case MAY:
-            month = 5;
+            month = 4;
             break;
           case JUNE:
-            month = 6;
+            month = 5;
             break;
           case JULY:
-            month = 7;
+            month = 6;
             break;
           case AUGUST:
-            month = 8;
+            month = 7;
             break;
           case SEPTEMBER:
-            month = 9;
+            month = 8;
             break;
           case OCTOBER:
-            month = 10;
+            month = 9;
             break;
           case NOVEMBER:
-            month = 11;
+            month = 10;
             break;
           default:
-            month = 12;
+            month = 11;
             break;
         }
         
