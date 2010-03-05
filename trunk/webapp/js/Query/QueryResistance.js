@@ -14,7 +14,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
 
       this._commonQueryClasses = [
                                  // Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
-                                 Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
+                                 dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
                                  ];
       this._geoEntityAttribs = [
                              {
@@ -28,6 +28,10 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
                            {
                           	 klass :  this._groupByClass,
                              accessor : this._groupByClass.COLLECTIONDATE,
+                           },
+                           {
+                          	 klass :  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay,
+                             accessor : dss.vector.solutions.entomology.assay.AbstractAssay.TESTDATE,
                            }
                           ];
       
@@ -39,7 +43,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._exclusionClasses.shift();
        
       //we overide the xmlToValueQueryClass since it is not the same as the mainQueryClass for this page 
-      this._xmlToValueQueryClass = Mojo.$.dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
+      this._xmlToValueQueryClass = dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.CLASS;
       
       var picker = this.getGeoPicker();      
       picker.setPolitical(false);
