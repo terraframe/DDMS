@@ -112,7 +112,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     try
     {
-      newCase.applyWithPersonId(personId);
+//      newCase.applyWithPersonId(personId);
       this.create(dto, symptoms);
     }
     catch (ProblemExceptionDTO e)
