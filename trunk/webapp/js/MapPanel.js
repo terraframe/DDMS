@@ -25,6 +25,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     initialize : function(mapPanelId, mapList)
     {
+      // Force the image path so the images can be located when JAWR is not in debug mode
+      OpenLayers.ImgPath = "js/OpenLayers/img/";
+    
       this._mapList = mapList;
     
       var minWidth = 1250;
