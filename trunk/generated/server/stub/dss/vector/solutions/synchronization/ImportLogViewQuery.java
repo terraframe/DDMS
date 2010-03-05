@@ -66,7 +66,7 @@ public class ImportLogViewQuery extends ImportLogViewQueryBase implements Reload
     {
       ImportLogViewQuery vQuery = this.getViewQuery();
       
-      vQuery.map(ImportLogView.EXPORTSEQ, importLogQuery.getExportSeq());
+      vQuery.map(ImportLogView.LASTEXPORTSEQ, importLogQuery.getExportSeq());
       vQuery.map(ImportLogView.SOURCESITE, importLogQuery.getSourceSite());
     }
 
@@ -77,7 +77,7 @@ public class ImportLogViewQuery extends ImportLogViewQueryBase implements Reload
     {
       ImportLogViewQuery vQuery = this.getViewQuery();
       
-      if (sortAttribute.equals(ImportLogView.EXPORTSEQ)) vQuery.ORDER_BY(getExportSeq(), sortOrder);
+      if (sortAttribute.equals(ImportLogView.LASTEXPORTSEQ)) vQuery.ORDER_BY(getLastExportSeq(), sortOrder);
       if (sortAttribute.equals(ImportLogView.SOURCESITE)) vQuery.ORDER_BY(getSourceSite(), sortOrder);
 
       if(pageSize != null && pageNumber != null)
