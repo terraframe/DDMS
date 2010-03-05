@@ -101,77 +101,90 @@
             name="weeksBefore"
             label="# of weeks before"
             required="true"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="2" />
           <integer
             name="weeksAfter"
             label="# of weeks after"
             required="true"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="2" />
           <integer
             name="priorYears"
             label="# of prior years"
             required="true"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="3" />
           <double
             name="weight0"
             decimal="2"
             length="4"
             label="Weight 0"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight1"
             decimal="2"
             length="4"
             label="Weight 1"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight2"
             decimal="2"
             length="4"
             label="Weight 2"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight3"
             decimal="2"
             length="4"
             label="Weight 3"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight4"
             decimal="2"
             length="4"
             label="Weight 4"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight5"
             decimal="2"
             length="4"
             label="Weight 5"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight6"
             decimal="2"
             length="4"
             label="Weight 6"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight7"
             decimal="2"
             length="4"
             label="Weight 7"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight8"
             decimal="2"
             length="4"
             label="Weight 8"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
           <double
             name="weight9"
             decimal="2"
             length="4"
             label="Weight 9"
-            rejectNegative="true" />
+            rejectNegative="true"
+            defaultValue="1" />
         </attributes>
       </mdBusiness>
 
