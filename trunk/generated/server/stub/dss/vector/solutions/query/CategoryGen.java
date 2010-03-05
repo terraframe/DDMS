@@ -45,6 +45,10 @@ public class CategoryGen extends CategoryGenBase implements com.terraframe.mojo.
 		return this.interpolateColor(n, total, decodeColor(this.getLabelHaloFillStart()), decodeColor(this.getLabelHaloFillEnd()));
 	}
 
+	public int interpolatePointSize(int n, int total) {
+		return this.interpolate(n, total, this.getPointSizeStart(), this.getPointSizeEnd());
+	}
+	
 	public Styles interpolateStyle(int n, int total) {
 		Styles styles = new Styles();
 		styles.setPointStroke(encodeColor(this.interpolatePointStrokeColor(n, total)));
@@ -52,6 +56,7 @@ public class CategoryGen extends CategoryGenBase implements com.terraframe.mojo.
 		styles.setPolygonFill(encodeColor(this.interpolatePolygonFillColor(n, total)));
 		styles.setFill(encodeColor(this.interpolateFontFillColor(n, total)));
 		styles.setLabelHaloFill(encodeColor(this.interpolateLabelHaloFillColor(n, total)));
+		styles.setPointSize(this.interpolatePointSize(n, total));
 		styles.apply();
 		return styles;
 	}

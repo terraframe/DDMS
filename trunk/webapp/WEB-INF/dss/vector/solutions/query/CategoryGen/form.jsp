@@ -62,7 +62,12 @@
     <mjl:input type="hidden" param="polygonFillEnd" value="${item.polygonFillEnd}" id="${item.id}_polygonFillEnd" />
     <div class="colorPickerValue" id="${item.id}_polygonFillEnd_opener" style="background-color: ${item.polygonFillEnd}">&nbsp;</div>
   </mjl:dt>
-
+  <mjl:dt attribute="pointSizeStart">
+    <mjl:input param="pointSizeStart" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="pointSizeEnd">
+    <mjl:input param="pointSizeEnd" type="text" />
+  </mjl:dt>
 <script type="text/javascript">
 (function(){
   

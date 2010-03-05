@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 381873223)
+@com.terraframe.mojo.business.ClassSignature(hash = 1890775744)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class CategoryGenQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 381873223;
+private static final long serialVersionUID = 1890775744;
 
   public CategoryGenQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -341,6 +341,40 @@ private static final long serialVersionUID = 381873223;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.CategoryGen.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd()
+  {
+    return getPointSizeEnd(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSIZEEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSIZEEND, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart()
+  {
+    return getPointSizeStart(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSIZESTART, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.CategoryGen.POINTSIZESTART, alias, displayLabel);
+
+  }
   public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd()
   {
     return getPointStrokeEnd(null);
@@ -622,6 +656,12 @@ private static final long serialVersionUID = 381873223;
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd();
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias, String displayLabel);
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeStart();
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias);
+    public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias, String displayLabel);
     public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd();
     public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias);
     public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd(String alias, String displayLabel);
@@ -667,7 +707,7 @@ private static final long serialVersionUID = 381873223;
  implements CategoryGenQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 808339689;
+private static final long serialVersionUID = -1689724574;
 
   public CategoryGenQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -956,6 +996,40 @@ private static final long serialVersionUID = 808339689;
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.query.CategoryGen.OWNER,  alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd()
+  {
+    return getPointSizeEnd(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.POINTSIZEEND, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeEnd(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.POINTSIZEEND, alias, displayLabel);
+
+  }
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart()
+  {
+    return getPointSizeStart(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.POINTSIZESTART, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getPointSizeStart(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.get(dss.vector.solutions.query.CategoryGen.POINTSIZESTART, alias, displayLabel);
 
   }
   public com.terraframe.mojo.query.SelectableChar getPointStrokeEnd()

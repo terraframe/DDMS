@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2131291746)
+@com.terraframe.mojo.business.ClassSignature(hash = 1818729239)
 public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.CategoryGen";
-  private static final long serialVersionUID = -2131291746;
+  private static final long serialVersionUID = 1818729239;
   
   protected CategoryGenDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -43,6 +43,8 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String POINTSIZEEND = "pointSizeEnd";
+  public static java.lang.String POINTSIZESTART = "pointSizeStart";
   public static java.lang.String POINTSTROKEEND = "pointStrokeEnd";
   public static java.lang.String POINTSTROKESTART = "pointStrokeStart";
   public static java.lang.String POLYGONFILLEND = "polygonFillEnd";
@@ -581,6 +583,80 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public Integer getPointSizeEnd()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZEEND));
+  }
+  
+  public void setPointSizeEnd(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZEEND, "");
+    }
+    else
+    {
+      setValue(POINTSIZEEND, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPointSizeEndWritable()
+  {
+    return isWritable(POINTSIZEEND);
+  }
+  
+  public boolean isPointSizeEndReadable()
+  {
+    return isReadable(POINTSIZEEND);
+  }
+  
+  public boolean isPointSizeEndModified()
+  {
+    return isModified(POINTSIZEEND);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeEndMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZEEND).getAttributeMdDTO();
+  }
+  
+  public Integer getPointSizeStart()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZESTART));
+  }
+  
+  public void setPointSizeStart(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZESTART, "");
+    }
+    else
+    {
+      setValue(POINTSIZESTART, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPointSizeStartWritable()
+  {
+    return isWritable(POINTSIZESTART);
+  }
+  
+  public boolean isPointSizeStartReadable()
+  {
+    return isReadable(POINTSIZESTART);
+  }
+  
+  public boolean isPointSizeStartModified()
+  {
+    return isModified(POINTSIZESTART);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeStartMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZESTART).getAttributeMdDTO();
   }
   
   public String getPointStrokeEnd()

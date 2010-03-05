@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -390560994)
+@com.terraframe.mojo.business.ClassSignature(hash = 1785236631)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,6 +27,8 @@ public abstract class CategoryGenBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String LAYERID = "layerId";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String POINTSIZEEND = "pointSizeEnd";
+  public static java.lang.String POINTSIZESTART = "pointSizeStart";
   public static java.lang.String POINTSTROKEEND = "pointStrokeEnd";
   public static java.lang.String POINTSTROKESTART = "pointStrokeStart";
   public static java.lang.String POLYGONFILLEND = "polygonFillEnd";
@@ -37,7 +39,7 @@ public abstract class CategoryGenBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -390560994;
+  private static final long serialVersionUID = 1785236631;
   
   public CategoryGenBase()
   {
@@ -452,6 +454,62 @@ public abstract class CategoryGenBase extends com.terraframe.mojo.business.Busin
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public Integer getPointSizeEnd()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZEEND));
+  }
+  
+  public void validatePointSizeEnd()
+  {
+    this.validateAttribute(POINTSIZEEND);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointSizeEndMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
+    return mdClassIF.definesAttribute(POINTSIZEEND);
+  }
+  
+  public void setPointSizeEnd(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZEEND, "");
+    }
+    else
+    {
+      setValue(POINTSIZEEND, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPointSizeStart()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZESTART));
+  }
+  
+  public void validatePointSizeStart()
+  {
+    this.validateAttribute(POINTSIZESTART);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointSizeStartMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.CategoryGen.CLASS);
+    return mdClassIF.definesAttribute(POINTSIZESTART);
+  }
+  
+  public void setPointSizeStart(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POINTSIZESTART, "");
+    }
+    else
+    {
+      setValue(POINTSIZESTART, java.lang.Integer.toString(value));
     }
   }
   
