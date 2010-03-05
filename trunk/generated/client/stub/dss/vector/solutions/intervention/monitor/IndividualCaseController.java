@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,8 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
@@ -111,10 +114,19 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     PersonViewDTO person = PersonDTO.getView(this.getClientRequest(), personId);
     
+    // Case stuff
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));    
     req.setAttribute("individualCase", individualCase);
     req.setAttribute("personId", personId);
+    
+    // Instance Stuff
+    IndividualInstanceDTO dto = new IndividualInstanceDTO(getClientRequest());
+    req.setAttribute("item", dto);
+    req.setAttribute("healthFacility", dto.getHealthFacility());
+    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
+    req.setAttribute("caseId", individualCase.getId());
+    req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
     
     render("createComponent.jsp");
   }
@@ -325,11 +337,11 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     this.viewAll();
   }
 
-  public void create(IndividualCaseDTO dto, String personId) throws IOException, ServletException
+  public void create(IndividualCaseDTO dto, String personId, IndividualInstanceDTO instance, TermDTO[] symptoms) throws IOException, ServletException
   {
     try
     {
-      dto.applyWithPersonId(personId);
+      dto.applyWithPersonId(personId, instance, symptoms);
 
       ClientRequestIF request = dto.getRequest();
 

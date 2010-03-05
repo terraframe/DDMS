@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 179758366)
+@com.terraframe.mojo.business.ClassSignature(hash = -2136771009)
 public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCase";
-  private static final long serialVersionUID = 179758366;
+  private static final long serialVersionUID = -2136771009;
   
   protected IndividualCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -806,18 +806,18 @@ public abstract class IndividualCaseDTOBase extends com.terraframe.mojo.business
     return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(WORKPLACETEXT).getAttributeMdDTO();
   }
   
-  public final void applyWithPersonId(java.lang.String personId)
+  public final void applyWithPersonId(java.lang.String personId, dss.vector.solutions.intervention.monitor.IndividualInstanceDTO instance, dss.vector.solutions.ontology.TermDTO[] symptoms)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{personId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.intervention.monitor.IndividualInstance", "[Ldss.vector.solutions.ontology.Term;"};
+    Object[] _parameters = new Object[]{personId, instance, symptoms};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualCaseDTO.CLASS, "applyWithPersonId", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyWithPersonId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String personId)
+  public static final void applyWithPersonId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String personId, dss.vector.solutions.intervention.monitor.IndividualInstanceDTO instance, dss.vector.solutions.ontology.TermDTO[] symptoms)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, personId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "dss.vector.solutions.intervention.monitor.IndividualInstance", "[Ldss.vector.solutions.ontology.Term;"};
+    Object[] _parameters = new Object[]{id, personId, instance, symptoms};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualCaseDTO.CLASS, "applyWithPersonId", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }

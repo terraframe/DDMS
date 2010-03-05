@@ -36,6 +36,7 @@ import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
@@ -257,7 +258,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
   @Override
   @Transaction
-  public void applyWithPersonId(String personId)
+  public void applyWithPersonId(String personId, IndividualInstance instance, Term[] symptoms)
   {
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
@@ -274,6 +275,9 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     this.setPatient(patient);
     this.apply();
+    
+    instance.setIndividualCase(this);
+    instance.applyAll(symptoms);
   }
 
   public IndividualInstanceQuery getInstances()

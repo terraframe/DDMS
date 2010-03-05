@@ -66,8 +66,6 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       {
         individualCase.setWorkplace(person.getWorkGeoEntity());
       }
-      
-      individualCase.applyWithPersonId(person.getId());
     }
     
     IndividualInstance instance = new IndividualInstance();
@@ -97,7 +95,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setTreatment(Term.validateByDisplayLabel(this.getTreatment(), IndividualInstance.getTreatmentMd()));
     instance.setSymptomComments(this.getSymptomComments());
     
-    instance.applyAll(symptoms.toArray(new Term[symptoms.size()]));
+    individualCase.applyWithPersonId(person.getId(), instance, symptoms.toArray(new Term[symptoms.size()]));
   }
 
   /**

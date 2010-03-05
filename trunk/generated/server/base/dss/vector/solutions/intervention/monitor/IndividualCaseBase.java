@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 930890654)
+@com.terraframe.mojo.business.ClassSignature(hash = 1895396543)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String TYPE = "type";
   public static java.lang.String WORKPLACE = "workplace";
   public static java.lang.String WORKPLACETEXT = "workplaceText";
-  private static final long serialVersionUID = 930890654;
+  private static final long serialVersionUID = 1895396543;
   
   public IndividualCaseBase()
   {
@@ -662,16 +662,16 @@ public abstract class IndividualCaseBase extends com.terraframe.mojo.business.Bu
     return (IndividualCase) com.terraframe.mojo.business.Business.get(CLASS, key);
   }
   
-  public void applyWithPersonId(java.lang.String personId)
+  public void applyWithPersonId(java.lang.String personId, dss.vector.solutions.intervention.monitor.IndividualInstance instance, dss.vector.solutions.ontology.Term[] symptoms)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.IndividualCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final void applyWithPersonId(java.lang.String id, java.lang.String personId)
+  public static final void applyWithPersonId(java.lang.String id, java.lang.String personId, dss.vector.solutions.intervention.monitor.IndividualInstance instance, dss.vector.solutions.ontology.Term[] symptoms)
   {
     IndividualCase _instance = IndividualCase.get(id);
-    _instance.applyWithPersonId(personId);
+    _instance.applyWithPersonId(personId, instance, symptoms);
   }
   
   public dss.vector.solutions.intervention.monitor.IndividualInstanceQuery getInstances()
