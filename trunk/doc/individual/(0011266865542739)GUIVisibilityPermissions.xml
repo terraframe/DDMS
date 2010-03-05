@@ -336,6 +336,11 @@
               <operation
                 name="WRITE" />
             </attributePermission>
+            <attributePermission
+              attributeName="defaultMap">
+              <operation
+                name="WRITE" />
+            </attributePermission>
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.Patient">
