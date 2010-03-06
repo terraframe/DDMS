@@ -166,7 +166,7 @@
         label="Import Log View">
         <attributes>
           <virtual
-            concrete="exportSeq"
+            concrete="lastExportSeq"
             type="com.terraframe.mojo.system.transaction.ImportLog"/>
           <virtual
             concrete="sourceSite"
