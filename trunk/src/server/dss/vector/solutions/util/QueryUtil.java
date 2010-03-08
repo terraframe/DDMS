@@ -959,8 +959,8 @@ public class QueryUtil implements Reloadable
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" +
       "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" +
-      "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::CHAR " +
-      "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::CHAR  END";
+      "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::TEXT " +
+      "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::TEXT  END";
       dateGroup.setSQL(dateGroupSql);
     }
 
