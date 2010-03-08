@@ -234,22 +234,45 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
                     	  if(a.uuid === 'true' )return 1;
                     		return a.uuid;
                     	});
+            
             if(whereIds.length == 1)
             {
-              var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[0]);
-              conditions.push(condition);
+            	//this is for multi mo restriction
+            	if(t == 'sqlinteger')
+            	{
+            		this._config.setProperty(k+'Criteria',  whereIds[0]);
+            	}
+            	else
+            	{
+            		var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[0]);
+            		conditions.push(condition);
+            	}
             }
             if(whereIds.length > 1)
             {
-              //We OR the selected filter values together inside a CompositeCondition because nothing can be 'true' AND 'false'
-              var orConds = new MDSS.QueryXML.Or();
-              for(var idNum=0; idNum<whereIds.length; idNum++)
-              {
-                var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[idNum]);
-                orConds.addCondition(('orCond' + i + idNum), condition);
-              }
-              var composite = new MDSS.QueryXML.CompositeCondition(orConds);
-              conditions.push(composite);
+
+            	//this is for multi mo restriction
+            	if(t == 'sqlinteger')
+            	{
+            		this._config.setProperty(k+'Criteria',  whereIds[0] + ' - ' + whereIds[1]);
+            	}
+            	else
+            	{
+	            	//We OR the selected filter values together inside a CompositeCondition because nothing can be 'true' AND 'false'
+	              
+	            	
+	            	var orConds = new MDSS.QueryXML.Or();
+	              
+	              
+	              
+	              for(var idNum=0; idNum<whereIds.length; idNum++)
+	              {
+	                var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[idNum]);
+	                orConds.addCondition(('orCond' + i + idNum), condition);
+	              }
+	              var composite = new MDSS.QueryXML.CompositeCondition(orConds);
+	              conditions.push(composite);
+            	}
             }
           }
         }
@@ -1552,7 +1575,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          row.attributeName = 'term' + term.MOID.replace(':','');
          
         return row;
-      }
+      },
+     
+     mapBooleanMo : function(term,index){
+      	 var row = {};
+          row.dtoType = "AttributeBooleanDTO";
+          row.displayLabel = term.displayLabel;
+          
+          row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+          row.type = 'sqlinteger';
+          row.attributeName = 'term' + term.MOID.replace(':','');
+          row.dropDownMap = {'0':'0','1':'1'};
+         return row;
+       }
 
    }
 });
