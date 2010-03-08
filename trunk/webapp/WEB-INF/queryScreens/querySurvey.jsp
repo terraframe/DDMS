@@ -118,9 +118,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var locationColumns = orderedGrids.locations.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.locations);
+    var locationColumns = orderedGrids.locations.options.map(MDSS.QueryBaseNew.mapBooleanMo, orderedGrids.locations);
 
-    var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
+    var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapBooleanMo, orderedGrids.treatments);
 
     var selectableGroups = [
                 {title:"Survey_Point", values:surveyPointColumns, group:"sp", klass:surveyPoint.CLASS},
