@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1800223817)
+@com.terraframe.mojo.business.ClassSignature(hash = -1564630609)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public  abstract  class ImportLogViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1800223817;
+private static final long serialVersionUID = -1564630609;
 
   public ImportLogViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,24 +26,6 @@ private static final long serialVersionUID = 1800223817;
   {
     return dss.vector.solutions.synchronization.ImportLogView.CLASS;
   }
-  public com.terraframe.mojo.query.SelectableInteger getExportSeq()
-  {
-    return getExportSeq(null);
-
-  }
- 
-  public com.terraframe.mojo.query.SelectableInteger getExportSeq(String alias)
-  {
-    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, null);
-
-  }
- 
-  public com.terraframe.mojo.query.SelectableInteger getExportSeq(String alias, String displayLabel)
-  {
-    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.EXPORTSEQ, alias, displayLabel);
-
-  }
- 
   public com.terraframe.mojo.query.SelectableChar getId()
   {
     return getId(null);
@@ -59,6 +41,24 @@ private static final long serialVersionUID = 1800223817;
   public com.terraframe.mojo.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getLastExportSeq()
+  {
+    return getLastExportSeq(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getLastExportSeq(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.LASTEXPORTSEQ, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableInteger getLastExportSeq(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableInteger)this.getSelectable(dss.vector.solutions.synchronization.ImportLogView.LASTEXPORTSEQ, alias, displayLabel);
 
   }
  

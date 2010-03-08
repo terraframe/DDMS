@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 776537120)
+@com.terraframe.mojo.business.ClassSignature(hash = -226778490)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,42 +11,14 @@ package dss.vector.solutions.synchronization;
 public abstract class ImportLogViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.ImportLogView";
-  public static java.lang.String EXPORTSEQ = "exportSeq";
   public static java.lang.String ID = "id";
+  public static java.lang.String LASTEXPORTSEQ = "lastExportSeq";
   public static java.lang.String SOURCESITE = "sourceSite";
-  private static final long serialVersionUID = 776537120;
+  private static final long serialVersionUID = -226778490;
   
   public ImportLogViewBase()
   {
     super();
-  }
-  
-  public Integer getExportSeq()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPORTSEQ));
-  }
-  
-  public void validateExportSeq()
-  {
-    this.validateAttribute(EXPORTSEQ);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getExportSeqMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
-    return mdClassIF.definesAttribute(EXPORTSEQ);
-  }
-  
-  public void setExportSeq(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(EXPORTSEQ, "");
-    }
-    else
-    {
-      setValue(EXPORTSEQ, java.lang.Integer.toString(value));
-    }
   }
   
   public String getId()
@@ -63,6 +35,34 @@ public abstract class ImportLogViewBase extends com.terraframe.mojo.business.Vie
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Integer getLastExportSeq()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTEXPORTSEQ));
+  }
+  
+  public void validateLastExportSeq()
+  {
+    this.validateAttribute(LASTEXPORTSEQ);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getLastExportSeqMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.ImportLogView.CLASS);
+    return mdClassIF.definesAttribute(LASTEXPORTSEQ);
+  }
+  
+  public void setLastExportSeq(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(LASTEXPORTSEQ, "");
+    }
+    else
+    {
+      setValue(LASTEXPORTSEQ, java.lang.Integer.toString(value));
+    }
   }
   
   public String getSourceSite()
