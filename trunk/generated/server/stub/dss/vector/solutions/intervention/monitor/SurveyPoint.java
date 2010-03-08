@@ -235,6 +235,21 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
     }
     
+    
+    if(personQuery == null && xml.indexOf("one__dss_vector_solutions_intervention_monitor_SurveyedPerson")>0)
+    {
+      //we pass in a value query instead of a query factory so that we use a normal join instead of IN()
+      personQuery = new SurveyedPersonQuery(valueQuery);
+      valueQuery.SELECT(personQuery.getId());
+      QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
+      if (householdQuery != null)
+      {
+        valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
+      }
+      
+    }
+    
+    
     ITNInstanceQuery itnQuery = (ITNInstanceQuery) queryMap.get(ITNInstance.CLASS);
     
     if (itnQuery != null)
