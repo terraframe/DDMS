@@ -140,28 +140,57 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     
 
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
-    String sql = "(WITH RECURSIVE \n";
-    sql += " recursive_rollup AS ( \n";
-    sql += " SELECT child_id, parent_id ,\n";
+    String sql = "(WITH RECURSIVE geohierarchy_flags AS(\n";
+    sql += " SELECT  (t1.packagename || '.' || t1.typename) AS parent_type,\n";
+    sql += "  g1.political AS parent_political,\n";
+    sql += "  g1.spraytargetallowed AS parent_spraytargetallowed,\n";
+    sql += "  g1.populationallowed AS parent_populationallowed,\n";
+    sql += "  (t2.packagename || '.' || t2.typename) AS child_type,\n";
+    sql += "  g2.political AS child_political,\n";
+    sql += "  g2.spraytargetallowed AS child_spraytargetallowed,\n";
+    sql += "  g2.populationallowed AS child_populationallowed\n";
+    sql += " FROM allowedin ,\n";
+    sql += "  geohierarchy g1,\n";
+    sql += "  geohierarchy g2,\n";
+    sql += "  md_type t1 ,\n";
+    sql += "  md_type t2 \n";
+    sql += " WHERE  allowedin.parent_id = g1.id\n";
+    sql += "  AND allowedin.child_id = g2.id\n";
+    sql += "  AND t1.id = g1.geoentityclass\n";
+    sql += "  AND t2.id = g2.geoentityclass\n";
+    sql += " )\n";
+    sql += ", recursive_rollup AS ( \n";
+    sql += " SELECT child_id, parent_id , 0 AS depth , geoentity.type , \n";
+    sql += " COALESCE((";
     // this is the table with the sumable value
-    sql += " (SELECT population FROM populationdata pd \n";
+    sql += " SELECT population FROM populationdata pd \n";
     sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
     sql += "     AND pd.geoentity = li.child_id\n";
-    sql += "  ) as sumvalue\n";
-    sql += "  FROM locatedin li \n";
+    sql += "     AND geohierarchy_flags.parent_populationallowed = 1\n";    
+    sql += "  ), 0) as sumvalue\n";
+    sql += "  FROM locatedin li, geohierarchy_flags, geoentity \n";
     // the root geoentity
     sql += " WHERE parent_id = '" + entity.getId() + "'\n";
+    sql += "  AND li.child_id = geoentity.id";
+    sql += "  AND geoentity.type = geohierarchy_flags.parent_type";
+    sql += "  AND geohierarchy_flags.parent_political = 1";    
     //this is the recursive case
     sql += " UNION\n";
-    sql += " SELECT li.child_id, li.parent_id ,\n";
-    sql += " (SELECT population FROM populationdata pd \n";
+    sql += " SELECT li.child_id, li.parent_id , rr.depth+1 , geoentity.type , \n";
+    sql += " rr.sumvalue +  COALESCE((\n";
+    sql += "    SELECT population FROM populationdata pd \n";
     sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
     sql += "    AND pd.geoentity = li.child_id\n";
-    sql += "  ) as sumvalue\n";
-    sql += " FROM recursive_rollup rr, locatedin li \n";
+    sql += "    AND geohierarchy_flags.parent_populationallowed = 1\n";    
+    sql += "  ), 0)\n";
+    sql += " FROM recursive_rollup rr, locatedin li, geohierarchy_flags, geoentity \n";
     sql += " WHERE rr.child_id = li.parent_id\n";
+    sql += " AND li.child_id = geoentity.id";
+    sql += " AND geoentity.type = geohierarchy_flags.parent_type";
+    sql += " AND geohierarchy_flags.parent_political = 1";
+    
     // --this will stop the recursion as soon as sumvalue is not null\n";
-    sql += "  AND rr.sumvalue is null \n";
+    sql += " AND rr.sumvalue = 0";
     sql += " )\n";
     sql += " select sum(sumvalue) as summed_value from recursive_rollup \n";
     sql += " )\n";
