@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1914274359)
+@com.terraframe.mojo.business.ClassSignature(hash = 1729370525)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public class ImportLogViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1914274359;
+private static final long serialVersionUID = 1729370525;
 
   protected ImportLogViewQueryDTO(String type)
   {

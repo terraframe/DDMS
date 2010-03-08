@@ -1,10 +1,10 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -64679264)
+@com.terraframe.mojo.business.ClassSignature(hash = 77672710)
 public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.ImportLogView";
-  private static final long serialVersionUID = -64679264;
+  private static final long serialVersionUID = 77672710;
   
   protected ImportLogViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -16,44 +16,44 @@ public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.
     return CLASS;
   }
   
-  public static java.lang.String EXPORTSEQ = "exportSeq";
   public static java.lang.String ID = "id";
+  public static java.lang.String LASTEXPORTSEQ = "lastExportSeq";
   public static java.lang.String SOURCESITE = "sourceSite";
-  public Integer getExportSeq()
+  public Integer getLastExportSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPORTSEQ));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTEXPORTSEQ));
   }
   
-  public void setExportSeq(Integer value)
+  public void setLastExportSeq(Integer value)
   {
     if(value == null)
     {
-      setValue(EXPORTSEQ, "");
+      setValue(LASTEXPORTSEQ, "");
     }
     else
     {
-      setValue(EXPORTSEQ, java.lang.Integer.toString(value));
+      setValue(LASTEXPORTSEQ, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isExportSeqWritable()
+  public boolean isLastExportSeqWritable()
   {
-    return isWritable(EXPORTSEQ);
+    return isWritable(LASTEXPORTSEQ);
   }
   
-  public boolean isExportSeqReadable()
+  public boolean isLastExportSeqReadable()
   {
-    return isReadable(EXPORTSEQ);
+    return isReadable(LASTEXPORTSEQ);
   }
   
-  public boolean isExportSeqModified()
+  public boolean isLastExportSeqModified()
   {
-    return isModified(EXPORTSEQ);
+    return isModified(LASTEXPORTSEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExportSeqMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLastExportSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPORTSEQ).getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LASTEXPORTSEQ).getAttributeMdDTO();
   }
   
   public String getSourceSite()
