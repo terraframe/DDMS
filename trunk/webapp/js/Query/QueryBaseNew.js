@@ -1057,6 +1057,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       YAHOO.util.Dom.addClass(check,'selectAllCheck');
       YAHOO.util.Dom.addClass(check,klass);
       YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
+      this._defaults.push({element:check, checked:false, bypass:true});      
 
       var span = document.createElement('span');
       span.innerHTML = MDSS.Localized.Select_All;

@@ -236,14 +236,19 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         
         String geoAttr = geoSelectable.getDefiningTableAlias()+"."+geoSelectable.getDbColumnName();
         
+        String clippingAlias = "geoentity_clipping";
+        String clippingColumnAlias = "clipping_column";
+        String clippingColumn = clippingAlias+"."+clippingColumnAlias;
+        
         SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN,
-          "collect(intersection("+geoAttr+", geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN + "))");
+          "collect(intersection("+geoAttr+", "+clippingColumn+"))");
         selectables.add(geoS);
         
         valueQuery.clearSelectClause();
         valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
         
-        valueQuery.FROM("(SELECT "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
+        valueQuery.FROM("(SELECT "+QueryConstants.GEOMETRY_NAME_COLUMN+" AS "+clippingColumnAlias+" FROM "+baseView+")", clippingAlias);
+        
         sql = valueQuery.getSQL();
       }
       else
@@ -251,28 +256,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
         sql = valueQuery.getSQL();
       }
       
-//      if (i != 0 && layer.getClipToBaseLayer())
-//      {
-//        valueQuery.FROM("(SELECT buffer(collect("+QueryConstants.GEOMETRY_NAME_COLUMN+"), 0) AS "+QueryConstants.GEOMETRY_NAME_COLUMN+" FROM "+baseView+")", "geoentity_clipping");
-//        sql = valueQuery.getSQL();
-//
-//        String inter = "intersection(buffer($2, 0), geoentity_clipping." + QueryConstants.GEOMETRY_NAME_COLUMN
-//            + ")";
-//        String pattern = "^(.*?)(\\w+\\.\\w+)(\\s+AS\\s+" + QueryConstants.GEOMETRY_NAME_COLUMN
-//            + ")(.*)$";
-//        Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
-//        Matcher m = p.matcher(sql);
-//        m.matches();
-//
-//        sql = m.replaceFirst("$1" + inter + "$3$4 AND $2 && geoentity_clipping."
-//            + QueryConstants.GEOMETRY_NAME_COLUMN);
-//      }
-//      else
-//      {
-//        sql = valueQuery.getSQL();
-//      }
-
-
       // Create a new view that will reflect the current state of the query.
       Database.createView(newViewName, sql);
       

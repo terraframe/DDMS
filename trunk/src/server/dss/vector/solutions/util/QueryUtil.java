@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
@@ -30,7 +29,6 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableChar;
@@ -554,27 +552,9 @@ public class QueryUtil implements Reloadable
    */
   public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
   {
-    ValueQueryParser valueQueryParser;
     Map<String, GeneratedEntityQuery> queryMap;
 
-    try
-    {
-      valueQueryParser = new ValueQueryParser(xml, valueQuery);
-    }
-    catch (QueryException e)
-    {
-      // Check if the error was because no selectables were added.
-      Throwable t = e.getCause();
-      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
-      {
-        NoColumnsAddedException ex = new NoColumnsAddedException();
-        throw ex;
-      }
-      else
-      {
-        throw e;
-      }
-    }
+    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
 
     // If we're mapping, dereference the MdAttribute that will be joined with
     // the GeoEntity
@@ -632,6 +612,12 @@ public class QueryUtil implements Reloadable
     }
 
     queryMap = valueQueryParser.parse();
+    
+    if(valueQuery.getSelectableRefs().size() == 0)
+    {
+      NoColumnsAddedException ex = new NoColumnsAddedException();
+      throw ex;
+    }
 
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
