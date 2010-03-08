@@ -196,8 +196,6 @@ public class PopulationDataView extends PopulationDataViewBase implements com.te
     sql += " )\n";
     valueQuery.FROM(sql, "rr");
 
-    System.out.println(valueQuery.getSQL());
-
     List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
 
     for (ValueObject valueObject : valueObjectList)
