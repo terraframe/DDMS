@@ -35,21 +35,21 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
       return "New: " + this.getClassDisplayLabel();
-    }    
+    }
     else if (this.getGeoEntity() != null && this.getSurveyDate() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, Session.getCurrentLocale());
 
       return this.getClassDisplayLabel() + ": (" + this.getGeoEntity().getLabel() + ", " + format.format(this.getSurveyDate()) + ")";
     }
-    
+
     return super.toString();
   }
 
@@ -177,7 +177,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       it.close();
     }
   }
-  
+
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
@@ -209,7 +209,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     {
       QueryUtil.joinGeoDisplayLabels(valueQuery, SurveyPoint.CLASS, surveyPointQuery);
     }
-    
+
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
     if (householdQuery != null)
     {
@@ -231,14 +231,14 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
 
       QueryUtil.joinTermAllpaths(valueQuery, SurveyedPerson.CLASS, personQuery);
-      QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, SurveyedPerson.CLASS, personQuery, personQuery.getTableAlias()+".id");
+      QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, SurveyedPerson.CLASS, personQuery, personQuery.getTableAlias() + ".id");
       QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
     }
-    
-    
-    if(personQuery == null && xml.indexOf("one__dss_vector_solutions_intervention_monitor_SurveyedPerson")>0)
+
+    if (personQuery == null && xml.indexOf("one__dss_vector_solutions_intervention_monitor_SurveyedPerson") > 0)
     {
-      //we pass in a value query instead of a query factory so that we use a normal join instead of IN()
+      // we pass in a value query instead of a query factory so that we use a
+      // normal join instead of IN()
       personQuery = new SurveyedPersonQuery(valueQuery);
       valueQuery.SELECT(personQuery.getId());
       QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
@@ -246,12 +246,11 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       {
         valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
       }
-      
+
     }
-    
-    
+
     ITNInstanceQuery itnQuery = (ITNInstanceQuery) queryMap.get(ITNInstance.CLASS);
-    
+
     if (itnQuery != null)
     {
       if (householdQuery == null)
@@ -259,68 +258,76 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
         householdQuery = new HouseholdQuery(valueQuery);
         valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
       }
-      if(personQuery == null)
+      if (personQuery == null)
       {
-        //join against the house if there is no person
+        // join against the house if there is no person
         valueQuery.WHERE(householdQuery.iTNs(itnQuery));
         QueryUtil.joinTermAllpaths(valueQuery, ITNInstance.CLASS, itnQuery);
         QueryUtil.joinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery);
       }
       else
       {
-        //left join against the person is person is in this query
+        // left join against the person is person is in this query
         LeftJoinEq leftJoin = personQuery.getSleptUnderNet().LEFT_JOIN_EQ(itnQuery);
         valueQuery.WHERE(leftJoin);
-        QueryUtil.leftJoinTermDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery,itnQuery.getId().getColumnAlias());
-        QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery,itnQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinTermDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery, itnQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery, itnQuery.getId().getColumnAlias());
       }
-      
+
     }
-    
-    
-    if(valueQuery.hasSelectableRef("prevalence"))
+
+    if (valueQuery.hasSelectableRef("prevalence"))
     {
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("prevalence");
-      if(personQuery == null)
+      if (personQuery == null)
       {
-        //we pass in a value query instead of a query factory so that we use a normal join instead of IN()
+        // we pass in a value query instead of a query factory so that we use a
+        // normal join instead of IN()
         personQuery = new SurveyedPersonQuery(valueQuery);
-        valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
+        if (householdQuery != null)
+        {
+          valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
+        }
       }
-      
+
       String tableAlias = personQuery.getTableAlias();
-      
-      String rtdTested = "CASE "+tableAlias+"."+SurveyedPerson.PERFORMEDRDT+"_c WHEN '"+RefusedResponse.YES.getId()+"' THEN 1 ELSE NULL END";
-      
-      String totalTested ="SUM(COALESCE("+rtdTested+","+SurveyedPerson.PERFORMEDBLOODSLIDE+",0))::FLOAT" ;
-      
-      String totalPositive ="SUM(COALESCE("+SurveyedPerson.RDTRESULT+","+SurveyedPerson.BLOODSLIDERESULT+",0))::FLOAT" ;
-     
-      calc.setSQL(totalPositive+" / NULLIF("+totalTested+",0.0)");
+
+      String rtdTested = "CASE " + tableAlias + "." + SurveyedPerson.PERFORMEDRDT + "_c WHEN '" + RefusedResponse.YES.getId() + "' THEN 1 ELSE NULL END";
+
+      String totalTested = "SUM(COALESCE(" + rtdTested + "," + SurveyedPerson.PERFORMEDBLOODSLIDE + ",0))::FLOAT";
+
+      String totalPositive = "SUM(COALESCE(" + SurveyedPerson.RDTRESULT + "," + SurveyedPerson.BLOODSLIDERESULT + ",0))::FLOAT";
+
+      calc.setSQL(totalPositive + " / NULLIF(" + totalTested + ",0.0)");
     }
-    
-    
-    if(valueQuery.hasSelectableRef("age"))
+
+    if (valueQuery.hasSelectableRef("age"))
     {
-      //valueQuery.hasSelectableRef
-      
+      // valueQuery.hasSelectableRef
+
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
-      if(personQuery == null)
+      if (personQuery == null)
       {
-        //we pass in a value query instead of a query factory so that we use a normal join instead of IN()
+        // we pass in a value query instead of a query factory so that we use a
+        // normal join instead of IN()
         personQuery = new SurveyedPersonQuery(valueQuery);
+        if (householdQuery == null)
+        {
+          householdQuery = new HouseholdQuery(valueQuery);
+          valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
+        }
         valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
+        valueQuery.SELECT(personQuery.getDob());
+
       }
-      
-      
+
       String personTableAlias = personQuery.getTableAlias();
       String surveyPointTableAlais = surveyPointQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "."+SurveyPoint.SURVEYDATE+", " + personTableAlias + "."+SurveyedPerson.DOB+"))";
+      String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "." + SurveyPoint.SURVEYDATE + ", " + personTableAlias + "." + SurveyedPerson.DOB + "))";
       dobSel.setSQL(sql);
     }
-    
-    
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
@@ -328,8 +335,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
-
 
     return valueQuery;
   }
