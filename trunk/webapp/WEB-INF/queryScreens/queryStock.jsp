@@ -88,7 +88,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var stockEvent = new Mojo.$.dss.vector.solutions.stock.StockEvent();
 
-    var stockEventAttribs = ['cost','eventDate','otherParty','quantity','stockDepot','transactionType'];
+    var stockEventAttribs = ['cost','eventDate','otherParty','quantity','transactionType'];
     
     var stockEventColumns =   stockEventAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
 
