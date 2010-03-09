@@ -9,7 +9,7 @@
     
     </delete>    
   
-    <create>
+    <update>
     
       <mdBusiness
         name="dss.vector.solutions.geo.generated.GeoEntity">
@@ -37,8 +37,7 @@
         </mdMethod>
       </mdBusiness>    
     
-    </create>
-    <update></update>
+    </update>
   </doIt>
   <undoIt>
     <delete>
