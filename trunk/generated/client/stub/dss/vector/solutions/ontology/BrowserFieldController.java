@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import dss.vector.solutions.util.ErrorUtility;
+
 public class BrowserFieldController extends BrowserFieldControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/BrowserField/";
@@ -41,10 +43,10 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       BrowserFieldViewDTO[] results = BrowserFieldDTO.getAsViews(clientRequest);
       List<String> defaultTermIds = new LinkedList<String>();
       Map<String, String> defaultTerms = new HashMap<String, String>();
-      for(BrowserFieldViewDTO field : results)
+      for (BrowserFieldViewDTO field : results)
       {
         String defaultTerm = field.getValue(BrowserFieldViewDTO.DEFAULTVALUE);
-        if(defaultTerm != null && defaultTerm.length() > 0)
+        if (defaultTerm != null && defaultTerm.length() > 0)
         {
           defaultTermIds.add(defaultTerm);
           defaultTerms.put(field.getBrowserFieldId(), defaultTerm);
@@ -54,14 +56,14 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
           defaultTerms.put(field.getBrowserFieldId(), "");
         }
       }
-      
+
       // Create a map of termId => TermViewDTO so BrowserFields can
       // dereference their default term values.
       Map<String, TermViewDTO> termMap = new HashMap<String, TermViewDTO>();
       TermViewQueryDTO defaultQueryQuery = TermDTO.getByIds(clientRequest, defaultTermIds.toArray(new String[defaultTermIds.size()]));
-      for(TermViewDTO term : defaultQueryQuery.getResultSet())
+      for (TermViewDTO term : defaultQueryQuery.getResultSet())
       {
-        termMap.put(term.getTermId(), term); 
+        termMap.put(term.getTermId(), term);
       }
 
       BrowserRootViewQueryDTO rootQuery = BrowserRootDTO.getAsViews(clientRequest);
@@ -186,8 +188,20 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
   public void cancel(dss.vector.solutions.ontology.BrowserFieldDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(dss.vector.solutions.ontology.BrowserFieldDTO dto) throws java.io.IOException, javax.servlet.ServletException

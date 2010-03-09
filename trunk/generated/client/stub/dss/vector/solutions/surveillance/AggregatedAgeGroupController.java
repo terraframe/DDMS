@@ -56,8 +56,20 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
 
   public void cancel(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(AggregatedAgeGroupDTO dto) throws IOException, ServletException
@@ -181,8 +193,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
     PropertyQueryDTO properties = PropertyDTO.getAllByPackage(clientRequest, PropertyInfo.MONITOR_PACKAGE);
-    
-    
+
     req.setAttribute("properties", properties);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");

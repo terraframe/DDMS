@@ -107,13 +107,25 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   public void cancel(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
-    dto.unlockCase();
-    this.view(dto);
+    try
+    {
+      dto.unlockCase();
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      
+      if(!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(AggregatedCaseViewDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getCaseId());
   }
 
   public void delete(AggregatedCaseViewDTO dto) throws IOException, ServletException
@@ -224,14 +236,13 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     ClientRequestIF request = this.getClientSession().getRequest();
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
-    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
+    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS });
 
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("periodType", PeriodTypeDTO.allItems(request));
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
     req.setAttribute("item", item);
     req.setAttribute("entityUniversals", entityUniversals);
-
 
     render("searchComponent.jsp");
   }

@@ -30,9 +30,21 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void cancel(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
+    try
+    {
+      dto.unlock();
 
-    this.view(dto);
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException

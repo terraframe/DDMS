@@ -144,7 +144,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     dto.setValue(IndividualIPTCaseViewDTO.PATIENT, view.getPersonId());
     dto.setResidentialLocation(AttributeUtil.getString(PersonViewDTO.RESIDENTIALGEOID, view));
-    
+
     String serviceDate = req.getParameter("serviceDate");
 
     if (serviceDate != null && !serviceDate.equals(""))
@@ -156,7 +156,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     req.setAttribute("instance", instance);
     req.setAttribute("person", view);
     req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
-    
+
     render("createComponent.jsp");
   }
 
@@ -292,12 +292,24 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void cancel(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
   {
-    this.view(IndividualIPTCaseDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(IndividualIPTCaseDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
@@ -336,9 +348,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
       req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
-                                                                              // this
-                                                                              // for
-                                                                              // labels
+      // this
+      // for
+      // labels
       render("searchComponent.jsp");
     }
   }

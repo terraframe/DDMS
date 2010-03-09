@@ -95,11 +95,11 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       }
     }
 
-    if(!team.isNewInstance())
+    if (!team.isNewInstance())
     {
       currentOperators.addAll(Arrays.asList(SprayTeamDTO.getOperatorViews(clientRequest, team.getId())));
     }
-    
+
     req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
     req.setAttribute("assigned", assignedOperators);
@@ -329,8 +329,20 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
   public void cancel(SprayTeamDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(SprayTeamDTO dto) throws IOException, ServletException

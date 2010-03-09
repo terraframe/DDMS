@@ -73,12 +73,24 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   public void cancel(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    this.view(EfficacyAssayDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(EfficacyAssayDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -251,7 +263,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       // Ensure the user has permissions to create an Efficacy Assay
       new EfficacyAssayDTO(request);
 
@@ -270,7 +282,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       this.failCloneAssay(id);
     }
   }
-  
+
   @Override
   public void failCloneAssay(String id) throws IOException, ServletException
   {

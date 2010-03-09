@@ -112,22 +112,28 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException
   {
+    IndividualInstanceDTO dto = new IndividualInstanceDTO(getClientRequest());
+    TermDTO[] symptoms = dto.getSymptoms();
+
+    renderCreate(individualCase, personId, dto, symptoms);
+  }
+
+  private void renderCreate(IndividualCaseDTO individualCase, String personId, IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
+  {
     PersonViewDTO person = PersonDTO.getView(this.getClientRequest(), personId);
-    
     // Case stuff
     req.setAttribute("person", person);
-    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));    
+    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("individualCase", individualCase);
     req.setAttribute("personId", personId);
-    
+
     // Instance Stuff
-    IndividualInstanceDTO dto = new IndividualInstanceDTO(getClientRequest());
     req.setAttribute("item", dto);
-    req.setAttribute("healthFacility", dto.getHealthFacility());
-    req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
+    req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
+    req.setAttribute("symptoms", Arrays.asList(symptoms));
     req.setAttribute("caseId", individualCase.getId());
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
-    
+
     render("createComponent.jsp");
   }
 
@@ -149,8 +155,20 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   public void cancel(IndividualCaseDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(IndividualCaseDTO dto) throws IOException, ServletException
@@ -328,7 +346,10 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   private void renderSearch(IndividualCaseViewDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));  // need this for labels
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
+                                                                            // this
+                                                                            // for
+                                                                            // labels
     render("searchComponent.jsp");
   }
 
@@ -352,17 +373,18 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto, personId);
+      this.failCreate(dto, personId, instance, symptoms);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto, personId);
+      this.failCreate(dto, personId, instance, symptoms);
     }
   }
 
-  public void failCreate(IndividualCaseDTO dto, String personId) throws IOException, ServletException
+  @Override
+  public void failCreate(IndividualCaseDTO dto, String personId, IndividualInstanceDTO instance, TermDTO[] symptoms) throws IOException, ServletException
   {
-    renderCreate(dto, personId);
+    renderCreate(dto, personId, instance, symptoms);
   }
 }

@@ -28,8 +28,20 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
 
   public void cancel(SystemAlertDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.viewAll();
+    try
+    {
+      dto.unlock();
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(SystemAlertDTO dto) throws IOException, ServletException

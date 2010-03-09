@@ -35,14 +35,26 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
   public void cancel(SurveyedPersonViewDTO dto) throws IOException, ServletException
   {
-    SurveyedPersonViewDTO view = SurveyedPersonDTO.unlockView(this.getClientRequest(), dto.getConcreteId());
+    try
+    {
+      SurveyedPersonViewDTO view = SurveyedPersonDTO.unlockView(this.getClientRequest(), dto.getConcreteId());
 
-    this.view(view);
+      this.view(view);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(SurveyedPersonViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void create(SurveyedPersonViewDTO dto, TermDTO[] locations, TermDTO[] treatments) throws IOException, ServletException

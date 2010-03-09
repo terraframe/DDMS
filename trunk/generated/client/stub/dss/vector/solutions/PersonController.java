@@ -36,11 +36,11 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     PersonWithDelegatesViewQueryDTO query = person.searchForDuplicates();
     String repassword = req.getParameter("person.repassword");
-    
+
     req.setAttribute("repassword", repassword);
     req.setAttribute("query", query);
     req.setAttribute("newPerson", person);
-    
+
     this.setupQueryLabels(query);
 
     // Saving the sex is a pain. This is a shortcut.
@@ -84,7 +84,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
   public void continueNewInstance(PersonViewDTO person) throws IOException, ServletException
   {
     String repassword = req.getParameter("person.repassword");
-    
+
     req.setAttribute("repassword", repassword);
 
     renderCreate(person);
@@ -367,13 +367,25 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   public void cancel(PersonDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(PersonDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void delete(PersonDTO dto) throws IOException, ServletException

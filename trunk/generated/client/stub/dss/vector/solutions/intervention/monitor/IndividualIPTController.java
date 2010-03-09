@@ -225,14 +225,26 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
   public void cancel(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    IndividualIPTViewDTO view = IndividualIPTDTO.unlockView(this.getClientRequest(), dto.getConcreteId());
+    try
+    {
+      IndividualIPTViewDTO view = IndividualIPTDTO.unlockView(this.getClientRequest(), dto.getConcreteId());
 
-    this.view(view);
+      this.view(view);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(IndividualIPTViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(IndividualIPTViewDTO dto) throws IOException, ServletException
@@ -278,7 +290,6 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
     req.setAttribute("doseType", AttributeUtil.getValue(IndividualIPTViewDTO.DOSETYPE, dto));
     req.setAttribute("visitNumber", AttributeUtil.getValue(IndividualIPTViewDTO.VISITNUMBER, dto));
     req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
-
 
     if (dto.getConcreteId() != null && !dto.getConcreteId().equals(""))
     {

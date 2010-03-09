@@ -130,9 +130,21 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   public void cancel(PropertyDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
+    try
+    {
+      dto.unlock();
 
-    this.view(dto);
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(PropertyDTO dto) throws IOException, ServletException
@@ -148,11 +160,10 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
     PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
     DefaultGeoEntityQueryDTO query2 = DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    
-    
+
     req.setAttribute("query", query);
     req.setAttribute("query2", query2);
-    
+
     render("viewAllComponent.jsp");
   }
 

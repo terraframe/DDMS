@@ -228,12 +228,24 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
 
   public void cancel(ITNCommunityDistributionViewDTO dto) throws IOException, ServletException
   {
-    this.view(ITNCommunityDistributionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(ITNCommunityDistributionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(ITNCommunityDistributionViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(ITNCommunityDistributionViewDTO dto) throws IOException, ServletException

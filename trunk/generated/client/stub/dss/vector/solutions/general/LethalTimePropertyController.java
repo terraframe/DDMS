@@ -168,8 +168,20 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
 
   public void cancel(LethalTimePropertyDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(LethalTimePropertyDTO dto) throws IOException, ServletException
@@ -280,7 +292,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   public void failSearchByInsecticide(String insecticideId) throws IOException, ServletException
   {
     req.setAttribute("insecticideId", insecticideId);
-    
+
     this.search();
   }
 }

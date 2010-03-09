@@ -92,8 +92,8 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void failCreate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
-    
+    List<String> entityUniversals = Arrays.asList(new String[] { SentinelSiteDTO.CLASS });
+
     req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
     req.setAttribute("item", dto);
@@ -112,7 +112,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
       SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
 
-      List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+      List<String> entityUniversals = Arrays.asList(new String[] { SentinelSiteDTO.CLASS });
       req.setAttribute("entityUniversals", entityUniversals);
       req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
 
@@ -176,12 +176,25 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void cancel(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(SurveyPointDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
-  }
+    try
+    {
+      this.view(SurveyPointDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-  public void failCancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+  }
+  
+  @Override
+  public void failCancel(SurveyPointViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -207,7 +220,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void failDelete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
+    List<String> entityUniversals = Arrays.asList(new String[] { SentinelSiteDTO.CLASS });
     req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
     req.setAttribute("item", dto);
@@ -233,9 +246,9 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     try
     {
       SurveyPointViewDTO dto = SurveyPointDTO.lockView(super.getClientRequest(), id);
-      
-      List<String> entityUniversals = Arrays.asList(new String[]{SentinelSiteDTO.CLASS}); 
-      
+
+      List<String> entityUniversals = Arrays.asList(new String[] { SentinelSiteDTO.CLASS });
+
       req.setAttribute("entityUniversals", entityUniversals);
       req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
       req.setAttribute("item", dto);

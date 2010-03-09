@@ -184,15 +184,15 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS}); 
-    
+    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS });
+
     req.setAttribute("periodType", PeriodTypeDTO.allItems(clientRequest));
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
     req.setAttribute("item", new AggregatedIPTViewDTO(clientRequest));
 
     req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("HealthFacility", HealthFacilityDTO.CLASS);
-    
+
     render("searchComponent.jsp");
   }
 
@@ -267,12 +267,24 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   public void cancel(AggregatedIPTViewDTO dto) throws IOException, ServletException
   {
-    this.view(AggregatedIPTDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(AggregatedIPTDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(AggregatedIPTViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void view(String id) throws IOException, ServletException

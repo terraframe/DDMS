@@ -67,7 +67,7 @@ public class StockItemController extends StockItemControllerBase implements Relo
     {
       ErrorUtility.prepareThrowable(t, req);
       this.failView(id);
-    }    
+    }
   }
 
   private void view(StockItemViewDTO dto) throws IOException, ServletException
@@ -91,10 +91,10 @@ public class StockItemController extends StockItemControllerBase implements Relo
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      
-      //Ensure the user has permissions to create a stock item
+
+      // Ensure the user has permissions to create a stock item
       new StockItemDTO(clientRequest);
-      
+
       StockItemViewDTO dto = new StockItemViewDTO(clientRequest);
 
       this.setupReferences(dto);
@@ -204,12 +204,24 @@ public class StockItemController extends StockItemControllerBase implements Relo
 
   public void cancel(StockItemViewDTO dto) throws IOException, ServletException
   {
-    this.view(StockItemDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(StockItemDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(StockItemViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(StockItemViewDTO dto) throws IOException, ServletException

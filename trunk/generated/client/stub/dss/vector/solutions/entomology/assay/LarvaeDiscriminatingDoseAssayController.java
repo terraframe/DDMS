@@ -249,8 +249,21 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void cancel(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto);
+    try
+    {
+      dto.unlock();
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   public void failCancel(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException

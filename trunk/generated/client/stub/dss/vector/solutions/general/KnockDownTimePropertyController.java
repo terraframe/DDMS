@@ -155,8 +155,20 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
 
   public void cancel(KnockDownTimePropertyDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto);
+    try
+    {
+      dto.unlock();
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(KnockDownTimePropertyDTO dto) throws IOException, ServletException
@@ -270,12 +282,12 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
       this.failSearchByInsecticide(insecticideId);
     }
   }
-  
+
   @Override
   public void failSearchByInsecticide(String insecticideId) throws IOException, ServletException
   {
     req.setAttribute("insecticideId", insecticideId);
-    
+
     this.search();
   }
 }

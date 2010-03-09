@@ -14,7 +14,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.intervention.monitor.HouseholdViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -172,12 +171,24 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void cancel(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
-    this.view(OperatorSprayDTO.unlockView(getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(OperatorSprayDTO.unlockView(getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void delete(OperatorSprayViewDTO dto) throws IOException, ServletException

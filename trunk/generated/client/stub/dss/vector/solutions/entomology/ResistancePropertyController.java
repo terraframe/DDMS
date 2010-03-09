@@ -28,9 +28,22 @@ public class ResistancePropertyController extends ResistancePropertyControllerBa
 
   public void cancel(ResistancePropertyDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    
-    this.viewAll();
+    try
+    {
+      dto.unlock();
+
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   public void failCancel(ResistancePropertyDTO dto) throws IOException, ServletException
@@ -114,7 +127,7 @@ public class ResistancePropertyController extends ResistancePropertyControllerBa
     try
     {
       dto.apply();
-      
+
       this.viewAll();
     }
     catch (ProblemExceptionDTO e)

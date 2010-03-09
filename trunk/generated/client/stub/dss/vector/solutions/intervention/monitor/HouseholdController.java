@@ -128,15 +128,28 @@ public class HouseholdController extends HouseholdControllerBase implements Relo
 
   public void cancel(HouseholdViewDTO dto) throws IOException, ServletException
   {
-    ClientRequestIF request = this.getClientRequest();
-    HouseholdDTO.unlock(request, dto.getConcreteId());
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      HouseholdDTO.unlock(request, dto.getConcreteId());
 
-    this.view(dto.getConcreteId());
+      this.view(dto.getConcreteId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   public void failCancel(HouseholdViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException

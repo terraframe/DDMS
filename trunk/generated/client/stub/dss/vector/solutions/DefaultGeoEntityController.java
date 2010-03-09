@@ -28,8 +28,20 @@ public class DefaultGeoEntityController extends DefaultGeoEntityControllerBase i
 
   public void cancel(DefaultGeoEntityDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(DefaultGeoEntityDTO dto) throws IOException, ServletException

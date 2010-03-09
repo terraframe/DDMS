@@ -107,7 +107,7 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
       view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
 
       TeamMemberDTO leader = (TeamMemberDTO) AttributeUtil.getValue(LarvacideDTO.TEAMLEADER, dto);
-      
+
       if (leader != null)
       {
         req.setAttribute("leader", leader.getView());
@@ -138,8 +138,21 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
 
   public void cancel(LarvacideDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   public void failCancel(LarvacideDTO dto) throws IOException, ServletException

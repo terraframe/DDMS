@@ -27,8 +27,20 @@ public class EmailController extends EmailControllerBase implements Reloadable
 
   public void cancel(EmailDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    try
+    {
+      dto.unlock();
+      this.view(dto.getId());
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(EmailDTO dto) throws IOException, ServletException
@@ -67,7 +79,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
     {
       dto.lock();
       dto.delete();
-      
+
       this.viewAll();
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
@@ -142,7 +154,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
+
     ClientRequestIF clientRequest = super.getClientRequest();
     EmailDTO dto = EmailDTO.get(clientRequest, id);
     req.setAttribute("item", dto);
@@ -157,7 +169,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
   public void viewAll() throws IOException, ServletException
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
-    
+
     ClientRequestIF clientRequest = super.getClientRequest();
     EmailQueryDTO query = EmailDTO.getAllInstances(clientRequest, EmailDTO.CREATEDATE, false, 20, 1);
     req.setAttribute("query", query);

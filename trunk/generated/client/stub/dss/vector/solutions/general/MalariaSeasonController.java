@@ -153,8 +153,20 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
 
   public void cancel(MalariaSeasonDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
-    this.viewAll();
+    try
+    {
+      dto.unlock();
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(MalariaSeasonDTO dto) throws IOException, ServletException

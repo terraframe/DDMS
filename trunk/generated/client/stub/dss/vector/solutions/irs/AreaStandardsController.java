@@ -29,7 +29,20 @@ public class AreaStandardsController extends AreaStandardsControllerBase impleme
   @Override
   public void cancel(AreaStandardsViewDTO dto) throws IOException, ServletException
   {
-    this.view(AreaStandardsDTO.unlockView(this.getClientRequest(), dto.getAreaStandardsId()));
+    try
+    {
+      this.view(AreaStandardsDTO.unlockView(this.getClientRequest(), dto.getAreaStandardsId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   @Override

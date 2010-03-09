@@ -112,7 +112,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     try
     {
-//      newCase.applyWithPersonId(personId);
+      // newCase.applyWithPersonId(personId);
       this.create(dto, symptoms);
     }
     catch (ProblemExceptionDTO e)
@@ -180,7 +180,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
-    
+
     render("editComponent.jsp");
   }
 
@@ -191,9 +191,21 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   public void cancel(IndividualInstanceDTO dto) throws IOException, ServletException
   {
-    dto.unlock();
+    try
+    {
+      dto.unlock();
 
-    this.view(dto);
+      this.view(dto);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(IndividualInstanceDTO dto) throws IOException, ServletException
@@ -236,7 +248,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
   {
     prepareCreateReq(dto, dto.getSymptoms());
     req.setAttribute("newCase", newCase);
-    req.setAttribute("personId", personId);    
+    req.setAttribute("personId", personId);
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
 
     render("createWithCase.jsp");
@@ -250,7 +262,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
-    req.setAttribute("caseId", caseId);    
+    req.setAttribute("caseId", caseId);
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
 
     render("createComponent.jsp");

@@ -274,7 +274,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
     req.setAttribute("targetGroups", Arrays.asList(targetGroups));
     req.setAttribute("item", itn);
-    
+
     render("editComponent.jsp");
   }
 
@@ -286,13 +286,25 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   @Override
   public void cancel(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
-    this.view(ITNDistributionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(ITNDistributionDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   @Override
   public void failCancel(ITNDistributionViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void viewAll() throws IOException, ServletException
@@ -356,7 +368,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
     req.setAttribute("item", new ITNDistributionViewDTO(request));
     req.setAttribute("healthFacility", HealthFacilityDTO.CLASS);
-    
+
     // need this for labels
     req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
 

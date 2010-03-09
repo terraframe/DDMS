@@ -36,12 +36,25 @@ public class ITNInstanceController extends ITNInstanceControllerBase implements 
 
   public void cancel(ITNInstanceViewDTO dto) throws IOException, ServletException
   {
-    this.view(ITNInstanceDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(ITNInstanceDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
+
   }
 
   public void failCancel(ITNInstanceViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void create(ITNInstanceViewDTO dto) throws IOException, ServletException

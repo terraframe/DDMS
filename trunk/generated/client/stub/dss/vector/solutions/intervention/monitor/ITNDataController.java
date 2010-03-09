@@ -183,9 +183,9 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
   private void search(ITNDataViewDTO dto) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-    List<String> entityUniversals = Arrays.asList(new String[]{HealthFacilityDTO.CLASS, CollectionSiteDTO.CLASS}); 
+    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS, CollectionSiteDTO.CLASS });
 
     if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
     {
@@ -193,7 +193,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
       req.setAttribute("entity", entity);
     }
-    
+
     req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("periodType", allItems);
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
@@ -210,12 +210,24 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void cancel(ITNDataViewDTO dto) throws IOException, ServletException
   {
-    this.view(ITNDataDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
+    try
+    {
+      this.view(ITNDataDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCancel(dto);
+      }
+    }
   }
 
   public void failCancel(ITNDataViewDTO dto) throws IOException, ServletException
   {
-    this.edit(dto.getId());
+    this.edit(dto.getConcreteId());
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -296,7 +308,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
   }
 
   public void failSearchByGeoIdAndPeriod(String geoId, String periodType, String period, String year) throws IOException, ServletException
-  {    
+  {
     req.setAttribute("period", period);
     req.setAttribute("year", year);
     req.setAttribute("geoId", geoId);
