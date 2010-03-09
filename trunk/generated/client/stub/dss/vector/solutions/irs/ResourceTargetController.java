@@ -69,7 +69,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
       req.setAttribute("item", new ResourceTargetViewDTO(request));
       req.setAttribute("keys", keys);
-      req.setAttribute("columns", this.getColumns(keys));
+      req.setAttribute("columns", this.getColumns(keys, id.equals("ALL")));
       req.setAttribute("resourceTargetViews", targets);
       render("viewComponent.jsp");
     }
@@ -176,14 +176,19 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     return array;
   }
   
-  private Map<String, ColumnSetup> getColumns(String[] keys)
+  private Map<String, ColumnSetup> getColumns(String[] keys, Boolean sum)
   {   
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
 
     for (int i = 0; i < keys.length; i++)
     {
       ColumnSetup setup = ( i < 3 ? new ColumnSetup(true, false) : new ColumnSetup(false, true) );
-
+      
+      if(i >= 3 && ! sum)
+      {
+        setup.setSum(true);
+      }
+      
       map.put(keys[i], setup);
     }
 
