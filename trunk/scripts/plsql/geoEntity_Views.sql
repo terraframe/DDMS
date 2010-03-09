@@ -283,11 +283,16 @@ BEGIN
   --RAISE NOTICE '% % % %', _year,_prevStartDate,_startDate,_nextStartDate;
   CASE
    WHEN (_date >= _startDate ) AND (_date < _nextStartDate)  THEN
-      _epiWeek := EXTRACT('epoch' FROM AGE(_date,_startDate))::INT /(60*60*24*7) + 1;
+      _epiWeek := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _startDate)::INT;
+      _epiWeek := round(_epiWeek::FLOAT /(60.0*60.0*24.0))::INT  / 7;
+      --RAISE NOTICE '% % % % % %',_startDate, _date, _epiWeek, _epiWeek /(60*60), _epiWeek /(60*60*24), _epiWeek /(60*60*24*7);
+      
+      
    WHEN _date >= _nextStartDate THEN
       _epiWeek := 1;
    WHEN _date < _startDate THEN
-      _epiWeek := EXTRACT('epoch' FROM AGE(_startDate,_prevStartDate))::INT /(60*60*24*7) + 1;
+      _epiWeek := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _prevStartDate)::INT;
+      _epiWeek := (round(_epiWeek::FLOAT /(60.0*60.0*24.0))::INT  / 7 )+1;
   END CASE;
 
 END;
