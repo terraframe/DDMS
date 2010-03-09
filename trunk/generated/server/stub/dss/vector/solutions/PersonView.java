@@ -306,15 +306,11 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   private Person applyPerson()
   {
     // Update the person data
-    Person person = Person.get(this.getPersonId());
-
-    if (person == null)
+    Person person = new Person();
+    
+    if(this.hasConcrete())
     {
-      person = new Person();
-    }
-    else
-    {
-      person.lock();
+      person = Person.lock(this.getPersonId());
     }
 
     this.populateAttributeMapping(person);
@@ -325,6 +321,11 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.apply();
     
     return person;
+  }
+
+  private boolean hasConcrete()
+  {
+    return this.getPersonId() != null && !this.getPersonId().equals("");
   }
 
   private void populateConcrete(Person person)
