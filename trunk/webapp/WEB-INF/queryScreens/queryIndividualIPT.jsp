@@ -39,7 +39,8 @@
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -76,9 +77,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
@@ -92,14 +90,28 @@ YAHOO.util.Event.onDOMReady(function(){
     var iIPTAttribs = ["facility","serviceDate",
                        "doseNumber","doseType","isANCVisit",
                        "numberOfReceivedITNs","patientType","receivedITN",
-                       "receivedSupplement","visitNumber","administratorName","administratorSurname",];
-
+                       "receivedSupplement","visitNumber","administratorName","administratorSurname"];
+    <%
+    Halp.setReadableAttributes(request, "iIPTAttribs", IndividualIPTViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("iIPTAttribs") %>);
+    iIPTAttribs = Mojo.Iter.filter(iIPTAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     
     var iIPTColumns =   iIPTAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualIPT, suffix:'_ipt', dropDownMaps:iptMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();
     
     var personAttribs = ["dateOfBirth","firstName","lastName","sex","age","residentialGeoEntity","residentialInformation","workGeoEntity","workInformation"];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);    
     
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 

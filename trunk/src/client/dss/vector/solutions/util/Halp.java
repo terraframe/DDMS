@@ -93,6 +93,20 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
     }
   }
+  
+  public static void setReadableAttributes(HttpServletRequest req, String reqAttr, String className, ClientRequestIF requestIF)
+  {
+    ReadableAttributeViewDTO[] views = ReadableAttributeViewDTO.getReadableAttributes(requestIF, className);
+    
+      JSONArray readable = new JSONArray();
+      for(ReadableAttributeViewDTO view : views)
+      {
+        readable.put(view.getAttributeName());
+      }
+      
+      
+      req.setAttribute(reqAttr, readable.toString());
+  }
 
   public static String join(List<String> s)
   {

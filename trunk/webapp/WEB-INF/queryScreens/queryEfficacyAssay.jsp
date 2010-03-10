@@ -35,7 +35,10 @@
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.export.EfficacyAssayExcelViewDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayView"%>
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -81,15 +84,33 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
-    var insectcideAttribs = ["activeIngredient","amount","units"];
 
+    <%
+      Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideDTO.CLASS, requestIF);
+    %>
+    
+    var insectcideAttribs = ["activeIngredient","amount","units"];
+    var available = new MDSS.Set(<%= request.getAttribute("insectcideAttribs") %>);
+    insectcideAttribs = Mojo.Iter.filter(insectcideAttribs, function(attrib){
+        return this.contains(attrib);
+    }, available);
 
     var insectcideColumns =   insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideMaps});
 
     
     var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
+
+    <%
+      Halp.setReadableAttributes(request, "efficacyAttribs", EfficacyAssayViewDTO.CLASS, requestIF);
+    %>
+    
     //public static java.lang.String GEOENTITY = "geoEntity";
     var efficacyAttribs = ["testDate","specie","testMethod","holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
+    available = new MDSS.Set(<%= request.getAttribute("efficacyAttribs") %>);
+    efficacyAttribs = Mojo.Iter.filter(efficacyAttribs, function(attrib){
+        return this.contains(attrib);
+    }, available);
+    
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var efficacyColumns =  efficacyAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});

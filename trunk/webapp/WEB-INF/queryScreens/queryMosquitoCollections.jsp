@@ -28,7 +28,12 @@
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
-<%@page import="java.util.ArrayList"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
+<%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
+<%@page import="dss.vector.solutions.util.ReadableAttributeViewDTO"%>
+<%@page import="java.util.Set"%>
+<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -69,20 +74,34 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
 
-    var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
+    <%
+      Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
+    %>
+    var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection();
     var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
-    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
+    var available = new MDSS.Set(<%= request.getAttribute("collectionAttribs") %>);
+    collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+     
     
+    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_mc',dropDownMaps:collectionMaps});
 
-    var subCollection = new dss.vector.solutions.entomology.SubCollection;
+    <%
+	    Halp.setReadableAttributes(request, "subCollectionAttribs", SubCollectionViewDTO.CLASS, requestIF);
+    %>    
+    var subCollection = new dss.vector.solutions.entomology.SubCollection();
     var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","female","male","unknowns","total"];
+    available = new MDSS.Set(<%= request.getAttribute("subCollectionAttribs") %>);
+    subCollectionAttribs = Mojo.Iter.filter(subCollectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
+    
     subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:{}});
 
 

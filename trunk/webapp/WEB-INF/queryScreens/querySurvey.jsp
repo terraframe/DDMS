@@ -28,7 +28,12 @@
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 
-<c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
+
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyPointView"%>
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyPointViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO"%><c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
@@ -52,11 +57,6 @@
 
 YAHOO.util.Event.onDOMReady(function(){
 
-    //var queryList = <%= (String) request.getAttribute("queryList") %>;
-    //var nets = <%= (String) request.getAttribute("nets") %>;
-    //var rdtResults = <%= (String) request.getAttribute("rdtResults") %>
-
-
     // attach load listener to Iframe to receive message when error occurs during
     // export operations
     YAHOO.util.Event.on('messageFrame', 'load', function(e){
@@ -71,20 +71,41 @@ YAHOO.util.Event.onDOMReady(function(){
     }, null, this);
 
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var surveyPointMaps = {};
     var surveyPoint = new dss.vector.solutions.intervention.monitor.SurveyPoint;
     var surveyPointAttribs = ["geoEntity","surveyDate"];
+    <%
+    Halp.setReadableAttributes(request, "surveyPointAttribs", SurveyPointViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("surveyPointAttribs") %>);
+    surveyPointAttribs = Mojo.Iter.filter(surveyPointAttribs, function(attrib){
+        if(attrib === 'geoEntity')
+        {
+          return this.contains('<%= SurveyPointViewDTO.GEOID %>');
+        }
+        else
+        {
+          return this.contains(attrib);
+        }
+    }, available);
+    
     var surveyPointColumns =   surveyPointAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:surveyPoint, suffix:'_surveyPoint',dropDownMaps:surveyPointMaps});
 
     var householdMaps = {<%=(String) request.getAttribute("householdMap")%>};
     var household = new dss.vector.solutions.intervention.monitor.Household;
     var householdAttribs = ["householdName","urban","people","wall","wallInfo","roof","roofInfo",
                             "hasWindows","windowType","rooms","hasBeenSprayed","lastSprayed","nets"];
+
+    <%
+    Halp.setReadableAttributes(request, "householdAttribs", HouseholdViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("householdAttribs") %>);
+    householdAttribs = Mojo.Iter.filter(householdAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     var householdColumns =   householdAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:household, suffix:'_household',dropDownMaps:householdMaps});
     
     var surveyedPersonMaps = {<%=(String) request.getAttribute("surveyedPersonMap")%>};
@@ -95,6 +116,17 @@ YAHOO.util.Event.onDOMReady(function(){
                          "performedBloodslide","bloodslideReason","bloodslideResult","bloodslideDetail",
                         "fever", "malaria","malariaConformationTechnique","payment"
                         ];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", SurveyedPersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    var hasLocations = available.contains('<%= SurveyedPersonViewDTO.DISPLAYLOCATIONS %>');
+    var hasTreatments = available.contains('<%= SurveyedPersonViewDTO.DISPLAYTREATMENTS %>');
+
+    
     var personColumns =   personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_person',dropDownMaps:surveyedPersonMaps});
 
     personColumns = personColumns.concat(
@@ -114,23 +146,52 @@ YAHOO.util.Event.onDOMReady(function(){
                       "damaged","hanging","notUsedForSleeping","purpose","purposeComments",
                       "washFrequency","washPeriod","sleptUnderNet"
                      ];
+
+    <%
+    Halp.setReadableAttributes(request, "netAttribs", ITNInstanceViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("netAttribs") %>);
+    netAttribs = Mojo.Iter.filter(netAttribs, function(attrib){
+
+    	// Use yearReceived and yearRetreated for receivedDate and retreatedDate, respectively
+    	// because there is no mapping for receivedDate and retreatedDate on the view.
+      if(attrib === 'receivedDate')
+      {
+        return this.contains('yearReceived');
+      }
+      else if(attrib === 'retreatedDate')
+      {
+        return this.contains('yearRetreated');
+      }
+      else
+      {
+        return this.contains(attrib);
+      }
+    }, available);   
+    
     var netColumns =   netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:net, suffix:'_net',dropDownMaps:netMaps});
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
-
-    var locationColumns = orderedGrids.locations.options.map(MDSS.QueryBaseNew.mapBooleanMo, orderedGrids.locations);
-
-    var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapBooleanMo, orderedGrids.treatments);
 
     var selectableGroups = [
                 {title:"Survey_Point", values:surveyPointColumns, group:"sp", klass:surveyPoint.CLASS},
                 {title:"Household", values:householdColumns, group:"sp", klass:surveyPoint.CLASS},
                 {title:"ITN", values:netColumns, group:"sp", klass:surveyPoint.CLASS},
-                {title:"Person", values:personColumns, group:"sp", klass:surveyPoint.CLASS},
-                {title:"Locations", values:locationColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS},
-                {title:"Treatments", values:treatmentColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS}
+                {title:"Person", values:personColumns, group:"sp", klass:surveyPoint.CLASS}
         ];
 
+    if(hasLocations)
+    {
+      var locationColumns = orderedGrids.locations.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.locations);
+      selectableGroups.push({title:"Locations", values:locationColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation.CLASS});
+    }
+
+    if(hasTreatments)
+    {
+      var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
+      selectableGroups.push({title:"Treatments", values:treatmentColumns, group:"sp", klass:dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS});
+    }
+    
     var query = new MDSS.QuerySurvey(selectableGroups, queryList);
     query.render();
 

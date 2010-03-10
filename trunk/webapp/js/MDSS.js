@@ -266,9 +266,13 @@ var MDSS = {
 /**
  * A basic set for String types only.
  */
-MDSS.Set = function()
+MDSS.Set = function(arr)
 {
   this._set = {};
+  if(arr)
+  {
+    this.addAll(arr);
+  }
 }
 MDSS.Set.prototype = {
 

@@ -83,9 +83,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
   
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
@@ -97,19 +94,30 @@ YAHOO.util.Event.onDOMReady(function(){
     var ITNAttribs = ["startDate","endDate","distributionLocation","agentFirstName","agentSurname","entryType","hasBatchNumber","batchNumber","pretreated",
                       "householdAddress","householdName","householdSurname","residents",
                       "itnsReceived","retrieved","numberRetrieved","sold", "currencyReceived"];
+    <%
+    Halp.setReadableAttributes(request, "ITNAttribs", ITNCommunityDistributionViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("ITNAttribs") %>);
+    ITNAttribs = Mojo.Iter.filter(ITNAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     
     var ITNColumns =   ITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:ITN, suffix:'_itn', dropDownMaps:itnMaps});
-    
-    var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
-     
-    var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
-     
-    var selectableGroups = [
-                {title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS},
-                {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityNet.CLASS},
-                {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup.CLASS},
-    ];
+    var selectableGroups = [{title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.CLASS}];
 
+    if(available.contains('<%= ITNCommunityDistributionViewDTO.DISPLAYNETS %>'))
+    {
+      var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
+      selectableGroups.push({title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityNet.CLASS});
+    }
+
+    if(available.contains('<%= ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS %>'))
+    {
+    	var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
+      selectableGroups.push({title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup.CLASS});
+    }
+    
     var query = new MDSS.QueryITNCommunityDistribution(selectableGroups, queryList);
     query.render();
 

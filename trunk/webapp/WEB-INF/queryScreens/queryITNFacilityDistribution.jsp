@@ -44,7 +44,8 @@
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_ITN_Facility_Distribution"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_ITN_Facility_Distribution"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -85,11 +86,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
 
-
-
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
@@ -101,24 +97,41 @@ YAHOO.util.Event.onDOMReady(function(){
     var ITNAttribs = ["batchNumber","facility","service",
                        "distributionDate","distributorName","distributorSurname",
                        "net","numberSold","currencyReceived"];
+
+    <%
+    Halp.setReadableAttributes(request, "ITNAttribs", ITNDistributionViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("ITNAttribs") %>);
+    ITNAttribs = Mojo.Iter.filter(ITNAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    var hasTargetGroups = available.contains('<%= ITNDistributionViewDTO.TARGETGROUPS %>');
     
     var ITNColumns =   ITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:itn, suffix:'_itn', dropDownMaps:{}});
     
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
+
+   var selectableGroups = [{title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution.CLASS}];
 
    var person = new Mojo.$.dss.vector.solutions.Person();
    
    var personAttribs = ["dateOfBirth","firstName","lastName","sex","age",
                         "residentialGeoEntity","residentialInformation","workGeoEntity","workInformation"];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
    
    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+   selectableGroups.push({title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS});
 
-   
-   var selectableGroups = [
-              {title:"ITN", values:ITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistribution.CLASS},
-              {title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS},
-              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS},
-    ];
+   if(hasTargetGroups)
+   {   
+     var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
+     selectableGroups.push({title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS});
+   }
 
     var query = new MDSS.QueryITNFacilityDistribution(selectableGroups, queryList);
     query.render();

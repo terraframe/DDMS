@@ -81,30 +81,46 @@ YAHOO.util.Event.onDOMReady(function(){
     }, null, this);
 
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
+    
     var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
     
     var aITNAttribs = ["startDate","endDate","batchNumber","currencyReceived",
                        "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
     
-    var aITNColumns =   aITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+    <%
+      Halp.setReadableAttributes(request, "aITNAttribs", ITNDataViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("aITNAttribs") %>);
+    aITNAttribs = Mojo.Iter.filter(aITNAttribs, function(attrib){
+        return this.contains(attrib);
+    }, available);
+
     
-   var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
-   var servicesColumns = orderedGrids.services.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.services);
-   var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
-   
-   var selectableGroups = [
-              {title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS},
-              {title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS},
-              {title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS},
-              {title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS},
-    ];
+    var aITNColumns =   aITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggreatedITN, suffix:'_aitn', dropDownMaps:{}});
+
+    selectableGroups = [{title:"ITN", values:aITNColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNData.CLASS}];
+
+    if(available.contains('<%= ITNDataViewDTO.DISPLAYNETS %>'))
+    {
+      var netsColumns = orderedGrids.nets.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.nets);
+      selectableGroups.push({title:"Nets", values:netsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNNet.CLASS});
+    }
+
+    if(available.contains('<%= ITNDataViewDTO.DISPLAYSERVICES %>'))
+    {
+      var servicesColumns = orderedGrids.services.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.services);
+      selectableGroups.push({title:"Services", values:servicesColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNService.CLASS});
+    }
+
+    if(available.contains('<%= ITNDataViewDTO.DISPLAYTARGETGROUPS %>'))
+    {
+      var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
+      selectableGroups.push({title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNTargetGroup.CLASS});
+    }
 
     var query = new MDSS.QueryAggreatedITN(selectableGroups, queryList);
     query.render();

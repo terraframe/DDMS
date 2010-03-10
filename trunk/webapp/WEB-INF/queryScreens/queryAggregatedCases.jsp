@@ -44,18 +44,15 @@
 
   YAHOO.util.Event.onDOMReady(function(){
 	  
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     var ageGroups = <%= (String) request.getAttribute("ageGroups") %>;
     var visibleAttributes = <%= (String) request.getAttribute("visibleAttributes") %>;
     visibleAttributes = visibleAttributes.concat(
-        [{"attributeName":"cfr","displayLabel":"CFR","type":"sqldouble"},
-         {"attributeName":"incidence_100","displayLabel":"Incidence 100","type":"sqldouble"},
-         {"attributeName":"incidence_1000","displayLabel":"Incidence 1,000","type":"sqldouble"},
-         {"attributeName":"incidence_10000","displayLabel":"Incidence 10,000","type":"sqldouble"},
-         {"attributeName":"incidence_100000","displayLabel":"Incidence 100,000","type":"sqldouble"},
+        [{"attributeName":"cfr","displayLabel":MDSS.Localized.cfr,"type":"sqldouble"},
+         {"attributeName":"incidence_100","displayLabel":MDSS.Localized.incidence_100,"type":"sqldouble"},
+         {"attributeName":"incidence_1000","displayLabel":MDSS.Localized.incidence_1000,"type":"sqldouble"},
+         {"attributeName":"incidence_10000","displayLabel":MDSS.Localized.incidence_10000,"type":"sqldouble"},
+         {"attributeName":"incidence_100000","displayLabel":MDSS.Localized.incidence_100000,"type":"sqldouble"},
         ]
 
 

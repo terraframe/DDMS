@@ -36,7 +36,8 @@
 <%@page import="com.terraframe.mojo.business.BusinessDTO"%>
 
 
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -73,44 +74,60 @@ YAHOO.util.Event.onDOMReady(function(){
     }, null, this);
 
   
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var iptMaps = {<%=(String) request.getAttribute("iptMap")%>};
 
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-    var aggreatedIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT();
+    <%
+      Halp.setReadableAttributes(request, "aIPTAttribs", AggregatedIPTViewDTO.CLASS, requestIF);
+    %>    
 
+    var aggreatedIPT = new Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT();
     
     var aIPTAttribs = ["geoEntity","startDate","endDate","numberNatalCare","numberPregnant","numberPregnantITN","numberPregnantIron","totalITN"];
+    var available = new MDSS.Set(<%= request.getAttribute("aIPTAttribs") %>);
+    aIPTAttribs = Mojo.Iter.filter(aIPTAttribs, function(attrib){
 
-
+      if(attrib === 'geoEntity')
+      {
+        return this.contains('<%= AggregatedIPTViewDTO.GEOID %>');
+      }
+      else
+      {
+        return this.contains(attrib);
+      }
+    }, available);
     
     var aIPTColumns =   aIPTAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggreatedIPT, suffix:'_aipt', dropDownMaps:iptMaps});
 
-    
-    //IPTANCVisit[] getIPTANCVisits()
-    //IPTDose[] getIPTDoses()
-    //IPTPatients[] getIPTPatients()
-    //IPTTreatment[] getIPTTreatments()
+   var selectableGroups = [{title:"IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS}];
+   
+   if(available.contains('<%= AggregatedIPTViewDTO.DISPLAYDOSE %>'))
+   {
+	   var dosesColumns = orderedGrids.doses.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.doses);
+	   selectableGroups.push({title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS});
+   }
 
-    
-   var dosesColumns = orderedGrids.doses.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.doses);
-   var patientsColumns = orderedGrids.patients.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.patients);
-   var treatmentsColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
-   var visitsColumns = orderedGrids.visits.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.visits);
-    
-    var selectableGroups = [
-              {title:"IPT", values:aIPTColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS},
-              {title:"Doses", values:dosesColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTDose.CLASS},
-              {title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS},
-              {title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS},
-              {title:"Visits", values:visitsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTANCVisit.CLASS}
-    ];
+   if(available.contains('<%= AggregatedIPTViewDTO.DISPLAYPATIENTS %>'))
+   {
+     var patientsColumns = orderedGrids.patients.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.patients);
+	   selectableGroups.push({title:"Patients", values:patientsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTPatients.CLASS});
+   }
 
+   if(available.contains('<%= AggregatedIPTViewDTO.DISPLAYTREATMENTS %>'))
+   {
+     var treatmentsColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
+	   selectableGroups.push({title:"Treatments", values:treatmentsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS});
+   }
+
+   if(available.contains('<%= AggregatedIPTViewDTO.DISPLAYVISITS %>'))
+   {
+     var visitsColumns = orderedGrids.visits.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.visits);
+	   selectableGroups.push({title:"Visits", values:visitsColumns, group:"ipt", klass:Mojo.$.dss.vector.solutions.intervention.monitor.IPTANCVisit.CLASS});
+   }
+   
     var query = new MDSS.QueryAggreatedIPT(selectableGroups, queryList);
     query.render();
 

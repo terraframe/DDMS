@@ -37,7 +37,9 @@
 <%@page import="dss.vector.solutions.PersonDTO"%>
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Control_of_Immatures"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_Control_of_Immatures"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -77,9 +79,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var larvacideMaps = {<%=(String) request.getAttribute("larvacideMap")%>};
@@ -91,18 +90,39 @@ YAHOO.util.Event.onDOMReady(function(){
     var larvacide = new Mojo.$.dss.vector.solutions.intervention.monitor.Larvacide();
 
     var larvacideAttribs = [ "startDate","completionDate","geoDescription","geoEntity","natureOfControl", "personCount"];
+    <%
+    Halp.setReadableAttributes(request, "larvacideAttribs", LarvacideDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("larvacideAttribs") %>);
+    larvacideAttribs = Mojo.Iter.filter(larvacideAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var larvacideColumns =   larvacideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvacide, suffix:'_lar', dropDownMaps:larvacideMaps});
 
     var larvacideInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.LarvacideInstance();
     
     var larvacideInstanceAttribs = ["controlMethod","target","treated","unit","unitsUsed"];
+    <%
+    Halp.setReadableAttributes(request, "larvacideInstanceAttribs", LarvacideInstanceViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("larvacideInstanceAttribs") %>);
+    larvacideInstanceAttribs = Mojo.Iter.filter(larvacideInstanceAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var larvacideInstanceColumns =   larvacideInstanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvacideInstance, suffix:'_lar', dropDownMaps:larvacideMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();
     
     var personAttribs = ["firstName","lastName"];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 

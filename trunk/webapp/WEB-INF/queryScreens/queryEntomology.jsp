@@ -38,7 +38,8 @@
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
-<%@page import="java.util.ArrayList"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -76,20 +77,34 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
     var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
+
+    <%
+      Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("collectionAttribs") %>);
+    collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection',dropDownMaps:collectionMaps});
 
 
     var infectionMaps = {<%=(String) request.getAttribute("infectionMaps")%>};
     var infectionAssay = new dss.vector.solutions.entomology.InfectionAssay;
     var infectionAttribs = ["mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
+    <%
+      Halp.setReadableAttributes(request, "infectionAttribs", InfectionAssayViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("infectionAttribs") %>);
+    infectionAttribs = Mojo.Iter.filter(infectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     infectionColumns =   infectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:infectionAssay, suffix:'_infection',dropDownMaps:infectionMaps});
 
     infectionColumns = infectionColumns.concat([
@@ -106,6 +121,15 @@ YAHOO.util.Event.onDOMReady(function(){
     var pooledInfectionMaps = {<%=(String) request.getAttribute("pooledInfectionMaps")%>};
     var pooledInfectionAssay = new dss.vector.solutions.entomology.PooledInfectionAssay;
     var pooledInfectionAttribs = ["poolId","species","identMethod","sex","parasite","testMethod","infected","mosquitosTested","poolsTested","numberPositive"];
+    <%
+      Halp.setReadableAttributes(request, "pooledInfectionAttribs", PooledInfectionAssayViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("pooledInfectionAttribs") %>);
+    pooledInfectionAttribs = Mojo.Iter.filter(pooledInfectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+  
+    
     pooledInfectionColumns =   pooledInfectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pooledInfectionAssay, suffix:'_pooledInfection',dropDownMaps:pooledInfectionMaps});
 
 
@@ -124,6 +148,14 @@ YAHOO.util.Event.onDOMReady(function(){
     var biochemicalMaps = {<%=(String) request.getAttribute("biochemicalMaps")%>};
     var biochemicalAssay = new dss.vector.solutions.entomology.BiochemicalAssay;
     var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","numberTested","numberElevated"];
+    <%
+      Halp.setReadableAttributes(request, "biochemicalAttribs", BiochemicalAssayViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("biochemicalAttribs") %>);
+    biochemicalAttribs = Mojo.Iter.filter(biochemicalAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+      
     biochemicalColumns =   biochemicalAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:biochemicalAssay, suffix:'_biochemical',dropDownMaps:biochemicalMaps});
 
     biochemicalColumns = biochemicalColumns.concat([
@@ -141,6 +173,14 @@ YAHOO.util.Event.onDOMReady(function(){
     var molecularAssay = new dss.vector.solutions.entomology.MolecularAssay;
 
     var molecularAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
+    <%
+      Halp.setReadableAttributes(request, "molecularAttribs", MolecularAssayViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("molecularAttribs") %>);
+    molecularAttribs = Mojo.Iter.filter(molecularAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     molecularColumns =   molecularAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:molecularAssay, suffix:'_molecular',dropDownMaps:molecularMaps});
 
 

@@ -705,11 +705,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
-            thisRef._checkBox(userAlias);
+            var checked = thisRef._checkBox(userAlias);
            
            	var key = userAlias + 'Criteria';
            	var crit = thisRef._config.getProperty(key);
-	          if(crit){
+	          if(checked && crit){
 	          	thisRef._queryPanel.addWhereCriteria(userAlias, crit, crit);
 	          	if(crit.indexOf(' - ')>0)
 	          	{
@@ -1484,8 +1484,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
   },
   Static : {
       mapAttribs : function(attribName,index){
-  	   var viewType = this.obj.getType() + "View";
-  	   var view = this.obj.getType();
        var attrib = this.obj.attributeMap[attribName];
        var row = {};
        if(attrib){

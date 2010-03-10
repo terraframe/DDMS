@@ -34,7 +34,8 @@
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -71,9 +72,6 @@ YAHOO.util.Event.onDOMReady(function(){
     }, null, this);
 
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var instanceMaps = {<%=(String) request.getAttribute("instanceMaps")%>};
@@ -87,6 +85,14 @@ YAHOO.util.Event.onDOMReady(function(){
                            "workplace","workplaceText",
                            "probableSource","probableSourceText",
                            "residence","residenceText"];
+    <%
+    Halp.setReadableAttributes(request, "caseAttribs", IndividualCaseDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("caseAttribs") %>);
+    caseAttribs = Mojo.Iter.filter(caseAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     var caseColumns = caseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
 
@@ -99,11 +105,27 @@ YAHOO.util.Event.onDOMReady(function(){
                        "releaseDate","sampleType","malariaType",
                        "testSampleDate","treatment","treatmentMethod",
                        "treatmentStartDate"];
+    <%
+    Halp.setReadableAttributes(request, "instanceAttribs", IndividualInstanceDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("instanceAttribs") %>);
+    instanceAttribs = Mojo.Iter.filter(instanceAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    var hasSymptoms = available.contains('<%= IndividualInstanceDTO.SYMPTOM %>');
     
     var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
-    var personAttribs = ["dateOfBirth","firstName","lastName","sex"];    
+    var personAttribs = ["dateOfBirth","firstName","lastName","sex"];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+      
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
 
 
@@ -172,15 +194,18 @@ YAHOO.util.Event.onDOMReady(function(){
 
                          ]);
     
-    var symptomsColumns = orderedGrids.symptoms.options.map(MDSS.QueryBaseNew.mapBooleanMo, orderedGrids.symptoms);
-     
     var selectableGroups = [
               {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
               {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
               {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
               {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
-              {title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS}
     ];
+
+    if(hasSymptoms)
+    {
+      var symptomsColumns = orderedGrids.symptoms.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.symptoms);
+      selectableGroups.push({title:"Symptoms", values:symptomsColumns, group:"c", klass:Mojo.$.dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS});
+    }
 
     var query = new MDSS.QueryIndividualCases(selectableGroups, queryList);
     query.render();

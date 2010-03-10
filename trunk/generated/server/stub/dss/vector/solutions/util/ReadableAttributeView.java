@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.rbac.ActorDAO;
 import com.terraframe.mojo.business.rbac.ActorDAOIF;
 import com.terraframe.mojo.business.rbac.Authenticate;
@@ -20,8 +21,10 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.session.PermissionFacade;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.terraframe.mojo.system.metadata.MdClass;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -30,6 +33,31 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   public ReadableAttributeView()
   {
     super();
+  }
+  
+  public static ReadableAttributeView[] getReadableAttributes(String className)
+  {
+    MdClass mdClass = MdClass.getMdClass(className);
+    MdClassDAO mdClassDAO = (MdClassDAO) BusinessFacade.getEntityDAO(mdClass);
+    
+    String sessionId = Session.getCurrentSession().getId();
+    
+    List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
+    for(MdAttributeDAOIF mdAttribute : mdClassDAO.getAllDefinedMdAttributes())
+    {
+      boolean readable = PermissionFacade.checkAttributeReadAccess(sessionId, mdClass, mdAttribute);
+      
+      if(mdAttribute.isSystem() || !readable)
+      {
+        continue;
+      }
+      
+      ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
+
+      list.add(view);
+    }
+  
+    return list.toArray(new ReadableAttributeView[list.size()]);
   }
 
   public static ReadableAttributeView[] getActorAttributes(String universal, String actorName)
@@ -47,19 +75,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         continue;
       }
 
-      ReadableAttributeView view = new ReadableAttributeView();
-      view.setAttributeName(mdAttribute.definesAttribute());
-      view.setDisplayLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
-      view.setAttributeRequired(mdAttribute.isRequired());
-      view.setAttributeDescription(mdAttribute.getDescription(Session.getCurrentLocale()));
-
       Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
-
       boolean readable = permissions.contains(Operation.READ);
+      ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
 
-      view.setReadPermission(readable);
-
-      // view.apply();
       list.add(view);
     }
 
@@ -67,6 +86,31 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     Collections.sort(list, new Sorter());
 
     return list.toArray(new ReadableAttributeView[list.size()]);
+  }
+  
+  /**
+   * Creates and populates a ReadableAttributeView based on the
+   * given MdAttributeDAOIF and readable flag.
+   * 
+   * @param mdAttribute
+   * @param readable
+   * @return
+   */
+  private static ReadableAttributeView createReadableAttributeView(MdAttributeDAOIF mdAttribute, boolean readable)
+  {
+    String attrName = mdAttribute.definesAttribute();
+    String display = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
+    String desc = mdAttribute.getDescription(Session.getCurrentLocale());
+    
+    ReadableAttributeView view = new ReadableAttributeView();
+    view.setAttributeName(attrName);
+    view.setDisplayLabel(display);
+    view.setAttributeRequired(mdAttribute.isRequired());
+    view.setAttributeDescription(desc);
+
+    view.setReadPermission(readable);
+    
+    return view;
   }
 
   @Transaction

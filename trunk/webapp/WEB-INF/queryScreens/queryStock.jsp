@@ -38,7 +38,10 @@
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Stock"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.stock.StockEventViewDTO"%>
+<%@page import="dss.vector.solutions.PersonViewDTO"%>
+<%@page import="dss.vector.solutions.stock.StockItemViewDTO"%><c:set var="page_title" value="Query_Stock"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -77,9 +80,6 @@ YAHOO.util.Event.onDOMReady(function(){
     }, null, this);
 
 
-    // TODO move into QueryPanel, and pass el ids as params
-	var tabs = new YAHOO.widget.TabView("tabSet");
-
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
     var stockMaps = {<%=(String) request.getAttribute("stockMap")%>};
@@ -89,12 +89,26 @@ YAHOO.util.Event.onDOMReady(function(){
     var stockEvent = new Mojo.$.dss.vector.solutions.stock.StockEvent();
 
     var stockEventAttribs = ['cost','eventDate','otherParty','quantity','transactionType'];
+    <%
+    Halp.setReadableAttributes(request, "stockEventAttribs", StockEventViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("stockEventAttribs") %>);
+    stockEventAttribs = Mojo.Iter.filter(stockEventAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var stockEventColumns =   stockEventAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
 
     var stockItem = new Mojo.$.dss.vector.solutions.stock.StockItem();
 
     var stockItemAttribs = ['itemId','itemName','quantity','unit'];
+    <%
+    Halp.setReadableAttributes(request, "stockItemAttribs", StockItemViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("stockItemAttribs") %>);
+    stockItemAttribs = Mojo.Iter.filter(stockItemAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var stockItemColumns =   stockItemAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
 
@@ -110,6 +124,13 @@ YAHOO.util.Event.onDOMReady(function(){
     var person = new Mojo.$.dss.vector.solutions.Person();
     
     var personAttribs = ["firstName","lastName"];
+    <%
+    Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
     
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 

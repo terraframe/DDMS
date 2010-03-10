@@ -683,6 +683,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       if(checkEl != null && checkEl.checked)
       {
         checkEl.click();
+        return true;
+      }
+      else
+      {
+        return false;
       }
     },
   
@@ -692,6 +697,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       if(checkEl != null && !checkEl.checked)
       {
         checkEl.click();
+        return true;
+      }
+      else
+      {
+        return false;
       }
     },
   
@@ -700,7 +710,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var optionEl = Mojo.Util.isString(option) ? document.getElementById(option) : option;
       if(optionEl == null)
       {
-        return;
+        return false;
       }
   
       var select = optionEl.parentNode;
@@ -715,6 +725,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
       this._fireClickOnOption(optionEl);
+      return true;
     },
   
     /**
