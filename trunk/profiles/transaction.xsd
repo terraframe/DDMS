@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="transactionItem.xsd"/>
 
   <xs:element name="Transactions">
     <xs:complexType>
@@ -14,10 +13,9 @@
 
   <xs:element name="transactionRecord">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="transactionItem" minOccurs="1" maxOccurs="unbounded"/>
-      </xs:sequence>
       <xs:attribute name="exportSeq" type="xs:string" use="required"/>
+      <!-- Location of the xml file that contains the transaction items in this transaction -->
+      <xs:attribute name="file" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 
