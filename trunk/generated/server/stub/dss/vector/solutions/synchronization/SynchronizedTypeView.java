@@ -14,6 +14,8 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdAttributeReferenceQuery;
 import com.terraframe.mojo.system.metadata.MdType;
@@ -21,12 +23,12 @@ import com.terraframe.mojo.system.metadata.MdType;
 public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Reloadable, Comparable<SynchronizedTypeView>
 {
   private static final long serialVersionUID = -1875728697;
-  
+
   public SynchronizedTypeView()
   {
     super();
   }
-  
+
   @Override
   public void apply()
   {
@@ -43,7 +45,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
       mdType.unlock();
     }
   }
-  
+
   @Transaction
   public static void confirmAll(SynchronizedTypeView[] views)
   {
@@ -52,7 +54,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
       view.apply();
     }
   }
-  
+
   public static SynchronizedTypeView[] getAll()
   {
     SynchronizedTypeViewQuery query = new SynchronizedTypeViewQuery(new QueryFactory());
@@ -60,7 +62,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
     List<? extends SynchronizedTypeView> list = query.getIterator().getAll();
     return list.toArray(new SynchronizedTypeView[list.size()]);
   }
-  
+
   public static SynchronizedTypeView[] getDependencies(String[] rootTypes)
   {
     Set<SynchronizedTypeView> set = new TreeSet<SynchronizedTypeView>();
@@ -70,7 +72,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
     }
     return set.toArray(new SynchronizedTypeView[set.size()]);
   }
-  
+
   public static SynchronizedTypeView getByMdTypeId(String id)
   {
     MdType mdType = MdType.get(id);
@@ -82,7 +84,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
     view.setDescription(mdType.getDescription().getValue());
     return view;
   }
-  
+
   private void recurse(Set<SynchronizedTypeView> set)
   {
     if (!set.add(this))
@@ -90,9 +92,9 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
       // The type has already been added
       return;
     }
-    
+
     MdTypeDAOIF mdTypeDAOIF = MdTypeDAO.get(this.getMdTypeId());
-    
+
     // First, add all children
     if (mdTypeDAOIF instanceof MdClassDAOIF)
     {
@@ -102,11 +104,11 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
         SynchronizedTypeView.getByMdTypeId(subClass.getId()).recurse(set);
       }
     }
-    
+
     // Second, include all relationships on this type
     if (mdTypeDAOIF instanceof MdBusinessDAOIF)
     {
-      MdBusinessDAOIF mdBusinessDAOIF = (MdBusinessDAOIF)mdTypeDAOIF;
+      MdBusinessDAOIF mdBusinessDAOIF = (MdBusinessDAOIF) mdTypeDAOIF;
       for (MdRelationshipDAOIF rel : mdBusinessDAOIF.getParentMdRelationshipsOrdered())
       {
         SynchronizedTypeView.getByMdTypeId(rel.getId()).recurse(set);
@@ -122,54 +124,69 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
     QueryFactory qf = new QueryFactory();
     SynchronizedTypeViewQuery vQuery = new SynchronizedTypeViewQuery(qf);
     MdAttributeReferenceQuery arq = new MdAttributeReferenceQuery(qf);
-    
+
     ValueQuery value = new ValueQuery(qf);
     String thisId = "t1";
     String referencedId = "t2";
     value.SELECT(new DISTINCT(arq.getMdBusiness().getId(referencedId)));
     value.WHERE(arq.getDefiningMdClass().getId(thisId).EQ(this.getMdTypeId()));
-    
+
     vQuery.WHERE(vQuery.getQualifiedTypeConcat().LIKE("dss.*"));
     vQuery.WHERE(vQuery.getExported().EQ(false));
     vQuery.WHERE(vQuery.getMdTypeId().SUBSELECT_IN(value.get(referencedId)));
-    
+
     for (SynchronizedTypeView dependency : vQuery.getIterator())
     {
       dependency.recurse(set);
     }
   }
-  
+
   public static SynchronizedTypeViewQuery getQuery(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     SynchronizedTypeViewQuery query = new SynchronizedTypeViewQuery(new QueryFactory(), sortAttribute, isAscending, pageSize, pageNumber);
     query.WHERE(query.getExported().EQ(true));
+    
+    Selectable selectable = query.getComponentQuery().getSelectableRef(sortAttribute);
+
+    if (isAscending)
+    {
+      query.ORDER_BY_ASC((SelectablePrimitive) selectable, sortAttribute);
+    }
+    else
+    {
+      query.ORDER_BY_DESC((SelectablePrimitive) selectable, sortAttribute);
+    }
+
+    if (pageSize != 0 && pageNumber != 0)
+    {
+      query.restrictRows(pageSize, pageNumber);
+    }
+        
     return query;
   }
-  
+
   public static SynchronizedTypeViewQuery search(String query)
   {
     String wildcard = "*" + query + "*";
     QueryFactory queryFactory = new QueryFactory();
     SynchronizedTypeViewQuery vQuery = new SynchronizedTypeViewQuery(queryFactory);
-    vQuery.WHERE(OR.get(vQuery.getDescription().LIKEi(wildcard),
-                        vQuery.getDisplayLabel().LIKEi(wildcard),
-                        vQuery.getQualifiedTypeConcat().LIKEi(wildcard)));
+    vQuery.WHERE(OR.get(vQuery.getDescription().LIKEi(wildcard), vQuery.getDisplayLabel().LIKEi(wildcard), vQuery.getQualifiedTypeConcat().LIKEi(wildcard)));
     vQuery.AND(vQuery.getExported().EQ(false));
     return vQuery;
   }
-  
+
   @Override
   public boolean equals(Object obj)
   {
-    if (!(obj instanceof SynchronizedTypeView))
+    if (! ( obj instanceof SynchronizedTypeView ))
     {
       return super.equals(obj);
     }
-    
-    SynchronizedTypeView view = (SynchronizedTypeView)obj;
+
+    SynchronizedTypeView view = (SynchronizedTypeView) obj;
     return view.getQualifiedType().equals(this.getQualifiedType());
   }
-  
+
   public MdType getMdType()
   {
     return MdType.get(this.getMdTypeId());
@@ -179,45 +196,50 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
   {
     return this.getQualifiedType().compareTo(o.getQualifiedType());
   }
-  
-//  static class DisabledSynchronizedTypeViewBuilder extends ViewQueryBuilder implements Reloadable
-//  {
-//    private MdTypeQuery mdTypeQuery;
-//    private SynchronizedTypeQuery stq;
-//    public DisabledSynchronizedTypeViewBuilder(QueryFactory queryFactory)
-//    {
-//      super(queryFactory);
-//      
-//      mdTypeQuery = new MdTypeQuery(queryFactory);
-//      stq = new SynchronizedTypeQuery(queryFactory);
-//    }
-//
-//    protected SynchronizedTypeViewQuery getViewQuery()
-//    {
-//      return (SynchronizedTypeViewQuery)super.getViewQuery();
-//    }
-//
-//    /**
-//     * build the select clause
-//     */
-//    protected void buildSelectClause()
-//    {
-//      SynchronizedTypeViewQuery vQuery = this.getViewQuery();
-//
-//      vQuery.map(SynchronizedTypeView.MDTYPEID, mdTypeQuery.getId());
-//      vQuery.map(SynchronizedTypeView.QUALFIFIEDTYPE, F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."), mdTypeQuery.getTypeName()));
-//      vQuery.map(SynchronizedTypeView.DISPLAYLABEL, mdTypeQuery.getDisplayLabel().currentLocale());
-//      vQuery.map(SynchronizedTypeView.DESCRIPTION, mdTypeQuery.getDescription().currentLocale());
-//    }
-//
-//    /**
-//     * Implement only if additional join criteria is required.
-//     */
-//    protected void buildWhereClause()
-//    {
-//      SynchronizedTypeViewQuery vQuery = this.getViewQuery();
-//      
-//      vQuery.WHERE(mdTypeQuery.getId().SUBSELECT_NOT_IN(stq.getMdssType()));
-//    }
-//  }
+
+  // static class DisabledSynchronizedTypeViewBuilder extends ViewQueryBuilder
+  // implements Reloadable
+  // {
+  // private MdTypeQuery mdTypeQuery;
+  // private SynchronizedTypeQuery stq;
+  // public DisabledSynchronizedTypeViewBuilder(QueryFactory queryFactory)
+  // {
+  // super(queryFactory);
+  //      
+  // mdTypeQuery = new MdTypeQuery(queryFactory);
+  // stq = new SynchronizedTypeQuery(queryFactory);
+  // }
+  //
+  // protected SynchronizedTypeViewQuery getViewQuery()
+  // {
+  // return (SynchronizedTypeViewQuery)super.getViewQuery();
+  // }
+  //
+  // /**
+  // * build the select clause
+  // */
+  // protected void buildSelectClause()
+  // {
+  // SynchronizedTypeViewQuery vQuery = this.getViewQuery();
+  //
+  // vQuery.map(SynchronizedTypeView.MDTYPEID, mdTypeQuery.getId());
+  // vQuery.map(SynchronizedTypeView.QUALFIFIEDTYPE,
+  // F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."),
+  // mdTypeQuery.getTypeName()));
+  // vQuery.map(SynchronizedTypeView.DISPLAYLABEL,
+  // mdTypeQuery.getDisplayLabel().currentLocale());
+  // vQuery.map(SynchronizedTypeView.DESCRIPTION,
+  // mdTypeQuery.getDescription().currentLocale());
+  // }
+  //
+  // /**
+  // * Implement only if additional join criteria is required.
+  // */
+  // protected void buildWhereClause()
+  // {
+  // SynchronizedTypeViewQuery vQuery = this.getViewQuery();
+  //      
+  // vQuery.WHERE(mdTypeQuery.getId().SUBSELECT_NOT_IN(stq.getMdssType()));
+  // }
+  // }
 }

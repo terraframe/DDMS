@@ -39,11 +39,11 @@ public class TransactionController extends TransactionControllerBase implements 
   }
   
   @Override
-  public void viewItemPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String recordID) throws IOException, ServletException
+  public void viewItemPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String recordId) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    TransactionItemViewQueryDTO query = TransactionItemViewDTO.getQuery(clientRequest, recordID, sortAttribute, isAscending, pageSize, pageNumber);
-    TransactionRecordDTO record = TransactionRecordDTO.get(clientRequest, recordID);
+    TransactionItemViewQueryDTO query = TransactionItemViewDTO.getQuery(clientRequest, recordId, sortAttribute, isAscending, pageSize, pageNumber);
+    TransactionRecordDTO record = TransactionRecordDTO.get(clientRequest, recordId);
     renderItemPage(query, record);
   }
 

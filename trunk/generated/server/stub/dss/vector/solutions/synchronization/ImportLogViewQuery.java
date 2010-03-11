@@ -66,7 +66,7 @@ public class ImportLogViewQuery extends ImportLogViewQueryBase implements Reload
     {
       ImportLogViewQuery vQuery = this.getViewQuery();
       
-      vQuery.map(ImportLogView.LASTEXPORTSEQ, importLogQuery.getExportSeq());
+      vQuery.map(ImportLogView.LASTEXPORTSEQ, importLogQuery.getLastExportSeq());
       vQuery.map(ImportLogView.SOURCESITE, importLogQuery.getSourceSite());
     }
 
