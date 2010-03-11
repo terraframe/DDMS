@@ -48,7 +48,8 @@
 
 
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_Resistance"  scope="request"/>
+<%@page import="com.terraframe.mojo.business.BusinessDTO"%>
+<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%><c:set var="page_title" value="Query_Resistance"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -101,15 +102,38 @@ YAHOO.util.Event.onDOMReady(function(){
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
 
     var collectionAttribs = ["collectionId","collectionDate","collectionMethod"];
+    <%
+    Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("collectionAttribs") %>);
+    collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);    
     var collectionColumns = [];
 
     var insectcide = new dss.vector.solutions.general.Insecticide;
     var insectcideAttribs = ["activeIngredient","amount","units"];
+    <%
+    Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("insectcideAttribs") %>);
+    insectcideAttribs = Mojo.Iter.filter(insectcideAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);    
+    var collectionColumns = [];    
 
     var abstractAssayAttribs = ["specie","identificationMethod","generation","isofemale","exposureTime","testDate","quantityTested"];
 
     var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var adultAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","sex","fed","gravid","holdingTime","mortality","kd50","kd95","controlTestMortality"]);
+    <%
+    Halp.setReadableAttributes(request, "adultAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("adultAttribs") %>);
+    adultAttribs = Mojo.Iter.filter(adultAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);   
+       
     var adultCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_adult', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_adult', dropDownMaps:insecticideMaps}));
@@ -123,6 +147,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var larvaeAssay = new  dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","startPoint","endPoint","controlTestMortality","lt50","lt95","mortality"]);
+    <%
+    Halp.setReadableAttributes(request, "larvaeAttribs", LarvaeDiscriminatingDoseAssayDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("larvaeAttribs") %>);
+    larvaeAttribs = Mojo.Iter.filter(larvaeAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     var larvaeCalculations = ["quanityAlive","percentMortality"];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_larvae', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_larvae', dropDownMaps:insecticideMaps}));
@@ -136,6 +168,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var knockDownAssay = new  dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = abstractAssayAttribs.concat(["sex","fed","gravid","kd50","kd95"]);
+    <%
+    Halp.setReadableAttributes(request, "knockDownAttribs", KnockDownAssayDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("knockDownAttribs") %>);
+    knockDownAttribs = Mojo.Iter.filter(knockDownAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
     var knockDownCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_knockDown', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_knockDown', dropDownMaps:insecticideMaps}));
@@ -149,6 +189,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var pooledAttribs = abstractAssayAttribs;
+    <%
+    Halp.setReadableAttributes(request, "pooledAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("pooledAttribs") %>);
+    pooledAttribs = Mojo.Iter.filter(pooledAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);   
+    
     var pooledCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_collection', dropDownMaps:insecticideMaps}));
