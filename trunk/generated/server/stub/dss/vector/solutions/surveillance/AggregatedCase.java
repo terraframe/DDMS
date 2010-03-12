@@ -45,6 +45,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
@@ -514,9 +515,9 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
-    System.out.println(valueQuery.getSQL());
+    QueryBuilder.validateDateSelectables(valueQuery);
+    
     return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
-
   }
 
   private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)

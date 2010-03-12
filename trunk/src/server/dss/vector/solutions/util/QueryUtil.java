@@ -81,11 +81,11 @@ public class QueryUtil implements Reloadable
 
   public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
 
-  private static final String START_DATE_RANGE             = "start_date_range";
+  public static final String START_DATE_RANGE             = "start_date_range";
 
   private static final String RATIO                        = "ratio_of_this_row_to_total_count";
 
-  private static final String END_DATE_RANGE               = "end_date_range";
+  public static final String END_DATE_RANGE               = "end_date_range";
 
   private static final String DATE_ATTRIBUTE               = "date_attribute";
 

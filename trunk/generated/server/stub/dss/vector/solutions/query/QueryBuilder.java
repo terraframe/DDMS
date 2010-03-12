@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import com.terraframe.mojo.MojoException;
 import com.terraframe.mojo.business.SmartException;
@@ -28,6 +29,8 @@ import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+
+import dss.vector.solutions.util.QueryUtil;
 
 public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -74,9 +77,57 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
       ProgrammingErrorException ex = new ProgrammingErrorException(t);
       throw ex;
     }
-
+    
+    validateDateSelectables(valueQuery);
+    
     return valueQuery;
-
+  }
+  
+  /**
+   * Ensures that the ValueQuery contains more than the start and end date criteria.
+   * 
+   * @param valueQuery
+   */
+  public static void validateDateSelectables(ValueQuery valueQuery)
+  {
+    // Start and End date can only be selected if other Selectables added
+    // to create a meaninful query.
+    List<Selectable> selectables = valueQuery.getSelectableRefs();
+    boolean hasOnlyDates = false;
+    if(selectables.size() == 1)
+    {
+      String alias = selectables.get(0).getUserDefinedAlias();
+      if(QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
+      {
+        hasOnlyDates = true;
+      }
+    }
+    else if(selectables.size() == 2)
+    {
+      boolean isStart = false;
+      boolean isEnd = false;
+      
+      for(Selectable sel : selectables)
+      {
+        String alias = sel.getUserDefinedAlias();
+        if(QueryUtil.START_DATE_RANGE.equals(alias))
+        {
+          isStart = true;
+        }
+        else if(QueryUtil.END_DATE_RANGE.equals(alias))
+        {
+          isEnd = true;
+        }
+      }
+      
+      hasOnlyDates = isStart && isEnd;
+    }
+    
+    if(hasOnlyDates)
+    {
+      String error = "The start and end date must be added with other selectables.";
+      throw new DatesOnlyException(error);
+    }
   }
 
   /**
