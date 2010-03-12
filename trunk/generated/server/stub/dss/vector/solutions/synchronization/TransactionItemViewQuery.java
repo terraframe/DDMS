@@ -31,11 +31,11 @@ public class TransactionItemViewQuery extends dss.vector.solutions.synchronizati
     this(queryFactory, recordID, "", true, 20, 1);
   }
   
-  public TransactionItemViewQuery(QueryFactory queryFactory, String recordID, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public TransactionItemViewQuery(QueryFactory queryFactory, String recordId, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     super(queryFactory);
 
-    this.recordID = recordID;
+    this.recordID = recordId;
     this.sortAttribute = sortAttribute;
     this.sortOrder = ascending==null ? null : ascending ? SortOrder.ASC : SortOrder.DESC;
     this.pageSize = pageSize;

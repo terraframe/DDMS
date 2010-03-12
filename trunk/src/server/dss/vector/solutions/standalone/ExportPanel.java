@@ -1,7 +1,6 @@
 package dss.vector.solutions.standalone;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -45,16 +44,18 @@ public class ExportPanel extends JPanel implements ActionListener
 
   private JLabel              endLabel;
 
-  private JTextField          startField;
+  private NumericTextField    startField;
 
-  private JTextField          endField;
+  private NumericTextField    endField;
 
   private FileBrowser         browser;
 
   private JButton             exportButton;
-
-  private ExportManager       manager;
-
+  
+  private JProgressBar        progressBar;
+  
+  private JPanel              buttonPanel;
+  
   public ExportPanel()
   {
     // Create the content-pane-to-be.
@@ -65,8 +66,6 @@ public class ExportPanel extends JPanel implements ActionListener
 
     this.setLayout(new BorderLayout());
 
-    this.manager = new ExportManager();
-
     this.createSequencePanel();
 
     this.browser = new FileBrowser(true);
@@ -75,18 +74,26 @@ public class ExportPanel extends JPanel implements ActionListener
     this.exportButton = new JButton(exportLabel);
     this.exportButton.setActionCommand(EXPORT_COMMAND);
     this.exportButton.addActionListener(this);
+    
+    this.progressBar = new JProgressBar();
+    this.progressBar.setValue(0);
+    this.progressBar.setVisible(true);
+
+    this.buttonPanel = new JPanel(new BorderLayout());
+    this.buttonPanel.add(progressBar, BorderLayout.CENTER);
+    this.buttonPanel.add(exportButton, BorderLayout.EAST);
 
     this.add(sequencePanel, BorderLayout.NORTH);
     this.add(browser, BorderLayout.CENTER);
-    this.add(exportButton, BorderLayout.SOUTH);
+    this.add(buttonPanel, BorderLayout.SOUTH);
 
-    this.setSize(new Dimension(600, 400));
+    this.setSize(StandaloneClient.DIMENSION);
   }
 
   private final void createSequencePanel()
   {
     String sequenceLabel = MDSSProperties.getString("Export_Sequences");
-    
+
     this.createRadioPanel();
     this.createRangePanel();
 
@@ -100,8 +107,8 @@ public class ExportPanel extends JPanel implements ActionListener
   {
     startLabel = new JLabel(MDSSProperties.getString("Start_Sequence"));
     endLabel = new JLabel(MDSSProperties.getString("End_Sequence"));
-    startField = new JTextField(10);
-    endField = new JTextField(10);
+    startField = new NumericTextField(10);
+    endField = new NumericTextField(10);
 
     rangePanel = new JPanel(new FlowLayout());
     rangePanel.add(startLabel);
@@ -152,11 +159,11 @@ public class ExportPanel extends JPanel implements ActionListener
 
       try
       {
+        ExportManager manager = new ExportManager();
         manager.setOption(ExportOption.valueOf(option));
         manager.setLower(startField.getText());
         manager.setUpper(endField.getText());
         manager.setLocation(browser.getFile());
-
         manager.excute();
       }
       catch (Throwable t)

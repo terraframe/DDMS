@@ -21,7 +21,7 @@
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.synchronization.TransactionController.viewItemPage.mojo" name="view.link">
           <fmt:message key="View" />
-          <mjl:property value="${item.id}" name="recordID" />
+          <mjl:property value="${item.id}" name="recordId" />
           <mjl:property value="componentSeq" name="sortAttribute" />
           <mjl:property value="true" name="isAscending" />
           <mjl:property value="20" name="pageSize" />

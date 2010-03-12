@@ -1,7 +1,6 @@
 package dss.vector.solutions.standalone;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -75,7 +74,7 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     this.add(browser, BorderLayout.CENTER);
     this.add(statusPanel, BorderLayout.SOUTH);
 
-    this.setSize(new Dimension(600, 400));
+    this.setSize(StandaloneClient.DIMENSION);
 
     this.updateServerStatus();
   }

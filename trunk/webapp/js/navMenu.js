@@ -51,7 +51,15 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	        	              ]
 	           }
 	           },
-	           { text: "Synchronise", disabled: true, url: "#" , visibleTo:'Administrator'},
+	           { text: "Synchronise",
+	        	   submenu: {
+	        	     id : "Synchronise", 
+	        	     itemdata : [
+	        	       { text: "Transaction_Log", url: "dss.vector.solutions.synchronization.TransactionController.viewRecordPage.mojo" , visibleTo:'Administrator'},
+	        	       { text: "Import_Log", url: "dss.vector.solutions.synchronization.ImportController.viewLog.mojo" , visibleTo:'Administrator'}
+	                 ]
+	               }
+	           },
 	           { text: "Localization", disabled: false, url: "dss.vector.solutions.util.LocalizationController.selectLocales.mojo" , visibleTo:'Administrator'},
 	           { text: "Ontology_Fields", url: "dss.vector.solutions.ontology.BrowserFieldController.viewAll.mojo", visibleTo: 'Administrator' },
 	           { text: "Ontology_Admin", url: "dss.vector.solutions.ontology.TermController.viewTree.mojo", visibleTo: 'Administrator' }

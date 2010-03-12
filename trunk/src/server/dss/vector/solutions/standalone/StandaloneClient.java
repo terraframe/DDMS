@@ -26,6 +26,8 @@ public class StandaloneClient extends JFrame implements ActionListener
 
   private static final String IMPORT_ACTION    = "IMPORT_ACTION";
 
+  static final Dimension      DIMENSION        = new Dimension(400, 250);
+
   private JMenuBar            menuBar;
 
   private JMenu               menu;
@@ -83,14 +85,14 @@ public class StandaloneClient extends JFrame implements ActionListener
     importPanel = new ImportPanel();
 
     contentPane = new JTabbedPane();
-    contentPane.setSize(600, 400);
+    contentPane.setSize(DIMENSION);
     contentPane.add(exportLabel, exportPanel);
     contentPane.add(importLabel, importPanel);
     contentPane.setVisible(true);
 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    this.setSize(new Dimension(600, 400));
+    this.setSize(DIMENSION);
     this.setJMenuBar(menuBar);
     this.add(contentPane);
     this.setResizable(false);

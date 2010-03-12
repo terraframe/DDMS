@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.dataaccess.transaction.TransactionExportManager;
+import com.terraframe.mojo.session.StartSession;
 
 public class ExportManager
 {
@@ -68,6 +69,7 @@ public class ExportManager
     this.location = location;
   }
 
+  @StartSession
   public void excute()
   {
     this.validate();
@@ -92,6 +94,10 @@ public class ExportManager
     {
       TransactionExportManager.export(0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path);
     }
+    else if (option.equals(ExportOption.NOT_IMPORTED))
+    {
+      TransactionExportManager.export(CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path);
+    }
   }
 
   private void validate()
@@ -100,10 +106,10 @@ public class ExportManager
     {
       throw new RuntimeException("Please select a location in which to export the transactions to.");
     }
-    else if (location.isDirectory())
-    {
-      throw new RuntimeException("Please select a file not a directory");      
-    }
+//    else if (location.isDirectory())
+//    {
+//      throw new RuntimeException("Please select a file not a directory");      
+//    }
 
     if (option.equals(ExportOption.RANGE))
     {

@@ -15,9 +15,9 @@ public class TransactionItemView extends TransactionItemViewBase implements Relo
     super();
   }
 
-  public static TransactionItemViewQuery getQuery(String recordID, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  public static TransactionItemViewQuery getQuery(String recordId, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    return new TransactionItemViewQuery(new QueryFactory(), recordID, sortAttribute, isAscending, pageSize, pageNumber);
+    return new TransactionItemViewQuery(new QueryFactory(), recordId, sortAttribute, isAscending, pageSize, pageNumber);
   }
 
   public static TransactionRecordQuery getRecordQuery(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)

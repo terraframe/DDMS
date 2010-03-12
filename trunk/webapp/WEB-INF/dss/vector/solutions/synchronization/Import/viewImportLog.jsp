@@ -9,7 +9,7 @@
   <mjl:context action="dss.vector.solutions.synchronization.ImportController.viewLogPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="sourceSite"></mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="exportSeq"></mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="lastExportSeq"></mjl:attributeColumn>
   </mjl:columns>
   <mjl:pagination>
     <mjl:page />
