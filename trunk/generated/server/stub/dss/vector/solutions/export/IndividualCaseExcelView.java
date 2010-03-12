@@ -69,7 +69,6 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     }
     
     IndividualInstance instance = new IndividualInstance();
-    instance.setIndividualCase(individualCase);
     instance.setActivelyDetected(this.getActivelyDetected());
     instance.setHealthFacility(this.getHealthFacility());
     instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance.getDetectedByMd()));
