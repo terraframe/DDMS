@@ -5,34 +5,29 @@
 
 <c:set var="page_title" value="Select_Class" scope="request" />
 
-<script type="text/javascript">
+<mjl:form name="search.form.name" id="search.form">
+  <select  name="actor" id="roleSelectList">
+    <c:forEach var="role" items="${actorOptions}">
+      <option value="${role.roleName}">${role.displayLabel}</option>
+    </c:forEach>
+  </select>
+</mjl:form>
+
+<script type='text/javascript'>
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
+    jumpBoxForm = document.getElementById('search.form');
+    selectBox = document.getElementById('roleSelectList'); 
 
-    YAHOO.util.Event.on(document.body, 'click', function(e){
-      var target = e.target;
-      if(target.nodeName === 'SPAN' && YAHOO.util.Dom.hasClass(target, 'roleLink'))
-      {
-        var select = document.getElementById('roleSelectList');
-        var actor = select.options[select.selectedIndex].value;
-
-        var newLocation = 'dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?'
-        newLocation += 'actor='+actor+'&universal='+target.id;
-
-        window.location = newLocation;
-      }
-    });
-  });
-})();
+    selectBox.onchange = function(){
+      jumpBoxForm.action = 'dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo';
+      jumpBoxForm.submit();
+    }
+  })
+})();    
 </script>
 
 <c:set var="action" value="dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo" scope="page"/>
-
-<select id="roleSelectList">
-  <c:forEach var="role" items="${actorOptions}">
-  <option value="${role.roleName}">${role.displayLabel}</option>
-  </c:forEach>
-</select>
 
   <dl>
     <dt><label><f:message key="Person_Management"/></label></dt>
