@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1180848254)
+@com.terraframe.mojo.business.ClassSignature(hash = -641916746)
 public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.ReadableAttributeView";
-  private static final long serialVersionUID = -1180848254;
+  private static final long serialVersionUID = -641916746;
   
   protected ReadableAttributeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -212,6 +212,14 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{universal, actorName};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getActorAttributes", _declaredTypes);
+    return (dss.vector.solutions.util.ReadableAttributeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.util.ReadableAttributeViewDTO[] getReadableAttributes(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String qualifiedClass)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{qualifiedClass};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getReadableAttributes", _declaredTypes);
     return (dss.vector.solutions.util.ReadableAttributeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

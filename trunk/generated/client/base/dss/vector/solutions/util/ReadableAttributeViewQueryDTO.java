@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2031877415)
+@com.terraframe.mojo.business.ClassSignature(hash = -2135169011)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.util;
 public class ReadableAttributeViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2031877415;
+private static final long serialVersionUID = -2135169011;
 
   protected ReadableAttributeViewQueryDTO(String type)
   {

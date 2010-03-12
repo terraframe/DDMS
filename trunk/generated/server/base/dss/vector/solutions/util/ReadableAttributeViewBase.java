@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 942211330)
+@com.terraframe.mojo.business.ClassSignature(hash = -1811254730)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class ReadableAttributeViewBase extends com.terraframe.mojo.busi
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String READPERMISSION = "readPermission";
-  private static final long serialVersionUID = 942211330;
+  private static final long serialVersionUID = -1811254730;
   
   public ReadableAttributeViewBase()
   {
@@ -191,6 +191,12 @@ public abstract class ReadableAttributeViewBase extends com.terraframe.mojo.busi
   }
   
   public static dss.vector.solutions.util.ReadableAttributeView[] getActorAttributes(java.lang.String universal, java.lang.String actorName)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.util.ReadableAttributeView[] getReadableAttributes(java.lang.String qualifiedClass)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeView.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
