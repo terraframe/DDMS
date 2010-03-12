@@ -47,7 +47,9 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
       var picker = this.getGeoPicker();
       picker.setPolitical(true);
       picker.setSprayTargetAllowed(false);
-      picker.addExtraUniversal('dss.vector.solutions.geo.generated.StockDepot*');  
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.StockDepot*');
+      
+      this._exclusionClasses.shift();
       },
       
     }
