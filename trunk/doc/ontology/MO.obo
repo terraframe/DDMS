@@ -1,5 +1,6 @@
 format-version: 1.2
-date: 22:02:2010 13:44
+date: 11:03:2010 16:01
+saved-by: Saul
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
 idspace: span http://www.ifomis.org/bfo/1.1/span#
@@ -2098,7 +2099,7 @@ namespace: http\://www.xspan.org/obo.owl#
 alt_id: EV:0100488
 alt_id: MA:0002501
 alt_id: SAEL:8
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000055
@@ -2107,7 +2108,7 @@ namespace: http\://www.xspan.org/obo.owl#
 alt_id: EV:0100049
 alt_id: FMAMDSS:9671
 alt_id: MA:0002520
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000058
@@ -2116,7 +2117,7 @@ namespace: http\://www.xspan.org/obo.owl#
 alt_id: FMAMDSS:12274
 alt_id: MA:0002545
 alt_id: SAEL:117
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000097
@@ -2132,7 +2133,7 @@ alt_id: MP:0000598
 alt_id: TAO:0000123
 alt_id: XAO:0000133
 alt_id: ZFA:0000123
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000315
@@ -2147,7 +2148,7 @@ alt_id: MA:0000059
 alt_id: MFO:0002920
 alt_id: XAO:0000124
 synonym: "portion of blood" RELATED []
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000444
@@ -2156,7 +2157,7 @@ namespace: http\://www.xspan.org/obo.owl#
 alt_id: EV:0100515
 alt_id: FMAMDSS:59862
 alt_id: MA:0002507
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MAT:0000499
@@ -2165,7 +2166,7 @@ namespace: http\://www.ebi.ac.uk/microarray-srv/mat/
 alt_id: EV:0100164
 alt_id: FMAMDSS:20935
 alt_id: MA:0002503
-is_a: MDSS:0000051 ! sample from human
+is_a: MDSS:0000489 ! type of sample
 
 [Term]
 id: MDSS:0000000
@@ -5653,6 +5654,41 @@ name: foreign NGO
 is_a: MDSS:0000395 ! NGO
 created_by: Saul
 creation_date: 2010-02-22T11:25:27Z
+
+[Term]
+id: MDSS:0000485
+name: temporal sample classification
+is_a: MDSS:0000051 ! sample from human
+created_by: Saul
+creation_date: 2010-03-11T03:19:48Z
+
+[Term]
+id: MDSS:0000486
+name: acute phase sample
+is_a: MDSS:0000485 ! temporal sample classification
+created_by: Saul
+creation_date: 2010-03-11T03:22:16Z
+
+[Term]
+id: MDSS:0000487
+name: convalescent phase sample
+is_a: MDSS:0000485 ! temporal sample classification
+created_by: Saul
+creation_date: 2010-03-11T03:22:42Z
+
+[Term]
+id: MDSS:0000488
+name: serum
+is_a: MDSS:0000489 ! type of sample
+created_by: Saul
+creation_date: 2010-03-11T03:50:11Z
+
+[Term]
+id: MDSS:0000489
+name: type of sample
+is_a: MDSS:0000051 ! sample from human
+created_by: Saul
+creation_date: 2010-03-11T03:57:16Z
 
 [Term]
 id: MIRO:00000001
