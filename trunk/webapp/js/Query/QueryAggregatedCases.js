@@ -108,23 +108,31 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         },
         sum: function(entityAlias, attributeName, userAlias){
   
-          thisRef._checkBox(userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+          if(thisRef._checkBox(userAlias))
+          {
+            thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+          }
         },
         min: function(entityAlias, attributeName, userAlias){
   
-          thisRef._checkBox(userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+          if(thisRef._checkBox(userAlias))
+          {
+            thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+          }
         },
         max: function(entityAlias, attributeName, userAlias){
   
-          thisRef._checkBox(userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+          if(thisRef._checkBox(userAlias))
+          {
+            thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+          }
         },
         avg: function(entityAlias, attributeName, userAlias){
   
-          thisRef._checkBox(userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+          if(thisRef._checkBox(userAlias))
+          {
+            thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+          }
         },
         count: function(entityAlias, attributeName, userAlias){
   
