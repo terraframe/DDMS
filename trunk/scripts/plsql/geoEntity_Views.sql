@@ -284,7 +284,7 @@ BEGIN
   CASE
    WHEN (_date >= _startDate ) AND (_date < _nextStartDate)  THEN
       _epiWeek := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _startDate)::INT;
-      _epiWeek := round(_epiWeek::FLOAT /(60.0*60.0*24.0))::INT  / 7;
+      _epiWeek := round((_epiWeek::FLOAT /(60.0*60.0*24.0))::INT  / 7)+1;
       --RAISE NOTICE '% % % % % %',_startDate, _date, _epiWeek, _epiWeek /(60*60), _epiWeek /(60*60*24), _epiWeek /(60*60*24*7);
       
       
