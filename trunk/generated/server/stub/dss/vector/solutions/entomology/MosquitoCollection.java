@@ -35,19 +35,19 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getCollectionId() != null)
+    else if (this.getCollectionId() != null)
     {
       return this.getCollectionId();
     }
-    
+
     return super.toString();
   }
 
@@ -253,7 +253,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
-    
+
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
@@ -268,65 +268,59 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
 
       String viewName = "abundance_view";
-      
+
       setAbundance(valueQuery, 1, "1");
       setAbundance(valueQuery, 10, "10");
       setAbundance(valueQuery, 100, "100");
       setAbundance(valueQuery, 1000, "1000");
-      
-      valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
-      
-      String withQuery = getWithQuerySQL(viewName, valueQuery);
-      
-      
-      ValueQuery overrideQuery = new ValueQuery(queryFactory);
-      
 
-      
+      valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
+
+      String withQuery = getWithQuerySQL(viewName, valueQuery);
+
+      ValueQuery overrideQuery = new ValueQuery(queryFactory);
+
       for (Selectable s : valueQuery.getSelectableRefs())
       {
         String attributeName = s.getDbColumnName();
         String columnAlias = s.getColumnAlias();
         String columnName = s.getColumnAlias();
-        
+
         if (attributeName.equals("abundance_1"))
         {
-          columnName = "1.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
+          columnName = "1.0*(final_abundance/array_length(allCollectionIds,1))";
         }
         if (attributeName.equals("abundance_10"))
         {
-          columnName = "10.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
+          columnName = "10.0*(final_abundance/array_length(allCollectionIds,1))";
         }
         if (attributeName.equals("abundance_100"))
         {
-          columnName = "100.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
+          columnName = "100.0*(final_abundance/array_length(allCollectionIds,1))";
         }
         if (attributeName.equals("abundance_1000"))
         {
-          columnName = "1000.0*((total_of_children_z+abundance_sum+abundance)/abundance_count)";
+          columnName = "1000.0*(final_abundance/array_length(allCollectionIds,1))";
         }
-        
-        if(s instanceof SelectableSQLFloat)
+
+        if (s instanceof SelectableSQLFloat)
         {
-          overrideQuery.SELECT(overrideQuery.aSQLFloat(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+          overrideQuery.SELECT(overrideQuery.aSQLFloat(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
-        else if(s instanceof AttributeMoment)
+        else if (s instanceof AttributeMoment)
         {
-          overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+          overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
         else
         {
-          overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName,s.getUserDefinedAlias(),s.getUserDefinedDisplayLabel()));
+          overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
-        
+
       }
 
-      
       overrideQuery.setSqlPrefix(withQuery);
       overrideQuery.FROM(viewName, viewName);
       return overrideQuery;
-      
-
 
     }
 
@@ -350,37 +344,76 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   public static String getWithQuerySQL(String viewName, ValueQuery valueQuery)
   {
 
-    String joinGeo = "";
+    String joinMainQuery = "";
     
+    String areaGroup = "";
+
     for (Selectable s : valueQuery.getSelectableRefs())
     {
-       if (s.getDbColumnName().startsWith("geoId_"))
+      if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId"))
       {
-        joinGeo += " AND ss." + s.getColumnAlias() + " = taxonCountQuery." + s.getColumnAlias() + " "; 
-      }  
-      
+        joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " ";
+        areaGroup += "||  mainQuery." + s.getColumnAlias() + " ";
+      }
+
     }
-    
+    areaGroup = areaGroup.substring(2);
+
     String origQuery = valueQuery.getSQL();
     
-    origQuery = origQuery.replaceFirst("SELECT", "SELECT taxon,SUM(total) as abundance_sum,COUNT(*) as abundance_count,").replaceFirst("GROUP BY", "GROUP BY taxon,");
+    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionId) as collectionIds \n,";
 
-    String sql = "WITH mainQuery AS \n";
+    origQuery = origQuery.replaceFirst("SELECT", "SELECT "+ selectAddtions).replaceFirst("GROUP BY", "GROUP BY taxon,");
+
+    String sql = "WITH RECURSIVE mainQuery AS \n";
     sql += "(" + origQuery + "),\n";
-
+    
+    //taxonCountQuery is where each node gets the total of its child species
     sql += "taxonCountQuery AS (\n";
     sql += "SELECT mainQuery.* ,";
-    sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon  )as total_of_children, \n";
-    sql += "(SELECT parent_id from termrelationship WHERE taxon = child_id ) as parent \n";
+    sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap ";
+    //used to calcuate ratio
+    sql += "WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon " + joinMainQuery + " )as total_of_children, \n";
+    //list of collection ids in this group
+    sql += "ARRAY(SELECT distinct unnest(collectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allCollectionIds, \n";
+    //used to order the recursive decent
+    sql += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery + " )as depth, ";
+    //the parent specie of this row in this group
+    //TODO: fix  for skiping levels
+    sql += "(SELECT parent_id from termrelationship WHERE taxon = child_id ) as parent, \n";
+    sql += areaGroup + " AS areaGroup\n";
     sql += " FROM mainQuery),\n";
     sql += " \n";
 
+    joinMainQuery = joinMainQuery.replace("mainQuery","taxonCountQuery");
+    
+
+    sql += " percent_view AS ( ";
+    sql += "SELECT taxonCountQuery.*,";
+    //  -- ((me+my_children)/sum(everyone_at_my_level+their children))
+    sql += "((abundance_sum + coalesce(total_of_children,0)) / \n ";
+    sql += "(SELECT SUM(coalesce(ss.total_of_children,0) + ss.abundance_sum) FROM taxonCountQuery AS ss WHERE ss.parent = taxonCountQuery.parent" + joinMainQuery + "   ))  as my_share \n";
+    sql += "FROM taxonCountQuery \n";
+    sql += "),";
+    
+    
+    sql += " rollup_view AS ( \n";
+    sql += " SELECT areagroup, taxon, parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
+    sql += "     FROM percent_view\n";
+    sql += "     WHERE depth = 0\n";
+    sql += " UNION\n";
+    sql += " SELECT child_v.areagroup, child_v.taxon, child_v.parent, child_v.depth ,child_v.my_share, \n";
+    sql += "  parent_v.final_abundance * child_v.my_share \n";
+    sql += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup \n";
+    sql += " ),\n";
+    sql += "\n";
+
+    
     sql += " "+viewName+" AS (\n";
-    sql += " SELECT taxonCountQuery.*,\n";
-    sql += " coalesce( total_of_children,0) AS total_of_children_z, \n";
-    sql += " coalesce( abundance_sum/(SELECT(total_of_children ) FROM taxonCountQuery AS ss WHERE ss.taxon = taxonCountQuery.parent "+joinGeo+") * \n";
-    sql += " (SELECT(total_of_children+abundance_sum) FROM taxonCountQuery AS ss WHERE ss.taxon = taxonCountQuery.parent  "+joinGeo+" )-abundance_sum ,0)as abundance\n";
-    sql += " FROM taxonCountQuery )\n";
+    sql += "SELECT pv.*, final_abundance\n";
+    sql += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv.taxon = pv.taxon \n";
+    sql += " )\n";
+
     sql += " \n";
     
 
