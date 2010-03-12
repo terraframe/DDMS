@@ -24,7 +24,7 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 
 	@Transaction
 	protected GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory) {
-		return geoEntity.getPoliticalDecendants(factory);
+		return geoEntity.getAllDecendants(factory);
 	}
 
 	@Transaction
