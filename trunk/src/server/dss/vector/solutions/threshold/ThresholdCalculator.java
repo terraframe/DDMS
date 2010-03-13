@@ -366,7 +366,9 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 
     if (period.season != null)
     {
-      EpiDate thisEpiWeek = EpiDate.getEpiWeek(new Date());
+    	Date now = new Date();
+
+      EpiDate thisEpiWeek = EpiDate.getEpiWeek(new Date(now.getYear(), now.getMonth(), now.getDate()));
 
       if (currentPeriod)
       {
