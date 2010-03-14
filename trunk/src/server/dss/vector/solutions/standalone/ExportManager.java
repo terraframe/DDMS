@@ -3,12 +3,16 @@ package dss.vector.solutions.standalone;
 import java.io.File;
 import java.util.StringTokenizer;
 
+import javax.swing.SwingWorker;
+
 import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.dataaccess.transaction.TransactionExportManager;
 import com.terraframe.mojo.session.StartSession;
 
-public class ExportManager
+public class ExportManager extends SwingWorker<Void, Void>
 {
+  private ExportPanel  component;
+
   private ExportOption option;
 
   private Long         lower;
@@ -17,10 +21,11 @@ public class ExportManager
 
   private File         location;
 
-  public ExportManager()
+  public ExportManager(ExportPanel component)
   {
     this.option = ExportOption.ALL;
     this.location = null;
+    this.component = component;
   }
 
   public ExportOption getOption()
@@ -70,34 +75,42 @@ public class ExportManager
   }
 
   @StartSession
-  public void excute()
+  private void export()
   {
-    this.validate();
-    
-    StringTokenizer toke = new StringTokenizer(location.getName(), ".");
+    try
+    {
+      this.validate();
 
-    String path = location.getParent();
-    String fileName = toke.nextToken();
+      StringTokenizer toke = new StringTokenizer(location.getName(), ".");
 
-    if (option.equals(ExportOption.RANGE))
-    {
-      if (upper != null)
+      String path = location.getParent();
+      String fileName = toke.nextToken();
+
+      if (option.equals(ExportOption.RANGE))
       {
-        TransactionExportManager.export(lower, CommonProperties.getTransactionXMLschemaLocation(), fileName, path);
+        if (upper != null)
+        {
+          TransactionExportManager.export(lower, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+        }
+        else
+        {
+          TransactionExportManager.export(lower, upper, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+        }
       }
-      else
+      else if (option.equals(ExportOption.ALL))
       {
-        TransactionExportManager.export(lower, upper, CommonProperties.getTransactionXMLschemaLocation(), fileName, path);
+        TransactionExportManager.export(0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+      }
+      else if (option.equals(ExportOption.NOT_IMPORTED))
+      {
+        TransactionExportManager.export(CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path, component);
       }
     }
-    else if (option.equals(ExportOption.ALL))
+    catch (Throwable t)
     {
-      TransactionExportManager.export(0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path);
+      component.handleError(t);
     }
-    else if (option.equals(ExportOption.NOT_IMPORTED))
-    {
-      TransactionExportManager.export(CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path);
-    }
+
   }
 
   private void validate()
@@ -106,10 +119,10 @@ public class ExportManager
     {
       throw new RuntimeException("Please select a location in which to export the transactions to.");
     }
-//    else if (location.isDirectory())
-//    {
-//      throw new RuntimeException("Please select a file not a directory");      
-//    }
+    // else if (location.isDirectory())
+    // {
+    // throw new RuntimeException("Please select a file not a directory");
+    // }
 
     if (option.equals(ExportOption.RANGE))
     {
@@ -123,5 +136,13 @@ public class ExportManager
       }
     }
 
+  }
+
+  @Override
+  protected Void doInBackground() throws Exception
+  {
+    this.export();
+
+    return null;
   }
 }

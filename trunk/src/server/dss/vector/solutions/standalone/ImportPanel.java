@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -17,8 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import com.terraframe.mojo.constants.DeployProperties;
-import com.terraframe.mojo.dataaccess.transaction.TransactionImportManager;
-import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -95,9 +93,11 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
 
   public void propertyChange(PropertyChangeEvent evt)
   {
-    if ("progress" == evt.getPropertyName())
+    if (TransactionPropertyChangeEvent.PROGRESS == evt.getPropertyName())
     {
       int progress = (Integer) evt.getNewValue();
+      
+      System.out.println(progress);
 
       progressBar.setValue(progress);
 
@@ -114,8 +114,9 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     {
       this.importButton.setEnabled(false);
       this.statusLabel.setText(MDSSProperties.getString("Import_in_progress"));
-
-      this.importFile();
+      
+      ImportManager manager = new ImportManager(this.browser.getFile(), this);
+      manager.execute();
     }
     else
     {
@@ -123,56 +124,9 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     }
   }
 
-  @StartSession
-  private void importFile()
-  {
-    File file = browser.getFile();
-    
-    try
-    {
-      
-      if (file == null || !file.exists() || file.isDirectory())
-      {
-        throw new RuntimeException("Provide a file to import.");
-      }
-
-       TransactionImportManager manager = new
-       TransactionImportManager(file.getAbsolutePath());
-//       manager.addPropertyChangeListener(this);
-       manager.importTransactions();
-
-//      ImportManager manager = new ImportManager();
-//      manager.addPropertyChangeListener(this);
-//      manager.execute();
-    }
-    catch (Exception e)
-    {
-      this.errorHandler(e);
-      this.complete();
-    }
-  }
-  
-  private void errorHandler(Exception e)
-  {
-    String message = MDSSProperties.getString("Import_Problem");
-
-    try
-    {
-      message = e.getLocalizedMessage();
-    }
-    catch (Throwable t)
-    {
-      t.printStackTrace();
-      // Use the default error message
-    }
-
-    JOptionPane.showMessageDialog(this, message);
-  }
-
   private void complete()
   {
     this.importButton.setEnabled(true);
-    this.progressBar.setValue(0);
     this.statusLabel.setText(MDSSProperties.getString("Import_Complete"));
   }
 
@@ -211,6 +165,25 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     }
 
     return true;
+  }
+
+  public void handleError(Exception e)
+  {
+    String message = MDSSProperties.getString("Import_Problem");
+
+    try
+    {
+      message = e.getLocalizedMessage();
+    }
+    catch (Throwable t)
+    {
+      t.printStackTrace();
+      // Use the default error message
+    }
+
+    JOptionPane.showMessageDialog(this, message);
+    
+    this.complete();
   }
 
 }
