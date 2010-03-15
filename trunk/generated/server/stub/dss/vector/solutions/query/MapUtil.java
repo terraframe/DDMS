@@ -32,7 +32,12 @@ import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableDecimal;
+import com.terraframe.mojo.query.SelectableDouble;
+import com.terraframe.mojo.query.SelectableFloat;
+import com.terraframe.mojo.query.SelectableLong;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -102,6 +107,41 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       try
       {
         valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
+        
+        List<Selectable> oldSels = valueQuery.getSelectableRefs();
+        List<Selectable> newSels = new LinkedList<Selectable>();
+        
+        valueQuery.clearSelectClause();
+        
+        // Format all decimals to two decimal places to make
+        // make more readable
+        for(Selectable oldSel : oldSels)
+        {
+          if(oldSel instanceof SelectableDouble
+              || oldSel instanceof SelectableFloat
+              || oldSel instanceof SelectableDecimal)
+          {
+            SelectableSQLDouble sel;
+            if(oldSel.isAggregateFunction())
+            {
+              sel = valueQuery.aSQLAggregateDouble(oldSel.getDbColumnName(), "");
+            }
+            else
+            {
+              sel = valueQuery.aSQLDouble(oldSel.getDbColumnName(), "");
+            }
+            sel.setSQL(oldSel.getSQL()+"::decimal(20,2)");
+            sel.setColumnAlias(oldSel.getColumnAlias());
+            sel.setUserDefinedAlias(oldSel.getUserDefinedAlias());
+            newSels.add(sel);
+          }
+          else
+          {
+            newSels.add(oldSel);
+          }
+        }
+        
+        valueQuery.SELECT(newSels.toArray(new Selectable[newSels.size()]));
       }
       catch (ProgrammingErrorException e)
       {
