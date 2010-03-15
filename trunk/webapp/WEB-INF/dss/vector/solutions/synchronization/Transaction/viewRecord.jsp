@@ -10,9 +10,6 @@
   <mjl:dt attribute="createDate">
     <span class="formatDate"> ${record.createDate} </span>
   </mjl:dt>
-  <mjl:dt attribute="seq">
-    ${record.seq}
-  </mjl:dt>
   <mjl:dt attribute="exportSequence">
     ${record.exportSequence}
   </mjl:dt>

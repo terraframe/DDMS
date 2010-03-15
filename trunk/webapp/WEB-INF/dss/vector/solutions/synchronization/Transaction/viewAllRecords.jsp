@@ -14,7 +14,6 @@
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="exportSequence"></mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="seq"></mjl:attributeColumn>
     <mjl:attributeColumn attributeName="siteMaster"></mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header></mjl:header>

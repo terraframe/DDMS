@@ -24,7 +24,7 @@ public class TransactionItemView extends TransactionItemViewBase implements Relo
   {
     TransactionRecordQuery query = new TransactionRecordQuery(new QueryFactory());
 
-    sortAttribute = (sortAttribute == null ? TransactionRecord.SEQ : sortAttribute);
+    sortAttribute = (sortAttribute == null ? TransactionRecord.EXPORTSEQUENCE : sortAttribute);
     isAscending = (isAscending == null ? false : isAscending);
     SortOrder sortOrder = (isAscending ? SortOrder.ASC : SortOrder.DESC);
 
