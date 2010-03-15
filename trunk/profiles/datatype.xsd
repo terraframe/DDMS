@@ -239,6 +239,7 @@
       <xs:extension base="metadata">
         <!--name:The qualified path/name of the mdBusiness-->
         <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="exported" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -421,18 +422,14 @@
     <xs:complexContent>
       <xs:extension base="mdClass">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="attributes" type="attributes"
-            minOccurs="0" />
-          <xs:element name="mdMethod" type="mdMethod"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="stubSource" minOccurs="0"
-            maxOccurs="1" />
-          <xs:element name="dtoStubSource" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" /> 
+          <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="stubSource" minOccurs="0"  maxOccurs="1" />
+          <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
         </xs:choice>
         <xs:attribute name="table" type="xs:string" use="optional" />
-        <xs:attribute name="generateController" type="xs:boolean"
-          use="optional" />
+        <xs:attribute name="generateController" type="xs:boolean" use="optional" />
+        <xs:attribute name="enforceSiteMaster" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -871,6 +868,12 @@
   -->
   <xs:attributeGroup name="attributeReference">
     <xs:attributeGroup ref="attribute" />
+    <!--
+      defaultValueKey: The value of the attribute if no other value is
+      specified
+    -->
+    <xs:attribute name="defaultValueKey" type="xs:string" />
+
     <!--The fully qualified path of Object being referenced-->
     <xs:attribute name="type" type="xs:string" />
   </xs:attributeGroup>
