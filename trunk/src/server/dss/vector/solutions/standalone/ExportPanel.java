@@ -194,8 +194,6 @@ public class ExportPanel extends JPanel implements ActionListener, PropertyChang
     {
       int progress = (Integer) evt.getNewValue();
 
-      System.out.println(progress);
-
       progressBar.setValue(progress);
 
       if (progress >= 100)
