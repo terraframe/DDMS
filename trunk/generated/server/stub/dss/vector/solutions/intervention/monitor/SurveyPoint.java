@@ -12,10 +12,13 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AggregateFunction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SUM;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
@@ -304,8 +307,16 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     if (valueQuery.hasSelectableRef("age"))
     {
       // valueQuery.hasSelectableRef
-
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
+      SelectableSQLInteger dobSel;
+      Selectable sel = valueQuery.getSelectableRef("age");
+      if(sel instanceof AggregateFunction)
+      {
+        dobSel = (SelectableSQLInteger) ((AggregateFunction)sel).getSelectable();
+      }
+      else
+      {
+        dobSel = (SelectableSQLInteger) sel;
+      }
 
       if (personQuery == null)
       {
@@ -318,7 +329,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
           valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
         }
         valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
-        valueQuery.SELECT(personQuery.getDob());
+//        valueQuery.SELECT(personQuery.getDob());
 
       }
 
@@ -336,6 +347,9 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
+    String sql = valueQuery.getSQL();
+    
+    
     return valueQuery;
   }
 }
