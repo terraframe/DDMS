@@ -15,13 +15,7 @@ import com.terraframe.mojo.query.QueryFactory;
 
 public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1235777070211L;
-
-  public static final long  SHORT_ID_LENGTH  = 8;
-  
-  public static final int RESERVED_SHORT_ID_SPACES = 23;
-
-  public static final long  MAX_ID           = (long) Math.pow(30, SHORT_ID_LENGTH);
+  private static final long serialVersionUID         = 1235777070211L;
 
   public Property()
   {
@@ -68,7 +62,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
     // FIXME hide the entry for countryGeoId
     condition = AND.get(condition, query.getPropertyName().NE(PropertyInfo.COUNTRY_GEO_ID));
-    
+
     query.WHERE(condition);
 
     return query;
@@ -257,29 +251,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
       return prop.getPropertyDate(format.getPropertyValue());
     }
-  }
-
-  @Transaction
-  @Authenticate
-  public static String getNextId()
-  {
-    Property currentValue = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
-    currentValue.appLock();
-
-    Long counter = currentValue.getPropertyLong();
-    int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
-    int offset = RESERVED_SHORT_ID_SPACES + Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
-
-    long totalOffset = ( MAX_ID / segments ) * offset;
-
-    counter++;
-    currentValue.setPropertyValue(counter.toString());
-    currentValue.apply();
-
-    // TODO:perhaps a check that the address space has not been overflowed
-    // should be added?
-
-    return Base30.toBase30String(totalOffset + counter, 8);
   }
 
   @Transaction

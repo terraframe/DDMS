@@ -100,8 +100,6 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     {
       int progress = (Integer) evt.getNewValue();
       
-      System.out.println(progress);
-
       progressBar.setValue(progress);
 
       if (progress >= 100)
@@ -194,7 +192,6 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     }
     catch (Throwable t)
     {
-      t.printStackTrace();
       // Use the default error message
     }
 

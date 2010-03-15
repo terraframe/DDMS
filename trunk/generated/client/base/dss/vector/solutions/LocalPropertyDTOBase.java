@@ -1,12 +1,12 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1164715055)
-public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.terraframe.mojo.business.ClassSignature(hash = 501803371)
+public abstract class LocalPropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.Property";
-  private static final long serialVersionUID = 1164715055;
+  public final static String CLASS = "dss.vector.solutions.LocalProperty";
+  private static final long serialVersionUID = 501803371;
   
-  protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LocalPropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected PropertyDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LocalPropertyDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -702,67 +702,43 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VALIDVALUES).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.PropertyQueryDTO getAllByPackage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg)
+  public static final dss.vector.solutions.LocalPropertyQueryDTO getAllByPackage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{pkg};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getAllByPackage", _declaredTypes);
-    return (dss.vector.solutions.PropertyQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final dss.vector.solutions.PropertyQueryDTO getAllEditable(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getAllEditable", _declaredTypes);
-    return (dss.vector.solutions.PropertyQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getAllByPackage", _declaredTypes);
+    return (dss.vector.solutions.LocalPropertyQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.PropertyDTO getByPackageAndName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getByPackageAndName", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getByPackageAndName", _declaredTypes);
     return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final java.util.Date getDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getDate", _declaredTypes);
-    return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getInt", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getInt", _declaredTypes);
     return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String getStr(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
+  public static final java.lang.String getNextId(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getStr", _declaredTypes);
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getNextId", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void setUnitsPerDay(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Integer unitsPerDay)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.Integer"};
-    Object[] _parameters = new Object[]{unitsPerDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "setUnitsPerDay", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static dss.vector.solutions.PropertyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.LocalPropertyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {
     com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
     
-    return (dss.vector.solutions.PropertyDTO) dto;
+    return (dss.vector.solutions.LocalPropertyDTO) dto;
   }
   
   public void apply()
@@ -781,9 +757,9 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.PropertyQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.LocalPropertyQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.PropertyQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.Property", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.LocalPropertyQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.LocalProperty", sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -791,12 +767,12 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.PropertyDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.LocalPropertyDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.LocalPropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -804,12 +780,12 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.PropertyDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.LocalPropertyDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.LocalPropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }

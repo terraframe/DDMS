@@ -21,7 +21,7 @@ import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.Property;
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
 import dss.vector.solutions.query.Layer;
@@ -166,7 +166,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   {
     if (this.getCollectionId() == null || this.getCollectionId().equals(""))
     {
-      this.setCollectionId(Property.getNextId());
+      this.setCollectionId(LocalProperty.getNextId());
     }
   }
 

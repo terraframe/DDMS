@@ -10,9 +10,9 @@ import com.terraframe.mojo.query.SelectableChar;
 import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
-import dss.vector.solutions.Property;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.SprayZone;
@@ -51,7 +51,7 @@ public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.ge
   {
     if(this.getMemberId() == null || this.getMemberId().equals(""))
     {
-      this.setMemberId(Property.getNextId());
+      this.setMemberId(LocalProperty.getNextId());
     }
     
     super.apply();

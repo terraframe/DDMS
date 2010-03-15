@@ -12,7 +12,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 
-import dss.vector.solutions.Property;
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -71,7 +71,7 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
       }
       if (this.getPoolsTested() == 1 && ( !this.hasPoolId() ))
       {
-        this.setPoolId(Property.getNextId());
+        this.setPoolId(LocalProperty.getNextId());
       }
     }
   }

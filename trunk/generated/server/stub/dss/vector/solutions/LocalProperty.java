@@ -1,0 +1,76 @@
+package dss.vector.solutions;
+
+import com.terraframe.mojo.business.rbac.Authenticate;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+
+public class LocalProperty extends LocalPropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
+{
+  private static final long serialVersionUID         = 567084590;
+
+  public static final long  SHORT_ID_LENGTH          = 8;
+
+  public static final int   RESERVED_SHORT_ID_SPACES = 23;
+
+  public static final long  MAX_ID                   = (long) Math.pow(30, SHORT_ID_LENGTH);
+
+  public LocalProperty()
+  {
+    super();
+  }
+
+  @Transaction
+  @Authenticate
+  public static String getNextId()
+  {
+    return nextId();
+  }
+
+  public static LocalProperty getByPackAndName(java.lang.String pkg, java.lang.String name)
+  {
+    LocalPropertyQuery query = new LocalPropertyQuery(new QueryFactory());
+
+    query.WHERE(query.getPropertyPackage().EQ(pkg));
+    query.AND(query.getPropertyName().EQ(name));
+
+    OIterator<? extends LocalProperty> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    return null;
+  }
+
+  private static String nextId()
+  {
+    synchronized (Object.class)
+    {
+      LocalProperty currentValue = LocalProperty.getByPackAndName(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_COUNTER);
+      currentValue.appLock();
+
+      Long counter = Long.parseLong(currentValue.getPropertyValue());
+
+      int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
+      int offset = RESERVED_SHORT_ID_SPACES + Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
+
+      long totalOffset = ( MAX_ID / segments ) * offset;
+
+      counter++;
+      currentValue.setPropertyValue(counter.toString());
+      currentValue.apply();
+
+      //TODO Perhaps a check that the address space has not been overflowed should be added?
+      return Base30.toBase30String(totalOffset + counter, 8);
+    }
+  }
+}

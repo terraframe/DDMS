@@ -2453,14 +2453,6 @@
             order="1"
             type="java.lang.String" />
         </mdMethod>
-
-        <mdMethod
-          name="getNextId"
-          label="Get the next ShortId"
-          description="Gets the next ShortId for this install, increments SHORT_ID_COUNTER"
-          static="true"
-          returnType="java.lang.String">
-        </mdMethod>
         <mdMethod
           name="getAllEditable"
           label="Get all editable properties"
@@ -2680,35 +2672,6 @@
         <attribute
           name="description"
           value="The id address space offset or install number, MUST be unique for each server, 0-999" />
-      </object>
-
-      <object
-        type="dss.vector.solutions.Property"
-        key="SHORT_ID_COUNTER">
-        <attribute
-          name="propertyName"
-          value="SHORT_ID_COUNTER" />
-        <attribute
-          name="displayLabel"
-          value="SHORT_ID_COUNTER" />
-        <attribute
-          name="propertyPackage"
-          value="dss.vector.solutions.system.install" />
-        <attribute
-          name="propertyValue"
-          value="0" />
-        <attribute
-          name="propertyType"
-          value="Long" />
-        <attribute
-          name="propertyValidator"
-          value="^[0-9]+$" />
-        <attribute
-          name="description"
-          value="How many ids have we generated in this install's address space" />
-        <attribute
-          name="editable"
-          value="false" />
       </object>
       <!--
         <object type="dss.vector.solutions.Property" id="dateFormat">

@@ -12,8 +12,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MolecularSumProblem;
-import dss.vector.solutions.Property;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -71,7 +71,7 @@ public class MolecularAssay extends MolecularAssayBase implements com.terraframe
     }
     if (sum == 1 && ( !this.hasMosquitoId() ))
     {
-      this.setMosquitoId(Property.getNextId());
+      this.setMosquitoId(LocalProperty.getNextId());
     }
   }
 

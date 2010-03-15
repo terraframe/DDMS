@@ -79,7 +79,6 @@ import dss.vector.solutions.surveillance.CaseReferralDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
-import dss.vector.solutions.surveillance.ChildCaseView;
 import dss.vector.solutions.surveillance.ChildCaseViewDTO;
 import dss.vector.solutions.surveillance.ElderCaseViewDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;

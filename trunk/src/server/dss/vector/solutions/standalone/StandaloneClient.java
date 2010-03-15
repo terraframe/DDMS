@@ -95,7 +95,7 @@ public class StandaloneClient extends JFrame implements ActionListener
     this.setSize(DIMENSION);
     this.setJMenuBar(menuBar);
     this.add(contentPane);
-    this.setResizable(false);
+    this.setResizable(true);
     this.setVisible(true);
     this.setTitle(MDSSProperties.getString("MDSS"));
   }

@@ -117,22 +117,27 @@ public class ExportManager extends SwingWorker<Void, Void>
   {
     if (location == null)
     {
-      throw new RuntimeException("Please select a location in which to export the transactions to.");
+      String msg = "Please select a location in which to export the transactions to.";
+      throw new ExportLocationException(msg);
     }
-    // else if (location.isDirectory())
-    // {
-    // throw new RuntimeException("Please select a file not a directory");
-    // }
 
     if (option.equals(ExportOption.RANGE))
     {
       if (lower == null)
-      {
-        throw new RuntimeException("Please input a starting sequence");
+      {        
+        String msg = "Please input a starting sequence";        
+        throw new StartingExportSequenceException(msg);
       }
       else if (upper != null && lower > upper)
       {
-        throw new RuntimeException("Please input a the end sequence number must be higher then the start sequence number");
+        String msg = "The end sequence number must be greater than the start sequence number";
+
+        ExportSequenceException e = new ExportSequenceException(msg);
+        e.setStartSequence(lower);
+        e.setEndSequence(upper);
+        e.apply();
+
+        throw e;
       }
     }
 

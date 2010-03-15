@@ -176,6 +176,13 @@
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
+          </mdBusinessPermission>
+          <mdBusinessPermission
+            type="dss.vector.solutions.LocalProperty">
+            <operation
+              name="READ" />
+            <operation
+              name="READ_ALL_ATTRIBUTES" />
             <mdMethodPermission
               methodName="getNextId">
               <operation

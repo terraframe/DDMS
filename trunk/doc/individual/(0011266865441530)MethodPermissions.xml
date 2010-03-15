@@ -38,7 +38,7 @@
         methodName="exportFile">
         <assignedRole
           roleName="Administrator" />
-      </method>    
+      </method>
       <method
         methodName="checkThresholdViolation"
         type="dss.vector.solutions.general.ThresholdData">
@@ -65,20 +65,9 @@
       </method>
       <method
         methodName="getNextId"
-        type="dss.vector.solutions.Property">
-        <grant>
-          <mdBusinessPermission
-            type="dss.vector.solutions.Property">
-            <operation
-              name="READ" />
-            <operation
-              name="READ_ALL_ATTRIBUTES" />
-            <operation
-              name="WRITE" />
-            <operation
-              name="WRITE_ALL_ATTRIBUTES" />
-          </mdBusinessPermission>
-        </grant>
+        type="dss.vector.solutions.LocalProperty">
+        <assignedRole
+          roleName="Administrator" />
       </method>
       <method
         methodName="xmlToValueQuery"

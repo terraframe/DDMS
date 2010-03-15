@@ -74,13 +74,13 @@ public class PropertyTest extends TestCase
 
     long totalOffset = ( MAX_ID / segments ) * offset;
 
-    Long oldValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
+    Long oldValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, LocalPropertyInfo.SHORT_ID_COUNTER);
 
     long expectedId = totalOffset + oldValue + 1;
 
-    String nextId = Property.getNextId();
+    String nextId = LocalProperty.getNextId();
 
-    Long newValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
+    Long newValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, LocalPropertyInfo.SHORT_ID_COUNTER);
 
     assertEquals((long) oldValue + 1, (long) newValue);
 
