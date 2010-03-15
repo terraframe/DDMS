@@ -164,6 +164,7 @@ public class ExportPanel extends JPanel implements ActionListener, PropertyChang
       String option = group.getSelection().getActionCommand();
 
       this.exportButton.setEnabled(false);
+      this.progressBar.setValue(0);
 
       ExportManager manager = new ExportManager(this);
       manager.setOption(ExportOption.valueOf(option));

@@ -7,6 +7,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.dataaccess.transaction.TransactionPropertyChangeEvent;
 
@@ -114,6 +117,7 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     {
       this.importButton.setEnabled(false);
       this.statusLabel.setText(MDSSProperties.getString("Import_in_progress"));
+      this.progressBar.setValue(0);
       
       ImportManager manager = new ImportManager(this.browser.getFile(), this);
       manager.execute();
@@ -173,7 +177,20 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
 
     try
     {
-      message = e.getLocalizedMessage();
+      if(e instanceof ProblemException)
+      {
+        message += ":\n";
+        List<ProblemIF> problems = ( (ProblemException) e ).getProblems();
+        
+        for(ProblemIF problem : problems)
+        {
+          message += problem.getLocalizedMessage() + "\n";
+        }
+      }
+      else
+      {
+        message = e.getLocalizedMessage();
+      }
     }
     catch (Throwable t)
     {
