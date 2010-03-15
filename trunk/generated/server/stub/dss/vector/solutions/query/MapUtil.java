@@ -108,40 +108,48 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
       {
         valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
         
-        List<Selectable> oldSels = valueQuery.getSelectableRefs();
-        List<Selectable> newSels = new LinkedList<Selectable>();
-        
-        valueQuery.clearSelectClause();
-        
-        // Format all decimals to two decimal places to make
-        // make more readable
-        for(Selectable oldSel : oldSels)
+        // Format any decimal thematic variable to two decimal places
+        if(layer.hasThematicVariable())
         {
-          if(oldSel instanceof SelectableDouble
-              || oldSel instanceof SelectableFloat
-              || oldSel instanceof SelectableDecimal)
+          Selectable thematicSel = valueQuery.getSelectableRef(layer.getThematicUserAlias());
+          
+          List<Selectable> oldSels = valueQuery.getSelectableRefs();
+          List<Selectable> newSels = new LinkedList<Selectable>();
+          
+          valueQuery.clearSelectClause();
+          
+          for(Selectable oldSel : oldSels)
+          {
+            if(oldSel != thematicSel)
+            {
+              newSels.add(oldSel);
+            }
+          }
+          
+          if(thematicSel instanceof SelectableDouble
+              || thematicSel instanceof SelectableFloat
+              || thematicSel instanceof SelectableDecimal)
           {
             SelectableSQLDouble sel;
-            if(oldSel.isAggregateFunction())
+            if(thematicSel.isAggregateFunction())
             {
-              sel = valueQuery.aSQLAggregateDouble(oldSel.getDbColumnName(), "");
+              sel = valueQuery.aSQLAggregateDouble(thematicSel.getDbColumnName(), "");
             }
             else
             {
-              sel = valueQuery.aSQLDouble(oldSel.getDbColumnName(), "");
+              sel = valueQuery.aSQLDouble(thematicSel.getDbColumnName(), "");
             }
-            sel.setSQL(oldSel.getSQL()+"::decimal(20,2)");
-            sel.setColumnAlias(oldSel.getColumnAlias());
-            sel.setUserDefinedAlias(oldSel.getUserDefinedAlias());
-            newSels.add(sel);
+            sel.setSQL(thematicSel.getSQL()+"::decimal(20,2)");
+            sel.setColumnAlias(thematicSel.getColumnAlias());
+            sel.setUserDefinedAlias(thematicSel.getUserDefinedAlias());
+            
+            thematicSel = sel;
           }
-          else
-          {
-            newSels.add(oldSel);
-          }
+          
+          newSels.add(thematicSel);
+          
+          valueQuery.SELECT(newSels.toArray(new Selectable[newSels.size()]));
         }
-        
-        valueQuery.SELECT(newSels.toArray(new Selectable[newSels.size()]));
       }
       catch (ProgrammingErrorException e)
       {
