@@ -37,11 +37,13 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
-public class IndividualCase extends IndividualCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IndividualCase extends IndividualCaseBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360073722L;
 
@@ -49,7 +51,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
@@ -57,14 +59,14 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.getClassDisplayLabel();
   }
 
   @Override
   @Transaction
   public void apply()
-  {    
+  {
     validateDiagnosisDate();
     validateCaseEntryDate();
     validateCaseReportDate();
@@ -73,8 +75,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     {
       this.setProbableSource(this.getResidence());
     }
-    
-    if(this.isNew())
+
+    if (this.isNew())
     {
       // Truncate the createdByDate and store it in entry date
       this.setCaseEntryDate(new Date());
@@ -83,7 +85,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     // If no age is specified, calculate it
     if (this.getAge() == null && this.getDiagnosisDate() != null && this.getPatient() != null)
     {
-      long difference = this.getDiagnosisDate().getTime() - this.getPatient().getPerson().getDateOfBirth().getTime();
+      long difference = this.getDiagnosisDate().getTime()
+          - this.getPatient().getPerson().getDateOfBirth().getTime();
       // Divide by the number of milliseconds in a year
       long age = difference / 31556926000l;
       this.setAge((int) age);
@@ -157,11 +160,12 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         ThresholdData.checkThresholdViolation(date, entity, count);
       }
     }
-  }  
+  }
 
   protected static Date[] getWindow(Date date)
   {
-    Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
+    Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,
+        PropertyInfo.IS_EPI_WEEK);
 
     OutbreakCalculation method = OutbreakCalculation.valueOf(property.getPropertyValue());
 
@@ -208,19 +212,20 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
     calendar.add(Calendar.DAY_OF_MONTH, -7 * newCasePeriod);
-    
+
     Date newCasePeriodCutoff = calendar.getTime();
 
     IndividualCase individualCase = new IndividualCase();
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
-    
+
     if (patient != null)
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
-      
-      Condition condition = AND.get(query.getDiagnosisDate().GE(newCasePeriodCutoff), query.getDiagnosisDate().LE(diagnosisDate), query.getPatient().EQ(patient));
-      
+
+      Condition condition = AND.get(query.getDiagnosisDate().GE(newCasePeriodCutoff), query
+          .getDiagnosisDate().LE(diagnosisDate), query.getPatient().EQ(patient));
+
       query.WHERE(condition);
       query.ORDER_BY_DESC(query.getDiagnosisDate());
 
@@ -275,7 +280,7 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
 
     this.setPatient(patient);
     this.apply();
-    
+
     instance.setIndividualCase(this);
     instance.applyAll(symptoms);
   }
@@ -298,7 +303,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       Person person = patient.getPerson();
 
-      return person.getFirstName() + "." + person.getLastName() + "." + source.getGeoId() + "." + format.format(date);
+      return person.getFirstName() + "." + person.getLastName() + "." + source.getGeoId() + "."
+          + format.format(date);
     }
     return this.getId();
   }
@@ -327,11 +333,14 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, queryConfig, layer);
 
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
-    IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
-    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
+    IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap
+        .get(IndividualInstance.CLASS);
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap
+        .get(dss.vector.solutions.Person.CLASS);
 
     valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
 
@@ -358,7 +367,8 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))";
+      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = "
+          + tableAlias + ".id))";
       calc.setSQL(sql);
     }
     catch (QueryException e)
@@ -380,20 +390,20 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)))*100.0";
+      String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM " + tableName
+          + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)))*100.0";
       calc.setSQL(sql);
     }
     catch (QueryException e)
     {
     }
 
+    calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 100);
+    calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 1000);
+    calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 10000);
+    calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 100000);
+    calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 1000000);
 
-    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,100);
-    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,1000);
-    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,10000);
-    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,100000);
-    calculateIncidence(valueQuery,caseQuery,queryConfig, xml,1000000);
-    
     QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
@@ -407,19 +417,27 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
     return valueQuery;
 
   }
-  
-  private static void calculateIncidence(ValueQuery valueQuery,IndividualCaseQuery caseQuery,JSONObject queryConfig, String xml,Integer multiplier )
+
+  private static void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery,
+      JSONObject queryConfig, String xml, Integer multiplier)
   {
+    SelectableSQLFloat calc;
     try
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_"+multiplier);
-      
-      String geoType = null;
-      
+      calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
+    }
+    catch (QueryException e)
+    {
+      return;
+    }
+
+    String geoType = null;
+    try
+    {
       String attributeKey = null;
-      
+
       String[] selectedUniversals = null;
-      
+
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
       while (keys.hasNext())
@@ -427,49 +445,54 @@ public class IndividualCase extends IndividualCaseBase implements com.terraframe
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS+'.'+IndividualCase.PROBABLESOURCE))
+        if (universals.length() > 0
+            && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
           {
             selectedUniversals[i] = universals.getString(i);
           }
-          //dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-          geoType =  GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
           geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
           geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
           geoType = geoType.replace('.', '_');
         }
       }
-
-      
-      String timePeriod = "yearly";
-      
-      if(xml.indexOf("season")>0)
-      {
-        timePeriod = "seasonal";
-      }
-      
-      Selectable s = valueQuery.getSelectableRef(geoType);
-      
-      String columnAlias = s.getQualifiedName();
-      
-      String tableAlias = caseQuery.getTableAlias();
-      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      
-      String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = " + tableAlias + ".id))/";
-      sql += " AVG(get_"+timePeriod+"_population_by_geoid_and_date("+columnAlias+", caseReportDate)))*"+multiplier;
-
-      calc.setSQL(sql);
-    }
-    catch (QueryException e)
-    {
     }
     catch (JSONException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new ProgrammingErrorException(e);
     }
+
+    String timePeriod = "yearly";
+
+    if (xml.indexOf("season") > 0)
+    {
+      timePeriod = "seasonal";
+    }
+
+    Selectable s;
+    try
+    {
+      s = valueQuery.getSelectableRef(geoType);
+    }
+    catch(QueryException e)
+    {
+      throw new IncidencePopulationException(e);
+    }
+
+    String columnAlias = s.getQualifiedName();
+
+    String tableAlias = caseQuery.getTableAlias();
+    String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
+
+    String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = "
+        + tableAlias + ".id))/";
+    sql += " AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias
+        + ", caseReportDate)))*" + multiplier;
+
+    calc.setSQL(sql);
   }
-  
 }
