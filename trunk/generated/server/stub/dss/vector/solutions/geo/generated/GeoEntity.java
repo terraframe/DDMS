@@ -68,8 +68,8 @@ import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
 import dss.vector.solutions.DefaultGeoEntity;
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -132,7 +132,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
       while (!unique)
       {
-        generatedGeoId = Property.getNextId();
+        generatedGeoId = LocalProperty.getNextId();
+        
         try
         {
           searchByGeoId(generatedGeoId);
@@ -256,16 +257,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getName(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
-    
-    if(enforceRoot)
+
+    if (enforceRoot)
     {
       DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
       AllPathsQuery allQ = new AllPathsQuery(valueQuery);
 
-      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[]{allQ.getChildGeoEntity().EQ(q),
-        allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity())});
+      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity()) });
     }
-    
+
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
     if (name != null && !name.equals(""))
@@ -405,19 +405,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       }
     }
 
+    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
 
-    
-    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType())};
-
-    if(enforceRoot)
+    if (enforceRoot)
     {
       DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
       AllPathsQuery allQ = new AllPathsQuery(valueQuery);
 
-      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[]{allQ.getChildGeoEntity().EQ(q),
-        allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity())});
+      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity()) });
     }
-    
+
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
 
     if (value != null && !value.equals(""))
@@ -431,8 +428,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins);
     }
-    
-    
+
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;
@@ -1734,27 +1730,20 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       createdById = ServerConstants.SYSTEM_USER_ID;
     }
 
-    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getTypeMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSeqMd().definesAttribute().toLowerCase()
-        + ",\n" + "  " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + "\n" + ") \n" +
+    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getTypeMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()
+        + ",\n" + "  " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "  "
+        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + "\n" + ") \n" +
 
-        "WITH RECURSIVE quick_paths(root_id, " + RelationshipInfo.CHILD_ID + ", " + RelationshipInfo.PARENT_ID + ", " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ") AS ( \n" + "    SELECT " + RelationshipInfo.CHILD_ID + " , " + RelationshipInfo.CHILD_ID + ", "
-        + RelationshipInfo.PARENT_ID + ", NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM " + locatedInTable + "  locatedin \n" + "    UNION\n" + "    SELECT a.root_id, b." + RelationshipInfo.CHILD_ID + ", b." + RelationshipInfo.PARENT_ID + ", NEXTVAL('"
-        + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM quick_paths a, " + locatedInTable + " b WHERE b." + RelationshipInfo.CHILD_ID + " = a." + RelationshipInfo.PARENT_ID + "\n" + "    )\n" +
+        "WITH RECURSIVE quick_paths(root_id, " + RelationshipInfo.CHILD_ID + ", " + RelationshipInfo.PARENT_ID + ", " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ") AS ( \n" + "    SELECT " + RelationshipInfo.CHILD_ID + " , " + RelationshipInfo.CHILD_ID + ", " + RelationshipInfo.PARENT_ID + ", NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM " + locatedInTable + "  locatedin \n" + "    UNION\n" + "    SELECT a.root_id, b." + RelationshipInfo.CHILD_ID + ", b."
+        + RelationshipInfo.PARENT_ID + ", NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM quick_paths a, " + locatedInTable + " b WHERE b." + RelationshipInfo.CHILD_ID + " = a." + RelationshipInfo.PARENT_ID + "\n" + "    )\n" +
 
-        "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " || geo2." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().definesAttribute().toLowerCase() + ",\n" + "    '" + sitemaster
-        + "'  AS " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " || geo2." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS "
-        + GeoEntity.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().definesAttribute().toLowerCase() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "    ? AS "
-        + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "    paths." + AllPaths.getSeqMd().definesAttribute().toLowerCase() + "  AS " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "'  AS "
-        + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "' AS \""
-        + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + "\",\n" + "    '" + createdById + "' AS " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS "
-        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
-        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths.root_id as " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    SUBSTRING(paths.root_id," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE
-        + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n" + "(SELECT * FROM quick_paths UNION SELECT " + GeoEntity.getIdMd().definesAttribute().toLowerCase() + ","
-        + GeoEntity.getIdMd().definesAttribute().toLowerCase() + "," + GeoEntity.getIdMd().definesAttribute().toLowerCase() + ",NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase()
-        + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " = paths.root_id\n";
+        "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " || geo2." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().definesAttribute().toLowerCase() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " || geo2."
+        + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().definesAttribute().toLowerCase() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "    paths."
+        + AllPaths.getSeqMd().definesAttribute().toLowerCase() + "  AS " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "' AS \""
+        + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + "\",\n" + "    '" + createdById + "' AS " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
+        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths.root_id as " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    SUBSTRING(paths.root_id," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n"
+        + "(SELECT * FROM quick_paths UNION SELECT " + GeoEntity.getIdMd().definesAttribute().toLowerCase() + "," + GeoEntity.getIdMd().definesAttribute().toLowerCase() + "," + GeoEntity.getIdMd().definesAttribute().toLowerCase() + ",NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2."
+        + GeoEntity.getIdMd().definesAttribute().toLowerCase() + " = paths.root_id\n";
 
     Connection conn = Database.getConnection();
 
@@ -1807,54 +1796,33 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       createdById = ServerConstants.SYSTEM_USER_ID;
     }
 
-    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getTypeMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSeqMd().definesAttribute().toLowerCase()
-        + ",\n" + "  " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  "
-        + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + "\n" + ") \n" + " SELECT \n" + "   MD5(allpaths_parent."
-        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS newId,\n" + "    '" + sitemaster + "'                                       AS "
-        + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId
-        + "' AS newKey,\n" + "    '" + AllPaths.CLASS + "'                                   AS \"" + AllPaths.getTypeMd().definesAttribute().toLowerCase() + "\",\n" + "    ''                                                     AS " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()
-        + ",\n" + "    ?                                                      AS " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "    NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')    AS " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n"
-        + "    '" + createdById + "'                                      AS " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    NULL                                                   AS " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n"
-        + "    ?                                                      AS " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "'                                      AS \"" + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + "\",\n" + "    '"
-        + createdById + "'                                      AS " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "    allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " AS "
-        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    allpaths_parent." + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + " AS " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ", \n" + "    allpaths_child."
-        + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + "   AS "
-        + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()
-        + ", \n"
-        + "    allpaths_child."
-        + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase()
-        + "   AS "
-        + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase()
-        + " \n"
+    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getKeyNameMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getTypeMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()
+        + ",\n" + "  " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getCreateDateMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "  "
+        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ",\n" + "  " + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + "\n" + ") \n" + " SELECT \n" + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " || allpaths_child."
+        + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId + "' AS newId,\n" + "    '" + sitemaster + "'                                       AS " + AllPaths.getSiteMasterMd().definesAttribute().toLowerCase() + ",\n" + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " ) || '" + allPathsRootTypeId
+        + "' AS newKey,\n" + "    '" + AllPaths.CLASS + "'                                   AS \"" + AllPaths.getTypeMd().definesAttribute().toLowerCase() + "\",\n" + "    ''                                                     AS " + AllPaths.getEntityDomainMd().definesAttribute().toLowerCase() + ",\n" + "    ?                                                      AS " + AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase() + ",\n" + "    NEXTVAL('"
+        + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')    AS " + AllPaths.getSeqMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "'                                      AS " + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    NULL                                                   AS " + AllPaths.getLockedByMd().definesAttribute().toLowerCase() + ",\n" + "    ?                                                      AS "
+        + AllPaths.getCreatedByMd().definesAttribute().toLowerCase() + ",\n" + "    '" + createdById + "'                                      AS \"" + AllPaths.getOwnerMd().definesAttribute().toLowerCase() + "\",\n" + "    '" + createdById + "'                                      AS " + AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase() + ",\n" + "    allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " AS "
+        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    allpaths_parent." + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + " AS " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + ", \n" + "    allpaths_child." + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + "   AS " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ", \n" + "    allpaths_child."
+        + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + "   AS " + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + " \n"
         +
 
         " FROM \n"
         +
         // Fech all of the recursive children of the given child term, including
         // the child term itself.
-        "  (SELECT " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + "," + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + " \n" + "    FROM " + allPathsTable
-        + " \n"
-        + "     WHERE "
-        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase()
-        + " = '"
-        + childGeoEntityId
+        "  (SELECT " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + "," + AllPaths.getChildUniversalMd().definesAttribute().toLowerCase() + " \n" + "    FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " = '" + childGeoEntityId
         + "' ) AS allpaths_child, \n"
         +
         // Fech all of the recursive parents of the given new parent term,
         // including the new parent term itself.
-        "  (SELECT " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + " \n" + "     FROM " + allPathsTable + " \n" + "    WHERE " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase()
-        + " = '"
-        + newParentGeoEntityId
-        + "' \n"
+        "  (SELECT " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + ", " + AllPaths.getParentUniversalMd().definesAttribute().toLowerCase() + " \n" + "     FROM " + allPathsTable + " \n" + "    WHERE " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " = '" + newParentGeoEntityId + "' \n"
         + "    ) AS allpaths_parent \n"
         +
         // Since a term can have multiple parents, a path to one of the new
         // parent's parents may already exist
-        " WHERE allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " NOT IN \n" + "   (SELECT " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " \n" + "      FROM " + allPathsTable + " \n" + "     WHERE "
-        + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " = allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " \n" + "      AND " + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " = allpaths_child."
-        + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ") \n";
+        " WHERE allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " NOT IN \n" + "   (SELECT " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " \n" + "      FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " = allpaths_parent." + AllPaths.getParentGeoEntityMd().definesAttribute().toLowerCase() + " \n" + "      AND "
+        + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + " = allpaths_child." + AllPaths.getChildGeoEntityMd().definesAttribute().toLowerCase() + ") \n";
 
     Connection conn = Database.getConnection();
 
