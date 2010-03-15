@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1288845333)
+@com.terraframe.mojo.business.ClassSignature(hash = -1956842635)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class LocalPropertyBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = -1288845333;
+  private static final long serialVersionUID = -1956842635;
   
   public LocalPropertyBase()
   {
@@ -574,24 +574,6 @@ public abstract class LocalPropertyBase extends com.terraframe.mojo.business.Bus
   public static LocalProperty getByKey(String key)
   {
     return (LocalProperty) com.terraframe.mojo.business.Business.get(CLASS, key);
-  }
-  
-  public static dss.vector.solutions.LocalPropertyQuery getAllByPackage(java.lang.String pkg)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LocalProperty.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LocalProperty.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static java.lang.Integer getInt(java.lang.String pkg, java.lang.String name)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.LocalProperty.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static java.lang.String getNextId()

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 501803371)
+@com.terraframe.mojo.business.ClassSignature(hash = -1220995851)
 public abstract class LocalPropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.LocalProperty";
-  private static final long serialVersionUID = 501803371;
+  private static final long serialVersionUID = -1220995851;
   
   protected LocalPropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -700,30 +700,6 @@ public abstract class LocalPropertyDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getValidValuesMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VALIDVALUES).getAttributeMdDTO();
-  }
-  
-  public static final dss.vector.solutions.LocalPropertyQueryDTO getAllByPackage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{pkg};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getAllByPackage", _declaredTypes);
-    return (dss.vector.solutions.LocalPropertyQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final dss.vector.solutions.PropertyDTO getByPackageAndName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getByPackageAndName", _declaredTypes);
-    return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.LocalPropertyDTO.CLASS, "getInt", _declaredTypes);
-    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String getNextId(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
