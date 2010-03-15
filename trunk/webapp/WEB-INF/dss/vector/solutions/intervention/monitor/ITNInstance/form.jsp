@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-<%@page import="dss.vector.solutions.PropertyDTO"%>
+<%@page import="dss.vector.solutions.LocalPropertyDTO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO"%>
@@ -97,7 +97,7 @@
     </c:if>
   </mjl:dt>  
 </mjl:component>
-<%=Halp.loadTypes(Arrays.asList(new String[]{PropertyDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{LocalPropertyDTO.CLASS}))%>
 
 <script type="text/javascript">
 (function(){
@@ -128,7 +128,7 @@
           document.getElementById('netId').value = result;
         }
       });
-      Mojo.$.dss.vector.solutions.Property.getNextId(request);
+      Mojo.$.dss.vector.solutions.LocalProperty.getNextId(request);
     });
   })
 })();

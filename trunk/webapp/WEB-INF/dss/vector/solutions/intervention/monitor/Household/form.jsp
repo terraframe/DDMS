@@ -3,14 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-<%@page import="dss.vector.solutions.PropertyDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>    
+<%@page import="dss.vector.solutions.LocalPropertyDTO"%>
 
-    <mjl:component item="${item}" param="dto">
+<mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
       <mjl:input type="hidden" param="surveyPoint" value="${item.surveyPoint.id}" />
 
@@ -82,7 +82,7 @@
       
     </mjl:component>
   
-<%String[] types_to_load = {PropertyDTO.CLASS};%>
+<%String[] types_to_load = {LocalPropertyDTO.CLASS};%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
 
 <script type="text/javascript">
@@ -107,7 +107,7 @@
           document.getElementById('householdId').value = result;
         }
       });
-      Mojo.$.dss.vector.solutions.Property.getNextId(request);
+      Mojo.$.dss.vector.solutions.LocalProperty.getNextId(request);
     });
   })
 })();
