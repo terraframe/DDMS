@@ -136,13 +136,21 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var selectableGroups = [
               {title:"StockItems", values:stockItemColumns, group:"s", klass:stockItem.CLASS},
-              {title:"StockEvents", values:stockEventColumns, group:"s", klass:stockEvent.CLASS},
-              {title:"Staff", values:personColumns, group:"s", klass:person.CLASS}
+              {title:"StockEvents", values:stockEventColumns, group:"e", klass:stockEvent.CLASS},
+              {title:"Staff", values:personColumns, group:"e", klass:person.CLASS}
     ];
 
     var query = new MDSS.QueryStock(selectableGroups, queryList);
         
     query.render();
+
+    YAHOO.util.Dom.addClass('itemId_stockItem','e');
+    YAHOO.util.Dom.addClass('quantity_stockItem','e');
+    YAHOO.util.Dom.addClass('unit_stockItem','e');
+    YAHOO.util.Dom.addClass('itemName_stockItem','e');
+
+    var StockItemsLi = document.getElementById('StockItemsLi');
+    YAHOO.util.Dom.addClass(StockItemsLi.childNodes[0].childNodes[0],'e');
 
 });
 
