@@ -4,6 +4,12 @@
   <doIt>
     <permissions>
       <method
+        methodName="getTextAttributeSugestions"
+        type="dss.vector.solutions.query.QueryBuilder">
+        <assignedRole
+          roleName="Administrator" />
+      </method>    
+      <method
         methodName="setActorAttributes"
         type="dss.vector.solutions.util.ReadableAttributeView">
         <assignedRole

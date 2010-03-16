@@ -2160,6 +2160,11 @@
               <operation
                 name="EXECUTE" />
             </mdMethodPermission>
+            <mdMethodPermission
+              methodName="getTextAttributeSugestions">
+              <operation
+                name="EXECUTE" />
+            </mdMethodPermission>            
           </mdViewPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.general.EmailProtocolMaster">
