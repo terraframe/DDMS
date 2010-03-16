@@ -93,19 +93,18 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
     }
   }
-  
+
   public static void setReadableAttributes(HttpServletRequest req, String reqAttr, String className, ClientRequestIF requestIF)
   {
     ReadableAttributeViewDTO[] views = ReadableAttributeViewDTO.getReadableAttributes(requestIF, className);
-    
-      JSONArray readable = new JSONArray();
-      for(ReadableAttributeViewDTO view : views)
-      {
-        readable.put(view.getAttributeName());
-      }
-      
-      
-      req.setAttribute(reqAttr, readable.toString());
+
+    JSONArray readable = new JSONArray();
+    for (ReadableAttributeViewDTO view : views)
+    {
+      readable.put(view.getAttributeName());
+    }
+
+    req.setAttribute(reqAttr, readable.toString());
   }
 
   public static String join(List<String> s)
@@ -215,50 +214,52 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             object = new DTOFacade(attrib, row).getValue();
           }
 
-          String value = object.toString();
-
-          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
-
-          SimpleDateFormat df = new SimpleDateFormat(Constants.DATETIME_FORMAT);
-
-          switch (Halp.MdType.toType(attributeType))
+          if (object != null)
           {
-            case DATE:
-              value = df.format((Date) object);
-              break;
-            case ENUMERATION:
-              // FIXME: this is a hack for enums
-              value = value.replaceAll("\\[", "").replaceAll("\\]", "");
-              break;
-            case REFERENCE:
-              ComponentDTO componentDTO = (ComponentDTO) ( object );
+            String value = object.toString();
 
-              if (componentDTO instanceof TermDTO)
-              {
-                TermDTO term = (TermDTO) componentDTO;
+            String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
 
-                value = Halp.getTermIdWithDisplayLabel(term);
-              }
-              else if (componentDTO instanceof LabeledDTO)
-              {
-                LabeledDTO labeled = (LabeledDTO) componentDTO;
+            SimpleDateFormat df = new SimpleDateFormat(Constants.DATETIME_FORMAT);
 
-                value = labeled.getOptionId();
-              }
-              else
-              {
-                value = componentDTO.getId();
-              }
+            switch (Halp.MdType.toType(attributeType))
+            {
+              case DATE:
+                value = df.format((Date) object);
+                break;
+              case ENUMERATION:
+                // FIXME: this is a hack for enums
+                value = value.replaceAll("\\[", "").replaceAll("\\]", "");
+                break;
+              case REFERENCE:
+                ComponentDTO componentDTO = (ComponentDTO) ( object );
 
-              break;
+                if (componentDTO instanceof TermDTO)
+                {
+                  TermDTO term = (TermDTO) componentDTO;
+
+                  value = Halp.getTermIdWithDisplayLabel(term);
+                }
+                else if (componentDTO instanceof LabeledDTO)
+                {
+                  LabeledDTO labeled = (LabeledDTO) componentDTO;
+
+                  value = labeled.getOptionId();
+                }
+                else
+                {
+                  value = componentDTO.getId();
+                }
+
+                break;
+            }
+            element.put(attrib, value);
           }
-          element.put(attrib, value);
-
         }
         catch (Exception x)
         {
-//          throw new ApplicationException(x);
-          //System.out.println(x + " " + x.getCause());
+          // throw new ApplicationException(x);
+          // System.out.println(x + " " + x.getCause());
         }
       }
       map.put(element);
