@@ -40,7 +40,48 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
 
       this.$initialize(selectableGroups, queryList);   
  
-      }
+      },
+
+      /**
+       * Handler to toggle visible attributes as selectables
+       */
+      _visibleAttributeHandler : function(e, attribute)
+      {
+        var check = e.target;
+        var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
+        if(check.checked)
+        {
+         
+          if(check.id.indexOf('bundance_')>0)
+          {
+          	this._checkBox('taxon');
+          	this._checkBox('collectionMethod_ab');
+          }
+        	
+          this._addVisibleAttribute(attribute);
+          var select = check.nextSibling;
+          select.selectedIndex = 0;
+          select.disabled = false;
+        
+        }
+        else
+        {
+          this._removeVisibleAttribute(attribute, true, true, true);
+          var select = check.nextSibling;
+          select.selectedIndex = 0;
+          select.disabled = true;
+          var menus = this._menus[liTarget.id];
+          if(menus)
+          {
+            Mojo.Iter.forEach(menus, function(ck){
+              //for display
+            	if(ck.checked) ck.checked = false;
+            }, this); 
+          }
+          
+          this.clearBrowserTerms(attribute);
+        }
+      },
       
 
     }
