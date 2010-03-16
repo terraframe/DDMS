@@ -105,42 +105,108 @@ YAHOO.util.Event.onDOMReady(function(){
     subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:{}});
 
 
-    subCollectionColumns = subCollectionColumns.concat([
-                                                       {
-                                                         
-                                                         key:"abundance_1",
-                                                         type:"sqlfloat",
-                                                         attributeName:"abundance_1",
-                                                         isAggregate:true
-                                                       },
-                                                       {
-                                                         
-                                                         key:"abundance_10",
-                                                         type:"sqlfloat",
-                                                         attributeName:"abundance_10",
-                                                         isAggregate:true
-                                                       },
-                                                       {
-                                                         
-                                                         key:"abundance_100",
-                                                         type:"sqlfloat",
-                                                         attributeName:"abundance_100",
-                                                         isAggregate:true
-                                                       },
-                                                       {
-                                                         
-                                                         key:"abundance_1000",
-                                                         type:"sqlfloat",
-                                                         attributeName:"abundance_1000",
-                                                         isAggregate:true
-                                                       },
-                                                    
-                                                    ]);
+  var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
+
+ //  abundanceColumns = abundanceColumns.concat( ["taxon"].map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_ab',dropDownMaps:{}}));
+
+
+
+   abundanceColumns = abundanceColumns.concat( [     
+                                {
+                                  displayLabel:subCollection.attributeMap['taxon'].attributeMdDTO.displayLabel,
+                                  key:"taxon",
+                                  type:"sqlcharacter",
+                                  attributeName:"taxon_displayLabel",
+                                  isAggregate:false
+                                },
+                                {
+                                  
+                                  key:"mosquitoCount",
+                                  type:"sqlinteger",
+                                  attributeName:"mosquitoCount",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"collectionCount",
+                                  type:"sqlinteger",
+                                  attributeName:"collectionCount",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"subCollectionCount",
+                                  type:"sqlinteger",
+                                  attributeName:"subCollectionCount",
+                                  isAggregate:true
+                                },
+                                {
+                                                      
+                                  key:"abundance_1",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_1",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_10",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_10",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_100",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_100",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_1000",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_1000",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_subcol_1",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_subcol_1",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_subcol_10",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_subcol_10",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_subcol_100",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_subcol_100",
+                                  isAggregate:true
+                                },
+                                {
+                                  
+                                  key:"abundance_subcol_1000",
+                                  type:"sqlfloat",
+                                  attributeName:"abundance_subcol_1000",
+                                  isAggregate:true
+                                },
+                             
+                             ]);
+
+    
+
+   
 
     var selectableGroups = [
-                {title:"Collection", values:collectionColumns, group:"ipt", klass:mosquitoCollection.CLASS},
-                {title:"SubCollection", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS},
-                //{title:"Calcuations", values:subCollectionColumns, group:"ipt", klass:subCollection.CLASS}
+                {title:"Collection", values:collectionColumns, group:"mc", klass:mosquitoCollection.CLASS},
+                {title:"SubCollection", values:subCollectionColumns, group:"mc", klass:subCollection.CLASS},
+                {title:"Abundance", values:abundanceColumns, group:"ab", klass:subCollection.CLASS}
         ];
 
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
