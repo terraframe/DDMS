@@ -182,6 +182,8 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
     QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+    
+    QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 

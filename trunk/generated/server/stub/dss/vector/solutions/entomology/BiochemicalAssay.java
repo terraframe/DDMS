@@ -180,6 +180,8 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.terraf
     QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+    
+    QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
