@@ -418,7 +418,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     String origQuery = valueQuery.getSQL();
     
-    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionid) as collectionIds, \n array_agg(subcollectionid) as subCollectionIds  \n,";
+    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionid) as collectionIds, \n array_agg(coalesce(collectionid || subcollectionid, collectionid)) as subCollectionIds  \n,";
 
     origQuery = origQuery.replaceFirst("SELECT", "SELECT "+ selectAddtions).replaceFirst("GROUP BY", "GROUP BY taxon,");
 
