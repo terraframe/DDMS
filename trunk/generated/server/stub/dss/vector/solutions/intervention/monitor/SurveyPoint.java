@@ -337,12 +337,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "." + SurveyPoint.SURVEYDATE + ", " + personTableAlias + "." + SurveyedPerson.DOB + "))";
       dobSel.setSQL(sql);
     }
-
-    // Force a tautological WHERE condition to always ensure SurveyPoint gets
-    // included in the FROM clause of the query; otherwise, certain conditions
-    // such as only selecting date groups will omit the SurveyPoint and cause an
-    // SQL error.
-    valueQuery.WHERE(surveyPointQuery.getId().EQ(surveyPointQuery.getId()));
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 

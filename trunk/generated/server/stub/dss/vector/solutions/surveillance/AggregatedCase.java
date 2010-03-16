@@ -514,10 +514,13 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
-
-    QueryBuilder.validateDateSelectables(valueQuery);
     
-    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+    
+    QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, sd, ed);
+
+    QueryUtil.validateQuery(valueQuery);
+    
+    return valueQuery;
   }
 
   private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)

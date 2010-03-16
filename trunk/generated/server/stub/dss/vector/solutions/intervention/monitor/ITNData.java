@@ -331,7 +331,7 @@ public class ITNData extends ITNDataBase implements com.terraframe.mojo.generati
     String sd = itnQuery.getStartDate().getQualifiedName();
     String ed = itnQuery.getEndDate().getQualifiedName();
 
-    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, sd, ed);
 
   }
   

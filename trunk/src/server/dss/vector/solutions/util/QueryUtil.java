@@ -2,12 +2,13 @@ package dss.vector.solutions.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,7 @@ import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.AttributeReference;
+import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.Function;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
@@ -57,6 +59,8 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.AllRenderTypes;
+import dss.vector.solutions.query.CountOrRatioAloneException;
+import dss.vector.solutions.query.DatesOnlyException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
@@ -66,23 +70,23 @@ public class QueryUtil implements Reloadable
 
   private static final String GEO_DISPLAY_LABEL =         "geo_displayLabel";
 
-  private static final String DATEGROUP_EPIWEEK            = "dategroup_epiweek";
+  public static final String DATEGROUP_EPIWEEK            = "dategroup_epiweek";
 
-  private static final String DATEGROUP_MONTH              = "dategroup_month";
+  public static final String DATEGROUP_MONTH              = "dategroup_month";
 
-  private static final String DATEGROUP_QUARTER            = "dategroup_quarter";
+  public static final String DATEGROUP_QUARTER            = "dategroup_quarter";
 
-  private static final String DATEGROUP_CALENDARYEAR       = "dategroup_year";
+  public static final String DATEGROUP_CALENDARYEAR       = "dategroup_year";
   
-  private static final String DATEGROUP_EPIYEAR            = "dategroup_epiyear";
+  public static final String DATEGROUP_EPIYEAR            = "dategroup_epiyear";
 
-  private static final String DATEGROUP_SEASON             = "dategroup_season";
+  public static final String DATEGROUP_SEASON             = "dategroup_season";
 
   public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
 
   public static final String START_DATE_RANGE             = "start_date_range";
 
-  private static final String RATIO                        = "ratio_of_this_row_to_total_count";
+  public static final String RATIO                        = "ratio_of_this_row_to_total_count";
 
   public static final String END_DATE_RANGE               = "end_date_range";
 
@@ -94,6 +98,87 @@ public class QueryUtil implements Reloadable
   
   public static final String  SHORT_DISPLAY_LABEL          = "shortDisplayLabel";
 
+  /**
+   * Performs basic validation on the ValueQuery to ensure the query is valid.
+   * 
+   * @param valueQuery
+   */
+  public static void validateQuery(ValueQuery valueQuery)
+  {
+    validateDateSelectables(valueQuery);
+    
+    int size = valueQuery.getSelectableRefs().size();
+    if(size == 0)
+    {
+      NoColumnsAddedException ex = new NoColumnsAddedException();
+      throw ex;
+    }
+    
+    if(size == 1 &&
+      (valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT))
+    {
+      throw new CountOrRatioAloneException();
+    }
+    else if(size == 2 && valueQuery.hasSelectableRef(RATIO))
+    {
+      // count and ratio are invalid
+      for(Selectable sel : valueQuery.getSelectableRefs())
+      {
+        if(sel instanceof COUNT)
+        {
+          throw new CountOrRatioAloneException();
+        }
+      }
+    }
+  }  
+  
+  /**
+   * Ensures that the ValueQuery contains more than the start and end date criteria.
+   * 
+   * @param valueQuery
+   */
+  private static void validateDateSelectables(ValueQuery valueQuery)
+  {
+    // Start and End date can only be selected if other Selectables added
+    // to create a meaninful query.
+    List<Selectable> selectables = valueQuery.getSelectableRefs();
+    boolean hasOnlyDates = false;
+    if(selectables.size() == 1)
+    {
+      String alias = selectables.get(0).getUserDefinedAlias();
+      if(QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
+      {
+        hasOnlyDates = true;
+      }
+    }
+    else if(selectables.size() == 2)
+    {
+      boolean isStart = false;
+      boolean isEnd = false;
+      
+      for(Selectable sel : selectables)
+      {
+        String alias = sel.getUserDefinedAlias();
+        if(QueryUtil.START_DATE_RANGE.equals(alias))
+        {
+          isStart = true;
+        }
+        else if(QueryUtil.END_DATE_RANGE.equals(alias))
+        {
+          isEnd = true;
+        }
+      }
+      
+      hasOnlyDates = isStart && isEnd;
+    }
+    
+    if(hasOnlyDates)
+    {
+      String error = "The start and end date must be added with other selectables.";
+      throw new DatesOnlyException(error);
+    }
+  }
+  
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
     String parentTable = MdBusiness.getMdBusiness(parentClass).getTableName();
@@ -612,12 +697,9 @@ public class QueryUtil implements Reloadable
 
     queryMap = valueQueryParser.parse();
     
-    if(valueQuery.getSelectableRefs().size() == 0)
-    {
-      NoColumnsAddedException ex = new NoColumnsAddedException();
-      throw ex;
-    }
-
+    // Query validation is done here since all query screens must call this method.
+    validateQuery(valueQuery);
+    
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
     {
@@ -661,7 +743,7 @@ public class QueryUtil implements Reloadable
     return queryMap;
 
   }
-
+  
   private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
@@ -792,24 +874,6 @@ public class QueryUtil implements Reloadable
     }
   }
 
-  public static String getDefiningClass(String className, String attribute)
-  {
-    MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(className);
-
-    List<MdBusinessDAOIF> classes = mdBusiness.getSuperClasses();
-    classes.add(mdBusiness);
-
-    for (MdBusinessDAOIF business : classes)
-    {
-      if (business.definesAttribute(attribute) != null)
-      {
-        return business.definesType();
-      }
-    }
-
-    return null;
-  }
-
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
   {
     String attributeName = null;
@@ -822,13 +886,20 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
-      klass = getDefiningClass(klass, attributeName);
+      
+      MdBusiness md = MdBusiness.getMdBusiness(klass);
+      GeneratedEntityQuery attributeQuery = null;
+      while(attributeQuery == null)
+      {
+        attributeQuery = queryMap.get(md.definesType());
+        md = md.getSuperMdBusiness();
+      }
+      
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
         if (queryMap.containsKey(klass))
         {
-          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.GE(start));
         }
@@ -839,7 +910,6 @@ public class QueryUtil implements Reloadable
         end = dateObj.getString("end");
         if (queryMap.containsKey(klass))
         {
-          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.LE(end));
         }
@@ -866,25 +936,29 @@ public class QueryUtil implements Reloadable
         }
       }
 
-      return setQueryDates(xml, valueQuery, attributeName);
+      return setQueryDates(xml, valueQuery, attributeQuery, attributeName);
     }
     catch (JSONException e)
     {
-      return valueQuery;
+      throw new ProgrammingErrorException(e);
     }
 
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, SelectableMoment dateAttribute)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment dateAttribute)
   {
     String da = dateAttribute.getQualifiedName();
-    return setQueryDates(xml, valueQuery, da);
+    return setQueryDates(xml, valueQuery, target, da);
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String da)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da)
   {
+    Set<String> found = new HashSet<String>();
+    
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
+      found.add(DATEGROUP_SEASON);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
       dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms " + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + da + " AND ms." + MalariaSeason.ENDDATE + " >= " + da);
@@ -892,46 +966,98 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
+      found.add(DATEGROUP_EPIWEEK);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      GregorianCalendar cal = new GregorianCalendar();
       dateGroup.setSQL("get_epiWeek_from_date(" + da + "," + startDay + ")");
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
+      found.add(DATEGROUP_MONTH);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
       dateGroup.setSQL("to_char(" + da + ",'MM')");
     }
 
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
+      found.add(DATEGROUP_QUARTER);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
       dateGroup.setSQL("to_char(" + da + ",'Q')");
     }
 
     if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
     {
+      found.add(DATEGROUP_CALENDARYEAR);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
     }
     
     if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
     {
+      found.add(DATEGROUP_EPIYEAR);
+      
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
       dateGroup.setSQL("get_epiYear_from_date(" + da + "," + startDay + ")");
     }
 
+    ensureEntityInFromClause(found, valueQuery, target);
+    
     return setQueryDates(xml, valueQuery);
   }
-
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String sd, String ed)
+  
+  /**
+   * Some query screens error out when only the date groups are selected because the GeneratedEntityQuery
+   * that contains the date attribute is not added to the FROM clause, causing an SQL syntax error. If this
+   * method detects that such a problem may occur, a tautological WHERE condition is added to the ValueQuery
+   * that will force the GeneratedEntityQuery to be added to the FROM clause.
+   * 
+   * @param found
+   * @param valueQuery
+   * @param target
+   */
+  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedEntityQuery target)
   {
+    // Include RATIO, which suffers from the same problem as the date selectables
+    if(valueQuery.hasSelectableRef(RATIO))
+    {
+      found.add(RATIO);
+    }
+    
+    if(found.size() > 0)
+    {
+      for(Selectable sel : valueQuery.getSelectableRefs())
+      {
+        if(!found.contains(sel.getUserDefinedAlias()))
+        {
+          // A non-date selectable was found, so we must assume that the calling query screen
+          // class has already handled this case (as it should).
+          return;
+        }
+      }
+      
+      // Only date selectable were found, so force the tautological WHERE condition
+      SelectableChar id1 = (SelectableChar) target.id();
+      SelectableChar id2 = (SelectableChar) target.id();
+      valueQuery.WHERE(id1.EQ(id2));
+    }
+  }
+
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String sd, String ed)
+  {
+    Set<String> found = new HashSet<String>();
+    
     String intervalNotValid = "INTERVAL NOT VALID";
 
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
+      found.add(DATEGROUP_SEASON);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
 
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
@@ -940,6 +1066,8 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
+      found.add(DATEGROUP_EPIWEEK);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" +
@@ -951,6 +1079,8 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
+      found.add(DATEGROUP_MONTH);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")" + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed
           + ",'MM') END";
@@ -959,6 +1089,8 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
+      found.add(DATEGROUP_QUARTER);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
 
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed
@@ -968,6 +1100,8 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
     {      
+      found.add(DATEGROUP_CALENDARYEAR);
+      
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
           + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
@@ -976,12 +1110,16 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
     {
+      found.add(DATEGROUP_EPIYEAR);
+
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
           + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
       dateGroup.setSQL(dateGroupSql);
     }
+    
+    ensureEntityInFromClause(found, valueQuery, target);
     
     return setQueryDates(xml, valueQuery);
   }

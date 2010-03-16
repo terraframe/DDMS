@@ -323,7 +323,7 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.terraframe.m
     String sd = aggregatedIPTQuery.getStartDate().getQualifiedName();
     String ed = aggregatedIPTQuery.getEndDate().getQualifiedName();
 
-    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
+    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, sd, ed);
 
   }
   

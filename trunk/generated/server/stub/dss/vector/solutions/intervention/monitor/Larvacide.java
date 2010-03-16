@@ -136,7 +136,7 @@ public class Larvacide extends LarvacideBase implements com.terraframe.mojo.gene
 
     SelectableMoment dateAttribute = larvacideQuery.getStartDate();
 
-    return QueryUtil.setQueryDates(xml, valueQuery, dateAttribute);
+    return QueryUtil.setQueryDates(xml, valueQuery, larvacideQuery, dateAttribute);
 
   }
 }

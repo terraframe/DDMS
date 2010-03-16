@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.query.CountOrRatioAloneException">
+  <!--
+    - {id} id
+    -->
+  <locale language="defaultLocale">Count and Ratio cannot be used as standalone columns. Please add more columns.</locale>
+</exception>
