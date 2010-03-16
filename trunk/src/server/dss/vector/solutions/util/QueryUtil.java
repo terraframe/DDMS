@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.AttributeMoment;
@@ -1024,17 +1023,8 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(RATIO) > 0)
     {
       SelectableSQL ratio = (SelectableSQL) valueQuery.getSelectableRef(RATIO);
-      Double sum = 0.0;
 
-      // specieRatio.setSQL("");
-      ratio.setSQL(countSql);
-
-      for (ValueObject v : valueQuery.getIterator())
-      {
-        sum += Double.parseDouble(v.getValue(RATIO));
-      }
-
-      ratio.setSQL("to_char(" + countSql + "/" + sum + ",'99.99')");
+      ratio.setSQL("(" + countSql + "/(SUM(" + countSql + ") OVER ())::float)::decimal(20,3)");
     }
 
     return valueQuery;
