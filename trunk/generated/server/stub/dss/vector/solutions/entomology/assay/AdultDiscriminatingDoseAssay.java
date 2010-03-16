@@ -211,6 +211,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
      // valueQuery.WHERE(adultQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
       //valueQuery.WHERE(abstractAssayQuery.getId().EQ(adultQuery.getId()));
       joinResults = adultQuery;
+//      QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, adultQuery);
       QueryUtil.joinTermAllpaths(valueQuery, AdultAssay.CLASS, adultQuery.getSex().getDefiningTableAlias());
       QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  adultQuery.getIdentificationMethod().getDefiningTableAlias());
     }

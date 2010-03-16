@@ -331,9 +331,10 @@ public class QueryController extends QueryControllerBase implements
       {
         AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
 
-        if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO )
+        if (attributeDTO.isReadable()
             && ! ( attributeDTO instanceof AttributeStructDTO )
-            && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
+//            && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
+            && !attributeDTO.getName().equals(AggregatedCaseDTO.AGEGROUP)
             && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
         {
           JSONObject json = new JSONObject();

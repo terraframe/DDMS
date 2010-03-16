@@ -105,12 +105,19 @@ YAHOO.util.Event.onDOMReady(function(){
     %>
     
     //public static java.lang.String GEOENTITY = "geoEntity";
-    var efficacyAttribs = ["testDate","specie","testMethod","holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
+    var efficacyAttribs = ["testDate","specie","testMethod", "geoEntity", "holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
     available = new MDSS.Set(<%= request.getAttribute("efficacyAttribs") %>);
     efficacyAttribs = Mojo.Iter.filter(efficacyAttribs, function(attrib){
-        return this.contains(attrib);
+        if(attrib === 'geoEntity')
+        {
+          return this.contains('<%= EfficacyAssayViewDTO.GEOID %>');
+        }
+        else
+        {
+          return this.contains(attrib);
+        }
     }, available);
-    
+
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var efficacyColumns =  efficacyAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});

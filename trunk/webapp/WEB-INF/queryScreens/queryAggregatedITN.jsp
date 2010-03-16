@@ -96,7 +96,14 @@ YAHOO.util.Event.onDOMReady(function(){
     %>
     var available = new MDSS.Set(<%= request.getAttribute("aITNAttribs") %>);
     aITNAttribs = Mojo.Iter.filter(aITNAttribs, function(attrib){
-        return this.contains(attrib);
+        if(attrib === 'geoEntity')
+        {
+          return this.contains('<%= ITNDataViewDTO.GEOID %>');
+        }
+        else
+        {
+          return this.contains(attrib);
+        }
     }, available);
 
     

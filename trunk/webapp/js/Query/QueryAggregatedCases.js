@@ -434,12 +434,18 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
   
       var attributeName = attribute.getAttributeName();
       
-      if(attribute.getType() == 'sqldouble'){
-        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),true));
+      var selectable;
+      if(attribute.getType() == 'sqldouble')
+      {
+        selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),true));
+      }
+      else if(attribute.getType() == 'sqlcharacter')
+      {
+        selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
       }
       else
       {
-      	var selectable = attribute.getSelectable();
+      	selectable = attribute.getSelectable();
       }
   
       this._visibleSelectables[attribute.getKey()] = selectable;
@@ -826,29 +832,37 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         check.id = attribute.getKey();
         YAHOO.util.Event.on(check, 'click', this._visibleAttributeHandler, attribute, this);
         this._defaults.push({element:check, checked:false});
-  
-        var select = document.createElement('select');
-        this._defaults.push({element:select, index:0});
-  
-        var options = [''];
-        options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
-  
-        for(var j=0; j<options.length; j++)
-        {
-          var option = options[j];
-          var optionEl = document.createElement('option');
-          optionEl.innerHTML = option;
-          optionEl.id = attribute.getKey() + '-' + option;
-          YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
-  
-          YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-  
-          select.appendChild(optionEl);
-        }
-        select.disabled = true; // default (must be checked to enabled)
-  
         li.appendChild(check);
-        li.appendChild(select);
+  
+        if(attribute.getAttributeName() === this._aggregatedCase.constructor.GEOENTITY)
+        {
+          attribute.setType('sqlcharacter');
+          attribute.setAttributeName(attribute.getAttributeName()+'_displayLabel');
+        }
+        else
+        {
+          var select = document.createElement('select');
+          this._defaults.push({element:select, index:0});
+    
+          var options = [''];
+          options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
+    
+          for(var j=0; j<options.length; j++)
+          {
+            var option = options[j];
+            var optionEl = document.createElement('option');
+            optionEl.innerHTML = option;
+            optionEl.id = attribute.getKey() + '-' + option;
+            YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+    
+            YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+    
+            select.appendChild(optionEl);
+          }
+          select.disabled = true; // default (must be checked to enabled)
+    
+          li.appendChild(select);
+        }
         li.appendChild(span);
   
         visibleUl.appendChild(li);

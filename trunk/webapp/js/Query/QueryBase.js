@@ -1465,6 +1465,11 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     {
       return this._attributeName;
     },
+    
+    setAttributeName : function(attributeName)
+    {
+      this._attributeName = attributeName;
+    },
   
     getDisplayLabel : function()
     {

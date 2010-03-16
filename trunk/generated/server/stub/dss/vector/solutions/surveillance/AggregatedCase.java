@@ -515,7 +515,7 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
     
-    
+    QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, sd, ed);
 
     QueryUtil.validateQuery(valueQuery);

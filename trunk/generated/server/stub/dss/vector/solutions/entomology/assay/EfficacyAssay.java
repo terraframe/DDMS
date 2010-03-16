@@ -23,6 +23,7 @@ import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
+import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -245,6 +246,8 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
           valueQuery.WHERE((InnerJoin) join);
         }
       }
+      
+      QueryUtil.joinGeoDisplayLabels(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery);
     }
     
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
@@ -254,6 +257,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
       valueQuery.WHERE(efficacyAssayQuery.getInsecticide().EQ(insecticideQuery));
       QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
     }
+    
     
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
     

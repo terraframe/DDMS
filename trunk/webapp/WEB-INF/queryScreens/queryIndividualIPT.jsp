@@ -110,7 +110,18 @@ YAHOO.util.Event.onDOMReady(function(){
     %>
     available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
     personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
-      return this.contains(attrib);
+        if(attrib === 'workGeoEntity')
+        {
+          return this.contains('<%= PersonViewDTO.WORKGEOID%>');
+        }
+        else if(attrib === 'residentialGeoEntity')
+        {
+          return this.contains('<%= PersonViewDTO.RESIDENTIALGEOID%>');
+        }
+        else
+        {
+          return this.contains(attrib);
+        }
     }, available);    
     
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
