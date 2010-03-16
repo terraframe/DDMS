@@ -13,11 +13,12 @@ import org.json.JSONObject;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AggregateFunction;
+import com.terraframe.mojo.query.EntityQuery;
+import com.terraframe.mojo.query.GeneratedComponentQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SUM;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.SelectableSQLInteger;
@@ -329,8 +330,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
           valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
         }
         valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
-//        valueQuery.SELECT(personQuery.getDob());
-
       }
 
       String personTableAlias = personQuery.getTableAlias();
@@ -339,6 +338,12 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       dobSel.setSQL(sql);
     }
 
+    // Force a tautological WHERE condition to always ensure SurveyPoint gets
+    // included in the FROM clause of the query; otherwise, certain conditions
+    // such as only selecting date groups will omit the SurveyPoint and cause an
+    // SQL error.
+    valueQuery.WHERE(surveyPointQuery.getId().EQ(surveyPointQuery.getId()));
+    
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
@@ -347,9 +352,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    String sql = valueQuery.getSQL();
-    
-    
     return valueQuery;
   }
 }
