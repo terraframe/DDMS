@@ -16,17 +16,18 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 public class ErrorUtility implements Reloadable
 {
-  public static final String  ERROR_MESSAGE_ARRAY = "errorMessageArray";
+  public static final String ERROR_MESSAGE_ARRAY = "errorMessageArray";
 
-  public static final String  ERROR_MESSAGE       = "errorMessage";
+  public static final String ERROR_MESSAGE       = "errorMessage";
 
-  public static final String  DEVELOPER_MESSAGE   = "developerMessage";
+  public static final String DEVELOPER_MESSAGE   = "developerMessage";
 
   public static final String MESSAGE_ARRAY       = "messageArray";
-  
+
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
     List<String> messages = new LinkedList<String>();
@@ -61,20 +62,29 @@ public class ErrorUtility implements Reloadable
       req.setAttribute(ErrorUtility.MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
     }
   }
-  
+
   public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus) throws IOException
   {
     if (isAsynchronus)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-      
+      if (t instanceof ProblemExceptionDTO)
+      {
+        JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO((ProblemExceptionDTO) t);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+      else
+      {
+        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        resp.setStatus(500);
+        resp.getWriter().print(jsonE.getJSON());
+      }
+
       return true;
     }
     else
     {
-      if(t instanceof ProblemExceptionDTO)
+      if (t instanceof ProblemExceptionDTO)
       {
         ErrorUtility.prepareProblems((ProblemExceptionDTO) t, req);
       }
@@ -83,7 +93,7 @@ public class ErrorUtility implements Reloadable
         ErrorUtility.prepareThrowable(t, req);
       }
     }
-    
+
     return false;
   }
 
@@ -152,23 +162,23 @@ public class ErrorUtility implements Reloadable
 
     return null;
   }
-  
+
   private static String getMessageArray(HttpServletRequest req)
   {
     Object message = req.getAttribute(ErrorUtility.MESSAGE_ARRAY);
-    
+
     if (message != null && message instanceof String[])
     {
       StringBuffer buffer = new StringBuffer();
-      
+
       for (String msg : (String[]) message)
       {
         buffer.append(msg + "\n");
       }
-      
+
       return ErrorUtility.encodeMessage(buffer.toString());
     }
-    
+
     return null;
   }
 
@@ -224,12 +234,12 @@ public class ErrorUtility implements Reloadable
 
       req.setAttribute(ERROR_MESSAGE_ARRAY, array);
     }
-    
+
     if (messageArray != null)
     {
       String[] array = messageArray.split("\\n");
-      
+
       req.setAttribute(MESSAGE_ARRAY, array);
-    }    
+    }
   }
 }

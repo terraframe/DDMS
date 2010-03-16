@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
@@ -249,7 +248,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   private void editThresholdConfiguration(ThresholdCalculationTypeViewDTO item) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientSession().getRequest();
-    
+
     List<GeoHierarchyViewDTO> universals = this.getPopulationFilterHiearchies();
     List<OutbreakCalculationMasterDTO> countingMethods = OutbreakCalculationDTO.allItems(request);
     Integer percentComplete = ThresholdCalculationTypeViewDTO.getPercentComplete(request);
@@ -306,7 +305,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     catch (java.lang.Throwable t)
     {
       boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-      
+
       if (!redirect)
       {
         this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
@@ -361,11 +360,9 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       ThresholdCalculationTypeViewDTO.calculatePoliticalThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
       this.editThresholdConfiguration();
     }
-    catch (java.lang.Throwable t)
+    catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
     }
   }
 
@@ -383,11 +380,9 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       ThresholdCalculationTypeViewDTO.calculateFacilityThresholds(this.getClientRequest(), thresholdCalculation, currentYear);
       this.editThresholdConfiguration();
     }
-    catch (java.lang.Throwable t)
+    catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
     }
   }
 

@@ -313,51 +313,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
 
   public static ValueQuery searchForPerson(String value)
   {
-    // QueryFactory f = new QueryFactory();
-    //
-    // ValueQuery valueQuery = new ValueQuery(f);
-    // PersonQuery personQuery = new PersonQuery(valueQuery);
-    //
-    // String residentialLabel = Person.RESIDENTIALGEOENTITY +
-    // QueryUtil.DISPLAY_LABEL_SUFFIX;
-    //
-    // Selectable[] selectables = new Selectable[] {
-    // personQuery.getId(PersonView.ID),
-    // personQuery.getFirstName(PersonView.FIRSTNAME),
-    // personQuery.getLastName(PersonView.LASTNAME),
-    // personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
-    // personQuery.getSex().getName(PersonView.SEX),
-    // valueQuery.aSQLCharacter(residentialLabel, residentialLabel) };
-    //
-    // valueQuery.SELECT(selectables);
-    //
-    // QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
-    //
-    // String statement = "%" + value + "%";
-    //
-    // // Search conditions
-    // Condition or = OR.get(personQuery.getFirstName().LIKEi(statement),
-    // personQuery.getLastName().LIKEi(statement));
-    //
-    // StringTokenizer toke = new StringTokenizer(value, ", ");
-    //
-    // while (toke.hasMoreTokens())
-    // {
-    // String string = "%" + toke.nextToken() + "%";
-    //
-    // or = OR.get(or, personQuery.getFirstName().LIKEi(string),
-    // personQuery.getLastName().LIKEi(string));
-    // }
-    //
-    // // The person must be a IPT Recipient
-    // valueQuery.WHERE(or);
-    // valueQuery.ORDER_BY_ASC((SelectablePrimitive)
-    // valueQuery.getSelectableRef(Person.FIRSTNAME));
-    //
-    // valueQuery.restrictRows(20, 1);
-    //
-    // return valueQuery;
-
     QueryFactory factory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(factory);
