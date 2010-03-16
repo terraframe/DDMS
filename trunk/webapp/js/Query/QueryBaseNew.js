@@ -122,7 +122,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         }
       });
 
-      var debug = document.getElementById('debug_xml')
+      var debug = document.getElementById('debug_xml');
       if(debug){
         	debug.value = xml;
         	//xml = debug.value;
@@ -318,6 +318,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       {
         var name = aggNames[i];
         var selectable = this._visibleAggregateSelectables[name];
+        var t = selectable.getComponent().getSelectable().getComponent().getEntityAlias();
+        if (addedEntities.indexOf(t) < 0  && t.indexOf('dss.vector.solutions') == 0) {
+          var query = new MDSS.QueryXML.Entity(t, t);
+          queryXML.addEntity(query);
+        	addedEntities.concat(t);
+				}
 
         queryXML.addSelectable(mainQuery.getAlias()+'_'+name, selectable);
       }
