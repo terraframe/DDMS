@@ -348,21 +348,20 @@ public class IndividualCase extends IndividualCaseBase implements
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualCase.CLASS, caseQuery);
 
-    QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery);
+    //QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery);
+    
+    QueryUtil.leftJoinTermDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery, instanceQuery.getTableAlias()+".id");
 
     QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
 
-    try
+    if(valueQuery.hasSelectableRef("instances"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("instances");
       String sql = "COUNT(*)";
       calc.setSQL(sql);
     }
-    catch (QueryException e)
-    {
-    }
 
-    try
+    if(valueQuery.hasSelectableRef("cases"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
@@ -371,21 +370,15 @@ public class IndividualCase extends IndividualCaseBase implements
           + tableAlias + ".id))";
       calc.setSQL(sql);
     }
-    catch (QueryException e)
-    {
-    }
 
-    try
+    if(valueQuery.hasSelectableRef("deaths"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("deaths");
       String sql = "SUM(diedInFacility)";
       calc.setSQL(sql);
     }
-    catch (QueryException e)
-    {
-    }
 
-    try
+    if(valueQuery.hasSelectableRef("cfr"))
     {
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
@@ -393,9 +386,6 @@ public class IndividualCase extends IndividualCaseBase implements
       String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM " + tableName
           + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)))*100.0";
       calc.setSQL(sql);
-    }
-    catch (QueryException e)
-    {
     }
 
     calculateIncidence(valueQuery, caseQuery, queryConfig, xml, 100);
@@ -422,11 +412,11 @@ public class IndividualCase extends IndividualCaseBase implements
       JSONObject queryConfig, String xml, Integer multiplier)
   {
     SelectableSQLFloat calc;
-    try
+    if(valueQuery.hasSelectableRef("incidence_" + multiplier))
     {
       calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
     }
-    catch (QueryException e)
+    else
     {
       return;
     }
