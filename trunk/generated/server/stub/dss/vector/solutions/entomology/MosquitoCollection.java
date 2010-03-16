@@ -14,10 +14,10 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AttributeMoment;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLFloat;
+import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
@@ -263,8 +263,27 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-
-    if (xml.contains("abundance_1"))
+    
+    
+    if (valueQuery.hasSelectableRef("mosquitoCount"))
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("mosquitoCount");
+      calc.setSQL("NULL");
+    }
+    if (valueQuery.hasSelectableRef("collectionCount"))
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("collectionCount");
+      calc.setSQL("NULL");
+    }
+    if (valueQuery.hasSelectableRef("subCollectionCount"))
+    {
+      SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("subCollectionCount");
+      calc.setSQL("NULL");
+    }
+    
+    
+    
+    if (xml.contains("abundance_") || xml.contains("mosquitoCount") || xml.contains("ollectionCount"))
     {
 
       String viewName = "abundance_view";
@@ -286,6 +305,20 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
         String columnAlias = s.getColumnAlias();
         String columnName = s.getColumnAlias();
 
+        if (attributeName.equals("mosquitoCount"))
+        {
+          columnName = "abundance_sum";
+        }
+        if (attributeName.equals("collectionCount"))
+        {
+          columnName = "array_length(allCollectionIds,1)";
+        }       
+        if (attributeName.equals("subCollectionCount"))
+        {
+          columnName = "coalesce(array_length(allSubCollectionIds,1))";
+        }
+
+        
         if (attributeName.equals("abundance_1"))
         {
           columnName = "1.0*(final_abundance/array_length(allCollectionIds,1))";
@@ -302,10 +335,32 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
         {
           columnName = "1000.0*(final_abundance/array_length(allCollectionIds,1))";
         }
+        
+ 
+        if (attributeName.equals("abundance_subcol_1"))
+        {
+          columnName = "1.0*(final_abundance/array_length(allSubCollectionIds,1))";
+        }
+        if (attributeName.equals("abundance_subcol_10"))
+        {
+          columnName = "10.0*(final_abundance/array_length(allSubCollectionIds,1))";
+        }
+        if (attributeName.equals("abundance_subcol_100"))
+        {
+          columnName = "100.0*(final_abundance/array_length(allSubCollectionIds,1))";
+        }
+        if (attributeName.equals("abundance_subcol_1000"))
+        {
+          columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
+        }
 
         if (s instanceof SelectableSQLFloat)
         {
           overrideQuery.SELECT(overrideQuery.aSQLFloat(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
+        }
+        else if (s instanceof SelectableSQLInteger)
+        {
+          overrideQuery.SELECT(overrideQuery.aSQLInteger(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
         else if (s instanceof AttributeMoment)
         {
@@ -329,16 +384,18 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
   public static void setAbundance(ValueQuery valueQuery, Integer multiplier, String sql)
   {
-    try
-    {
-      String selectableName = "abundance_" + multiplier;
+    String selectableName = "abundance_" + multiplier;
+    if(valueQuery.hasSelectableRef(selectableName)) {
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef(selectableName);
-
       calc.setSQL(sql);
     }
-    catch (QueryException e)
-    {
+    
+    selectableName = "abundance_subcol_" + multiplier;
+    if(valueQuery.hasSelectableRef(selectableName)) {
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef(selectableName);
+      calc.setSQL(sql);
     }
+
   }
 
   public static String getWithQuerySQL(String viewName, ValueQuery valueQuery)
@@ -361,7 +418,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     String origQuery = valueQuery.getSQL();
     
-    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionId) as collectionIds \n,";
+    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionid) as collectionIds, \n array_agg(subcollectionid) as subCollectionIds  \n,";
 
     origQuery = origQuery.replaceFirst("SELECT", "SELECT "+ selectAddtions).replaceFirst("GROUP BY", "GROUP BY taxon,");
 
@@ -376,6 +433,8 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     sql += "WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon " + joinMainQuery + " )as total_of_children, \n";
     //list of collection ids in this group
     sql += "ARRAY(SELECT distinct unnest(collectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allCollectionIds, \n";
+    //list of sub collection ids in this group
+    sql += "ARRAY(SELECT distinct unnest(subCollectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allSubCollectionIds, \n";
     //used to order the recursive decent
     sql += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery + " )as depth, ";
     //the parent specie of this row in this group
