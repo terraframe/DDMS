@@ -331,20 +331,20 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 
 	@Transaction
 	protected void createWeeklyThreshold(GeoEntity geoEntity, MalariaSeason season, EpiDate epiDate, long t1, long t2) {
-		if (t1 > 0 || t2 > 0) {
-			// System.out.println(thresholdData.getGeoEntity().getEntityName() +
-			// ", " + thresholdData.getSeason().getSeasonName() + " (" +
-			// epiDate.getActualPeriod() + "/" + epiDate.getActualYear() +
-			// ") = " + t1 + ", " + t2);
-			EpiWeek epiWeek = EpiWeek.getEpiWeek(epiDate);
-			ThresholdData thresholdData = this.getThresholdData(geoEntity, season);
+		EpiWeek epiWeek = EpiWeek.getEpiWeek(epiDate);
+		ThresholdData thresholdData = this.getThresholdData(geoEntity, season);
 
-			WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);
-			if (weeklyThreshold == null) {
+		WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);
+		if (weeklyThreshold == null) {
+			if (t1 > 0 || t2 > 0) {
+				// only bother creating a record if both values are non-zero
 				weeklyThreshold = new WeeklyThreshold(thresholdData, epiWeek);
-			} else {
-				weeklyThreshold.appLock();
 			}
+		} else {
+			weeklyThreshold.appLock();
+		}
+
+		if (weeklyThreshold != null) {
 			this.setThresholdValues(weeklyThreshold, t1, t2);
 			weeklyThreshold.setCalculationType(calculationType);
 			weeklyThreshold.apply();

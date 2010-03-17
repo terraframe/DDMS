@@ -81,6 +81,9 @@ public class Statistics {
 	}
 
 	public double binomial(double vx, double vN, double pp) {
+		if (vx == 0.0d) {
+			return 0.0d;
+		}
 		return this.binomHigh(vx, vN, pp) * vN;
 	}
 

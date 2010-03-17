@@ -41,7 +41,16 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 	}
 	
 	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
-		weeklyThreshold.setFacilityNotification((int) t1);
-		weeklyThreshold.setFacilityIdentification((int) t2);
+		if (t1 <= 0) {
+			weeklyThreshold.setFacilityNotification(null);
+		} else {
+			weeklyThreshold.setFacilityNotification((int) t1);
+		}
+		
+		if (t2 <= 0) {
+			weeklyThreshold.setFacilityIdentification(null);
+		} else {
+			weeklyThreshold.setFacilityIdentification((int) t2);
+		}
 	}
 }

@@ -40,7 +40,16 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 	}
 
 	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
-		weeklyThreshold.setNotification((int) t1);
-		weeklyThreshold.setIdentification((int) t2);
+		if (t1 <= 0) {
+			weeklyThreshold.setNotification(null);
+		} else {
+			weeklyThreshold.setNotification((int) t1);
+		}
+		
+		if (t2 <= 0) {
+			weeklyThreshold.setIdentification(null);
+		} else { 
+			weeklyThreshold.setIdentification((int) t2);
+		}
 	}
 }
