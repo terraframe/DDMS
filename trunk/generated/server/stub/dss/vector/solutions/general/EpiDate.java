@@ -280,7 +280,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     int min = cal.getActualMinimum(period) - ( cal.getFirstDayOfWeek() - 1);
     int max = cal.getActualMaximum(period) - ( cal.getFirstDayOfWeek() - 1);
 
-    int days_before_piviot = piviot - min ;
+    int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
 
     // beginning of week wins in case of tie
@@ -419,37 +419,63 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   }
   
 
-  public static Date snapToEpiYear(Date startDate, Boolean snapToFirstDay)
+  public static int getEpiYearFromDate(Date date)
   {
-    int period = Calendar.DAY_OF_YEAR;
 
     Calendar cal = new GregorianCalendar();
-    cal.setTime(startDate);
-    cal = getEpiCalendar(cal.get(Calendar.YEAR));
-    cal.setTime(startDate);
+    cal.setTime(date);
+    int year =cal.get(Calendar.YEAR);
+    
+    
+    Date thisYear = getEpiCalendar(year).getTime();
+    Date nextYear = getEpiCalendar(year + 1).getTime();
+    
+    //after the start of next epi year
+    if (date.compareTo(nextYear) >= 0 )
+    {
+      year = year + 1;
+    }
+    //before the start of this epi year
+    else if(date.compareTo(thisYear) < 0 )
+    {
+      year = year - 1;
+    }
 
-    int piviot = cal.get(period);
-    int max = cal.getActualMaximum(period);
-    int min = cal.getActualMinimum(period);
+    
+    return year;
+     
+  }
+  
+  
+  
+  public static Date snapToEpiYear(Date startDate, Boolean snapToFirstDay)
+  {
 
-    int days_before_piviot = piviot - min;
-    int days_after_piviot = max - piviot;
+    Date start =  getEpiCalendar(getEpiYearFromDate(startDate)).getTime();
+    Date end =  getEpiCalendar(getEpiYearFromDate(startDate)+1).getTime();
+
+    long piviot = startDate.getTime();
+    long max = end.getTime();
+    long min = start.getTime();
+
+    long milis_before_piviot = piviot - min;
+    long milis_after_piviot = max - piviot;
 
     // beginning of year wins in case of tie
     if (snapToFirstDay == null)
     {
-      snapToFirstDay = ( days_before_piviot < days_after_piviot );
+      snapToFirstDay = ( milis_before_piviot < milis_after_piviot );
     }
 
     if (snapToFirstDay)
     {
-      cal.set(period, min);
+      return start;
     }
     else
     {
-      cal.set(period, max);
+      return new Date(max - 1000*60*60*24);
     }
-    return cal.getTime();
+
   }
 
   public static Date snapToSeason(Date snapable, Boolean snapToFirstDay)
