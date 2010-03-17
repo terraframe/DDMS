@@ -275,11 +275,12 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     cal = getEpiCalendar(cal.get(Calendar.YEAR));
     cal.setTime(startDate);
 
-    int piviot = cal.get(period);
-    int min = cal.getActualMinimum(period);
-    int max = cal.getActualMaximum(period);
+    int piviot = cal.get(period) ;
+    // we adjust the min and max to shift the window for the non-sunday week starts
+    int min = cal.getActualMinimum(period) - ( cal.getFirstDayOfWeek() - 1);
+    int max = cal.getActualMaximum(period) - ( cal.getFirstDayOfWeek() - 1);
 
-    int days_before_piviot = piviot - min;
+    int days_before_piviot = piviot - min ;
     int days_after_piviot = max - piviot;
 
     // beginning of week wins in case of tie
@@ -385,6 +386,40 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   }
 
   public static Date snapToYear(Date startDate, Boolean snapToFirstDay)
+  {
+    int period = Calendar.DAY_OF_YEAR;
+
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(startDate);
+    cal = getEpiCalendar(cal.get(Calendar.YEAR));
+    cal.setTime(startDate);
+
+    int piviot = cal.get(period);
+    int max = cal.getActualMaximum(period);
+    int min = cal.getActualMinimum(period);
+
+    int days_before_piviot = piviot - min;
+    int days_after_piviot = max - piviot;
+
+    // beginning of year wins in case of tie
+    if (snapToFirstDay == null)
+    {
+      snapToFirstDay = ( days_before_piviot < days_after_piviot );
+    }
+
+    if (snapToFirstDay)
+    {
+      cal.set(period, min);
+    }
+    else
+    {
+      cal.set(period, max);
+    }
+    return cal.getTime();
+  }
+  
+
+  public static Date snapToEpiYear(Date startDate, Boolean snapToFirstDay)
   {
     int period = Calendar.DAY_OF_YEAR;
 
