@@ -23,18 +23,11 @@ public class GeometryHelper {
 	 * 
 	 * @param wktString
 	 * @return
+	 * @throws ParseException 
 	 */
-	public Geometry getGeometry(String wktString) {
-		Geometry g = null;
-
+	public Geometry parseGeometry(String wktString) throws ParseException {
 		WKTReader r = new WKTReader();
-		try {
-			g = r.read(wktString);
-		} catch (ParseException e) {
-			// FAILED TO PARSE -- Just return null
-		}
-
-		return g;
+		return r.read(wktString);
 	}
 
 	/**

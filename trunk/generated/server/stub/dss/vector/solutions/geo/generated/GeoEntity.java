@@ -71,6 +71,7 @@ import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.WKTParsingProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
@@ -148,22 +149,26 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
 
     GeometryHelper geometryHelper = new GeometryHelper();
-    WKTReader r = new WKTReader();
     String geoData = this.getGeoData();
     if (geoData != null && geoData.length() > 0)
     {
-      Geometry geo;
       try
       {
-        geo = r.read(geoData);
+        Geometry geo = geometryHelper.parseGeometry(geoData);
+        this.setGeoPoint(geometryHelper.getGeoPoint(geo));
+        this.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(geo));
       }
-      catch (ParseException e)
+      catch (Exception e)
       {
-        throw new ProgrammingErrorException(e);
+        String msg = "Error parsing WKT";
+
+        WKTParsingProblem p = new WKTParsingProblem(msg);
+        p.setNotification(this, GEODATA);
+        p.setReason(e.getLocalizedMessage());
+        p.apply();
+        p.throwIt();
       }
 
-      this.setGeoPoint(geometryHelper.getGeoPoint(geo));
-      this.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(geo));
     }
     // allow new instances to set geoPoint and geoMultiPolygon directly because
     // the

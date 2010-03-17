@@ -4,6 +4,7 @@ package dss.vector.solutions;
 import junit.framework.TestCase;
 
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
 
 import dss.vector.solutions.util.GeometryHelper;
 
@@ -60,12 +61,17 @@ public class GeometryHelperTest extends TestCase {
 	}
 	
 	private void test(String wktIn, String wktOut) {
-		Geometry g  = helper.getGeometry(wktIn);
-		String wktGenerated = helper.getGeoMultiPolygon(g).toText(); 
-		if (!wktOut.equals(wktGenerated)) {
-			System.out.println("Expected: " + wktOut);
-			System.out.println("Received: " + wktGenerated);
+		try {
+			Geometry g = helper.parseGeometry(wktIn);
+			String wktGenerated = helper.getGeoMultiPolygon(g).toText(); 
+			if (!wktOut.equals(wktGenerated)) {
+				System.out.println("Expected: " + wktOut);
+				System.out.println("Received: " + wktGenerated);
+				fail();
+			}
+		} catch (ParseException e) {
 			fail();
 		}
+
 	}
 }
