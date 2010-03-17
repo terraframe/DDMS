@@ -262,7 +262,6 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     
     
     if (valueQuery.hasSelectableRef("mosquitoCount"))
@@ -404,10 +403,10 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     String joinMainQuery = "";
     
     String areaGroup = "";
-
+    
     for (Selectable s : valueQuery.getSelectableRefs())
     {
-      if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId"))
+      if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
       {
         joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " ";
         areaGroup += "||  mainQuery." + s.getColumnAlias() + " ";
@@ -437,9 +436,10 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     sql += "ARRAY(SELECT distinct unnest(subCollectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allSubCollectionIds, \n";
     //used to order the recursive decent
     sql += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery + " )as depth, ";
-    //the parent specie of this row in this group
-    //TODO: fix  for skiping levels
-    sql += "(SELECT parent_id from termrelationship WHERE taxon = child_id ) as parent, \n";
+    //the parent specie of this row in this group, may skip levels
+    sql += "(SELECT ss.taxon as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery; 
+    sql += " GROUP BY ss.taxon ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
+    
     sql += areaGroup + " AS areaGroup\n";
     sql += " FROM mainQuery),\n";
     sql += " \n";
