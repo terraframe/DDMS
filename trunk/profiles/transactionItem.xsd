@@ -24,6 +24,7 @@
       </xs:sequence>
       <xs:attribute name="id" type="xs:string" use="required"/>
       <xs:attribute name="seq" type="xs:string" use="required"/>
+      <xs:attribute name="site" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

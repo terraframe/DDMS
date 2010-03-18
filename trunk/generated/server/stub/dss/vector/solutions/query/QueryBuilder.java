@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import com.terraframe.mojo.MojoException;
 import com.terraframe.mojo.business.SmartException;
@@ -17,7 +16,6 @@ import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.AttributePrimitive;
 import com.terraframe.mojo.query.COUNT;
 import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.QueryFactory;
@@ -238,7 +236,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     String sql = Database.instance().escapeSQLCharacters(token);
     
     selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql  + "'),0))");
-    vQ.SELECT(new DISTINCT(selectClauseArray));
+    vQ.SELECT_DISTINCT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + sql + "%"));
 
     for (Condition condition : conditionArray)

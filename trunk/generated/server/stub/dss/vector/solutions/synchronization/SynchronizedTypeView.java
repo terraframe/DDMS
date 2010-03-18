@@ -11,7 +11,6 @@ import com.terraframe.mojo.dataaccess.MdTypeDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
@@ -128,7 +127,7 @@ public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Re
     ValueQuery value = new ValueQuery(qf);
     String thisId = "t1";
     String referencedId = "t2";
-    value.SELECT(new DISTINCT(arq.getMdBusiness().getId(referencedId)));
+    value.SELECT_DISTINCT(arq.getMdBusiness().getId(referencedId));
     value.WHERE(arq.getDefiningMdClass().getId(thisId).EQ(this.getMdTypeId()));
 
     vQuery.WHERE(vQuery.getQualifiedTypeConcat().LIKE("dss.*"));

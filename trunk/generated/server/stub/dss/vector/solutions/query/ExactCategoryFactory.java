@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.SelectableSQLDouble;
 import com.terraframe.mojo.query.ValueQuery;
@@ -61,7 +60,7 @@ public class ExactCategoryFactory extends ExactCategoryFactoryBase implements co
 
 		SelectableSQLDouble layerValues = wrapper.aSQLDouble("layer_value", "SELECT " + layer.getThematicColumnAlias());
 
-		wrapper.SELECT(new DISTINCT(layerValues));
+		wrapper.SELECT_DISTINCT(layerValues);
 
 		wrapper.WHERE(layerValues.NE((Double) null));
 

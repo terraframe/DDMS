@@ -7,7 +7,6 @@ import com.terraframe.mojo.constants.MdTypeInfo;
 import com.terraframe.mojo.constants.ServerConstants;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater;
-import com.terraframe.mojo.query.DISTINCT;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdTypeQuery;
@@ -24,7 +23,7 @@ public class MdssDmu
     QueryFactory queryFactory = new QueryFactory();
     MdTypeQuery mdType = new MdTypeQuery(queryFactory);
     ValueQuery query = queryFactory.valueQuery();
-    query.SELECT(new DISTINCT(mdType.getPackageName(MdTypeInfo.PACKAGE)));
+    query.SELECT_DISTINCT(mdType.getPackageName(MdTypeInfo.PACKAGE));
     query.WHERE(mdType.getPackageName(MdTypeInfo.PACKAGE).LIKEi(args[1]));
     
     for (ValueObject object : query.getIterator())
