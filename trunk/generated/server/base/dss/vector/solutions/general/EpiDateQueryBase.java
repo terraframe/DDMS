@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1369703170)
+@com.terraframe.mojo.business.ClassSignature(hash = 1020507362)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class EpiDateQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1369703170;
+private static final long serialVersionUID = 1020507362;
 
   public EpiDateQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

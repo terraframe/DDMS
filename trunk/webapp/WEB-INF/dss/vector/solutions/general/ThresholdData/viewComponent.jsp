@@ -140,7 +140,7 @@ String deleteColumn = "";
                     innerHTML += '<input type="hidden" name="views_' + i + '.season" value="' + object.getValue('<%=ThresholdDataViewDTO.SEASON%>') + '"/>\n';
                     innerHTML += '<input type="hidden" name="views_' + i + '.geoEntity" value="' + object.getGeoEntity() + '"/>\n';
 
-                    for(var j = 0; j < 52; j++) {
+                    for(var j = 0; j < 53; j++) {
                       var outbreak = object['getOutbreak_'+j]();
                       var identification = object['getIdentification_'+j]();
 

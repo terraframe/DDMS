@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -744921447)
+@com.terraframe.mojo.business.ClassSignature(hash = 289271801)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,7 +17,7 @@ public abstract class EpiDateBase extends com.terraframe.mojo.business.View impl
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -744921447;
+  private static final long serialVersionUID = 289271801;
   
   public EpiDateBase()
   {
@@ -225,6 +225,12 @@ public abstract class EpiDateBase extends com.terraframe.mojo.business.View impl
   }
   
   public static java.util.Date snapToEpiWeek(java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EpiDate.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.util.Date snapToEpiYear(java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EpiDate.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

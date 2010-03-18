@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 535434521)
+@com.terraframe.mojo.business.ClassSignature(hash = 224910969)
 public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EpiDate";
-  private static final long serialVersionUID = 535434521;
+  private static final long serialVersionUID = 224910969;
   
   protected EpiDateDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -253,6 +253,14 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiWeek", _declaredTypes);
+    return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.util.Date snapToEpiYear(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  {
+    String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{startDate, snapToFirstDay};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiYear", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -28,6 +28,12 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     super();
   }
+  
+  @Override
+  public String toString()
+  {
+    return this.getPeriod() + " - " + this.getYear();
+  }
 
   public static EpiDate getInstanceByPeriod(PeriodType periodType, Integer period, Integer year)
   {
@@ -53,6 +59,19 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     if (periodType.equals(PeriodType.WEEK))
     {
+      Integer numberOfWeeks = EpiDate.getNumberOfEpiWeeks(year);
+      
+      while(period >= numberOfWeeks)
+      {
+        period = period - numberOfWeeks;
+        year = year + 1;
+        
+        numberOfWeeks = EpiDate.getNumberOfEpiWeeks(year);
+      }
+            
+      super.setPeriod(period);
+      super.setEpiYear(year);
+      
       Calendar calendar = getEpiCalendar(year);
       calendar.add(Calendar.WEEK_OF_YEAR, period);
       

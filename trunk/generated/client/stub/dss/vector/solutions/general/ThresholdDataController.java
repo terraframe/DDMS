@@ -2,7 +2,6 @@ package dss.vector.solutions.general;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -148,8 +147,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     {
       String startDate = Halp.getFormatedDate(req, week.getStartDate());
       String endDate = Halp.getFormatedDate(req, week.getEndDate());
-
-      int weekNumber = ( week.getPeriod() % week.getNumberOfEpiWeeks() ) + 1;
+      Integer numberOfWeeks = week.getNumberOfEpiWeeks();
 
       ColumnSetup outbreakSetup = new ColumnSetup(false, true);
       outbreakSetup.setSum(thresholdType);
@@ -161,7 +159,8 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       identificationSetup.setTitle(startDate + " -> " + endDate);
       identificationSetup.setValidator("thresholdValidator");
 
-      int index = weekNumber - 1;
+      int index = ( week.getPeriod() % numberOfWeeks );
+
       map.put("Outbreak_" + index, outbreakSetup);
       map.put("Identification_" + index, identificationSetup);
     }
@@ -191,23 +190,27 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
   private List<Integer> getAttributeIndicies(EpiDateDTO[] weeks)
   {
-    List<Integer> indices = new ArrayList<Integer>();
+    LinkedList<Integer> set = new LinkedList<Integer>();
 
     for (EpiDateDTO week : weeks)
     {
-      int index = ( week.getPeriod() % week.getNumberOfEpiWeeks() );
+      Integer numberOfWeeks = week.getNumberOfEpiWeeks();
+      Integer period = week.getPeriod();
 
-      indices.add(index);
+      int index = ( period % numberOfWeeks );
+
+      set.add(index);
     }
 
-    for (int i = 0; i < 52; i++)
+    for (int i = 0; i < 53; i++)
     {
-      if (!indices.contains(i))
+      if (!set.contains(i))
       {
-        indices.add(i);
+        set.add(i);
       }
     }
-    return indices;
+
+    return set;
   }
 
   @Override
