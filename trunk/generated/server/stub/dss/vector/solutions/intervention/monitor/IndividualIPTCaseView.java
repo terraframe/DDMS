@@ -158,7 +158,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
       return iptCase.getPatient().getPerson().getView();
     }
-    else if(this.getPatient() != null)
+    else if (this.getPatient() != null)
     {
       return this.getPatient().getView();
     }
@@ -206,7 +206,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
     IndividualIPTCaseQuery query = new IndividualIPTCaseQuery(new QueryFactory());
     query.WHERE(query.getPatient().getPerson().EQ(patientId));
     OIterator<? extends IndividualIPTCase> iterator = query.getIterator();
-    
+
     try
     {
       while (iterator.hasNext())
@@ -232,14 +232,16 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       calendar.add(Calendar.MONTH, -limit);
 
       Date past = calendar.getTime();
-      
+
       Iterator<IndividualIPTCaseView> it = list.iterator();
-      
-      while(it.hasNext())
+
+      while (it.hasNext())
       {
         IndividualIPTCaseView view = it.next();
-        
-        if (view.getServiceDate() != null && !(view.getServiceDate().after(past) && view.getServiceDate().before(serviceDate)))
+
+        Date _serviceDate = view.getServiceDate();
+
+        if (_serviceDate != null && ! ( _serviceDate.after(past) && ( _serviceDate.before(serviceDate) || _serviceDate.equals(serviceDate) ) ))
         {
           it.remove();
         }
