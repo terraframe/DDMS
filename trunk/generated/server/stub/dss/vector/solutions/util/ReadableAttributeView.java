@@ -26,6 +26,8 @@ import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdClass;
 
+import dss.vector.solutions.InstallProperties;
+
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239221651119L;
@@ -117,6 +119,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   @Authenticate
   public static void setActorAttributes(String universal, String actorName, ReadableAttributeView[] attributeViews)
   {
+    InstallProperties.validateMasterOperation();
+    
     ActorDAO actor = (ActorDAO) getActor(actorName).getBusinessDAO();
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
     Map<String, ? extends MdAttributeDAOIF> attributeMap = mdClass.getAllDefinedMdAttributeMap();

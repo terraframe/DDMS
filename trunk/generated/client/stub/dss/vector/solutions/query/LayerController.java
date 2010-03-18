@@ -11,6 +11,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ValueObjectDTO;
 import com.terraframe.mojo.business.ValueQueryDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.query.QueryExceptionDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
@@ -20,9 +21,9 @@ public class LayerController extends LayerControllerBase implements
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/query/Layer/";
 
   public static final String LAYOUT           = JSP_DIR + "layout.jsp";
-  
-  public static final String QUERY_INFO_JSP = JSP_DIR + "queryInfo.jsp";
-  
+
+  public static final String QUERY_INFO_JSP   = JSP_DIR + "queryInfo.jsp";
+
   public static final String CATEGORY_GEN_JSP = JSP_DIR + "categoryGen.jsp";
 
   private static final long  serialVersionUID = 1240900964253L;
@@ -32,122 +33,123 @@ public class LayerController extends LayerControllerBase implements
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   private void populateRequestForLayer(LayerDTO layer, StylesDTO styles)
   {
-    try
-    {
-      ClientRequestIF request = this.getClientRequest();
-      
-      // Set the available legend color attributes
-      LegendColorOption[] legendColors = new LegendColorOption[5];
-      legendColors[0] = new LegendColorOption(styles.getFillMd());
-      legendColors[1] = new LegendColorOption(styles.getLabelHaloFillMd());
-      legendColors[2] = new LegendColorOption(styles.getPointStrokeMd());
-      legendColors[3] = new LegendColorOption(styles.getPolygonFillMd());
-      legendColors[4] = new LegendColorOption(styles.getPolygonStrokeMd());
-      req.setAttribute("legendColors", legendColors);
-      
-      req.setAttribute("layer", layer);
-      req.setAttribute("isNewInstance", layer.isNewInstance());
-      StylesController.populateRequestForStyles(req, styles);
-      
-      // fetch queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(request);
-      List<? extends SavedSearchViewDTO> results = query.getResultSet();
-      
-      this.req.setAttribute("queryList", results);
-      this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(request));
-      
-      // fetch categories
-      String mdAttributeId = "";
-      String geoHierarchyId= "";
-      String currentLegendColor;
-      if(layer.isNewInstance())
-      {
-        // The polygon fill color is the default since it is the most widely used.
-        currentLegendColor = styles.getPolygonFillMd().getId();
-        
-        req.setAttribute("categories", null); 
-        
-        // Check if there is at least one valid SavedSearch which has geometry in the query.
-        if(results.size() > 0)
-        {
-          SavedSearchViewDTO ssView = results.get(0);
-          String ssId = ssView.getSavedQueryId();
-          
-          // Add any of available universal geometries 
-          AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(), ssId);
-          req.setAttribute("attrGeos", attrGeos);
-          
-          if(attrGeos.length > 0)
-          {
-            // Automatically provide the layer with the first available universal geometry 
-            AttributeGeoHierarchyDTO first = attrGeos[0];
-            mdAttributeId = first.getMdAttributeId();
-            geoHierarchyId = first.getGeoHierarchyId();
-          }
+    ClientRequestIF request = this.getClientRequest();
 
-          // Add any thematic variables defined by the SavedSearch
-          ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(), ssId);
-          req.setAttribute("thematicVars", thematicVars);
-        }
-        else
+    // Set the available legend color attributes
+    LegendColorOption[] legendColors = new LegendColorOption[5];
+    legendColors[0] = new LegendColorOption(styles.getFillMd());
+    legendColors[1] = new LegendColorOption(styles.getLabelHaloFillMd());
+    legendColors[2] = new LegendColorOption(styles.getPointStrokeMd());
+    legendColors[3] = new LegendColorOption(styles.getPolygonFillMd());
+    legendColors[4] = new LegendColorOption(styles.getPolygonStrokeMd());
+    req.setAttribute("legendColors", legendColors);
+
+    req.setAttribute("layer", layer);
+    req.setAttribute("isNewInstance", layer.isNewInstance());
+    StylesController.populateRequestForStyles(req, styles);
+
+    // fetch queries
+    SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(request);
+    List<? extends SavedSearchViewDTO> results = query.getResultSet();
+
+    this.req.setAttribute("queryList", results);
+    this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(request));
+
+    // fetch categories
+    String mdAttributeId = "";
+    String geoHierarchyId = "";
+    String currentLegendColor;
+    if (layer.isNewInstance())
+    {
+      // The polygon fill color is the default since it is the most widely used.
+      currentLegendColor = styles.getPolygonFillMd().getId();
+
+      req.setAttribute("categories", null);
+
+      // Check if there is at least one valid SavedSearch which has geometry in
+      // the query.
+      if (results.size() > 0)
+      {
+        SavedSearchViewDTO ssView = results.get(0);
+        String ssId = ssView.getSavedQueryId();
+
+        // Add any of available universal geometries
+        AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer
+            .getRequest(), ssId);
+        req.setAttribute("attrGeos", attrGeos);
+
+        if (attrGeos.length > 0)
         {
-          req.setAttribute("attrGeos", null); 
-          req.setAttribute("thematicVars", null);
+          // Automatically provide the layer with the first available universal
+          // geometry
+          AttributeGeoHierarchyDTO first = attrGeos[0];
+          mdAttributeId = first.getMdAttributeId();
+          geoHierarchyId = first.getGeoHierarchyId();
         }
-        
-        req.setAttribute("currentAttributeGeoHierarchy", null);
+
+        // Add any thematic variables defined by the SavedSearch
+        ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(),
+            ssId);
+        req.setAttribute("thematicVars", thematicVars);
       }
       else
       {
-        currentLegendColor = layer.getValue(LayerDTO.LEGENDCOLOR);
-        
-        req.setAttribute("hasThematic", layer.getThematicUserAlias() != null && layer.getThematicUserAlias().length() > 0);
-        String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
-        
-        mdAttributeId = layer.getValue(LayerDTO.MDATTRIBUTE);
-        geoHierarchyId = layer.getValue(LayerDTO.GEOHIERARCHY);
-        
-        List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
-        CategorySorter.sort(categories);
-        
-        req.setAttribute("categories", categories);
-        
-        AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(layer.getRequest(),
-          ssId);
-        req.setAttribute("attrGeos", attrGeos);
-        
-        String currAttrGeo = layer.getValue(LayerDTO.MDATTRIBUTE)+":"+layer.getValue(LayerDTO.GEOHIERARCHY);
-        req.setAttribute("currentAttributeGeoHierarchy", currAttrGeo);
-        
-        ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(layer.getRequest(), ssId);
-        req.setAttribute("thematicVars", thematicVars);
+        req.setAttribute("attrGeos", null);
+        req.setAttribute("thematicVars", null);
       }
-      
-      this.req.setAttribute("mdAttributeId", mdAttributeId);
-      this.req.setAttribute("geoHierarchyId", geoHierarchyId);
-      this.req.setAttribute("currentLegendColor", currentLegendColor);
+
+      req.setAttribute("currentAttributeGeoHierarchy", null);
     }
-    catch(Throwable e)
+    else
     {
-      throw new ApplicationException(e);
+      currentLegendColor = layer.getValue(LayerDTO.LEGENDCOLOR);
+
+      req.setAttribute("hasThematic", layer.getThematicUserAlias() != null
+          && layer.getThematicUserAlias().length() > 0);
+      String ssId = layer.getValue(LayerDTO.SAVEDSEARCH);
+
+      mdAttributeId = layer.getValue(LayerDTO.MDATTRIBUTE);
+      geoHierarchyId = layer.getValue(LayerDTO.GEOHIERARCHY);
+
+      List<? extends AbstractCategoryDTO> categories = layer.getAllHasCategory();
+      CategorySorter.sort(categories);
+
+      req.setAttribute("categories", categories);
+
+      AttributeGeoHierarchyDTO[] attrGeos = SavedSearchDTO.getAttributeGeoHierarchies(
+          layer.getRequest(), ssId);
+      req.setAttribute("attrGeos", attrGeos);
+
+      String currAttrGeo = layer.getValue(LayerDTO.MDATTRIBUTE) + ":"
+          + layer.getValue(LayerDTO.GEOHIERARCHY);
+      req.setAttribute("currentAttributeGeoHierarchy", currAttrGeo);
+
+      ThematicVariableDTO[] thematicVars = SavedSearchDTO.getThematicVariables(request, ssId);
+      req.setAttribute("thematicVars", thematicVars);
     }
+
+    this.req.setAttribute("mdAttributeId", mdAttributeId);
+    this.req.setAttribute("geoHierarchyId", geoHierarchyId);
+    this.req.setAttribute("currentLegendColor", currentLegendColor);
   }
-  
+
   @Override
-  public void generateCategories(CategoryGenDTO categoryGen, LayerDTO layer) throws IOException, ServletException
+  public void generateCategories(CategoryGenDTO categoryGen, LayerDTO layer) throws IOException,
+      ServletException
   {
     try
     {
       String layerId = categoryGen.getLayerId();
-      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId, categoryGen, layer);
-      
-      for(AbstractCategoryDTO category : categories)
+      AbstractCategoryDTO[] categories = LayerDTO.generateCategories(this.getClientRequest(), layerId,
+          categoryGen, layer);
+
+      for (AbstractCategoryDTO category : categories)
       {
         req.setAttribute("category", category);
-        if(category instanceof NonRangeCategoryDTO)
+        if (category instanceof NonRangeCategoryDTO)
         {
           req.getRequestDispatcher(NonRangeCategoryController.SUMMARY_VIEW).include(req, resp);
         }
@@ -157,7 +159,7 @@ public class LayerController extends LayerControllerBase implements
         }
       }
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -170,34 +172,34 @@ public class LayerController extends LayerControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
   public void requestGenerate(LayerDTO layer, String factoryType) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       CategoryGenDTO gen = new CategoryGenDTO(request);
       gen.setLayerId(layer.getId());
-      
+
       req.setAttribute("item", gen);
-      
+
       ValueQueryDTO vqDTO = AbstractCategoryFactoryDTO.getSubclassInfo(request);
       List<CategoryFactoryOption> factories = new LinkedList<CategoryFactoryOption>();
-      for(ValueObjectDTO vo : vqDTO.getResultSet())
+      for (ValueObjectDTO vo : vqDTO.getResultSet())
       {
         factories.add(new CategoryFactoryOption(vo));
       }
-      
+
       req.setAttribute("factories", factories);
-      
+
       String required = AbstractCategoryFactoryDTO.getAllRequiredAttributes(request);
       req.setAttribute("required", required);
-      
+
       req.getRequestDispatcher(CATEGORY_GEN_JSP).forward(req, resp);
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -210,10 +212,11 @@ public class LayerController extends LayerControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   /**
-   * Calculates basic information for the query represented by the given Layer. The layer object
-   * is not persisted and is only used as a temporary mechanism in which hold query information.
+   * Calculates basic information for the query represented by the given Layer.
+   * The layer object is not persisted and is only used as a temporary mechanism
+   * in which hold query information.
    */
   @Override
   public void calculateQueryInfo(LayerDTO layer) throws IOException, ServletException
@@ -221,11 +224,11 @@ public class LayerController extends LayerControllerBase implements
     try
     {
       QueryInfoDTO info = layer.calculateQueryInfo();
-    
+
       req.setAttribute("info", info);
       req.getRequestDispatcher(QUERY_INFO_JSP).forward(req, resp);
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -238,7 +241,7 @@ public class LayerController extends LayerControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
   public void newInstance() throws IOException, ServletException
   {
@@ -248,10 +251,10 @@ public class LayerController extends LayerControllerBase implements
       StylesDTO styles = new StylesDTO(this.getClientRequest());
 
       this.populateRequestForLayer(layer, styles);
-      
+
       render("createComponent.jsp");
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -264,17 +267,18 @@ public class LayerController extends LayerControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
-  public void saveLayer(LayerDTO layer, StylesDTO styles, String savedMapId) throws IOException, ServletException
+  public void saveLayer(LayerDTO layer, StylesDTO styles, String savedMapId) throws IOException,
+      ServletException
   {
     try
     {
       layer.applyWithStyles(styles, savedMapId);
-      
+
       resp.getWriter().print(layer.getId());
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -287,7 +291,7 @@ public class LayerController extends LayerControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
   public void edit(String id) throws IOException, ServletException
   {
@@ -297,10 +301,10 @@ public class LayerController extends LayerControllerBase implements
       StylesDTO styles = layer.getDefaultStyles();
 
       this.populateRequestForLayer(layer, styles);
-      
+
       render("editComponent.jsp");
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -312,7 +316,7 @@ public class LayerController extends LayerControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
-  }  
+  }
 
   public void delete(dss.vector.solutions.query.LayerDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
@@ -351,7 +355,7 @@ public class LayerController extends LayerControllerBase implements
   {
     this.viewAll();
   }
-  
+
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
@@ -384,7 +388,7 @@ public class LayerController extends LayerControllerBase implements
     {
       dto.unlock();
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
@@ -425,7 +429,7 @@ public class LayerController extends LayerControllerBase implements
     {
       dto.apply();
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);

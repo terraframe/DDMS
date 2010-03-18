@@ -49,7 +49,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       {
         if(this._rendered)
         {
-          document.getElementById(selected[i]+'_selectUniversalType').checked = true;
+          var check = document.getElementById(selected[i]+'_selectUniversalType');
+          if(check)
+          {
+            check.checked = true;
+          }
         }
         else
         {
@@ -267,7 +271,11 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       
       for(var i=0; i<this._initSelectedUniversals.length; i++)
       {
-        document.getElementById(this._initSelectedUniversals[i]+"_selectUniversalType").checked = true;
+        var check = document.getElementById(this._initSelectedUniversals[i]+"_selectUniversalType");
+        if(check)
+        {
+          check.checked = true;
+        }
       }
     },
   

@@ -61,6 +61,8 @@ import dss.vector.solutions.ontology.MissingMOtoGeoUniversalMapping;
 import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchQuery;
 import dss.vector.solutions.util.UniversalSearchHelper;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -599,6 +601,55 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
       mdBusiness.deleteAllTableRecords();
     }
+    
+    // Remove all references to this universal in the saved queries
+    String type = geoEntityClass.definesType();
+    QueryFactory f2 = new QueryFactory();
+    SavedSearchQuery ssq = new SavedSearchQuery(f2);
+    
+    for(SavedSearch search : ssq.getIterator().getAll())
+    {
+      try
+      {
+        JSONObject config = new JSONObject(search.getConfig());
+        JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+
+        Iterator iter = selected.keys();
+        boolean modified = false;
+        while(iter.hasNext())
+        {
+          String key = (String) iter.next();
+          JSONArray filtered = new JSONArray();
+          JSONArray universals = selected.getJSONArray(key);
+          for(int i=0; i<universals.length(); i++)
+          {
+            String universal = universals.getString(i);
+            if(!universal.equals(type))
+            {
+              filtered.put(universal);
+            }
+          }
+          
+          if(filtered.length() != universals.length())
+          {
+            modified = true;
+            selected.put(key, filtered);
+          }
+        }
+        
+        if(modified)
+        {
+          search.appLock();
+          search.setConfig(config.toString());
+          search.apply();
+        }
+      }
+      catch(JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    
 
     super.delete();
     
