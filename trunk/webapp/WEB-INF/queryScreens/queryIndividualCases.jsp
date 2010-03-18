@@ -97,7 +97,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
-    var instanceAttribs = ["activelyDetected",
+    var instanceAttribs = ["healthFacility","activelyDetected",
                        "admissionDate","anaemiaPatient","clinicalDiagnosis",
                        "detectedBy","diedInFacility","facilityVisit",
                        "patientCategory","pregnant","properlyRelease",
