@@ -8,7 +8,14 @@
 <mjl:form name="search.form.name" id="search.form">
   <select  name="actor" id="roleSelectList">
     <c:forEach var="role" items="${actorOptions}">
-      <option value="${role.roleName}">${role.displayLabel}</option>
+      <c:choose>
+        <c:when test="${actor == role.roleName}">
+          <option value="${role.roleName}" selected="selected">${role.displayLabel}</option>
+        </c:when>        
+        <c:otherwise>
+          <option value="${role.roleName}">${role.displayLabel}</option>
+        </c:otherwise>
+      </c:choose>
     </c:forEach>
   </select>
 </mjl:form>
