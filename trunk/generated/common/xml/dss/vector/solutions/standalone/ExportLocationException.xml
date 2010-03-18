@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.standalone.ExportLocationException">
+  <!--
+    - {id} id
+    -->
+  <locale language="defaultLocale">Please select a location in which to export the transactions to.</locale>
+</exception>
