@@ -3,7 +3,6 @@ package dss.vector.solutions.synchronization;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ViewQueryBuilder;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
 import com.terraframe.mojo.system.transaction.TransactionItemQuery;
 
 /**
@@ -14,47 +13,35 @@ public class TransactionItemViewQuery extends dss.vector.solutions.synchronizati
 {
   private static final long serialVersionUID = 1648474451;
   
-  private String recordID;
-  
-  private String sortAttribute;
-  
-  private SortOrder sortOrder;
-  
-  private Integer pageSize;
-  
-  private Integer pageNumber;
-  
-  private TransactionItemQuery transactionItemQuery;
-
-  public TransactionItemViewQuery(QueryFactory queryFactory, String recordID)
-  {
-    this(queryFactory, recordID, "", true, 20, 1);
-  }
-  
-  public TransactionItemViewQuery(QueryFactory queryFactory, String recordId, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public TransactionItemViewQuery(QueryFactory queryFactory, String recordId)
   {
     super(queryFactory);
-
-    this.recordID = recordId;
-    this.sortAttribute = sortAttribute;
-    this.sortOrder = ascending==null ? null : ascending ? SortOrder.ASC : SortOrder.DESC;
-    this.pageSize = pageSize;
-    this.pageNumber = pageNumber;
     
-    transactionItemQuery = new TransactionItemQuery(queryFactory);
-    this.buildQuery(new DefaultTransactionItemViewBuilder(queryFactory));
+    this.buildQuery(new DefaultTransactionItemViewBuilder(queryFactory, recordId));
   }
-
+  
   public TransactionItemViewQuery(QueryFactory queryFactory, ViewQueryBuilder viewQueryBuilder)
   {
     super(queryFactory, viewQueryBuilder);
   }
 
-  class DefaultTransactionItemViewBuilder extends ViewQueryBuilder implements Reloadable
+  public class DefaultTransactionItemViewBuilder extends ViewQueryBuilder implements Reloadable
   {
+    private TransactionItemQuery query;
+    
+    private String recordId;
+    
     public DefaultTransactionItemViewBuilder(QueryFactory queryFactory)
     {
+      this(queryFactory, null);
+    }
+    
+    public DefaultTransactionItemViewBuilder(QueryFactory queryFactory, String recordId)
+    {
       super(queryFactory);
+      
+      this.query = new TransactionItemQuery(queryFactory);
+      this.recordId = recordId;
     }
 
     protected TransactionItemViewQuery getViewQuery()
@@ -69,11 +56,11 @@ public class TransactionItemViewQuery extends dss.vector.solutions.synchronizati
     {
       TransactionItemViewQuery vQuery = this.getViewQuery();
       
-      vQuery.map(TransactionItemView.ITEMID, transactionItemQuery.getId());
-      vQuery.map(TransactionItemView.COMPONENTID, transactionItemQuery.getComponentId());
-      vQuery.map(TransactionItemView.ACTIONLABEL, transactionItemQuery.getItemAction().getDisplayLabel().localize());
-      vQuery.map(TransactionItemView.COMPONENTSEQ, transactionItemQuery.getComponentSeq());
-      vQuery.map(TransactionItemView.COMPONENTSITEMASTER, transactionItemQuery.getComponentSiteMaster());
+      vQuery.map(TransactionItemView.ITEMID, query.getId());
+      vQuery.map(TransactionItemView.COMPONENTID, query.getComponentId());
+      vQuery.map(TransactionItemView.ACTIONLABEL, query.getItemAction().getDisplayLabel().localize());
+      vQuery.map(TransactionItemView.COMPONENTSEQ, query.getComponentSeq());
+      vQuery.map(TransactionItemView.COMPONENTSITEMASTER, query.getComponentSiteMaster());
     }
 
     /**
@@ -83,21 +70,10 @@ public class TransactionItemViewQuery extends dss.vector.solutions.synchronizati
     {
       TransactionItemViewQuery vQuery = this.getViewQuery();
       
-      transactionItemQuery.WHERE(transactionItemQuery.getTransactionRecord().getId().EQ(recordID));
-      
-      if (sortAttribute!=null)
+      if(recordId != null && !recordId.equals(""))
       {
-        if (sortAttribute.equals(TransactionItemView.COMPONENTID)) vQuery.ORDER_BY(getComponentId(), sortOrder);
-        if (sortAttribute.equals(TransactionItemView.ACTIONLABEL)) vQuery.ORDER_BY(getActionLabel(), sortOrder);
-        if (sortAttribute.equals(TransactionItemView.COMPONENTSEQ)) vQuery.ORDER_BY(getComponentSeq(), sortOrder);
+        vQuery.WHERE(query.getTransactionRecord().EQ(recordId));      
       }
-
-      if(pageSize == null || pageNumber == null)
-      {
-        pageSize = 20;
-        pageNumber = 1;
-      }
-      vQuery.restrictRows(pageSize, pageNumber);
     }
 
   }

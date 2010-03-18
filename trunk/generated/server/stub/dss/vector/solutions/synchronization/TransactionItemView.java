@@ -17,16 +17,48 @@ public class TransactionItemView extends TransactionItemViewBase implements Relo
 
   public static TransactionItemViewQuery getQuery(String recordId, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    return new TransactionItemViewQuery(new QueryFactory(), recordId, sortAttribute, isAscending, pageSize, pageNumber);
+    QueryFactory factory = new QueryFactory();
+    TransactionItemViewQuery query = new TransactionItemViewQuery(factory, recordId);
+
+    isAscending = ( isAscending == null ? false : isAscending );
+    SortOrder sortOrder = ( isAscending ? SortOrder.ASC : SortOrder.DESC );
+    
+    if (sortAttribute != null)
+    {
+      if (sortAttribute.equals(TransactionItemView.COMPONENTID))
+      {
+        query.ORDER_BY(query.getComponentId(), sortOrder);
+      }
+      if (sortAttribute.equals(TransactionItemView.ACTIONLABEL))
+      {
+        query.ORDER_BY(query.getActionLabel(), sortOrder);
+      }
+      if (sortAttribute.equals(TransactionItemView.COMPONENTSEQ))
+      {
+        query.ORDER_BY(query.getComponentSeq(), sortOrder);
+      }
+    }
+
+    if (pageSize == null || pageNumber == null)
+    {
+      pageSize = 20;
+      pageNumber = 1;
+    }
+    
+    query.restrictRows(pageSize, pageNumber);
+
+    System.out.println(query.getSQL());
+
+    return query;
   }
 
   public static TransactionRecordQuery getRecordQuery(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     TransactionRecordQuery query = new TransactionRecordQuery(new QueryFactory());
 
-    sortAttribute = (sortAttribute == null ? TransactionRecord.EXPORTSEQUENCE : sortAttribute);
-    isAscending = (isAscending == null ? false : isAscending);
-    SortOrder sortOrder = (isAscending ? SortOrder.ASC : SortOrder.DESC);
+    sortAttribute = ( sortAttribute == null ? TransactionRecord.EXPORTSEQUENCE : sortAttribute );
+    isAscending = ( isAscending == null ? false : isAscending );
+    SortOrder sortOrder = ( isAscending ? SortOrder.ASC : SortOrder.DESC );
 
     if (sortAttribute != null)
     {
