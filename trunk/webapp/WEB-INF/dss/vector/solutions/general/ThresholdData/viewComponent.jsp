@@ -200,12 +200,16 @@ String deleteColumn = "";
     var dt = data.myDataTable;
 
     dt.getRecordSet().getRecords().map( function(row) {
-      var calulated = calculatedTargets[row.getData('GeoEntity')];
+      var geoId = row.getData('GeoEntity')
+      var calulated = calculatedTargets[geoId];
+        
       if(calulated && calulated != '')
       {  
         for (var i =0; i<53 ;i++)
         {
-          if(! row.getData('Outbreak_'+i))
+          var outbreak = row.getData('Outbreak_'+i);
+        
+          if(!outbreak)
           {
             var calc = calulated[i*2];
             if(calc)
@@ -217,13 +221,16 @@ String deleteColumn = "";
                 record : row,
                 column : col
               });
+              
               YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
             }
           }
-          
-          if(! row.getData('Identification_'+i))
+
+          var identification = row.getData('Identification_'+i)
+          if(!identification)
           {
             var calc = calulated[i*2+1];
+            
             if(calc)
             {
               var col = dt.getColumn('Identification_'+i);

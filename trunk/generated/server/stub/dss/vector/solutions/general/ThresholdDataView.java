@@ -383,21 +383,14 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
   @Override
   public Integer[] getCalculatedThresholds()
   {
-    List<Integer> list = new LinkedList<Integer>();
-
+    Integer[] thresholds = new Integer[106];
     EpiDate[] weeks = this.getSeason().getEpiWeeks();
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
 
     int startWeek = weeks[0].getPeriod();
+    int weeksInYear = weeks[0].getNumberOfEpiWeeks();
 
-    int i = 0;
-
-    while (i < startWeek)
-    {
-      list.add(null);
-      list.add(null);
-      i++;
-    }
+    int i = startWeek;
 
     for (EpiDate week : weeks)
     {
@@ -406,18 +399,13 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.terr
       Integer notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
       Integer identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
 
-      list.add(notification);
-      list.add(identificaiton);
+      thresholds[i*2] = notification;
+      thresholds[i*2 + 1] = identificaiton;
       i++;
+      
+      i = (i % weeksInYear);
     }
 
-    while (i < 53)
-    {
-      list.add(null);
-      list.add(null);
-      i++;
-    }
-
-    return list.toArray(new Integer[list.size()]);
+    return thresholds;
   }
 }
