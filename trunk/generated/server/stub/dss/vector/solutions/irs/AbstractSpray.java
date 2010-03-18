@@ -10,10 +10,8 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.InnerJoinGtEq;
 import com.terraframe.mojo.query.InnerJoinLtEq;
-import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.query.Layer;
@@ -75,8 +73,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
@@ -92,33 +88,22 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
     String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
 
     
-    AbstractSpray.setSelectabeSQL(valueQuery, "sprayedunits", sprayedUnits);
-    AbstractSpray.setSelectabeSQL(valueQuery, "unit_unsprayed" , unsprayedUnits);
+    QueryUtil.setSelectabeSQL(valueQuery, "sprayedunits", sprayedUnits);
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_unsprayed" , unsprayedUnits);
     
-    AbstractSpray.setSelectabeSQL(valueQuery, "unit_application_rate", "SUM(" + unit_application_rate + ")");
-    AbstractSpray.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"SUM(" + unit_application_rate + ")");
-    AbstractSpray.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / SUM("+sprayedUnits+")");
-    AbstractSpray.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate", "SUM(" + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"SUM(" + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / SUM("+sprayedUnits+")");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
     
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
-    AbstractSpray.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
 
     
     return valueQuery;
   }
-  
-  public static void setSelectabeSQL(ValueQuery valueQuery ,String ref, String sql)
-  {
-    try
-    {
-      SelectableSQL calc = (SelectableSQL) valueQuery.getSelectableRef(ref);
-      calc.setSQL(sql);
-    }
-    catch (QueryException e)
-    {
-    }
-  }
+ 
   
   public static boolean queryIsGrouped(ValueQuery valueQuery)
   {
