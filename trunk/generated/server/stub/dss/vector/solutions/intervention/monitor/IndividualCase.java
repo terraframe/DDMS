@@ -348,8 +348,6 @@ public class IndividualCase extends IndividualCaseBase implements
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualCase.CLASS, caseQuery);
 
-    //QueryUtil.joinTermAllpaths(valueQuery, IndividualInstance.CLASS, instanceQuery);
-    
     QueryUtil.leftJoinTermDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery, instanceQuery.getTableAlias()+".id");
 
     QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
@@ -401,8 +399,6 @@ public class IndividualCase extends IndividualCaseBase implements
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     return valueQuery;
 
