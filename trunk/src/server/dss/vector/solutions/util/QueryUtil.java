@@ -221,6 +221,23 @@ public class QueryUtil implements Reloadable
 
   }
 
+  public static void setSelectabeSQL(ValueQuery valueQuery ,String ref, String sql)
+  {
+    if(valueQuery.hasSelectableRef(ref))
+    {
+      Selectable s = valueQuery.getSelectableRef(ref);
+      
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+      
+      ((SelectableSQL)s).setSQL(sql);
+    }
+  }
+  
+  
   public static SelectableSQL[] filterSelectedSelectables(ValueQuery valueQuery, String[] attributes)
   {
 
@@ -740,8 +757,9 @@ public class QueryUtil implements Reloadable
       restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
     }
 
+    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
+    
     return queryMap;
-
   }
   
   private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
