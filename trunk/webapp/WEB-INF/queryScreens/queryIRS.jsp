@@ -293,30 +293,35 @@ YAHOO.util.Event.onDOMReady(function(){
                                     key:"sprayedunits",
                                     type:"sqlinteger",
                                     attributeName:"sprayedunits",
+                                    dtoType:'AttributeIntegerDTO'
                                   },   
                                   {
                                      
                                      key:"structure_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"structure_unsprayed",
+                                     dtoType:'AttributeIntegerDTO'
                                    },
                                    {
                                      
                                      key:"household_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"household_unsprayed",
+                                     dtoType:'AttributeIntegerDTO'
                                    },
                                    {
                                      
                                      key:"room_unsprayed",
                                      type:"sqlinteger",
                                      attributeName:"room_unsprayed",
+                                     dtoType:'AttributeIntegerDTO'
                                    },
                                    {
                                       
                                       key:"unit_unsprayed",
                                       type:"sqlinteger",
                                       attributeName:"unit_unsprayed",
+                                      dtoType:'AttributeIntegerDTO'
                                    }
                                 ]);
   
