@@ -8,7 +8,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       this.$initialize(queryList);
 
-      // list of columns that have been added before a call to render()
+      // list of columns that have bee_visibleAttributeHandlern added before a call to render()
       this._preconfiguredColumns = [];
 
       // START: query objects that dictate state of the query.
@@ -20,6 +20,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._whereOptions = {};
       this._visibleAggregateSelectables = {};
       this._exclusionClasses = [];
+      
+      this._showRatioSelectable = true;
 
       this._singleAndRangeAttributes = [];
   
