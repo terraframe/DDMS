@@ -51,8 +51,8 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
         var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
         if(check.checked)
         {
-         
-          if(check.id.indexOf('bundance_')>0)
+          this._uncheckAllNotInGroup(check);
+          if(check.id.indexOf('abundance_') > -1)
           {
           	this._checkBox('taxon');
           	this._checkBox('collectionMethod_ab');
@@ -80,6 +80,11 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
           }
           
           this.clearBrowserTerms(attribute);
+          
+          if(check.id == 'taxon')
+          {
+          	_uncheckAllByClass(liTarget,'ab')
+          }
         }
       },
       
