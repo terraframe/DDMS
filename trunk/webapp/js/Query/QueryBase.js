@@ -235,6 +235,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       case 'DATEGROUP_EPIWEEK':
         Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date,snapToFirstDay);
           break;
+      case 'DATEGROUP_EPIYEAR':
+        Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiYear(request,date,snapToFirstDay);
+          break;
       case 'DATEGROUP_MONTH':
         Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date,snapToFirstDay);
           break;
@@ -522,7 +525,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       if(useRatio)
       {
         var ratioAttribute = new MDSS.BasicAttribute({
-          type: 'sqlcharacter',
+          type: 'sqlfloat',
           key: MDSS.QueryXML.RATIO_FUNCTION,
           displayLabel: 'RATIO',
           attributeName: MDSS.QueryXML.RATIO_FUNCTION,
