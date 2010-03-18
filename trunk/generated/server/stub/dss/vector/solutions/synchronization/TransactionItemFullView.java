@@ -21,6 +21,7 @@ public class TransactionItemFullView extends TransactionItemFullViewBase impleme
     view.setXmlRecord(item.getXmlRecord());
     view.setComponentSeq(item.getComponentSeq());
     view.setComponentId(item.getComponentId());
+    view.setComponentSiteMaster(item.getComponentSiteMaster());
     return view;
   }
 }

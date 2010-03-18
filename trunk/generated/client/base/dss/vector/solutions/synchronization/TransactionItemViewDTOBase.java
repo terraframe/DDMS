@@ -1,10 +1,10 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2096914619)
+@com.terraframe.mojo.business.ClassSignature(hash = 394629109)
 public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.TransactionItemView";
-  private static final long serialVersionUID = 2096914619;
+  private static final long serialVersionUID = 394629109;
   
   protected TransactionItemViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -20,6 +20,7 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String COMPONENTID = "componentId";
   public static java.lang.String COMPONENTLABEL = "componentLabel";
   public static java.lang.String COMPONENTSEQ = "componentSeq";
+  public static java.lang.String COMPONENTSITEMASTER = "componentSiteMaster";
   public static java.lang.String ID = "id";
   public static java.lang.String ITEMID = "itemId";
   public String getActionLabel()
@@ -168,6 +169,43 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getComponentSeqMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(COMPONENTSEQ).getAttributeMdDTO();
+  }
+  
+  public String getComponentSiteMaster()
+  {
+    return getValue(COMPONENTSITEMASTER);
+  }
+  
+  public void setComponentSiteMaster(String value)
+  {
+    if(value == null)
+    {
+      setValue(COMPONENTSITEMASTER, "");
+    }
+    else
+    {
+      setValue(COMPONENTSITEMASTER, value);
+    }
+  }
+  
+  public boolean isComponentSiteMasterWritable()
+  {
+    return isWritable(COMPONENTSITEMASTER);
+  }
+  
+  public boolean isComponentSiteMasterReadable()
+  {
+    return isReadable(COMPONENTSITEMASTER);
+  }
+  
+  public boolean isComponentSiteMasterModified()
+  {
+    return isModified(COMPONENTSITEMASTER);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentSiteMasterMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTSITEMASTER).getAttributeMdDTO();
   }
   
   public String getItemId()

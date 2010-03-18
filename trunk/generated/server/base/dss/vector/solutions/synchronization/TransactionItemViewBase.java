@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 728071995)
+@com.terraframe.mojo.business.ClassSignature(hash = 2005454453)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,10 @@ public abstract class TransactionItemViewBase extends com.terraframe.mojo.busine
   public static java.lang.String COMPONENTID = "componentId";
   public static java.lang.String COMPONENTLABEL = "componentLabel";
   public static java.lang.String COMPONENTSEQ = "componentSeq";
+  public static java.lang.String COMPONENTSITEMASTER = "componentSiteMaster";
   public static java.lang.String ID = "id";
   public static java.lang.String ITEMID = "itemId";
-  private static final long serialVersionUID = 728071995;
+  private static final long serialVersionUID = 2005454453;
   
   public TransactionItemViewBase()
   {
@@ -133,6 +134,34 @@ public abstract class TransactionItemViewBase extends com.terraframe.mojo.busine
     else
     {
       setValue(COMPONENTSEQ, java.lang.Long.toString(value));
+    }
+  }
+  
+  public String getComponentSiteMaster()
+  {
+    return getValue(COMPONENTSITEMASTER);
+  }
+  
+  public void validateComponentSiteMaster()
+  {
+    this.validateAttribute(COMPONENTSITEMASTER);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getComponentSiteMasterMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.synchronization.TransactionItemView.CLASS);
+    return mdClassIF.definesAttribute(COMPONENTSITEMASTER);
+  }
+  
+  public void setComponentSiteMaster(String value)
+  {
+    if(value == null)
+    {
+      setValue(COMPONENTSITEMASTER, "");
+    }
+    else
+    {
+      setValue(COMPONENTSITEMASTER, value);
     }
   }
   

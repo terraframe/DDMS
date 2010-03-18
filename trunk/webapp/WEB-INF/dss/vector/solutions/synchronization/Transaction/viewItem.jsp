@@ -17,6 +17,9 @@
   <mjl:dt attribute="componentSeq">
     ${item.componentSeq}
   </mjl:dt>
+  <mjl:dt attribute="componentSiteMaster">
+    ${item.componentSiteMaster}
+  </mjl:dt>
   <mjl:dt attribute="xmlRecord">
     <pre>${fn:escapeXml(item.xmlRecord)}</pre>
   </mjl:dt>

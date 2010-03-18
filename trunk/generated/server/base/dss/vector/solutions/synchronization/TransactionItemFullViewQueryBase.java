@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1549343147)
+@com.terraframe.mojo.business.ClassSignature(hash = 1449744113)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public  abstract  class TransactionItemFullViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1549343147;
+private static final long serialVersionUID = 1449744113;
 
   public TransactionItemFullViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -77,6 +77,24 @@ private static final long serialVersionUID = 1549343147;
   public com.terraframe.mojo.query.SelectableLong getComponentSeq(String alias, String displayLabel)
   {
     return (com.terraframe.mojo.query.SelectableLong)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemFullView.COMPONENTSEQ, alias, displayLabel);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getComponentSiteMaster()
+  {
+    return getComponentSiteMaster(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getComponentSiteMaster(String alias)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemFullView.COMPONENTSITEMASTER, alias, null);
+
+  }
+ 
+  public com.terraframe.mojo.query.SelectableChar getComponentSiteMaster(String alias, String displayLabel)
+  {
+    return (com.terraframe.mojo.query.SelectableChar)this.getSelectable(dss.vector.solutions.synchronization.TransactionItemFullView.COMPONENTSITEMASTER, alias, displayLabel);
 
   }
  

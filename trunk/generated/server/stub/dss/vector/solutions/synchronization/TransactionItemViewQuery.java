@@ -73,6 +73,7 @@ public class TransactionItemViewQuery extends dss.vector.solutions.synchronizati
       vQuery.map(TransactionItemView.COMPONENTID, transactionItemQuery.getComponentId());
       vQuery.map(TransactionItemView.ACTIONLABEL, transactionItemQuery.getItemAction().getDisplayLabel().localize());
       vQuery.map(TransactionItemView.COMPONENTSEQ, transactionItemQuery.getComponentSeq());
+      vQuery.map(TransactionItemView.COMPONENTSITEMASTER, transactionItemQuery.getComponentSiteMaster());
     }
 
     /**

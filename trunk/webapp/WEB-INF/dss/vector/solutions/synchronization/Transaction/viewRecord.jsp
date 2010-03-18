@@ -27,6 +27,7 @@
     <mjl:attributeColumn attributeName="actionLabel"></mjl:attributeColumn>
     <mjl:attributeColumn attributeName="componentSeq"></mjl:attributeColumn>
     <mjl:attributeColumn attributeName="componentId"></mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="componentSiteMaster"></mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
         

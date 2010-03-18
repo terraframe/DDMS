@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -894246787)
+@com.terraframe.mojo.business.ClassSignature(hash = 1804809283)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public class TransactionItemFullViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -894246787;
+private static final long serialVersionUID = 1804809283;
 
   protected TransactionItemFullViewQueryDTO(String type)
   {
