@@ -6,7 +6,7 @@
 				<create>
 					<mdMethod
 						name="snapToEpiYear"
-						label="snapToEpiWeek"
+						label="snapToEpiYear"
 						description="Accepts a date and returns the begining or ending of the epiYear, whichever is closer"
 						static="true"
 						returnType="java.util.Date">
