@@ -13,8 +13,6 @@ import org.json.JSONObject;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AggregateFunction;
-import com.terraframe.mojo.query.EntityQuery;
-import com.terraframe.mojo.query.GeneratedComponentQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.LeftJoinEq;
 import com.terraframe.mojo.query.OIterator;
@@ -339,8 +337,6 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     }
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
