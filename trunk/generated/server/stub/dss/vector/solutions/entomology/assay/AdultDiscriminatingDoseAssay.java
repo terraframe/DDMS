@@ -274,7 +274,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     }
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     return valueQuery;
 
   }

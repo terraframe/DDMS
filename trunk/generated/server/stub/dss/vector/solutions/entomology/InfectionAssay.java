@@ -190,7 +190,6 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
       QueryUtil.setTermRestrictions(valueQuery, queryMap);
       QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-      QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     }
 
     if(unionQueries.size() == 1)
@@ -272,8 +271,6 @@ public class InfectionAssay extends InfectionAssayBase implements com.terraframe
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     return valueQuery;
   }

@@ -191,7 +191,6 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     return valueQuery;
   }

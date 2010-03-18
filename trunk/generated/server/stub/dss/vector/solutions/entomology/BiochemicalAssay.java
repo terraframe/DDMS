@@ -189,8 +189,6 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.terraf
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-
     return valueQuery;
   }
 

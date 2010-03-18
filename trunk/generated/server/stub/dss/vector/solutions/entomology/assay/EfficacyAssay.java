@@ -265,7 +265,6 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
     
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
     
     return valueQuery; 
 

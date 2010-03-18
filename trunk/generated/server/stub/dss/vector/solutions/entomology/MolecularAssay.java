@@ -216,7 +216,6 @@ public class MolecularAssay extends MolecularAssayBase implements com.terraframe
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     return valueQuery;
   }
