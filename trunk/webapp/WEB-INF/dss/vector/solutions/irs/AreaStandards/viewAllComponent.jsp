@@ -57,6 +57,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink name="AreaStandardsController.newInstance" action="dss.vector.solutions.irs.AreaStandardsController.newInstance.mojo">
-  <fmt:message key="Create_a_new_Area_Standards" />
+<mjl:commandLink name="AreaStandardsController.newInstance" action="dss.vector.solutions.irs.ApplicationRateController.view.mojo">
+  <fmt:message key="Configure_Application_Rate" />
 </mjl:commandLink>

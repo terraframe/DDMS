@@ -32,7 +32,7 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
       }
 
       int compareTo = s1.compareTo(s2);
-      
+
       return compareTo;
     }
   }
@@ -67,25 +67,14 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
   @Transaction
   public void apply()
   {
-    try
+    List<AreaStandards> list = this.getAreaStandards(this.getId());
+    list.add(this);
+
+    this.setDates(list);
+
+    for (AreaStandards standards : list)
     {
-      if (this.getStartDate() == null)
-      {
-        this.setStartDate(new Date());
-      }
-
-      List<AreaStandards> list = this.getAreaStandards(this.getId());
-      list.add(this);
-
-      this.setDates(list);
-
-      for (AreaStandards standards : list)
-      {
-        standards.directApply();
-      }
-    }
-    finally
-    {
+      standards.directApply();
     }
   }
 
@@ -101,7 +90,7 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
     {
       standards.directApply();
     }
-    
+
     super.delete();
   }
 
@@ -114,7 +103,7 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
     {
       AreaStandards standard = list.get(i);
 
-      if (!standard.isNew())
+      if (!standard.isNew() && !standard.getId().equals(this.getId()))
       {
         standard.lock();
       }
@@ -208,6 +197,29 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
       list.addAll(it.getAll());
 
       return list;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  public static AreaStandards get(Date startDate)
+  {
+    AreaStandardsQuery query = new AreaStandardsQuery(new QueryFactory());
+
+    query.WHERE(query.getStartDate().EQ(startDate));
+
+    OIterator<? extends AreaStandards> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+      
+      return null;
     }
     finally
     {

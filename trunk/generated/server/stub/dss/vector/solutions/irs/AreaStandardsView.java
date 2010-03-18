@@ -1,5 +1,7 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
+
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.AttributeEnumeration;
 import com.terraframe.mojo.query.OIterator;
@@ -38,9 +40,13 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
   }
 
   @Override
-  @Transaction
   public void apply()
   {
+    if(this.getStartDate() == null)
+    {
+      this.setStartDate(new Date());
+    }
+
     AreaStandards concrete = new AreaStandards();
 
     if(this.hasConcrete())
@@ -48,10 +54,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
       concrete = AreaStandards.lock(this.getAreaStandardsId());
     }
     
-    this.populateConcrete(concrete);
-
-    concrete.apply();
-    concrete.populateView(this); 
+    this.apply(concrete); 
   }
 
   @Override
@@ -67,8 +70,27 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
   @Override
   public void applyClone()
   {
-    AreaStandards concrete = new AreaStandards();
+    if(this.getStartDate() == null)
+    {
+      this.setStartDate(new Date());
+    }
+    
+    AreaStandards concrete = AreaStandards.get(this.getStartDate());
+    
+    if(concrete == null)
+    {
+      concrete = new AreaStandards();
+    }
+    else
+    {
+      concrete.lock();
+    }
+    
+    this.apply(concrete);
+  }
 
+  private void apply(AreaStandards concrete)
+  {
     this.populateConcrete(concrete);
 
     concrete.apply();
@@ -80,7 +102,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
   public static AreaStandardsView getMostRecent()
   {
     AreaStandardsQuery query = new AreaStandardsQuery(new QueryFactory());
-    query.ORDER_BY_DESC(query.getCreateDate());
+    query.ORDER_BY_DESC(query.getStartDate());
 
     OIterator<? extends AreaStandards> it = query.getIterator();
 
@@ -88,7 +110,12 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     {
       while (it.hasNext())
       {
-        return it.next().getView();
+        AreaStandards concrete = it.next();
+        
+        if(concrete.getStartDate() != null || !it.hasNext())
+        {
+          return concrete.getView();
+        }
       }
 
       return null;
