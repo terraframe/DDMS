@@ -1250,6 +1250,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
    */
   public static GeoHierarchyViewQuery getGeoEntityHierarchyViews(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
+    InstallProperties.validateMasterOperation();
+    
     QueryFactory f = new QueryFactory();
     GeoHierarchyViewQuery viewQuery = new GeoHierarchyViewQuery(f, sortAttribute, ascending, pageSize, pageNumber);
 
