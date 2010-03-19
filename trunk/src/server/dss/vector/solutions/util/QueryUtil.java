@@ -321,10 +321,9 @@ public class QueryUtil implements Reloadable
   {
     String tableName = MdBusiness.getMdBusiness(klass).getTableName();
 
-//    SELECT gdl.displayLabel FROM geo_displayLabel as gdl join person0 p on p.residentialGeoEntity = gdl.id WHERE p.id = ValueQuery_11.id_4
-    String sql = "SELECT gdl.displayLabel FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p.residentialGeoEntity = gdl.id";
+    String sql = "SELECT gdl.displayLabel FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attributeName + " = gdl.id";
+
     sql += " WHERE p.id = " + attributeAlias + "";
-    
 
     geoLabel.setSQL(sql);
   }
