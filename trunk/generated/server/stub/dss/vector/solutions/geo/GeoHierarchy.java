@@ -935,6 +935,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Transaction
   public void lock()
   {
+    
+    InstallProperties.validateMasterOperation();
+    
     super.lock();
 
     this.getGeoEntityClass().lock();
