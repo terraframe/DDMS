@@ -1,4 +1,4 @@
---DROP VIEW IF EXISTS geo_displayLabel;
+DROP VIEW IF EXISTS geo_displayLabel;
 
 CREATE OR REPLACE VIEW geo_displayLabel AS
 SELECT  
@@ -22,7 +22,35 @@ WHERE
 AND t1.displaylabel = dl1.id
 AND geo0.type =  (t1.packagename || '.' || t1.typename);
 
+/*
 
+CREATE  INDEX fqtn_md_type_hash
+  ON md_type 
+  USING hash
+  ((packagename || '.' || typename));
+  
+CREATE  INDEX fqtn_md_type_btree
+  ON md_type 
+  USING btree
+  ((packagename || '.' || typename));
+  
+CREATE INDEX display_label_btree
+  ON md_type
+  (displaylabel);
+
+CREATE INDEX geoentityclass_btree
+  ON geohierarchy
+  USING btree
+  (geoentityclass);
+
+CREATE INDEX geoentityclass_hash
+  ON geohierarchy
+  USING hash
+  (geoentityclass);
+
+*/
+
+DROP VIEW IF EXISTS geohierarchy_allpaths();
 
 CREATE OR REPLACE VIEW geohierarchy_allpaths AS
 WITH RECURSIVE geohierarchy_flags AS(
@@ -60,7 +88,7 @@ AND t2.id = g2.geoentityclass
 select root_type, root_class, child_type, child_class, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed , depth
 from recursive_rollup  ;
 
-
+DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int);
 /*
  * Get the popluation or cacluate it if it is not available. 
  */
@@ -70,10 +98,10 @@ CREATE OR REPLACE FUNCTION get_adjusted_population
   _year             INT,
   _middleDay INT
 )
-RETURNS FLOAT AS $$
+RETURNS DOUBLE PRECISION AS $$
 
 DECLARE
-  _population                FLOAT;
+  _population                Double Precision;
   _sql VARCHAR;
    rec record;
   _prevYear INT;
@@ -84,8 +112,9 @@ BEGIN
 
   _percentageAdjustment = (_middleDay/183);
 
-  SELECT population , yearofdata, growthrate FROM populationdata pd 
+  SELECT population , yearofdata, growthrate FROM populationdata pd JOIN geo_displayLabel gd ON gd.id = pd.geoentity
     WHERE pd.yearofdata  <= _year AND pd.geoentity = _geoEntityId 
+    AND gd.populationallowed = 1 AND gd.political = 1
     ORDER BY pd.yearofdata DESC
     LIMIT 1
     INTO _population, _prevYear, _growth;
@@ -98,13 +127,15 @@ BEGIN
            _population := _population + (_population * _growth);
         END IF;
         _prevYear := _prevYear + 1;
+       -- RAISE NOTICE '% % % %', _geoEntityId,_year,_prevYear,_population;
       END LOOP;
     ELSE
      _population := 0;
       --check if this branch will lead to any data
       SELECT count(ap.id) FROM allpaths_geo ap
-	  JOIN populationdata pd ON ap.childgeoentity = pd.geoentity 
+	  JOIN populationdata pd ON ap.childgeoentity = pd.geoentity JOIN geo_displayLabel gd ON gd.id = pd.geoentity
 	  WHERE pd.population IS NOT NULL AND ap.parentgeoentity =  _geoEntityId AND pd.yearofdata <= _year
+	  AND gd.populationallowed = 1 AND gd.political = 1
       INTO _childCount;
       --continue to recurse if this branch has data
        IF _childCount > 0 THEN
@@ -119,6 +150,7 @@ BEGIN
     RETURN _population;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date
 (
