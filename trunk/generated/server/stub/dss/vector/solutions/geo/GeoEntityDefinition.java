@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.geo.GeoEntityDefinitionBase;
 
 
@@ -11,7 +10,5 @@ public class GeoEntityDefinition extends GeoEntityDefinitionBase implements com.
   public GeoEntityDefinition()
   {
     super();
-
-    InstallProperties.validateMasterOperation();
   }
 }
