@@ -10,6 +10,10 @@
   <listener-class>dss.vector.solutions.general.EmailContextListener</listener-class>
 </listener>
 
+<listener>
+  <listener-class>dss.vector.solutions.CleanupContextListener</listener-class>
+</listener>
+
 <error-page>
   <error-code>404</error-code>
   <location>/WEB-INF/404.jsp</location>

@@ -519,20 +519,16 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
 
     return defaultMap;
   }
-
-  /**
-   * Cleans up all views older than an hour.
-   */
-  public static void cleanOldViews()
+  
+  public static void cleanOldViews(long olderThan)
   {
-    long anHourAgo = System.currentTimeMillis() - ( 60 * 60 * 1000 );
     for (String viewName : Database.getViewsByPrefix(Layer.GEO_VIEW_PREFIX))
     {
       String next = viewName;
       try
       {
         long parseLong = Long.parseLong(next.substring(Layer.GEO_VIEW_PREFIX.length()));
-        if (parseLong < anHourAgo)
+        if (parseLong < olderThan)
         {
           try
           {
@@ -570,7 +566,16 @@ public class SavedMap extends SavedMapBase implements com.terraframe.mojo.genera
       {
         throw new ProgrammingErrorException(e);
       }
-    }
+    }    
+  }
+
+  /**
+   * Cleans up all views older than an hour.
+   */
+  public static void cleanOldViews()
+  {
+    long anHourAgo = System.currentTimeMillis() - ( 60 * 60 * 1000 );
+    cleanOldViews(anHourAgo);
   }
 
 }
