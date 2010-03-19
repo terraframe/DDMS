@@ -498,7 +498,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       var countAttribute = new MDSS.BasicAttribute({
         type: klass.CLASS,
-        displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
+        displayLabel: MDSS.localize('COUNT'),
         attributeName: 'id'
       }, this);
   
@@ -510,7 +510,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       this._defaults.push({element: countCheck, checked:false});
   
       var countSpan = document.createElement('span');
-      countSpan.innerHTML = countAttribute.getDisplayLabel() + ' (GB)';
+      countSpan.innerHTML = countAttribute.getDisplayLabel() + ' ' + MDSS.localize('selectable_is_aggreated');
   
       var li = document.createElement('li');
   
@@ -527,7 +527,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var ratioAttribute = new MDSS.BasicAttribute({
           type: 'sqlfloat',
           key: MDSS.QueryXML.RATIO_FUNCTION,
-          displayLabel: 'RATIO',
+          displayLabel: MDSS.localize('RATIO'),
           attributeName: MDSS.QueryXML.RATIO_FUNCTION,
           isAggregate:true,
         }, this);
@@ -540,7 +540,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         this._defaults.push({element: ratioCheck, checked:false});
   
         var ratioSpan = document.createElement('span');
-        ratioSpan.innerHTML = ratioAttribute.getDisplayLabel() + ' (GB)';
+        ratioSpan.innerHTML = ratioAttribute.getDisplayLabel()  + ' ' + MDSS.localize('selectable_is_aggreated');
   
         var li = document.createElement('li');
   
