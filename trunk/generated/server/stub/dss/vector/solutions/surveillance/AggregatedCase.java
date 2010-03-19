@@ -44,14 +44,15 @@ import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
-public class AggregatedCase extends AggregatedCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedCase extends AggregatedCaseBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693161773L;
 
@@ -74,7 +75,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   @Override
   protected String buildKey()
   {
-    if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null && this.getStartAge() != null && this.getEndAge() != null)
+    if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null
+        && this.getStartAge() != null && this.getEndAge() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
 
@@ -90,7 +92,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   public static java.lang.String[] getVisibleAttributeNames()
   {
     MdBusinessDAOIF aggregateCaseMdBusiness = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
-    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness.getAllDefinedMdAttributes();
+    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness
+        .getAllDefinedMdAttributes();
 
     MdViewDAOIF aggregatedCaseMdView = MdViewDAO.getMdViewDAO(AggregatedCaseView.CLASS);
 
@@ -110,7 +113,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     {
       for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
       {
-        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap.get(mdViewDAOIF.definesType()));
+        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap
+            .get(mdViewDAOIF.definesType()));
         if (hasVisibility)
         {
           visibleAttributeNameList.add(mdAttribute.definesAttribute());
@@ -142,7 +146,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
    *         <code>MdAttributeDAOIF</code> in the given map and the current user
    *         has permission to view the attribute, false otherwise.
    */
-  private static boolean hasVisibility(String attributeName, Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
+  private static boolean hasVisibility(String attributeName,
+      Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
   {
     String attrNameLowerCase = attributeName.toLowerCase();
 
@@ -153,7 +158,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     if (viewCaseAttributeMap.containsKey(attrNameLowerCase))
     {
       MdAttributeDAOIF mdAttributeDAOIF = viewCaseAttributeMap.get(attrNameLowerCase);
-      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, mdAttributeDAOIF);
+      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ,
+          mdAttributeDAOIF);
     }
     return hasVisibility;
   }
@@ -284,7 +290,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
   @Override
   @Transaction
-  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods, CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
+  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
+      CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
   {
     this.apply();
 
@@ -320,7 +327,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
   }
 
-  public static AggregatedCase searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate, Date endDate, AggregatedAgeGroup ageGroup)
+  public static AggregatedCase searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate,
+      Date endDate, AggregatedAgeGroup ageGroup)
   {
     AggregatedCaseQuery query = new AggregatedCaseQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(geoEntity));
@@ -356,7 +364,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
   }
 
   @Transaction
-  public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity, PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
+  public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity,
+      PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
     // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
     // need to offset the 'period' for WEEK
@@ -365,10 +374,10 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     EpiDate.validate(periodType, _period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, _period, year);
-    
+
     Date startDate = date.getStartDate();
     Date endDate = date.getEndDate();
-    
+
     AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
 
     if (c != null)
@@ -392,7 +401,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     return view;
   }
 
-  public static AggregatedCaseView searchByDates(GeoEntity geoEntity, Date startDate, Date endDate, AggregatedAgeGroup ageGroup)
+  public static AggregatedCaseView searchByDates(GeoEntity geoEntity, Date startDate, Date endDate,
+      AggregatedAgeGroup ageGroup)
   {
     AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
 
@@ -453,7 +463,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, queryConfig, layer);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
@@ -514,23 +525,31 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
-    
+
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, sd, ed);
 
     QueryUtil.validateQuery(valueQuery);
-    
+
     return valueQuery;
   }
 
-  private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)
+  private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery,
+      JSONObject queryConfig, String xml, Integer multiplier)
   {
+    SelectableSQLDouble calc;
+    if (valueQuery.hasSelectableRef("sqldouble__incidence_" + multiplier))
+    {
+      calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_" + multiplier);
+    }
+    else
+    {
+      return;
+    }
+
+    String geoType = null;
     try
     {
-      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_" + multiplier);
-
-      String geoType = null;
-
       String attributeKey = null;
       String[] selectedUniversals = null;
 
@@ -541,7 +560,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
+        if (universals.length() > 0
+            && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
@@ -555,32 +575,36 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
           geoType = geoType.replace('.', '_');
         }
       }
-
-      String timePeriod = "yearly";
-
-      if (xml.indexOf("season") > 0)
-      {
-        timePeriod = "seasonal";
-      }
-
-      Selectable s = valueQuery.getSelectableRef(geoType);
-
-      String columnAlias = s.getQualifiedName();
-
-      String sql = "(SUM(cases::FLOAT)/";
-      sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + AggregatedCase.STARTDATE + ")),0))*" + multiplier;
-
-      calc.setSQL(sql);
-    }
-    catch (QueryException e)
-    {
     }
     catch (JSONException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new ProgrammingErrorException(e);
     }
 
+    String timePeriod = "yearly";
+
+    if (xml.indexOf("season") > 0)
+    {
+      timePeriod = "seasonal";
+    }
+
+    Selectable s;
+    try
+    {
+      s = valueQuery.getSelectableRef(geoType);
+    }
+    catch (QueryException e)
+    {
+      throw new IncidencePopulationException(e);
+    }
+
+    String columnAlias = s.getQualifiedName();
+
+    String sql = "(SUM(cases::FLOAT)/";
+    sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
+        + AggregatedCase.STARTDATE + ")),0))*" + multiplier;
+
+    calc.setSQL(sql);
   }
 
   /**
@@ -602,7 +626,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
+      Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
 
@@ -641,10 +666,11 @@ public class AggregatedCase extends AggregatedCaseBase implements com.terraframe
 
     ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
-    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
+    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session
+        .getCurrentLocale());
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
-    
+
     return exporter.exportStream();
   }
 }
