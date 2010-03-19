@@ -20,6 +20,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSQLFloat;
 import com.terraframe.mojo.query.SelectableSQLInteger;
 import com.terraframe.mojo.query.ValueQuery;
@@ -349,7 +350,13 @@ public class IndividualCase extends IndividualCaseBase implements
     QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualCase.CLASS, caseQuery);
 
     QueryUtil.leftJoinTermDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery, instanceQuery.getTableAlias()+".id");
-
+      
+    if(valueQuery.hasSelectableRef("healthFacility"))
+    {
+      SelectableSQLCharacter hf = (SelectableSQLCharacter) valueQuery.getSelectableRef("healthFacility");
+      QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias()+".id");
+    }
+    
     QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
 
     if(valueQuery.hasSelectableRef("instances"))
