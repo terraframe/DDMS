@@ -4,14 +4,19 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
+import com.terraframe.mojo.constants.DeployProperties;
 
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -26,7 +31,7 @@ public class StandaloneClient extends JFrame implements ActionListener
 
   private static final String IMPORT_ACTION    = "IMPORT_ACTION";
 
-  static final Dimension      DIMENSION        = new Dimension(400, 250);
+  static final Dimension      DIMENSION        = new Dimension(500, 400);
 
   private JMenuBar            menuBar;
 
@@ -41,6 +46,8 @@ public class StandaloneClient extends JFrame implements ActionListener
   private ExportPanel         exportPanel;
 
   private ImportPanel         importPanel;
+
+  private JPanel              backupPanel;
 
   public StandaloneClient()
   {
@@ -83,9 +90,11 @@ public class StandaloneClient extends JFrame implements ActionListener
 
     exportPanel = new ExportPanel();
     importPanel = new ImportPanel();
+    backupPanel = new BackupPanel();
 
     contentPane = new JTabbedPane();
     contentPane.setSize(DIMENSION);
+    contentPane.add(MDSSProperties.getString("Control_Panel"), backupPanel);
     contentPane.add(exportLabel, exportPanel);
     contentPane.add(importLabel, importPanel);
     contentPane.setVisible(true);
@@ -127,6 +136,25 @@ public class StandaloneClient extends JFrame implements ActionListener
   public static void main(String args[])
   {
     new StandaloneClient();
+  }
+
+  public static final boolean isServerUp()
+  {
+    try
+    {
+      String url = DeployProperties.getApplicationURL();
+      URL server = new URL(url);
+      HttpURLConnection connection = (HttpURLConnection) server.openConnection();
+      connection.connect();
+
+      connection.disconnect();
+    }
+    catch (Exception e)
+    {
+      return false;
+    }
+
+    return true;
   }
 
 }

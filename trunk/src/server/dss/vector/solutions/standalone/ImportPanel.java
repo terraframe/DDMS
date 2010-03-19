@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,7 +16,6 @@ import javax.swing.JProgressBar;
 
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.constants.DeployProperties;
 import com.terraframe.mojo.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
@@ -111,7 +108,7 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
 
   private void executeImport()
   {
-    if (!this.isServerUp())
+    if (!StandaloneClient.isServerUp())
     {
       this.importButton.setEnabled(false);
       this.statusLabel.setText(MDSSProperties.getString("Import_in_progress"));
@@ -134,7 +131,7 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
 
   private final void updateServerStatus()
   {
-    boolean up = this.isServerUp();
+    boolean up = StandaloneClient.isServerUp();
 
     if (up)
     {
@@ -148,25 +145,6 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
       this.importButton.setText(MDSSProperties.getString("Import"));
       this.importButton.setActionCommand(IMPORT_COMMAND);
     }
-  }
-
-  private final boolean isServerUp()
-  {
-    try
-    {
-      String url = DeployProperties.getApplicationURL();
-      URL server = new URL(url);
-      HttpURLConnection connection = (HttpURLConnection) server.openConnection();
-      connection.connect();
-
-      connection.disconnect();
-    }
-    catch (Exception e)
-    {
-      return false;
-    }
-
-    return true;
   }
 
   public void handleError(Exception e)
