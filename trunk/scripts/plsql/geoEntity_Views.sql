@@ -50,7 +50,7 @@ CREATE INDEX geoentityclass_hash
 
 */
 
-DROP VIEW IF EXISTS geohierarchy_allpaths();
+DROP VIEW IF EXISTS geohierarchy_allpaths;
 
 CREATE OR REPLACE VIEW geohierarchy_allpaths AS
 WITH RECURSIVE geohierarchy_flags AS(
