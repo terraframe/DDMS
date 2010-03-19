@@ -52,6 +52,7 @@ import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.generated.Earth;
@@ -549,6 +550,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Transaction
   private static Set<String> deleteGeoHierarchy2(String geoHierarchyId)
   {
+    InstallProperties.validateMasterOperation();
+    
     Set<String> ids = new HashSet<String>();
 
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
@@ -683,6 +686,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Transaction
   private static String defineGeoEntity2(GeoEntityDefinition definition)
   {
+    InstallProperties.validateMasterOperation();
+    
     // validate attributes
     definition.applyNoPersist();
 
@@ -841,6 +846,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Override
   public void confirmChangeParent(String parentId)
   {
+    InstallProperties.validateMasterOperation();
+    
     GeoHierarchy view = GeoHierarchy.get(parentId);
     String label = view.getGeoEntityClass().getDisplayLabel().getValue();
 
@@ -853,6 +860,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Override
   public String[] confirmDeleteHierarchy(String parentId)
   {
+    InstallProperties.validateMasterOperation();
+    
     List<GeoHierarchy> parents = this.getImmediateParents();
     if (parents.size() > 1)
     {
@@ -1078,6 +1087,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Transaction
   private static void updateFromView2(GeoHierarchyView view)
   {
+    InstallProperties.validateMasterOperation();
+    
     // GeoHierarchy should already be locked
     GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
     geoHierarchy.setPolitical(view.getPolitical());
@@ -1123,6 +1134,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   @Transaction
   private static void applyExistingWithParent2(String childGeoHierarchyId, String parentGeoHierarchyId, Boolean cloneOperation)
   {
+    InstallProperties.validateMasterOperation();
+    
     GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
     GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
 
