@@ -110,7 +110,7 @@
             required="true" />
           <integer
             name="sachetsPerRefill"
-            label="Sachets per Refill"
+            label="Sachets per Can Refill"
             rejectNegative="true"
             rejectZero="true"
             required="true" />

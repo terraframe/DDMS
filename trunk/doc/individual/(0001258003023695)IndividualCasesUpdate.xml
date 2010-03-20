@@ -103,7 +103,7 @@
               type="dss.vector.solutions.ontology.Term"/>
             <date
               name="treatmentStartDate"
-              label="Treatement Start Date"/>
+              label="Treatment Start Date"/>
             <boolean
               name="activelyDetected"
               label="Case Detection"
