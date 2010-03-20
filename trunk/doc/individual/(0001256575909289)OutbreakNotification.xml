@@ -23,7 +23,9 @@
 
       <mdTree
         name="dss.vector.solutions.general.WeeklyThreshold"
-        label="Weekly Threshold">
+        label="Weekly Threshold"
+        exported="true"
+        enforceSiteMaster="false">
         <attributes>
           <integer
             name="notification"
