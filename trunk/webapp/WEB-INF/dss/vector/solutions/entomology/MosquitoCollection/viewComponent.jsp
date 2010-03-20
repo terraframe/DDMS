@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -7,8 +7,8 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionController"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
 <%@page import="java.util.Map"%>

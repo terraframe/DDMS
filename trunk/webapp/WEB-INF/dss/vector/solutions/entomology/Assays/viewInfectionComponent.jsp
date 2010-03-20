@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.entomology.InfectionAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.AssayController"%>
 <%@page import="java.util.Map"%>
@@ -16,7 +16,7 @@
 
 
 <%@page import="dss.vector.solutions.ontology.TermDTO"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO"%>
+<%@page import="com.runwaysdk.transport.metadata.AttributeBooleanMdDTO"%>
 
 <c:set var="page_title" value="Enter_Infection_Assays"  scope="request"/>
 
