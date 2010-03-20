@@ -507,15 +507,13 @@ public class AggregatedCase extends AggregatedCaseBase implements
       }
     }
 
-    try
+    if(valueQuery.hasSelectableRef("sqldouble__cfr"))
     {
       SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__cfr");
-      String sql = "(SUM(deaths::FLOAT)/SUM(cases))*100.0";
+      String sql = "(SUM(deaths::FLOAT)/NULLIF(SUM(cases),0))*100.0";
       calc.setSQL(sql);
     }
-    catch (QueryException e)
-    {
-    }
+
 
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000);
