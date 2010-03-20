@@ -1,5 +1,5 @@
 // Alias all AttributeDTOs to the window
-Mojo.Meta.shorthand('com.terraframe.mojo.transport.attributes.*', window);
+Mojo.Meta.shorthand('com.runwaysdk.transport.attributes.*', window);
 
 /**
  * Root MDSS namespace.
@@ -238,7 +238,7 @@ var MDSS = {
     this.onProblemExceptionDTO = function(e)
     {
       var content = '';
-      if(e instanceof Mojo.$.com.terraframe.mojo.ProblemExceptionDTO)
+      if(e instanceof Mojo.$.com.runwaysdk.ProblemExceptionDTO)
       {
         var problems = e.getProblems();
         for(var i=0; i<problems.length; i++)

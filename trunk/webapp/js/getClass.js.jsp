@@ -9,7 +9,7 @@
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewQueryDTO"%>
-<%@page import="com.terraframe.mojo.system.metadata.MdBusinessDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdBusinessDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
@@ -17,11 +17,11 @@
 <%@page import="java.util.Date"%>
 <%@page import="com.ibm.icu.util.GregorianCalendar"%>
 <%@page import="com.ibm.icu.util.Calendar"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.Constants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.Constants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%

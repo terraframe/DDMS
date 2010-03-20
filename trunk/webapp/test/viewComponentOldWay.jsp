@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="mdss.entomology.MosquitoCollectionDTO"%>
 <%@page import="mdss.entomology.MorphologicalSpecieGroupViewDTO"%>
@@ -161,9 +161,9 @@ MorphologicalSpecieGroups via Ajax</button>
 	   "mdss.entomology.IdentificationMethod","mdss.entomology.Specie"
 	};
 	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    //String jsonstring = com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load);
+    //String jsonstring = com.runwaysdk.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load);
     //org.json.JSONObject json = new org.json.JSONObject(jsonstring); 
-    //out.print(json.getString(com.terraframe.mojo.transport.conversion.json.JSONReturnObject.RETURN_VALUE));
+    //out.print(json.getString(com.runwaysdk.transport.conversion.json.JSONReturnObject.RETURN_VALUE));
 
     JSONArray species = new JSONArray(Arrays.asList(SpecieDTO.getAllTermNames(clientRequest)));
     out.println("var species = "+species.toString());

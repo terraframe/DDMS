@@ -366,7 +366,7 @@ var Mojo = {
       }
       else
       {
-        var cKlass = Mojo.$.com.terraframe.mojo.Class;
+        var cKlass = Mojo.$.com.runwaysdk.Class;
         
         klass.__metaClass = new cKlass(config);
         klass.prototype.__metaClass = klass.__metaClass;
@@ -379,15 +379,15 @@ var Mojo = {
   // TODO add as static variables
   JSON_ENDPOINT : 'Mojo/JSONControllerServlet',
   
-  ATTRIBUTE_DTO_PACKAGE : 'com.terraframe.mojo.transport.attributes.',
+  ATTRIBUTE_DTO_PACKAGE : 'com.runwaysdk.transport.attributes.',
   
-  MD_DTO_PACKAGE : 'com.terraframe.mojo.transport.metadata.',
+  MD_DTO_PACKAGE : 'com.runwaysdk.transport.metadata.',
   
-  ROOT_PACKAGE : 'com.terraframe.mojo.',
+  ROOT_PACKAGE : 'com.runwaysdk.',
   
-  BUSINESS_PACKAGE : 'com.terraframe.mojo.business.',
+  BUSINESS_PACKAGE : 'com.runwaysdk.business.',
   
-  ATTRIBUTE_PROBLEM_PACKAGE : 'com.terraframe.mojo.dataaccess.attributes.',
+  ATTRIBUTE_PROBLEM_PACKAGE : 'com.runwaysdk.dataaccess.attributes.',
   
   IS_OBJECT_TO_STRING : Object.prototype.toString.call({}),
   IS_ARRAY_TO_STRING : Object.prototype.toString.call([]),
@@ -459,7 +459,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       var notBase = this._superClass !== Object;  
       
       // get parents instance/static methods
-      var mKlass = Mojo.$.com.terraframe.mojo.Method;
+      var mKlass = Mojo.$.com.runwaysdk.Method;
       this._instanceMethods = {};
       this._staticMethods = {};
       var abstractMethods = {};
@@ -555,7 +555,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
 
       // set constants
       this._constants = {};
-      var cKlass = Mojo.$.com.terraframe.mojo.Constant;
+      var cKlass = Mojo.$.com.runwaysdk.Constant;
       if(notBase)
       {
         var pConstants = this._superClass.getMetaClass().getConstants(true);
@@ -609,7 +609,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       
       this._klass.prototype[mName] = this._klass[mName];
       
-      this._instanceMethods[mName] = new Mojo.$.com.terraframe.mojo.Method({
+      this._instanceMethods[mName] = new Mojo.$.com.runwaysdk.Method({
         name : mName,
         isStatic : false,
         isAbstract : false, 
@@ -619,7 +619,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         overrideKlass : this._klass
       }, this);
       
-     this._staticMethods[mName] = new Mojo.$.com.terraframe.mojo.Method({
+     this._staticMethods[mName] = new Mojo.$.com.runwaysdk.Method({
         name : mName,
         isStatic : true,
         isAbstract : false, 
@@ -784,7 +784,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       {
         return klass;
       }
-      else if(Mojo.Util.isFunction(klass) || klass instanceof Mojo.$.com.terraframe.mojo.Base)
+      else if(Mojo.Util.isFunction(klass) || klass instanceof Mojo.$.com.runwaysdk.Base)
       {
         return klass.getMetaClass();
       }
@@ -2480,7 +2480,7 @@ Mojo.Meta.newClass('Mojo.Facade', {
     _controllerWrapper : function(endpoint, clientRequest, params)
     {
       if(Mojo.Util.isObject(params))
-        params = {"com.terraframe.mojo.mojaxObject":Mojo.Util.getJSON(params)};
+        params = {"com.runwaysdk.mojaxObject":Mojo.Util.getJSON(params)};
   
       new Mojo.AjaxCall(endpoint, clientRequest, params, true);
     },
@@ -4643,7 +4643,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
 
       if(!mdKlass)
       {
-        mdKlass = Mojo.Meta.findClass("com.terraframe.mojo.gis.transport.metadata."+ mdDtoType);
+        mdKlass = Mojo.Meta.findClass("com.runwaysdk.gis.transport.metadata."+ mdDtoType);
       }
       this.attributeMdDTO = new mdKlass(obj.attributeMdDTO);
     },

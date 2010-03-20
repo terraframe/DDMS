@@ -7,10 +7,10 @@
 <%@page import="java.text.AttributedCharacterIterator"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
-<%@page import="com.terraframe.mojo.constants.Constants" %>
+<%@page import="com.runwaysdk.constants.Constants" %>
 <%@page import="org.json.JSONArray"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <!--It is very important to set the content type so that FF knows to read in these strings as UTF-8 -->
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%

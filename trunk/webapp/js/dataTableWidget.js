@@ -530,7 +530,7 @@ Mojo.Meta.newClass('MDSS.dataGrid', {
         
         if (setter_exists) {
           if (value) {
-            if (view.attributeMap[attributeName] instanceof com.terraframe.mojo.transport.attributes.AttributeDateDTO) {
+            if (view.attributeMap[attributeName] instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
               view['set' + attribute.key](MDSS.Calendar.parseDate(value));
             }
             else {

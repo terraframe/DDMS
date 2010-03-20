@@ -1,6 +1,6 @@
 <Context>
   <Loader
-    className="com.terraframe.mojo.generation.loader.TomcatLoader"
+    className="com.runwaysdk.generation.loader.TomcatLoader"
     delegate="false"
     reloadable="false"/>
   <Manager

@@ -4,7 +4,7 @@
 // Fix bug where method with same name for static/instance shows only instance (I think it executes this way too)
 // viewing initialize's (and probably any overriden method) source does infinite recursion
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
 
   Alias : Mojo.$,
 
@@ -49,9 +49,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       this._methodRE = /^(?!toString).*$/;
       
       
-      this._explorer = new com.terraframe.mojo.inspector.Explorer(this, this._explorerTab, this._explorerContent);
-      this._logger = new com.terraframe.mojo.inspector.Logger(this, this._loggerTab, this._loggerContent);
-      this._tracer = new com.terraframe.mojo.inspector.Tracer(this, this._tracerTab, this._tracerContent, this._logger);
+      this._explorer = new com.runwaysdk.inspector.Explorer(this, this._explorerTab, this._explorerContent);
+      this._logger = new com.runwaysdk.inspector.Logger(this, this._loggerTab, this._loggerContent);
+      this._tracer = new com.runwaysdk.inspector.Tracer(this, this._tracerTab, this._tracerContent, this._logger);
       
       this._currentContent = this._explorer;
       
@@ -233,8 +233,8 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
         alert("This cannot be closed, only minimized or maximized.\n This is why it's super ultra mega alpha edition.");
       }
     
-      var manager = com.terraframe.mojo.inspector.EventManager.getInstance();
-      var IEvent = com.terraframe.mojo.inspector.IEvent;
+      var manager = com.runwaysdk.inspector.EventManager.getInstance();
+      var IEvent = com.runwaysdk.inspector.IEvent;
 
       manager.addEvent(new IEvent(this._mainWindowId, 'click', this._delegateClick, this));
       
@@ -310,9 +310,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
       }
       
       this._dragEvent = 
-        new com.terraframe.mojo.inspector.IEvent(window, 'mousemove', this.doDrag, this, win);
+        new com.runwaysdk.inspector.IEvent(window, 'mousemove', this.doDrag, this, win);
 
-      var manager = com.terraframe.mojo.inspector.EventManager.getInstance();
+      var manager = com.runwaysdk.inspector.EventManager.getInstance();
       manager.addEvent(this._dragEvent);
     },
     
@@ -320,7 +320,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
     {
       if(this._dragEvent != null)
       {
-        var manager = com.terraframe.mojo.inspector.EventManager.getInstance();
+        var manager = com.runwaysdk.inspector.EventManager.getInstance();
         manager.removeEvent(this._dragEvent);
       
         this._dragEvent = null;
@@ -367,7 +367,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
     
     destroy : function()
     {
-      var manager = com.terraframe.mojo.inspector.EventManager.getInstance();
+      var manager = com.runwaysdk.inspector.EventManager.getInstance();
       manager.removeAll();
       
       this._mainWindow.parentNode.removeChild(this._mainWindow);
@@ -423,7 +423,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
   
     launch : function()
     {
-      var inspector = Mojo.$.com.terraframe.mojo.inspector.Inspector.getInstance();
+      var inspector = Mojo.$.com.runwaysdk.inspector.Inspector.getInstance();
       inspector.isRendered() ? inspector.show() : inspector.render();
     }
   
@@ -432,7 +432,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Inspector', {
 });
 
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Content', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Content', {
 
   Alias : Mojo.$,
   
@@ -500,32 +500,32 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Content', {
     viewClassAction : function(klass, content)
     {
       var className = klass.getMetaClass().getQualifiedName();
-      return com.terraframe.mojo.inspector.Content.makeA((content ? content : className), 'viewClass:'+className);
+      return com.runwaysdk.inspector.Content.makeA((content ? content : className), 'viewClass:'+className);
     },
   
     viewMethodAction : function(klass, method)
     {
       var m = method.getName();
-      return com.terraframe.mojo.inspector.Content.makeA(m, 'viewMethod:'+klass.getMetaClass().getQualifiedName() + '.' + m); 
+      return com.runwaysdk.inspector.Content.makeA(m, 'viewMethod:'+klass.getMetaClass().getQualifiedName() + '.' + m); 
     },
     
     viewTracerAction : function(id)
     {
-      return com.terraframe.mojo.inspector.Content.makeA('GOTO', 'viewTracer:'+id, false, '#'+id);
+      return com.runwaysdk.inspector.Content.makeA('GOTO', 'viewTracer:'+id, false, '#'+id);
     },
     
     viewHierarchyAction : function()
     {
-      return com.terraframe.mojo.inspector.Content.makeA('Hierarchy', 'viewHierarchy:');
+      return com.runwaysdk.inspector.Content.makeA('Hierarchy', 'viewHierarchy:');
     }
     
   }
   
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
 
-  Extends : com.terraframe.mojo.inspector.Content,
+  Extends : com.runwaysdk.inspector.Content,
   
   Instance : {
   
@@ -615,7 +615,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
     
     getHierarchy : function()
     {
-      var root = Mojo.$.com.terraframe.mojo.Base;
+      var root = Mojo.$.com.runwaysdk.Base;
       that = this;
 
       function getChildren(parent)
@@ -678,7 +678,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       var body = method.getMethod().toString();
       body = body.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
       
-      var highlighter = new Mojo.$.com.terraframe.mojo.inspector.SyntaxHighlighter();
+      var highlighter = new Mojo.$.com.runwaysdk.inspector.SyntaxHighlighter();
       var src = highlighter.parse(body);
       
       var html = '';
@@ -736,7 +736,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       }
       
       // definition
-      table = new com.terraframe.mojo.inspector.Table();
+      table = new com.runwaysdk.inspector.Table();
       table.setHeaders('Property', 'Value');
       table.addRow(['Package', pckName]);
       table.addRow(['Class Name', meta.getName()]);
@@ -749,7 +749,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       html += table.getHTML();
       
       // constants
-      table = new com.terraframe.mojo.inspector.Table();
+      table = new com.runwaysdk.inspector.Table();
       table.setHeaders('Name', 'Value', 'Defined On');
       
       
@@ -849,7 +849,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
       }
       
       // instance methods
-      table = new com.terraframe.mojo.inspector.Table();
+      table = new com.runwaysdk.inspector.Table();
       table.setHeaders('Name', 'Abstract', 'Override', 'Arity', 'Defined On', 'Aspects');
       
       methodsToRows(table, meta.getInstanceMethods(), this, false);
@@ -859,7 +859,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
             
       
       // static methods
-      table = new com.terraframe.mojo.inspector.Table();
+      table = new com.runwaysdk.inspector.Table();
       table.setHeaders('Name', 'Hiding', 'Arity', 'Defined On', 'Aspects');
       
       methodsToRows(table, meta.getStaticMethods(), this, true);
@@ -899,7 +899,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Explorer', {
   },
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.LoggerImpl', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.LoggerImpl', {
 
   Extends : Mojo.log.Logger,
   
@@ -929,9 +929,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.LoggerImpl', {
 
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
 
-  Extends : com.terraframe.mojo.inspector.Content,
+  Extends : com.runwaysdk.inspector.Content,
   
   Constants : {
   
@@ -944,7 +944,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
     {
       this.$initialize(mainWin, tabId, contentId);
       
-      var logger = new com.terraframe.mojo.inspector.LoggerImpl(this);
+      var logger = new com.runwaysdk.inspector.LoggerImpl(this);
       Mojo.log.LogManager.addLogger(logger);
       
       this._logTable = this.getMetaClass().getQualifiedName()+'_logTable';
@@ -964,7 +964,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
       var html = '';
       html += '<div style="overflow: scroll; height: 527px;">';
       
-      this._table = new com.terraframe.mojo.inspector.Table(this._logTable, this.constructor.MAX_ROWS);
+      this._table = new com.runwaysdk.inspector.Table(this._logTable, this.constructor.MAX_ROWS);
       this._table.setHeaders('#', 'Type', 'Time', 'Tracer', 'Error', 'Stack', 'File', 'Line');
       
       // definition
@@ -1014,9 +1014,9 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Logger', {
   
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Tracer', {
 
-  Extends : com.terraframe.mojo.inspector.Content,
+  Extends : com.runwaysdk.inspector.Content,
 
   Constants : {
   
@@ -1047,7 +1047,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       html += '<div style="overflow: scroll; height: 527px;">';
       
       
-      this._table = new com.terraframe.mojo.inspector.Table(this._tracerTable, this.constructor.MAX_ROWS);
+      this._table = new com.runwaysdk.inspector.Table(this._tracerTable, this.constructor.MAX_ROWS);
       this._table.setHeaders('#', 'Time', 'Call', 'Class Name', 'Method', 'Context', 'Parameters', 'Return');
       
       // definition
@@ -1069,7 +1069,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       // don't call toString on *this* if the method is the
       // initialize constructor because it may not have been fully constructed.
       var toStr = !method.isStatic() && method.isConstructor() ?
-        Mojo.$.com.terraframe.mojo.Base.prototype.toString.call(context) : context.toString();
+        Mojo.$.com.runwaysdk.Base.prototype.toString.call(context) : context.toString();
     
       var traceA = this.constructor.makeA('BEFORE', id, true);
     
@@ -1090,7 +1090,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
           {
             argCell += '[null] null<br />';
           }
-          else if(arg instanceof Mojo.$.com.terraframe.mojo.Base)
+          else if(arg instanceof Mojo.$.com.runwaysdk.Base)
           {
             argCell += '['+this.constructor.viewClassAction(arg.constructor) + '] '+arg.toString()+'<br />';
           }
@@ -1127,7 +1127,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       // don't call toString on *this* if the method is the
       // initialize constructor because may not have been fully constructed.
       var toStr = !method.isStatic() && method.getName() === 'initialize' ?
-        Mojo.$.com.terraframe.mojo.Base.prototype.toString.call(context) : context.toString();
+        Mojo.$.com.runwaysdk.Base.prototype.toString.call(context) : context.toString();
     
       var retCell = '';
       if(typeof retObj === 'undefined')
@@ -1138,7 +1138,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
       {
           retCell += '[null] null<br />';
       }      
-      else if(retObj instanceof Mojo.$.com.terraframe.mojo.Base)
+      else if(retObj instanceof Mojo.$.com.runwaysdk.Base)
       {
         retCell += '['+this.constructor.viewClassAction(retObj.constructor) + '] '+retObj.toString()+'<br />';
       }
@@ -1170,7 +1170,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Tracer', {
   
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.Table', {
 
   Constants : {
     
@@ -1314,7 +1314,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.Table', {
 });
 
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.IEvent', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.IEvent', {
 
   Instance : {
   
@@ -1361,7 +1361,7 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.IEvent', {
 
 });
 
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.EventManager', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.EventManager', {
 
   IsSingleton : true,
 
@@ -1433,17 +1433,17 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.EventManager', {
 
 
 /* ====================================================================
- * License for com.terraframe.mojo.inspector.SyntaxHighlighter
+ * License for com.runwaysdk.inspector.SyntaxHighlighter
  * ====================================================================
  * 
- * The code for the class com.terraframe.mojo.inspector.SyntaxHighlighter is
+ * The code for the class com.runwaysdk.inspector.SyntaxHighlighter is
  * distributed under the Apache Liscense 2.0, which can be viewed at the
  * following URL: http://www.apache.org/licenses/LICENSE-2.0.txt.
  * 
  * The original source code can be found at the following URL:
  * http://www.jswidget.com/blog/download/highlight_js.js. The code
  * has been modified to be encapsulated within the class
- * com.terraframe.mojo.inspector.SyntaxHighlighter. Also, the dependency
+ * com.runwaysdk.inspector.SyntaxHighlighter. Also, the dependency
  * on CSS has been removed by using inline styles.
  * 
  *
@@ -1456,13 +1456,13 @@ Mojo.Meta.newClass('com.terraframe.mojo.inspector.EventManager', {
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * THIS LICENSE APPLIES ONLY TO THE com.terraframe.mojo.inspector.SyntaxHighlighter
+ * THIS LICENSE APPLIES ONLY TO THE com.runwaysdk.inspector.SyntaxHighlighter
  * CLASS, WHICH HAS BEEN BUNDLED INTO THIS FILE FOR CONVENIENCE.
  *
  * http:\\www.jswidget.com
  * 2008
  */
-Mojo.Meta.newClass('com.terraframe.mojo.inspector.SyntaxHighlighter', {
+Mojo.Meta.newClass('com.runwaysdk.inspector.SyntaxHighlighter', {
 
   Alias : Mojo.$,
   
