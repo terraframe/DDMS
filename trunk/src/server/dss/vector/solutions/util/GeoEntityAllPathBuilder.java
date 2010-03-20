@@ -3,14 +3,14 @@ package dss.vector.solutions.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.terraframe.mojo.constants.ComponentInfo;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.generated.GeoEntity;

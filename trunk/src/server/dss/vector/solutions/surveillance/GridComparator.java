@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 import java.util.Comparator;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class GridComparator implements Comparator<ChildOption>, Reloadable
 {

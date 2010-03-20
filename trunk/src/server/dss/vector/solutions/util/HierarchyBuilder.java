@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Earth;

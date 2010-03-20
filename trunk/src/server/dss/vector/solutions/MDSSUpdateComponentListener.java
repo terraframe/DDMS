@@ -1,9 +1,9 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.business.generation.view.ContentListener;
-import com.terraframe.mojo.business.generation.view.UpdateComponentListener;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.view.ContentListener;
+import com.runwaysdk.business.generation.view.UpdateComponentListener;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class MDSSUpdateComponentListener extends UpdateComponentListener implements ContentListener, Reloadable
 {

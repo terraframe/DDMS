@@ -16,7 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
-import com.terraframe.mojo.constants.DeployProperties;
+import com.runwaysdk.constants.DeployProperties;
 
 import dss.vector.solutions.util.MDSSProperties;
 

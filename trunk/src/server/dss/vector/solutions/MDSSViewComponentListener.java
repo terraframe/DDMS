@@ -2,17 +2,18 @@ package dss.vector.solutions;
 
 import java.util.HashMap;
 
-import com.terraframe.mojo.business.generation.view.AttributeEventIF;
-import com.terraframe.mojo.business.generation.view.ContentListener;
-import com.terraframe.mojo.business.generation.view.ViewComponentListener;
-import com.terraframe.mojo.constants.ElementInfo;
-import com.terraframe.mojo.constants.GeneratedActions;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.view.AttributeEventIF;
+import com.runwaysdk.business.generation.view.ContentListener;
+import com.runwaysdk.business.generation.view.ViewComponentListener;
+import com.runwaysdk.constants.ElementInfo;
+import com.runwaysdk.constants.GeneratedActions;
+import com.runwaysdk.constants.MdActionInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class MDSSViewComponentListener extends ViewComponentListener implements ContentListener, Reloadable
 {
@@ -125,7 +126,7 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
     String type = mdClass.definesType();
 
     // Generate convience ViewAll link
-    String link = type + CONTROLLER_SUFFIX + "." + GeneratedActions.VIEW_ALL_ACTION.getName() + "." + MOJO_SUFFIX;
+    String link = type + CONTROLLER_SUFFIX + "." + GeneratedActions.VIEW_ALL_ACTION.getName() + MdActionInfo.ACTION_SUFFIX;
     String linkName = type + "." + GeneratedActions.VIEW_ALL_ACTION.getName() + ".link";
     String linkDisplay = "View All";
 

@@ -10,13 +10,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.terraframe.mojo.dataaccess.DuplicateGraphPathException;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdClass;
+import com.runwaysdk.dataaccess.DuplicateGraphPathException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;

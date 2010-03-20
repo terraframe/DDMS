@@ -22,27 +22,27 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.xml.sax.SAXException;
 
-import com.terraframe.mojo.SystemException;
-import com.terraframe.mojo.constants.MdAttributeLocalInfo;
-import com.terraframe.mojo.constants.MdBusinessInfo;
-import com.terraframe.mojo.constants.MdLocalizableInfo;
-import com.terraframe.mojo.dataaccess.EntityDAO;
-import com.terraframe.mojo.dataaccess.StructDAO;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.io.FileReadException;
-import com.terraframe.mojo.dataaccess.io.FileWriteException;
-import com.terraframe.mojo.dataaccess.io.XMLException;
-import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
-import com.terraframe.mojo.dataaccess.metadata.MdLocalizableDAO;
-import com.terraframe.mojo.dataaccess.metadata.MetaDataDAO;
-import com.terraframe.mojo.dataaccess.metadata.SupportedLocaleDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdLocalizable;
-import com.terraframe.mojo.system.metadata.SupportedLocale;
-import com.terraframe.mojo.util.FileIO;
-import com.terraframe.mojo.util.LocalizeUtil;
+import com.runwaysdk.SystemException;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
+import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.constants.MdLocalizableInfo;
+import com.runwaysdk.dataaccess.EntityDAO;
+import com.runwaysdk.dataaccess.StructDAO;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.io.FileReadException;
+import com.runwaysdk.dataaccess.io.FileWriteException;
+import com.runwaysdk.dataaccess.io.XMLException;
+import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
+import com.runwaysdk.dataaccess.metadata.MetaDataDAO;
+import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdLocalizable;
+import com.runwaysdk.system.metadata.SupportedLocale;
+import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.LocalizeUtil;
 
 public class MdssLocalizationImporter implements Reloadable
 {

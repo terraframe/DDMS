@@ -4,16 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.business.rbac.Operation;
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.Roles;
-import com.terraframe.mojo.system.RolesQuery;
-import com.terraframe.mojo.system.metadata.MdType;
-import com.terraframe.mojo.system.metadata.MdTypeQuery;
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.RolesQuery;
+import com.runwaysdk.system.metadata.MdType;
+import com.runwaysdk.system.metadata.MdTypeQuery;
+import com.runwaysdk.util.FileIO;
 
 public class PermissionTable
 {

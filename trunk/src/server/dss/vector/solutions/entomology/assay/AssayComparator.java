@@ -2,9 +2,9 @@ package dss.vector.solutions.entomology.assay;
 
 import java.util.Comparator;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
-import com.terraframe.mojo.system.metadata.MdClass;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdAttributeVirtual;
+import com.runwaysdk.system.metadata.MdClass;
 
 public class AssayComparator implements Comparator<MdAttributeVirtual>, Reloadable
 {

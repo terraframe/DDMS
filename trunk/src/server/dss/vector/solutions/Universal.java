@@ -3,8 +3,8 @@ package dss.vector.solutions;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.terraframe.mojo.constants.MdBusinessInfo;
-import com.terraframe.mojo.dataaccess.io.dataDefinition.XMLTags;
+import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.dataaccess.io.dataDefinition.XMLTags;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 

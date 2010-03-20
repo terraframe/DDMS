@@ -1,8 +1,8 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.dataaccess.io.UpdateVersion;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.dataaccess.io.UpdateVersion;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.StartSession;
 
 public class Revisioner
 {

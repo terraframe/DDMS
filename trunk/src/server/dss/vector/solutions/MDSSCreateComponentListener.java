@@ -1,11 +1,12 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.business.generation.view.ContentListener;
-import com.terraframe.mojo.business.generation.view.CreateComponentListener;
-import com.terraframe.mojo.constants.GeneratedActions;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.view.ContentListener;
+import com.runwaysdk.business.generation.view.CreateComponentListener;
+import com.runwaysdk.constants.GeneratedActions;
+import com.runwaysdk.constants.MdActionInfo;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class MDSSCreateComponentListener extends CreateComponentListener implements ContentListener, Reloadable
 {
@@ -55,7 +56,7 @@ public class MDSSCreateComponentListener extends CreateComponentListener impleme
     if(mdEntity instanceof MdBusinessDAOIF && MDSSGenerationUtility.isAGeoEntity((MdBusinessDAOIF) mdEntity))
     {
       String type = mdEntity.definesType();
-      String link = type + CONTROLLER_SUFFIX + "." + GeneratedActions.CANCEL_ACTION.getName() + "." + MOJO_SUFFIX;
+      String link = type + CONTROLLER_SUFFIX + "." + GeneratedActions.CANCEL_ACTION.getName() + MdActionInfo.ACTION_SUFFIX;
       String linkName = type + ".form.cancel.button";
       String linkDisplay = "Cancel";
 

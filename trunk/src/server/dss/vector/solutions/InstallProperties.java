@@ -3,7 +3,7 @@ package dss.vector.solutions;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class InstallProperties implements Reloadable
 {

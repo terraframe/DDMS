@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import com.terraframe.mojo.constants.DatabaseProperties;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;

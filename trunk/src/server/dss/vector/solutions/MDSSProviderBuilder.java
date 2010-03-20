@@ -1,15 +1,15 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.business.generation.ProviderBuilder;
-import com.terraframe.mojo.business.generation.ProviderBuilderIF;
-import com.terraframe.mojo.business.generation.facade.ControllerStubGeneratorIF;
-import com.terraframe.mojo.business.generation.view.ContentProvider;
-import com.terraframe.mojo.business.generation.view.ContentProviderIF;
-import com.terraframe.mojo.business.generation.view.NewRelationshipComponentListener;
-import com.terraframe.mojo.dataaccess.MdControllerDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.ProviderBuilder;
+import com.runwaysdk.business.generation.ProviderBuilderIF;
+import com.runwaysdk.business.generation.facade.ControllerStubGeneratorIF;
+import com.runwaysdk.business.generation.view.ContentProvider;
+import com.runwaysdk.business.generation.view.ContentProviderIF;
+import com.runwaysdk.business.generation.view.NewRelationshipComponentListener;
+import com.runwaysdk.dataaccess.MdControllerDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class MDSSProviderBuilder extends ProviderBuilder implements ProviderBuilderIF, Reloadable
 {

@@ -3,11 +3,11 @@ package dss.vector.solutions.ontology;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.business.rbac.RoleDAOIF;
-import com.terraframe.mojo.business.rbac.UserDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.business.rbac.RoleDAOIF;
+import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;

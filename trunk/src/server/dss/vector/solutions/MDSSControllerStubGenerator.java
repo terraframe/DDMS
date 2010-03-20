@@ -2,18 +2,18 @@ package dss.vector.solutions;
 
 import java.util.Arrays;
 
-import com.terraframe.mojo.business.generation.facade.ControllerStubGenerator;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.MdAttributeReferenceInfo;
-import com.terraframe.mojo.constants.TypeGeneratorInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdControllerDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.dataaccess.MdMethodDAOIF;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.facade.ControllerStubGenerator;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.MdAttributeReferenceInfo;
+import com.runwaysdk.constants.TypeGeneratorInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdControllerDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdMethodDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;

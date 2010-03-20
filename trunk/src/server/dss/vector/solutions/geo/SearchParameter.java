@@ -3,12 +3,12 @@ package dss.vector.solutions.geo;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdClass;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;

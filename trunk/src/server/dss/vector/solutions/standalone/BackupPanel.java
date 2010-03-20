@@ -31,7 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.terraframe.mojo.constants.DeployProperties;
+import com.runwaysdk.constants.DeployProperties;
 
 import dss.vector.solutions.util.MDSSProperties;
 

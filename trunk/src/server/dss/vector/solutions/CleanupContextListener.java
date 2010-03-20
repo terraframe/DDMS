@@ -3,8 +3,8 @@ package dss.vector.solutions;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.query.SavedMap;
 

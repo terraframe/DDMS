@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.dataaccess.transaction.TransactionPropertyChangeEvent;
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
+import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
 

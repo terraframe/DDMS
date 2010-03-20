@@ -4,9 +4,9 @@ import java.io.File;
 
 import javax.swing.SwingWorker;
 
-import com.terraframe.mojo.constants.CommonProperties;
-import com.terraframe.mojo.dataaccess.transaction.TransactionImportManager;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.dataaccess.transaction.TransactionImportManager;
+import com.runwaysdk.session.StartSession;
 
 public class ImportManager extends SwingWorker<Void, Void>
 {

@@ -3,13 +3,13 @@ package dss.vector.solutions;
 import java.util.HashMap;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.dataaccess.io.MarkupWriter;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.io.MarkupWriter;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 

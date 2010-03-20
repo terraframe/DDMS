@@ -8,8 +8,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.session.StartSession;
 
 public class InstallStoredProcedures
 {

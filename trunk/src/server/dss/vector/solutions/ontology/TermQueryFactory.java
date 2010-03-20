@@ -1,9 +1,9 @@
 package dss.vector.solutions.ontology;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.GeneratedViewQuery;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.GeneratedViewQuery;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ViewQueryBuilder;
 
 public class TermQueryFactory implements Reloadable
 {

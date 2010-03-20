@@ -2,15 +2,15 @@ package dss.vector.solutions;
 
 import java.util.HashMap;
 
-import com.terraframe.mojo.business.generation.view.AttributeEventIF;
-import com.terraframe.mojo.business.generation.view.ContentListener;
-import com.terraframe.mojo.business.generation.view.ViewAllComponentListener;
-import com.terraframe.mojo.constants.ElementInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.generation.view.AttributeEventIF;
+import com.runwaysdk.business.generation.view.ContentListener;
+import com.runwaysdk.business.generation.view.ViewAllComponentListener;
+import com.runwaysdk.constants.ElementInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class MDSSViewAllComponentListener extends ViewAllComponentListener implements ContentListener, Reloadable
 {

@@ -3,16 +3,16 @@ package dss.vector.solutions;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.terraframe.mojo.business.generation.GenerationUtil;
-import com.terraframe.mojo.business.generation.ProviderFactory;
-import com.terraframe.mojo.constants.MdEntityInfo;
-import com.terraframe.mojo.dataaccess.BusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.BusinessDAOQuery;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.business.generation.ProviderFactory;
+import com.runwaysdk.constants.MdEntityInfo;
+import com.runwaysdk.dataaccess.BusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.BusinessDAOQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.StartSession;
 
 public class RegenerateJSP implements Reloadable
 {

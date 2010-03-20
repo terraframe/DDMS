@@ -2,18 +2,18 @@ package dss.vector.solutions;
 
 import java.util.HashMap;
 
-import com.terraframe.mojo.business.generation.view.AttributeEventIF;
-import com.terraframe.mojo.business.generation.view.ContentListener;
-import com.terraframe.mojo.business.generation.view.FormListener;
-import com.terraframe.mojo.constants.ElementInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
-import com.terraframe.mojo.dataaccess.MdEntityDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
+import com.runwaysdk.business.generation.view.AttributeEventIF;
+import com.runwaysdk.business.generation.view.ContentListener;
+import com.runwaysdk.business.generation.view.FormListener;
+import com.runwaysdk.constants.ElementInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -166,6 +166,6 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
     attributes.put("type", "text");
     attributes.put("classes", "DatePick");
 
-    getWriter().writeEmptyTag(MOJO_DT_TAG, attributes);
+    getWriter().writeEmptyTag(RUNWAY_DT_TAG, attributes);
   }
 }

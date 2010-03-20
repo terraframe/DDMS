@@ -5,13 +5,13 @@ import java.util.Date;
 
 import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.F;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.F;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Statistics;
 import dss.vector.solutions.general.CalculationInProgressException;
@@ -36,7 +36,7 @@ import dss.vector.solutions.surveillance.PeriodType;
  * ALL weeks between (now – beforeWeeks) and (now + afterWeeks) Calculate mean
  * Calculate threshold Create weekly threshold record
  */
-public abstract class ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
+public abstract class ThresholdCalculator implements com.runwaysdk.generation.loader.Reloadable {
 	private static ThresholdCalculator instance = null;
 
 	public static String testingLimiter = null;
@@ -47,7 +47,7 @@ public abstract class ThresholdCalculator implements com.terraframe.mojo.generat
 
 	protected long completedCount = 0;
 
-	protected class ThresholdCalculationPeriod implements com.terraframe.mojo.generation.loader.Reloadable {
+	protected class ThresholdCalculationPeriod implements com.runwaysdk.generation.loader.Reloadable {
 		public MalariaSeason season;
 
 		public EpiDate startingEpiWeek;

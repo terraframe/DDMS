@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 import java.util.Comparator;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class TermComparator implements Comparator<Term>, Reloadable
 {

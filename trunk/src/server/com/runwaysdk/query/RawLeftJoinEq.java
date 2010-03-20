@@ -1,7 +1,9 @@
-package com.terraframe.mojo.query;
+package com.runwaysdk.query;
+
+import com.runwaysdk.query.LeftJoinEq;
 
 
-public class RawLeftJoinEq extends LeftJoinEq implements com.terraframe.mojo.generation.loader.Reloadable
+public class RawLeftJoinEq extends LeftJoinEq implements com.runwaysdk.generation.loader.Reloadable
 {
   String sql_override;
 

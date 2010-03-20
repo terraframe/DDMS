@@ -10,17 +10,17 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.terraframe.mojo.SystemException;
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdAttributeConcrete;
-import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
-import com.terraframe.mojo.system.metadata.MdClass;
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.SystemException;
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeVirtual;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.util.FileIO;
 
 /**
  * 

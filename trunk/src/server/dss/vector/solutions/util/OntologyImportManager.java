@@ -2,7 +2,7 @@ package dss.vector.solutions.util;
 
 import java.io.File;
 
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.session.StartSession;
 
 /**
  * Use this class to import a directory of ontologies.  Assumes the file:

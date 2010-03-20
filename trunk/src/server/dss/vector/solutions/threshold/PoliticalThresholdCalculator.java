@@ -3,10 +3,10 @@ package dss.vector.solutions.threshold;
 
 import java.util.Date;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.Earth;
@@ -14,7 +14,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
 
-public class PoliticalThresholdCalculator extends ThresholdCalculator implements com.terraframe.mojo.generation.loader.Reloadable {
+public class PoliticalThresholdCalculator extends ThresholdCalculator implements com.runwaysdk.generation.loader.Reloadable {
 
 	@Transaction
 	protected GeoEntityQuery getEntityQuery(QueryFactory factory) {

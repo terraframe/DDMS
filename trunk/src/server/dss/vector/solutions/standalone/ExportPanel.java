@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 
-import com.terraframe.mojo.dataaccess.transaction.TransactionPropertyChangeEvent;
+import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
 

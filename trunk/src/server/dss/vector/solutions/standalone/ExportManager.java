@@ -1,13 +1,14 @@
 package dss.vector.solutions.standalone;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 import javax.swing.SwingWorker;
 
-import com.terraframe.mojo.constants.CommonProperties;
-import com.terraframe.mojo.dataaccess.transaction.TransactionExportManager;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.dataaccess.transaction.TransactionExportManager;
+import com.runwaysdk.session.StartSession;
 
 public class ExportManager extends SwingWorker<Void, Void>
 {
@@ -90,20 +91,20 @@ public class ExportManager extends SwingWorker<Void, Void>
       {
         if (upper != null)
         {
-          TransactionExportManager.export(lower, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+          TransactionExportManager.export(new LinkedList<String>(), lower, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
         }
         else
         {
-          TransactionExportManager.export(lower, upper, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+          TransactionExportManager.export(new LinkedList<String>(), lower, upper, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
         }
       }
       else if (option.equals(ExportOption.ALL))
       {
-        TransactionExportManager.export(0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+        TransactionExportManager.export(new LinkedList<String>(), 0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
       }
       else if (option.equals(ExportOption.NOT_IMPORTED))
       {
-        TransactionExportManager.export(CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path, component);
+        TransactionExportManager.export(new LinkedList<String>(), CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path, component);
       }
     }
     catch (Throwable t)

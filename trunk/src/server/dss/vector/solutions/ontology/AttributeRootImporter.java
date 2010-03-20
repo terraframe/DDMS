@@ -14,19 +14,19 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.terraframe.mojo.SystemException;
-import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
-import com.terraframe.mojo.dataaccess.BusinessDAO;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
-import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.runwaysdk.SystemException;
+import com.runwaysdk.constants.MdAttributeConcreteInfo;
+import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdAttribute;
 
 /**
  * Reads in an excel file that maps Mo Attriutes to term roots. Note that if you
