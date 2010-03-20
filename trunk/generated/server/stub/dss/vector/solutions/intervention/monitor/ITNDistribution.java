@@ -160,7 +160,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";
+      String sql = "EXTRACT(year from AGE(distributionDate, " + personTableAlias + ".dateofbirth))";
       dobSel.setSQL(sql);
     }
     catch (QueryException e)

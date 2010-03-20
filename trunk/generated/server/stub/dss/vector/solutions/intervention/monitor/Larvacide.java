@@ -116,7 +116,7 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), " + personTableAlias + ".dateofbirth))";
+      String sql = "EXTRACT(year from AGE(completionDate, " + personTableAlias + ".dateofbirth))";
       dobSel.setSQL(sql);
     }
     catch (QueryException e)
