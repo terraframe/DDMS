@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -198677955)
-public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 951233541)
+public abstract class InfectionAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InfectionAssayView";
-  private static final long serialVersionUID = -198677955;
+  private static final long serialVersionUID = 951233541;
   
-  protected InfectionAssayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InfectionAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -67,9 +67,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(COLLECTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -104,9 +104,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getIdentMethod()
@@ -148,14 +148,14 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getInfected()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
   }
   
   public void setInfected(Boolean value)
@@ -185,9 +185,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(INFECTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
   }
   
   public String getMosquitoId()
@@ -222,14 +222,14 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(MOSQUITOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
   }
   
   public Integer getNumberPositive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
   }
   
   public void setNumberPositive(Integer value)
@@ -259,14 +259,14 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(NUMBERPOSITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
   }
   
   public Integer getNumberTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERTESTED));
   }
   
   public void setNumberTested(Integer value)
@@ -296,9 +296,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(NUMBERTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERTESTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getParasite()
@@ -340,9 +340,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(PARASITE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getParasiteMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getParasiteMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSex()
@@ -384,9 +384,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSpecies()
@@ -428,9 +428,9 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(SPECIES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpeciesMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSpeciesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTestMethod()
@@ -472,16 +472,16 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.entomology.InfectionAssayViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.InfectionAssayViewDTO[] views)
+  public static final dss.vector.solutions.entomology.InfectionAssayViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.InfectionAssayViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.entomology.InfectionAssayView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.entomology.InfectionAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -489,21 +489,21 @@ public abstract class InfectionAssayViewDTOBase extends com.terraframe.mojo.busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.InfectionAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static InfectionAssayViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static InfectionAssayViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (InfectionAssayViewDTO) dto;
   }

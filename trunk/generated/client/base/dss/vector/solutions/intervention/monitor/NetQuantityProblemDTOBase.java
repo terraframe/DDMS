@@ -1,17 +1,17 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1696559020)
-public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1565627796)
+public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NetQuantityProblem";
-  private static final long serialVersionUID = 1696559020;
+  private static final long serialVersionUID = -1565627796;
   
-  public NetQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public NetQuantityProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public NetQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public NetQuantityProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -25,7 +25,7 @@ public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.Not
   public static java.lang.String QUANTITY = "quantity";
   public Integer getNetCount()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETCOUNT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETCOUNT));
   }
   
   public void setNetCount(Integer value)
@@ -55,14 +55,14 @@ public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.Not
     return isModified(NETCOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNetCountMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNetCountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETCOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETCOUNT).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
   }
   
   public void setQuantity(Integer value)
@@ -92,9 +92,9 @@ public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.Not
     return isModified(QUANTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.Not
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.NetQuantityProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.NetQuantityProblem", locale);
       
       message = message.replace("{netCount}", this.getNetCount().toString());
       message = message.replace("{quantity}", this.getQuantity().toString());
@@ -125,19 +125,19 @@ public abstract class NetQuantityProblemDTOBase extends dss.vector.solutions.Not
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

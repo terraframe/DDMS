@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -825386144)
-public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1323271686)
+public abstract class IndividualCaseViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCaseView";
-  private static final long serialVersionUID = -825386144;
+  private static final long serialVersionUID = 1323271686;
   
-  protected IndividualCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected IndividualCaseViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -31,7 +31,7 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String WORKPLACETEXT = "workplaceText";
   public Integer getAge()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
   }
   
   public void setAge(Integer value)
@@ -61,14 +61,14 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(AGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAgeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAgeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
   }
   
   public java.util.Date getCaseEntryDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEENTRYDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEENTRYDATE));
   }
   
   public void setCaseEntryDate(java.util.Date value)
@@ -79,7 +79,7 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     }
     else
     {
-      setValue(CASEENTRYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(CASEENTRYDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -98,14 +98,14 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CASEENTRYDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCaseEntryDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCaseEntryDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CASEENTRYDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CASEENTRYDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getCaseReportDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEREPORTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEREPORTDATE));
   }
   
   public void setCaseReportDate(java.util.Date value)
@@ -116,7 +116,7 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     }
     else
     {
-      setValue(CASEREPORTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(CASEREPORTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -135,9 +135,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CASEREPORTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCaseReportDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCaseReportDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CASEREPORTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CASEREPORTDATE).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -172,14 +172,14 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public java.util.Date getDiagnosisDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DIAGNOSISDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DIAGNOSISDATE));
   }
   
   public void setDiagnosisDate(java.util.Date value)
@@ -190,7 +190,7 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     }
     else
     {
-      setValue(DIAGNOSISDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DIAGNOSISDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -209,9 +209,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(DIAGNOSISDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDiagnosisDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDiagnosisDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DIAGNOSISDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DIAGNOSISDATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PatientDTO getPatient()
@@ -253,9 +253,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(PATIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPatientMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getProbableSource()
@@ -297,9 +297,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(PROBABLESOURCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getProbableSourceMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getProbableSourceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PROBABLESOURCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PROBABLESOURCE).getAttributeMdDTO();
   }
   
   public String getProbableSourceText()
@@ -334,9 +334,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(PROBABLESOURCETEXT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getProbableSourceTextMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getProbableSourceTextMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(PROBABLESOURCETEXT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(PROBABLESOURCETEXT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getResidence()
@@ -378,9 +378,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(RESIDENCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getResidenceMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getResidenceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENCE).getAttributeMdDTO();
   }
   
   public String getResidenceText()
@@ -415,9 +415,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(RESIDENCETEXT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getResidenceTextMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getResidenceTextMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RESIDENCETEXT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RESIDENCETEXT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkplace()
@@ -459,9 +459,9 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(WORKPLACE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkplaceMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWorkplaceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKPLACE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKPLACE).getAttributeMdDTO();
   }
   
   public String getWorkplaceText()
@@ -496,14 +496,14 @@ public abstract class IndividualCaseViewDTOBase extends com.terraframe.mojo.busi
     return isModified(WORKPLACETEXT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getWorkplaceTextMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getWorkplaceTextMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(WORKPLACETEXT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(WORKPLACETEXT).getAttributeMdDTO();
   }
   
-  public static IndividualCaseViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static IndividualCaseViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (IndividualCaseViewDTO) dto;
   }

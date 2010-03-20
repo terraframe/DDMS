@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 599772673)
-public abstract class ResistantCollectionDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1882759585)
+public abstract class ResistantCollectionDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.ResistantCollection";
-  private static final long serialVersionUID = 599772673;
+  private static final long serialVersionUID = -1882759585;
   
-  public ResistantCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public ResistantCollectionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2128245759)
-public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2052310593)
+public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityView";
-  private static final long serialVersionUID = 2128245759;
+  private static final long serialVersionUID = -2052310593;
   
-  protected GeoEntityViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -26,7 +26,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
   public Boolean getActivated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
   }
   
   public void setActivated(Boolean value)
@@ -56,9 +56,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ACTIVATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
   }
   
   public String getEntityName()
@@ -93,9 +93,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ENTITYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getEntityType()
@@ -130,9 +130,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ENTITYTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYTYPE).getAttributeMdDTO();
   }
   
   public String getGeoEntityId()
@@ -167,9 +167,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(GEOENTITYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoEntityIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYID).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -204,9 +204,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public String getMoSubType()
@@ -241,9 +241,9 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(MOSUBTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMoSubTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMoSubTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSUBTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSUBTYPE).getAttributeMdDTO();
   }
   
   public String getTypeDisplayLabel()
@@ -278,14 +278,14 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
     return isModified(TYPEDISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTypeDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTypeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPEDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPEDISPLAYLABEL).getAttributeMdDTO();
   }
   
-  public static GeoEntityViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static GeoEntityViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (GeoEntityViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1971666269)
-public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.SavedMapDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1971666269)
+public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.SavedMapDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.DefaultSavedMap";
   private static final long serialVersionUID = -1971666269;
   
-  protected DefaultSavedMapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected DefaultSavedMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected DefaultSavedMapDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected DefaultSavedMapDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,9 +27,9 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
     return CLASS;
   }
   
-  public static dss.vector.solutions.query.DefaultSavedMapDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.query.DefaultSavedMapDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.query.DefaultSavedMapDTO) dto;
   }
@@ -50,7 +50,7 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.query.DefaultSavedMapQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.query.DefaultSavedMapQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     return (dss.vector.solutions.query.DefaultSavedMapQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.DefaultSavedMap", sortAttribute, ascending, pageSize, pageNumber);
   }
@@ -60,11 +60,11 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.query.DefaultSavedMapDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.DefaultSavedMapDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.DefaultSavedMapDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.DefaultSavedMapDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.query.DefaultSavedMapDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -73,11 +73,11 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.query.DefaultSavedMapDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.DefaultSavedMapDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.DefaultSavedMapDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.DefaultSavedMapDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.query.DefaultSavedMapDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

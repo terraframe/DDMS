@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1207356454)
-public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1941796164)
+public abstract class HouseholdViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.HouseholdView";
-  private static final long serialVersionUID = 1207356454;
+  private static final long serialVersionUID = 1941796164;
   
-  protected HouseholdViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected HouseholdViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -65,15 +65,15 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.ResponseDTO> getHasBeenSprayed()
   {
-    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(HASBEENSPRAYED));
+    return (java.util.List<dss.vector.solutions.ResponseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.ResponseDTO.CLASS, getEnumNames(HASBEENSPRAYED));
   }
   
   public java.util.List<String> getHasBeenSprayedEnumNames()
@@ -111,14 +111,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(HASBEENSPRAYED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getHasBeenSprayedMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getHasBeenSprayedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(HASBEENSPRAYED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(HASBEENSPRAYED).getAttributeMdDTO();
   }
   
   public Boolean getHasHouseholdNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASHOUSEHOLDNETS));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASHOUSEHOLDNETS));
   }
   
   public void setHasHouseholdNets(Boolean value)
@@ -148,14 +148,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(HASHOUSEHOLDNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHasHouseholdNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getHasHouseholdNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASHOUSEHOLDNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASHOUSEHOLDNETS).getAttributeMdDTO();
   }
   
   public Boolean getHasWindows()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASWINDOWS));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASWINDOWS));
   }
   
   public void setHasWindows(Boolean value)
@@ -185,9 +185,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(HASWINDOWS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHasWindowsMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getHasWindowsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASWINDOWS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASWINDOWS).getAttributeMdDTO();
   }
   
   public String getHouseholdName()
@@ -222,14 +222,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(HOUSEHOLDNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDNAME).getAttributeMdDTO();
   }
   
   public Integer getLastSprayed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTSPRAYED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTSPRAYED));
   }
   
   public void setLastSprayed(Integer value)
@@ -259,14 +259,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(LASTSPRAYED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLastSprayedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLastSprayedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LASTSPRAYED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LASTSPRAYED).getAttributeMdDTO();
   }
   
   public Integer getNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NETS));
   }
   
   public void setNets(Integer value)
@@ -296,14 +296,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(NETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NETS).getAttributeMdDTO();
   }
   
   public Integer getPeople()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
   }
   
   public void setPeople(Integer value)
@@ -333,9 +333,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(PEOPLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeopleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeopleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getRoof()
@@ -377,9 +377,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ROOF);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getRoofMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getRoofMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOF).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOF).getAttributeMdDTO();
   }
   
   public String getRoofInfo()
@@ -414,14 +414,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ROOFINFO);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRoofInfoMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getRoofInfoMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROOFINFO).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROOFINFO).getAttributeMdDTO();
   }
   
   public Integer getRooms()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
   }
   
   public void setRooms(Integer value)
@@ -451,9 +451,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ROOMS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRoomsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.intervention.monitor.SurveyPointDTO getSurveyPoint()
@@ -495,14 +495,14 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SURVEYPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurveyPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurveyPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURVEYPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURVEYPOINT).getAttributeMdDTO();
   }
   
   public Boolean getUrban()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
   }
   
   public void setUrban(Boolean value)
@@ -532,9 +532,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(URBAN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getWall()
@@ -576,9 +576,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(WALL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWallMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWallMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WALL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WALL).getAttributeMdDTO();
   }
   
   public String getWallInfo()
@@ -613,9 +613,9 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(WALLINFO);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getWallInfoMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getWallInfoMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WALLINFO).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(WALLINFO).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getWindowType()
@@ -657,24 +657,24 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
     return isModified(WINDOWTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWindowTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWindowTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WINDOWTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WINDOWTYPE).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -682,15 +682,15 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getItns", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getItns", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO[] getItns(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO[] getItns(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getItns", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getItns", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -698,21 +698,21 @@ public abstract class HouseholdViewDTOBase extends com.terraframe.mojo.business.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getSurveyedPeople", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getSurveyedPeople", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO[] getSurveyedPeople(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO[] getSurveyedPeople(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getSurveyedPeople", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.HouseholdViewDTO.CLASS, "getSurveyedPeople", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static HouseholdViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static HouseholdViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (HouseholdViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -606041362)
-public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector.solutions.irs.InterventionPlanningViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1252655188)
+public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector.solutions.irs.InterventionPlanningViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorInterventionPlanningView";
-  private static final long serialVersionUID = -606041362;
+  private static final long serialVersionUID = 1252655188;
   
-  protected OperatorInterventionPlanningViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected OperatorInterventionPlanningViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -21,7 +21,7 @@ public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector
   public static java.lang.String UNITSPERDAY = "unitsPerDay";
   public Integer getNumberofDays()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFDAYS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFDAYS));
   }
   
   public void setNumberofDays(Integer value)
@@ -51,14 +51,14 @@ public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector
     return isModified(NUMBEROFDAYS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberofDaysMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberofDaysMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFDAYS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFDAYS).getAttributeMdDTO();
   }
   
   public Integer getRequiredOperators()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REQUIREDOPERATORS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REQUIREDOPERATORS));
   }
   
   public void setRequiredOperators(Integer value)
@@ -88,14 +88,14 @@ public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector
     return isModified(REQUIREDOPERATORS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRequiredOperatorsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRequiredOperatorsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REQUIREDOPERATORS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REQUIREDOPERATORS).getAttributeMdDTO();
   }
   
   public Integer getUnitsPerDay()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSPERDAY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSPERDAY));
   }
   
   public void setUnitsPerDay(Integer value)
@@ -125,38 +125,38 @@ public abstract class OperatorInterventionPlanningViewDTOBase extends dss.vector
     return isModified(UNITSPERDAY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUnitsPerDayMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnitsPerDayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSPERDAY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSPERDAY).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] calculate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views)
+  public static final dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] calculate(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.OperatorInterventionPlanningView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "calculate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "calculate", _declaredTypes);
     return (dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.io.InputStream exportToExcel(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views)
+  public static final java.io.InputStream exportToExcel(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.OperatorInterventionPlanningView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "exportToExcel", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "exportToExcel", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] getViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season)
+  public static final dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[] getViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.general.MalariaSeason"};
     Object[] _parameters = new Object[]{geoId, season};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "getViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO.CLASS, "getViews", _declaredTypes);
     return (dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static OperatorInterventionPlanningViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static OperatorInterventionPlanningViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (OperatorInterventionPlanningViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1869625693)
-public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1802324095)
+public abstract class MDSSUserViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUserView";
-  private static final long serialVersionUID = 1869625693;
+  private static final long serialVersionUID = 1802324095;
   
-  protected MDSSUserViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MDSSUserViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -55,9 +55,9 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(FIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
   }
   
   public String getLastName()
@@ -92,9 +92,9 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(LASTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
   }
   
   public String getPersonId()
@@ -129,9 +129,9 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(PERSONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
   }
   
   public String getRoles()
@@ -166,9 +166,9 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(ROLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRolesMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getRolesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ROLES).getAttributeMdDTO();
   }
   
   public String getUserId()
@@ -203,9 +203,9 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(USERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUserIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUserIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERID).getAttributeMdDTO();
   }
   
   public String getUsername()
@@ -240,22 +240,22 @@ public abstract class MDSSUserViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(USERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.MDSSUserViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.MDSSUserViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.MDSSUserViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static MDSSUserViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static MDSSUserViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (MDSSUserViewDTO) dto;
   }

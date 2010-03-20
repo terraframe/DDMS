@@ -1,47 +1,47 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 987884113)
-public abstract class DelegateIdExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1064765777)
+public abstract class DelegateIdExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.DelegateIdException";
-  private static final long serialVersionUID = 987884113;
+  private static final long serialVersionUID = -1064765777;
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected DelegateIdExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected DelegateIdExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public DelegateIdExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public DelegateIdExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -71,7 +71,7 @@ public abstract class DelegateIdExceptionDTOBase extends com.terraframe.mojo.bus
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.DelegateIdException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.DelegateIdException", locale);
       
       message = message.replace("{id}", this.getId().toString());
       
@@ -79,19 +79,19 @@ public abstract class DelegateIdExceptionDTOBase extends com.terraframe.mojo.bus
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

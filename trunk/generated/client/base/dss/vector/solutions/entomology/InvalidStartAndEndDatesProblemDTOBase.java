@@ -1,17 +1,17 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2123461349)
-public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -182126463)
+public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.runwaysdk.business.ProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem";
-  private static final long serialVersionUID = -2123461349;
+  private static final long serialVersionUID = -182126463;
   
-  public InvalidStartAndEndDatesProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidStartAndEndDatesProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidStartAndEndDatesProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public InvalidStartAndEndDatesProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -26,7 +26,7 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
   public static java.lang.String STARTDATE = "startDate";
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -37,7 +37,7 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -56,14 +56,14 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -74,7 +74,7 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -93,9 +93,9 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   /**
@@ -117,7 +117,7 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem", locale);
       
       message = message.replace("{endDate}", this.getEndDate().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -127,19 +127,19 @@ public abstract class InvalidStartAndEndDatesProblemDTOBase extends com.terrafra
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1319667480)
-public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 282713100)
+public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = 1319667480;
+  private static final long serialVersionUID = 282713100;
   
-  protected SavedSearchViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SavedSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -54,9 +54,9 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
     return isModified(CONFIG);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getConfigMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getConfigMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
   }
   
   public String getQueryName()
@@ -91,9 +91,9 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
     return isModified(QUERYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getQueryNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getQueryNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYNAME).getAttributeMdDTO();
   }
   
   public String getQueryType()
@@ -128,9 +128,9 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
     return isModified(QUERYTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getQueryTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getQueryTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYTYPE).getAttributeMdDTO();
   }
   
   public String getQueryXml()
@@ -165,9 +165,9 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
     return isModified(QUERYXML);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getQueryXmlMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getQueryXmlMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(QUERYXML).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(QUERYXML).getAttributeMdDTO();
   }
   
   public String getSavedQueryId()
@@ -202,14 +202,14 @@ public abstract class SavedSearchViewDTOBase extends com.terraframe.mojo.busines
     return isModified(SAVEDQUERYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSavedQueryIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSavedQueryIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SAVEDQUERYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SAVEDQUERYID).getAttributeMdDTO();
   }
   
-  public static SavedSearchViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SavedSearchViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (SavedSearchViewDTO) dto;
   }

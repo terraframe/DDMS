@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 43513093)
-public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -501501883)
+public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.InvalidPositiveTestProblem";
-  private static final long serialVersionUID = 43513093;
+  private static final long serialVersionUID = -501501883;
   
-  public InvalidPositiveTestProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidPositiveTestProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidPositiveTestProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public InvalidPositiveTestProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -25,7 +25,7 @@ public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solut
   public static java.lang.String AMOUNTPOSITIVE = "amountPositive";
   public Integer getAmount()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
   }
   
   public void setAmount(Integer value)
@@ -55,14 +55,14 @@ public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solut
     return isModified(AMOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAmountMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
   }
   
   public Integer getAmountPositive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNTPOSITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNTPOSITIVE));
   }
   
   public void setAmountPositive(Integer value)
@@ -92,9 +92,9 @@ public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solut
     return isModified(AMOUNTPOSITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAmountPositiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountPositiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNTPOSITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNTPOSITIVE).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solut
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.InvalidPositiveTestProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.InvalidPositiveTestProblem", locale);
       
       message = message.replace("{amount}", this.getAmount().toString());
       message = message.replace("{amountPositive}", this.getAmountPositive().toString());
@@ -125,19 +125,19 @@ public abstract class InvalidPositiveTestProblemDTOBase extends dss.vector.solut
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

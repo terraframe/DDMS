@@ -1,47 +1,47 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1671956496)
-public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2087292432)
+public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException";
-  private static final long serialVersionUID = -1671956496;
+  private static final long serialVersionUID = -2087292432;
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -85,9 +85,9 @@ public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase ex
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   /**
@@ -109,7 +109,7 @@ public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase ex
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException", locale);
       
       message = message.replace("{geoId}", this.getGeoId().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -118,19 +118,19 @@ public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase ex
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

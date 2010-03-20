@@ -1,47 +1,47 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1598426497)
-public abstract class AllowedInSelfExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1302891263)
+public abstract class AllowedInSelfExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.AllowedInSelfException";
-  private static final long serialVersionUID = -1598426497;
+  private static final long serialVersionUID = 1302891263;
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected AllowedInSelfExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected AllowedInSelfExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public AllowedInSelfExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public AllowedInSelfExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -85,9 +85,9 @@ public abstract class AllowedInSelfExceptionDTOBase extends com.terraframe.mojo.
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**
@@ -109,7 +109,7 @@ public abstract class AllowedInSelfExceptionDTOBase extends com.terraframe.mojo.
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.geo.AllowedInSelfException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.geo.AllowedInSelfException", locale);
       
       message = message.replace("{displayLabel}", this.getDisplayLabel().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -118,19 +118,19 @@ public abstract class AllowedInSelfExceptionDTOBase extends com.terraframe.mojo.
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

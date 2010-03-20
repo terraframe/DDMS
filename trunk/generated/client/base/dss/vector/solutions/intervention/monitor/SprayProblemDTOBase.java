@@ -1,17 +1,17 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 674580370)
-public abstract class SprayProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -940813328)
+public abstract class SprayProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SprayProblem";
-  private static final long serialVersionUID = 674580370;
+  private static final long serialVersionUID = -940813328;
   
-  public SprayProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public SprayProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public SprayProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public SprayProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -24,7 +24,7 @@ public abstract class SprayProblemDTOBase extends dss.vector.solutions.Notificat
   public static java.lang.String MONTHS = "months";
   public Integer getMonths()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MONTHS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MONTHS));
   }
   
   public void setMonths(Integer value)
@@ -54,9 +54,9 @@ public abstract class SprayProblemDTOBase extends dss.vector.solutions.Notificat
     return isModified(MONTHS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMonthsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMonthsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MONTHS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MONTHS).getAttributeMdDTO();
   }
   
   /**
@@ -78,7 +78,7 @@ public abstract class SprayProblemDTOBase extends dss.vector.solutions.Notificat
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.SprayProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.SprayProblem", locale);
       
       message = message.replace("{months}", this.getMonths().toString());
       
@@ -86,19 +86,19 @@ public abstract class SprayProblemDTOBase extends dss.vector.solutions.Notificat
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

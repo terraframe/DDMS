@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 931759169)
-public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -86323865)
+public abstract class NozzleViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.NozzleView";
-  private static final long serialVersionUID = 931759169;
+  private static final long serialVersionUID = -86323865;
   
-  protected NozzleViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected NozzleViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -53,14 +53,14 @@ public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.Vie
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
   }
   
   public void setEnabled(Boolean value)
@@ -90,9 +90,9 @@ public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.Vie
     return isModified(ENABLED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
   }
   
   public String getNozzleId()
@@ -127,14 +127,14 @@ public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.Vie
     return isModified(NOZZLEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getNozzleIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNozzleIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NOZZLEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NOZZLEID).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getRatio()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(RATIO));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(RATIO));
   }
   
   public void setRatio(java.math.BigDecimal value)
@@ -164,16 +164,16 @@ public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.Vie
     return isModified(RATIO);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getRatioMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getRatioMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(RATIO).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(RATIO).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.NozzleViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.NozzleViewDTO[] nozzles)
+  public static final dss.vector.solutions.irs.NozzleViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.NozzleViewDTO[] nozzles)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.NozzleView;"};
     Object[] _parameters = new Object[]{nozzles};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.irs.NozzleViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -181,37 +181,37 @@ public abstract class NozzleViewDTOBase extends com.terraframe.mojo.business.Vie
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.NozzleViewDTO[] getAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.NozzleViewDTO[] getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "getAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "getAll", _declaredTypes);
     return (dss.vector.solutions.irs.NozzleViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.NozzleViewDTO[] getAllActive(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.NozzleViewDTO[] getAllActive(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "getAllActive", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.NozzleViewDTO.CLASS, "getAllActive", _declaredTypes);
     return (dss.vector.solutions.irs.NozzleViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static NozzleViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static NozzleViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (NozzleViewDTO) dto;
   }

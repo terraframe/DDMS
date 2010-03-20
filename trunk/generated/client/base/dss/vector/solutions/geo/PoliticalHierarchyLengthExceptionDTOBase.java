@@ -1,47 +1,47 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 230471356)
-public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 922635866)
+public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.PoliticalHierarchyLengthException";
-  private static final long serialVersionUID = 230471356;
+  private static final long serialVersionUID = 922635866;
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public PoliticalHierarchyLengthExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public PoliticalHierarchyLengthExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -56,7 +56,7 @@ public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terra
   public static java.lang.String SLOTS = "slots";
   public Integer getHierarchyLength()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HIERARCHYLENGTH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HIERARCHYLENGTH));
   }
   
   public void setHierarchyLength(Integer value)
@@ -86,14 +86,14 @@ public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terra
     return isModified(HIERARCHYLENGTH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHierarchyLengthMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHierarchyLengthMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HIERARCHYLENGTH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HIERARCHYLENGTH).getAttributeMdDTO();
   }
   
   public Integer getSlots()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLOTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SLOTS));
   }
   
   public void setSlots(Integer value)
@@ -123,9 +123,9 @@ public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terra
     return isModified(SLOTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSlotsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSlotsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SLOTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SLOTS).getAttributeMdDTO();
   }
   
   /**
@@ -147,7 +147,7 @@ public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terra
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.geo.PoliticalHierarchyLengthException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.geo.PoliticalHierarchyLengthException", locale);
       
       message = message.replace("{hierarchyLength}", this.getHierarchyLength().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -157,19 +157,19 @@ public abstract class PoliticalHierarchyLengthExceptionDTOBase extends com.terra
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

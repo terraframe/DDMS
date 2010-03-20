@@ -1,12 +1,12 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1285260003)
-public abstract class AggregatedCaseSearchViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -863017215)
+public abstract class AggregatedCaseSearchViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseSearchView";
-  private static final long serialVersionUID = 1285260003;
+  private static final long serialVersionUID = -863017215;
   
-  protected AggregatedCaseSearchViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedCaseSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -19,7 +19,7 @@ public abstract class AggregatedCaseSearchViewDTOBase extends dss.vector.solutio
   public static java.lang.String SEARCHTYPE = "searchType";
   public Boolean getSearchType()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
   }
   
   public void setSearchType(Boolean value)
@@ -49,30 +49,30 @@ public abstract class AggregatedCaseSearchViewDTOBase extends dss.vector.solutio
     return isModified(SEARCHTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByView()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static AggregatedCaseSearchViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AggregatedCaseSearchViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (AggregatedCaseSearchViewDTO) dto;
   }

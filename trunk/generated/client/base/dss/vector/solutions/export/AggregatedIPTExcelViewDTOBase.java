@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -48053031)
-public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 814639969)
+public abstract class AggregatedIPTExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AggregatedIPTExcelView";
-  private static final long serialVersionUID = -48053031;
+  private static final long serialVersionUID = 814639969;
   
-  protected AggregatedIPTExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedIPTExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -65,14 +65,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getNumberNatalCare()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERNATALCARE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERNATALCARE));
   }
   
   public void setNumberNatalCare(Integer value)
@@ -102,14 +102,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(NUMBERNATALCARE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberNatalCareMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberNatalCareMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERNATALCARE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERNATALCARE).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANT));
   }
   
   public void setNumberPregnant(Integer value)
@@ -139,14 +139,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(NUMBERPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnantITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTITN));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTITN));
   }
   
   public void setNumberPregnantITN(Integer value)
@@ -176,14 +176,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(NUMBERPREGNANTITN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantITNMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantITNMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTITN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTITN).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnantIron()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTIRON));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTIRON));
   }
   
   public void setNumberPregnantIron(Integer value)
@@ -213,14 +213,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(NUMBERPREGNANTIRON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantIronMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantIronMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTIRON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTIRON).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -250,9 +250,9 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   public String getPeriodType()
@@ -287,14 +287,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PERIODTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPeriodTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPeriodTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
   }
   
   public Integer getPeriodYear()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
   }
   
   public void setPeriodYear(Integer value)
@@ -324,14 +324,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PERIODYEAR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
   }
   
   public Integer getTotalITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTALITN));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTALITN));
   }
   
   public void setTotalITN(Integer value)
@@ -361,14 +361,14 @@ public abstract class AggregatedIPTExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(TOTALITN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTotalITNMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTotalITNMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALITN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALITN).getAttributeMdDTO();
   }
   
-  public static AggregatedIPTExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AggregatedIPTExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (AggregatedIPTExcelViewDTO) dto;
   }

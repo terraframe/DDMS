@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -555928824)
-public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1617432098)
+public abstract class InfectionAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.InfectionAssayExcelView";
-  private static final long serialVersionUID = -555928824;
+  private static final long serialVersionUID = 1617432098;
   
-  protected InfectionAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InfectionAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -59,9 +59,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(COLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public String getIdentMethod()
@@ -96,14 +96,14 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getInfected()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
   }
   
   public void setInfected(Boolean value)
@@ -133,9 +133,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(INFECTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
   }
   
   public String getMosquitoId()
@@ -170,14 +170,14 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(MOSQUITOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
   }
   
   public Integer getNumberPositive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
   }
   
   public void setNumberPositive(Integer value)
@@ -207,14 +207,14 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(NUMBERPOSITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
   }
   
   public Integer getNumberTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERTESTED));
   }
   
   public void setNumberTested(Integer value)
@@ -244,9 +244,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(NUMBERTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERTESTED).getAttributeMdDTO();
   }
   
   public String getParasite()
@@ -281,9 +281,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(PARASITE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParasiteMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getParasiteMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
   }
   
   public String getSex()
@@ -318,9 +318,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public String getSpecies()
@@ -355,9 +355,9 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(SPECIES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
   }
   
   public String getTestMethod()
@@ -392,14 +392,14 @@ public abstract class InfectionAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
-  public static InfectionAssayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static InfectionAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (InfectionAssayExcelViewDTO) dto;
   }

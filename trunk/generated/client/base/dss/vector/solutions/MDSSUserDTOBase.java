@@ -1,12 +1,12 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 117801890)
-public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1049798144)
+public abstract class MDSSUserDTOBase extends com.runwaysdk.system.UsersDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
-  private static final long serialVersionUID = 117801890;
+  private static final long serialVersionUID = 1049798144;
   
-  protected MDSSUserDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MDSSUserDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected MDSSUserDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MDSSUserDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -71,9 +71,9 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return isModified(DEFAULTMAP);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultMapMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDefaultMapMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTMAP).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTMAP).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.query.SavedSearchDTO getDefaultSearch()
@@ -115,9 +115,9 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return isModified(DEFAULTSEARCH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultSearchMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDefaultSearchMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSEARCH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSEARCH).getAttributeMdDTO();
   }
   
   public String getGeoRoot()
@@ -152,9 +152,9 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return isModified(GEOROOT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoRootMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoRootMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOROOT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOROOT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PersonDTO getPerson()
@@ -196,9 +196,9 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return isModified(PERSON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPersonMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPersonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSON).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getRootGeoEntity()
@@ -240,16 +240,16 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return isModified(ROOTGEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getRootGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getRootGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOTGEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ROOTGEOENTITY).getAttributeMdDTO();
   }
   
-  public static final void changeRootGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
+  public static final void changeRootGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoEntityId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "changeRootGeoEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "changeRootGeoEntity", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -257,15 +257,15 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{assign, revoke};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "updateRoles", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "updateRoles", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void updateRoles(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String[] assign, java.lang.String[] revoke)
+  public static final void updateRoles(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String[] assign, java.lang.String[] revoke)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{id, assign, revoke};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "updateRoles", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "updateRoles", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -276,7 +276,7 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.SavedSearchDTO> getAllPersistedQueries(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.SavedSearchDTO> getAllPersistedQueries(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.SavedSearchDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
@@ -288,7 +288,7 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.PersistsSearchDTO> getAllPersistedQueriesRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.PersistsSearchDTO> getAllPersistedQueriesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.PersistsSearchDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
@@ -298,7 +298,7 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     return (dss.vector.solutions.query.PersistsSearchDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
   
-  public static dss.vector.solutions.query.PersistsSearchDTO addPersistedQueries(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.SavedSearchDTO child)
+  public static dss.vector.solutions.query.PersistsSearchDTO addPersistedQueries(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.SavedSearchDTO child)
   {
     return (dss.vector.solutions.query.PersistsSearchDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
@@ -308,7 +308,7 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removePersistedQueries(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.PersistsSearchDTO relationship)
+  public static void removePersistedQueries(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.PersistsSearchDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -318,14 +318,14 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
   
-  public static void removeAllPersistedQueries(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllPersistedQueries(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.query.PersistsSearchDTO.CLASS);
   }
   
-  public static dss.vector.solutions.MDSSUserDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.MDSSUserDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.MDSSUserDTO) dto;
   }
@@ -346,9 +346,9 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.MDSSUserQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.MDSSUserQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.MDSSUserQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.MDSSUser", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.MDSSUserQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.MDSSUserDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -356,11 +356,11 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.MDSSUserDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.MDSSUserDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.MDSSUserDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -369,11 +369,11 @@ public abstract class MDSSUserDTOBase extends com.terraframe.mojo.system.UsersDT
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.MDSSUserDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.MDSSUserDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.MDSSUserDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.MDSSUserDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

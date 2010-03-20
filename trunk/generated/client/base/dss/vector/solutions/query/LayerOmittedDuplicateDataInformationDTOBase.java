@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1222724992)
-public abstract class LayerOmittedDuplicateDataInformationDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2033721924)
+public abstract class LayerOmittedDuplicateDataInformationDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerOmittedDuplicateDataInformation";
-  private static final long serialVersionUID = -1222724992;
+  private static final long serialVersionUID = -2033721924;
   
-  public LayerOmittedDuplicateDataInformationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public LayerOmittedDuplicateDataInformationDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
@@ -50,9 +50,9 @@ public abstract class LayerOmittedDuplicateDataInformationDTOBase extends com.te
     return isModified(LAYERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
   }
   
 }

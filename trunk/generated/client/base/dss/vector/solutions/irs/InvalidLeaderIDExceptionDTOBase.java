@@ -1,47 +1,47 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1294125050)
-public abstract class InvalidLeaderIDExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -684459462)
+public abstract class InvalidLeaderIDExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InvalidLeaderIDException";
-  private static final long serialVersionUID = 1294125050;
+  private static final long serialVersionUID = -684459462;
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected InvalidLeaderIDExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public InvalidLeaderIDExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public InvalidLeaderIDExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -85,9 +85,9 @@ public abstract class InvalidLeaderIDExceptionDTOBase extends com.terraframe.moj
     return isModified(LEADERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
   }
   
   /**
@@ -109,7 +109,7 @@ public abstract class InvalidLeaderIDExceptionDTOBase extends com.terraframe.moj
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.irs.InvalidLeaderIDException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.irs.InvalidLeaderIDException", locale);
       
       message = message.replace("{id}", this.getId().toString());
       message = message.replace("{leaderId}", this.getLeaderId().toString());
@@ -118,19 +118,19 @@ public abstract class InvalidLeaderIDExceptionDTOBase extends com.terraframe.moj
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

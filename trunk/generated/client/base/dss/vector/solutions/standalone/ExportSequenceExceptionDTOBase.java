@@ -1,47 +1,47 @@
 package dss.vector.solutions.standalone;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -728642074)
-public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 649718156)
+public abstract class ExportSequenceExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.standalone.ExportSequenceException";
-  private static final long serialVersionUID = -728642074;
+  private static final long serialVersionUID = 649718156;
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected ExportSequenceExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected ExportSequenceExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public ExportSequenceExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public ExportSequenceExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -56,7 +56,7 @@ public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo
   public static java.lang.String STARTSEQUENCE = "startSequence";
   public Long getEndSequence()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(ENDSEQUENCE));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(ENDSEQUENCE));
   }
   
   public void setEndSequence(Long value)
@@ -86,14 +86,14 @@ public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo
     return isModified(ENDSEQUENCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndSequenceMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEndSequenceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDSEQUENCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDSEQUENCE).getAttributeMdDTO();
   }
   
   public Long getStartSequence()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(STARTSEQUENCE));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(STARTSEQUENCE));
   }
   
   public void setStartSequence(Long value)
@@ -123,9 +123,9 @@ public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo
     return isModified(STARTSEQUENCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartSequenceMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStartSequenceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTSEQUENCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTSEQUENCE).getAttributeMdDTO();
   }
   
   /**
@@ -147,7 +147,7 @@ public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.standalone.ExportSequenceException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.standalone.ExportSequenceException", locale);
       
       message = message.replace("{endSequence}", this.getEndSequence().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -157,19 +157,19 @@ public abstract class ExportSequenceExceptionDTOBase extends com.terraframe.mojo
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

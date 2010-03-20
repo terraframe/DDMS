@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 654032779)
-public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -673592663)
+public abstract class BrowserFieldViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserFieldView";
-  private static final long serialVersionUID = 654032779;
+  private static final long serialVersionUID = -673592663;
   
-  protected BrowserFieldViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected BrowserFieldViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -55,9 +55,9 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(BROWSERFIELDID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrowserFieldIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrowserFieldIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERFIELDID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERFIELDID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDefaultValue()
@@ -99,9 +99,9 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(DEFAULTVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDefaultValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTVALUE).getAttributeMdDTO();
   }
   
   public String getMdAttributeId()
@@ -136,9 +136,9 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(MDATTRIBUTEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
   }
   
   public String getMdAttributeLabel()
@@ -173,9 +173,9 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(MDATTRIBUTELABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdAttributeLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdAttributeLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTELABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTELABEL).getAttributeMdDTO();
   }
   
   public String getMdClassId()
@@ -210,9 +210,9 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(MDCLASSID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdClassIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdClassIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDCLASSID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDCLASSID).getAttributeMdDTO();
   }
   
   public String getMdClassLabel()
@@ -247,14 +247,14 @@ public abstract class BrowserFieldViewDTOBase extends com.terraframe.mojo.busine
     return isModified(MDCLASSLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdClassLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdClassLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDCLASSLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDCLASSLABEL).getAttributeMdDTO();
   }
   
-  public static BrowserFieldViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static BrowserFieldViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (BrowserFieldViewDTO) dto;
   }

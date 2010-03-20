@@ -1,12 +1,12 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 394629109)
-public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1278308665)
+public abstract class TransactionItemViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.TransactionItemView";
-  private static final long serialVersionUID = 394629109;
+  private static final long serialVersionUID = 1278308665;
   
-  protected TransactionItemViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TransactionItemViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -55,9 +55,9 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(ACTIONLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getActionLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getActionLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTIONLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTIONLABEL).getAttributeMdDTO();
   }
   
   public String getComponentId()
@@ -92,9 +92,9 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(COMPONENTID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getComponentIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTID).getAttributeMdDTO();
   }
   
   public String getComponentLabel()
@@ -129,14 +129,14 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(COMPONENTLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getComponentLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTLABEL).getAttributeMdDTO();
   }
   
   public Long getComponentSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(COMPONENTSEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(COMPONENTSEQ));
   }
   
   public void setComponentSeq(Long value)
@@ -166,9 +166,9 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(COMPONENTSEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getComponentSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getComponentSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(COMPONENTSEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(COMPONENTSEQ).getAttributeMdDTO();
   }
   
   public String getComponentSiteMaster()
@@ -203,9 +203,9 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(COMPONENTSITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getComponentSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTSITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTSITEMASTER).getAttributeMdDTO();
   }
   
   public String getItemId()
@@ -240,30 +240,30 @@ public abstract class TransactionItemViewDTOBase extends com.terraframe.mojo.bus
     return isModified(ITEMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getItemIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getItemIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMID).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.synchronization.TransactionItemViewQueryDTO getQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String recordId, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.synchronization.TransactionItemViewQueryDTO getQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String recordId, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{recordId, sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.TransactionItemViewDTO.CLASS, "getQuery", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.TransactionItemViewDTO.CLASS, "getQuery", _declaredTypes);
     return (dss.vector.solutions.synchronization.TransactionItemViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.system.transaction.TransactionRecordQueryDTO getRecordQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final com.runwaysdk.system.transaction.TransactionRecordQueryDTO getRecordQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.TransactionItemViewDTO.CLASS, "getRecordQuery", _declaredTypes);
-    return (com.terraframe.mojo.system.transaction.TransactionRecordQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.TransactionItemViewDTO.CLASS, "getRecordQuery", _declaredTypes);
+    return (com.runwaysdk.system.transaction.TransactionRecordQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static TransactionItemViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static TransactionItemViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (TransactionItemViewDTO) dto;
   }

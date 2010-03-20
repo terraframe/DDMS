@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1230365134)
-public abstract class EpiConfigurationDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -240273202)
+public abstract class EpiConfigurationDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EpiConfiguration";
-  private static final long serialVersionUID = 1230365134;
+  private static final long serialVersionUID = -240273202;
   
-  protected EpiConfigurationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EpiConfigurationDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -50,14 +50,14 @@ public abstract class EpiConfigurationDTOBase extends com.terraframe.mojo.busine
     return isModified(FIRSTDAY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstDayMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstDayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTDAY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTDAY).getAttributeMdDTO();
   }
   
-  public static EpiConfigurationDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static EpiConfigurationDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (EpiConfigurationDTO) dto;
   }

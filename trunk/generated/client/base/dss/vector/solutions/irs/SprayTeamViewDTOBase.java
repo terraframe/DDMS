@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -243102153)
-public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -213598797)
+public abstract class SprayTeamViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeamView";
-  private static final long serialVersionUID = -243102153;
+  private static final long serialVersionUID = -213598797;
   
-  protected SprayTeamViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SprayTeamViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -56,9 +56,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(ASSIGNEDOPERATORS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAssignedOperatorsMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAssignedOperatorsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ASSIGNEDOPERATORS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ASSIGNEDOPERATORS).getAttributeMdDTO();
   }
   
   public String getAvailableOperators()
@@ -93,9 +93,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(AVAILABLEOPERATORS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAvailableOperatorsMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAvailableOperatorsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AVAILABLEOPERATORS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AVAILABLEOPERATORS).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -130,9 +130,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public String getCurrentOperators()
@@ -167,9 +167,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(CURRENTOPERATORS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCurrentOperatorsMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCurrentOperatorsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CURRENTOPERATORS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CURRENTOPERATORS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.SprayZoneDTO getSprayZone()
@@ -211,9 +211,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SPRAYZONE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayZoneMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSprayZoneMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYZONE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYZONE).getAttributeMdDTO();
   }
   
   public String getTeamId()
@@ -248,9 +248,9 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(TEAMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTeamIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMID).getAttributeMdDTO();
   }
   
   public String getTeamLeader()
@@ -285,22 +285,22 @@ public abstract class SprayTeamViewDTOBase extends com.terraframe.mojo.business.
     return isModified(TEAMLEADER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTeamLeaderMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamLeaderMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.SprayTeamViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.irs.SprayTeamViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.SprayTeamViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.irs.SprayTeamViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static SprayTeamViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SprayTeamViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (SprayTeamViewDTO) dto;
   }

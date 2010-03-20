@@ -1,47 +1,47 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 948504590)
-public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends com.terraframe.mojo.business.SmartExceptionDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1773682446)
+public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException";
-  private static final long serialVersionUID = 948504590;
+  private static final long serialVersionUID = 1773682446;
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  protected InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  protected InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public InvalidMosquitoCollectionGeoEntityExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }
@@ -85,9 +85,9 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   /**
@@ -109,7 +109,7 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException", locale);
       
       message = message.replace("{geoId}", this.getGeoId().toString());
       message = message.replace("{id}", this.getId().toString());
@@ -118,19 +118,19 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionDTOBase extends
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

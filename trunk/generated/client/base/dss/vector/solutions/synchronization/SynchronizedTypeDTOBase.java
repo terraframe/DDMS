@@ -1,12 +1,12 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1281429064)
-public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1281429064)
+public abstract class SynchronizedTypeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.SynchronizedType";
   private static final long serialVersionUID = 1281429064;
   
-  protected SynchronizedTypeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SynchronizedTypeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SynchronizedTypeDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SynchronizedTypeDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -42,7 +42,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -60,12 +60,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -73,7 +73,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -92,12 +92,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -105,11 +105,11 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -136,9 +136,9 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -173,14 +173,14 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -198,12 +198,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -211,7 +211,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -230,12 +230,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -243,7 +243,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -262,12 +262,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdTypeDTO getMdssType()
+  public com.runwaysdk.system.metadata.MdTypeDTO getMdssType()
   {
     if(getValue(MDSSTYPE) == null || getValue(MDSSTYPE).trim().equals(""))
     {
@@ -275,11 +275,11 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdTypeDTO.get(getRequest(), getValue(MDSSTYPE));
+      return com.runwaysdk.system.metadata.MdTypeDTO.get(getRequest(), getValue(MDSSTYPE));
     }
   }
   
-  public void setMdssType(com.terraframe.mojo.system.metadata.MdTypeDTO value)
+  public void setMdssType(com.runwaysdk.system.metadata.MdTypeDTO value)
   {
     if(value == null)
     {
@@ -306,12 +306,12 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(MDSSTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getMdssTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMdssTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDSSTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDSSTYPE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -319,11 +319,11 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -350,14 +350,14 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -375,9 +375,9 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -400,14 +400,14 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.synchronization.SynchronizedTypeDTO) dto;
   }
@@ -428,7 +428,7 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.synchronization.SynchronizedTypeQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.synchronization.SynchronizedTypeQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     return (dss.vector.solutions.synchronization.SynchronizedTypeQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.synchronization.SynchronizedType", sortAttribute, ascending, pageSize, pageNumber);
   }
@@ -438,11 +438,11 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -451,11 +451,11 @@ public abstract class SynchronizedTypeDTOBase extends com.terraframe.mojo.busine
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.synchronization.SynchronizedTypeDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

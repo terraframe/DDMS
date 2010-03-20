@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1818729239)
-public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1437883009)
+public abstract class CategoryGenDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.CategoryGen";
-  private static final long serialVersionUID = 1818729239;
+  private static final long serialVersionUID = 1437883009;
   
-  protected CategoryGenDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected CategoryGenDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected CategoryGenDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected CategoryGenDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -57,7 +57,7 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String TYPE = "type";
   public Integer getCategoryCount()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATEGORYCOUNT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CATEGORYCOUNT));
   }
   
   public void setCategoryCount(Integer value)
@@ -87,14 +87,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(CATEGORYCOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCategoryCountMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCategoryCountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATEGORYCOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CATEGORYCOUNT).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -112,12 +112,12 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -125,7 +125,7 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -144,12 +144,12 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -157,11 +157,11 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -188,9 +188,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getFactoryType()
@@ -225,9 +225,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(FACTORYTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFactoryTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFactoryTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACTORYTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACTORYTYPE).getAttributeMdDTO();
   }
   
   public String getFontFillEnd()
@@ -262,9 +262,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(FONTFILLEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFontFillEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFontFillEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFILLEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFILLEND).getAttributeMdDTO();
   }
   
   public String getFontFillStart()
@@ -299,9 +299,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(FONTFILLSTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFontFillStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFontFillStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFILLSTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFILLSTART).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -336,9 +336,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getLabelHaloFillEnd()
@@ -373,9 +373,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LABELHALOFILLEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILLEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILLEND).getAttributeMdDTO();
   }
   
   public String getLabelHaloFillStart()
@@ -410,14 +410,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LABELHALOFILLSTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILLSTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILLSTART).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -435,12 +435,12 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -448,7 +448,7 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -467,9 +467,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public String getLayerId()
@@ -504,12 +504,12 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LAYERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERID).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -517,7 +517,7 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -536,12 +536,12 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -549,11 +549,11 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -580,14 +580,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Integer getPointSizeEnd()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZEEND));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZEEND));
   }
   
   public void setPointSizeEnd(Integer value)
@@ -617,14 +617,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POINTSIZEEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPointSizeEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZEEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZEEND).getAttributeMdDTO();
   }
   
   public Integer getPointSizeStart()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZESTART));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZESTART));
   }
   
   public void setPointSizeStart(Integer value)
@@ -654,9 +654,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POINTSIZESTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPointSizeStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZESTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZESTART).getAttributeMdDTO();
   }
   
   public String getPointStrokeEnd()
@@ -691,9 +691,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POINTSTROKEEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPointStrokeEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPointStrokeEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKEEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKEEND).getAttributeMdDTO();
   }
   
   public String getPointStrokeStart()
@@ -728,9 +728,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POINTSTROKESTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPointStrokeStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPointStrokeStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKESTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKESTART).getAttributeMdDTO();
   }
   
   public String getPolygonFillEnd()
@@ -765,9 +765,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POLYGONFILLEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonFillEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonFillEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILLEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILLEND).getAttributeMdDTO();
   }
   
   public String getPolygonFillStart()
@@ -802,9 +802,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POLYGONFILLSTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonFillStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonFillStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILLSTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILLSTART).getAttributeMdDTO();
   }
   
   public String getPolygonStrokeEnd()
@@ -839,9 +839,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POLYGONSTROKEEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeEndMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeEndMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKEEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKEEND).getAttributeMdDTO();
   }
   
   public String getPolygonStrokeStart()
@@ -876,14 +876,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(POLYGONSTROKESTART);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeStartMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeStartMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKESTART).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKESTART).getAttributeMdDTO();
   }
   
   public Integer getPrecisionFigures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRECISIONFIGURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRECISIONFIGURES));
   }
   
   public void setPrecisionFigures(Integer value)
@@ -913,14 +913,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(PRECISIONFIGURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPrecisionFiguresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPrecisionFiguresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRECISIONFIGURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRECISIONFIGURES).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -938,9 +938,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -963,14 +963,14 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.query.CategoryGenDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.query.CategoryGenDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.query.CategoryGenDTO) dto;
   }
@@ -991,9 +991,9 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.query.CategoryGenQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.query.CategoryGenQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.CategoryGenQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.CategoryGen", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.CategoryGenQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.CategoryGenDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1001,11 +1001,11 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.query.CategoryGenDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.CategoryGenDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.CategoryGenDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.CategoryGenDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.query.CategoryGenDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1014,11 +1014,11 @@ public abstract class CategoryGenDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.query.CategoryGenDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.CategoryGenDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.CategoryGenDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.CategoryGenDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.query.CategoryGenDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

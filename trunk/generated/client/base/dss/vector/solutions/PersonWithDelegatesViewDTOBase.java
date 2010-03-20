@@ -1,12 +1,12 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1398667294)
-public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solutions.PersonViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1341909956)
+public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solutions.PersonViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonWithDelegatesView";
-  private static final long serialVersionUID = -1398667294;
+  private static final long serialVersionUID = -1341909956;
   
-  protected PersonWithDelegatesViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PersonWithDelegatesViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -62,9 +62,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(IPTRECIPIENTDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIptRecipientDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getIptRecipientDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IPTRECIPIENTDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IPTRECIPIENTDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.intervention.monitor.ITNRecipientDTO getItnRecipientDelegate()
@@ -106,9 +106,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(ITNRECIPIENTDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getItnRecipientDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getItnRecipientDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITNRECIPIENTDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITNRECIPIENTDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PatientDTO getPatientDelegate()
@@ -150,9 +150,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(PATIENTDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPatientDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.stock.StockStaffDTO getStockStaffDelegate()
@@ -194,9 +194,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(STOCKSTAFFDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStockStaffDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getStockStaffDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STOCKSTAFFDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STOCKSTAFFDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.SupervisorDTO getSupervisorDelegate()
@@ -238,9 +238,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(SUPERVISORDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSupervisorDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISORDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISORDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.TeamMemberDTO getTeamMemberDelegate()
@@ -282,9 +282,9 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(TEAMMEMBERDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTeamMemberDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTeamMemberDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMMEMBERDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMMEMBERDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.MDSSUserDTO getUserDelegate()
@@ -326,22 +326,22 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
     return isModified(USERDELEGATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getUserDelegateMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUserDelegateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(USERDELEGATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(USERDELEGATE).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.PersonWithDelegatesViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.PersonWithDelegatesViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PersonWithDelegatesViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.PersonWithDelegatesViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.PersonWithDelegatesViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static PersonWithDelegatesViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static PersonWithDelegatesViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (PersonWithDelegatesViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1154467626)
-public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1590672110)
+public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeAssay";
-  private static final long serialVersionUID = 1154467626;
+  private static final long serialVersionUID = 1590672110;
   
-  protected LarvaeAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvaeAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LarvaeAssayDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvaeAssayDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -68,9 +68,9 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     return isModified(ENDPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEndPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getStartPoint()
@@ -112,14 +112,14 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     return isModified(STARTPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStartPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.assay.LarvaeAssayDTO) dto;
   }
@@ -140,9 +140,9 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeAssayQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.LarvaeAssayQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.LarvaeAssayQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.LarvaeAssay", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.LarvaeAssayQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -150,11 +150,11 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -163,11 +163,11 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeAssayDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeAssayDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

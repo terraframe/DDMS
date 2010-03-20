@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -396354846)
-public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 584752452)
+public abstract class PeriodMonthProblemDTOBase extends com.runwaysdk.business.ProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PeriodMonthProblem";
-  private static final long serialVersionUID = -396354846;
+  private static final long serialVersionUID = 584752452;
   
-  public PeriodMonthProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public PeriodMonthProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public PeriodMonthProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public PeriodMonthProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -26,7 +26,7 @@ public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String PERIOD = "period";
   public Integer getMaxPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAXPERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MAXPERIOD));
   }
   
   public void setMaxPeriod(Integer value)
@@ -56,14 +56,14 @@ public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.busi
     return isModified(MAXPERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMaxPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMaxPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MAXPERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MAXPERIOD).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -93,9 +93,9 @@ public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.busi
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   /**
@@ -117,7 +117,7 @@ public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.busi
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.PeriodMonthProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.PeriodMonthProblem", locale);
       
       message = message.replace("{id}", this.getId().toString());
       message = message.replace("{maxPeriod}", this.getMaxPeriod().toString());
@@ -127,19 +127,19 @@ public abstract class PeriodMonthProblemDTOBase extends com.terraframe.mojo.busi
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

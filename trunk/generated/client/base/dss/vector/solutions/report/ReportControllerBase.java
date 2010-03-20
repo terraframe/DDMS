@@ -1,7 +1,7 @@
 package dss.vector.solutions.report;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1612413766)
-public class ReportControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1612413766)
+public class ReportControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.report.ReportController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,28 +57,28 @@ public class ReportControllerBase implements com.terraframe.mojo.generation.load
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
   public void generateReport(java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.generateReport");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.generateReport");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, java.lang.String:savedSearchId", post=true)
   public void failGenerateReport(java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.report.ReportController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.failGenerateReport");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.report.ReportController.failGenerateReport");
   }
   
 }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1367070276)
-public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1367070276)
+public abstract class ThresholdCalculationMethodMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationMethodMaster";
   private static final long serialVersionUID = 1367070276;
   
-  protected ThresholdCalculationMethodMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThresholdCalculationMethodMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraf
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ThresholdCalculationMethodMasterDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThresholdCalculationMethodMasterDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,9 +27,9 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraf
     return CLASS;
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO) dto;
   }
@@ -50,7 +50,7 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraf
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.ThresholdCalculationMethodMaster", sortAttribute, ascending, pageSize, pageNumber);
   }
@@ -60,11 +60,11 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraf
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -73,11 +73,11 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.terraf
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

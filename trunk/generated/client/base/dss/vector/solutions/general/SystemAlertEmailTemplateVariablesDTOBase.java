@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1400084516)
-public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terraframe.mojo.business.LocalStructDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 731342304)
+public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.runwaysdk.business.LocalStructDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertEmailTemplateVariables";
-  private static final long serialVersionUID = -1400084516;
+  private static final long serialVersionUID = 731342304;
   
-  protected SystemAlertEmailTemplateVariablesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SystemAlertEmailTemplateVariablesDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terra
   * @param structDTO The StructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SystemAlertEmailTemplateVariablesDTOBase(com.terraframe.mojo.business.LocalStructDTO structDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SystemAlertEmailTemplateVariablesDTOBase(com.runwaysdk.business.LocalStructDTO structDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(structDTO, clientRequest);
   }
@@ -63,9 +63,9 @@ public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terra
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -88,14 +88,14 @@ public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terra
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static SystemAlertEmailTemplateVariablesDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SystemAlertEmailTemplateVariablesDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (SystemAlertEmailTemplateVariablesDTO) dto;
   }
@@ -116,9 +116,9 @@ public abstract class SystemAlertEmailTemplateVariablesDTOBase extends com.terra
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.SystemAlertEmailTemplateVariables", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.SystemAlertEmailTemplateVariablesDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
 }

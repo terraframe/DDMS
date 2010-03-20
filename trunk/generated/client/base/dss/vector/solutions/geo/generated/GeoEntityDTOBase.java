@@ -1,12 +1,15 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1553037750)
-public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+import com.runwaysdk.business.ValueQueryDTO;
+import com.runwaysdk.constants.ValueQueryDTOInfo;
+
+@com.runwaysdk.business.ClassSignature(hash = 1377366258)
+public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 1553037750;
+  private static final long serialVersionUID = 1377366258;
   
-  protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +20,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected GeoEntityDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -48,7 +51,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TYPE = "type";
   public Boolean getActivated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
   }
   
   public void setActivated(Boolean value)
@@ -78,14 +81,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(ACTIVATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -103,12 +106,12 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -116,7 +119,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -135,12 +138,12 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -148,11 +151,11 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -179,9 +182,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getEntityName()
@@ -216,9 +219,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(ENTITYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getGeoData()
@@ -253,9 +256,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(GEODATA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getGeoDataMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeoDataMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -290,9 +293,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public com.vividsolutions.jts.geom.MultiPolygon getGeoMultiPolygon()
@@ -327,9 +330,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(GEOMULTIPOLYGON);
   }
   
-  public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO getGeoMultiPolygonMd()
+  public final com.runwaysdk.gis.transport.metadata.AttributeMultiPolygonMdDTO getGeoMultiPolygonMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO(GEOMULTIPOLYGON).getAttributeMdDTO();
+    return (com.runwaysdk.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO(GEOMULTIPOLYGON).getAttributeMdDTO();
   }
   
   public com.vividsolutions.jts.geom.Point getGeoPoint()
@@ -364,9 +367,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(GEOPOINT);
   }
   
-  public final com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO getGeoPointMd()
+  public final com.runwaysdk.gis.transport.metadata.AttributePointMdDTO getGeoPointMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO(GEOPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO(GEOPOINT).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -401,14 +404,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -426,12 +429,12 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -439,7 +442,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -458,12 +461,12 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -471,7 +474,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -490,12 +493,12 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -503,11 +506,11 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -534,14 +537,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -559,9 +562,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -584,9 +587,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTerm()
@@ -628,24 +631,24 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return isModified(TERM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTermMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
   }
   
   public final java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{parentGeoEntityId, cloneOperation, oldParentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] applyWithParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public static final java.lang.String[] applyWithParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentGeoEntityId, cloneOperation, oldParentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -653,15 +656,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{newType};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO changeUniversalType(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String newType)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO changeUniversalType(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String newType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, newType};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "changeUniversalType", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -669,23 +672,23 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{includeParents, filter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedIn", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedIn", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedIn(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean includeParents, java.lang.String filter)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedIn(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean includeParents, java.lang.String filter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{id, includeParents, filter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedIn", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedIn", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedInByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Boolean includeParents, java.lang.String filter)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] collectAllLocatedInByGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Boolean includeParents, java.lang.String filter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{geoId, includeParents, filter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedInByGeoId", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "collectAllLocatedInByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -693,15 +696,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void confirmChangeParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void confirmChangeParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -709,15 +712,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void confirmDeleteEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void confirmDeleteEntity(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -725,15 +728,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteEntity", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteEntity(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteEntity", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -741,15 +744,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteRelationship", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteRelationship(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void deleteRelationship(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "deleteRelationship", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -757,23 +760,23 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{typeFilter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllChildIds", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllChildIds", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] getAllChildIds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter)
+  public static final java.lang.String[] getAllChildIds(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, typeFilter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllChildIds", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllChildIds", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getAsViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String[] entities)
+  public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getAsViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] entities)
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{entities};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAsViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAsViews", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -781,15 +784,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getCompatibleTypes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getCompatibleTypes", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] getCompatibleTypes(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.String[] getCompatibleTypes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getCompatibleTypes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getCompatibleTypes", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -797,15 +800,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getImmediateSprayChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getImmediateSprayChildren", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.generated.GeoEntityDTO[] getImmediateSprayChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.generated.GeoEntityDTO[] getImmediateSprayChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getImmediateSprayChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getImmediateSprayChildren", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -813,15 +816,15 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{typeFilter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter)
+  public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getOrderedChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, typeFilter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -829,95 +832,95 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getTypeDisplayLabel", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getTypeDisplayLabel", _declaredTypes);
     return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String getTypeDisplayLabel(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.String getTypeDisplayLabel(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getTypeDisplayLabel", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getTypeDisplayLabel", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO getView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getView", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO getViewByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO getViewByGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getViewByGeoId", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getViewByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] searchAndCollectByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String filter)
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] searchAndCollectByGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String filter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{geoId, filter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchAndCollectByGeoId", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchAndCollectByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByEntityNameOrGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String entityType, java.lang.String entityName, java.lang.Boolean enforceRoot)
+  public static final com.runwaysdk.business.ValueQueryDTO searchByEntityNameOrGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String entityType, java.lang.String entityName, java.lang.Boolean enforceRoot)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{entityType, entityName, enforceRoot};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByEntityNameOrGeoId", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByEntityNameOrGeoId", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.generated.GeoEntityDTO searchByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId)
+  public static final dss.vector.solutions.geo.generated.GeoEntityDTO searchByGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByGeoId", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByParameters(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] filter, java.lang.Boolean enforceRoot)
+  public static final com.runwaysdk.business.ValueQueryDTO searchByParameters(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] filter, java.lang.Boolean enforceRoot)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{value, filter, enforceRoot};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByParameters", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "searchByParameters", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.String[] updateFromTree()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] updateFromTree(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.String[] updateFromTree(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void validateByParameters(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String[] filter)
+  public static final void validateByParameters(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String[] filter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{geoId, filter};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "validateByParameters", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "validateByParameters", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void validateByType(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String type)
+  public static final void validateByType(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String type)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{geoId, type};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "validateByType", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "validateByType", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -928,7 +931,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllContainsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -940,7 +943,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO> getAllContainsGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO> getAllContainsGeoEntityRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -950,7 +953,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (dss.vector.solutions.geo.LocatedInDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.LocatedInDTO addContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO child)
+  public static dss.vector.solutions.geo.LocatedInDTO addContainsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO child)
   {
     return (dss.vector.solutions.geo.LocatedInDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -960,7 +963,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.LocatedInDTO relationship)
+  public static void removeContainsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.LocatedInDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -970,7 +973,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
   
-  public static void removeAllContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllContainsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -982,7 +985,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.GeoSynonymDTO> getAllSynonyms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.GeoSynonymDTO> getAllSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.GeoSynonymDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -994,7 +997,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO> getAllSynonymsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO> getAllSynonymsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -1004,7 +1007,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (dss.vector.solutions.geo.HasSynonymDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.HasSynonymDTO addSynonyms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoSynonymDTO child)
+  public static dss.vector.solutions.geo.HasSynonymDTO addSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoSynonymDTO child)
   {
     return (dss.vector.solutions.geo.HasSynonymDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -1014,7 +1017,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeSynonyms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.HasSynonymDTO relationship)
+  public static void removeSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.HasSynonymDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -1024,7 +1027,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
   
-  public static void removeAllSynonyms(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -1036,7 +1039,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO>) clientRequestIF.getParents(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -1048,7 +1051,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.LocatedInDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -1058,7 +1061,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (dss.vector.solutions.geo.LocatedInDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.LocatedInDTO addLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO parent)
+  public static dss.vector.solutions.geo.LocatedInDTO addLocatedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO parent)
   {
     return (dss.vector.solutions.geo.LocatedInDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
@@ -1068,7 +1071,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.LocatedInDTO relationship)
+  public static void removeLocatedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.LocatedInDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1078,14 +1081,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().deleteParents(this.getId(), dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
   
-  public static void removeAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllLocatedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.geo.LocatedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.generated.GeoEntityDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.geo.generated.GeoEntityDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.geo.generated.GeoEntityDTO) dto;
   }
@@ -1106,9 +1109,9 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.geo.generated.GeoEntityQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.geo.generated.GeoEntityQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.geo.generated.GeoEntityQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.geo.generated.GeoEntity", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.geo.generated.GeoEntityQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1116,11 +1119,11 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.geo.generated.GeoEntityDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.generated.GeoEntityDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1129,11 +1132,11 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.geo.generated.GeoEntityDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.generated.GeoEntityDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

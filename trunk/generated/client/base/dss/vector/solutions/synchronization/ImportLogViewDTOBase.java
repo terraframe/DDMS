@@ -1,12 +1,12 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 77672710)
-public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1182980140)
+public abstract class ImportLogViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.ImportLogView";
-  private static final long serialVersionUID = 77672710;
+  private static final long serialVersionUID = 1182980140;
   
-  protected ImportLogViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ImportLogViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -21,7 +21,7 @@ public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String SOURCESITE = "sourceSite";
   public Integer getLastExportSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTEXPORTSEQ));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LASTEXPORTSEQ));
   }
   
   public void setLastExportSeq(Integer value)
@@ -51,9 +51,9 @@ public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.
     return isModified(LASTEXPORTSEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLastExportSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLastExportSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LASTEXPORTSEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LASTEXPORTSEQ).getAttributeMdDTO();
   }
   
   public String getSourceSite()
@@ -88,22 +88,22 @@ public abstract class ImportLogViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SOURCESITE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSourceSiteMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSourceSiteMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SOURCESITE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SOURCESITE).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.synchronization.ImportLogViewQueryDTO getQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.synchronization.ImportLogViewQueryDTO getQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.ImportLogViewDTO.CLASS, "getQuery", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.ImportLogViewDTO.CLASS, "getQuery", _declaredTypes);
     return (dss.vector.solutions.synchronization.ImportLogViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ImportLogViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ImportLogViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ImportLogViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1704310238)
-public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1512260190)
+public abstract class TeamMemberViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamMemberView";
-  private static final long serialVersionUID = -1704310238;
+  private static final long serialVersionUID = -1512260190;
   
-  protected TeamMemberViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TeamMemberViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -57,9 +57,9 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(ACTORID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getActorIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getActorIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTORID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTORID).getAttributeMdDTO();
   }
   
   public String getFirstName()
@@ -94,14 +94,14 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(FIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
   }
   
   public Boolean getIsAssigned()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISASSIGNED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISASSIGNED));
   }
   
   public void setIsAssigned(Boolean value)
@@ -131,14 +131,14 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(ISASSIGNED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsAssignedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsAssignedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISASSIGNED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISASSIGNED).getAttributeMdDTO();
   }
   
   public Boolean getIsSprayLeader()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYLEADER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYLEADER));
   }
   
   public void setIsSprayLeader(Boolean value)
@@ -168,14 +168,14 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(ISSPRAYLEADER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSprayLeaderMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsSprayLeaderMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYLEADER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYLEADER).getAttributeMdDTO();
   }
   
   public Boolean getIsSprayOperator()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYOPERATOR));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYOPERATOR));
   }
   
   public void setIsSprayOperator(Boolean value)
@@ -205,9 +205,9 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(ISSPRAYOPERATOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSprayOperatorMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsSprayOperatorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYOPERATOR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYOPERATOR).getAttributeMdDTO();
   }
   
   public String getLastName()
@@ -242,9 +242,9 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(LASTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
   }
   
   public String getMemberId()
@@ -279,9 +279,9 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(MEMBERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMemberIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMemberIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MEMBERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MEMBERID).getAttributeMdDTO();
   }
   
   public String getTeamId()
@@ -316,62 +316,62 @@ public abstract class TeamMemberViewDTOBase extends com.terraframe.mojo.business
     return isModified(TEAMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTeamIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMID).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperators(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperators(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperators", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperators", _declaredTypes);
     return (dss.vector.solutions.irs.TeamMemberViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperatorsForLocation(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId)
+  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperatorsForLocation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperatorsForLocation", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperatorsForLocation", _declaredTypes);
     return (dss.vector.solutions.irs.TeamMemberViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperatorsForTeam(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.SprayTeamDTO sprayTeam)
+  public static final dss.vector.solutions.irs.TeamMemberViewDTO[] getAllOperatorsForTeam(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.SprayTeamDTO sprayTeam)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.irs.SprayTeam"};
     Object[] _parameters = new Object[]{sprayTeam};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperatorsForTeam", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getAllOperatorsForTeam", _declaredTypes);
     return (dss.vector.solutions.irs.TeamMemberViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO getOtherOperators(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String teamId)
+  public static final com.runwaysdk.business.ValueQueryDTO getOtherOperators(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String teamId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{value, teamId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getOtherOperators", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getOtherOperators", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO getUnassignedOperators(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value)
+  public static final com.runwaysdk.business.ValueQueryDTO getUnassignedOperators(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{value};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getUnassignedOperators", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "getUnassignedOperators", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchOperators(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value)
+  public static final com.runwaysdk.business.ValueQueryDTO searchOperators(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{value};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "searchOperators", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamMemberViewDTO.CLASS, "searchOperators", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static TeamMemberViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static TeamMemberViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (TeamMemberViewDTO) dto;
   }

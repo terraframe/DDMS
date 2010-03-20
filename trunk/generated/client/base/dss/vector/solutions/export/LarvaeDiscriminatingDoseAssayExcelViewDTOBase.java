@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -458049069)
-public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1036339249)
+public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = -458049069;
+  private static final long serialVersionUID = -1036339249;
   
-  protected LarvaeDiscriminatingDoseAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvaeDiscriminatingDoseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -68,14 +68,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(COLLECTIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
   }
   
   public Float getControlTestMortality()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
   }
   
   public void setControlTestMortality(Float value)
@@ -105,14 +105,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(CONTROLTESTMORTALITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
   }
   
   public java.util.Date getDateCollected()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
   }
   
   public void setDateCollected(java.util.Date value)
@@ -123,7 +123,7 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     }
     else
     {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -142,9 +142,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(DATECOLLECTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public String getEndPoint()
@@ -179,14 +179,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(ENDPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEndPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
   }
   
   public void setExposureTime(Integer value)
@@ -216,9 +216,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(EXPOSURETIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public String getGeneration()
@@ -253,9 +253,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(GENERATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -297,14 +297,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
   }
   
   public void setHoldingTime(Integer value)
@@ -334,9 +334,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(HOLDINGTIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
   }
   
   public String getIdentificationMethod()
@@ -371,9 +371,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(IDENTIFICATIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentificationMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public String getInsecticideActiveIngredient()
@@ -408,14 +408,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(INSECTICIDEACTIVEINGREDIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInsecticideActiveIngredientMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInsecticideActiveIngredientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEACTIVEINGREDIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEACTIVEINGREDIENT).getAttributeMdDTO();
   }
   
   public Double getInsecticideAmount()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(INSECTICIDEAMOUNT));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(INSECTICIDEAMOUNT));
   }
   
   public void setInsecticideAmount(Double value)
@@ -445,9 +445,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(INSECTICIDEAMOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getInsecticideAmountMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getInsecticideAmountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(INSECTICIDEAMOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(INSECTICIDEAMOUNT).getAttributeMdDTO();
   }
   
   public String getInsecticideUnits()
@@ -482,14 +482,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(INSECTICIDEUNITS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInsecticideUnitsMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInsecticideUnitsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEUNITS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEUNITS).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
   }
   
   public void setIsofemale(Boolean value)
@@ -519,14 +519,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(ISOFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
   }
   
   public void setQuantityDead(Integer value)
@@ -556,14 +556,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(QUANTITYDEAD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
   }
   
   public void setQuantityTested(Integer value)
@@ -593,9 +593,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(QUANTITYTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   public String getSpecie()
@@ -630,9 +630,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(SPECIE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpecieMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public String getStartPoint()
@@ -667,14 +667,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(STARTPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getStartPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
   }
   
   public void setTestDate(java.util.Date value)
@@ -685,7 +685,7 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     }
     else
     {
-      setValue(TESTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(TESTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -704,9 +704,9 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(TESTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   public String getTestMethod()
@@ -741,14 +741,14 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewDTOBase extends com.
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
-  public static LarvaeDiscriminatingDoseAssayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static LarvaeDiscriminatingDoseAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (LarvaeDiscriminatingDoseAssayExcelViewDTO) dto;
   }

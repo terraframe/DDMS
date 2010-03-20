@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1913317770)
-public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 54579176)
+public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonAgeProblem";
-  private static final long serialVersionUID = 1913317770;
+  private static final long serialVersionUID = 54579176;
   
-  public PersonAgeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public PersonAgeProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public PersonAgeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public PersonAgeProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -24,7 +24,7 @@ public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.Notif
   public static java.lang.String AGE = "age";
   public Integer getAge()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
   }
   
   public void setAge(Integer value)
@@ -54,9 +54,9 @@ public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.Notif
     return isModified(AGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAgeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAgeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
   }
   
   /**
@@ -78,7 +78,7 @@ public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.Notif
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.PersonAgeProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.PersonAgeProblem", locale);
       
       message = message.replace("{age}", this.getAge().toString());
       
@@ -86,19 +86,19 @@ public abstract class PersonAgeProblemDTOBase extends dss.vector.solutions.Notif
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

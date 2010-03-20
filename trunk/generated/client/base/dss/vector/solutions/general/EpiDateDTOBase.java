@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 224910969)
-public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 703010425)
+public abstract class EpiDateDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EpiDate";
-  private static final long serialVersionUID = 224910969;
+  private static final long serialVersionUID = 703010425;
   
-  protected EpiDateDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EpiDateDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -24,7 +24,7 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
   public static java.lang.String STARTDATE = "startDate";
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -35,7 +35,7 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -54,14 +54,14 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public Integer getEpiYear()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EPIYEAR));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EPIYEAR));
   }
   
   public void setEpiYear(Integer value)
@@ -91,14 +91,14 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     return isModified(EPIYEAR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEpiYearMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEpiYearMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EPIYEAR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EPIYEAR).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -128,15 +128,15 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO> getPeriodType()
   {
-    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
   }
   
   public java.util.List<String> getPeriodTypeEnumNames()
@@ -174,14 +174,14 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     return isModified(PERIODTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -192,7 +192,7 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -211,24 +211,24 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.general.EpiDateDTO getInstanceByDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.util.Date endDate)
+  public static final dss.vector.solutions.general.EpiDateDTO getInstanceByDate(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.util.Date endDate)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.util.Date"};
     Object[] _parameters = new Object[]{startDate, endDate};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getInstanceByDate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getInstanceByDate", _declaredTypes);
     return (dss.vector.solutions.general.EpiDateDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.general.EpiDateDTO getInstanceByPeriod(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.Integer epiYear)
+  public static final dss.vector.solutions.general.EpiDateDTO getInstanceByPeriod(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.Integer epiYear)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.surveillance.PeriodType", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{periodType, period, epiYear};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getInstanceByPeriod", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getInstanceByPeriod", _declaredTypes);
     return (dss.vector.solutions.general.EpiDateDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -236,69 +236,69 @@ public abstract class EpiDateDTOBase extends com.terraframe.mojo.business.ViewDT
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getNumberOfEpiWeeks", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getNumberOfEpiWeeks", _declaredTypes);
     return (java.lang.Integer) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.Integer getNumberOfEpiWeeks(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.Integer getNumberOfEpiWeeks(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getNumberOfEpiWeeks", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "getNumberOfEpiWeeks", _declaredTypes);
     return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToEpiWeek(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToEpiWeek(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiWeek", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiWeek", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToEpiYear(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToEpiYear(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiYear", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToEpiYear", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToMonth(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToMonth(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToMonth", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToMonth", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToQuarter(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToQuarter(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToQuarter", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToQuarter", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToSeason(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToSeason(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToSeason", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToSeason", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.util.Date snapToYear(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
+  public static final java.util.Date snapToYear(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date startDate, java.lang.Boolean snapToFirstDay)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{startDate, snapToFirstDay};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToYear", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EpiDateDTO.CLASS, "snapToYear", _declaredTypes);
     return (java.util.Date) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static EpiDateDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static EpiDateDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (EpiDateDTO) dto;
   }

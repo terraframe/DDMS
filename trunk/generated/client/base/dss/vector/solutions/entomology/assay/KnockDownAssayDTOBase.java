@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 183572800)
-public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 513182212)
+public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomology.assay.AdultAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssay";
-  private static final long serialVersionUID = 183572800;
+  private static final long serialVersionUID = 513182212;
   
-  protected KnockDownAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected KnockDownAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected KnockDownAssayDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected KnockDownAssayDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -37,7 +37,7 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
   public static java.lang.String KD95 = "kd95";
   public Integer getInterval10()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL10));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL10));
   }
   
   public void setInterval10(Integer value)
@@ -67,14 +67,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL10);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval10Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval10Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL10).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL10).getAttributeMdDTO();
   }
   
   public Integer getInterval20()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL20));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL20));
   }
   
   public void setInterval20(Integer value)
@@ -104,14 +104,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL20);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval20Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval20Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL20).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL20).getAttributeMdDTO();
   }
   
   public Integer getInterval30()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL30));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL30));
   }
   
   public void setInterval30(Integer value)
@@ -141,14 +141,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL30);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval30Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval30Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL30).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL30).getAttributeMdDTO();
   }
   
   public Integer getInterval40()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL40));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL40));
   }
   
   public void setInterval40(Integer value)
@@ -178,14 +178,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL40);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval40Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval40Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL40).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL40).getAttributeMdDTO();
   }
   
   public Integer getInterval50()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL50));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL50));
   }
   
   public void setInterval50(Integer value)
@@ -215,14 +215,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL50);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval50Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval50Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL50).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL50).getAttributeMdDTO();
   }
   
   public Integer getInterval60()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL60));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL60));
   }
   
   public void setInterval60(Integer value)
@@ -252,14 +252,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(INTERVAL60);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInterval60Md()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval60Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL60).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL60).getAttributeMdDTO();
   }
   
   public Double getKd50()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD50));
   }
   
   public void setKd50(Double value)
@@ -289,14 +289,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(KD50);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getKd50Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd50Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD50).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD50).getAttributeMdDTO();
   }
   
   public Double getKd95()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD95));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD95));
   }
   
   public void setKd95(Double value)
@@ -326,14 +326,14 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     return isModified(KD95);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getKd95Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd95Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD95).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD95).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.assay.KnockDownAssayDTO) dto;
   }
@@ -354,9 +354,9 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.KnockDownAssay", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.KnockDownAssayDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -364,11 +364,11 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.KnockDownAssayDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.KnockDownAssayDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.KnockDownAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -377,11 +377,11 @@ public abstract class KnockDownAssayDTOBase extends dss.vector.solutions.entomol
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.KnockDownAssayDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.KnockDownAssayDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.KnockDownAssayDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.KnockDownAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

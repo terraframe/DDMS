@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1557661442)
-public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 824411906)
+public abstract class SurveyPointViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.SurveyPointView";
-  private static final long serialVersionUID = 1557661442;
+  private static final long serialVersionUID = 824411906;
   
-  protected SurveyPointViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SurveyPointViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -52,9 +52,9 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -89,14 +89,14 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public java.util.Date getSurveyDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SURVEYDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SURVEYDATE));
   }
   
   public void setSurveyDate(java.util.Date value)
@@ -107,7 +107,7 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(SURVEYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(SURVEYDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -126,24 +126,24 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
     return isModified(SURVEYDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSurveyDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSurveyDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SURVEYDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SURVEYDATE).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -151,15 +151,15 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.HouseholdViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.HouseholdViewDTO[] getHouseholdViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.HouseholdViewDTO[] getHouseholdViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholdViews", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.HouseholdViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -167,29 +167,29 @@ public abstract class SurveyPointViewDTOBase extends com.terraframe.mojo.busines
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholds", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholds", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.HouseholdDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.HouseholdDTO[] getHouseholds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.HouseholdDTO[] getHouseholds(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholds", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "getHouseholds", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.HouseholdDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.SurveyPointViewDTO search(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date date)
+  public static final dss.vector.solutions.intervention.monitor.SurveyPointViewDTO search(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date date)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.util.Date"};
     Object[] _parameters = new Object[]{geoId, date};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "search", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.SurveyPointViewDTO.CLASS, "search", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.SurveyPointViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static SurveyPointViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SurveyPointViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (SurveyPointViewDTO) dto;
   }

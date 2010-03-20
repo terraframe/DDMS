@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -723962730)
-public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1540163640)
+public abstract class PopulationDataExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PopulationDataExcelView";
-  private static final long serialVersionUID = -723962730;
+  private static final long serialVersionUID = 1540163640;
   
-  protected PopulationDataExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PopulationDataExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -60,14 +60,14 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Double getGrowthRate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
   }
   
   public void setGrowthRate(Double value)
@@ -97,14 +97,14 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     return isModified(GROWTHRATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getGrowthRateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getGrowthRateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(GROWTHRATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(GROWTHRATE).getAttributeMdDTO();
   }
   
   public Long getPopulation()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(POPULATION));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(POPULATION));
   }
   
   public void setPopulation(Long value)
@@ -134,14 +134,14 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     return isModified(POPULATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPopulationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPopulationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POPULATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POPULATION).getAttributeMdDTO();
   }
   
   public Integer getYearOfData()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFDATA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFDATA));
   }
   
   public void setYearOfData(Integer value)
@@ -171,14 +171,14 @@ public abstract class PopulationDataExcelViewDTOBase extends com.terraframe.mojo
     return isModified(YEAROFDATA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getYearOfDataMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getYearOfDataMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFDATA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFDATA).getAttributeMdDTO();
   }
   
-  public static PopulationDataExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static PopulationDataExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (PopulationDataExcelViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1632736400)
-public abstract class AbstractCategoryFactoryDTOBase extends com.terraframe.mojo.business.UtilDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1162897268)
+public abstract class AbstractCategoryFactoryDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategoryFactory";
-  private static final long serialVersionUID = -1632736400;
+  private static final long serialVersionUID = 1162897268;
   
-  protected AbstractCategoryFactoryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AbstractCategoryFactoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,25 +17,25 @@ public abstract class AbstractCategoryFactoryDTOBase extends com.terraframe.mojo
   }
   
   public static java.lang.String ID = "id";
-  public static final java.lang.String getAllRequiredAttributes(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final java.lang.String getAllRequiredAttributes(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryFactoryDTO.CLASS, "getAllRequiredAttributes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryFactoryDTO.CLASS, "getAllRequiredAttributes", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO getSubclassInfo(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final com.runwaysdk.business.ValueQueryDTO getSubclassInfo(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryFactoryDTO.CLASS, "getSubclassInfo", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.AbstractCategoryFactoryDTO.CLASS, "getSubclassInfo", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static AbstractCategoryFactoryDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AbstractCategoryFactoryDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.UtilDTO dto = (com.terraframe.mojo.business.UtilDTO)clientRequest.get(id);
+    com.runwaysdk.business.UtilDTO dto = (com.runwaysdk.business.UtilDTO)clientRequest.get(id);
     
     return (AbstractCategoryFactoryDTO) dto;
   }

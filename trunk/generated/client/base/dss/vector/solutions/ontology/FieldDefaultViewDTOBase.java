@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2066388076)
-public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1937092496)
+public abstract class FieldDefaultViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.FieldDefaultView";
-  private static final long serialVersionUID = 2066388076;
+  private static final long serialVersionUID = -1937092496;
   
-  protected FieldDefaultViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected FieldDefaultViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -58,12 +58,12 @@ public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.busine
     return isModified(DEFAULTVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDefaultValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTVALUE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdAttributeDTO getMdAttribute()
+  public com.runwaysdk.system.metadata.MdAttributeDTO getMdAttribute()
   {
     if(getValue(MDATTRIBUTE) == null || getValue(MDATTRIBUTE).trim().equals(""))
     {
@@ -71,11 +71,11 @@ public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
+      return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
     }
   }
   
-  public void setMdAttribute(com.terraframe.mojo.system.metadata.MdAttributeDTO value)
+  public void setMdAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)
   {
     if(value == null)
     {
@@ -102,24 +102,24 @@ public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.busine
     return isModified(MDATTRIBUTE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getMdAttributeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMdAttributeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDATTRIBUTE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDATTRIBUTE).getAttributeMdDTO();
   }
   
   public final void applyDefaultValue()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "applyDefaultValue", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "applyDefaultValue", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyDefaultValue(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void applyDefaultValue(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "applyDefaultValue", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "applyDefaultValue", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -127,21 +127,21 @@ public abstract class FieldDefaultViewDTOBase extends com.terraframe.mojo.busine
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.FieldDefaultViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static FieldDefaultViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static FieldDefaultViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (FieldDefaultViewDTO) dto;
   }

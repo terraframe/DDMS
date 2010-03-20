@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1126885828)
-public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1137067208)
+public abstract class GeoSynonymDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoSynonym";
-  private static final long serialVersionUID = -1126885828;
+  private static final long serialVersionUID = -1137067208;
   
-  protected GeoSynonymDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoSynonymDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected GeoSynonymDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoSynonymDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -42,7 +42,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -60,12 +60,12 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -73,7 +73,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -92,12 +92,12 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -105,11 +105,11 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -136,9 +136,9 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getEntityName()
@@ -173,9 +173,9 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(ENTITYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -210,14 +210,14 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -235,12 +235,12 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -248,7 +248,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -267,12 +267,12 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -280,7 +280,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -299,12 +299,12 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -312,11 +312,11 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -343,14 +343,14 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -368,9 +368,9 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -393,16 +393,16 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static final void createSynonym(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String entityName, java.lang.String geoId)
+  public static final void createSynonym(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String entityName, java.lang.String geoId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{entityName, geoId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "createSynonym", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "createSynonym", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -413,7 +413,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO> getAllGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.generated.GeoEntityDTO>) clientRequestIF.getParents(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -425,7 +425,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO> getAllGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO> getAllGeoEntityRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.HasSynonymDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -435,7 +435,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     return (dss.vector.solutions.geo.HasSynonymDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.HasSynonymDTO addGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO parent)
+  public static dss.vector.solutions.geo.HasSynonymDTO addGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.generated.GeoEntityDTO parent)
   {
     return (dss.vector.solutions.geo.HasSynonymDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
@@ -445,7 +445,7 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.HasSynonymDTO relationship)
+  public static void removeGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.HasSynonymDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -455,14 +455,14 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     getRequest().deleteParents(this.getId(), dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
   
-  public static void removeAllGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.geo.HasSynonymDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.GeoSynonymDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.geo.GeoSynonymDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.geo.GeoSynonymDTO) dto;
   }
@@ -483,9 +483,9 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.geo.GeoSynonymQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.geo.GeoSynonymQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.geo.GeoSynonymQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.geo.GeoSynonym", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.geo.GeoSynonymQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -493,11 +493,11 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.geo.GeoSynonymDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.GeoSynonymDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.geo.GeoSynonymDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -506,11 +506,11 @@ public abstract class GeoSynonymDTOBase extends com.terraframe.mojo.business.Bus
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.geo.GeoSynonymDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.GeoSynonymDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoSynonymDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.geo.GeoSynonymDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

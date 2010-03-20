@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 202815216)
-public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1820374004)
+public abstract class OperatorSprayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.OperatorSprayExcelView";
-  private static final long serialVersionUID = 202815216;
+  private static final long serialVersionUID = 1820374004;
   
-  protected OperatorSprayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected OperatorSprayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -50,7 +50,7 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
   public static java.lang.String USED = "used";
   public Integer getBedNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
   }
   
   public void setBedNets(Integer value)
@@ -80,9 +80,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(BEDNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
   }
   
   public String getBrandName()
@@ -117,9 +117,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(BRANDNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -161,9 +161,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getHouseholdId()
@@ -198,14 +198,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(HOUSEHOLDID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDID).getAttributeMdDTO();
   }
   
   public Integer getHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOUSEHOLDS));
   }
   
   public void setHouseholds(Integer value)
@@ -235,9 +235,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(HOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOUSEHOLDS).getAttributeMdDTO();
   }
   
   public String getLeaderId()
@@ -272,14 +272,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(LEADERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
   }
   
   public Integer getLocked()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOCKED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOCKED));
   }
   
   public void setLocked(Integer value)
@@ -309,9 +309,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(LOCKED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLockedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLockedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
   }
   
   public String getOperatorId()
@@ -346,14 +346,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(OPERATORID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOperatorIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getOperatorIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OPERATORID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OPERATORID).getAttributeMdDTO();
   }
   
   public Integer getOperatorSprayWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
   }
   
   public void setOperatorSprayWeek(Integer value)
@@ -383,14 +383,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(OPERATORSPRAYWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOperatorSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOperatorSprayWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORSPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getOther()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OTHER));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OTHER));
   }
   
   public void setOther(Integer value)
@@ -420,14 +420,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(OTHER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOtherMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOtherMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OTHER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OTHER).getAttributeMdDTO();
   }
   
   public Integer getPeople()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
   }
   
   public void setPeople(Integer value)
@@ -457,14 +457,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PEOPLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeopleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeopleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
   }
   
   public Integer getPrevSprayedHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDHOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDHOUSEHOLDS));
   }
   
   public void setPrevSprayedHouseholds(Integer value)
@@ -494,14 +494,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PREVSPRAYEDHOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPrevSprayedHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPrevSprayedHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDHOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDHOUSEHOLDS).getAttributeMdDTO();
   }
   
   public Integer getPrevSprayedStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDSTRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDSTRUCTURES));
   }
   
   public void setPrevSprayedStructures(Integer value)
@@ -531,14 +531,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(PREVSPRAYEDSTRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPrevSprayedStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPrevSprayedStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
   public Integer getReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
   }
   
   public void setReceived(Integer value)
@@ -568,14 +568,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(RECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
   }
   
   public Integer getRefills()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
   }
   
   public void setRefills(Integer value)
@@ -605,14 +605,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(REFILLS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRefillsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
   }
   
   public Integer getRefused()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
   }
   
   public void setRefused(Integer value)
@@ -642,14 +642,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(REFUSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefusedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRefusedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
   }
   
   public Integer getReturned()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
   }
   
   public void setReturned(Integer value)
@@ -679,14 +679,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(RETURNED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReturnedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public Integer getRooms()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
   }
   
   public void setRooms(Integer value)
@@ -716,14 +716,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(ROOMS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRoomsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
   }
   
   public Integer getRoomsWithBedNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMSWITHBEDNETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMSWITHBEDNETS));
   }
   
   public void setRoomsWithBedNets(Integer value)
@@ -753,14 +753,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(ROOMSWITHBEDNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsWithBedNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRoomsWithBedNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMSWITHBEDNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMSWITHBEDNETS).getAttributeMdDTO();
   }
   
   public java.util.Date getSprayDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
   }
   
   public void setSprayDate(java.util.Date value)
@@ -771,7 +771,7 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     }
     else
     {
-      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -790,9 +790,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSprayDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
   }
   
   public String getSprayMethod()
@@ -827,9 +827,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSprayMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
   }
   
   public String getSprayTeam()
@@ -864,14 +864,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYTEAM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayTeamMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSprayTeamMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
   public Integer getSprayedHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDHOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDHOUSEHOLDS));
   }
   
   public void setSprayedHouseholds(Integer value)
@@ -901,14 +901,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYEDHOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDHOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDHOUSEHOLDS).getAttributeMdDTO();
   }
   
   public Integer getSprayedRooms()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDROOMS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDROOMS));
   }
   
   public void setSprayedRooms(Integer value)
@@ -938,14 +938,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYEDROOMS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedRoomsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedRoomsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDROOMS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDROOMS).getAttributeMdDTO();
   }
   
   public Integer getSprayedStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDSTRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDSTRUCTURES));
   }
   
   public void setSprayedStructures(Integer value)
@@ -975,9 +975,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SPRAYEDSTRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDSTRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
   public String getStructureId()
@@ -1012,14 +1012,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(STRUCTUREID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getStructureIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getStructureIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STRUCTUREID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STRUCTUREID).getAttributeMdDTO();
   }
   
   public Integer getStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURES));
   }
   
   public void setStructures(Integer value)
@@ -1049,9 +1049,9 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(STRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
   }
   
   public String getSurfaceType()
@@ -1086,14 +1086,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(SURFACETYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSurfaceTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSurfaceTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public Integer getTarget()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
   }
   
   public void setTarget(Integer value)
@@ -1123,14 +1123,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public Integer getTeamSprayWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
   }
   
   public void setTeamSprayWeek(Integer value)
@@ -1160,14 +1160,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(TEAMSPRAYWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getUsed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
   }
   
   public void setUsed(Integer value)
@@ -1197,14 +1197,14 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.terraframe.mojo.
     return isModified(USED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUsedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
-  public static OperatorSprayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static OperatorSprayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (OperatorSprayExcelViewDTO) dto;
   }

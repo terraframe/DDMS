@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 955493380)
-public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.LarvaeAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 247175138)
+public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.LarvaeAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay";
-  private static final long serialVersionUID = 955493380;
+  private static final long serialVersionUID = 247175138;
   
-  protected LarvaeDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvaeDiscriminatingDoseAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LarvaeDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvaeDiscriminatingDoseAssayDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -36,7 +36,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   public static java.lang.String QUANTITYLIVE = "quantityLive";
   public Float getControlTestMortality()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
   }
   
   public void setControlTestMortality(Float value)
@@ -66,14 +66,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(CONTROLTESTMORTALITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
   }
   
   public void setHoldingTime(Integer value)
@@ -103,14 +103,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(HOLDINGTIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
   }
   
   public Double getLt50()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT50));
   }
   
   public void setLt50(Double value)
@@ -140,14 +140,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(LT50);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getLt50Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getLt50Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LT50).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LT50).getAttributeMdDTO();
   }
   
   public Double getLt95()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT95));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT95));
   }
   
   public void setLt95(Double value)
@@ -177,14 +177,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(LT95);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getLt95Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getLt95Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LT95).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LT95).getAttributeMdDTO();
   }
   
   public Float getMortality()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
   }
   
   public void setMortality(Float value)
@@ -214,14 +214,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(MORTALITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
   }
   
   public void setQuantityDead(Integer value)
@@ -251,14 +251,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(QUANTITYDEAD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getQuantityLive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
   }
   
   public void setQuantityLive(Integer value)
@@ -288,14 +288,14 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return isModified(QUANTITYLIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO) dto;
   }
@@ -316,9 +316,9 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -326,11 +326,11 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -339,11 +339,11 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

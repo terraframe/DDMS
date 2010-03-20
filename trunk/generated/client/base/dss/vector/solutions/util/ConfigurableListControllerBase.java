@@ -1,7 +1,7 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1486229746)
-public class ConfigurableListControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1486229746)
+public class ConfigurableListControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.ConfigurableListController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,28 +57,28 @@ public class ConfigurableListControllerBase implements com.terraframe.mojo.gener
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ConfigurableListController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ConfigurableListController.viewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ConfigurableListController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ConfigurableListController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ConfigurableListController.failViewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ConfigurableListController.failViewAll");
   }
   
 }

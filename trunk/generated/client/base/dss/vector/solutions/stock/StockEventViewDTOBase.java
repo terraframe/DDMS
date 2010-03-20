@@ -1,12 +1,12 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 690716962)
-public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1565215420)
+public abstract class StockEventViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockEventView";
-  private static final long serialVersionUID = 690716962;
+  private static final long serialVersionUID = -1565215420;
   
-  protected StockEventViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StockEventViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -31,7 +31,7 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
   public static java.lang.String TRANSACTIONTYPE = "transactionType";
   public Integer getAvailableStock()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AVAILABLESTOCK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AVAILABLESTOCK));
   }
   
   public void setAvailableStock(Integer value)
@@ -61,9 +61,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(AVAILABLESTOCK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAvailableStockMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAvailableStockMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AVAILABLESTOCK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AVAILABLESTOCK).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -98,14 +98,14 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getCost()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(COST));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(COST));
   }
   
   public void setCost(java.math.BigDecimal value)
@@ -135,14 +135,14 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(COST);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCostMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCostMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(COST).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(COST).getAttributeMdDTO();
   }
   
   public java.util.Date getEventDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(EVENTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(EVENTDATE));
   }
   
   public void setEventDate(java.util.Date value)
@@ -153,7 +153,7 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(EVENTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(EVENTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -172,9 +172,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(EVENTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEventDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEventDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(EVENTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(EVENTDATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.stock.StockItemDTO getItem()
@@ -216,9 +216,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(ITEM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getItemMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getItemMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITEM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ITEM).getAttributeMdDTO();
   }
   
   public String getItemLabel()
@@ -253,9 +253,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(ITEMLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getItemLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getItemLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ITEMLABEL).getAttributeMdDTO();
   }
   
   public String getOtherParty()
@@ -290,14 +290,14 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(OTHERPARTY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOtherPartyMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getOtherPartyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OTHERPARTY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OTHERPARTY).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
   }
   
   public void setQuantity(Integer value)
@@ -327,9 +327,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(QUANTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.stock.StockStaffDTO getStaff()
@@ -371,9 +371,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(STAFF);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStaffMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getStaffMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STAFF).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STAFF).getAttributeMdDTO();
   }
   
   public String getStaffLabel()
@@ -408,9 +408,9 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(STAFFLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getStaffLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getStaffLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STAFFLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(STAFFLABEL).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getStockDepot()
@@ -452,15 +452,15 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(STOCKDEPOT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStockDepotMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getStockDepotMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STOCKDEPOT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STOCKDEPOT).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.stock.EventOptionDTO> getTransactionType()
   {
-    return (java.util.List<dss.vector.solutions.stock.EventOptionDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.stock.EventOptionDTO.CLASS, getEnumNames(TRANSACTIONTYPE));
+    return (java.util.List<dss.vector.solutions.stock.EventOptionDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.stock.EventOptionDTO.CLASS, getEnumNames(TRANSACTIONTYPE));
   }
   
   public java.util.List<String> getTransactionTypeEnumNames()
@@ -498,16 +498,16 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
     return isModified(TRANSACTIONTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getTransactionTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getTransactionTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(TRANSACTIONTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(TRANSACTIONTYPE).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.stock.StockEventViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.stock.StockEventViewDTO[] views)
+  public static final dss.vector.solutions.stock.StockEventViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.stock.StockEventViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.stock.StockEventView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.stock.StockEventViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -515,37 +515,37 @@ public abstract class StockEventViewDTOBase extends com.terraframe.mojo.business
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.stock.StockEventViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String geoId, java.lang.String item, java.util.Date startDate, java.util.Date endDate)
+  public static final dss.vector.solutions.stock.StockEventViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber, java.lang.String geoId, java.lang.String item, java.util.Date startDate, java.util.Date endDate)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.String", "java.lang.String", "java.util.Date", "java.util.Date"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber, geoId, item, startDate, endDate};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.stock.StockEventViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.stock.StockEventViewDTO[] getViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.ontology.TermDTO item, java.util.Date date, dss.vector.solutions.stock.EventOptionDTO transactionType)
+  public static final dss.vector.solutions.stock.StockEventViewDTO[] getViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.ontology.TermDTO item, java.util.Date date, dss.vector.solutions.stock.EventOptionDTO transactionType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.ontology.Term", "java.util.Date", "dss.vector.solutions.stock.EventOption"};
     Object[] _parameters = new Object[]{geoId, item, date, transactionType};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "getViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.StockEventViewDTO.CLASS, "getViews", _declaredTypes);
     return (dss.vector.solutions.stock.StockEventViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static StockEventViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static StockEventViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (StockEventViewDTO) dto;
   }

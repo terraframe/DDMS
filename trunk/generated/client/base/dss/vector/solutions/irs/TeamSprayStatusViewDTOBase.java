@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 205264922)
-public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 868424258)
+public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayStatusView";
-  private static final long serialVersionUID = 205264922;
+  private static final long serialVersionUID = 868424258;
   
-  protected TeamSprayStatusViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TeamSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -44,7 +44,7 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String USED = "used";
   public Integer getBedNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
   }
   
   public void setBedNets(Integer value)
@@ -74,9 +74,9 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(BEDNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -111,14 +111,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public Integer getHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOUSEHOLDS));
   }
   
   public void setHouseholds(Integer value)
@@ -148,14 +148,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(HOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOUSEHOLDS).getAttributeMdDTO();
   }
   
   public Integer getLocked()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOCKED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOCKED));
   }
   
   public void setLocked(Integer value)
@@ -185,14 +185,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(LOCKED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLockedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLockedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
   }
   
   public Integer getOther()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OTHER));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OTHER));
   }
   
   public void setOther(Integer value)
@@ -222,14 +222,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(OTHER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOtherMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOtherMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OTHER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OTHER).getAttributeMdDTO();
   }
   
   public Integer getPeople()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PEOPLE));
   }
   
   public void setPeople(Integer value)
@@ -259,14 +259,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(PEOPLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeopleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeopleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PEOPLE).getAttributeMdDTO();
   }
   
   public Integer getPrevSprayedHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDHOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDHOUSEHOLDS));
   }
   
   public void setPrevSprayedHouseholds(Integer value)
@@ -296,14 +296,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(PREVSPRAYEDHOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPrevSprayedHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPrevSprayedHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDHOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDHOUSEHOLDS).getAttributeMdDTO();
   }
   
   public Integer getPrevSprayedStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDSTRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREVSPRAYEDSTRUCTURES));
   }
   
   public void setPrevSprayedStructures(Integer value)
@@ -333,14 +333,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(PREVSPRAYEDSTRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPrevSprayedStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPrevSprayedStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREVSPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
   public Integer getReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
   }
   
   public void setReceived(Integer value)
@@ -370,14 +370,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(RECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
   }
   
   public Integer getRefills()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
   }
   
   public void setRefills(Integer value)
@@ -407,14 +407,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(REFILLS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRefillsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
   }
   
   public Integer getRefused()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFUSED));
   }
   
   public void setRefused(Integer value)
@@ -444,14 +444,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(REFUSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefusedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRefusedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFUSED).getAttributeMdDTO();
   }
   
   public Integer getReturned()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
   }
   
   public void setReturned(Integer value)
@@ -481,14 +481,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(RETURNED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReturnedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public Integer getRooms()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMS));
   }
   
   public void setRooms(Integer value)
@@ -518,14 +518,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(ROOMS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRoomsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMS).getAttributeMdDTO();
   }
   
   public Integer getRoomsWithBedNets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMSWITHBEDNETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ROOMSWITHBEDNETS));
   }
   
   public void setRoomsWithBedNets(Integer value)
@@ -555,9 +555,9 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(ROOMSWITHBEDNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRoomsWithBedNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRoomsWithBedNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMSWITHBEDNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ROOMSWITHBEDNETS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.ZoneSprayDTO getSpray()
@@ -599,9 +599,9 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSprayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.SprayTeamDTO getSprayTeam()
@@ -643,14 +643,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAYTEAM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSprayTeamMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSprayTeamMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
   public Integer getSprayedHouseholds()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDHOUSEHOLDS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDHOUSEHOLDS));
   }
   
   public void setSprayedHouseholds(Integer value)
@@ -680,14 +680,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAYEDHOUSEHOLDS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedHouseholdsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedHouseholdsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDHOUSEHOLDS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDHOUSEHOLDS).getAttributeMdDTO();
   }
   
   public Integer getSprayedRooms()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDROOMS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDROOMS));
   }
   
   public void setSprayedRooms(Integer value)
@@ -717,14 +717,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAYEDROOMS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedRoomsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedRoomsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDROOMS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDROOMS).getAttributeMdDTO();
   }
   
   public Integer getSprayedStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDSTRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDSTRUCTURES));
   }
   
   public void setSprayedStructures(Integer value)
@@ -754,14 +754,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAYEDSTRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDSTRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDSTRUCTURES).getAttributeMdDTO();
   }
   
   public Integer getStructures()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURES));
   }
   
   public void setStructures(Integer value)
@@ -791,14 +791,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(STRUCTURES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStructuresMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
   }
   
   public Integer getTarget()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
   }
   
   public void setTarget(Integer value)
@@ -828,9 +828,9 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public String getTeamLabel()
@@ -865,9 +865,9 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TEAMLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTeamLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLABEL).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.TeamMemberDTO getTeamLeader()
@@ -909,14 +909,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TEAMLEADER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
   }
   
   public Integer getTeamSprayWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
   }
   
   public void setTeamSprayWeek(Integer value)
@@ -946,14 +946,14 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TEAMSPRAYWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getUsed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
   }
   
   public void setUsed(Integer value)
@@ -983,16 +983,16 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
     return isModified(USED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUsedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.TeamSprayStatusViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.TeamSprayStatusViewDTO[] views)
+  public static final dss.vector.solutions.irs.TeamSprayStatusViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.TeamSprayStatusViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.TeamSprayStatusView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.irs.TeamSprayStatusViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1000,21 +1000,21 @@ public abstract class TeamSprayStatusViewDTOBase extends com.terraframe.mojo.bus
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.TeamSprayStatusViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static TeamSprayStatusViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static TeamSprayStatusViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (TeamSprayStatusViewDTO) dto;
   }

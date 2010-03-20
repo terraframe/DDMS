@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -455268026)
-public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 633357160)
+public abstract class AreaStandardsViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandardsView";
-  private static final long serialVersionUID = -455268026;
+  private static final long serialVersionUID = 633357160;
   
-  protected AreaStandardsViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AreaStandardsViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -57,14 +57,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(AREASTANDARDSID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAreaStandardsIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAreaStandardsIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AREASTANDARDSID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AREASTANDARDSID).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -75,7 +75,7 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -94,14 +94,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public Float getHousehold()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(HOUSEHOLD));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(HOUSEHOLD));
   }
   
   public void setHousehold(Float value)
@@ -131,14 +131,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(HOUSEHOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getHouseholdMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getHouseholdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(HOUSEHOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(HOUSEHOLD).getAttributeMdDTO();
   }
   
   public Float getRoom()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(ROOM));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(ROOM));
   }
   
   public void setRoom(Float value)
@@ -168,14 +168,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(ROOM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getRoomMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getRoomMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ROOM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ROOM).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -186,7 +186,7 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -205,14 +205,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public Float getStructureArea()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(STRUCTUREAREA));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(STRUCTUREAREA));
   }
   
   public void setStructureArea(Float value)
@@ -242,15 +242,15 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(STRUCTUREAREA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getStructureAreaMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getStructureAreaMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(STRUCTUREAREA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(STRUCTUREAREA).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.irs.TargetUnitDTO> getTargetUnit()
   {
-    return (java.util.List<dss.vector.solutions.irs.TargetUnitDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.TargetUnitDTO.CLASS, getEnumNames(TARGETUNIT));
+    return (java.util.List<dss.vector.solutions.irs.TargetUnitDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.TargetUnitDTO.CLASS, getEnumNames(TARGETUNIT));
   }
   
   public java.util.List<String> getTargetUnitEnumNames()
@@ -288,14 +288,14 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TARGETUNIT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getTargetUnitMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getTargetUnitMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(TARGETUNIT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(TARGETUNIT).getAttributeMdDTO();
   }
   
   public Float getUnitNozzleAreaCoverage()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(UNITNOZZLEAREACOVERAGE));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(UNITNOZZLEAREACOVERAGE));
   }
   
   public void setUnitNozzleAreaCoverage(Float value)
@@ -325,24 +325,24 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
     return isModified(UNITNOZZLEAREACOVERAGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getUnitNozzleAreaCoverageMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getUnitNozzleAreaCoverageMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(UNITNOZZLEAREACOVERAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(UNITNOZZLEAREACOVERAGE).getAttributeMdDTO();
   }
   
   public final void applyClone()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "applyClone", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "applyClone", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyClone(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void applyClone(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "applyClone", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "applyClone", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -350,37 +350,37 @@ public abstract class AreaStandardsViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.AreaStandardsViewDTO getMostRecent(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.AreaStandardsViewDTO getMostRecent(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "getMostRecent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "getMostRecent", _declaredTypes);
     return (dss.vector.solutions.irs.AreaStandardsViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.AreaStandardsViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.irs.AreaStandardsViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.AreaStandardsViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.irs.AreaStandardsViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static AreaStandardsViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AreaStandardsViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (AreaStandardsViewDTO) dto;
   }

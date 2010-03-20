@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1767498036)
-public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 884251696)
+public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MosquitoCollectionExcelView";
-  private static final long serialVersionUID = -1767498036;
+  private static final long serialVersionUID = 884251696;
   
-  protected MosquitoCollectionExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MosquitoCollectionExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -34,7 +34,7 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
   public static java.lang.String UNKNOWNS = "unknowns";
   public Boolean getAbundance()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
   }
   
   public void setAbundance(Boolean value)
@@ -64,14 +64,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(ABUNDANCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAbundanceMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getAbundanceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ABUNDANCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ABUNDANCE).getAttributeMdDTO();
   }
   
   public java.util.Date getCollectionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
   }
   
   public void setCollectionDate(java.util.Date value)
@@ -82,7 +82,7 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     }
     else
     {
-      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -101,9 +101,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(COLLECTIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
   }
   
   public String getCollectionId()
@@ -138,9 +138,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(COLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public String getCollectionMethod()
@@ -175,14 +175,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(COLLECTIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
   }
   
   public Integer getEggs()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EGGS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EGGS));
   }
   
   public void setEggs(Integer value)
@@ -212,14 +212,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(EGGS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEggsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEggsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EGGS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EGGS).getAttributeMdDTO();
   }
   
   public Integer getFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALE));
   }
   
   public void setFemale(Integer value)
@@ -249,9 +249,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(FEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -293,9 +293,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getIdentMethod()
@@ -330,14 +330,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Integer getLarvae()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LARVAE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LARVAE));
   }
   
   public void setLarvae(Integer value)
@@ -367,9 +367,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(LARVAE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLarvaeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLarvaeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LARVAE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LARVAE).getAttributeMdDTO();
   }
   
   public String getLifeStage()
@@ -404,14 +404,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(LIFESTAGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLifeStageMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLifeStageMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
   }
   
   public Integer getMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MALE));
   }
   
   public void setMale(Integer value)
@@ -441,14 +441,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(MALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MALE).getAttributeMdDTO();
   }
   
   public Integer getPupae()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUPAE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUPAE));
   }
   
   public void setPupae(Integer value)
@@ -478,9 +478,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(PUPAE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPupaeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPupaeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PUPAE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PUPAE).getAttributeMdDTO();
   }
   
   public String getSubCollectionId()
@@ -515,9 +515,9 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(SUBCOLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSubCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBCOLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBCOLLECTIONID).getAttributeMdDTO();
   }
   
   public String getTaxon()
@@ -552,14 +552,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(TAXON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTaxonMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTaxonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TAXON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TAXON).getAttributeMdDTO();
   }
   
   public Integer getUnknowns()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNKNOWNS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNKNOWNS));
   }
   
   public void setUnknowns(Integer value)
@@ -589,14 +589,14 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.terraframe.
     return isModified(UNKNOWNS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUnknownsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnknownsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNKNOWNS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNKNOWNS).getAttributeMdDTO();
   }
   
-  public static MosquitoCollectionExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static MosquitoCollectionExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (MosquitoCollectionExcelViewDTO) dto;
   }

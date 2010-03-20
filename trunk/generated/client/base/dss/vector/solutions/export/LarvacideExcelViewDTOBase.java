@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -233648260)
-public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 679936500)
+public abstract class LarvacideExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.LarvacideExcelView";
-  private static final long serialVersionUID = -233648260;
+  private static final long serialVersionUID = 679936500;
   
-  protected LarvacideExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvacideExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -32,7 +32,7 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String UNITSUSED = "unitsUsed";
   public java.util.Date getCompletionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COMPLETIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COMPLETIONDATE));
   }
   
   public void setCompletionDate(java.util.Date value)
@@ -43,7 +43,7 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     }
     else
     {
-      setValue(COMPLETIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(COMPLETIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -62,9 +62,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(COMPLETIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCompletionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCompletionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COMPLETIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COMPLETIONDATE).getAttributeMdDTO();
   }
   
   public String getControlMethod()
@@ -99,9 +99,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CONTROLMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getControlMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getControlMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONTROLMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONTROLMETHOD).getAttributeMdDTO();
   }
   
   public String getGeoDescription()
@@ -136,9 +136,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEODESCRIPTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getGeoDescriptionMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeoDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODESCRIPTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODESCRIPTION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -180,14 +180,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Boolean getNatureOfControl()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NATUREOFCONTROL));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NATUREOFCONTROL));
   }
   
   public void setNatureOfControl(Boolean value)
@@ -217,14 +217,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(NATUREOFCONTROL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getNatureOfControlMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getNatureOfControlMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NATUREOFCONTROL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(NATUREOFCONTROL).getAttributeMdDTO();
   }
   
   public Integer getPersonCount()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERSONCOUNT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERSONCOUNT));
   }
   
   public void setPersonCount(Integer value)
@@ -254,14 +254,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(PERSONCOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPersonCountMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPersonCountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERSONCOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERSONCOUNT).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -272,7 +272,7 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -291,9 +291,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public String getSubstance()
@@ -328,9 +328,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(SUBSTANCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubstanceMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSubstanceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
   }
   
   public String getTarget()
@@ -365,9 +365,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public String getTeamLeaderId()
@@ -402,14 +402,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(TEAMLEADERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTeamLeaderIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamLeaderIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLEADERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMLEADERID).getAttributeMdDTO();
   }
   
   public Integer getTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TREATED));
   }
   
   public void setTreated(Integer value)
@@ -439,9 +439,9 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(TREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TREATED).getAttributeMdDTO();
   }
   
   public String getUnit()
@@ -476,14 +476,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(UNIT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUnitMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUnitMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIT).getAttributeMdDTO();
   }
   
   public Integer getUnitsUsed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSUSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSUSED));
   }
   
   public void setUnitsUsed(Integer value)
@@ -513,14 +513,14 @@ public abstract class LarvacideExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(UNITSUSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUnitsUsedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnitsUsedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSUSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSUSED).getAttributeMdDTO();
   }
   
-  public static LarvacideExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static LarvacideExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (LarvacideExcelViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1422425397)
-public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1422425397)
+public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MorphologicalSpecieGroupExcelView";
   private static final long serialVersionUID = 1422425397;
   
-  protected MorphologicalSpecieGroupExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MorphologicalSpecieGroupExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -26,7 +26,7 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
   public static java.lang.String SPECIE = "specie";
   public java.util.Date getDateCollected()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
   }
   
   public void setDateCollected(java.util.Date value)
@@ -37,7 +37,7 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     }
     else
     {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -56,9 +56,9 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(DATECOLLECTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -100,9 +100,9 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getIdentificationMethod()
@@ -137,14 +137,14 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(IDENTIFICATIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentificationMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
   }
   
   public void setQuantity(Integer value)
@@ -174,14 +174,14 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(QUANTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYFEMALE));
   }
   
   public void setQuantityFemale(Integer value)
@@ -211,14 +211,14 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(QUANTITYFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYMALE));
   }
   
   public void setQuantityMale(Integer value)
@@ -248,9 +248,9 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(QUANTITYMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYMALE).getAttributeMdDTO();
   }
   
   public String getSpecie()
@@ -285,14 +285,14 @@ public abstract class MorphologicalSpecieGroupExcelViewDTOBase extends com.terra
     return isModified(SPECIE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpecieMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
-  public static MorphologicalSpecieGroupExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static MorphologicalSpecieGroupExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (MorphologicalSpecieGroupExcelViewDTO) dto;
   }

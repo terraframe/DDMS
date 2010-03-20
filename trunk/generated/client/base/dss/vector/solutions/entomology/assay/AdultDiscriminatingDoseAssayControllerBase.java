@@ -1,7 +1,7 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 823042721)
-public class AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 823042721)
+public class AdultDiscriminatingDoseAssayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,140 +57,140 @@ public class AdultDiscriminatingDoseAssayControllerBase implements com.terrafram
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void cancel(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void failCancel(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCancel");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void create(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void failCreate(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCreate");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void delete(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void failDelete(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failDelete");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failDelete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failEdit");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failEdit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failNewInstance");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void update(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO:dto", post=true)
   public void failUpdate(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failUpdate");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failUpdate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failView");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failViewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failViewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failViewPage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.failViewPage");
   }
   
 }

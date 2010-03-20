@@ -1,17 +1,17 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1192923041)
-public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 134015269)
+public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidTestDateProblem";
-  private static final long serialVersionUID = 1192923041;
+  private static final long serialVersionUID = 134015269;
   
-  public InvalidTestDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidTestDateProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidTestDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public InvalidTestDateProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -25,7 +25,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
   public static java.lang.String TESTDATE = "testDate";
   public java.util.Date getCollectionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
   }
   
   public void setCollectionDate(java.util.Date value)
@@ -36,7 +36,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
     }
     else
     {
-      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -55,14 +55,14 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
     return isModified(COLLECTIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
   }
   
   public void setTestDate(java.util.Date value)
@@ -73,7 +73,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
     }
     else
     {
-      setValue(TESTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(TESTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -92,9 +92,9 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
     return isModified(TESTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidTestDateProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidTestDateProblem", locale);
       
       message = message.replace("{collectionDate}", this.getCollectionDate().toString());
       message = message.replace("{testDate}", this.getTestDate().toString());
@@ -125,19 +125,19 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

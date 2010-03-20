@@ -1,12 +1,12 @@
 package dss.vector.solutions.stock;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1762803483)
-public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1762803483)
+public abstract class EventOptionMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.EventOptionMaster";
   private static final long serialVersionUID = 1762803483;
   
-  protected EventOptionMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EventOptionMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.syste
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected EventOptionMasterDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EventOptionMasterDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,9 +27,9 @@ public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.syste
     return CLASS;
   }
   
-  public static dss.vector.solutions.stock.EventOptionMasterDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.stock.EventOptionMasterDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.stock.EventOptionMasterDTO) dto;
   }
@@ -50,7 +50,7 @@ public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.syste
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.stock.EventOptionMasterQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.stock.EventOptionMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     return (dss.vector.solutions.stock.EventOptionMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.stock.EventOptionMaster", sortAttribute, ascending, pageSize, pageNumber);
   }
@@ -60,11 +60,11 @@ public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.syste
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.stock.EventOptionMasterDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.stock.EventOptionMasterDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.EventOptionMasterDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.EventOptionMasterDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.stock.EventOptionMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -73,11 +73,11 @@ public abstract class EventOptionMasterDTOBase extends com.terraframe.mojo.syste
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.stock.EventOptionMasterDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.stock.EventOptionMasterDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.stock.EventOptionMasterDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.stock.EventOptionMasterDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.stock.EventOptionMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

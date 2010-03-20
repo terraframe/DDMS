@@ -1,17 +1,17 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1023635750)
-public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1903388378)
+public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.NotApplicableProblem";
-  private static final long serialVersionUID = -1023635750;
+  private static final long serialVersionUID = 1903388378;
   
-  public NotApplicableProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public NotApplicableProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public NotApplicableProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public NotApplicableProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -55,9 +55,9 @@ public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.N
     return isModified(INPUTATTRIBUTE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInputAttributeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInputAttributeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INPUTATTRIBUTE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INPUTATTRIBUTE).getAttributeMdDTO();
   }
   
   public String getInputValue()
@@ -92,9 +92,9 @@ public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.N
     return isModified(INPUTVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInputValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInputValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INPUTVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INPUTVALUE).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.N
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.NotApplicableProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.intervention.monitor.NotApplicableProblem", locale);
       
       message = message.replace("{inputAttribute}", this.getInputAttribute().toString());
       message = message.replace("{inputValue}", this.getInputValue().toString());
@@ -125,19 +125,19 @@ public abstract class NotApplicableProblemDTOBase extends dss.vector.solutions.N
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

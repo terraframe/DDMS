@@ -1,17 +1,17 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1494255497)
-public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 2030225925)
+public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayedSumProblem";
-  private static final long serialVersionUID = 1494255497;
+  private static final long serialVersionUID = 2030225925;
   
-  public SprayedSumProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public SprayedSumProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public SprayedSumProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public SprayedSumProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -57,14 +57,14 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(OBJECTLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getObjectLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getObjectLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OBJECTLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OBJECTLABEL).getAttributeMdDTO();
   }
   
   public Integer getObjects()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OBJECTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OBJECTS));
   }
   
   public void setObjects(Integer value)
@@ -94,9 +94,9 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(OBJECTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getObjectsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getObjectsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OBJECTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OBJECTS).getAttributeMdDTO();
   }
   
   public String getSprayedObjectLabel()
@@ -131,14 +131,14 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(SPRAYEDOBJECTLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayedObjectLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSprayedObjectLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYEDOBJECTLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYEDOBJECTLABEL).getAttributeMdDTO();
   }
   
   public Integer getSprayedObjects()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDOBJECTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDOBJECTS));
   }
   
   public void setSprayedObjects(Integer value)
@@ -168,9 +168,9 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(SPRAYEDOBJECTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayedObjectsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayedObjectsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDOBJECTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYEDOBJECTS).getAttributeMdDTO();
   }
   
   /**
@@ -192,7 +192,7 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.irs.SprayedSumProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.irs.SprayedSumProblem", locale);
       
       message = message.replace("{objectLabel}", this.getObjectLabel().toString());
       message = message.replace("{objects}", this.getObjects().toString());
@@ -203,19 +203,19 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

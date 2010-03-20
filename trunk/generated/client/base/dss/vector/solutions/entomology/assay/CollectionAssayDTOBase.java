@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -81858910)
-public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2020084092)
+public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
-  private static final long serialVersionUID = -81858910;
+  private static final long serialVersionUID = -2020084092;
   
-  protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected CollectionAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected CollectionAssayDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected CollectionAssayDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -73,14 +73,14 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(COLLECTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
   }
   
   public void setExposureTime(Integer value)
@@ -110,9 +110,9 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(EXPOSURETIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getGeneration()
@@ -154,9 +154,9 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(GENERATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getIdentificationMethod()
@@ -198,14 +198,14 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(IDENTIFICATIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
   }
   
   public void setIsofemale(Boolean value)
@@ -235,14 +235,14 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(ISOFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
   }
   
   public void setQuantityTested(Integer value)
@@ -272,9 +272,9 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(QUANTITYTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTestMethod()
@@ -316,24 +316,24 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
   public final java.lang.Double getKD50()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD50", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD50", _declaredTypes);
     return (java.lang.Double) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.Double getKD50(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.Double getKD50(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD50", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD50", _declaredTypes);
     return (java.lang.Double) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -341,21 +341,21 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD95", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD95", _declaredTypes);
     return (java.lang.Double) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.Double getKD95(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.Double getKD95(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD95", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getKD95", _declaredTypes);
     return (java.lang.Double) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.assay.CollectionAssayDTO) dto;
   }
@@ -376,9 +376,9 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.CollectionAssayQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.CollectionAssayQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.CollectionAssayQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.CollectionAssay", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.CollectionAssayQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -386,11 +386,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.CollectionAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -399,11 +399,11 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.CollectionAssayDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.CollectionAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

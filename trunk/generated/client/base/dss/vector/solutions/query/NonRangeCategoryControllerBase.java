@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 883702678)
-public class NonRangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 883702678)
+public class NonRangeCategoryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.NonRangeCategoryController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,140 +57,140 @@ public class NonRangeCategoryControllerBase implements com.terraframe.mojo.gener
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void cancel(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.cancel");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.cancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void failCancel(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failCancel");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void create(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.create");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void failCreate(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failCreate");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void delete(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.delete");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.delete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void failDelete(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failDelete");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failDelete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.edit");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failEdit");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failEdit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.newInstance");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.newInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failNewInstance");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void update(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.update");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.query.NonRangeCategoryDTO:dto", post=true)
   public void failUpdate(dss.vector.solutions.query.NonRangeCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failUpdate");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failUpdate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.view");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.view");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failView");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.viewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failViewAll");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failViewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.viewPage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.viewPage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.NonRangeCategoryController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failViewPage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.NonRangeCategoryController.failViewPage");
   }
   
 }

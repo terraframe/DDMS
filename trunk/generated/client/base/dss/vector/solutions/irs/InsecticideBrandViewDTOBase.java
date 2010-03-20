@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1608557695)
-public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1577919943)
+public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandView";
-  private static final long serialVersionUID = -1608557695;
+  private static final long serialVersionUID = -1577919943;
   
-  protected InsecticideBrandViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InsecticideBrandViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -63,14 +63,14 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(ACTIVEINGREDIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getActiveIngredientMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getActiveIngredientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACTIVEINGREDIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACTIVEINGREDIENT).getAttributeMdDTO();
   }
   
   public Integer getAmount()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
   }
   
   public void setAmount(Integer value)
@@ -100,9 +100,9 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(AMOUNT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAmountMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
   }
   
   public String getBrandName()
@@ -137,14 +137,14 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(BRANDNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
   }
   
   public void setEnabled(Boolean value)
@@ -174,9 +174,9 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(ENABLED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
   }
   
   public String getInsecticdeId()
@@ -211,14 +211,14 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(INSECTICDEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInsecticdeIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInsecticdeIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICDEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICDEID).getAttributeMdDTO();
   }
   
   public Integer getSachetsPerRefill()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SACHETSPERREFILL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SACHETSPERREFILL));
   }
   
   public void setSachetsPerRefill(Integer value)
@@ -248,14 +248,14 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(SACHETSPERREFILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSachetsPerRefillMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSachetsPerRefillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SACHETSPERREFILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SACHETSPERREFILL).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getWeight()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(WEIGHT));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(WEIGHT));
   }
   
   public void setWeight(java.math.BigDecimal value)
@@ -285,16 +285,16 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
     return isModified(WEIGHT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeightMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeightMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideBrandViewDTO[] insecticides)
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideBrandViewDTO[] insecticides)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.InsecticideBrandView;"};
     Object[] _parameters = new Object[]{insecticides};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -302,37 +302,37 @@ public abstract class InsecticideBrandViewDTOBase extends com.terraframe.mojo.bu
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getAll", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getAllActive(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getAllActive(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getAllActive", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getAllActive", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static InsecticideBrandViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static InsecticideBrandViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (InsecticideBrandViewDTO) dto;
   }

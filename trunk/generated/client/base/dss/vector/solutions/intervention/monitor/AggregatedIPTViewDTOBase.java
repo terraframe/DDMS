@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2026056466)
-public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1292344698)
+public abstract class AggregatedIPTViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedIPTView";
-  private static final long serialVersionUID = 2026056466;
+  private static final long serialVersionUID = -1292344698;
   
-  protected AggregatedIPTViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedIPTViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -66,9 +66,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayDose()
@@ -110,9 +110,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYDOSE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayDoseMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayDoseMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYDOSE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYDOSE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayPatients()
@@ -154,9 +154,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayPatientsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYPATIENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYPATIENTS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayTreatments()
@@ -198,9 +198,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYTREATMENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTreatmentsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayTreatmentsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTREATMENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTREATMENTS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayVisits()
@@ -242,14 +242,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(DISPLAYVISITS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayVisitsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayVisitsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYVISITS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYVISITS).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -260,7 +260,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -279,9 +279,9 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -316,14 +316,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public Integer getNumberNatalCare()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERNATALCARE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERNATALCARE));
   }
   
   public void setNumberNatalCare(Integer value)
@@ -353,14 +353,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(NUMBERNATALCARE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberNatalCareMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberNatalCareMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERNATALCARE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERNATALCARE).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANT));
   }
   
   public void setNumberPregnant(Integer value)
@@ -390,14 +390,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(NUMBERPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnantITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTITN));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTITN));
   }
   
   public void setNumberPregnantITN(Integer value)
@@ -427,14 +427,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(NUMBERPREGNANTITN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantITNMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantITNMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTITN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTITN).getAttributeMdDTO();
   }
   
   public Integer getNumberPregnantIron()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTIRON));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTIRON));
   }
   
   public void setNumberPregnantIron(Integer value)
@@ -464,14 +464,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(NUMBERPREGNANTIRON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPregnantIronMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantIronMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTIRON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTIRON).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -501,15 +501,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO> getPeriodType()
   {
-    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
   }
   
   public java.util.List<String> getPeriodTypeEnumNames()
@@ -547,14 +547,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(PERIODTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
   }
   
   public Integer getPeriodYear()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
   }
   
   public void setPeriodYear(Integer value)
@@ -584,14 +584,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(PERIODYEAR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
   }
   
   public Boolean getSearchType()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
   }
   
   public void setSearchType(Boolean value)
@@ -621,14 +621,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(SEARCHTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -639,7 +639,7 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -658,14 +658,14 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public Integer getTotalITN()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTALITN));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTALITN));
   }
   
   public void setTotalITN(Integer value)
@@ -695,24 +695,24 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TOTALITN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTotalITNMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTotalITNMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALITN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALITN).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.intervention.monitor.IPTPatientsDTO[] patients, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[] visits, dss.vector.solutions.intervention.monitor.IPTDoseDTO[] doses, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[] treatments)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.IPTPatients;", "[Ldss.vector.solutions.intervention.monitor.IPTANCVisit;", "[Ldss.vector.solutions.intervention.monitor.IPTDose;", "[Ldss.vector.solutions.intervention.monitor.IPTTreatment;"};
     Object[] _parameters = new Object[]{patients, visits, doses, treatments};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO[] patients, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[] visits, dss.vector.solutions.intervention.monitor.IPTDoseDTO[] doses, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[] treatments)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO[] patients, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[] visits, dss.vector.solutions.intervention.monitor.IPTDoseDTO[] doses, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[] treatments)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.IPTPatients;", "[Ldss.vector.solutions.intervention.monitor.IPTANCVisit;", "[Ldss.vector.solutions.intervention.monitor.IPTDose;", "[Ldss.vector.solutions.intervention.monitor.IPTTreatment;"};
     Object[] _parameters = new Object[]{id, patients, visits, doses, treatments};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -720,15 +720,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -736,15 +736,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTANCVisits", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTANCVisits", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[] getIPTANCVisits(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[] getIPTANCVisits(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTANCVisits", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTANCVisits", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTANCVisitDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -752,15 +752,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTDoses", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTDoses", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTDoseDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IPTDoseDTO[] getIPTDoses(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.IPTDoseDTO[] getIPTDoses(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTDoses", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTDoses", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTDoseDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -768,15 +768,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTPatients", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTPatients", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTPatientsDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IPTPatientsDTO[] getIPTPatients(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.IPTPatientsDTO[] getIPTPatients(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTPatients", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTPatients", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTPatientsDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -784,15 +784,15 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTTreatments", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTTreatments", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[] getIPTTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[] getIPTTreatments(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTTreatments", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "getIPTTreatments", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IPTTreatmentDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -800,21 +800,21 @@ public abstract class AggregatedIPTViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO searchByView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO searchByView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static AggregatedIPTViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AggregatedIPTViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (AggregatedIPTViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -2122982770)
-public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 2020532110)
+public abstract class PooledInfectionAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PooledInfectionAssayExcelView";
-  private static final long serialVersionUID = -2122982770;
+  private static final long serialVersionUID = 2020532110;
   
-  protected PooledInfectionAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PooledInfectionAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -60,9 +60,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(COLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public String getIdentMethod()
@@ -97,14 +97,14 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getInfected()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INFECTED));
   }
   
   public void setInfected(Boolean value)
@@ -134,14 +134,14 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(INFECTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInfectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INFECTED).getAttributeMdDTO();
   }
   
   public Integer getMosquitosTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MOSQUITOSTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MOSQUITOSTESTED));
   }
   
   public void setMosquitosTested(Integer value)
@@ -171,14 +171,14 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(MOSQUITOSTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMosquitosTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMosquitosTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MOSQUITOSTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MOSQUITOSTESTED).getAttributeMdDTO();
   }
   
   public Integer getNumberPositive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPOSITIVE));
   }
   
   public void setNumberPositive(Integer value)
@@ -208,9 +208,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(NUMBERPOSITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPositiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPOSITIVE).getAttributeMdDTO();
   }
   
   public String getParasite()
@@ -245,9 +245,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(PARASITE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParasiteMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getParasiteMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARASITE).getAttributeMdDTO();
   }
   
   public String getPoolId()
@@ -282,14 +282,14 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(POOLID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPoolIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPoolIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POOLID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POOLID).getAttributeMdDTO();
   }
   
   public Integer getPoolsTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POOLSTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POOLSTESTED));
   }
   
   public void setPoolsTested(Integer value)
@@ -319,9 +319,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(POOLSTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPoolsTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPoolsTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POOLSTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POOLSTESTED).getAttributeMdDTO();
   }
   
   public String getSex()
@@ -356,9 +356,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public String getSpecies()
@@ -393,9 +393,9 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(SPECIES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
   }
   
   public String getTestMethod()
@@ -430,14 +430,14 @@ public abstract class PooledInfectionAssayExcelViewDTOBase extends com.terrafram
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
-  public static PooledInfectionAssayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static PooledInfectionAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (PooledInfectionAssayExcelViewDTO) dto;
   }

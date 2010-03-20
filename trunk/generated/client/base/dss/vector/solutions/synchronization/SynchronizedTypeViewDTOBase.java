@@ -1,12 +1,12 @@
 package dss.vector.solutions.synchronization;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 149228513)
-public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 994847385)
+public abstract class SynchronizedTypeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.SynchronizedTypeView";
-  private static final long serialVersionUID = 149228513;
+  private static final long serialVersionUID = 994847385;
   
-  protected SynchronizedTypeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SynchronizedTypeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -54,9 +54,9 @@ public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.bu
     return isModified(DESCRIPTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getDescriptionMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -91,14 +91,14 @@ public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.bu
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getExported()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EXPORTED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EXPORTED));
   }
   
   public void setExported(Boolean value)
@@ -128,9 +128,9 @@ public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.bu
     return isModified(EXPORTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getExportedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getExportedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EXPORTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EXPORTED).getAttributeMdDTO();
   }
   
   public String getMdTypeId()
@@ -165,9 +165,9 @@ public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.bu
     return isModified(MDTYPEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdTypeIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdTypeIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDTYPEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDTYPEID).getAttributeMdDTO();
   }
   
   public String getQualifiedType()
@@ -202,54 +202,54 @@ public abstract class SynchronizedTypeViewDTOBase extends com.terraframe.mojo.bu
     return isModified(QUALIFIEDTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getQualifiedTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getQualifiedTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUALIFIEDTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUALIFIEDTYPE).getAttributeMdDTO();
   }
   
-  public static final void confirmAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] views)
+  public static final void confirmAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.synchronization.SynchronizedTypeView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "confirmAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "confirmAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] getAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getAll", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] getDependencies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String[] rootTypes)
+  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[] getDependencies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] rootTypes)
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{rootTypes};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getDependencies", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getDependencies", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO getQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO getQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getQuery", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "getQuery", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO search(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String query)
+  public static final dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO search(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String query)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{query};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "search", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.synchronization.SynchronizedTypeViewDTO.CLASS, "search", _declaredTypes);
     return (dss.vector.solutions.synchronization.SynchronizedTypeViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static SynchronizedTypeViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SynchronizedTypeViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (SynchronizedTypeViewDTO) dto;
   }

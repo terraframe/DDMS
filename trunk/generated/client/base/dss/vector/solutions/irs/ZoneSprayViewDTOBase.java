@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -368684997)
-public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -301607293)
+public abstract class ZoneSprayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSprayView";
-  private static final long serialVersionUID = -368684997;
+  private static final long serialVersionUID = -301607293;
   
-  protected ZoneSprayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ZoneSprayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -65,9 +65,9 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(BRAND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBrandMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getBrandMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRAND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BRAND).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -102,9 +102,9 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -146,14 +146,14 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public java.util.Date getSprayDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SPRAYDATE));
   }
   
   public void setSprayDate(java.util.Date value)
@@ -164,7 +164,7 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     }
     else
     {
-      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(SPRAYDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -183,15 +183,15 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SPRAYDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getSprayDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSprayDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SPRAYDATE).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.irs.SprayMethodDTO> getSprayMethod()
   {
-    return (java.util.List<dss.vector.solutions.irs.SprayMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.SprayMethodDTO.CLASS, getEnumNames(SPRAYMETHOD));
+    return (java.util.List<dss.vector.solutions.irs.SprayMethodDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.SprayMethodDTO.CLASS, getEnumNames(SPRAYMETHOD));
   }
   
   public java.util.List<String> getSprayMethodEnumNames()
@@ -229,14 +229,14 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SPRAYMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSprayMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getSprayMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPRAYMETHOD).getAttributeMdDTO();
   }
   
   public Integer getSprayWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
   }
   
   public void setSprayWeek(Integer value)
@@ -266,9 +266,9 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SPRAYWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYWEEK).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
@@ -310,9 +310,9 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SUPERVISOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSurfaceType()
@@ -354,14 +354,14 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(SURFACETYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public Integer getTarget()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
   }
   
   public void setTarget(Integer value)
@@ -391,24 +391,24 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -416,29 +416,29 @@ public abstract class ZoneSprayViewDTOBase extends com.terraframe.mojo.business.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "getStatus", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "getStatus", _declaredTypes);
     return (dss.vector.solutions.irs.TeamSprayStatusViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.TeamSprayStatusViewDTO[] getStatus(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.TeamSprayStatusViewDTO[] getStatus(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "getStatus", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "getStatus", _declaredTypes);
     return (dss.vector.solutions.irs.TeamSprayStatusViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.ZoneSprayViewDTO searchBySprayData(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date sprayDate, dss.vector.solutions.irs.SprayMethodDTO sprayMethod, dss.vector.solutions.irs.InsecticideBrandDTO brand)
+  public static final dss.vector.solutions.irs.ZoneSprayViewDTO searchBySprayData(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date sprayDate, dss.vector.solutions.irs.SprayMethodDTO sprayMethod, dss.vector.solutions.irs.InsecticideBrandDTO brand)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.util.Date", "dss.vector.solutions.irs.SprayMethod", "dss.vector.solutions.irs.InsecticideBrand"};
     Object[] _parameters = new Object[]{geoId, sprayDate, sprayMethod, brand};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "searchBySprayData", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ZoneSprayViewDTO.CLASS, "searchBySprayData", _declaredTypes);
     return (dss.vector.solutions.irs.ZoneSprayViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ZoneSprayViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ZoneSprayViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ZoneSprayViewDTO) dto;
   }

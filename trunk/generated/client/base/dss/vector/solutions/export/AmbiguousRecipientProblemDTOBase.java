@@ -1,17 +1,17 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -992892730)
-public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -555894522)
+public abstract class AmbiguousRecipientProblemDTOBase extends com.runwaysdk.business.ProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AmbiguousRecipientProblem";
-  private static final long serialVersionUID = -992892730;
+  private static final long serialVersionUID = -555894522;
   
-  public AmbiguousRecipientProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public AmbiguousRecipientProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public AmbiguousRecipientProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public AmbiguousRecipientProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -27,7 +27,7 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
   public static java.lang.String LASTNAME = "lastName";
   public java.util.Date getDob()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DOB));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DOB));
   }
   
   public void setDob(java.util.Date value)
@@ -38,7 +38,7 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
     }
     else
     {
-      setValue(DOB, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DOB, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -57,9 +57,9 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
     return isModified(DOB);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDobMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDobMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DOB).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DOB).getAttributeMdDTO();
   }
   
   public String getFirstName()
@@ -94,9 +94,9 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
     return isModified(FIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
   }
   
   public String getLastName()
@@ -131,9 +131,9 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
     return isModified(LASTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
   }
   
   /**
@@ -155,7 +155,7 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.export.AmbiguousRecipientProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.export.AmbiguousRecipientProblem", locale);
       
       message = message.replace("{dob}", this.getDob().toString());
       message = message.replace("{firstName}", this.getFirstName().toString());
@@ -166,19 +166,19 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.terraframe.mo
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

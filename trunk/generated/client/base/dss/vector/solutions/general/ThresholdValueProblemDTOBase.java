@@ -1,17 +1,17 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1940473613)
-public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 23320175)
+public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdValueProblem";
-  private static final long serialVersionUID = -1940473613;
+  private static final long serialVersionUID = 23320175;
   
-  public ThresholdValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public ThresholdValueProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public ThresholdValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public ThresholdValueProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -55,14 +55,14 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     return isModified(ENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public Integer getThreshold()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
   }
   
   public void setThreshold(Integer value)
@@ -92,9 +92,9 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     return isModified(THRESHOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getThresholdMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.ThresholdValueProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.ThresholdValueProblem", locale);
       
       message = message.replace("{entityLabel}", this.getEntityLabel().toString());
       message = message.replace("{threshold}", this.getThreshold().toString());
@@ -125,19 +125,19 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

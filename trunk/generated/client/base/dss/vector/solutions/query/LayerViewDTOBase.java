@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 576480161)
-public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -933732327)
+public abstract class LayerViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerView";
-  private static final long serialVersionUID = 576480161;
+  private static final long serialVersionUID = -933732327;
   
-  protected LayerViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LayerViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -52,9 +52,9 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
     return isModified(LAYERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERID).getAttributeMdDTO();
   }
   
   public String getLayerName()
@@ -89,14 +89,14 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
     return isModified(LAYERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
   }
   
   public Integer getLayerPosition()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LAYERPOSITION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LAYERPOSITION));
   }
   
   public void setLayerPosition(Integer value)
@@ -126,14 +126,14 @@ public abstract class LayerViewDTOBase extends com.terraframe.mojo.business.View
     return isModified(LAYERPOSITION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLayerPositionMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLayerPositionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LAYERPOSITION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LAYERPOSITION).getAttributeMdDTO();
   }
   
-  public static LayerViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static LayerViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (LayerViewDTO) dto;
   }

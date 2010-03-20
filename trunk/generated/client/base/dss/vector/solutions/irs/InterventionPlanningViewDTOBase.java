@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 306822604)
-public abstract class InterventionPlanningViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 460883814)
+public abstract class InterventionPlanningViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InterventionPlanningView";
-  private static final long serialVersionUID = 306822604;
+  private static final long serialVersionUID = 460883814;
   
-  protected InterventionPlanningViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InterventionPlanningViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -53,9 +53,9 @@ public abstract class InterventionPlanningViewDTOBase extends com.terraframe.moj
     return isModified(ENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -97,9 +97,9 @@ public abstract class InterventionPlanningViewDTOBase extends com.terraframe.moj
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.MalariaSeasonDTO getSeason()
@@ -141,14 +141,14 @@ public abstract class InterventionPlanningViewDTOBase extends com.terraframe.moj
     return isModified(SEASON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSeasonMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSeasonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEASON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEASON).getAttributeMdDTO();
   }
   
   public Integer getTargets()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGETS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGETS));
   }
   
   public void setTargets(Integer value)
@@ -178,14 +178,14 @@ public abstract class InterventionPlanningViewDTOBase extends com.terraframe.moj
     return isModified(TARGETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGETS).getAttributeMdDTO();
   }
   
-  public static InterventionPlanningViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static InterventionPlanningViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (InterventionPlanningViewDTO) dto;
   }

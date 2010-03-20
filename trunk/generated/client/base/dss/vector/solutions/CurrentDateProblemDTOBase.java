@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1427976103)
-public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1557516647)
+public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.CurrentDateProblem";
-  private static final long serialVersionUID = 1427976103;
+  private static final long serialVersionUID = 1557516647;
   
-  public CurrentDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public CurrentDateProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public CurrentDateProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public CurrentDateProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -25,7 +25,7 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
   public static java.lang.String GIVENDATE = "givenDate";
   public java.util.Date getCurrentDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CURRENTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CURRENTDATE));
   }
   
   public void setCurrentDate(java.util.Date value)
@@ -36,7 +36,7 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
     }
     else
     {
-      setValue(CURRENTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(CURRENTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -55,14 +55,14 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
     return isModified(CURRENTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCurrentDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCurrentDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CURRENTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CURRENTDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getGivenDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(GIVENDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(GIVENDATE));
   }
   
   public void setGivenDate(java.util.Date value)
@@ -73,7 +73,7 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
     }
     else
     {
-      setValue(GIVENDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(GIVENDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -92,9 +92,9 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
     return isModified(GIVENDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getGivenDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getGivenDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(GIVENDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(GIVENDATE).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.CurrentDateProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.CurrentDateProblem", locale);
       
       message = message.replace("{currentDate}", this.getCurrentDate().toString());
       message = message.replace("{givenDate}", this.getGivenDate().toString());
@@ -125,19 +125,19 @@ public abstract class CurrentDateProblemDTOBase extends dss.vector.solutions.Not
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

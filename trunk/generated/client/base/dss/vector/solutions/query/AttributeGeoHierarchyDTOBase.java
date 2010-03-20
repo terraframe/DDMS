@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1515104371)
-public abstract class AttributeGeoHierarchyDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 310083601)
+public abstract class AttributeGeoHierarchyDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AttributeGeoHierarchy";
-  private static final long serialVersionUID = 1515104371;
+  private static final long serialVersionUID = 310083601;
   
-  protected AttributeGeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AttributeGeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -53,9 +53,9 @@ public abstract class AttributeGeoHierarchyDTOBase extends com.terraframe.mojo.b
     return isModified(ATTRIBUTEDISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getGeoHierarchyDisplayLabel()
@@ -90,9 +90,9 @@ public abstract class AttributeGeoHierarchyDTOBase extends com.terraframe.mojo.b
     return isModified(GEOHIERARCHYDISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOHIERARCHYDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOHIERARCHYDISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getGeoHierarchyId()
@@ -127,9 +127,9 @@ public abstract class AttributeGeoHierarchyDTOBase extends com.terraframe.mojo.b
     return isModified(GEOHIERARCHYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOHIERARCHYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOHIERARCHYID).getAttributeMdDTO();
   }
   
   public String getMdAttributeId()
@@ -164,14 +164,14 @@ public abstract class AttributeGeoHierarchyDTOBase extends com.terraframe.mojo.b
     return isModified(MDATTRIBUTEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
   }
   
-  public static AttributeGeoHierarchyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AttributeGeoHierarchyDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (AttributeGeoHierarchyDTO) dto;
   }

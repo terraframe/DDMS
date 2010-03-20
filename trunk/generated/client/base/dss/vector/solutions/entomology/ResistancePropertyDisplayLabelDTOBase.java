@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1416102443)
-public abstract class ResistancePropertyDisplayLabelDTOBase extends com.terraframe.mojo.business.LocalStructDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1780295211)
+public abstract class ResistancePropertyDisplayLabelDTOBase extends com.runwaysdk.business.LocalStructDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ResistancePropertyDisplayLabel";
-  private static final long serialVersionUID = -1416102443;
+  private static final long serialVersionUID = -1780295211;
   
-  protected ResistancePropertyDisplayLabelDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ResistancePropertyDisplayLabelDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class ResistancePropertyDisplayLabelDTOBase extends com.terrafra
   * @param structDTO The StructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ResistancePropertyDisplayLabelDTOBase(com.terraframe.mojo.business.LocalStructDTO structDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ResistancePropertyDisplayLabelDTOBase(com.runwaysdk.business.LocalStructDTO structDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(structDTO, clientRequest);
   }
@@ -63,9 +63,9 @@ public abstract class ResistancePropertyDisplayLabelDTOBase extends com.terrafra
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -88,14 +88,14 @@ public abstract class ResistancePropertyDisplayLabelDTOBase extends com.terrafra
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static ResistancePropertyDisplayLabelDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ResistancePropertyDisplayLabelDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (ResistancePropertyDisplayLabelDTO) dto;
   }
@@ -116,9 +116,9 @@ public abstract class ResistancePropertyDisplayLabelDTOBase extends com.terrafra
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.ResistancePropertyDisplayLabel", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.ResistancePropertyDisplayLabelDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
 }

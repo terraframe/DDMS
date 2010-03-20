@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1035938333)
-public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 960940843)
+public abstract class PopulationDataViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.PopulationDataView";
-  private static final long serialVersionUID = 1035938333;
+  private static final long serialVersionUID = 960940843;
   
-  protected PopulationDataViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PopulationDataViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -57,9 +57,9 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public String getEntityLabel()
@@ -94,14 +94,14 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(ENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getEstimated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ESTIMATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ESTIMATED));
   }
   
   public void setEstimated(Boolean value)
@@ -131,9 +131,9 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(ESTIMATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEstimatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEstimatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ESTIMATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ESTIMATED).getAttributeMdDTO();
   }
   
   public String getGeoEntity()
@@ -168,14 +168,14 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Double getGrowthRate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(GROWTHRATE));
   }
   
   public void setGrowthRate(Double value)
@@ -205,14 +205,14 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GROWTHRATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getGrowthRateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getGrowthRateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(GROWTHRATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(GROWTHRATE).getAttributeMdDTO();
   }
   
   public Long getPopulation()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(POPULATION));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(POPULATION));
   }
   
   public void setPopulation(Long value)
@@ -242,14 +242,14 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(POPULATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPopulationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPopulationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POPULATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POPULATION).getAttributeMdDTO();
   }
   
   public Boolean getPopulationType()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONTYPE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONTYPE));
   }
   
   public void setPopulationType(Boolean value)
@@ -279,14 +279,14 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(POPULATIONTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPopulationTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPopulationTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONTYPE).getAttributeMdDTO();
   }
   
   public Integer getYearOfData()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFDATA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFDATA));
   }
   
   public void setYearOfData(Integer value)
@@ -316,16 +316,16 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
     return isModified(YEAROFDATA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getYearOfDataMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getYearOfDataMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFDATA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFDATA).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.general.PopulationDataViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.PopulationDataViewDTO[] views)
+  public static final dss.vector.solutions.general.PopulationDataViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.PopulationDataViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.general.PopulationDataView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.general.PopulationDataViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -333,15 +333,15 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -349,37 +349,37 @@ public abstract class PopulationDataViewDTOBase extends com.terraframe.mojo.busi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getCalculatedPopulation", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getCalculatedPopulation", _declaredTypes);
     return (java.lang.Long) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.Long getCalculatedPopulation(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.Long getCalculatedPopulation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getCalculatedPopulation", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getCalculatedPopulation", _declaredTypes);
     return (java.lang.Long) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.general.PopulationDataViewDTO[] getFacilityViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Integer yearOfData)
+  public static final dss.vector.solutions.general.PopulationDataViewDTO[] getFacilityViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Integer yearOfData)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer"};
     Object[] _parameters = new Object[]{geoId, yearOfData};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getFacilityViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getFacilityViews", _declaredTypes);
     return (dss.vector.solutions.general.PopulationDataViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.general.PopulationDataViewDTO[] getViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Integer yearOfData)
+  public static final dss.vector.solutions.general.PopulationDataViewDTO[] getViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.Integer yearOfData)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer"};
     Object[] _parameters = new Object[]{geoId, yearOfData};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.PopulationDataViewDTO.CLASS, "getViews", _declaredTypes);
     return (dss.vector.solutions.general.PopulationDataViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static PopulationDataViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static PopulationDataViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (PopulationDataViewDTO) dto;
   }

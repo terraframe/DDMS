@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1347078724)
-public abstract class LayerOmittedQueryChangedInformationDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -705024866)
+public abstract class LayerOmittedQueryChangedInformationDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.LayerOmittedQueryChangedInformation";
-  private static final long serialVersionUID = 1347078724;
+  private static final long serialVersionUID = -705024866;
   
-  public LayerOmittedQueryChangedInformationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public LayerOmittedQueryChangedInformationDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
@@ -51,9 +51,9 @@ public abstract class LayerOmittedQueryChangedInformationDTOBase extends com.ter
     return isModified(LAYERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
   }
   
   public String getQueryName()
@@ -88,9 +88,9 @@ public abstract class LayerOmittedQueryChangedInformationDTOBase extends com.ter
     return isModified(QUERYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getQueryNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getQueryNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYNAME).getAttributeMdDTO();
   }
   
 }

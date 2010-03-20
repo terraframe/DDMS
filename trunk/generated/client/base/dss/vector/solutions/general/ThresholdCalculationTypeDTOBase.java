@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1744612821)
-public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1197707009)
+public abstract class ThresholdCalculationTypeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationType";
-  private static final long serialVersionUID = -1744612821;
+  private static final long serialVersionUID = 1197707009;
   
-  protected ThresholdCalculationTypeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThresholdCalculationTypeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ThresholdCalculationTypeDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThresholdCalculationTypeDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -58,7 +58,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO> getCaseTypes()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO.CLASS, getEnumNames(CASETYPES));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationCaseTypesDTO.CLASS, getEnumNames(CASETYPES));
   }
   
   public java.util.List<String> getCaseTypesEnumNames()
@@ -96,14 +96,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(CASETYPES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getCaseTypesMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getCaseTypesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(CASETYPES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(CASETYPES).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -121,12 +121,12 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -134,7 +134,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -153,12 +153,12 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -166,11 +166,11 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -197,9 +197,9 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -234,14 +234,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -259,12 +259,12 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -272,7 +272,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -291,12 +291,12 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -304,7 +304,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -323,12 +323,12 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -336,11 +336,11 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -367,14 +367,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Integer getPriorYears()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRIORYEARS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRIORYEARS));
   }
   
   public void setPriorYears(Integer value)
@@ -404,14 +404,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(PRIORYEARS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPriorYearsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPriorYearsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRIORYEARS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRIORYEARS).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -429,9 +429,9 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -454,15 +454,15 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO> getT1Method()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T1METHOD));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T1METHOD));
   }
   
   public java.util.List<String> getT1MethodEnumNames()
@@ -500,15 +500,15 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(T1METHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getT1MethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getT1MethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(T1METHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(T1METHOD).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO> getT2Method()
   {
-    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T2METHOD));
+    return (java.util.List<dss.vector.solutions.general.ThresholdCalculationMethodDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.ThresholdCalculationMethodDTO.CLASS, getEnumNames(T2METHOD));
   }
   
   public java.util.List<String> getT2MethodEnumNames()
@@ -546,14 +546,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(T2METHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getT2MethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getT2MethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(T2METHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(T2METHOD).getAttributeMdDTO();
   }
   
   public Integer getWeeksAfter()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WEEKSAFTER));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WEEKSAFTER));
   }
   
   public void setWeeksAfter(Integer value)
@@ -583,14 +583,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEEKSAFTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getWeeksAfterMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getWeeksAfterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(WEEKSAFTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(WEEKSAFTER).getAttributeMdDTO();
   }
   
   public Integer getWeeksBefore()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WEEKSBEFORE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WEEKSBEFORE));
   }
   
   public void setWeeksBefore(Integer value)
@@ -620,14 +620,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEEKSBEFORE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getWeeksBeforeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getWeeksBeforeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(WEEKSBEFORE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(WEEKSBEFORE).getAttributeMdDTO();
   }
   
   public Double getWeight0()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT0));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT0));
   }
   
   public void setWeight0(Double value)
@@ -657,14 +657,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT0);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight0Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight0Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT0).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT0).getAttributeMdDTO();
   }
   
   public Double getWeight1()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT1));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT1));
   }
   
   public void setWeight1(Double value)
@@ -694,14 +694,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT1);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight1Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight1Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT1).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT1).getAttributeMdDTO();
   }
   
   public Double getWeight2()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT2));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT2));
   }
   
   public void setWeight2(Double value)
@@ -731,14 +731,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT2);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight2Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight2Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT2).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT2).getAttributeMdDTO();
   }
   
   public Double getWeight3()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT3));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT3));
   }
   
   public void setWeight3(Double value)
@@ -768,14 +768,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT3);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight3Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight3Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT3).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT3).getAttributeMdDTO();
   }
   
   public Double getWeight4()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT4));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT4));
   }
   
   public void setWeight4(Double value)
@@ -805,14 +805,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT4);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight4Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight4Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT4).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT4).getAttributeMdDTO();
   }
   
   public Double getWeight5()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT5));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT5));
   }
   
   public void setWeight5(Double value)
@@ -842,14 +842,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT5);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight5Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight5Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT5).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT5).getAttributeMdDTO();
   }
   
   public Double getWeight6()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT6));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT6));
   }
   
   public void setWeight6(Double value)
@@ -879,14 +879,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT6);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight6Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight6Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT6).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT6).getAttributeMdDTO();
   }
   
   public Double getWeight7()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT7));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT7));
   }
   
   public void setWeight7(Double value)
@@ -916,14 +916,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT7);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight7Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight7Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT7).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT7).getAttributeMdDTO();
   }
   
   public Double getWeight8()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT8));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT8));
   }
   
   public void setWeight8(Double value)
@@ -953,14 +953,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT8);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight8Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight8Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT8).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT8).getAttributeMdDTO();
   }
   
   public Double getWeight9()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT9));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(WEIGHT9));
   }
   
   public void setWeight9(Double value)
@@ -990,14 +990,14 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     return isModified(WEIGHT9);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getWeight9Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeight9Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT9).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT9).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.general.ThresholdCalculationTypeDTO) dto;
   }
@@ -1018,9 +1018,9 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationTypeQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.ThresholdCalculationTypeQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationTypeQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.ThresholdCalculationType", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.ThresholdCalculationTypeQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.ThresholdCalculationTypeDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1028,11 +1028,11 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdCalculationTypeDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1041,11 +1041,11 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.terraframe.moj
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.ThresholdCalculationTypeDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdCalculationTypeDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdCalculationTypeDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

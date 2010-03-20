@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -385755175)
-public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.export.AbstractSprayExcelViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -385755175)
+public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.export.AbstractSprayExcelViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ActorSprayExcelView";
   private static final long serialVersionUID = -385755175;
   
-  protected ActorSprayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ActorSprayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -56,14 +56,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(LEADERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLeaderIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEADERID).getAttributeMdDTO();
   }
   
   public Integer getReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVED));
   }
   
   public void setReceived(Integer value)
@@ -93,14 +93,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(RECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVED).getAttributeMdDTO();
   }
   
   public Integer getRefills()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFILLS));
   }
   
   public void setRefills(Integer value)
@@ -130,14 +130,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(REFILLS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getRefillsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getRefillsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFILLS).getAttributeMdDTO();
   }
   
   public Integer getReturned()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RETURNED));
   }
   
   public void setReturned(Integer value)
@@ -167,9 +167,9 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(RETURNED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReturnedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReturnedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RETURNED).getAttributeMdDTO();
   }
   
   public String getSprayTeam()
@@ -204,14 +204,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(SPRAYTEAM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSprayTeamMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSprayTeamMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYTEAM).getAttributeMdDTO();
   }
   
   public Integer getTarget()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
   }
   
   public void setTarget(Integer value)
@@ -241,14 +241,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public Integer getTeamSprayWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
   }
   
   public void setTeamSprayWeek(Integer value)
@@ -278,14 +278,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(TEAMSPRAYWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getUsed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(USED));
   }
   
   public void setUsed(Integer value)
@@ -315,14 +315,14 @@ public abstract class ActorSprayExcelViewDTOBase extends dss.vector.solutions.ex
     return isModified(USED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUsedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUsedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(USED).getAttributeMdDTO();
   }
   
-  public static ActorSprayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ActorSprayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ActorSprayExcelViewDTO) dto;
   }

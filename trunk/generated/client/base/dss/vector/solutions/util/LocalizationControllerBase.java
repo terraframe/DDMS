@@ -1,7 +1,7 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1631897740)
-public class LocalizationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1631897740)
+public class LocalizationControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.LocalizationController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,84 +57,84 @@ public class LocalizationControllerBase implements com.terraframe.mojo.generatio
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ljava.lang.String;:locales", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="[Ljava.lang.String;:locales", post=true)
   public void exportFile(java.lang.String[] locales) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.exportFile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.exportFile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="[Ljava.lang.String;:locales", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="[Ljava.lang.String;:locales", post=true)
   public void failExportFile(java.lang.String[] locales) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failExportFile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failExportFile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void importFile() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.importFile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.importFile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void failImportFile() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failImportFile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failImportFile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:language, java.lang.String:country, java.lang.String:variant", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:language, java.lang.String:country, java.lang.String:variant", post=true)
   public void installLocale(java.lang.String language, java.lang.String country, java.lang.String variant) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.installLocale");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.installLocale");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:language, java.lang.String:country, java.lang.String:variant", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:language, java.lang.String:country, java.lang.String:variant", post=true)
   public void failInstallLocale(java.lang.String language, java.lang.String country, java.lang.String variant) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failInstallLocale");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failInstallLocale");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void newLocale() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.newLocale");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.newLocale");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failNewLocale() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failNewLocale");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failNewLocale");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void selectLocales() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.selectLocales");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.selectLocales");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failSelectLocales() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failSelectLocales");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.LocalizationController.failSelectLocales");
   }
   
 }

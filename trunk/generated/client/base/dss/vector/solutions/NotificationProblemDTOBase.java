@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1925398131)
-public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 288994769)
+public abstract class NotificationProblemDTOBase extends com.runwaysdk.business.ProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.NotificationProblem";
-  private static final long serialVersionUID = -1925398131;
+  private static final long serialVersionUID = 288994769;
   
-  public NotificationProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public NotificationProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public NotificationProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public NotificationProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -59,9 +59,9 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     return isModified(ATTRIBUTEDISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getAttributeName()
@@ -96,9 +96,9 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     return isModified(ATTRIBUTENAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTENAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTENAME).getAttributeMdDTO();
   }
   
   public String getComponentId()
@@ -133,9 +133,9 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     return isModified(COMPONENTID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getComponentIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTID).getAttributeMdDTO();
   }
   
   public String getDefiningType()
@@ -170,9 +170,9 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     return isModified(DEFININGTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDefiningTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDefiningTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPE).getAttributeMdDTO();
   }
   
   public String getDefiningTypeDisplayLabel()
@@ -207,9 +207,9 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     return isModified(DEFININGTYPEDISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDefiningTypeDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDefiningTypeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPEDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPEDISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**
@@ -231,7 +231,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.NotificationProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.NotificationProblem", locale);
       
       message = message.replace("{attributeDisplayLabel}", this.getAttributeDisplayLabel().toString());
       message = message.replace("{attributeName}", this.getAttributeName().toString());
@@ -244,19 +244,19 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

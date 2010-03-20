@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1785837340)
-public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1245315274)
+public abstract class GeoEntityDefinitionDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityDefinition";
-  private static final long serialVersionUID = -1785837340;
+  private static final long serialVersionUID = 1245315274;
   
-  protected GeoEntityDefinitionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityDefinitionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -57,9 +57,9 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(DESCRIPTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -94,9 +94,9 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getParentGeoHierarchyId()
@@ -131,14 +131,14 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(PARENTGEOHIERARCHYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentGeoHierarchyIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getParentGeoHierarchyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTGEOHIERARCHYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTGEOHIERARCHYID).getAttributeMdDTO();
   }
   
   public Boolean getPolitical()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
   }
   
   public void setPolitical(Boolean value)
@@ -168,14 +168,14 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(POLITICAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
   }
   
   public Boolean getPopulationAllowed()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
   }
   
   public void setPopulationAllowed(Boolean value)
@@ -205,14 +205,14 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(POPULATIONALLOWED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
   }
   
   public Boolean getSprayTargetAllowed()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
   }
   
   public void setSprayTargetAllowed(Boolean value)
@@ -242,9 +242,9 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(SPRAYTARGETALLOWED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTerm()
@@ -286,9 +286,9 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(TERM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTermMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
   }
   
   public String getTypeName()
@@ -323,14 +323,14 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
     return isModified(TYPENAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTypeNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTypeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPENAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPENAME).getAttributeMdDTO();
   }
   
-  public static GeoEntityDefinitionDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static GeoEntityDefinitionDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (GeoEntityDefinitionDTO) dto;
   }

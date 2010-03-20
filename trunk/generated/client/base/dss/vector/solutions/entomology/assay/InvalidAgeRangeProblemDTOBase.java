@@ -1,17 +1,17 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 409494940)
-public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1150624228)
+public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem";
-  private static final long serialVersionUID = 409494940;
+  private static final long serialVersionUID = -1150624228;
   
-  public InvalidAgeRangeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidAgeRangeProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidAgeRangeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public InvalidAgeRangeProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -25,7 +25,7 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
   public static java.lang.String STARTPOINT = "startPoint";
   public Integer getEndPoint()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDPOINT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDPOINT));
   }
   
   public void setEndPoint(Integer value)
@@ -55,14 +55,14 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
     return isModified(ENDPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public Integer getStartPoint()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTPOINT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTPOINT));
   }
   
   public void setStartPoint(Integer value)
@@ -92,9 +92,9 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
     return isModified(STARTPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
   /**
@@ -116,7 +116,7 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem", locale);
       
       message = message.replace("{endPoint}", this.getEndPoint().toString());
       message = message.replace("{startPoint}", this.getStartPoint().toString());
@@ -125,19 +125,19 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

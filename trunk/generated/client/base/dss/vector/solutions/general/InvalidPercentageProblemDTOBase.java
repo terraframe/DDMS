@@ -1,17 +1,17 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1018286630)
-public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1210159160)
+public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.InvalidPercentageProblem";
-  private static final long serialVersionUID = -1018286630;
+  private static final long serialVersionUID = 1210159160;
   
-  public InvalidPercentageProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidPercentageProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidPercentageProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public InvalidPercentageProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -24,7 +24,7 @@ public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutio
   public static java.lang.String INVALIDPERCENT = "invalidPercent";
   public Integer getInvalidPercent()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INVALIDPERCENT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INVALIDPERCENT));
   }
   
   public void setInvalidPercent(Integer value)
@@ -54,9 +54,9 @@ public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutio
     return isModified(INVALIDPERCENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInvalidPercentMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInvalidPercentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INVALIDPERCENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INVALIDPERCENT).getAttributeMdDTO();
   }
   
   /**
@@ -78,7 +78,7 @@ public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutio
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.InvalidPercentageProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.InvalidPercentageProblem", locale);
       
       message = message.replace("{invalidPercent}", this.getInvalidPercent().toString());
       
@@ -86,19 +86,19 @@ public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutio
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

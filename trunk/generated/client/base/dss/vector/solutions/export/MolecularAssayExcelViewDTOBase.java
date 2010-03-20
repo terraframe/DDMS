@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1167152487)
-public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1828098805)
+public abstract class MolecularAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MolecularAssayExcelView";
-  private static final long serialVersionUID = -1167152487;
+  private static final long serialVersionUID = -1828098805;
   
-  protected MolecularAssayExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MolecularAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -61,9 +61,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(ASSAYMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAssayMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAssayMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ASSAYMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ASSAYMETHOD).getAttributeMdDTO();
   }
   
   public String getCollectionId()
@@ -98,9 +98,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(COLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public String getGeneration()
@@ -135,9 +135,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(GENERATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public String getIdentMethod()
@@ -172,14 +172,14 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
   }
   
   public void setIsofemale(Boolean value)
@@ -209,9 +209,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(ISOFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   public String getMosquitoId()
@@ -246,14 +246,14 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(MOSQUITOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
   }
   
   public Integer getNumberRR()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRR));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRR));
   }
   
   public void setNumberRR(Integer value)
@@ -283,14 +283,14 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(NUMBERRR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberRRMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRRMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRR).getAttributeMdDTO();
   }
   
   public Integer getNumberRS()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRS));
   }
   
   public void setNumberRS(Integer value)
@@ -320,14 +320,14 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(NUMBERRS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberRSMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRSMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRS).getAttributeMdDTO();
   }
   
   public Integer getNumberSS()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSS));
   }
   
   public void setNumberSS(Integer value)
@@ -357,9 +357,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(NUMBERSS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberSSMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberSSMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSS).getAttributeMdDTO();
   }
   
   public String getSex()
@@ -394,9 +394,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public String getSpecies()
@@ -431,9 +431,9 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(SPECIES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
   }
   
   public String getTarget()
@@ -468,14 +468,14 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.terraframe.mojo
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
-  public static MolecularAssayExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static MolecularAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (MolecularAssayExcelViewDTO) dto;
   }

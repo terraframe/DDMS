@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2070882026)
-public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1603836096)
+public abstract class ITNDistributionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDistributionView";
-  private static final long serialVersionUID = 2070882026;
+  private static final long serialVersionUID = 1603836096;
   
-  protected ITNDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ITNDistributionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -61,9 +61,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(BATCHNUMBER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -98,14 +98,14 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public Double getCurrencyReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
   }
   
   public void setCurrencyReceived(Double value)
@@ -135,14 +135,14 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(CURRENCYRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
   public java.util.Date getDistributionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DISTRIBUTIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DISTRIBUTIONDATE));
   }
   
   public void setDistributionDate(java.util.Date value)
@@ -153,7 +153,7 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(DISTRIBUTIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DISTRIBUTIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -172,9 +172,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(DISTRIBUTIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDistributionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDistributionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DISTRIBUTIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DISTRIBUTIONDATE).getAttributeMdDTO();
   }
   
   public String getDistributorName()
@@ -209,9 +209,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(DISTRIBUTORNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDistributorNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDistributorNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORNAME).getAttributeMdDTO();
   }
   
   public String getDistributorSurname()
@@ -246,9 +246,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(DISTRIBUTORSURNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDistributorSurnameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDistributorSurnameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORSURNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORSURNAME).getAttributeMdDTO();
   }
   
   public String getFacility()
@@ -283,9 +283,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(FACILITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFacilityMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFacilityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getNet()
@@ -327,14 +327,14 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(NET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getNetMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getNetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(NET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(NET).getAttributeMdDTO();
   }
   
   public Integer getNumberSold()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
   }
   
   public void setNumberSold(Integer value)
@@ -364,9 +364,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(NUMBERSOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PersonDTO getPerson()
@@ -408,9 +408,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(PERSON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPersonMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPersonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSON).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getService()
@@ -452,9 +452,9 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(SERVICE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getServiceMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getServiceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SERVICE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SERVICE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTargetGroups()
@@ -496,24 +496,24 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
     return isModified(TARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTargetGroupsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGETGROUPS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGETGROUPS).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] targetGroups)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;"};
     Object[] _parameters = new Object[]{targetGroups};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] targetGroups)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] targetGroups)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;"};
     Object[] _parameters = new Object[]{id, targetGroups};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -521,15 +521,15 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -537,15 +537,15 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getDistributionTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getDistributionTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] getDistributionTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[] getDistributionTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getDistributionTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getDistributionTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -553,29 +553,29 @@ public abstract class ITNDistributionViewDTOBase extends com.terraframe.mojo.bus
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
     return (dss.vector.solutions.PersonViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.PersonViewDTO getRecipientView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.PersonViewDTO getRecipientView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "getRecipientView", _declaredTypes);
     return (dss.vector.solutions.PersonViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNDistributionViewQueryDTO searchHistory(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO view)
+  public static final dss.vector.solutions.intervention.monitor.ITNDistributionViewQueryDTO searchHistory(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO view)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.intervention.monitor.ITNDistributionView"};
     Object[] _parameters = new Object[]{view};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "searchHistory", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDistributionViewDTO.CLASS, "searchHistory", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDistributionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ITNDistributionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ITNDistributionViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ITNDistributionViewDTO) dto;
   }

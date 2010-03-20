@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1383904014)
-public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -749871698)
+public abstract class ITNDataViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNDataView";
-  private static final long serialVersionUID = -1383904014;
+  private static final long serialVersionUID = -749871698;
   
-  protected ITNDataViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ITNDataViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -66,9 +66,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(BATCHNUMBER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -103,14 +103,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getCurrencyReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -140,9 +140,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(CURRENCYRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayNets()
@@ -184,9 +184,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayServices()
@@ -228,9 +228,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYSERVICES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayServicesMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayServicesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYSERVICES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYSERVICES).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayTargetGroups()
@@ -272,14 +272,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(DISPLAYTARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -290,7 +290,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -309,9 +309,9 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -346,14 +346,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public Integer getNumberDistributed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERDISTRIBUTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERDISTRIBUTED));
   }
   
   public void setNumberDistributed(Integer value)
@@ -383,14 +383,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(NUMBERDISTRIBUTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberDistributedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberDistributedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERDISTRIBUTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERDISTRIBUTED).getAttributeMdDTO();
   }
   
   public Integer getNumberSold()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
   }
   
   public void setNumberSold(Integer value)
@@ -420,14 +420,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(NUMBERSOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -457,15 +457,15 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO> getPeriodType()
   {
-    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodTypeDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.surveillance.PeriodTypeDTO.CLASS, getEnumNames(PERIODTYPE));
   }
   
   public java.util.List<String> getPeriodTypeEnumNames()
@@ -503,14 +503,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(PERIODTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getPeriodTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(PERIODTYPE).getAttributeMdDTO();
   }
   
   public Integer getPeriodYear()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
   }
   
   public void setPeriodYear(Integer value)
@@ -540,14 +540,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(PERIODYEAR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodYearMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIODYEAR).getAttributeMdDTO();
   }
   
   public Integer getReceivedForCommunityResponse()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVEDFORCOMMUNITYRESPONSE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVEDFORCOMMUNITYRESPONSE));
   }
   
   public void setReceivedForCommunityResponse(Integer value)
@@ -577,14 +577,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(RECEIVEDFORCOMMUNITYRESPONSE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedForCommunityResponseMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReceivedForCommunityResponseMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVEDFORCOMMUNITYRESPONSE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVEDFORCOMMUNITYRESPONSE).getAttributeMdDTO();
   }
   
   public Integer getReceivedForTargetGroups()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVEDFORTARGETGROUPS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RECEIVEDFORTARGETGROUPS));
   }
   
   public void setReceivedForTargetGroups(Integer value)
@@ -614,14 +614,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(RECEIVEDFORTARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReceivedForTargetGroupsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReceivedForTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVEDFORTARGETGROUPS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RECEIVEDFORTARGETGROUPS).getAttributeMdDTO();
   }
   
   public Boolean getSearchType()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SEARCHTYPE));
   }
   
   public void setSearchType(Boolean value)
@@ -651,14 +651,14 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(SEARCHTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSearchTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SEARCHTYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -669,7 +669,7 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -688,24 +688,24 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.intervention.monitor.ITNNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] targetGroups, dss.vector.solutions.intervention.monitor.ITNServiceDTO[] services)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.ITNNet;", "[Ldss.vector.solutions.intervention.monitor.ITNTargetGroup;", "[Ldss.vector.solutions.intervention.monitor.ITNService;"};
     Object[] _parameters = new Object[]{nets, targetGroups, services};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] targetGroups, dss.vector.solutions.intervention.monitor.ITNServiceDTO[] services)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] targetGroups, dss.vector.solutions.intervention.monitor.ITNServiceDTO[] services)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.ITNNet;", "[Ldss.vector.solutions.intervention.monitor.ITNTargetGroup;", "[Ldss.vector.solutions.intervention.monitor.ITNService;"};
     Object[] _parameters = new Object[]{id, nets, targetGroups, services};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -713,15 +713,15 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -729,15 +729,15 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNNets", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNNets", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNNetDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNNetDTO[] getITNNets(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNNetDTO[] getITNNets(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNNets", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNNets", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNNetDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -745,15 +745,15 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNServices", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNServices", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNServiceDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNServiceDTO[] getITNServices(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNServiceDTO[] getITNServices(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNServices", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNServices", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNServiceDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -761,15 +761,15 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] getITNTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[] getITNTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "getITNTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -777,21 +777,21 @@ public abstract class ITNDataViewDTOBase extends com.terraframe.mojo.business.Vi
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDataViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNDataViewDTO searchByView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNDataViewDTO searchByView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNDataViewDTO.CLASS, "searchByView", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNDataViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ITNDataViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ITNDataViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ITNDataViewDTO) dto;
   }

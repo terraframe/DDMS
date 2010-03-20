@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1458092803)
-public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 787515489)
+public abstract class TermViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
-  private static final long serialVersionUID = 1458092803;
+  private static final long serialVersionUID = 787515489;
   
-  protected TermViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TermViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -23,7 +23,7 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
   public static java.lang.String TERMONTOLOGYID = "termOntologyId";
   public Boolean getSelectable()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
   }
   
   public void setSelectable(Boolean value)
@@ -53,9 +53,9 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
     return isModified(SELECTABLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
   }
   
   public String getTermId()
@@ -90,9 +90,9 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
     return isModified(TERMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
   }
   
   public String getTermName()
@@ -127,9 +127,9 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
     return isModified(TERMNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
   }
   
   public String getTermOntologyId()
@@ -164,14 +164,14 @@ public abstract class TermViewDTOBase extends com.terraframe.mojo.business.ViewD
     return isModified(TERMONTOLOGYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermOntologyIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermOntologyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMONTOLOGYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMONTOLOGYID).getAttributeMdDTO();
   }
   
-  public static TermViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static TermViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (TermViewDTO) dto;
   }

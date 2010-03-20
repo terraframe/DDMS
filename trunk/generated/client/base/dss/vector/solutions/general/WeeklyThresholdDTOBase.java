@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -409345746)
-public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -589534298)
+public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = -409345746;
+  private static final long serialVersionUID = -589534298;
   
-  public WeeklyThresholdDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
+  public WeeklyThresholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
     super(clientRequest, parentId, childId);
     
@@ -18,7 +18,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected WeeklyThresholdDTOBase(com.terraframe.mojo.business.RelationshipDTO relationshipDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected WeeklyThresholdDTOBase(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(relationshipDTO, clientRequest);
   }
@@ -59,7 +59,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String TYPE = "type";
   public Integer getActualFacilityIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYIDENTIFICATION));
   }
   
   public void setActualFacilityIdentification(Integer value)
@@ -89,14 +89,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(ACTUALFACILITYIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualFacilityIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getActualFacilityNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYNOTIFICATION));
   }
   
   public void setActualFacilityNotification(Integer value)
@@ -126,14 +126,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(ACTUALFACILITYNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualFacilityNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getActualIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALIDENTIFICATION));
   }
   
   public void setActualIdentification(Integer value)
@@ -163,14 +163,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(ACTUALIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALIDENTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getActualNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALNOTIFICATION));
   }
   
   public void setActualNotification(Integer value)
@@ -200,9 +200,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(ACTUALNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getActualNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALNOTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.ThresholdCalculationTypeDTO getCalculationType()
@@ -244,14 +244,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(CALCULATIONTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCalculationTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCalculationTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CALCULATIONTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CALCULATIONTYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -269,12 +269,12 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -282,7 +282,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -301,12 +301,12 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -314,11 +314,11 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -345,14 +345,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public Integer getFacilityIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
   }
   
   public void setFacilityIdentification(Integer value)
@@ -382,14 +382,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FACILITYIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFacilityIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getFacilityNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
   }
   
   public void setFacilityNotification(Integer value)
@@ -419,14 +419,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FACILITYNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFacilityNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getFirstFacilityIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYIDENTIFICATION));
   }
   
   public void setFirstFacilityIdentification(java.util.Date value)
@@ -437,7 +437,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(FIRSTFACILITYIDENTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(FIRSTFACILITYIDENTIFICATION, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -456,14 +456,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FIRSTFACILITYIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getFirstFacilityIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getFirstFacilityNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTFACILITYNOTIFICATION));
   }
   
   public void setFirstFacilityNotification(java.util.Date value)
@@ -474,7 +474,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(FIRSTFACILITYNOTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(FIRSTFACILITYNOTIFICATION, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -493,14 +493,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FIRSTFACILITYNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getFirstFacilityNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTFACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getFirstIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTIDENTIFICATION));
   }
   
   public void setFirstIdentification(java.util.Date value)
@@ -511,7 +511,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(FIRSTIDENTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(FIRSTIDENTIFICATION, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -530,14 +530,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FIRSTIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getFirstIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTIDENTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getFirstNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(FIRSTNOTIFICATION));
   }
   
   public void setFirstNotification(java.util.Date value)
@@ -548,7 +548,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(FIRSTNOTIFICATION, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(FIRSTNOTIFICATION, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -567,14 +567,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(FIRSTNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getFirstNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getFirstNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTNOTIFICATION).getAttributeMdDTO();
   }
   
   public Integer getIdentification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION));
   }
   
   public void setIdentification(Integer value)
@@ -604,9 +604,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(IDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -641,9 +641,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.EpiWeekDTO getLastFacilityIdentification()
@@ -685,9 +685,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTFACILITYIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastFacilityIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.EpiWeekDTO getLastFacilityNotification()
@@ -729,9 +729,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTFACILITYNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastFacilityNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTFACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.EpiWeekDTO getLastIdentification()
@@ -773,9 +773,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTIDENTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastIdentificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTIDENTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.EpiWeekDTO getLastNotification()
@@ -817,14 +817,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTNOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTNOTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -842,12 +842,12 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -855,7 +855,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -874,12 +874,12 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -887,7 +887,7 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -906,14 +906,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public Integer getNotification()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NOTIFICATION));
   }
   
   public void setNotification(Integer value)
@@ -943,12 +943,12 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(NOTIFICATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNotificationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NOTIFICATION).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -956,11 +956,11 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -987,14 +987,14 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -1012,9 +1012,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -1037,9 +1037,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.ThresholdDataDTO getParent()
@@ -1052,22 +1052,22 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     return dss.vector.solutions.general.EpiWeekDTO.get(getRequest(), super.getChildId());
   }
   
-  public static dss.vector.solutions.general.WeeklyThresholdDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.general.WeeklyThresholdDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.RelationshipDTO dto = (com.terraframe.mojo.business.RelationshipDTO) clientRequest.get(id);
+    com.runwaysdk.business.RelationshipDTO dto = (com.runwaysdk.business.RelationshipDTO) clientRequest.get(id);
     
     return (dss.vector.solutions.general.WeeklyThresholdDTO) dto;
   }
   
-  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO parentQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId)
+  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO parentQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId)
   {
-    com.terraframe.mojo.business.RelationshipQueryDTO queryDTO = (com.terraframe.mojo.business.RelationshipQueryDTO) clientRequest.getQuery("dss.vector.solutions.general.WeeklyThreshold");
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS);
     queryDTO.addCondition("parent_id", "EQ", parentId);
     return (dss.vector.solutions.general.WeeklyThresholdQueryDTO) clientRequest.queryRelationships(queryDTO);
   }
-  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO childQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String childId)
+  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO childQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String childId)
   {
-    com.terraframe.mojo.business.RelationshipQueryDTO queryDTO = (com.terraframe.mojo.business.RelationshipQueryDTO) clientRequest.getQuery("dss.vector.solutions.general.WeeklyThreshold");
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS);
     queryDTO.addCondition("child_id", "EQ", childId);
     return (dss.vector.solutions.general.WeeklyThresholdQueryDTO) clientRequest.queryRelationships(queryDTO);
   }
@@ -1087,9 +1087,9 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.WeeklyThresholdQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.WeeklyThresholdQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.WeeklyThreshold", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.WeeklyThresholdQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1097,11 +1097,11 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.general.WeeklyThresholdDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.WeeklyThresholdDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.general.WeeklyThresholdDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1110,11 +1110,11 @@ public abstract class WeeklyThresholdDTOBase extends com.terraframe.mojo.busines
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.general.WeeklyThresholdDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.WeeklyThresholdDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.general.WeeklyThresholdDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -552508191)
-public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1975310477)
+public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -552508191;
+  private static final long serialVersionUID = 1975310477;
   
-  protected PersonExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PersonExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -36,7 +36,7 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public java.util.Date getDateOfBirth()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFBIRTH));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFBIRTH));
   }
   
   public void setDateOfBirth(java.util.Date value)
@@ -47,7 +47,7 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     }
     else
     {
-      setValue(DATEOFBIRTH, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DATEOFBIRTH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -66,9 +66,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(DATEOFBIRTH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateOfBirthMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateOfBirthMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFBIRTH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFBIRTH).getAttributeMdDTO();
   }
   
   public String getFirstName()
@@ -103,14 +103,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(FIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
   }
   
   public Boolean getIsIPTRecipient()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISIPTRECIPIENT));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISIPTRECIPIENT));
   }
   
   public void setIsIPTRecipient(Boolean value)
@@ -140,14 +140,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISIPTRECIPIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsIPTRecipientMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsIPTRecipientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISIPTRECIPIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISIPTRECIPIENT).getAttributeMdDTO();
   }
   
   public Boolean getIsITNRecipient()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISITNRECIPIENT));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISITNRECIPIENT));
   }
   
   public void setIsITNRecipient(Boolean value)
@@ -177,14 +177,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISITNRECIPIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsITNRecipientMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsITNRecipientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISITNRECIPIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISITNRECIPIENT).getAttributeMdDTO();
   }
   
   public Boolean getIsMDSSUser()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMDSSUSER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMDSSUSER));
   }
   
   public void setIsMDSSUser(Boolean value)
@@ -214,14 +214,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISMDSSUSER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsMDSSUserMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsMDSSUserMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISMDSSUSER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISMDSSUSER).getAttributeMdDTO();
   }
   
   public Boolean getIsPatient()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISPATIENT));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISPATIENT));
   }
   
   public void setIsPatient(Boolean value)
@@ -251,14 +251,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISPATIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsPatientMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsPatientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISPATIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISPATIENT).getAttributeMdDTO();
   }
   
   public Boolean getIsSprayLeader()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYLEADER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYLEADER));
   }
   
   public void setIsSprayLeader(Boolean value)
@@ -288,14 +288,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISSPRAYLEADER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSprayLeaderMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsSprayLeaderMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYLEADER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYLEADER).getAttributeMdDTO();
   }
   
   public Boolean getIsSprayOperator()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYOPERATOR));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSPRAYOPERATOR));
   }
   
   public void setIsSprayOperator(Boolean value)
@@ -325,14 +325,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISSPRAYOPERATOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSprayOperatorMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsSprayOperatorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYOPERATOR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSPRAYOPERATOR).getAttributeMdDTO();
   }
   
   public Boolean getIsStockStaff()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSTOCKSTAFF));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSTOCKSTAFF));
   }
   
   public void setIsStockStaff(Boolean value)
@@ -362,14 +362,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISSTOCKSTAFF);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsStockStaffMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsStockStaffMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSTOCKSTAFF).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSTOCKSTAFF).getAttributeMdDTO();
   }
   
   public Boolean getIsSupervisor()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISSUPERVISOR));
   }
   
   public void setIsSupervisor(Boolean value)
@@ -399,9 +399,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(ISSUPERVISOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsSupervisorMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsSupervisorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSUPERVISOR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISSUPERVISOR).getAttributeMdDTO();
   }
   
   public String getLastName()
@@ -436,9 +436,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(LASTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLastNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LASTNAME).getAttributeMdDTO();
   }
   
   public String getMemberId()
@@ -473,9 +473,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(MEMBERID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMemberIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMemberIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MEMBERID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MEMBERID).getAttributeMdDTO();
   }
   
   public String getPassword()
@@ -510,9 +510,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(PASSWORD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPasswordMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPasswordMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PASSWORD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PASSWORD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getResidentialGeoEntity()
@@ -554,9 +554,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(RESIDENTIALGEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getResidentialGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getResidentialGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENTIALGEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(RESIDENTIALGEOENTITY).getAttributeMdDTO();
   }
   
   public String getSex()
@@ -591,9 +591,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public String getUsername()
@@ -628,9 +628,9 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(USERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkGeoEntity()
@@ -672,14 +672,14 @@ public abstract class PersonExcelViewDTOBase extends com.terraframe.mojo.busines
     return isModified(WORKGEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWorkGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWorkGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKGEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WORKGEOENTITY).getAttributeMdDTO();
   }
   
-  public static PersonExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static PersonExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (PersonExcelViewDTO) dto;
   }

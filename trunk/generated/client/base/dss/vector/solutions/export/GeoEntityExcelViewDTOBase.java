@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -474251848)
-public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1609098058)
+public abstract class GeoEntityExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.GeoEntityExcelView";
-  private static final long serialVersionUID = -474251848;
+  private static final long serialVersionUID = 1609098058;
   
-  protected GeoEntityExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -25,7 +25,7 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
   public static java.lang.String SUBTYPE = "subType";
   public Boolean getActivated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ACTIVATED));
   }
   
   public void setActivated(Boolean value)
@@ -55,9 +55,9 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(ACTIVATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
   }
   
   public String getEntityName()
@@ -92,9 +92,9 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(ENTITYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -129,9 +129,9 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public String getGeoType()
@@ -166,9 +166,9 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEOTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOTYPE).getAttributeMdDTO();
   }
   
   public String getGeometryWKT()
@@ -203,9 +203,9 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(GEOMETRYWKT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getGeometryWKTMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeometryWKTMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEOMETRYWKT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEOMETRYWKT).getAttributeMdDTO();
   }
   
   public String getSubType()
@@ -240,14 +240,14 @@ public abstract class GeoEntityExcelViewDTOBase extends com.terraframe.mojo.busi
     return isModified(SUBTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSubTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBTYPE).getAttributeMdDTO();
   }
   
-  public static GeoEntityExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static GeoEntityExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (GeoEntityExcelViewDTO) dto;
   }

@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1807173089)
-public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 909501959)
+public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThresholdView";
-  private static final long serialVersionUID = 1807173089;
+  private static final long serialVersionUID = 909501959;
   
-  protected WeeklyThresholdViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected WeeklyThresholdViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -55,14 +55,14 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(ENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
   }
   
   public void setPeriod(Integer value)
@@ -92,14 +92,14 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(PERIOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   public java.util.Date getThresholdDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(THRESHOLDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(THRESHOLDDATE));
   }
   
   public void setThresholdDate(java.util.Date value)
@@ -110,7 +110,7 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     }
     else
     {
-      setValue(THRESHOLDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(THRESHOLDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -129,14 +129,14 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(THRESHOLDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getThresholdDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getThresholdDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(THRESHOLDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(THRESHOLDDATE).getAttributeMdDTO();
   }
   
   public Integer getThresholdValue()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
   public void setThresholdValue(Integer value)
@@ -166,9 +166,9 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(THRESHOLDVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getThresholdValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
   }
   
   public String getThreshsoldType()
@@ -203,14 +203,14 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(THRESHSOLDTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThreshsoldTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getThreshsoldTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHSOLDTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHSOLDTYPE).getAttributeMdDTO();
   }
   
   public Integer getYearOfWeek()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(YEAROFWEEK));
   }
   
   public void setYearOfWeek(Integer value)
@@ -240,22 +240,22 @@ public abstract class WeeklyThresholdViewDTOBase extends com.terraframe.mojo.bus
     return isModified(YEAROFWEEK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getYearOfWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getYearOfWeekMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(YEAROFWEEK).getAttributeMdDTO();
   }
   
-  public static final java.io.InputStream exportHistory(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final java.io.InputStream exportHistory(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdViewDTO.CLASS, "exportHistory", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.WeeklyThresholdViewDTO.CLASS, "exportHistory", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static WeeklyThresholdViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static WeeklyThresholdViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (WeeklyThresholdViewDTO) dto;
   }

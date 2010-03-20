@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 862550610)
-public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1194479248)
+public abstract class BrowserRootViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRootView";
-  private static final long serialVersionUID = 862550610;
+  private static final long serialVersionUID = -1194479248;
   
-  protected BrowserRootViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected BrowserRootViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -55,9 +55,9 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(BROWSERROOTID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBrowserRootIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrowserRootIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERROOTID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERROOTID).getAttributeMdDTO();
   }
   
   public String getMdAttributeId()
@@ -92,14 +92,14 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(MDATTRIBUTEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
   }
   
   public Boolean getSelectable()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
   }
   
   public void setSelectable(Boolean value)
@@ -129,9 +129,9 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(SELECTABLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
   }
   
   public String getTermId()
@@ -166,9 +166,9 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(TERMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
   }
   
   public String getTermName()
@@ -203,9 +203,9 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(TERMNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
   }
   
   public String getTermOntologyId()
@@ -240,14 +240,14 @@ public abstract class BrowserRootViewDTOBase extends com.terraframe.mojo.busines
     return isModified(TERMONTOLOGYID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermOntologyIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermOntologyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMONTOLOGYID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMONTOLOGYID).getAttributeMdDTO();
   }
   
-  public static BrowserRootViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static BrowserRootViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (BrowserRootViewDTO) dto;
   }

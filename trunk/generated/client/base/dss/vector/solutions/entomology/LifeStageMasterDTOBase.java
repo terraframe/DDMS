@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -570657501)
-public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -570657501)
+public abstract class LifeStageMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.LifeStageMaster";
   private static final long serialVersionUID = -570657501;
   
-  protected LifeStageMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LifeStageMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LifeStageMasterDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LifeStageMasterDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,9 +27,9 @@ public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.
     return CLASS;
   }
   
-  public static dss.vector.solutions.entomology.LifeStageMasterDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.LifeStageMasterDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.LifeStageMasterDTO) dto;
   }
@@ -50,7 +50,7 @@ public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.LifeStageMasterQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.LifeStageMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     return (dss.vector.solutions.entomology.LifeStageMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.LifeStageMaster", sortAttribute, ascending, pageSize, pageNumber);
   }
@@ -60,11 +60,11 @@ public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.LifeStageMasterDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.LifeStageMasterDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.LifeStageMasterDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.LifeStageMasterDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.LifeStageMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -73,11 +73,11 @@ public abstract class LifeStageMasterDTOBase extends com.terraframe.mojo.system.
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.LifeStageMasterDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.LifeStageMasterDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.LifeStageMasterDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.LifeStageMasterDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.LifeStageMasterDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

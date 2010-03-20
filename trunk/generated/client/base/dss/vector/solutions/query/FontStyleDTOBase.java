@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1262871199)
-public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1132567939)
+public abstract class FontStyleDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.FontStyle";
-  private static final long serialVersionUID = 1262871199;
+  private static final long serialVersionUID = -1132567939;
   
-  protected FontStyleDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected FontStyleDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected FontStyleDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected FontStyleDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -30,7 +30,7 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
   public static java.lang.String PRIORITY = "priority";
   public Integer getPriority()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRIORITY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRIORITY));
   }
   
   public void setPriority(Integer value)
@@ -60,14 +60,14 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
     return isModified(PRIORITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPriorityMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPriorityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRIORITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRIORITY).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.query.FontStyleDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.query.FontStyleDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.query.FontStyleDTO) dto;
   }
@@ -88,9 +88,9 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.query.FontStyleQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.query.FontStyleQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.FontStyleQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.FontStyle", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.FontStyleQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.FontStyleDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -98,11 +98,11 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.query.FontStyleDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.FontStyleDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.FontStyleDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.FontStyleDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.query.FontStyleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -111,11 +111,11 @@ public abstract class FontStyleDTOBase extends com.terraframe.mojo.system.Enumer
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.query.FontStyleDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.FontStyleDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.FontStyleDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.FontStyleDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.query.FontStyleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

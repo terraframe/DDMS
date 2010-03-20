@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -282015496)
-public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1488536828)
+public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssayView";
-  private static final long serialVersionUID = -282015496;
+  private static final long serialVersionUID = -1488536828;
   
-  protected EfficacyAssayViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EfficacyAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -56,9 +56,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(AGERANGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
+  public final com.runwaysdk.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
   public String getColonyName()
@@ -93,9 +93,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(COLONYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getColonyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getColonyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLONYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLONYNAME).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -130,14 +130,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
   }
   
   public void setExposureTime(Integer value)
@@ -167,14 +167,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(EXPOSURETIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public Integer getFed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
   }
   
   public void setFed(Integer value)
@@ -204,9 +204,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(FED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -241,14 +241,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(GEOID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public Integer getGravid()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
   }
   
   public void setGravid(Integer value)
@@ -278,14 +278,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(GRAVID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
   }
   
   public void setHoldingTime(Integer value)
@@ -315,9 +315,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(HOLDINGTIME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.InsecticideDTO getInsecticide()
@@ -359,14 +359,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(INSECTICIDE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   public Float getMortality()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
   }
   
   public void setMortality(Float value)
@@ -396,14 +396,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(MORTALITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
   }
   
   public void setQuantityDead(Integer value)
@@ -433,14 +433,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(QUANTITYDEAD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getQuantityLive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
   }
   
   public void setQuantityLive(Integer value)
@@ -470,14 +470,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(QUANTITYLIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
   }
   
   public void setQuantityTested(Integer value)
@@ -507,9 +507,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(QUANTITYTESTED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSex()
@@ -551,9 +551,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSpecie()
@@ -595,9 +595,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(SPECIE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSurfacePostion()
@@ -639,14 +639,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(SURFACEPOSTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSurfacePostionMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurfacePostionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACEPOSTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACEPOSTION).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
   }
   
   public void setTestDate(java.util.Date value)
@@ -657,7 +657,7 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(TESTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(TESTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -676,9 +676,9 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TESTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTestMethod()
@@ -720,14 +720,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TESTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
   public Integer getTimeOnSurface()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TIMEONSURFACE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TIMEONSURFACE));
   }
   
   public void setTimeOnSurface(Integer value)
@@ -757,24 +757,24 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TIMEONSURFACE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTimeOnSurfaceMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTimeOnSurfaceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TIMEONSURFACE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TIMEONSURFACE).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -782,37 +782,37 @@ public abstract class EfficacyAssayViewDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getOverallMortalityRate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getOverallMortalityRate", _declaredTypes);
     return (java.lang.Float) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.Float getOverallMortalityRate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final java.lang.Float getOverallMortalityRate(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getOverallMortalityRate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getOverallMortalityRate", _declaredTypes);
     return (java.lang.Float) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO[] searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date collectionDate)
+  public static final dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO[] searchByGeoEntityAndDate(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date collectionDate)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.util.Date"};
     Object[] _parameters = new Object[]{geoId, collectionDate};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static EfficacyAssayViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static EfficacyAssayViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (EfficacyAssayViewDTO) dto;
   }

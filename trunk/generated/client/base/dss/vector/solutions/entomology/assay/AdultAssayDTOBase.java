@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1839361374)
-public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 201634654)
+public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultAssay";
-  private static final long serialVersionUID = 1839361374;
+  private static final long serialVersionUID = 201634654;
   
-  protected AdultAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AdultAssayDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAssayDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -51,14 +51,14 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     return isModified(AGERANGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
+  public final com.runwaysdk.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
   public Integer getFed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
   }
   
   public void setFed(Integer value)
@@ -88,14 +88,14 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     return isModified(FED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
   public Integer getGravid()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
   }
   
   public void setGravid(Integer value)
@@ -125,9 +125,9 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     return isModified(GRAVID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSex()
@@ -169,14 +169,14 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     return isModified(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSexMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.entomology.assay.AdultAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.entomology.assay.AdultAssayDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.entomology.assay.AdultAssayDTO) dto;
   }
@@ -197,9 +197,9 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.AdultAssayQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.AdultAssayQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.AdultAssayQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.AdultAssay", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.AdultAssayQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.AdultAssayDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -207,11 +207,11 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.AdultAssayDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.AdultAssayDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultAssayDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultAssayDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.AdultAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -220,11 +220,11 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.assay.AdultAssayDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.entomology.assay.AdultAssayDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultAssayDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultAssayDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.AdultAssayDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

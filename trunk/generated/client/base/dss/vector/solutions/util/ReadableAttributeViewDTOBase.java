@@ -1,12 +1,12 @@
 package dss.vector.solutions.util;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -641916746)
-public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1379513486)
+public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.ReadableAttributeView";
-  private static final long serialVersionUID = -641916746;
+  private static final long serialVersionUID = -1379513486;
   
-  protected ReadableAttributeViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ReadableAttributeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -54,9 +54,9 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     return isModified(ATTRIBUTEDESCRIPTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeDescriptionMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDESCRIPTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDESCRIPTION).getAttributeMdDTO();
   }
   
   public String getAttributeName()
@@ -91,14 +91,14 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     return isModified(ATTRIBUTENAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTENAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTENAME).getAttributeMdDTO();
   }
   
   public Boolean getAttributeRequired()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ATTRIBUTEREQUIRED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ATTRIBUTEREQUIRED));
   }
   
   public void setAttributeRequired(Boolean value)
@@ -128,9 +128,9 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     return isModified(ATTRIBUTEREQUIRED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAttributeRequiredMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getAttributeRequiredMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ATTRIBUTEREQUIRED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ATTRIBUTEREQUIRED).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -165,14 +165,14 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getReadPermission()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(READPERMISSION));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(READPERMISSION));
   }
   
   public void setReadPermission(Boolean value)
@@ -202,38 +202,38 @@ public abstract class ReadableAttributeViewDTOBase extends com.terraframe.mojo.b
     return isModified(READPERMISSION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getReadPermissionMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getReadPermissionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(READPERMISSION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(READPERMISSION).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.util.ReadableAttributeViewDTO[] getActorAttributes(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String universal, java.lang.String actorName)
+  public static final dss.vector.solutions.util.ReadableAttributeViewDTO[] getActorAttributes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String universal, java.lang.String actorName)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{universal, actorName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getActorAttributes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getActorAttributes", _declaredTypes);
     return (dss.vector.solutions.util.ReadableAttributeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.util.ReadableAttributeViewDTO[] getReadableAttributes(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String qualifiedClass)
+  public static final dss.vector.solutions.util.ReadableAttributeViewDTO[] getReadableAttributes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String qualifiedClass)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{qualifiedClass};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getReadableAttributes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "getReadableAttributes", _declaredTypes);
     return (dss.vector.solutions.util.ReadableAttributeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void setActorAttributes(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String universal, java.lang.String actorName, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews)
+  public static final void setActorAttributes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String universal, java.lang.String actorName, dss.vector.solutions.util.ReadableAttributeViewDTO[] attributeViews)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "[Ldss.vector.solutions.util.ReadableAttributeView;"};
     Object[] _parameters = new Object[]{universal, actorName, attributeViews};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "setActorAttributes", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.ReadableAttributeViewDTO.CLASS, "setActorAttributes", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ReadableAttributeViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ReadableAttributeViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ReadableAttributeViewDTO) dto;
   }

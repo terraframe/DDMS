@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 152100479)
-public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1214523477)
+public abstract class LarvacideInstanceViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.LarvacideInstanceView";
-  private static final long serialVersionUID = 152100479;
+  private static final long serialVersionUID = 1214523477;
   
-  protected LarvacideInstanceViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LarvacideInstanceViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -57,9 +57,9 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public String getControlId()
@@ -94,9 +94,9 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(CONTROLID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getControlIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getControlIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONTROLID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONTROLID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getControlMethod()
@@ -138,9 +138,9 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(CONTROLMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getControlMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getControlMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CONTROLMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CONTROLMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getSubstance()
@@ -182,9 +182,9 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(SUBSTANCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSubstanceMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSubstanceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUBSTANCE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTarget()
@@ -226,14 +226,14 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(TARGET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTargetMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTargetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public Integer getTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TREATED));
   }
   
   public void setTreated(Integer value)
@@ -263,9 +263,9 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(TREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TREATED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getUnit()
@@ -307,14 +307,14 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(UNIT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getUnitMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUnitMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIT).getAttributeMdDTO();
   }
   
   public Integer getUnitsUsed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSUSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSUSED));
   }
   
   public void setUnitsUsed(Integer value)
@@ -344,16 +344,16 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
     return isModified(UNITSUSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUnitsUsedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnitsUsedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSUSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSUSED).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO[] views)
+  public static final dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO[] views)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.LarvacideInstanceView;"};
     Object[] _parameters = new Object[]{views};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -361,21 +361,21 @@ public abstract class LarvacideInstanceViewDTOBase extends com.terraframe.mojo.b
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static LarvacideInstanceViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static LarvacideInstanceViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (LarvacideInstanceViewDTO) dto;
   }

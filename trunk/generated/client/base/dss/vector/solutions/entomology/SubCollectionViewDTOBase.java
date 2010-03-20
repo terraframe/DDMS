@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 992695566)
-public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 702751992)
+public abstract class SubCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.SubCollectionView";
-  private static final long serialVersionUID = 992695566;
+  private static final long serialVersionUID = 702751992;
   
-  protected SubCollectionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SubCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -68,9 +68,9 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(COLLECTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -105,14 +105,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public Integer getEggs()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EGGS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EGGS));
   }
   
   public void setEggs(Integer value)
@@ -142,14 +142,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(EGGS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEggsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEggsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EGGS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EGGS).getAttributeMdDTO();
   }
   
   public Integer getFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALE));
   }
   
   public void setFemale(Integer value)
@@ -179,9 +179,9 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(FEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getIdentMethod()
@@ -223,14 +223,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(IDENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getIdentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTMETHOD).getAttributeMdDTO();
   }
   
   public Integer getLarvae()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LARVAE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LARVAE));
   }
   
   public void setLarvae(Integer value)
@@ -260,14 +260,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(LARVAE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLarvaeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLarvaeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LARVAE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LARVAE).getAttributeMdDTO();
   }
   
   public Integer getMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MALE));
   }
   
   public void setMale(Integer value)
@@ -297,14 +297,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(MALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(MALE).getAttributeMdDTO();
   }
   
   public Integer getPupae()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUPAE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PUPAE));
   }
   
   public void setPupae(Integer value)
@@ -334,9 +334,9 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(PUPAE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPupaeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPupaeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PUPAE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PUPAE).getAttributeMdDTO();
   }
   
   public String getSubCollectionId()
@@ -371,9 +371,9 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(SUBCOLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSubCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSubCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBCOLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SUBCOLLECTIONID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTaxon()
@@ -415,14 +415,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TAXON);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTaxonMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTaxonMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TAXON).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TAXON).getAttributeMdDTO();
   }
   
   public Integer getTotal()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTAL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TOTAL));
   }
   
   public void setTotal(Integer value)
@@ -452,14 +452,14 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(TOTAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTotalMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTotalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTAL).getAttributeMdDTO();
   }
   
   public Integer getUnknowns()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNKNOWNS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNKNOWNS));
   }
   
   public void setUnknowns(Integer value)
@@ -489,30 +489,30 @@ public abstract class SubCollectionViewDTOBase extends com.terraframe.mojo.busin
     return isModified(UNKNOWNS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUnknownsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnknownsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNKNOWNS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNKNOWNS).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.SubCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.SubCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.SubCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.SubCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static SubCollectionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SubCollectionViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (SubCollectionViewDTO) dto;
   }

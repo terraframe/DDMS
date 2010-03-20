@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1623854811)
-public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 212235365)
+public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = -1623854811;
+  private static final long serialVersionUID = 212235365;
   
-  protected MosquitoCollectionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MosquitoCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -28,7 +28,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   public static java.lang.String LIFESTAGE = "lifeStage";
   public Boolean getAbundance()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
   }
   
   public void setAbundance(Boolean value)
@@ -58,14 +58,14 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(ABUNDANCE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAbundanceMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getAbundanceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ABUNDANCE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ABUNDANCE).getAttributeMdDTO();
   }
   
   public java.util.Date getCollectionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(COLLECTIONDATE));
   }
   
   public void setCollectionDate(java.util.Date value)
@@ -76,7 +76,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     }
     else
     {
-      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(COLLECTIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -95,9 +95,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(COLLECTIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
   }
   
   public String getCollectionId()
@@ -132,9 +132,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(COLLECTIONID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getCollectionMethod()
@@ -176,9 +176,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(COLLECTIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
   }
   
   public String getCollectionMethodLabel()
@@ -213,9 +213,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(COLLECTIONMETHODLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionMethodLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHODLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHODLABEL).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -250,9 +250,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -294,9 +294,9 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getGeoEntityLabel()
@@ -331,15 +331,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(GEOENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYLABEL).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.entomology.LifeStageDTO> getLifeStage()
   {
-    return (java.util.List<dss.vector.solutions.entomology.LifeStageDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.entomology.LifeStageDTO.CLASS, getEnumNames(LIFESTAGE));
+    return (java.util.List<dss.vector.solutions.entomology.LifeStageDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.entomology.LifeStageDTO.CLASS, getEnumNames(LIFESTAGE));
   }
   
   public java.util.List<String> getLifeStageEnumNames()
@@ -377,24 +377,24 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
     return isModified(LIFESTAGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getLifeStageMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getLifeStageMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.SubCollectionViewDTO[] applyAll(dss.vector.solutions.entomology.SubCollectionViewDTO[] subCollections)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.entomology.SubCollectionView;"};
     Object[] _parameters = new Object[]{subCollections};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.SubCollectionViewDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.entomology.SubCollectionViewDTO[] subCollections)
+  public static final dss.vector.solutions.entomology.SubCollectionViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.entomology.SubCollectionViewDTO[] subCollections)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.entomology.SubCollectionView;"};
     Object[] _parameters = new Object[]{id, subCollections};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -402,15 +402,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -418,15 +418,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getAdultDoseAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getAdultDoseAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO getAdultDoseAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO getAdultDoseAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{id, sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getAdultDoseAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getAdultDoseAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -434,23 +434,23 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.BiochemicalAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.BiochemicalAssayViewDTO[] getBiochemicalAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.entomology.BiochemicalAssayViewDTO[] getBiochemicalAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getBiochemicalAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.BiochemicalAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.MosquitoCollectionViewDTO getCollection(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.MosquitoCollectionViewDTO collection)
+  public static final dss.vector.solutions.entomology.MosquitoCollectionViewDTO getCollection(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.MosquitoCollectionViewDTO collection)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.entomology.MosquitoCollectionView"};
     Object[] _parameters = new Object[]{collection};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getCollection", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getCollection", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -458,15 +458,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.InfectionAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.InfectionAssayViewDTO[] getInfectionAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.entomology.InfectionAssayViewDTO[] getInfectionAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getInfectionAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.InfectionAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -474,15 +474,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getKnockDownAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getKnockDownAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO getKnockDownAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO getKnockDownAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{id, sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getKnockDownAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getKnockDownAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -490,15 +490,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getLarvaeDoseAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getLarvaeDoseAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO getLarvaeDoseAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO getLarvaeDoseAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{id, sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getLarvaeDoseAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getLarvaeDoseAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -506,23 +506,23 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.MolecularAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.MolecularAssayViewDTO[] getMolecularAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.entomology.MolecularAssayViewDTO[] getMolecularAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMolecularAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.MolecularAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO getMostRecent(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO getMostRecent(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMostRecent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getMostRecent", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -530,15 +530,15 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] getPooledInfectionAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] getPooledInfectionAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getPooledInfectionAssays", _declaredTypes);
     return (dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -546,37 +546,37 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getSubCollections", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getSubCollections", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.SubCollectionViewDTO[] getSubCollections(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.entomology.SubCollectionViewDTO[] getSubCollections(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getSubCollections", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getSubCollections", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO searchCollection(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value)
+  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO searchCollection(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{value};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "searchCollection", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "searchCollection", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO searchCollections(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO collection, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO searchCollections(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO collection, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.entomology.SearchMosquitoCollectionView", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{collection, sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "searchCollections", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "searchCollections", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static MosquitoCollectionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static MosquitoCollectionViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (MosquitoCollectionViewDTO) dto;
   }

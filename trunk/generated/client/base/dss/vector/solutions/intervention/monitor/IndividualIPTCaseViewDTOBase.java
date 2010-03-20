@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1782191128)
-public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1374222384)
+public abstract class IndividualIPTCaseViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseView";
-  private static final long serialVersionUID = -1782191128;
+  private static final long serialVersionUID = 1374222384;
   
-  protected IndividualIPTCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected IndividualIPTCaseViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -54,9 +54,9 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public String getFacility()
@@ -91,9 +91,9 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     return isModified(FACILITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFacilityMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFacilityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PersonDTO getPatient()
@@ -135,9 +135,9 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     return isModified(PATIENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPatientMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENT).getAttributeMdDTO();
   }
   
   public String getResidentialLocation()
@@ -172,14 +172,14 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     return isModified(RESIDENTIALLOCATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getResidentialLocationMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getResidentialLocationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RESIDENTIALLOCATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RESIDENTIALLOCATION).getAttributeMdDTO();
   }
   
   public java.util.Date getServiceDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SERVICEDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SERVICEDATE));
   }
   
   public void setServiceDate(java.util.Date value)
@@ -190,7 +190,7 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     }
     else
     {
-      setValue(SERVICEDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(SERVICEDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -209,24 +209,24 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
     return isModified(SERVICEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getServiceDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getServiceDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SERVICEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SERVICEDATE).getAttributeMdDTO();
   }
   
   public final void applyWithInstance(dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.intervention.monitor.IndividualIPTView"};
     Object[] _parameters = new Object[]{instance};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyWithInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance)
+  public static final void applyWithInstance(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.IndividualIPTViewDTO instance)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.intervention.monitor.IndividualIPTView"};
     Object[] _parameters = new Object[]{id, instance};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "applyWithInstance", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -234,23 +234,23 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -258,29 +258,29 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.terraframe.mojo.b
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPatientView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPatientView", _declaredTypes);
     return (dss.vector.solutions.PersonViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.PersonViewDTO getPatientView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.PersonViewDTO getPatientView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPatientView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "getPatientView", _declaredTypes);
     return (dss.vector.solutions.PersonViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO[] searchCases(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Date serviceDate, java.lang.String patientId)
+  public static final dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO[] searchCases(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date serviceDate, java.lang.String patientId)
   {
     String[] _declaredTypes = new String[]{"java.util.Date", "java.lang.String"};
     Object[] _parameters = new Object[]{serviceDate, patientId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "searchCases", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO.CLASS, "searchCases", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static IndividualIPTCaseViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static IndividualIPTCaseViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (IndividualIPTCaseViewDTO) dto;
   }

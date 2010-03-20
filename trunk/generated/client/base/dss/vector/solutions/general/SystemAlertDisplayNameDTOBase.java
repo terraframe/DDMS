@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1714280582)
-public abstract class SystemAlertDisplayNameDTOBase extends com.terraframe.mojo.business.LocalStructDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 766489738)
+public abstract class SystemAlertDisplayNameDTOBase extends com.runwaysdk.business.LocalStructDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertDisplayName";
-  private static final long serialVersionUID = 1714280582;
+  private static final long serialVersionUID = 766489738;
   
-  protected SystemAlertDisplayNameDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SystemAlertDisplayNameDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class SystemAlertDisplayNameDTOBase extends com.terraframe.mojo.
   * @param structDTO The StructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SystemAlertDisplayNameDTOBase(com.terraframe.mojo.business.LocalStructDTO structDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SystemAlertDisplayNameDTOBase(com.runwaysdk.business.LocalStructDTO structDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(structDTO, clientRequest);
   }
@@ -63,9 +63,9 @@ public abstract class SystemAlertDisplayNameDTOBase extends com.terraframe.mojo.
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -88,14 +88,14 @@ public abstract class SystemAlertDisplayNameDTOBase extends com.terraframe.mojo.
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static SystemAlertDisplayNameDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static SystemAlertDisplayNameDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (SystemAlertDisplayNameDTO) dto;
   }
@@ -116,9 +116,9 @@ public abstract class SystemAlertDisplayNameDTOBase extends com.terraframe.mojo.
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.SystemAlertDisplayNameQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.SystemAlertDisplayNameQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.SystemAlertDisplayNameQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.SystemAlertDisplayName", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.SystemAlertDisplayNameQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.SystemAlertDisplayNameDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
 }

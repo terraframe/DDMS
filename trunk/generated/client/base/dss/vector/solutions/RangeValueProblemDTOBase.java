@@ -1,17 +1,17 @@
 package dss.vector.solutions;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -3449094)
-public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -984481832)
+public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.RangeValueProblem";
-  private static final long serialVersionUID = -3449094;
+  private static final long serialVersionUID = -984481832;
   
-  public RangeValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public RangeValueProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public RangeValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
+  public RangeValueProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, java.util.Locale locale)
   {
     super(clientRequestIF, locale);
   }
@@ -26,7 +26,7 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
   public static java.lang.String UPPERLIMIT = "upperLimit";
   public Integer getInvalidValue()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INVALIDVALUE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INVALIDVALUE));
   }
   
   public void setInvalidValue(Integer value)
@@ -56,14 +56,14 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(INVALIDVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInvalidValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInvalidValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INVALIDVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INVALIDVALUE).getAttributeMdDTO();
   }
   
   public Integer getLowerLimit()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOWERLIMIT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LOWERLIMIT));
   }
   
   public void setLowerLimit(Integer value)
@@ -93,14 +93,14 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(LOWERLIMIT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLowerLimitMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLowerLimitMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOWERLIMIT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOWERLIMIT).getAttributeMdDTO();
   }
   
   public Integer getUpperLimit()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UPPERLIMIT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UPPERLIMIT));
   }
   
   public void setUpperLimit(Integer value)
@@ -130,9 +130,9 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
     return isModified(UPPERLIMIT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUpperLimitMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUpperLimitMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UPPERLIMIT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UPPERLIMIT).getAttributeMdDTO();
   }
   
   /**
@@ -154,7 +154,7 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
   {
     try
     {
-      java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.RangeValueProblem", locale);
+      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.RangeValueProblem", locale);
       
       message = message.replace("{invalidValue}", this.getInvalidValue().toString());
       message = message.replace("{lowerLimit}", this.getLowerLimit().toString());
@@ -164,19 +164,19 @@ public abstract class RangeValueProblemDTOBase extends dss.vector.solutions.Noti
     }
     catch (java.io.IOException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (org.xml.sax.SAXException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
     catch (javax.xml.parsers.ParserConfigurationException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
-    catch (com.terraframe.mojo.util.LocalizeException e)
+    catch (com.runwaysdk.util.LocalizeException e)
     {
-      throw new com.terraframe.mojo.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
+      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
     }
   }
   

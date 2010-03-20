@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -450170193)
-public class MappingControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -450170193)
+public class MappingControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.MappingController";
   protected javax.servlet.http.HttpServletRequest req;
@@ -57,266 +57,266 @@ public class MappingControllerBase implements com.terraframe.mojo.generation.loa
     return this.isAsynchronous;
   }
   
-  public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
+  public com.runwaysdk.constants.ClientRequestIF getClientRequest()
   {
-    return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
+    return (com.runwaysdk.constants.ClientRequestIF) req.getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTREQUEST);
   }
   
-  public com.terraframe.mojo.ClientSession getClientSession()
+  public com.runwaysdk.ClientSession getClientSession()
   {
-    return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+    return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.AbstractCategoryDTO:category", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.AbstractCategoryDTO:category", post=true)
   public void addCategoryToLayer(java.lang.String layerId, dss.vector.solutions.query.AbstractCategoryDTO category) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.addCategoryToLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.addCategoryToLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.AbstractCategoryDTO:category", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.AbstractCategoryDTO:category", post=true)
   public void failAddCategoryToLayer(java.lang.String layerId, dss.vector.solutions.query.AbstractCategoryDTO category) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddCategoryToLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddCategoryToLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void addText() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.addText");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.addText");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void failAddText() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddText");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failAddText");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, java.lang.Boolean:doUnlock", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, java.lang.Boolean:doUnlock", post=true)
   public void cancelLayer(java.lang.String layerId, java.lang.Boolean doUnlock) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.cancelLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.cancelLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, java.lang.String:doUnlock", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, java.lang.String:doUnlock", post=true)
   public void failCancelLayer(java.lang.String layerId, java.lang.String doUnlock) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failCancelLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failCancelLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
   public void deleteLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.deleteLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.deleteLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId", post=true)
   public void failDeleteLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failDeleteLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failDeleteLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:thematicLayerId, [Ldss.vector.solutions.query.ThematicVariableDTO;:thematicVariables", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:thematicLayerId, [Ldss.vector.solutions.query.ThematicVariableDTO;:thematicVariables", post=true)
   public void editThematicLayer(java.lang.String thematicLayerId, dss.vector.solutions.query.ThematicVariableDTO[] thematicVariables) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.editThematicLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.editThematicLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:thematicLayerId, [Ldss.vector.solutions.query.ThematicVariableDTO;:thematicVariables", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:thematicLayerId, [Ldss.vector.solutions.query.ThematicVariableDTO;:thematicVariables", post=true)
   public void failEditThematicLayer(java.lang.String thematicLayerId, dss.vector.solutions.query.ThematicVariableDTO[] thematicVariables) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failEditThematicLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failEditThematicLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
   public void exportShapefile(java.lang.String mapId, java.lang.String namedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.exportShapefile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.exportShapefile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:namedMapId", post=true)
   public void failExportShapefile(java.lang.String mapId, java.lang.String namedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failExportShapefile");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failExportShapefile");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void generateMaps() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.generateMaps");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.generateMaps");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void failGenerateMaps() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failGenerateMaps");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failGenerateMaps");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
   public void getLegend(java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.getLegend");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.getLegend");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedSearchId", post=true)
   public void failGetLegend(java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failGetLegend");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failGetLegend");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void mapAggregatedCaseQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void failMapAggregatedCaseQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapAggregatedCaseQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapAggregatedCaseQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void mapEntomologyQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapEntomologyQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapEntomologyQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:thematicLayerType, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void failMapEntomologyQuery(java.lang.String queryXML, java.lang.String thematicLayerType, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapEntomologyQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapEntomologyQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void mapIRSQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapIRSQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapIRSQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void failMapIRSQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapIRSQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapIRSQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void mapResistanceQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapResistanceQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapResistanceQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void failMapResistanceQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapResistanceQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapResistanceQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void mapSurveyQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapSurveyQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.mapSurveyQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:queryXML, java.lang.String:config, [Ljava.lang.String;:universalLayers, java.lang.String:savedSearchId", post=true)
   public void failMapSurveyQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapSurveyQuery");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failMapSurveyQuery");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
   public void refreshMap(java.lang.String savedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.refreshMap");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.refreshMap");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:savedMapId", post=true)
   public void failRefreshMap(java.lang.String savedMapId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failRefreshMap");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failRefreshMap");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void setText() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.setText");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.setText");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void failSetText() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failSetText");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failSetText");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)
   public void updateThematicVariable(java.lang.String layerId, dss.vector.solutions.query.ThematicVariableDTO thematicVariable, dss.vector.solutions.query.AbstractCategoryDTO[] categories) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.updateThematicVariable");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.updateThematicVariable");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId, dss.vector.solutions.query.ThematicVariableDTO:thematicVariable, [Ldss.vector.solutions.query.AbstractCategoryDTO;:categories", post=true)
   public void failUpdateThematicVariable(java.lang.String layerId, dss.vector.solutions.query.ThematicVariableDTO thematicVariable, dss.vector.solutions.query.AbstractCategoryDTO[] categories) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUpdateThematicVariable");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUpdateThematicVariable");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void uploadMapImage() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.uploadMapImage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.uploadMapImage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=true)
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
   public void failUploadMapImage() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUploadMapImage");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failUploadMapImage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId", post=false)
   public void viewLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.viewLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.viewLayer");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:layerId", post=false)
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:layerId", post=false)
   public void failViewLayer(java.lang.String layerId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.MappingController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failViewLayer");
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.MappingController.failViewLayer");
   }
   
 }

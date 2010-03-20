@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo.generated;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 296276712)
-public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 296276712)
+public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.HealthFacilityCatchmentArea";
   private static final long serialVersionUID = 296276712;
   
-  protected HealthFacilityCatchmentAreaDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected HealthFacilityCatchmentAreaDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solu
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected HealthFacilityCatchmentAreaDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected HealthFacilityCatchmentAreaDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -27,9 +27,9 @@ public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solu
     return CLASS;
   }
   
-  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO) dto;
   }
@@ -50,9 +50,9 @@ public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solu
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.geo.generated.HealthFacilityCatchmentArea", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -60,11 +60,11 @@ public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solu
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -73,11 +73,11 @@ public abstract class HealthFacilityCatchmentAreaDTOBase extends dss.vector.solu
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.geo.generated.HealthFacilityCatchmentAreaDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1297866771)
-public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1393314783)
+public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -1297866771;
+  private static final long serialVersionUID = 1393314783;
   
-  protected TermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected TermDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TermDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -79,14 +79,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(COMMENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getCommentMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getCommentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(COMMENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(COMMENT).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -104,12 +104,12 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -117,7 +117,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -136,9 +136,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public String getDef()
@@ -173,9 +173,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(DEF);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeTextMdDTO getDefMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDefMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DEF).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DEF).getAttributeMdDTO();
   }
   
   public String getDisplay()
@@ -210,12 +210,12 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(DISPLAY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -223,11 +223,11 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -254,9 +254,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -291,14 +291,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -316,12 +316,12 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -329,7 +329,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -348,12 +348,12 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -361,7 +361,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -380,9 +380,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public String getName()
@@ -417,9 +417,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(NAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAME).getAttributeMdDTO();
   }
   
   public String getNamespace()
@@ -454,14 +454,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(NAMESPACE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getNamespaceMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNamespaceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
   }
   
   public Boolean getObsolete()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
   }
   
   public void setObsolete(Boolean value)
@@ -491,9 +491,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(OBSOLETE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.OntologyDTO getOntology()
@@ -535,12 +535,12 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(ONTOLOGY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOntologyMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOntologyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ONTOLOGY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ONTOLOGY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -548,11 +548,11 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -579,14 +579,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -604,9 +604,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -629,9 +629,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public String getTermId()
@@ -666,24 +666,24 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return isModified(TERMID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.ontology.TermViewDTO applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{parentTermId, cloneOperation, oldParentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewDTO applyWithParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public static final dss.vector.solutions.ontology.TermViewDTO applyWithParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentTermId, cloneOperation, oldParentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -691,15 +691,15 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmChangeParent", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void confirmChangeParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void confirmChangeParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmChangeParent", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -707,15 +707,15 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmDeleteTerm", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmDeleteTerm", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void confirmDeleteTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void confirmDeleteTerm(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmDeleteTerm", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "confirmDeleteTerm", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -723,15 +723,15 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteRelationship", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteRelationship(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void deleteRelationship(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteRelationship", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -739,39 +739,39 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteTerm", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteTerm", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteTerm(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteTerm", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "deleteTerm", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermDTO[] getAllTermsForField(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
+  public static final dss.vector.solutions.ontology.TermDTO[] getAllTermsForField(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{className, attributeName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getAllTermsForField", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getAllTermsForField", _declaredTypes);
     return (dss.vector.solutions.ontology.TermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO getByIds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String[] termIds)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getByIds(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] termIds)
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{termIds};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getByIds", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getByIds", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO getDefaultRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getDefaultRoots(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getDefaultRoots", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getDefaultRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -779,88 +779,88 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   {
     String[] _declaredTypes = new String[]{"java.lang.Boolean"};
     Object[] _parameters = new Object[]{filterObsolete};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean filterObsolete)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean filterObsolete)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{id, filterObsolete};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getOntologyChildren", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermDTO[] getRootChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName, java.lang.Boolean returnOnlySelectable)
+  public static final dss.vector.solutions.ontology.TermDTO[] getRootChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName, java.lang.Boolean returnOnlySelectable)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{className, attributeName, returnOnlySelectable};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getRootChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getRootChildren", _declaredTypes);
     return (dss.vector.solutions.ontology.TermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO getRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String relationshipType)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String relationshipType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{relationshipType};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getRoots", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewDTO getTermById(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String termId, java.lang.String[] parameters)
+  public static final dss.vector.solutions.ontology.TermViewDTO getTermById(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String termId, java.lang.String[] parameters)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{termId, parameters};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getTermById", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getTermById", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO searchByRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[][] roots)
+  public static final com.runwaysdk.business.ValueQueryDTO searchByRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[][] roots)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{value, roots};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchByRoots", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchByRoots", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO searchTerms(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String searchValue, java.lang.String[] parentTermIds)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO searchTerms(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String searchValue, java.lang.String[] parentTermIds)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{searchValue, parentTermIds};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTerms", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTerms", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewQueryDTO searchTermsWithRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parameters)
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO searchTermsWithRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parameters)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{value, parameters};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTermsWithRoots", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "searchTermsWithRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO termQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parentTermIds)
+  public static final com.runwaysdk.business.ValueQueryDTO termQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parentTermIds)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{value, parentTermIds};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQuery", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQuery", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO termQueryByIds(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String[] termIds)
+  public static final com.runwaysdk.business.ValueQueryDTO termQueryByIds(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] termIds)
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{termIds};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQueryByIds", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQueryByIds", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO termQueryWithRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parameters)
+  public static final com.runwaysdk.business.ValueQueryDTO termQueryWithRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value, java.lang.String[] parameters)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{value, parameters};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQueryWithRoots", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "termQueryWithRoots", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")
@@ -870,7 +870,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllChildTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllChildTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -882,7 +882,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO> getAllChildTermRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO> getAllChildTermRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -892,7 +892,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.ontology.TermRelationshipDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
   
-  public static dss.vector.solutions.ontology.TermRelationshipDTO addChildTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.ontology.TermRelationshipDTO addChildTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.ontology.TermRelationshipDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -902,7 +902,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeChildTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.TermRelationshipDTO relationship)
+  public static void removeChildTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.TermRelationshipDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -912,7 +912,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
   
-  public static void removeAllChildTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllChildTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -924,7 +924,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllANCVisitAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllANCVisitAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
@@ -936,7 +936,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTANCVisitDTO> getAllANCVisitAggregatedIPTsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTANCVisitDTO> getAllANCVisitAggregatedIPTsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTANCVisitDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
@@ -946,7 +946,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.IPTANCVisitDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.IPTANCVisitDTO addANCVisitAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
+  public static dss.vector.solutions.intervention.monitor.IPTANCVisitDTO addANCVisitAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.IPTANCVisitDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
@@ -956,7 +956,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeANCVisitAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO relationship)
+  public static void removeANCVisitAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -966,7 +966,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
   
-  public static void removeAllANCVisitAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllANCVisitAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTANCVisitDTO.CLASS);
   }
@@ -978,7 +978,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
@@ -990,7 +990,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNNetDTO> getAllAggregatedITNsWithNetsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNNetDTO> getAllAggregatedITNsWithNetsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNNetDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
@@ -1000,7 +1000,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNNetDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNNetDTO addAggregatedITNsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNNetDTO addAggregatedITNsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNNetDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
@@ -1010,7 +1010,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeAggregatedITNsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNNetDTO relationship)
+  public static void removeAggregatedITNsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNNetDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1020,7 +1020,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
   
-  public static void removeAllAggregatedITNsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAggregatedITNsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNNetDTO.CLASS);
   }
@@ -1032,7 +1032,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithService(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithService(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
@@ -1044,7 +1044,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNServiceDTO> getAllAggregatedITNsWithServiceRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNServiceDTO> getAllAggregatedITNsWithServiceRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNServiceDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
@@ -1054,7 +1054,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNServiceDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNServiceDTO addAggregatedITNsWithService(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNServiceDTO addAggregatedITNsWithService(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNServiceDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
@@ -1064,7 +1064,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeAggregatedITNsWithService(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNServiceDTO relationship)
+  public static void removeAggregatedITNsWithService(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNServiceDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1074,7 +1074,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
   
-  public static void removeAllAggregatedITNsWithService(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAggregatedITNsWithService(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNServiceDTO.CLASS);
   }
@@ -1086,7 +1086,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO> getAllAggregatedITNsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDataDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
@@ -1098,7 +1098,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO> getAllAggregatedITNsWithTargetGroupsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO> getAllAggregatedITNsWithTargetGroupsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
@@ -1108,7 +1108,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO addAggregatedITNsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO addAggregatedITNsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDataDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
@@ -1118,7 +1118,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeAggregatedITNsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO relationship)
+  public static void removeAggregatedITNsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1128,7 +1128,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
   
-  public static void removeAllAggregatedITNsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAggregatedITNsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO.CLASS);
   }
@@ -1140,7 +1140,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllDiagnosticAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -1152,7 +1152,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticAggregatedCasesRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -1162,7 +1162,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
+  public static dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
   {
     return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -1172,7 +1172,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeDiagnosticAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
+  public static void removeDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1182,7 +1182,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
   
-  public static void removeAllDiagnosticAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -1194,7 +1194,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllDoseAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllDoseAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
@@ -1206,7 +1206,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTDoseDTO> getAllDoseAggregatedIPTsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTDoseDTO> getAllDoseAggregatedIPTsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTDoseDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
@@ -1216,7 +1216,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.IPTDoseDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.IPTDoseDTO addDoseAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
+  public static dss.vector.solutions.intervention.monitor.IPTDoseDTO addDoseAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.IPTDoseDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
@@ -1226,7 +1226,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeDoseAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTDoseDTO relationship)
+  public static void removeDoseAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTDoseDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1236,7 +1236,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
   
-  public static void removeAllDoseAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllDoseAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
   }
@@ -1248,7 +1248,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO> getAllITNCommunityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO> getAllITNCommunityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
@@ -1260,7 +1260,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO> getAllITNCommunityDistributionsWithNetsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO> getAllITNCommunityDistributionsWithNetsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
@@ -1270,7 +1270,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO addITNCommunityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO addITNCommunityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
@@ -1280,7 +1280,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeITNCommunityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO relationship)
+  public static void removeITNCommunityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1290,7 +1290,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
   
-  public static void removeAllITNCommunityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllITNCommunityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO.CLASS);
   }
@@ -1302,7 +1302,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO> getAllITNCommunityDistributionsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO> getAllITNCommunityDistributionsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
@@ -1314,7 +1314,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO> getAllITNCommunityDistributionsWithTargetGroupsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO> getAllITNCommunityDistributionsWithTargetGroupsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
@@ -1324,7 +1324,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO addITNCommunityDistributionsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO addITNCommunityDistributionsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
@@ -1334,7 +1334,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeITNCommunityDistributionsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO relationship)
+  public static void removeITNCommunityDistributionsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1344,7 +1344,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
   
-  public static void removeAllITNCommunityDistributionsWithTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllITNCommunityDistributionsWithTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO.CLASS);
   }
@@ -1356,7 +1356,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionDTO> getAllITNFacilityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionDTO> getAllITNFacilityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
@@ -1368,7 +1368,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO> getAllITNFacilityDistributionsWithNetsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO> getAllITNFacilityDistributionsWithNetsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
@@ -1378,7 +1378,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO addITNFacilityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDistributionDTO parent)
+  public static dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO addITNFacilityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.ITNDistributionDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
@@ -1388,7 +1388,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeITNFacilityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO relationship)
+  public static void removeITNFacilityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1398,7 +1398,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
   
-  public static void removeAllITNFacilityDistributionsWithNets(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllITNFacilityDistributionsWithNets(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroupDTO.CLASS);
   }
@@ -1410,7 +1410,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO> getAllIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO> getAllIndividualInstance(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualInstanceDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
@@ -1422,7 +1422,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllIndividualInstanceRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO> getAllIndividualInstanceRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.IndividualCaseSymptomDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
@@ -1432,7 +1432,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.IndividualInstanceDTO parent)
+  public static dss.vector.solutions.surveillance.IndividualCaseSymptomDTO addIndividualInstance(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.IndividualInstanceDTO parent)
   {
     return (dss.vector.solutions.surveillance.IndividualCaseSymptomDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
@@ -1442,7 +1442,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
+  public static void removeIndividualInstance(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1452,7 +1452,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
   
-  public static void removeAllIndividualInstance(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllIndividualInstance(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
   }
@@ -1464,7 +1464,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllParentTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllParentTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getParents(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -1476,7 +1476,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO> getAllParentTermRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO> getAllParentTermRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermRelationshipDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -1486,7 +1486,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.ontology.TermRelationshipDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
   
-  public static dss.vector.solutions.ontology.TermRelationshipDTO addParentTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO parent)
+  public static dss.vector.solutions.ontology.TermRelationshipDTO addParentTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO parent)
   {
     return (dss.vector.solutions.ontology.TermRelationshipDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -1496,7 +1496,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeParentTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.TermRelationshipDTO relationship)
+  public static void removeParentTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.TermRelationshipDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1506,7 +1506,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
   
-  public static void removeAllParentTerm(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllParentTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
   }
@@ -1518,7 +1518,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllPatientAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllPatientAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
@@ -1530,7 +1530,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTPatientsDTO> getAllPatientAggregatedIPTsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTPatientsDTO> getAllPatientAggregatedIPTsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTPatientsDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
@@ -1540,7 +1540,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.IPTPatientsDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.IPTPatientsDTO addPatientAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
+  public static dss.vector.solutions.intervention.monitor.IPTPatientsDTO addPatientAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.IPTPatientsDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
@@ -1550,7 +1550,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removePatientAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTPatientsDTO relationship)
+  public static void removePatientAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTPatientsDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1560,7 +1560,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
   
-  public static void removeAllPatientAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllPatientAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
   }
@@ -1572,7 +1572,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatmentLocations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
@@ -1584,7 +1584,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO> getAllPersonsWithTreatmentLocationsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO> getAllPersonsWithTreatmentLocationsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
@@ -1594,7 +1594,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO addPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
+  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO addPersonsWithTreatmentLocations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
@@ -1604,7 +1604,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removePersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO relationship)
+  public static void removePersonsWithTreatmentLocations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1614,7 +1614,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
   
-  public static void removeAllPersonsWithTreatmentLocations(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllPersonsWithTreatmentLocations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO.CLASS);
   }
@@ -1626,7 +1626,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO> getAllPersonsWithTreatments(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
@@ -1638,7 +1638,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO> getAllPersonsWithTreatmentsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO> getAllPersonsWithTreatmentsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
@@ -1648,7 +1648,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO addPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
+  public static dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO addPersonsWithTreatments(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.SurveyedPersonDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
@@ -1658,7 +1658,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removePersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO relationship)
+  public static void removePersonsWithTreatments(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1668,7 +1668,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
   
-  public static void removeAllPersonsWithTreatments(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllPersonsWithTreatments(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
   }
@@ -1680,7 +1680,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllReferralAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -1692,7 +1692,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralAggregatedCaseRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralAggregatedCaseRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -1702,7 +1702,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.CaseReferralDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseReferralDTO addReferralAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
+  public static dss.vector.solutions.surveillance.CaseReferralDTO addReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
   {
     return (dss.vector.solutions.surveillance.CaseReferralDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -1712,7 +1712,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeReferralAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseReferralDTO relationship)
+  public static void removeReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseReferralDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1722,7 +1722,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
   
-  public static void removeAllReferralAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -1734,7 +1734,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllStockAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -1746,7 +1746,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllStockAggregatedCasesRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllStockAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -1756,7 +1756,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO addStockAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
+  public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO addStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -1766,7 +1766,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeStockAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
+  public static void removeStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1776,7 +1776,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
   
-  public static void removeAllStockAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -1788,7 +1788,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -1800,7 +1800,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentAggregatedCasesRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -1810,7 +1810,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.CaseTreatmentDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatmentAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
+  public static dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -1820,7 +1820,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeTreatmentAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
+  public static void removeTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1830,7 +1830,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
   
-  public static void removeAllTreatmentAggregatedCases(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -1842,7 +1842,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllTreatmentAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllTreatmentAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
@@ -1854,7 +1854,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTTreatmentDTO> getAllTreatmentAggregatedIPTsRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTTreatmentDTO> getAllTreatmentAggregatedIPTsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IPTTreatmentDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
@@ -1864,7 +1864,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.intervention.monitor.IPTTreatmentDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
   
-  public static dss.vector.solutions.intervention.monitor.IPTTreatmentDTO addTreatmentAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
+  public static dss.vector.solutions.intervention.monitor.IPTTreatmentDTO addTreatmentAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedIPTDTO parent)
   {
     return (dss.vector.solutions.intervention.monitor.IPTTreatmentDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
@@ -1874,7 +1874,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeTreatmentAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO relationship)
+  public static void removeTreatmentAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1884,7 +1884,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
   
-  public static void removeAllTreatmentAggregatedIPTs(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatmentAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
   }
@@ -1896,7 +1896,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentMethodAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -1908,7 +1908,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodAggregatedCaseRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodAggregatedCaseRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -1918,7 +1918,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethodAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
+  public static dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -1928,7 +1928,7 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeTreatmentMethodAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
+  public static void removeTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1938,14 +1938,14 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
-  public static void removeAllTreatmentMethodAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
-  public static dss.vector.solutions.ontology.TermDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.ontology.TermDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.ontology.TermDTO) dto;
   }
@@ -1966,9 +1966,9 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.ontology.TermQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.ontology.TermQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.ontology.TermQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.ontology.Term", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.ontology.TermQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.ontology.TermDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1976,11 +1976,11 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.ontology.TermDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.ontology.TermDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.ontology.TermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1989,11 +1989,11 @@ public abstract class TermDTOBase extends com.terraframe.mojo.business.BusinessD
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.ontology.TermDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.ontology.TermDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.ontology.TermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

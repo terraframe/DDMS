@@ -1,12 +1,12 @@
 package dss.vector.solutions.export;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2121049586)
-public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1486382152)
+public abstract class ITNDistributionExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ITNDistributionExcelView";
-  private static final long serialVersionUID = 2121049586;
+  private static final long serialVersionUID = 1486382152;
   
-  protected ITNDistributionExcelViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ITNDistributionExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -61,14 +61,14 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(BATCHNUMBER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
   }
   
   public Double getCurrencyReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
   }
   
   public void setCurrencyReceived(Double value)
@@ -98,14 +98,14 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(CURRENCYRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
   public java.util.Date getDistributionDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DISTRIBUTIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DISTRIBUTIONDATE));
   }
   
   public void setDistributionDate(java.util.Date value)
@@ -116,7 +116,7 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     }
     else
     {
-      setValue(DISTRIBUTIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(DISTRIBUTIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -135,9 +135,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(DISTRIBUTIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDistributionDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDistributionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DISTRIBUTIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DISTRIBUTIONDATE).getAttributeMdDTO();
   }
   
   public String getDistributorName()
@@ -172,9 +172,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(DISTRIBUTORNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDistributorNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDistributorNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORNAME).getAttributeMdDTO();
   }
   
   public String getDistributorSurname()
@@ -209,9 +209,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(DISTRIBUTORSURNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDistributorSurnameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDistributorSurnameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORSURNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTORSURNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.HealthFacilityDTO getFacility()
@@ -253,9 +253,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(FACILITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getFacilityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getFacilityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
   }
   
   public String getNet()
@@ -290,14 +290,14 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(NET);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getNetMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNetMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NET).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NET).getAttributeMdDTO();
   }
   
   public Integer getNumberSold()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSOLD));
   }
   
   public void setNumberSold(Integer value)
@@ -327,14 +327,14 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(NUMBERSOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberSoldMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSOLD).getAttributeMdDTO();
   }
   
   public java.util.Date getRecipientDOB()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECIPIENTDOB));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(RECIPIENTDOB));
   }
   
   public void setRecipientDOB(java.util.Date value)
@@ -345,7 +345,7 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     }
     else
     {
-      setValue(RECIPIENTDOB, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(RECIPIENTDOB, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -364,9 +364,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(RECIPIENTDOB);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getRecipientDOBMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getRecipientDOBMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RECIPIENTDOB).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(RECIPIENTDOB).getAttributeMdDTO();
   }
   
   public String getRecipientFirstName()
@@ -401,9 +401,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(RECIPIENTFIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRecipientFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getRecipientFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RECIPIENTFIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RECIPIENTFIRSTNAME).getAttributeMdDTO();
   }
   
   public String getRecipientLastName()
@@ -438,9 +438,9 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(RECIPIENTLASTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getRecipientLastNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getRecipientLastNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RECIPIENTLASTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(RECIPIENTLASTNAME).getAttributeMdDTO();
   }
   
   public String getService()
@@ -475,14 +475,14 @@ public abstract class ITNDistributionExcelViewDTOBase extends com.terraframe.moj
     return isModified(SERVICE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getServiceMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getServiceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SERVICE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SERVICE).getAttributeMdDTO();
   }
   
-  public static ITNDistributionExcelViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ITNDistributionExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ITNDistributionExcelViewDTO) dto;
   }

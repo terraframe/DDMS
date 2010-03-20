@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2118134254)
-public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.StructDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1939878412)
+public abstract class AdultAgeRangeDTOBase extends com.runwaysdk.business.StructDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultAgeRange";
-  private static final long serialVersionUID = 2118134254;
+  private static final long serialVersionUID = 1939878412;
   
-  protected AdultAgeRangeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAgeRangeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   * @param structDTO The StructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AdultAgeRangeDTOBase(com.terraframe.mojo.business.StructDTO structDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAgeRangeDTOBase(com.runwaysdk.business.StructDTO structDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(structDTO, clientRequest);
   }
@@ -34,7 +34,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String STARTPOINT = "startPoint";
   public Integer getEndPoint()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDPOINT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDPOINT));
   }
   
   public void setEndPoint(Integer value)
@@ -64,9 +64,9 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
     return isModified(ENDPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -101,9 +101,9 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -126,14 +126,14 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public Integer getStartPoint()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTPOINT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTPOINT));
   }
   
   public void setStartPoint(Integer value)
@@ -163,14 +163,14 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
     return isModified(STARTPOINT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartPointMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
-  public static AdultAgeRangeDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static AdultAgeRangeDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (AdultAgeRangeDTO) dto;
   }
@@ -191,9 +191,9 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.assay.AdultAgeRange", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
 }

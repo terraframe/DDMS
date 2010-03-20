@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -581498886)
-public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.InformationDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1161374296)
+public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = -581498886;
+  private static final long serialVersionUID = 1161374296;
   
-  public OutbreakAlertDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public OutbreakAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
@@ -55,14 +55,14 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(ALERTTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAlertTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAlertTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ALERTTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ALERTTYPE).getAttributeMdDTO();
   }
   
   public Boolean getEmailFailure()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EMAILFAILURE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EMAILFAILURE));
   }
   
   public void setEmailFailure(Boolean value)
@@ -92,9 +92,9 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(EMAILFAILURE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEmailFailureMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEmailFailureMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EMAILFAILURE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EMAILFAILURE).getAttributeMdDTO();
   }
   
   public String getEntityLabel()
@@ -129,14 +129,14 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(ENTITYLABEL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public Integer getThreshold()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
   }
   
   public void setThreshold(Integer value)
@@ -166,9 +166,9 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(THRESHOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getThresholdMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
   }
   
   public String getThresholdType()
@@ -203,14 +203,14 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(THRESHOLDTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThresholdTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getThresholdTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
   }
   
   public Long getTotalCases()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(TOTALCASES));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(TOTALCASES));
   }
   
   public void setTotalCases(Long value)
@@ -240,9 +240,9 @@ public abstract class OutbreakAlertDTOBase extends com.terraframe.mojo.business.
     return isModified(TOTALCASES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTotalCasesMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTotalCasesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALCASES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALCASES).getAttributeMdDTO();
   }
   
 }

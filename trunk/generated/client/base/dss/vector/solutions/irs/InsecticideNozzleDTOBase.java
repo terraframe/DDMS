@@ -1,12 +1,12 @@
 package dss.vector.solutions.irs;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1381209068)
-public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1681191730)
+public abstract class InsecticideNozzleDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideNozzle";
-  private static final long serialVersionUID = 1381209068;
+  private static final long serialVersionUID = -1681191730;
   
-  public InsecticideNozzleDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
+  public InsecticideNozzleDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
     super(clientRequest, parentId, childId);
     
@@ -18,7 +18,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
   * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected InsecticideNozzleDTOBase(com.terraframe.mojo.business.RelationshipDTO relationshipDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InsecticideNozzleDTOBase(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(relationshipDTO, clientRequest);
   }
@@ -44,7 +44,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
   public static java.lang.String TYPE = "type";
   public java.util.Date getConfigurationDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIGURATIONDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIGURATIONDATE));
   }
   
   public void setConfigurationDate(java.util.Date value)
@@ -55,7 +55,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      setValue(CONFIGURATIONDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(CONFIGURATIONDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -74,14 +74,14 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(CONFIGURATIONDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getConfigurationDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getConfigurationDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CONFIGURATIONDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CONFIGURATIONDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -99,12 +99,12 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -112,7 +112,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -131,14 +131,14 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLED));
   }
   
   public void setEnabled(Boolean value)
@@ -168,12 +168,12 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(ENABLED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -181,11 +181,11 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -212,9 +212,9 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -249,14 +249,14 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -274,12 +274,12 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -287,7 +287,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -306,12 +306,12 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -319,7 +319,7 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -338,12 +338,12 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -351,11 +351,11 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -382,14 +382,14 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -407,9 +407,9 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -432,32 +432,32 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.InsecticideNozzleDTO[] applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideNozzleDTO[] insecticideNozzles)
+  public static final dss.vector.solutions.irs.InsecticideNozzleDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideNozzleDTO[] insecticideNozzles)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.InsecticideNozzle;"};
     Object[] _parameters = new Object[]{insecticideNozzles};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "applyAll", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideNozzleDTO[] getAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.InsecticideNozzleDTO[] getAll(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "getAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "getAll", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO getView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "getView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "getView", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -465,15 +465,15 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lockView", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO lockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO lockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lockView", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -481,15 +481,15 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlockView", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.irs.InsecticideNozzleViewDTO unlockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlockView", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -503,22 +503,22 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     return dss.vector.solutions.irs.NozzleDTO.get(getRequest(), super.getChildId());
   }
   
-  public static dss.vector.solutions.irs.InsecticideNozzleDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.irs.InsecticideNozzleDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.RelationshipDTO dto = (com.terraframe.mojo.business.RelationshipDTO) clientRequest.get(id);
+    com.runwaysdk.business.RelationshipDTO dto = (com.runwaysdk.business.RelationshipDTO) clientRequest.get(id);
     
     return (dss.vector.solutions.irs.InsecticideNozzleDTO) dto;
   }
   
-  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO parentQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId)
+  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO parentQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId)
   {
-    com.terraframe.mojo.business.RelationshipQueryDTO queryDTO = (com.terraframe.mojo.business.RelationshipQueryDTO) clientRequest.getQuery("dss.vector.solutions.irs.InsecticideNozzle");
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS);
     queryDTO.addCondition("parent_id", "EQ", parentId);
     return (dss.vector.solutions.irs.InsecticideNozzleQueryDTO) clientRequest.queryRelationships(queryDTO);
   }
-  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO childQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String childId)
+  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO childQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String childId)
   {
-    com.terraframe.mojo.business.RelationshipQueryDTO queryDTO = (com.terraframe.mojo.business.RelationshipQueryDTO) clientRequest.getQuery("dss.vector.solutions.irs.InsecticideNozzle");
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS);
     queryDTO.addCondition("child_id", "EQ", childId);
     return (dss.vector.solutions.irs.InsecticideNozzleQueryDTO) clientRequest.queryRelationships(queryDTO);
   }
@@ -538,9 +538,9 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.irs.InsecticideNozzleQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.irs.InsecticideNozzleQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.irs.InsecticideNozzle", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.irs.InsecticideNozzleQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -548,11 +548,11 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.irs.InsecticideNozzleDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.irs.InsecticideNozzleDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -561,11 +561,11 @@ public abstract class InsecticideNozzleDTOBase extends com.terraframe.mojo.busin
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.irs.InsecticideNozzleDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.irs.InsecticideNozzleDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideNozzleDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideNozzleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

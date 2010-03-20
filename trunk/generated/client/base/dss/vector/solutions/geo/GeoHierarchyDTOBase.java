@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2082555395)
-public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1660558001)
+public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = 2082555395;
+  private static final long serialVersionUID = -1660558001;
   
-  protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected GeoHierarchyDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoHierarchyDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -47,7 +47,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   public static java.lang.String VIEWCREATED = "viewCreated";
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -65,12 +65,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -78,7 +78,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -97,12 +97,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -110,11 +110,11 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -141,12 +141,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdBusinessDTO getGeoEntityClass()
+  public com.runwaysdk.system.metadata.MdBusinessDTO getGeoEntityClass()
   {
     if(getValue(GEOENTITYCLASS) == null || getValue(GEOENTITYCLASS).trim().equals(""))
     {
@@ -154,11 +154,11 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdBusinessDTO.get(getRequest(), getValue(GEOENTITYCLASS));
+      return com.runwaysdk.system.metadata.MdBusinessDTO.get(getRequest(), getValue(GEOENTITYCLASS));
     }
   }
   
-  public void setGeoEntityClass(com.terraframe.mojo.system.metadata.MdBusinessDTO value)
+  public void setGeoEntityClass(com.runwaysdk.system.metadata.MdBusinessDTO value)
   {
     if(value == null)
     {
@@ -185,9 +185,9 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(GEOENTITYCLASS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityClassMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityClassMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITYCLASS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITYCLASS).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -222,14 +222,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -247,12 +247,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -260,7 +260,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -279,12 +279,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -292,7 +292,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -311,12 +311,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -324,11 +324,11 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -355,14 +355,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Boolean getPolitical()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
   }
   
   public void setPolitical(Boolean value)
@@ -392,14 +392,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(POLITICAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
   }
   
   public Boolean getPopulationAllowed()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POPULATIONALLOWED));
   }
   
   public void setPopulationAllowed(Boolean value)
@@ -429,14 +429,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(POPULATIONALLOWED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPopulationAllowedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POPULATIONALLOWED).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -454,9 +454,9 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -479,14 +479,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public Boolean getSprayTargetAllowed()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
   }
   
   public void setSprayTargetAllowed(Boolean value)
@@ -516,9 +516,9 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(SPRAYTARGETALLOWED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTerm()
@@ -560,14 +560,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(TERM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTermMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
   }
   
   public Boolean getViewCreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
   }
   
   public void setViewCreated(Boolean value)
@@ -597,24 +597,24 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return isModified(VIEWCREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getViewCreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getViewCreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIEWCREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIEWCREATED).getAttributeMdDTO();
   }
   
-  public static final void applyExistingWithParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String childGeoHierarchyId, java.lang.String parentGeoHierarchyId, java.lang.Boolean cloneOperation)
+  public static final void applyExistingWithParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String childGeoHierarchyId, java.lang.String parentGeoHierarchyId, java.lang.Boolean cloneOperation)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{childGeoHierarchyId, parentGeoHierarchyId, cloneOperation};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "applyExistingWithParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "applyExistingWithParent", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] collectHierarchies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String rootGeoEntityId, java.lang.Boolean political, java.lang.Boolean sprayZoneAllowed, java.lang.String[] extraUniversals)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] collectHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String rootGeoEntityId, java.lang.Boolean political, java.lang.Boolean sprayZoneAllowed, java.lang.String[] extraUniversals)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Boolean", "[Ljava.lang.String;"};
     Object[] _parameters = new Object[]{rootGeoEntityId, political, sprayZoneAllowed, extraUniversals};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "collectHierarchies", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "collectHierarchies", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -622,15 +622,15 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmChangeParent", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void confirmChangeParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void confirmChangeParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmChangeParent", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -638,39 +638,39 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmDeleteHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmDeleteHierarchy", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] confirmDeleteHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final java.lang.String[] confirmDeleteHierarchy(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmDeleteHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "confirmDeleteHierarchy", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String defineAllowedTree(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
+  public static final java.lang.String defineAllowedTree(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoEntityId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "defineAllowedTree", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "defineAllowedTree", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String defineGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoEntityDefinitionDTO definition)
+  public static final java.lang.String defineGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoEntityDefinitionDTO definition)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.GeoEntityDefinition"};
     Object[] _parameters = new Object[]{definition};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "defineGeoEntity", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "defineGeoEntity", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String[] deleteGeoHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoHierarchyId)
+  public static final java.lang.String[] deleteGeoHierarchy(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoHierarchyId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoHierarchyId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteGeoHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteGeoHierarchy", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -678,39 +678,39 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteRelationship", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteRelationship(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  public static final void deleteRelationship(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, parentId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteRelationship", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "deleteRelationship", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getAllGeoHierarchyViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getAllGeoHierarchyViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getAllGeoHierarchyViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getAllGeoHierarchyViews", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getAllViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getAllViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getAllViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getAllViews", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO getEarthGeoHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO getEarthGeoHierarchy(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getEarthGeoHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getEarthGeoHierarchy", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -718,23 +718,23 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityDefinition", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityDefinition", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityDefinitionDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoEntityDefinitionDTO getGeoEntityDefinition(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.GeoEntityDefinitionDTO getGeoEntityDefinition(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityDefinition", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityDefinition", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityDefinitionDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getGeoEntityHierarchyViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getGeoEntityHierarchyViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, ascending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityHierarchyViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getGeoEntityHierarchyViews", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -742,23 +742,23 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getOrderedChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getPoliticalGeoHierarchies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getPoliticalGeoHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoEntityId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getPoliticalGeoHierarchies", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getPoliticalGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -766,31 +766,31 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO getViewForGeoHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO getViewForGeoHierarchy(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.Boolean hasBrowserRoot(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className)
+  public static final java.lang.Boolean hasBrowserRoot(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{className};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "hasBrowserRoot", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "hasBrowserRoot", _declaredTypes);
     return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void updateFromView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoHierarchyViewDTO view)
+  public static final void updateFromView(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoHierarchyViewDTO view)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.GeoHierarchyView"};
     Object[] _parameters = new Object[]{view};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "updateFromView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "updateFromView", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -801,7 +801,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -813,7 +813,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -823,7 +823,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return (dss.vector.solutions.geo.AllowedInDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.AllowedInDTO addAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoHierarchyDTO child)
+  public static dss.vector.solutions.geo.AllowedInDTO addAcceptsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoHierarchyDTO child)
   {
     return (dss.vector.solutions.geo.AllowedInDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -833,7 +833,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.AllowedInDTO relationship)
+  public static void removeAcceptsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.AllowedInDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -843,7 +843,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
   
-  public static void removeAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAcceptsGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -855,7 +855,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.GeoHierarchyDTO>) clientRequestIF.getParents(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -867,7 +867,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.geo.AllowedInDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -877,7 +877,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return (dss.vector.solutions.geo.AllowedInDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.AllowedInDTO addAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoHierarchyDTO parent)
+  public static dss.vector.solutions.geo.AllowedInDTO addAllowedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoHierarchyDTO parent)
   {
     return (dss.vector.solutions.geo.AllowedInDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
@@ -887,7 +887,7 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.AllowedInDTO relationship)
+  public static void removeAllowedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.AllowedInDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -897,14 +897,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().deleteParents(this.getId(), dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
   
-  public static void removeAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAllowedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
   }
   
-  public static dss.vector.solutions.geo.GeoHierarchyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.geo.GeoHierarchyDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.geo.GeoHierarchyDTO) dto;
   }
@@ -925,9 +925,9 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.geo.GeoHierarchyQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.geo.GeoHierarchyQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.geo.GeoHierarchyQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.geo.GeoHierarchy", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.geo.GeoHierarchyQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -935,11 +935,11 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.geo.GeoHierarchyDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.GeoHierarchyDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -948,11 +948,11 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.geo.GeoHierarchyDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.geo.GeoHierarchyDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

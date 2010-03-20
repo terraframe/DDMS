@@ -1,12 +1,12 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 594530588)
-public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2088545790)
+public abstract class AggregatedCaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCase";
-  private static final long serialVersionUID = 594530588;
+  private static final long serialVersionUID = -2088545790;
   
-  protected AggregatedCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedCaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AggregatedCaseDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedCaseDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -120,14 +120,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(AGEGROUP);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAgeGroupMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getAgeGroupMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(AGEGROUP).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(AGEGROUP).getAttributeMdDTO();
   }
   
   public Integer getCases()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASES));
   }
   
   public void setCases(Integer value)
@@ -157,14 +157,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CASES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASES).getAttributeMdDTO();
   }
   
   public Integer getCasesFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESFEMALE));
   }
   
   public void setCasesFemale(Integer value)
@@ -194,14 +194,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CASESFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESFEMALE).getAttributeMdDTO();
   }
   
   public Integer getCasesMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESMALE));
   }
   
   public void setCasesMale(Integer value)
@@ -231,14 +231,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CASESMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESMALE).getAttributeMdDTO();
   }
   
   public Integer getCasesPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESPREGNANT));
   }
   
   public void setCasesPregnant(Integer value)
@@ -268,14 +268,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CASESPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getClinicallyDiagnosed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSED));
   }
   
   public void setClinicallyDiagnosed(Integer value)
@@ -305,14 +305,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CLINICALLYDIAGNOSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSED).getAttributeMdDTO();
   }
   
   public Integer getClinicallyDiagnosedDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSEDDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSEDDEATH));
   }
   
   public void setClinicallyDiagnosedDeath(Integer value)
@@ -342,14 +342,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CLINICALLYDIAGNOSEDDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSEDDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSEDDEATH).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -367,12 +367,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -380,7 +380,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -399,14 +399,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public Integer getDaysOutOfStock()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DAYSOUTOFSTOCK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DAYSOUTOFSTOCK));
   }
   
   public void setDaysOutOfStock(Integer value)
@@ -436,14 +436,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DAYSOUTOFSTOCK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDaysOutOfStockMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDaysOutOfStockMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DAYSOUTOFSTOCK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DAYSOUTOFSTOCK).getAttributeMdDTO();
   }
   
   public Integer getDeaths()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
   }
   
   public void setDeaths(Integer value)
@@ -473,14 +473,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEATHS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHS).getAttributeMdDTO();
   }
   
   public Integer getDeathsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSFEMALE));
   }
   
   public void setDeathsFemale(Integer value)
@@ -510,14 +510,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEATHSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getDeathsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSMALE));
   }
   
   public void setDeathsMale(Integer value)
@@ -547,14 +547,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEATHSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSMALE).getAttributeMdDTO();
   }
   
   public Integer getDeathsPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSPREGNANT));
   }
   
   public void setDeathsPregnant(Integer value)
@@ -584,14 +584,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEATHSPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getDefinitivelyDiagnosed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSED));
   }
   
   public void setDefinitivelyDiagnosed(Integer value)
@@ -621,14 +621,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEFINITIVELYDIAGNOSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSED).getAttributeMdDTO();
   }
   
   public Integer getDefinitivelyDiagnosedDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSEDDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSEDDEATH));
   }
   
   public void setDefinitivelyDiagnosedDeath(Integer value)
@@ -658,14 +658,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(DEFINITIVELYDIAGNOSEDDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSEDDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSEDDEATH).getAttributeMdDTO();
   }
   
   public Integer getEndAge()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDAGE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDAGE));
   }
   
   public void setEndAge(Integer value)
@@ -695,14 +695,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(ENDAGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndAgeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getEndAgeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDAGE).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -713,7 +713,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -732,12 +732,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -745,11 +745,11 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -776,9 +776,9 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -820,14 +820,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(GEOENTITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getInPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTS));
   }
   
   public void setInPatients(Integer value)
@@ -857,14 +857,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTS).getAttributeMdDTO();
   }
   
   public Integer getInPatientsAnemia()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSANEMIA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSANEMIA));
   }
   
   public void setInPatientsAnemia(Integer value)
@@ -894,14 +894,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSANEMIA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsAnemiaMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsAnemiaMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSANEMIA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSANEMIA).getAttributeMdDTO();
   }
   
   public Integer getInPatientsClinically()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSCLINICALLY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSCLINICALLY));
   }
   
   public void setInPatientsClinically(Integer value)
@@ -931,14 +931,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSCLINICALLY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsClinicallyMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsClinicallyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSCLINICALLY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSCLINICALLY).getAttributeMdDTO();
   }
   
   public Integer getInPatientsDefinitive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDEFINITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDEFINITIVE));
   }
   
   public void setInPatientsDefinitive(Integer value)
@@ -968,14 +968,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSDEFINITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsDefinitiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsDefinitiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDEFINITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDEFINITIVE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsDischarged()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDISCHARGED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDISCHARGED));
   }
   
   public void setInPatientsDischarged(Integer value)
@@ -1005,14 +1005,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSDISCHARGED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsDischargedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsDischargedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDISCHARGED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDISCHARGED).getAttributeMdDTO();
   }
   
   public Integer getInPatientsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSFEMALE));
   }
   
   public void setInPatientsFemale(Integer value)
@@ -1042,14 +1042,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSMALE));
   }
   
   public void setInPatientsMale(Integer value)
@@ -1079,14 +1079,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSMALE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSNOTTREATED));
   }
   
   public void setInPatientsNotTreated(Integer value)
@@ -1116,14 +1116,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getInPatientsPregnantAnemia()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTANEMIA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTANEMIA));
   }
   
   public void setInPatientsPregnantAnemia(Integer value)
@@ -1153,14 +1153,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSPREGNANTANEMIA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantAnemiaMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantAnemiaMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTANEMIA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTANEMIA).getAttributeMdDTO();
   }
   
   public Integer getInPatientsPregnantDianosis()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTDIANOSIS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTDIANOSIS));
   }
   
   public void setInPatientsPregnantDianosis(Integer value)
@@ -1190,14 +1190,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSPREGNANTDIANOSIS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantDianosisMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantDianosisMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTDIANOSIS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTDIANOSIS).getAttributeMdDTO();
   }
   
   public Integer getInPatientsTotal()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSTOTAL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSTOTAL));
   }
   
   public void setInPatientsTotal(Integer value)
@@ -1227,9 +1227,9 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(INPATIENTSTOTAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsTotalMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsTotalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSTOTAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSTOTAL).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -1264,14 +1264,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -1289,12 +1289,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -1302,7 +1302,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -1321,12 +1321,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -1334,7 +1334,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -1353,14 +1353,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public Integer getOutPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTS));
   }
   
   public void setOutPatients(Integer value)
@@ -1390,14 +1390,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OUTPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTS).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSFEMALE));
   }
   
   public void setOutPatientsFemale(Integer value)
@@ -1427,14 +1427,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OUTPATIENTSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSMALE));
   }
   
   public void setOutPatientsMale(Integer value)
@@ -1464,14 +1464,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OUTPATIENTSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSMALE).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSNOTTREATED));
   }
   
   public void setOutPatientsNotTreated(Integer value)
@@ -1501,14 +1501,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OUTPATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsTotal()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSTOTAL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSTOTAL));
   }
   
   public void setOutPatientsTotal(Integer value)
@@ -1538,12 +1538,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OUTPATIENTSTOTAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsTotalMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsTotalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSTOTAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSTOTAL).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -1551,11 +1551,11 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -1582,14 +1582,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Integer getPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PATIENTSNOTTREATED));
   }
   
   public void setPatientsNotTreated(Integer value)
@@ -1619,14 +1619,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(PATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getPregnantDiagnosis()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSIS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSIS));
   }
   
   public void setPregnantDiagnosis(Integer value)
@@ -1656,14 +1656,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(PREGNANTDIAGNOSIS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSIS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSIS).getAttributeMdDTO();
   }
   
   public Integer getPregnantDiagnosisDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSISDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSISDEATH));
   }
   
   public void setPregnantDiagnosisDeath(Integer value)
@@ -1693,14 +1693,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(PREGNANTDIAGNOSISDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSISDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSISDEATH).getAttributeMdDTO();
   }
   
   public Integer getPregnantReferralsReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTREFERRALSRECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTREFERRALSRECEIVED));
   }
   
   public void setPregnantReferralsReceived(Integer value)
@@ -1730,14 +1730,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(PREGNANTREFERRALSRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantReferralsReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantReferralsReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTREFERRALSRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTREFERRALSRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getReferralsReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSRECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSRECEIVED));
   }
   
   public void setReferralsReceived(Integer value)
@@ -1767,14 +1767,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(REFERRALSRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReferralsReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReferralsReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getReferralsSent()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSSENT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSSENT));
   }
   
   public void setReferralsSent(Integer value)
@@ -1804,14 +1804,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(REFERRALSSENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReferralsSentMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReferralsSentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSSENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSSENT).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -1829,9 +1829,9 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -1854,14 +1854,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public Integer getStartAge()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTAGE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTAGE));
   }
   
   public void setStartAge(Integer value)
@@ -1891,14 +1891,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(STARTAGE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartAgeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStartAgeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTAGE).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -1909,7 +1909,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -1928,14 +1928,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public Integer getStillBirths()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STILLBIRTHS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STILLBIRTHS));
   }
   
   public void setStillBirths(Integer value)
@@ -1965,113 +1965,113 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return isModified(STILLBIRTHS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStillBirthsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStillBirthsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STILLBIRTHS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STILLBIRTHS).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.surveillance.CaseTreatment;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethod;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStock;", "[Ldss.vector.solutions.surveillance.CaseDiagnostic;", "[Ldss.vector.solutions.surveillance.CaseReferral;"};
     Object[] _parameters = new Object[]{treatments, treatmentMethods, stock, diagnosticMethods, referrals};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.surveillance.CaseTreatment;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethod;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStock;", "[Ldss.vector.solutions.surveillance.CaseDiagnostic;", "[Ldss.vector.solutions.surveillance.CaseReferral;"};
     Object[] _parameters = new Object[]{id, treatments, treatmentMethods, stock, diagnosticMethods, referrals};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.io.InputStream exportQueryToCSV(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
+  public static final java.io.InputStream exportQueryToCSV(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{queryXML, config, savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "exportQueryToCSV", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "exportQueryToCSV", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.io.InputStream exportQueryToExcel(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
+  public static final java.io.InputStream exportQueryToExcel(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{queryXML, config, savedSearchId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "exportQueryToExcel", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "exportQueryToExcel", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.Byte[] generateReport(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String file)
+  public static final java.lang.Byte[] generateReport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String file)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{file};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "generateReport", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "generateReport", _declaredTypes);
     return (java.lang.Byte[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO getView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.String[] getVisibleAttributeNames(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final java.lang.String[] getVisibleAttributeNames(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getVisibleAttributeNames", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getVisibleAttributeNames", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO lockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO lockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "lockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "lockView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO queryAggregatedCase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
+  public static final com.runwaysdk.business.ValueQueryDTO queryAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{queryXML, config, pageNumber, pageSize};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "queryAggregatedCase", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "queryAggregatedCase", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseDTO searchByGeoEntityAndDate(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date", "java.util.Date", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
     Object[] _parameters = new Object[]{geoEntity, startDate, endDate, ageGroup};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByGeoEntityAndEpiDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.Integer year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByGeoEntityAndEpiDate(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.Integer year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "dss.vector.solutions.surveillance.PeriodType", "java.lang.Integer", "java.lang.Integer", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
     Object[] _parameters = new Object[]{geoEntity, periodType, period, year, ageGroup};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndEpiDate", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndEpiDate", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO unlockView(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlockView", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlockView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.terraframe.mojo.business.ValueQueryDTO xmlToValueQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
+  public static final com.runwaysdk.business.ValueQueryDTO xmlToValueQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{xml, selectedUniversals, includeGeometry};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "xmlToValueQuery", _declaredTypes);
-    return (com.terraframe.mojo.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "xmlToValueQuery", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")
@@ -2081,7 +2081,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllDiagnosticMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllDiagnosticMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -2093,7 +2093,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticMethodRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticMethodRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -2103,7 +2103,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -2113,7 +2113,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeDiagnosticMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
+  public static void removeDiagnosticMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -2123,7 +2123,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
   
-  public static void removeAllDiagnosticMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllDiagnosticMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
   }
@@ -2135,7 +2135,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllReferral(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllReferral(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -2147,7 +2147,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -2157,7 +2157,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseReferralDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseReferralDTO addReferral(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.surveillance.CaseReferralDTO addReferral(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.surveillance.CaseReferralDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -2167,7 +2167,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeReferral(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseReferralDTO relationship)
+  public static void removeReferral(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseReferralDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -2177,7 +2177,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
   
-  public static void removeAllReferral(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllReferral(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
   }
@@ -2189,7 +2189,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatment(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatment(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -2201,7 +2201,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -2211,7 +2211,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseTreatmentDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatment(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatment(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -2221,7 +2221,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeTreatment(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
+  public static void removeTreatment(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -2231,7 +2231,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
   
-  public static void removeAllTreatment(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatment(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
   }
@@ -2243,7 +2243,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatmentMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatmentMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -2255,7 +2255,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -2265,7 +2265,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -2275,7 +2275,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeTreatmentMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
+  public static void removeTreatmentMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -2285,7 +2285,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
-  public static void removeAllTreatmentMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatmentMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
@@ -2297,7 +2297,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatmentStock(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllTreatmentStock(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.TermDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -2309,7 +2309,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllTreatmentStockRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllTreatmentStockRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -2319,7 +2319,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO addTreatmentStock(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
+  public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO addTreatmentStock(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermDTO child)
   {
     return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
@@ -2329,7 +2329,7 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeTreatmentStock(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
+  public static void removeTreatmentStock(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -2339,14 +2339,14 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
   
-  public static void removeAllTreatmentStock(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllTreatmentStock(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.surveillance.AggregatedCaseDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.surveillance.AggregatedCaseDTO) dto;
   }
@@ -2367,9 +2367,9 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.surveillance.AggregatedCaseQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.surveillance.AggregatedCaseQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.surveillance.AggregatedCase", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.surveillance.AggregatedCaseQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -2377,11 +2377,11 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.surveillance.AggregatedCaseDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -2390,11 +2390,11 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.surveillance.AggregatedCaseDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

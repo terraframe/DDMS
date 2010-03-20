@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 2038477599)
-public abstract class LayerDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1658343631)
+public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 2038477599;
+  private static final long serialVersionUID = 1658343631;
   
-  protected LayerDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LayerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LayerDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LayerDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -70,7 +70,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   public static java.lang.String VIEWNAME = "viewName";
   public Boolean getAddToBBox()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ADDTOBBOX));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ADDTOBBOX));
   }
   
   public void setAddToBBox(Boolean value)
@@ -100,14 +100,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(ADDTOBBOX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAddToBBoxMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getAddToBBoxMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ADDTOBBOX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ADDTOBBOX).getAttributeMdDTO();
   }
   
   public Boolean getClipToBaseLayer()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLIPTOBASELAYER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLIPTOBASELAYER));
   }
   
   public void setClipToBaseLayer(Boolean value)
@@ -137,14 +137,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(CLIPTOBASELAYER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getClipToBaseLayerMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getClipToBaseLayerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CLIPTOBASELAYER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CLIPTOBASELAYER).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -162,14 +162,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
   public Boolean getCreateRawLegend()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CREATERAWLEGEND));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CREATERAWLEGEND));
   }
   
   public void setCreateRawLegend(Boolean value)
@@ -199,12 +199,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(CREATERAWLEGEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCreateRawLegendMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCreateRawLegendMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CREATERAWLEGEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CREATERAWLEGEND).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -212,7 +212,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -231,9 +231,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.query.StylesDTO getDefaultStyles()
@@ -275,14 +275,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(DEFAULTSTYLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDefaultStylesMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDefaultStylesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSTYLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DEFAULTSTYLES).getAttributeMdDTO();
   }
   
   public Boolean getEnableLegend()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLELEGEND));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLELEGEND));
   }
   
   public void setEnableLegend(Boolean value)
@@ -312,12 +312,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(ENABLELEGEND);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnableLegendMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnableLegendMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLELEGEND).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLELEGEND).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -325,11 +325,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -356,9 +356,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.GeoHierarchyDTO getGeoHierarchy()
@@ -400,9 +400,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(GEOHIERARCHY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoHierarchyMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoHierarchyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOHIERARCHY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOHIERARCHY).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -437,14 +437,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -462,12 +462,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -475,7 +475,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -494,9 +494,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public String getLayerName()
@@ -531,12 +531,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LAYERNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLayerNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LAYERNAME).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdAttributeDTO getLegendColor()
+  public com.runwaysdk.system.metadata.MdAttributeDTO getLegendColor()
   {
     if(getValue(LEGENDCOLOR) == null || getValue(LEGENDCOLOR).trim().equals(""))
     {
@@ -544,11 +544,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdAttributeDTO.get(getRequest(), getValue(LEGENDCOLOR));
+      return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(LEGENDCOLOR));
     }
   }
   
-  public void setLegendColor(com.terraframe.mojo.system.metadata.MdAttributeDTO value)
+  public void setLegendColor(com.runwaysdk.system.metadata.MdAttributeDTO value)
   {
     if(value == null)
     {
@@ -575,9 +575,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDCOLOR);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLegendColorMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLegendColorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LEGENDCOLOR).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LEGENDCOLOR).getAttributeMdDTO();
   }
   
   public String getLegendFontFamily()
@@ -612,9 +612,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDFONTFAMILY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendFontFamilyMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendFontFamilyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFAMILY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFAMILY).getAttributeMdDTO();
   }
   
   public String getLegendFontFill()
@@ -649,14 +649,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDFONTFILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendFontFillMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendFontFillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDFONTFILL).getAttributeMdDTO();
   }
   
   public Integer getLegendFontSize()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDFONTSIZE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDFONTSIZE));
   }
   
   public void setLegendFontSize(Integer value)
@@ -686,15 +686,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDFONTSIZE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLegendFontSizeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLegendFontSizeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDFONTSIZE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDFONTSIZE).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.FontStylesDTO> getLegendFontStyles()
   {
-    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDFONTSTYLES));
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDFONTSTYLES));
   }
   
   public java.util.List<String> getLegendFontStylesEnumNames()
@@ -732,9 +732,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDFONTSTYLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getLegendFontStylesMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getLegendFontStylesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDFONTSTYLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDFONTSTYLES).getAttributeMdDTO();
   }
   
   public String getLegendTitle()
@@ -769,9 +769,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDTITLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendTitleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLE).getAttributeMdDTO();
   }
   
   public String getLegendTitleFontFamily()
@@ -806,9 +806,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDTITLEFONTFAMILY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFamilyMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFamilyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFAMILY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFAMILY).getAttributeMdDTO();
   }
   
   public String getLegendTitleFontFill()
@@ -843,14 +843,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDTITLEFONTFILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFillMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLegendTitleFontFillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LEGENDTITLEFONTFILL).getAttributeMdDTO();
   }
   
   public Integer getLegendTitleFontSize()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDTITLEFONTSIZE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LEGENDTITLEFONTSIZE));
   }
   
   public void setLegendTitleFontSize(Integer value)
@@ -880,15 +880,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDTITLEFONTSIZE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLegendTitleFontSizeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLegendTitleFontSizeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDTITLEFONTSIZE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LEGENDTITLEFONTSIZE).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.FontStylesDTO> getLegendTitleFontStyles()
   {
-    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDTITLEFONTSTYLES));
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(LEGENDTITLEFONTSTYLES));
   }
   
   public java.util.List<String> getLegendTitleFontStylesEnumNames()
@@ -926,12 +926,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LEGENDTITLEFONTSTYLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getLegendTitleFontStylesMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getLegendTitleFontStylesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDTITLEFONTSTYLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LEGENDTITLEFONTSTYLES).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -939,7 +939,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -958,12 +958,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdAttributeDTO getMdAttribute()
+  public com.runwaysdk.system.metadata.MdAttributeDTO getMdAttribute()
   {
     if(getValue(MDATTRIBUTE) == null || getValue(MDATTRIBUTE).trim().equals(""))
     {
@@ -971,11 +971,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
+      return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(MDATTRIBUTE));
     }
   }
   
-  public void setMdAttribute(com.terraframe.mojo.system.metadata.MdAttributeDTO value)
+  public void setMdAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)
   {
     if(value == null)
     {
@@ -1002,14 +1002,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(MDATTRIBUTE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getMdAttributeMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMdAttributeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDATTRIBUTE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDATTRIBUTE).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getOpacity()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(OPACITY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(OPACITY));
   }
   
   public void setOpacity(java.math.BigDecimal value)
@@ -1039,12 +1039,12 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(OPACITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getOpacityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOpacityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OPACITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OPACITY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -1052,11 +1052,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -1083,15 +1083,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.AllRenderTypesDTO> getRenderAs()
   {
-    return (java.util.List<dss.vector.solutions.query.AllRenderTypesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.AllRenderTypesDTO.CLASS, getEnumNames(RENDERAS));
+    return (java.util.List<dss.vector.solutions.query.AllRenderTypesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.AllRenderTypesDTO.CLASS, getEnumNames(RENDERAS));
   }
   
   public java.util.List<String> getRenderAsEnumNames()
@@ -1129,9 +1129,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(RENDERAS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getRenderAsMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getRenderAsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(RENDERAS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(RENDERAS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.query.SavedSearchDTO getSavedSearch()
@@ -1173,14 +1173,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SAVEDSEARCH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSavedSearchMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSavedSearchMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SAVEDSEARCH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SAVEDSEARCH).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -1198,14 +1198,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public Boolean getShowLegendBorder()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWLEGENDBORDER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWLEGENDBORDER));
   }
   
   public void setShowLegendBorder(Boolean value)
@@ -1235,14 +1235,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SHOWLEGENDBORDER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getShowLegendBorderMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getShowLegendBorderMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWLEGENDBORDER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWLEGENDBORDER).getAttributeMdDTO();
   }
   
   public Boolean getShowThematicValue()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWTHEMATICVALUE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SHOWTHEMATICVALUE));
   }
   
   public void setShowThematicValue(Boolean value)
@@ -1272,9 +1272,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SHOWTHEMATICVALUE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getShowThematicValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getShowThematicValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWTHEMATICVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SHOWTHEMATICVALUE).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -1297,9 +1297,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public String getSldFile()
@@ -1334,9 +1334,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(SLDFILE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSldFileMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSldFileMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SLDFILE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SLDFILE).getAttributeMdDTO();
   }
   
   public String getThematicColumnAlias()
@@ -1371,9 +1371,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(THEMATICCOLUMNALIAS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicColumnAliasMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getThematicColumnAliasMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICCOLUMNALIAS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICCOLUMNALIAS).getAttributeMdDTO();
   }
   
   public String getThematicUserAlias()
@@ -1408,9 +1408,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(THEMATICUSERALIAS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getThematicUserAliasMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getThematicUserAliasMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICUSERALIAS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THEMATICUSERALIAS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.query.ThematicVariableDTO getThematicVariable()
@@ -1452,14 +1452,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(THEMATICVARIABLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getThematicVariableMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getThematicVariableMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(THEMATICVARIABLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(THEMATICVARIABLE).getAttributeMdDTO();
   }
   
   public Boolean getViewCreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(VIEWCREATED));
   }
   
   public void setViewCreated(Boolean value)
@@ -1489,9 +1489,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(VIEWCREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getViewCreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getViewCreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIEWCREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(VIEWCREATED).getAttributeMdDTO();
   }
   
   public String getViewName()
@@ -1526,24 +1526,24 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return isModified(VIEWNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getViewNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getViewNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VIEWNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VIEWNAME).getAttributeMdDTO();
   }
   
   public final void applyWithStyles(dss.vector.solutions.query.StylesDTO styles, java.lang.String savedMapId)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.query.Styles", "java.lang.String"};
     Object[] _parameters = new Object[]{styles, savedMapId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyWithStyles(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles, java.lang.String savedMapId)
+  public static final void applyWithStyles(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.StylesDTO styles, java.lang.String savedMapId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.Styles", "java.lang.String"};
     Object[] _parameters = new Object[]{id, styles, savedMapId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "applyWithStyles", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1551,15 +1551,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "calculateQueryInfo", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "calculateQueryInfo", _declaredTypes);
     return (dss.vector.solutions.query.QueryInfoDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.query.QueryInfoDTO calculateQueryInfo(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.query.QueryInfoDTO calculateQueryInfo(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "calculateQueryInfo", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "calculateQueryInfo", _declaredTypes);
     return (dss.vector.solutions.query.QueryInfoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1567,15 +1567,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.query.CategoryGen", "dss.vector.solutions.query.Layer"};
     Object[] _parameters = new Object[]{categoryGen, currentLayer};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
     return (dss.vector.solutions.query.AbstractCategoryDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO currentLayer)
+  public static final dss.vector.solutions.query.AbstractCategoryDTO[] generateCategories(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.query.CategoryGenDTO categoryGen, dss.vector.solutions.query.LayerDTO currentLayer)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.query.CategoryGen", "dss.vector.solutions.query.Layer"};
     Object[] _parameters = new Object[]{id, categoryGen, currentLayer};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "generateCategories", _declaredTypes);
     return (dss.vector.solutions.query.AbstractCategoryDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1583,15 +1583,15 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.query.AttributeGeoHierarchyDTO[] getAttributeGeoHierarchies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.query.AttributeGeoHierarchyDTO[] getAttributeGeoHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1602,7 +1602,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO> getAllHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO> getAllHasCategory(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.AbstractCategoryDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
@@ -1614,7 +1614,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllHasCategoryRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO> getAllHasCategoryRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.HasCategoriesDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
@@ -1624,7 +1624,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (dss.vector.solutions.query.HasCategoriesDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
   
-  public static dss.vector.solutions.query.HasCategoriesDTO addHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.AbstractCategoryDTO child)
+  public static dss.vector.solutions.query.HasCategoriesDTO addHasCategory(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.AbstractCategoryDTO child)
   {
     return (dss.vector.solutions.query.HasCategoriesDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
@@ -1634,7 +1634,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasCategoriesDTO relationship)
+  public static void removeHasCategory(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasCategoriesDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
@@ -1644,7 +1644,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().deleteChildren(this.getId(), dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
   
-  public static void removeAllHasCategory(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllHasCategory(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.query.HasCategoriesDTO.CLASS);
   }
@@ -1656,7 +1656,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.SavedMapDTO> getAllMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.SavedMapDTO> getAllMap(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.SavedMapDTO>) clientRequestIF.getParents(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
@@ -1668,7 +1668,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.query.HasLayersDTO> getAllMapRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.query.HasLayersDTO> getAllMapRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.query.HasLayersDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
@@ -1678,7 +1678,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     return (dss.vector.solutions.query.HasLayersDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
   
-  public static dss.vector.solutions.query.HasLayersDTO addMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.SavedMapDTO parent)
+  public static dss.vector.solutions.query.HasLayersDTO addMap(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.query.SavedMapDTO parent)
   {
     return (dss.vector.solutions.query.HasLayersDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
@@ -1688,7 +1688,7 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasLayersDTO relationship)
+  public static void removeMap(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.query.HasLayersDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -1698,14 +1698,14 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().deleteParents(this.getId(), dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
   
-  public static void removeAllMap(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllMap(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.query.HasLayersDTO.CLASS);
   }
   
-  public static dss.vector.solutions.query.LayerDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.query.LayerDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.query.LayerDTO) dto;
   }
@@ -1726,9 +1726,9 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.query.LayerQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.query.LayerQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.LayerQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.Layer", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.LayerQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.LayerDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1736,11 +1736,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.query.LayerDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.LayerDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.query.LayerDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1749,11 +1749,11 @@ public abstract class LayerDTOBase extends com.terraframe.mojo.business.Business
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.query.LayerDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.LayerDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.query.LayerDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

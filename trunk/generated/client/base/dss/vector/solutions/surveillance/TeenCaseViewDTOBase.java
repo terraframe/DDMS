@@ -1,12 +1,12 @@
 package dss.vector.solutions.surveillance;
 
-@com.terraframe.mojo.business.ClassSignature(hash = -1269256591)
-public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 1358342407)
+public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveillance.AggregatedCaseViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.TeenCaseView";
-  private static final long serialVersionUID = -1269256591;
+  private static final long serialVersionUID = 1358342407;
   
-  protected TeenCaseViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected TeenCaseViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -59,7 +59,7 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
   public static java.lang.String STILLBIRTHS = "stillBirths";
   public Boolean getCaseDiagnostic()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEDIAGNOSTIC));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEDIAGNOSTIC));
   }
   
   public void setCaseDiagnostic(Boolean value)
@@ -89,14 +89,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASEDIAGNOSTIC);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseDiagnosticMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCaseDiagnosticMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEDIAGNOSTIC).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEDIAGNOSTIC).getAttributeMdDTO();
   }
   
   public Boolean getCaseReferrals()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEREFERRALS));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASEREFERRALS));
   }
   
   public void setCaseReferrals(Boolean value)
@@ -126,14 +126,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASEREFERRALS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseReferralsMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCaseReferralsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEREFERRALS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASEREFERRALS).getAttributeMdDTO();
   }
   
   public Boolean getCaseStocks()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASESTOCKS));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASESTOCKS));
   }
   
   public void setCaseStocks(Boolean value)
@@ -163,14 +163,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASESTOCKS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseStocksMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCaseStocksMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASESTOCKS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASESTOCKS).getAttributeMdDTO();
   }
   
   public Boolean getCaseTreatmentMethod()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTMETHOD));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTMETHOD));
   }
   
   public void setCaseTreatmentMethod(Boolean value)
@@ -200,14 +200,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASETREATMENTMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getCaseTreatments()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTS));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CASETREATMENTS));
   }
   
   public void setCaseTreatments(Boolean value)
@@ -237,14 +237,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASETREATMENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentsMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getCaseTreatmentsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CASETREATMENTS).getAttributeMdDTO();
   }
   
   public Integer getCases()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASES));
   }
   
   public void setCases(Integer value)
@@ -274,14 +274,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASES).getAttributeMdDTO();
   }
   
   public Integer getCasesFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESFEMALE));
   }
   
   public void setCasesFemale(Integer value)
@@ -311,14 +311,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASESFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESFEMALE).getAttributeMdDTO();
   }
   
   public Integer getCasesMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESMALE));
   }
   
   public void setCasesMale(Integer value)
@@ -348,14 +348,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASESMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESMALE).getAttributeMdDTO();
   }
   
   public Integer getCasesPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESPREGNANT));
   }
   
   public void setCasesPregnant(Integer value)
@@ -385,14 +385,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CASESPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getCasesPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getCasesPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CASESPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getClinicallyDiagnosed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSED));
   }
   
   public void setClinicallyDiagnosed(Integer value)
@@ -422,14 +422,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CLINICALLYDIAGNOSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSED).getAttributeMdDTO();
   }
   
   public Integer getClinicallyDiagnosedDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSEDDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSEDDEATH));
   }
   
   public void setClinicallyDiagnosedDeath(Integer value)
@@ -459,14 +459,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(CLINICALLYDIAGNOSEDDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getClinicallyDiagnosedDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSEDDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CLINICALLYDIAGNOSEDDEATH).getAttributeMdDTO();
   }
   
   public Integer getDaysOutOfStock()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DAYSOUTOFSTOCK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DAYSOUTOFSTOCK));
   }
   
   public void setDaysOutOfStock(Integer value)
@@ -496,14 +496,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DAYSOUTOFSTOCK);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDaysOutOfStockMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDaysOutOfStockMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DAYSOUTOFSTOCK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DAYSOUTOFSTOCK).getAttributeMdDTO();
   }
   
   public Integer getDeaths()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
   }
   
   public void setDeaths(Integer value)
@@ -533,14 +533,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEATHS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHS).getAttributeMdDTO();
   }
   
   public Integer getDeathsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSFEMALE));
   }
   
   public void setDeathsFemale(Integer value)
@@ -570,14 +570,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEATHSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getDeathsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSMALE));
   }
   
   public void setDeathsMale(Integer value)
@@ -607,14 +607,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEATHSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSMALE).getAttributeMdDTO();
   }
   
   public Integer getDeathsPregnant()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSPREGNANT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSPREGNANT));
   }
   
   public void setDeathsPregnant(Integer value)
@@ -644,14 +644,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEATHSPREGNANT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDeathsPregnantMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDeathsPregnantMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSPREGNANT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEATHSPREGNANT).getAttributeMdDTO();
   }
   
   public Integer getDefinitivelyDiagnosed()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSED));
   }
   
   public void setDefinitivelyDiagnosed(Integer value)
@@ -681,14 +681,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEFINITIVELYDIAGNOSED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSED).getAttributeMdDTO();
   }
   
   public Integer getDefinitivelyDiagnosedDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSEDDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSEDDEATH));
   }
   
   public void setDefinitivelyDiagnosedDeath(Integer value)
@@ -718,14 +718,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(DEFINITIVELYDIAGNOSEDDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDefinitivelyDiagnosedDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSEDDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DEFINITIVELYDIAGNOSEDDEATH).getAttributeMdDTO();
   }
   
   public Integer getInPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTS));
   }
   
   public void setInPatients(Integer value)
@@ -755,14 +755,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTS).getAttributeMdDTO();
   }
   
   public Integer getInPatientsAnemia()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSANEMIA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSANEMIA));
   }
   
   public void setInPatientsAnemia(Integer value)
@@ -792,14 +792,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSANEMIA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsAnemiaMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsAnemiaMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSANEMIA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSANEMIA).getAttributeMdDTO();
   }
   
   public Integer getInPatientsClinically()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSCLINICALLY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSCLINICALLY));
   }
   
   public void setInPatientsClinically(Integer value)
@@ -829,14 +829,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSCLINICALLY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsClinicallyMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsClinicallyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSCLINICALLY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSCLINICALLY).getAttributeMdDTO();
   }
   
   public Integer getInPatientsDefinitive()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDEFINITIVE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDEFINITIVE));
   }
   
   public void setInPatientsDefinitive(Integer value)
@@ -866,14 +866,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSDEFINITIVE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsDefinitiveMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsDefinitiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDEFINITIVE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDEFINITIVE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsDischarged()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDISCHARGED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDISCHARGED));
   }
   
   public void setInPatientsDischarged(Integer value)
@@ -903,14 +903,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSDISCHARGED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsDischargedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsDischargedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDISCHARGED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSDISCHARGED).getAttributeMdDTO();
   }
   
   public Integer getInPatientsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSFEMALE));
   }
   
   public void setInPatientsFemale(Integer value)
@@ -940,14 +940,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSMALE));
   }
   
   public void setInPatientsMale(Integer value)
@@ -977,14 +977,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSMALE).getAttributeMdDTO();
   }
   
   public Integer getInPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSNOTTREATED));
   }
   
   public void setInPatientsNotTreated(Integer value)
@@ -1014,14 +1014,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getInPatientsPregnantAnemia()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTANEMIA));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTANEMIA));
   }
   
   public void setInPatientsPregnantAnemia(Integer value)
@@ -1051,14 +1051,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSPREGNANTANEMIA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantAnemiaMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantAnemiaMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTANEMIA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTANEMIA).getAttributeMdDTO();
   }
   
   public Integer getInPatientsPregnantDianosis()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTDIANOSIS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTDIANOSIS));
   }
   
   public void setInPatientsPregnantDianosis(Integer value)
@@ -1088,14 +1088,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSPREGNANTDIANOSIS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantDianosisMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsPregnantDianosisMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTDIANOSIS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSPREGNANTDIANOSIS).getAttributeMdDTO();
   }
   
   public Integer getInPatientsTotal()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSTOTAL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSTOTAL));
   }
   
   public void setInPatientsTotal(Integer value)
@@ -1125,14 +1125,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(INPATIENTSTOTAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInPatientsTotalMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInPatientsTotalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSTOTAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INPATIENTSTOTAL).getAttributeMdDTO();
   }
   
   public Integer getOutPatients()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTS));
   }
   
   public void setOutPatients(Integer value)
@@ -1162,14 +1162,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(OUTPATIENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTS).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSFEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSFEMALE));
   }
   
   public void setOutPatientsFemale(Integer value)
@@ -1199,14 +1199,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(OUTPATIENTSFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsFemaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSFEMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSFEMALE).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSMALE));
   }
   
   public void setOutPatientsMale(Integer value)
@@ -1236,14 +1236,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(OUTPATIENTSMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsMaleMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSMALE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSMALE).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSNOTTREATED));
   }
   
   public void setOutPatientsNotTreated(Integer value)
@@ -1273,14 +1273,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(OUTPATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getOutPatientsTotal()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSTOTAL));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSTOTAL));
   }
   
   public void setOutPatientsTotal(Integer value)
@@ -1310,14 +1310,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(OUTPATIENTSTOTAL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getOutPatientsTotalMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutPatientsTotalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSTOTAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTPATIENTSTOTAL).getAttributeMdDTO();
   }
   
   public Integer getPatientsNotTreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PATIENTSNOTTREATED));
   }
   
   public void setPatientsNotTreated(Integer value)
@@ -1347,14 +1347,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(PATIENTSNOTTREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPatientsNotTreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPatientsNotTreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PATIENTSNOTTREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PATIENTSNOTTREATED).getAttributeMdDTO();
   }
   
   public Integer getPregnantDiagnosis()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSIS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSIS));
   }
   
   public void setPregnantDiagnosis(Integer value)
@@ -1384,14 +1384,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(PREGNANTDIAGNOSIS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSIS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSIS).getAttributeMdDTO();
   }
   
   public Integer getPregnantDiagnosisDeath()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSISDEATH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSISDEATH));
   }
   
   public void setPregnantDiagnosisDeath(Integer value)
@@ -1421,14 +1421,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(PREGNANTDIAGNOSISDEATH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisDeathMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantDiagnosisDeathMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSISDEATH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTDIAGNOSISDEATH).getAttributeMdDTO();
   }
   
   public Integer getPregnantReferralsReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTREFERRALSRECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTREFERRALSRECEIVED));
   }
   
   public void setPregnantReferralsReceived(Integer value)
@@ -1458,14 +1458,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(PREGNANTREFERRALSRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPregnantReferralsReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPregnantReferralsReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTREFERRALSRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREGNANTREFERRALSRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getReferralsReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSRECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSRECEIVED));
   }
   
   public void setReferralsReceived(Integer value)
@@ -1495,14 +1495,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(REFERRALSRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReferralsReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReferralsReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getReferralsSent()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSSENT));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSSENT));
   }
   
   public void setReferralsSent(Integer value)
@@ -1532,14 +1532,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(REFERRALSSENT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getReferralsSentMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReferralsSentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSSENT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REFERRALSSENT).getAttributeMdDTO();
   }
   
   public Integer getStillBirths()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STILLBIRTHS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STILLBIRTHS));
   }
   
   public void setStillBirths(Integer value)
@@ -1569,14 +1569,14 @@ public abstract class TeenCaseViewDTOBase extends dss.vector.solutions.surveilla
     return isModified(STILLBIRTHS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStillBirthsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStillBirthsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STILLBIRTHS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STILLBIRTHS).getAttributeMdDTO();
   }
   
-  public static TeenCaseViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static TeenCaseViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (TeenCaseViewDTO) dto;
   }

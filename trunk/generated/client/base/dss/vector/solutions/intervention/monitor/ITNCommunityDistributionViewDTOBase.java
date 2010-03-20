@@ -1,12 +1,12 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 842524836)
-public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = 271576236)
+public abstract class ITNCommunityDistributionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView";
-  private static final long serialVersionUID = 842524836;
+  private static final long serialVersionUID = 271576236;
   
-  protected ITNCommunityDistributionViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ITNCommunityDistributionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -70,9 +70,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(AGENTFIRSTNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAgentFirstNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAgentFirstNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AGENTFIRSTNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AGENTFIRSTNAME).getAttributeMdDTO();
   }
   
   public String getAgentSurname()
@@ -107,9 +107,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(AGENTSURNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAgentSurnameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAgentSurnameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AGENTSURNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(AGENTSURNAME).getAttributeMdDTO();
   }
   
   public String getBatchNumber()
@@ -144,9 +144,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(BATCHNUMBER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBatchNumberMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BATCHNUMBER).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -181,14 +181,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(CONCRETEID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getCurrencyReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CURRENCYRECEIVED));
   }
   
   public void setCurrencyReceived(java.math.BigDecimal value)
@@ -218,9 +218,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(CURRENCYRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getCurrencyReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CURRENCYRECEIVED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayNets()
@@ -262,9 +262,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(DISPLAYNETS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayNetsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYNETS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getDisplayTargetGroups()
@@ -306,9 +306,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(DISPLAYTARGETGROUPS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDisplayTargetGroupsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISPLAYTARGETGROUPS).getAttributeMdDTO();
   }
   
   public String getDistributionLocation()
@@ -343,14 +343,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(DISTRIBUTIONLOCATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDistributionLocationMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDistributionLocationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTIONLOCATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISTRIBUTIONLOCATION).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));
   }
   
   public void setEndDate(java.util.Date value)
@@ -361,7 +361,7 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     }
     else
     {
-      setValue(ENDDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(ENDDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -380,14 +380,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(ENDDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getEndDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getEndDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
   public Boolean getEntryType()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENTRYTYPE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENTRYTYPE));
   }
   
   public void setEntryType(Boolean value)
@@ -417,14 +417,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(ENTRYTYPE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEntryTypeMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEntryTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENTRYTYPE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENTRYTYPE).getAttributeMdDTO();
   }
   
   public Boolean getHasBatchNumber()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASBATCHNUMBER));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASBATCHNUMBER));
   }
   
   public void setHasBatchNumber(Boolean value)
@@ -454,9 +454,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(HASBATCHNUMBER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHasBatchNumberMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getHasBatchNumberMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASBATCHNUMBER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASBATCHNUMBER).getAttributeMdDTO();
   }
   
   public String getHouseholdAddress()
@@ -491,9 +491,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(HOUSEHOLDADDRESS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdAddressMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdAddressMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDADDRESS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDADDRESS).getAttributeMdDTO();
   }
   
   public String getHouseholdName()
@@ -528,9 +528,9 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(HOUSEHOLDNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDNAME).getAttributeMdDTO();
   }
   
   public String getHouseholdSurname()
@@ -565,14 +565,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(HOUSEHOLDSURNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getHouseholdSurnameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdSurnameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDSURNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDSURNAME).getAttributeMdDTO();
   }
   
   public Integer getItnsReceived()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ITNSRECEIVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ITNSRECEIVED));
   }
   
   public void setItnsReceived(Integer value)
@@ -602,14 +602,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(ITNSRECEIVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getItnsReceivedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getItnsReceivedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ITNSRECEIVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ITNSRECEIVED).getAttributeMdDTO();
   }
   
   public Integer getNumberRetrieved()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRETRIEVED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRETRIEVED));
   }
   
   public void setNumberRetrieved(Integer value)
@@ -639,14 +639,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(NUMBERRETRIEVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getNumberRetrievedMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRetrievedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRETRIEVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRETRIEVED).getAttributeMdDTO();
   }
   
   public Boolean getPretreated()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PRETREATED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PRETREATED));
   }
   
   public void setPretreated(Boolean value)
@@ -676,14 +676,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(PRETREATED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPretreatedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPretreatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PRETREATED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PRETREATED).getAttributeMdDTO();
   }
   
   public Integer getResidents()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RESIDENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(RESIDENTS));
   }
   
   public void setResidents(Integer value)
@@ -713,14 +713,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(RESIDENTS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getResidentsMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getResidentsMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RESIDENTS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(RESIDENTS).getAttributeMdDTO();
   }
   
   public Boolean getRetrieved()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETRIEVED));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(RETRIEVED));
   }
   
   public void setRetrieved(Boolean value)
@@ -750,14 +750,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(RETRIEVED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getRetrievedMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getRetrievedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RETRIEVED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(RETRIEVED).getAttributeMdDTO();
   }
   
   public Boolean getSold()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SOLD));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SOLD));
   }
   
   public void setSold(Boolean value)
@@ -787,14 +787,14 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(SOLD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSoldMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSoldMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SOLD).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
   }
   
   public void setStartDate(java.util.Date value)
@@ -805,7 +805,7 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     }
     else
     {
-      setValue(STARTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+      setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -824,24 +824,24 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
     return isModified(STARTDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getStartDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getStartDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
   public final void applyAll(dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.ITNCommunityNet;", "[Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;"};
     Object[] _parameters = new Object[]{nets, targetGroups};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] nets, dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] targetGroups)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.ITNCommunityNet;", "[Ldss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;"};
     Object[] _parameters = new Object[]{id, nets, targetGroups};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -849,15 +849,15 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void deleteConcrete(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final void deleteConcrete(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -865,15 +865,15 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityNets", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityNets", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] getITNCommunityNets(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[] getITNCommunityNets(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityNets", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityNets", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNCommunityNetDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -881,29 +881,29 @@ public abstract class ITNCommunityDistributionViewDTOBase extends com.terraframe
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] getITNCommunityTargetGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[] getITNCommunityTargetGroups(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityTargetGroups", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getITNCommunityTargetGroups", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewQueryDTO getPage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  public static final dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getPage", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewDTO.CLASS, "getPage", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ITNCommunityDistributionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static ITNCommunityDistributionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static ITNCommunityDistributionViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);
+    com.runwaysdk.business.ViewDTO dto = (com.runwaysdk.business.ViewDTO)clientRequest.get(id);
     
     return (ITNCommunityDistributionViewDTO) dto;
   }

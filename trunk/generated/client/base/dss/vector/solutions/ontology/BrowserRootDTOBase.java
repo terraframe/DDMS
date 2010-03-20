@@ -1,12 +1,12 @@
 package dss.vector.solutions.ontology;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1124190038)
-public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1537521032)
+public abstract class BrowserRootDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRoot";
-  private static final long serialVersionUID = 1124190038;
+  private static final long serialVersionUID = -1537521032;
   
-  protected BrowserRootDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected BrowserRootDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected BrowserRootDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected BrowserRootDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -43,7 +43,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -61,12 +61,12 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -74,7 +74,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -93,12 +93,12 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -106,11 +106,11 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -137,9 +137,9 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -174,14 +174,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -199,12 +199,12 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -212,7 +212,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -231,12 +231,12 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -244,7 +244,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -263,12 +263,12 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -276,11 +276,11 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -307,14 +307,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Boolean getSelectable()
   {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));
   }
   
   public void setSelectable(Boolean value)
@@ -344,14 +344,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(SELECTABLE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSelectableMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SELECTABLE).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -369,9 +369,9 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -394,9 +394,9 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTerm()
@@ -438,48 +438,48 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return isModified(TERM);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTermMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.ontology.BrowserRootViewQueryDTO getAsViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.ontology.BrowserRootViewQueryDTO getAsViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getAsViews", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getAsViews", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getAttributeRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getAttributeRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{className, attributeName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getAttributeRoots", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getAttributeRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getDefaultGeoRoots(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String universalType)
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getDefaultGeoRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String universalType)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{universalType};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultGeoRoots", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultGeoRoots", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getDefaultRoot(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getDefaultRoot(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultRoot", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "getDefaultRoot", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.lang.Boolean hasBrowserRoot(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
+  public static final java.lang.Boolean hasBrowserRoot(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{className, attributeName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "hasBrowserRoot", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "hasBrowserRoot", _declaredTypes);
     return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -487,15 +487,15 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.ontology.BrowserRoot"};
     Object[] _parameters = new Object[]{browserRoot};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "update", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "update", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.BrowserRootViewDTO update(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.ontology.BrowserRootDTO browserRoot)
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO update(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.ontology.BrowserRootDTO browserRoot)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.ontology.BrowserRoot"};
     Object[] _parameters = new Object[]{id, browserRoot};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "update", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "update", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -506,7 +506,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.BrowserFieldDTO> getAllField(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.BrowserFieldDTO> getAllField(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.BrowserFieldDTO>) clientRequestIF.getParents(id, dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
@@ -518,7 +518,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.ontology.FieldRootDTO> getAllFieldRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends dss.vector.solutions.ontology.FieldRootDTO> getAllFieldRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends dss.vector.solutions.ontology.FieldRootDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
@@ -528,7 +528,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     return (dss.vector.solutions.ontology.FieldRootDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
   
-  public static dss.vector.solutions.ontology.FieldRootDTO addField(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.BrowserFieldDTO parent)
+  public static dss.vector.solutions.ontology.FieldRootDTO addField(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.BrowserFieldDTO parent)
   {
     return (dss.vector.solutions.ontology.FieldRootDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
@@ -538,7 +538,7 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeField(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.FieldRootDTO relationship)
+  public static void removeField(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.FieldRootDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
@@ -548,14 +548,14 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().deleteParents(this.getId(), dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
   
-  public static void removeAllField(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllField(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.ontology.FieldRootDTO.CLASS);
   }
   
-  public static dss.vector.solutions.ontology.BrowserRootDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.ontology.BrowserRootDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.ontology.BrowserRootDTO) dto;
   }
@@ -576,9 +576,9 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.ontology.BrowserRootQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.ontology.BrowserRootQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.ontology.BrowserRootQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.ontology.BrowserRoot", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.ontology.BrowserRootQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -586,11 +586,11 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.ontology.BrowserRootDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.ontology.BrowserRootDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -599,11 +599,11 @@ public abstract class BrowserRootDTOBase extends com.terraframe.mojo.business.Bu
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.ontology.BrowserRootDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.ontology.BrowserRootDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserRootDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.ontology.BrowserRootDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

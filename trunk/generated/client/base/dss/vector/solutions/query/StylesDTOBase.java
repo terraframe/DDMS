@@ -1,12 +1,12 @@
 package dss.vector.solutions.query;
 
-@com.terraframe.mojo.business.ClassSignature(hash = 1520723737)
-public abstract class StylesDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -576387887)
+public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = 1520723737;
+  private static final long serialVersionUID = -576387887;
   
-  protected StylesDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StylesDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected StylesDTOBase(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected StylesDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -64,7 +64,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String TYPE = "type";
   public java.math.BigDecimal getAnchorPointX()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTX));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTX));
   }
   
   public void setAnchorPointX(java.math.BigDecimal value)
@@ -94,14 +94,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(ANCHORPOINTX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getAnchorPointXMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getAnchorPointXMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTX).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getAnchorPointY()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ANCHORPOINTY));
   }
   
   public void setAnchorPointY(java.math.BigDecimal value)
@@ -131,14 +131,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(ANCHORPOINTY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getAnchorPointYMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getAnchorPointYMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTY).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
   }
   
   public boolean isCreateDateWritable()
@@ -156,12 +156,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(CREATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
+  public com.runwaysdk.system.SingleActorDTO getCreatedBy()
   {
     if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
     {
@@ -169,7 +169,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
   }
   
@@ -188,14 +188,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(CREATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public Integer getDisplacementX()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTX));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTX));
   }
   
   public void setDisplacementX(Integer value)
@@ -225,14 +225,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(DISPLACEMENTX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplacementXMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDisplacementXMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTX).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTX).getAttributeMdDTO();
   }
   
   public Integer getDisplacementY()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTY));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISPLACEMENTY));
   }
   
   public void setDisplacementY(Integer value)
@@ -262,12 +262,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(DISPLACEMENTY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getDisplacementYMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDisplacementYMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
+  public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
     {
@@ -275,11 +275,11 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+      return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
   }
   
-  public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
+  public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
     {
@@ -306,9 +306,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(ENTITYDOMAIN);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getFill()
@@ -343,9 +343,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(FILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFillMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FILL).getAttributeMdDTO();
   }
   
   public String getFontFamily()
@@ -380,14 +380,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(FONTFAMILY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getFontFamilyMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFontFamilyMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFAMILY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FONTFAMILY).getAttributeMdDTO();
   }
   
   public Integer getFontSize()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FONTSIZE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FONTSIZE));
   }
   
   public void setFontSize(Integer value)
@@ -417,15 +417,15 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(FONTSIZE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFontSizeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFontSizeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FONTSIZE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FONTSIZE).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.FontStylesDTO> getFontStyles()
   {
-    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(FONTSTYLES));
+    return (java.util.List<dss.vector.solutions.query.FontStylesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.FontStylesDTO.CLASS, getEnumNames(FONTSTYLES));
   }
   
   public java.util.List<String> getFontStylesEnumNames()
@@ -463,9 +463,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(FONTSTYLES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getFontStylesMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getFontStylesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(FONTSTYLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(FONTSTYLES).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -500,9 +500,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(KEYNAME);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getLabelHaloFill()
@@ -537,14 +537,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LABELHALOFILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getLabelHaloFillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LABELHALOFILL).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getLabelHaloOpacity()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(LABELHALOOPACITY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(LABELHALOOPACITY));
   }
   
   public void setLabelHaloOpacity(java.math.BigDecimal value)
@@ -574,14 +574,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LABELHALOOPACITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getLabelHaloOpacityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getLabelHaloOpacityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LABELHALOOPACITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(LABELHALOOPACITY).getAttributeMdDTO();
   }
   
   public Integer getLabelHaloRadius()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELHALORADIUS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELHALORADIUS));
   }
   
   public void setLabelHaloRadius(Integer value)
@@ -611,14 +611,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LABELHALORADIUS);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLabelHaloRadiusMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLabelHaloRadiusMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELHALORADIUS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELHALORADIUS).getAttributeMdDTO();
   }
   
   public Integer getLabelRotation()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELROTATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(LABELROTATION));
   }
   
   public void setLabelRotation(Integer value)
@@ -648,14 +648,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LABELROTATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLabelRotationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getLabelRotationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELROTATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LABELROTATION).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
   {
-    return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTUPDATEDATE));
   }
   
   public boolean isLastUpdateDateWritable()
@@ -673,12 +673,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LASTUPDATEDATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
+  public com.runwaysdk.system.SingleActorDTO getLastUpdatedBy()
   {
     if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
     {
@@ -686,7 +686,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
     }
   }
   
@@ -705,12 +705,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LASTUPDATEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -718,7 +718,7 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -737,12 +737,12 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(LOCKEDBY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.terraframe.mojo.system.ActorDTO getOwner()
+  public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
     {
@@ -750,11 +750,11 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     }
     else
     {
-      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+      return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
   }
   
-  public void setOwner(com.terraframe.mojo.system.ActorDTO value)
+  public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
     {
@@ -781,15 +781,15 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(OWNER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<dss.vector.solutions.query.WellKnownNamesDTO> getPointMarker()
   {
-    return (java.util.List<dss.vector.solutions.query.WellKnownNamesDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.WellKnownNamesDTO.CLASS, getEnumNames(POINTMARKER));
+    return (java.util.List<dss.vector.solutions.query.WellKnownNamesDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.query.WellKnownNamesDTO.CLASS, getEnumNames(POINTMARKER));
   }
   
   public java.util.List<String> getPointMarkerEnumNames()
@@ -827,14 +827,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTMARKER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getPointMarkerMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getPointMarkerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(POINTMARKER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(POINTMARKER).getAttributeMdDTO();
   }
   
   public Integer getPointRotation()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTROTATION));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTROTATION));
   }
   
   public void setPointRotation(Integer value)
@@ -864,14 +864,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTROTATION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointRotationMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPointRotationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTROTATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTROTATION).getAttributeMdDTO();
   }
   
   public Integer getPointSize()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTSIZE));
   }
   
   public void setPointSize(Integer value)
@@ -901,9 +901,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTSIZE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointSizeMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPointSizeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTSIZE).getAttributeMdDTO();
   }
   
   public String getPointStroke()
@@ -938,14 +938,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTSTROKE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPointStrokeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPointStrokeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POINTSTROKE).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getPointStrokeOpacity()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POINTSTROKEOPACITY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POINTSTROKEOPACITY));
   }
   
   public void setPointStrokeOpacity(java.math.BigDecimal value)
@@ -975,14 +975,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTSTROKEOPACITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPointStrokeOpacityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getPointStrokeOpacityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POINTSTROKEOPACITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POINTSTROKEOPACITY).getAttributeMdDTO();
   }
   
   public Integer getPointWidth()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTWIDTH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POINTWIDTH));
   }
   
   public void setPointWidth(Integer value)
@@ -1012,9 +1012,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POINTWIDTH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPointWidthMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPointWidthMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTWIDTH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POINTWIDTH).getAttributeMdDTO();
   }
   
   public String getPolygonFill()
@@ -1049,14 +1049,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POLYGONFILL);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonFillMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonFillMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONFILL).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getPolygonFillOpacity()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONFILLOPACITY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONFILLOPACITY));
   }
   
   public void setPolygonFillOpacity(java.math.BigDecimal value)
@@ -1086,9 +1086,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POLYGONFILLOPACITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPolygonFillOpacityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getPolygonFillOpacityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONFILLOPACITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONFILLOPACITY).getAttributeMdDTO();
   }
   
   public String getPolygonStroke()
@@ -1123,14 +1123,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POLYGONSTROKE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPolygonStrokeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(POLYGONSTROKE).getAttributeMdDTO();
   }
   
   public java.math.BigDecimal getPolygonStrokeOpacity()
   {
-    return com.terraframe.mojo.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONSTROKEOPACITY));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(POLYGONSTROKEOPACITY));
   }
   
   public void setPolygonStrokeOpacity(java.math.BigDecimal value)
@@ -1160,14 +1160,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POLYGONSTROKEOPACITY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getPolygonStrokeOpacityMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getPolygonStrokeOpacityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONSTROKEOPACITY).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(POLYGONSTROKEOPACITY).getAttributeMdDTO();
   }
   
   public Integer getPolygonWidth()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POLYGONWIDTH));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POLYGONWIDTH));
   }
   
   public void setPolygonWidth(Integer value)
@@ -1197,14 +1197,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(POLYGONWIDTH);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPolygonWidthMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPolygonWidthMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POLYGONWIDTH).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(POLYGONWIDTH).getAttributeMdDTO();
   }
   
   public Long getSeq()
   {
-    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
   }
   
   public boolean isSeqWritable()
@@ -1222,9 +1222,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(SEQ);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -1247,14 +1247,14 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     return isModified(SITEMASTER);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.query.StylesDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
+  public static dss.vector.solutions.query.StylesDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.terraframe.mojo.business.EntityDTO dto = (com.terraframe.mojo.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.query.StylesDTO) dto;
   }
@@ -1275,9 +1275,9 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.query.StylesQueryDTO getAllInstances(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.query.StylesQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.StylesQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.Styles", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.StylesQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.StylesDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -1285,11 +1285,11 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.query.StylesDTO lock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.StylesDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.StylesDTO.CLASS, "lock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.StylesDTO.CLASS, "lock", _declaredTypes);
     return (dss.vector.solutions.query.StylesDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -1298,11 +1298,11 @@ public abstract class StylesDTOBase extends com.terraframe.mojo.business.Busines
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.query.StylesDTO unlock(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.query.StylesDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.query.StylesDTO.CLASS, "unlock", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.StylesDTO.CLASS, "unlock", _declaredTypes);
     return (dss.vector.solutions.query.StylesDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
