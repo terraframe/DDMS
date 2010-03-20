@@ -10,9 +10,9 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.terraframe.mojo.constants.MdAttributeLocalInfo;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.query.SavedMap;
 
@@ -221,7 +221,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   private String getGeoDisplayViewSQL()
   {
     List<String> list = new LinkedList<String>();
-    list.add(MdAttributeLocalInfo.DEFAULT_LOCALE );
+    list.add(com.runwaysdk.constants.MdAttributeLocalInfo.DEFAULT_LOCALE );
     try
     {
       list.addAll(getLocaleColumns());
