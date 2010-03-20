@@ -282,7 +282,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     
     
     
-    if (xml.contains("abundance_") || xml.contains("mosquitoCount") || xml.contains("ollectionCount"))
+    if (xml.contains("abundance_1") || xml.contains("mosquitoCount") || xml.contains("ollectionCount"))
     {
 
       String viewName = "abundance_view";
