@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public interface NonRangeCategoryIF extends AbstractCategoryIF, Reloadable
 {

@@ -3,7 +3,7 @@ package dss.vector.solutions.util;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.terraframe.mojo.business.Business;
+import com.runwaysdk.business.Business;
 
 /**
  * A wrapper for access to the MDSS.properties bundle, this fixes isolated

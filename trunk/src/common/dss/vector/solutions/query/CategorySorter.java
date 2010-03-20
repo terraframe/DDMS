@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class CategorySorter implements Reloadable
 {
