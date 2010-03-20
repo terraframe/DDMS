@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.ontology.TermDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermController"%>
 <c:set var="page_title" value="Ontology_Admin"  scope="request"/>

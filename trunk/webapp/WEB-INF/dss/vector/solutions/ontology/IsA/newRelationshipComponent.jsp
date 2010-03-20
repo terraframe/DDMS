@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:form name="dss.vector.solutions.ontology.IsA.form.name" id="dss.vector.solutions.ontology.IsA.form.id" method="POST">
   <dl>

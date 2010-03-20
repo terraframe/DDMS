@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
 
 <%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="dss.vector.solutions.irs.ResourceTargetViewDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.irs.ResourceTargetDTO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
