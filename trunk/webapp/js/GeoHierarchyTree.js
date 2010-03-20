@@ -231,7 +231,7 @@ MDSS.GeoHierarchyTree = (function(){
       { width:"400px",
         height: "500px",
         fixedcenter:true,
-        close: arguments.length > 1 ? closeWin : true,
+        close: arguments.length > 1 ? closeWin : false,
         draggable:false,
         zindex:4,
         modal:true,
