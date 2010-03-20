@@ -10,8 +10,6 @@ import com.runwaysdk.ApplicationException;
 import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.session.Session;
 
-import dss.vector.solutions.InstallProperties;
-
 public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256576864223L;
