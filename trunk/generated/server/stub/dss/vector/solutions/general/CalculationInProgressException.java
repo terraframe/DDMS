@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-public class CalculationInProgressException extends CalculationInProgressExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class CalculationInProgressException extends CalculationInProgressExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 2091680005;
   

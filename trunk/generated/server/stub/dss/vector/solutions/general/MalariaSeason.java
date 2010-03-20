@@ -6,13 +6,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242259530708L;
 

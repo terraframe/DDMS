@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class TermView extends TermViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TermView extends TermViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1253134809451L;
   

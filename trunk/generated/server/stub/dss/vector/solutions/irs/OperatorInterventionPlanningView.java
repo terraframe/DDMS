@@ -4,18 +4,18 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdViewDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.ViewArrayExcelExporter;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.MdViewDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdViewDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.ViewArrayExcelExporter;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.GeoEntitySprayProblem;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class OperatorInterventionPlanningView extends OperatorInterventionPlanningViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorInterventionPlanningView extends OperatorInterventionPlanningViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254348689271L;
 

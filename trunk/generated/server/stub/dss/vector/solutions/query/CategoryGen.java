@@ -2,7 +2,7 @@ package dss.vector.solutions.query;
 
 import java.awt.Color;
 
-public class CategoryGen extends CategoryGenBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class CategoryGen extends CategoryGenBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = -1125536921;
 
 	public CategoryGen() {

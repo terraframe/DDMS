@@ -3,11 +3,11 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.io.ExcelExporter;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
@@ -18,7 +18,7 @@ import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246490694186L;
   

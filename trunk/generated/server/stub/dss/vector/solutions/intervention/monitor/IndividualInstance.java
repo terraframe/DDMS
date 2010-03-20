@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.ThresholdData;
@@ -21,7 +21,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermComparator;
 import dss.vector.solutions.surveillance.IndividualCaseSymptom;
 
-public class IndividualInstance extends IndividualInstanceBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IndividualInstance extends IndividualInstanceBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360074462L;
 

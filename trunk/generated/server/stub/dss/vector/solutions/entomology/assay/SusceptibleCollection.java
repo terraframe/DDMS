@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.entomology.assay.SusceptibleCollectionBase;
 
-public class SusceptibleCollection extends SusceptibleCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SusceptibleCollection extends SusceptibleCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236278676933L;
   

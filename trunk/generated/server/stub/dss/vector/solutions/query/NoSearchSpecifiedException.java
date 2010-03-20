@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class NoSearchSpecifiedException extends NoSearchSpecifiedExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class NoSearchSpecifiedException extends NoSearchSpecifiedExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246400779462L;
   

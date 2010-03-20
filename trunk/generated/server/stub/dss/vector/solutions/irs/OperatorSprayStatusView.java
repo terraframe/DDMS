@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.BasicCondition;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.BasicCondition;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class OperatorSprayStatusView extends OperatorSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorSprayStatusView extends OperatorSprayStatusViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860663695L;
 

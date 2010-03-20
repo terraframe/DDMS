@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class GeoEntitySelectionProblem extends GeoEntitySelectionProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoEntitySelectionProblem extends GeoEntitySelectionProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 599544232;
   

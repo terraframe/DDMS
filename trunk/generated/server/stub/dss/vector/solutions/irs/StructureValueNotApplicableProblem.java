@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class StructureValueNotApplicableProblem extends StructureValueNotApplicableProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class StructureValueNotApplicableProblem extends StructureValueNotApplicableProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1249262398148L;
   

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.SelectableSQLDouble;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.SelectableSQLDouble;
+import com.runwaysdk.query.ValueQuery;
 
-public class ExactCategoryFactory extends ExactCategoryFactoryBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class ExactCategoryFactory extends ExactCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 207120471;
 	private static final long TOO_MANY_VALUES = 50l;
 

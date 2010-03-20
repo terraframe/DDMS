@@ -3,11 +3,11 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.io.ExcelExporter;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.MonthOfYear;
 import dss.vector.solutions.RefusedResponse;
@@ -28,7 +28,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class SurveyExcelView extends SurveyExcelViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245785160306L;
   

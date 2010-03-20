@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.attributes.InvalidReferenceException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;

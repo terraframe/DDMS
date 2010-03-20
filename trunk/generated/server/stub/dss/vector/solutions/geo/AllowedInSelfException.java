@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class AllowedInSelfException extends AllowedInSelfExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AllowedInSelfException extends AllowedInSelfExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239122871860L;
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
 
-public class LarvacideInstanceView extends LarvacideInstanceViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LarvacideInstanceView extends LarvacideInstanceViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257372023603L;
   

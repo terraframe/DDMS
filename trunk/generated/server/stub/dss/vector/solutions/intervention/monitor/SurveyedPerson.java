@@ -2,16 +2,16 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.RefusedResponse;
 import dss.vector.solutions.Response;
 import dss.vector.solutions.ResponseMaster;
 
-public class SurveyedPerson extends SurveyedPersonBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyedPerson extends SurveyedPersonBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1299176290;
 

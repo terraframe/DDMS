@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class UniqueOperatorSprayException extends UniqueOperatorSprayExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UniqueOperatorSprayException extends UniqueOperatorSprayExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252448412952L;
   

@@ -1,9 +1,9 @@
 package dss.vector.solutions.entomology;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
-public class BiochemicalAssayView extends BiochemicalAssayViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class BiochemicalAssayView extends BiochemicalAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1386315237;
   

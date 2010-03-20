@@ -3,10 +3,10 @@ package dss.vector.solutions.surveillance;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.QueryFactory;
 
-public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693152481L;
 

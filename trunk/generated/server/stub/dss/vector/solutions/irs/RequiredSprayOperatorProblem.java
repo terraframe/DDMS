@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class RequiredSprayOperatorProblem extends RequiredSprayOperatorProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class RequiredSprayOperatorProblem extends RequiredSprayOperatorProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241324548523L;
   

@@ -7,28 +7,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.business.rbac.ActorDAO;
-import com.terraframe.mojo.business.rbac.ActorDAOIF;
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.business.rbac.Operation;
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.business.rbac.UserDAO;
-import com.terraframe.mojo.constants.MdAttributeInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.PermissionFacade;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdClass;
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.business.rbac.ActorDAO;
+import com.runwaysdk.business.rbac.ActorDAOIF;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.constants.MdAttributeInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.PermissionFacade;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.InstallProperties;
 
-public class ReadableAttributeView extends ReadableAttributeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ReadableAttributeView extends ReadableAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239221651119L;
 

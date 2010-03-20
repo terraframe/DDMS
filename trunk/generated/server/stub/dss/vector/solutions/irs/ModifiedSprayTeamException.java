@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class ModifiedSprayTeamException extends ModifiedSprayTeamExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ModifiedSprayTeamException extends ModifiedSprayTeamExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252596785803L;
   

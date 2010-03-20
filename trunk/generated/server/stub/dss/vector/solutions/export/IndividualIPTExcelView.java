@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.io.ExcelExporter;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
@@ -22,7 +22,7 @@ import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256862976072L;
   

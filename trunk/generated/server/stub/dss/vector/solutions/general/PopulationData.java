@@ -6,18 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.OrderBy.SortOrder;
 
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class PopulationData extends PopulationDataBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PopulationData extends PopulationDataBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256052008761L;
 

@@ -10,27 +10,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.constants.ComponentInfo;
-import com.terraframe.mojo.constants.RelationshipInfo;
-import com.terraframe.mojo.constants.ServerConstants;
-import com.terraframe.mojo.constants.ServerProperties;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.dataaccess.database.general.PostgreSQL;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.session.SessionIF;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdRelationship;
-import com.terraframe.mojo.util.IdParser;
+import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.RelationshipInfo;
+import com.runwaysdk.constants.ServerConstants;
+import com.runwaysdk.constants.ServerProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
+import com.runwaysdk.dataaccess.database.general.PostgreSQL;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionIF;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.util.IdParser;
 
-public class AllPaths extends AllPathsBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1253040252503L;
 

@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.FuturePeriodProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
-public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239135495810L;
 

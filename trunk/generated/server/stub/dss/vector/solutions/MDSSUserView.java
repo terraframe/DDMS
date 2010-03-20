@@ -1,9 +1,9 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectablePrimitive;
 
-public class MDSSUserView extends MDSSUserViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MDSSUserView extends MDSSUserViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242427875661L;
   

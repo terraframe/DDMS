@@ -3,12 +3,12 @@ package dss.vector.solutions.irs;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
-public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long    serialVersionUID = 1240860647013L;
 

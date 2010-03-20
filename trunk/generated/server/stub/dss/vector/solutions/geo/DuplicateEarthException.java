@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.DuplicateEarthExceptionBase;
 
-public class DuplicateEarthException extends DuplicateEarthExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DuplicateEarthException extends DuplicateEarthExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236717610731L;
   

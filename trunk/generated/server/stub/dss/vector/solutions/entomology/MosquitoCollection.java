@@ -7,18 +7,18 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AttributeMoment;
-import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQLFloat;
-import com.terraframe.mojo.query.SelectableSQLInteger;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AttributeMoment;
+import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQLFloat;
+import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
@@ -27,7 +27,7 @@ import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoCollection extends MosquitoCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1894808272;
 

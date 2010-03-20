@@ -2,13 +2,13 @@ package dss.vector.solutions.stock;
 
 import java.util.Date;
 
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.StockDepot;
 
-public class StockEvent extends StockEventBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class StockEvent extends StockEventBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257354693081L;
 

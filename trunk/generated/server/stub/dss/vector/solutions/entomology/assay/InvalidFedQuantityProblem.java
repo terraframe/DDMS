@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblemBase;
 
-public class InvalidFedQuantityProblem extends InvalidFedQuantityProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidFedQuantityProblem extends InvalidFedQuantityProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1235164946512L;
   

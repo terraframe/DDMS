@@ -15,27 +15,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.business.rbac.UserDAOIF;
-import com.terraframe.mojo.constants.DeployProperties;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.database.DatabaseException;
-import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.util.ShapefileExporter;
 
-public class SavedMap extends SavedMapBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252823927;
 

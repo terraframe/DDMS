@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class InvalidMemberIDException extends InvalidMemberIDExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidMemberIDException extends InvalidMemberIDExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 2048148829;
   

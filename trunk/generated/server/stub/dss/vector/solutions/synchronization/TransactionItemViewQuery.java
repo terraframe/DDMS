@@ -1,9 +1,9 @@
 package dss.vector.solutions.synchronization;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ViewQueryBuilder;
-import com.terraframe.mojo.system.transaction.TransactionItemQuery;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ViewQueryBuilder;
+import com.runwaysdk.system.transaction.TransactionItemQuery;
 
 /**
  *

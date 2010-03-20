@@ -3,16 +3,16 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 
-public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1252612685812L;
 

@@ -2,14 +2,14 @@ package dss.vector.solutions.irs;
 
 import java.util.Date;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AttributeEnumeration;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AttributeEnumeration;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
-public class AreaStandardsView extends AreaStandardsViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AreaStandardsView extends AreaStandardsViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240597920978L;
 

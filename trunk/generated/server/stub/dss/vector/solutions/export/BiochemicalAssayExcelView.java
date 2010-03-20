@@ -7,7 +7,7 @@ import dss.vector.solutions.entomology.BiochemicalAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.ontology.Term;
 
-public class BiochemicalAssayExcelView extends BiochemicalAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class BiochemicalAssayExcelView extends BiochemicalAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1997921529;
   

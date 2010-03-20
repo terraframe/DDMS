@@ -3,10 +3,10 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
-public class SupervisorView extends SupervisorViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SupervisorView extends SupervisorViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -286287312;
 

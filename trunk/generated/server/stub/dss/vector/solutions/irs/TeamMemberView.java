@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableChar;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.query.QueryBuilder;

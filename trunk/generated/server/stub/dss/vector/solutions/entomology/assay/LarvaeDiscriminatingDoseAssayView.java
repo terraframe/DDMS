@@ -1,16 +1,16 @@
 package dss.vector.solutions.entomology.assay;
 
-import com.terraframe.mojo.constants.EnumerationMasterInfo;
-import com.terraframe.mojo.query.AttributeEnumeration;
-import com.terraframe.mojo.query.AttributeLocal;
-import com.terraframe.mojo.query.AttributeReference;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.constants.EnumerationMasterInfo;
+import com.runwaysdk.query.AttributeEnumeration;
+import com.runwaysdk.query.AttributeLocal;
+import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.ontology.Term;
 
-public class LarvaeDiscriminatingDoseAssayView extends LarvaeDiscriminatingDoseAssayViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LarvaeDiscriminatingDoseAssayView extends LarvaeDiscriminatingDoseAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 942018061;
   

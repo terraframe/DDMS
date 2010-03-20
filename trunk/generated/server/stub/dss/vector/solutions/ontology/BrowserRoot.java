@@ -3,13 +3,13 @@ package dss.vector.solutions.ontology;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 
-public class BrowserRoot extends BrowserRootBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.generation.loader.Reloadable {
 	public static final String ROOT_PREFIX = "Root__";
 	private static final long serialVersionUID = 1252959715750L;
 

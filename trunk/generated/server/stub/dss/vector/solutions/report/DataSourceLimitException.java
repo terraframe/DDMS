@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-public class DataSourceLimitException extends DataSourceLimitExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DataSourceLimitException extends DataSourceLimitExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244152420100L;
   

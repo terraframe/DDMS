@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -14,7 +14,7 @@ import dss.vector.solutions.threshold.FacilityThresholdCalculator;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
 import dss.vector.solutions.threshold.ThresholdCalculator;
 
-public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID = 1257806999566L;
 

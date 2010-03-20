@@ -4,23 +4,23 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.AttributeEnumeration;
-import com.terraframe.mojo.query.AttributeLocal;
-import com.terraframe.mojo.query.AttributeReference;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AttributeEnumeration;
+import com.runwaysdk.query.AttributeLocal;
+import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.ontology.Term;
 
-public class StockEventView extends StockEventViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class StockEventView extends StockEventViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257790601945L;
 

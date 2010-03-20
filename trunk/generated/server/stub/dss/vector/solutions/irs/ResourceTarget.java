@@ -2,14 +2,14 @@ package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
 
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.MalariaSeason;
 
-public class ResourceTarget extends ResourceTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240257020374L;
 

@@ -1,15 +1,15 @@
 package dss.vector.solutions.ontology;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
-import com.terraframe.mojo.dataaccess.BusinessDAO;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.system.metadata.MdAttribute;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.constants.MdAttributeConcreteInfo;
+import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.system.metadata.MdAttribute;
 
-public class FieldDefaultView extends FieldDefaultViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class FieldDefaultView extends FieldDefaultViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257265959240L;
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class UnknownTermProblem extends UnknownTermProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UnknownTermProblem extends UnknownTermProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256680319014L;
   

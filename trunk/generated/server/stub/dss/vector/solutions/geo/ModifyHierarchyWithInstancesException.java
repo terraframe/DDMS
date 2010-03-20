@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.ModifyHierarchyWithInstancesExceptionBase;
 
-public class ModifyHierarchyWithInstancesException extends ModifyHierarchyWithInstancesExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ModifyHierarchyWithInstancesException extends ModifyHierarchyWithInstancesExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236957581566L;
   

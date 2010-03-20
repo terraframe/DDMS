@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.RequiredAttributeProblem;
 
-public class ThresholdCalculationType extends ThresholdCalculationTypeBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class ThresholdCalculationType extends ThresholdCalculationTypeBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1258003583251L;
 
 	public static final String WEIGHT = "weight";

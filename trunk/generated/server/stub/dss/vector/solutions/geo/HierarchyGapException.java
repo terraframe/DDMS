@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class HierarchyGapException extends HierarchyGapExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HierarchyGapException extends HierarchyGapExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256742873227L;
   

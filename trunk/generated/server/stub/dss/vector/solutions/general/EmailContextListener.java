@@ -5,12 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.terraframe.mojo.business.ClassLoaderException;
-import com.terraframe.mojo.dataaccess.MdTypeDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.generation.loader.LockHolder;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.business.ClassLoaderException;
+import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.LockHolder;
+import com.runwaysdk.session.StartSession;
 
 public class EmailContextListener implements ServletContextListener
 {

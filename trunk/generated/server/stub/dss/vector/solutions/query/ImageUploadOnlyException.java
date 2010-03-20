@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class ImageUploadOnlyException extends ImageUploadOnlyExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ImageUploadOnlyException extends ImageUploadOnlyExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1998177448;
   

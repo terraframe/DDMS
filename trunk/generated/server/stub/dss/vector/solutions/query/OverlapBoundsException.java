@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class OverlapBoundsException extends OverlapBoundsExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OverlapBoundsException extends OverlapBoundsExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244824450791L;
   

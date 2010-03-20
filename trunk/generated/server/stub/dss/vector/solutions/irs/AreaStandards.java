@@ -7,10 +7,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 public class AreaStandards extends AreaStandardsBase implements Reloadable
 {

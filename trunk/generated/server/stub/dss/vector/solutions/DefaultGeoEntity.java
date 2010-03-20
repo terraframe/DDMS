@@ -1,13 +1,13 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 /**
  * A singleton that represents the default geo entity of the system.
  */
-public class DefaultGeoEntity extends DefaultGeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DefaultGeoEntity extends DefaultGeoEntityBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 648964684;
   

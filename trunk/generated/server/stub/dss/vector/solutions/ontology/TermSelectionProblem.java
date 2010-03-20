@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class TermSelectionProblem extends TermSelectionProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TermSelectionProblem extends TermSelectionProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -407970694;
   

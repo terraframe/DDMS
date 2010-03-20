@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-public class UndefinedTemplateException extends UndefinedTemplateExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UndefinedTemplateException extends UndefinedTemplateExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244152420165L;
   

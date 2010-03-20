@@ -3,7 +3,7 @@ package dss.vector.solutions.surveillance;
 import dss.vector.solutions.InvalidPositiveTestProblem;
 import dss.vector.solutions.ontology.Term;
 
-public class CaseDiagnostic extends CaseDiagnosticBase implements ChildOption, com.terraframe.mojo.generation.loader.Reloadable {
+public class CaseDiagnostic extends CaseDiagnosticBase implements ChildOption, com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1238693166129L;
 
 	public CaseDiagnostic(String parentId, String childId) {

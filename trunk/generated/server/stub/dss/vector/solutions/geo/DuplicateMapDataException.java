@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class DuplicateMapDataException extends DuplicateMapDataExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DuplicateMapDataException extends DuplicateMapDataExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246282986370L;
   

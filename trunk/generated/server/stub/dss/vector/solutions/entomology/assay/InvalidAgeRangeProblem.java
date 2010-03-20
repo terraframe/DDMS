@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.entomology.assay.InvalidAgeRangeProblemBase;
 
-public class InvalidAgeRangeProblem extends InvalidAgeRangeProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidAgeRangeProblem extends InvalidAgeRangeProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234560292476L;
   

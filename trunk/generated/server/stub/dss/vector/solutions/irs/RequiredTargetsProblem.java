@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class RequiredTargetsProblem extends RequiredTargetsProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class RequiredTargetsProblem extends RequiredTargetsProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254433739113L;
   

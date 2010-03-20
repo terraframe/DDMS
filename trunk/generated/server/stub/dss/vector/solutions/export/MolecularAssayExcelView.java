@@ -7,7 +7,7 @@ import dss.vector.solutions.entomology.MolecularAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.ontology.Term;
 
-public class MolecularAssayExcelView extends MolecularAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MolecularAssayExcelView extends MolecularAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1979900442;
   

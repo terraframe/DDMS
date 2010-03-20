@@ -6,14 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
-public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Property extends PropertyBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID         = 1235777070211L;
 

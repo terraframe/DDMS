@@ -9,9 +9,9 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
-public class SystemAlert extends SystemAlertBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class SystemAlert extends SystemAlertBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1254672710;
 
 	public SystemAlert() {

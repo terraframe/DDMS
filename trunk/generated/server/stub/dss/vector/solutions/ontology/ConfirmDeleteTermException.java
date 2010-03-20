@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class ConfirmDeleteTermException extends ConfirmDeleteTermExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfirmDeleteTermException extends ConfirmDeleteTermExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254344592458L;
   

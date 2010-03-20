@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class HouseholdSurveyedPerson extends HouseholdSurveyedPersonBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdSurveyedPerson extends HouseholdSurveyedPersonBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 828050340;
   

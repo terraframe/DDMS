@@ -1,8 +1,8 @@
 package dss.vector.solutions.entomology;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 
-public class SubCollectionView extends SubCollectionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SubCollectionView extends SubCollectionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 954759339;
   

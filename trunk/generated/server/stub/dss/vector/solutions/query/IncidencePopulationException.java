@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class IncidencePopulationException extends IncidencePopulationExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IncidencePopulationException extends IncidencePopulationExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 16993999;
   

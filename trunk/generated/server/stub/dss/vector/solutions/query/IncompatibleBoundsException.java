@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class IncompatibleBoundsException extends IncompatibleBoundsExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IncompatibleBoundsException extends IncompatibleBoundsExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 893084;
   

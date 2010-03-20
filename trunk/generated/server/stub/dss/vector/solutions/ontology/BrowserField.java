@@ -3,22 +3,22 @@ package dss.vector.solutions.ontology;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.OverlappingTermRootException;
 
-public class BrowserField extends BrowserFieldBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class BrowserField extends BrowserFieldBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID = 1252959713570L;
 

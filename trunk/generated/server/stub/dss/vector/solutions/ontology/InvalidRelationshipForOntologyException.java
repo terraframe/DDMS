@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class InvalidRelationshipForOntologyException extends InvalidRelationshipForOntologyExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidRelationshipForOntologyException extends InvalidRelationshipForOntologyExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1486375013;
   

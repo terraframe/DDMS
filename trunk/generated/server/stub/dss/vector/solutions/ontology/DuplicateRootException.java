@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class DuplicateRootException extends DuplicateRootExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DuplicateRootException extends DuplicateRootExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254439051040L;
   

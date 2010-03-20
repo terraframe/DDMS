@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 import dss.vector.solutions.ontology.Term;
 
-public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildOption, com.terraframe.mojo.generation.loader.Reloadable
+public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildOption, com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693145662L;
   

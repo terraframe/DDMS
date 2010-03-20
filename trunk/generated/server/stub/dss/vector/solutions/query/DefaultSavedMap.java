@@ -1,8 +1,8 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.dataaccess.database.IDGenerator;
+import com.runwaysdk.dataaccess.database.IDGenerator;
 
-public class DefaultSavedMap extends DefaultSavedMapBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DefaultSavedMap extends DefaultSavedMapBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 188069998;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class ConfirmDeleteHierarchyException extends ConfirmDeleteHierarchyExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfirmDeleteHierarchyException extends ConfirmDeleteHierarchyExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239122881233L;
   

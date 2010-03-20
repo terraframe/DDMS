@@ -4,19 +4,19 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.attributes.InvalidReferenceException;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 
 public class EfficacyAssayView extends EfficacyAssayViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242609508153L;
 

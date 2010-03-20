@@ -4,15 +4,15 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Locale;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.dataaccess.cache.ObjectCache;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.generation.loader.LockHolder;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.SupportedLocale;
-import com.terraframe.mojo.system.metadata.SupportedLocaleQuery;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.cache.ObjectCache;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.LockHolder;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.SupportedLocale;
+import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
 public abstract class LocalizationFacade extends LocalizationFacadeBase implements Reloadable
 {

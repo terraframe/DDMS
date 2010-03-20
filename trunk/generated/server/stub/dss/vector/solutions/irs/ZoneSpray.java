@@ -4,13 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
 
-public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860676906L;
 

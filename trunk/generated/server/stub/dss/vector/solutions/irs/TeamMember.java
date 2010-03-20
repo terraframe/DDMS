@@ -1,14 +1,14 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableChar;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.Person;
@@ -18,7 +18,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.query.QueryBuilder;
 
-public class TeamMember extends TeamMemberBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TeamMember extends TeamMemberBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -107961923;
 

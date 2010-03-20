@@ -2,19 +2,19 @@ package dss.vector.solutions;
 
 import java.util.Date;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableChar;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
-public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Person extends PersonBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
 

@@ -1,8 +1,8 @@
 package dss.vector.solutions.export;
 
-import com.terraframe.mojo.dataaccess.io.ExcelExporter;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
@@ -13,7 +13,7 @@ import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminatingDoseAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminatingDoseAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245996428742L;
   

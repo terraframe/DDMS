@@ -3,10 +3,10 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.io.ExcelExporter;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
@@ -16,7 +16,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -9941268;
   

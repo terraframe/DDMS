@@ -11,21 +11,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.business.rbac.UserDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.GeneratedViewQuery;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.vault.VaultFileDAO;
-import com.terraframe.mojo.vault.VaultFileDAOIF;
+import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.GeneratedViewQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.vault.VaultFileDAO;
+import com.runwaysdk.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -34,7 +34,7 @@ import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
 public class SavedSearch extends SavedSearchBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241158161320L;
 
@@ -378,7 +378,7 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
 
-  private static class MappableSearchBuilder extends com.terraframe.mojo.query.ViewQueryBuilder
+  private static class MappableSearchBuilder extends com.runwaysdk.query.ViewQueryBuilder
       implements Reloadable
   {
     private SavedSearchQuery searchQuery;

@@ -2,14 +2,14 @@ package dss.vector.solutions.general;
 
 import java.util.Date;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class EpiWeek extends EpiWeekBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256576864448L;
 

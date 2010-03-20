@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class UniqueSearchNameException extends UniqueSearchNameExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UniqueSearchNameException extends UniqueSearchNameExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241644617070L;
   

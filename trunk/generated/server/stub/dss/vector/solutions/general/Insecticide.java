@@ -1,14 +1,14 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.ontology.Term;
 
 public class Insecticide extends InsecticideBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237396178247L;
 

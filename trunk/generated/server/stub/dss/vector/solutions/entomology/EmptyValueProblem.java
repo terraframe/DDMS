@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 import dss.vector.solutions.entomology.EmptyValueProblemBase;
 
-public class EmptyValueProblem extends EmptyValueProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EmptyValueProblem extends EmptyValueProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234371768031L;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class ConfirmDeleteEntityException extends ConfirmDeleteEntityExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfirmDeleteEntityException extends ConfirmDeleteEntityExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238536396855L;
   

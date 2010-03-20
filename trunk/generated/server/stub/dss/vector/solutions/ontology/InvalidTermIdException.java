@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class InvalidTermIdException extends InvalidTermIdExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidTermIdException extends InvalidTermIdExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255652033427L;
   

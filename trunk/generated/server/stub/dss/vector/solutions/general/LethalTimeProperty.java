@@ -1,12 +1,12 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.entomology.LethalTimePropertyProblem;
 
 public class LethalTimeProperty extends LethalTimePropertyBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237411043508L;
 

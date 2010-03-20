@@ -1,8 +1,8 @@
 package dss.vector.solutions.ontology;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
-public class TermRelationship extends TermRelationshipBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TermRelationship extends TermRelationshipBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1253040116570L;
 

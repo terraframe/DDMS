@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.AttributeNotification;
-import com.terraframe.mojo.business.Entity;
-import com.terraframe.mojo.business.View;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.AttributeNotification;
+import com.runwaysdk.business.Entity;
+import com.runwaysdk.business.View;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 
 public abstract class NotificationProblem extends NotificationProblemBase implements AttributeNotification,  Reloadable
 {

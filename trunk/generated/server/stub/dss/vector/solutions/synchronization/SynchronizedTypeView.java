@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdClassDAOIF;
-import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
-import com.terraframe.mojo.dataaccess.MdTypeDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdAttributeReferenceQuery;
-import com.terraframe.mojo.system.metadata.MdType;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdAttributeReferenceQuery;
+import com.runwaysdk.system.metadata.MdType;
 
 public class SynchronizedTypeView extends SynchronizedTypeViewBase implements Reloadable, Comparable<SynchronizedTypeView>
 {

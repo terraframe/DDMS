@@ -8,20 +8,20 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.QueryException;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableMoment;
-import com.terraframe.mojo.query.SelectableSQLInteger;
-import com.terraframe.mojo.query.SelectableSingle;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.QueryException;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.SelectableSingle;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class Larvacide extends LarvacideBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Larvacide extends LarvacideBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257372022458L;
 

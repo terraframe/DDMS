@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class UnknownGeoEntityException extends UnknownGeoEntityExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UnknownGeoEntityException extends UnknownGeoEntityExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1243447521432L;
   

@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 import dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityExceptionBase;
 
-public class InvalidMosquitoCollectionGeoEntityException extends InvalidMosquitoCollectionGeoEntityExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidMosquitoCollectionGeoEntityException extends InvalidMosquitoCollectionGeoEntityExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234309530451L;
   

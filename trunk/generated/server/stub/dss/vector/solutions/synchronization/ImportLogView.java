@@ -1,7 +1,7 @@
 package dss.vector.solutions.synchronization;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
 
 public class ImportLogView extends ImportLogViewBase implements Reloadable
 {

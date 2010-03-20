@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.KnockDownTimeProperty;
 
-public class KnockDownAssay extends KnockDownAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237230639050L;
 

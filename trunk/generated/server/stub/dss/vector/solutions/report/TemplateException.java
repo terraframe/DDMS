@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-public class TemplateException extends TemplateExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TemplateException extends TemplateExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244169142263L;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class ActionNotAllowedException extends ActionNotAllowedExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ActionNotAllowedException extends ActionNotAllowedExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1248464987974L;
   

@@ -2,21 +2,21 @@ package dss.vector.solutions.util;
 
 import java.util.List;
 
-import com.terraframe.mojo.constants.MdBusinessInfo;
-import com.terraframe.mojo.constants.MdViewInfo;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.Roles;
-import com.terraframe.mojo.system.metadata.MdClassQuery;
-import com.terraframe.mojo.system.metadata.MdElementQuery;
+import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.constants.MdViewInfo;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.metadata.MdClassQuery;
+import com.runwaysdk.system.metadata.MdElementQuery;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 
-public abstract class Facade extends FacadeBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class Facade extends FacadeBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236374191440L;
 
@@ -100,7 +100,7 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
 
 //    GeoSynonym.checkExcelGeoHierarchy(inputStream);
 
-    return com.terraframe.mojo.facade.Facade.importExcelFile(Session.getCurrentSession().getId(), inputStream, type, listenerMethod, params);
+    return com.runwaysdk.facade.Facade.importExcelFile(Session.getCurrentSession().getId(), inputStream, type, listenerMethod, params);
   }
 
 

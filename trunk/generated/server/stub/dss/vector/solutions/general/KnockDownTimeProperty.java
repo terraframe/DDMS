@@ -1,11 +1,11 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.entomology.KnockDownTimePropertyProblem;
 
-public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237411050776L;
 

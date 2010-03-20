@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import java.util.List;
 
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -10,7 +10,7 @@ import dss.vector.solutions.util.GenericHierarchySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
 
 public class GeoHierarchyView extends GeoHierarchyViewBase implements SearchableHierarchy,
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236279045041L;
 

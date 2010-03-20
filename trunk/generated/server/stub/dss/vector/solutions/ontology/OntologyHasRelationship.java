@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class OntologyHasRelationship extends OntologyHasRelationshipBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OntologyHasRelationship extends OntologyHasRelationshipBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1574987883;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class SurveyedPersonTreatmentLocation extends SurveyedPersonTreatmentLocationBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyedPersonTreatmentLocation extends SurveyedPersonTreatmentLocationBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 241024383;
   

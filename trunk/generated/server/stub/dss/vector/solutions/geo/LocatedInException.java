@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.LocatedInExceptionBase;
 
-public class LocatedInException extends LocatedInExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LocatedInException extends LocatedInExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236461876637L;
   

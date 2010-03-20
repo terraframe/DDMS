@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class RequiredAttributeException extends RequiredAttributeExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class RequiredAttributeException extends RequiredAttributeExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1249335970061L;
   

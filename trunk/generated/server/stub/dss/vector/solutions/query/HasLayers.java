@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class HasLayers extends HasLayersBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HasLayers extends HasLayersBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 837099421;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class DelegateIdException extends DelegateIdExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DelegateIdException extends DelegateIdExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246555262596L;
   

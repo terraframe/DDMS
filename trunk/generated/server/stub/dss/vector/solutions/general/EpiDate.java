@@ -6,12 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.terraframe.mojo.constants.Constants;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQLDate;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.constants.Constants;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQLDate;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
@@ -20,7 +20,7 @@ import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1243373494497L;
 

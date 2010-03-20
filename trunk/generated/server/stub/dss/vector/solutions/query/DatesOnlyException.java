@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class DatesOnlyException extends DatesOnlyExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DatesOnlyException extends DatesOnlyExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -2045527953;
   

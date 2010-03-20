@@ -4,15 +4,15 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240267397803L;
 

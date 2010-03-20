@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -12,7 +12,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class AggregatedIPTView extends AggregatedIPTViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedIPTView extends AggregatedIPTViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244737040579L;
 

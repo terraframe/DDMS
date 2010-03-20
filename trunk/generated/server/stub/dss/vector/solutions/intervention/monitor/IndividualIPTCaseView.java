@@ -6,19 +6,19 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254014386608L;
 

@@ -5,7 +5,7 @@ import java.util.Date;
 import dss.vector.solutions.CurrentDateProblem;
 
 public abstract class AbstractAssay extends AbstractAssayBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234543768433L;
 

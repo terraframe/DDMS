@@ -2,14 +2,14 @@ package dss.vector.solutions.entomology;
 
 import java.util.List;
 
-import com.terraframe.mojo.business.Entity;
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.business.Entity;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
@@ -17,7 +17,7 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
-public class MosquitoCollectionView extends MosquitoCollectionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoCollectionView extends MosquitoCollectionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -379422864;
 

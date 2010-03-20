@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.entomology.assay.AdultAgeRangeBase;
 
-public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AdultAgeRange extends AdultAgeRangeBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234543767489L;
   
@@ -11,7 +11,7 @@ public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.m
     super();
   }
   
-  public AdultAgeRange(com.terraframe.mojo.business.MutableWithStructs entity, String structName)
+  public AdultAgeRange(com.runwaysdk.business.MutableWithStructs entity, String structName)
   {
     super(entity, structName);
   }

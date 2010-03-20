@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class MissingMOtoGeoUniversalMapping extends MissingMOtoGeoUniversalMappingBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MissingMOtoGeoUniversalMapping extends MissingMOtoGeoUniversalMappingBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255669911798L;
 

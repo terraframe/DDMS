@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class HouseholdITNInstance extends HouseholdITNInstanceBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdITNInstance extends HouseholdITNInstanceBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1730503174;
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class MolecularSumProblem extends MolecularSumProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MolecularSumProblem extends MolecularSumProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 869652997;
   

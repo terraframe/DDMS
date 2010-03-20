@@ -1,7 +1,7 @@
 package dss.vector.solutions.surveillance;
 
 
-public class AggregatedCaseSearchView extends AggregatedCaseSearchViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AggregatedCaseSearchView extends AggregatedCaseSearchViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -45175735;
   

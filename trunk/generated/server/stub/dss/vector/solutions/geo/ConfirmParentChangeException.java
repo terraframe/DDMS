@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.ConfirmParentChangeExceptionBase;
 
-public class ConfirmParentChangeException extends ConfirmParentChangeExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfirmParentChangeException extends ConfirmParentChangeExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236569357609L;
   

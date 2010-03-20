@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-public class InvalidOBOFormatException extends InvalidOBOFormatExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InvalidOBOFormatException extends InvalidOBOFormatExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 482512438;
   

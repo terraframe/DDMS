@@ -1,7 +1,7 @@
 package dss.vector.solutions.entomology.assay;
 
 
-public abstract class AdultAssay extends AdultAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AdultAssay extends AdultAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237579415849L;
 

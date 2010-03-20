@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class NoCompatibleTypesException extends NoCompatibleTypesExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class NoCompatibleTypesException extends NoCompatibleTypesExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245395200441L;
   

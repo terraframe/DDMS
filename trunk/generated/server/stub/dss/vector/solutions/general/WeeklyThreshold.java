@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.business.generation.GenerationUtil;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.session.Session;
 
-public class WeeklyThreshold extends WeeklyThresholdBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256576864223L;
 

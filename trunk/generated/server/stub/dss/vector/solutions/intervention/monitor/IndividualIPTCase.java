@@ -3,7 +3,7 @@ package dss.vector.solutions.intervention.monitor;
 import dss.vector.solutions.Person;
 
 
-public class IndividualIPTCase extends IndividualIPTCaseBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class IndividualIPTCase extends IndividualIPTCaseBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254012841931L;
   

@@ -25,21 +25,21 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.terraframe.mojo.business.Business;
-import com.terraframe.mojo.constants.LocalProperties;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.database.DatabaseException;
-import com.terraframe.mojo.query.QueryException;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableDecimal;
-import com.terraframe.mojo.query.SelectableDouble;
-import com.terraframe.mojo.query.SelectableFloat;
-import com.terraframe.mojo.query.SelectableLong;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLDouble;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.business.Business;
+import com.runwaysdk.constants.LocalProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.query.QueryException;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableDecimal;
+import com.runwaysdk.query.SelectableDouble;
+import com.runwaysdk.query.SelectableFloat;
+import com.runwaysdk.query.SelectableLong;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDouble;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
@@ -47,7 +47,7 @@ import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoServerReloadException;
 import dss.vector.solutions.global.CredentialsSingleton;
 
-public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242080109170L;
 

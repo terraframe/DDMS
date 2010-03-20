@@ -4,14 +4,14 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.dataaccess.MdViewDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ViewArrayExcelExporter;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.MdViewDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdViewDAO;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ViewArrayExcelExporter;
 
-public class WeeklyThresholdView extends WeeklyThresholdViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class WeeklyThresholdView extends WeeklyThresholdViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -431874784;
   

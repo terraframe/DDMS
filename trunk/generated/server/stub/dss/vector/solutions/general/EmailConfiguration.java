@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-public class EmailConfiguration extends EmailConfigurationBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EmailConfiguration extends EmailConfigurationBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1203605481;
 

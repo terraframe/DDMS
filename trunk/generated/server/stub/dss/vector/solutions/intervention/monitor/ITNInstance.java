@@ -4,17 +4,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentYearProblem;
 import dss.vector.solutions.MonthOfYear;
 import dss.vector.solutions.Response;
 import dss.vector.solutions.ResponseMaster;
 
-public class ITNInstance extends ITNInstanceBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ITNInstance extends ITNInstanceBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1428171551;
 

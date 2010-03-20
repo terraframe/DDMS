@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-public class AmbiguousRecipientProblem extends AmbiguousRecipientProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AmbiguousRecipientProblem extends AmbiguousRecipientProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256860224517L;
   

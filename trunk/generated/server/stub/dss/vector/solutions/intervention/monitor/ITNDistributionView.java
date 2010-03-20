@@ -3,13 +3,13 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
-import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.attributes.InvalidReferenceException;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -17,7 +17,7 @@ import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 
-public class ITNDistributionView extends ITNDistributionViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ITNDistributionView extends ITNDistributionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255545119443L;
 

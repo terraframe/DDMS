@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class GeoServerReloadException extends GeoServerReloadExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoServerReloadException extends GeoServerReloadExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240004809148L;
   

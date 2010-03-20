@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public abstract class InterventionPlanningView extends InterventionPlanningViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InterventionPlanningView extends InterventionPlanningViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254346304596L;
 

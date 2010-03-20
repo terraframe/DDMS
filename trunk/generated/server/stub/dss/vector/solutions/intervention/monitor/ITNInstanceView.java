@@ -1,11 +1,11 @@
 package dss.vector.solutions.intervention.monitor;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 
 import dss.vector.solutions.MonthOfYear;
 import dss.vector.solutions.Response;
 
-public class ITNInstanceView extends ITNInstanceViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ITNInstanceView extends ITNInstanceViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1491762002;
 

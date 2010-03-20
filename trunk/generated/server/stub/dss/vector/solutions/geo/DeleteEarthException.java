@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.DeleteEarthExceptionBase;
 
-public class DeleteEarthException extends DeleteEarthExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DeleteEarthException extends DeleteEarthExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236717594474L;
   

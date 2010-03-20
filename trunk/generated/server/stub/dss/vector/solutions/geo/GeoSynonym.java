@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class GeoSynonym extends GeoSynonymBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoSynonym extends GeoSynonymBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1248321233376L;
 

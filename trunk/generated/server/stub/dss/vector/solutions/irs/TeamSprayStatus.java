@@ -2,14 +2,14 @@ package dss.vector.solutions.irs;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.query.Layer;
 
-public class TeamSprayStatus extends TeamSprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -451404549;
   

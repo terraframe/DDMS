@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-public class SystemAlertDisplayName extends SystemAlertDisplayNameBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SystemAlertDisplayName extends SystemAlertDisplayNameBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 705248355;
   
@@ -9,7 +9,7 @@ public class SystemAlertDisplayName extends SystemAlertDisplayNameBase implement
     super();
   }
   
-  public SystemAlertDisplayName(com.terraframe.mojo.business.MutableWithStructs entity, String structName)
+  public SystemAlertDisplayName(com.runwaysdk.business.MutableWithStructs entity, String structName)
   {
     super(entity, structName);
   }

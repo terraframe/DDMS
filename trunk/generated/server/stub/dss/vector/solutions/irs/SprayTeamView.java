@@ -1,11 +1,11 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.query.AttributeReference;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
+import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
-public class SprayTeamView extends SprayTeamViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SprayTeamView extends SprayTeamViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 2088238935;
   

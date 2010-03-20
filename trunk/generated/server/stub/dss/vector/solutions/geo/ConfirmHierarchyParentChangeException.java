@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-public class ConfirmHierarchyParentChangeException extends ConfirmHierarchyParentChangeExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfirmHierarchyParentChangeException extends ConfirmHierarchyParentChangeExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239122914994L;
   

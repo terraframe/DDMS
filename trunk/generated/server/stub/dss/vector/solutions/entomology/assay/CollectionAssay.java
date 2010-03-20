@@ -6,7 +6,7 @@ import java.util.List;
 
 import dss.vector.solutions.ontology.Term;
 
-public abstract class CollectionAssay extends CollectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class CollectionAssay extends CollectionAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236893774938L;
 

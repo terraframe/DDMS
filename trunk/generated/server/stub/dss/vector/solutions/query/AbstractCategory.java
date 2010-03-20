@@ -2,11 +2,11 @@ package dss.vector.solutions.query;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 public abstract class AbstractCategory extends AbstractCategoryBase
-  implements com.terraframe.mojo.generation.loader.Reloadable, AbstractCategoryIF
+  implements com.runwaysdk.generation.loader.Reloadable, AbstractCategoryIF
 {
   private static final long serialVersionUID = 1241158096964L;
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class PrevSprayedHouseholdValueNotApplicableProblem extends PrevSprayedHouseholdValueNotApplicableProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PrevSprayedHouseholdValueNotApplicableProblem extends PrevSprayedHouseholdValueNotApplicableProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246651955268L;
   

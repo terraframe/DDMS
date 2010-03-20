@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class MasterOperationException extends MasterOperationExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MasterOperationException extends MasterOperationExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1751045963;
   

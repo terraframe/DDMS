@@ -7,7 +7,7 @@ import dss.vector.solutions.entomology.InfectionAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.ontology.Term;
 
-public class InfectionAssayExcelView extends InfectionAssayExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InfectionAssayExcelView extends InfectionAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 908608466;
   

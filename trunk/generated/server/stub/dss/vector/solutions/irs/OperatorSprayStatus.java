@@ -2,10 +2,10 @@ package dss.vector.solutions.irs;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Session;
 
-public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -195318466;
   

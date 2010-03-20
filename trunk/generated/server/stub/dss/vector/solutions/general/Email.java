@@ -13,12 +13,12 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.StartSession;
 
-public class Email extends EmailBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Email extends EmailBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1506997120;
 

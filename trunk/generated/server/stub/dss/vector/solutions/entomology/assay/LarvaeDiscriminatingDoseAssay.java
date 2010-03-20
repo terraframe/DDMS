@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.ResistanceProperty;
 
-public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236962664268L;
 

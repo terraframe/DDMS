@@ -1,11 +1,11 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
-public class Supervisor extends SupervisorBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Supervisor extends SupervisorBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1509403859;
 

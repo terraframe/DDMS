@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.ChildOption;

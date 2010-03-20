@@ -3,12 +3,12 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.query.OIterator;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.Response;
 
-public class HouseholdView extends HouseholdViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdView extends HouseholdViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255641605608L;
   

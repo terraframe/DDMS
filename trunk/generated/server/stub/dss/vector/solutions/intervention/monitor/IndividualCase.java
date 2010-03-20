@@ -11,20 +11,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryException;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLFloat;
-import com.terraframe.mojo.query.SelectableSQLInteger;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryException;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLFloat;
+import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Patient;
@@ -44,7 +44,7 @@ import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCase extends IndividualCaseBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360073722L;
 

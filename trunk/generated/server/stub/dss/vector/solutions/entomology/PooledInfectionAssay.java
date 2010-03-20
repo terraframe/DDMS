@@ -5,19 +5,19 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQL;
-import com.terraframe.mojo.query.ValueQuery;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQL;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class PooledInfectionAssay extends PooledInfectionAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PooledInfectionAssay extends PooledInfectionAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -470295545;
 

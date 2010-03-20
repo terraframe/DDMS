@@ -2,9 +2,9 @@ package dss.vector.solutions.stock;
 
 import java.util.List;
 
-import com.terraframe.mojo.query.QueryFactory;
+import com.runwaysdk.query.QueryFactory;
 
-public class StockStaff extends StockStaffBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class StockStaff extends StockStaffBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257286441301L;
   

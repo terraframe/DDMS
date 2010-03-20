@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class LarvacideAssociation extends LarvacideAssociationBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LarvacideAssociation extends LarvacideAssociationBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1257372024562L;
   

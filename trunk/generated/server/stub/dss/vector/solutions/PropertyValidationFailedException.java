@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 import dss.vector.solutions.PropertyValidationFailedExceptionBase;
 
-public class PropertyValidationFailedException extends PropertyValidationFailedExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PropertyValidationFailedException extends PropertyValidationFailedExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236023127645L;
   

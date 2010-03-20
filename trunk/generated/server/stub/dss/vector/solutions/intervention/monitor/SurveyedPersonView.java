@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.AgeConverter;
 import dss.vector.solutions.RefusedResponse;
@@ -16,7 +16,7 @@ import dss.vector.solutions.ResponseMaster;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermComparator;
 
-public class SurveyedPersonView extends SurveyedPersonViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyedPersonView extends SurveyedPersonViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1558679294;
 

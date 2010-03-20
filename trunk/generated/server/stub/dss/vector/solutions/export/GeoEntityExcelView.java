@@ -1,18 +1,18 @@
 package dss.vector.solutions.export;
 
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.io.ExcelImporter;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdBusinessQuery;
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.gis.metadata.MdAttributeGeometry;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -21,7 +21,7 @@ import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 
-public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1247004716597L;
   

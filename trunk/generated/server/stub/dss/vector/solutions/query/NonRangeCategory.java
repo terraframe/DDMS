@@ -2,7 +2,7 @@ package dss.vector.solutions.query;
 
 
 
-public class NonRangeCategory extends NonRangeCategoryBase implements com.terraframe.mojo.generation.loader.Reloadable, NonRangeCategoryIF
+public class NonRangeCategory extends NonRangeCategoryBase implements com.runwaysdk.generation.loader.Reloadable, NonRangeCategoryIF
 {
   private static final long serialVersionUID = 1241158039274L;
 

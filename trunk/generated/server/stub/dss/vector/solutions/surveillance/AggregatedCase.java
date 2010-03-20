@@ -15,29 +15,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.business.rbac.Operation;
-import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.MdViewDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryException;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectableSQLDouble;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.query.ValueQueryCSVExporter;
-import com.terraframe.mojo.query.ValueQueryExcelExporter;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.session.SessionFacade;
-import com.terraframe.mojo.session.SessionIF;
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdViewDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdViewDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryException;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQLDouble;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.ValueQueryCSVExporter;
+import com.runwaysdk.query.ValueQueryExcelExporter;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.session.SessionIF;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
@@ -52,7 +52,7 @@ import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedCase extends AggregatedCaseBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693161773L;
 
@@ -626,7 +626,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
+  public static com.runwaysdk.query.ValueQuery queryAggregatedCase(String xml, String config,
       Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, config, null);

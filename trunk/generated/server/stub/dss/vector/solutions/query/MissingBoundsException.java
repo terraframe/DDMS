@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class MissingBoundsException extends MissingBoundsExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MissingBoundsException extends MissingBoundsExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1191896763;
   

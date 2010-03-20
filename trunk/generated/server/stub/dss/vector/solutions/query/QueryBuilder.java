@@ -6,31 +6,31 @@ import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import com.terraframe.mojo.MojoException;
-import com.terraframe.mojo.business.SmartException;
-import com.terraframe.mojo.business.rbac.Authenticate;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
-import com.terraframe.mojo.dataaccess.database.Database;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.AttributePrimitive;
-import com.terraframe.mojo.query.COUNT;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.F;
-import com.terraframe.mojo.query.Join;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.query.ValueQueryCSVExporter;
-import com.terraframe.mojo.query.ValueQueryExcelExporter;
-import com.terraframe.mojo.session.Session;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.RunwayException;
+import com.runwaysdk.business.SmartException;
+import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AttributePrimitive;
+import com.runwaysdk.query.COUNT;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.F;
+import com.runwaysdk.query.Join;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.ValueQueryCSVExporter;
+import com.runwaysdk.query.ValueQueryExcelExporter;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.util.QueryUtil;
 
-public class QueryBuilder extends QueryBuilderBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
 
@@ -55,9 +55,9 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
     catch (InvocationTargetException e)
     {
       Throwable target = e.getTargetException();
-      if (target instanceof MojoException)
+      if (target instanceof RunwayException)
       {
-        MojoException fwEx = (MojoException) target;
+        RunwayException fwEx = (RunwayException) target;
         throw fwEx;
       }
       else if (target instanceof SmartException)
@@ -89,7 +89,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.terraframe.moj
    */
   @Transaction
   @Authenticate
-  public static com.terraframe.mojo.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  public static com.runwaysdk.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
 

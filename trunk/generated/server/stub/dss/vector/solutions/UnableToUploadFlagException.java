@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-public class UnableToUploadFlagException extends UnableToUploadFlagExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class UnableToUploadFlagException extends UnableToUploadFlagExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -700376108;
   

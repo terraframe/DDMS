@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-public class ResistancePropertyDescription extends ResistancePropertyDescriptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ResistancePropertyDescription extends ResistancePropertyDescriptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1537722940;
   
@@ -9,7 +9,7 @@ public class ResistancePropertyDescription extends ResistancePropertyDescription
     super();
   }
   
-  public ResistancePropertyDescription(com.terraframe.mojo.business.MutableWithStructs entity, String structName)
+  public ResistancePropertyDescription(com.runwaysdk.business.MutableWithStructs entity, String structName)
   {
     super(entity, structName);
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.synchronization;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
-import com.terraframe.mojo.system.transaction.TransactionRecord;
-import com.terraframe.mojo.system.transaction.TransactionRecordQuery;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.OrderBy.SortOrder;
+import com.runwaysdk.system.transaction.TransactionRecord;
+import com.runwaysdk.system.transaction.TransactionRecordQuery;
 
 public class TransactionItemView extends TransactionItemViewBase implements Reloadable
 {

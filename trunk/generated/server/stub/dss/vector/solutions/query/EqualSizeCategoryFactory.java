@@ -3,7 +3,7 @@ package dss.vector.solutions.query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase implements com.terraframe.mojo.generation.loader.Reloadable {
+public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 137489069;
 
 	public EqualSizeCategoryFactory() {

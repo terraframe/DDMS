@@ -1,15 +1,15 @@
 package dss.vector.solutions.geo.generated;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.generated.EarthBase;
 import dss.vector.solutions.geo.generated.EarthQuery;
 import dss.vector.solutions.geo.DeleteEarthException;
 import dss.vector.solutions.geo.DuplicateEarthException;
 
-public class Earth extends EarthBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Earth extends EarthBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236717064787L;
 

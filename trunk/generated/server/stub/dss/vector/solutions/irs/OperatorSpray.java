@@ -5,15 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class OperatorSpray extends OperatorSprayBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long          serialVersionUID = 1240853391117L;
 

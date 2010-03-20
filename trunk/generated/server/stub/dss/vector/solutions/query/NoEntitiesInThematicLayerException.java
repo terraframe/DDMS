@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class NoEntitiesInThematicLayerException extends NoEntitiesInThematicLayerExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class NoEntitiesInThematicLayerException extends NoEntitiesInThematicLayerExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1248711756145L;
   

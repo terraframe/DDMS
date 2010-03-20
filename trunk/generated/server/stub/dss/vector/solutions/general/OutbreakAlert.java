@@ -1,8 +1,8 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.dataaccess.MdAttributeBooleanDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 
-public class OutbreakAlert extends OutbreakAlertBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256583480857L;
   

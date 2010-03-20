@@ -1,9 +1,9 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 public class InsecticideBrandView extends InsecticideBrandViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240597920676L;
 

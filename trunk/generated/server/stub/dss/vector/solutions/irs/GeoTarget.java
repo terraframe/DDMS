@@ -2,17 +2,17 @@ package dss.vector.solutions.irs;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableInteger;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableInteger;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240267420514L;
 

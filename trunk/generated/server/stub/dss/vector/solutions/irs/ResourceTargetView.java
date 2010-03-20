@@ -2,8 +2,8 @@ package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.MalariaSeason;
 

@@ -2,14 +2,14 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.List;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.session.Session;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Response;
 import dss.vector.solutions.ResponseMaster;
 
-public class Household extends HouseholdBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class Household extends HouseholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239641282092L;
 

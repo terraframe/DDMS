@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class RequiredServiceDateProblem extends RequiredServiceDateProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class RequiredServiceDateProblem extends RequiredServiceDateProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254433739140L;
   

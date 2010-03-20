@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class LeadTeam extends LeadTeamBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LeadTeam extends LeadTeamBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241338125751L;
   
