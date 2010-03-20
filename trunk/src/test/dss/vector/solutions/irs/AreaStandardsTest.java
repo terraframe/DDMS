@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;

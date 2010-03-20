@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;

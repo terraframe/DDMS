@@ -4,8 +4,8 @@ import java.util.Date;
 
 import junit.framework.Test;
 
-import com.terraframe.mojo.DoNotWeave;
-import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
+import com.runwaysdk.DoNotWeave;
+import com.runwaysdk.session.CreatePermissionExceptionDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.PersonViewDTO;

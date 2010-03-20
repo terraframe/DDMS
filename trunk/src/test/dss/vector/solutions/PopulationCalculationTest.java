@@ -5,9 +5,9 @@ import java.util.Calendar;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.GeoEntity;

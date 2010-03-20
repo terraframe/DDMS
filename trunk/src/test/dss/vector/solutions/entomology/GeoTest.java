@@ -5,7 +5,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 

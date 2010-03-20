@@ -3,26 +3,26 @@ package dss.vector.solutions;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.business.BusinessQuery;
-import com.terraframe.mojo.constants.ComponentInfo;
-import com.terraframe.mojo.constants.RelationshipInfo;
-import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AttributePrimitive;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.F;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
-import com.terraframe.mojo.query.SelectablePrimitive;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.RelationshipInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AttributePrimitive;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.F;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -761,7 +761,7 @@ public class Sandbox
     // for (ValueObject valueObject : valueQuery.getIterator())
     // {
     // valueObject.printAttributes();
-    // for (com.terraframe.mojo.dataaccess.AttributeIF attributeIF :
+    // for (com.runwaysdk.dataaccess.AttributeIF attributeIF :
     // valueObject.getAttributeArrayIF())
     // {
     // System.out.println(attributeIF.getDisplayLabel(Locale.ENGLISH));

@@ -13,11 +13,11 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.web.WebClientSession;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;

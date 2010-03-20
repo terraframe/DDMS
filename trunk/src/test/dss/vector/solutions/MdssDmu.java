@@ -3,13 +3,13 @@ package dss.vector.solutions;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.constants.MdTypeInfo;
-import com.terraframe.mojo.constants.ServerConstants;
-import com.terraframe.mojo.dataaccess.ValueObject;
-import com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.ValueQuery;
-import com.terraframe.mojo.system.metadata.MdTypeQuery;
+import com.runwaysdk.constants.MdTypeInfo;
+import com.runwaysdk.constants.ServerConstants;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.io.dataDefinition.DeployedMetadataUpdater;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdTypeQuery;
 
 public class MdssDmu
 {
@@ -28,7 +28,7 @@ public class MdssDmu
     
     for (ValueObject object : query.getIterator())
       packages.add(object.getValue(MdTypeInfo.PACKAGE));
-    packages.add("com.terraframe.mojo.defaults");
+    packages.add("com.runwaysdk.defaults");
     
     DeployedMetadataUpdater.go("/datatype_gis.xsd", packages, ServerConstants.SYSTEM_USER_NAME, args[0]);
   }

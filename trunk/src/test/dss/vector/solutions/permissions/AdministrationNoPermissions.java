@@ -4,11 +4,11 @@ import java.util.Date;
 
 import junit.framework.Test;
 
-import com.terraframe.mojo.DoNotWeave;
-import com.terraframe.mojo.dataaccess.attributes.ClientReadAttributePermissionException;
-import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
-import com.terraframe.mojo.session.WritePermissionExceptionDTO;
-import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
+import com.runwaysdk.DoNotWeave;
+import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
+import com.runwaysdk.session.CreatePermissionExceptionDTO;
+import com.runwaysdk.session.WritePermissionExceptionDTO;
+import com.runwaysdk.transport.metadata.AttributeDateMdDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.MDSSUserDTO;

@@ -5,12 +5,12 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.AND;
-import com.terraframe.mojo.query.Condition;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.system.metadata.MdEntity;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.EpiWeek;

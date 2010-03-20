@@ -8,11 +8,11 @@ import junit.framework.Test;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdBusinessQuery;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.AllowedInSelfException;

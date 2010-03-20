@@ -1,7 +1,7 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;

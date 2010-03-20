@@ -8,9 +8,9 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
+import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.TestFixture;
 

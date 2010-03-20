@@ -9,12 +9,12 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.DoNotWeave;
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.web.WebClientSession;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.DoNotWeave;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.PeriodMonthProblemDTO;
 import dss.vector.solutions.PeriodQuarterProblemDTO;

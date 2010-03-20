@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.ShapefileExporter;

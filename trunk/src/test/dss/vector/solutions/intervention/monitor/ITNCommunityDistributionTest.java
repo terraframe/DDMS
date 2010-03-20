@@ -11,8 +11,8 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RequiredAttributeProblem;

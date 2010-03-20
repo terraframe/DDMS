@@ -2,8 +2,8 @@ package dss.vector.solutions.permissions;
 
 import junit.framework.Test;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;

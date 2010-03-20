@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.ontology.Term;

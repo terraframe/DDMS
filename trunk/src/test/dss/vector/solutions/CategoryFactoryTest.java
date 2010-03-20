@@ -4,7 +4,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.AbstractCategory;
 import dss.vector.solutions.query.CategoryGen;

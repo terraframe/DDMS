@@ -5,9 +5,9 @@ import java.util.Date;
 
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.business.rbac.UserDAO;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.LifeStageDTO;
 import dss.vector.solutions.entomology.MosquitoCollection;

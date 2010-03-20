@@ -5,11 +5,11 @@ import java.util.List;
 
 import junit.framework.Test;
 
-import com.terraframe.mojo.DoNotWeave;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.session.CreatePermissionExceptionDTO;
-import com.terraframe.mojo.system.metadata.MdBusinessDTO;
+import com.runwaysdk.DoNotWeave;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.session.CreatePermissionExceptionDTO;
+import com.runwaysdk.system.metadata.MdBusinessDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.TestFixture;

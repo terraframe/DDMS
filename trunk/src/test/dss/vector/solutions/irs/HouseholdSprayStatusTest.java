@@ -10,9 +10,9 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;

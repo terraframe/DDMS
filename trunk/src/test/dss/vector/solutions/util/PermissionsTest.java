@@ -8,23 +8,23 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.business.rbac.Operation;
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.business.rbac.UserDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdAttributeDAO;
-import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
-import com.terraframe.mojo.session.SessionFacade;
-import com.terraframe.mojo.system.AllOperations;
-import com.terraframe.mojo.system.Roles;
-import com.terraframe.mojo.system.TypePermission;
-import com.terraframe.mojo.system.Users;
-import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdAttributeBoolean;
-import com.terraframe.mojo.system.metadata.MdAttributeCharacter;
-import com.terraframe.mojo.system.metadata.MdAttributeInteger;
-import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.system.AllOperations;
+import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.TypePermission;
+import com.runwaysdk.system.Users;
+import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeBoolean;
+import com.runwaysdk.system.metadata.MdAttributeCharacter;
+import com.runwaysdk.system.metadata.MdAttributeInteger;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 public class PermissionsTest extends TestCase
 {

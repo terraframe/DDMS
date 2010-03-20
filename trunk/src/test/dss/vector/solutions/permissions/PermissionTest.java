@@ -4,12 +4,12 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.DoNotWeave;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.session.StartSession;
-import com.terraframe.mojo.web.WebClientSession;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.DoNotWeave;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.StartSession;
+import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.TestConstants;

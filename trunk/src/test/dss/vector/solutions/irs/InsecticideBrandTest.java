@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;

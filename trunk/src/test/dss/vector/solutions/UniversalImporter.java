@@ -12,8 +12,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.terraframe.mojo.dataaccess.io.dataDefinition.XMLTags;
-import com.terraframe.mojo.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.io.dataDefinition.XMLTags;
+import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 /*
 SELECT DISTINCT
 	universal,

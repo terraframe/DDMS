@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
-import com.terraframe.mojo.session.StartSession;
+import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.general.Email;
 import dss.vector.solutions.general.SystemAlert;

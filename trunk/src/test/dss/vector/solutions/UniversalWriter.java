@@ -141,7 +141,7 @@ public class UniversalWriter
         "<object",
         "  key=\"dss.vector.solutions.geo.generated."+geo+"\"",
         "  id=\""+geo+"Md\"",
-        "  type=\"com.terraframe.mojo.system.metadata.MdBusiness\" />"};
+        "  type=\"com.runwaysdk.system.metadata.MdBusiness\" />"};
 
     existing.add(e);
 
