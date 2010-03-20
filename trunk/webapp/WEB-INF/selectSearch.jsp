@@ -1,8 +1,8 @@
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="org.json.JSONArray"%>

@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%><c:set var="page_title" value="Configure_the_Universal_Tree"  scope="request"/>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%><c:set var="page_title" value="Configure_the_Universal_Tree"  scope="request"/>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 

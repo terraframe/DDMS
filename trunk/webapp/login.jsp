@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -86,7 +86,7 @@ input[type="button"]:active {
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 
-<form method="post" action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
+<form method="post" action="com.runwaysdk.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
   <div class="alert alertbox">
   <p>${exception.localizedMessage}</p>
   </div>

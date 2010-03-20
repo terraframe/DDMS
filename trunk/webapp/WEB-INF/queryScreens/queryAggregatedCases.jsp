@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="com.terraframe.mojo.business.ClassQueryDTO"%>
+<%@page import="com.runwaysdk.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
-<%@page import="com.terraframe.mojo.transport.attributes.AttributeDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.transport.attributes.AttributeDTO"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>

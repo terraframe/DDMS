@@ -75,8 +75,8 @@ YUI download for details on each of the aggregate files and their contents):-->
 var locale = "<%=request.getLocale().toString()%>";
 </script>
 
-<script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
-<script type="text/javascript" src="js/Terraframe_MojoGIS.js"></script>
+<script type="text/javascript" src="js/RunwaySDK.js"></script>
+<script type="text/javascript" src="js/RunwaySDK_GIS.js"></script>
 <script type="text/javascript" src="js/MDSS.js"></script>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
 <script type="text/javascript" src="js/navMenu.js"></script>

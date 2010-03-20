@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
-<%@page import="com.terraframe.mojo.business.ClassQueryDTO"%>
+<%@page import="com.runwaysdk.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
-<%@page import="com.terraframe.mojo.transport.attributes.AttributeDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.transport.attributes.AttributeDTO"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
@@ -19,14 +19,14 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="com.runwaysdk.constants.MdAttributeConcreteInfo"%>
+<%@page import="com.runwaysdk.constants.MdAttributeVirtualInfo"%>
+<%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>

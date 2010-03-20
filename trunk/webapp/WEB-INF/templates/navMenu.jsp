@@ -29,7 +29,7 @@
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="GIS"/></a>
               </li>
               <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo" tabindex="-1"><fmt:message key="Log_Out"/></a>
+                  <a class="yuimenubaritemlabel" href="com.runwaysdk.defaults.LoginController.logout.mojo" tabindex="-1"><fmt:message key="Log_Out"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="about.jsp"  tabindex="-1"><fmt:message key="About"/></a>

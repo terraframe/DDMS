@@ -2,9 +2,9 @@
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 
 <%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.query.MappingController"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>

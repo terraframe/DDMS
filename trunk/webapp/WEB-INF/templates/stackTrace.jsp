@@ -3,8 +3,8 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 
 

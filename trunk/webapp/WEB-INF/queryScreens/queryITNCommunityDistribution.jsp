@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
-<%@page import="com.terraframe.mojo.business.ClassQueryDTO"%>
+<%@page import="com.runwaysdk.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
-<%@page import="com.terraframe.mojo.transport.attributes.AttributeDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="com.runwaysdk.transport.attributes.AttributeDTO"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
@@ -24,17 +24,17 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdAttributeVirtualDTO"%>
 <%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
+<%@page import="com.runwaysdk.constants.MdAttributeConcreteInfo"%>
+<%@page import="com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF"%>
+<%@page import="com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO"%>
+<%@page import="com.runwaysdk.dataaccess.MdBusinessDAOIF"%>
+<%@page import="com.runwaysdk.dataaccess.metadata.MdBusinessDAO"%>
+<%@page import="com.runwaysdk.constants.MdAttributeVirtualInfo"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionDTO"%>
@@ -43,7 +43,7 @@
 <%@page import="dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroupDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 
-<%@page import="com.terraframe.mojo.business.BusinessDTO"%><c:set var="page_title" value="Query_ITN_Community_Distribution"  scope="request"/>
+<%@page import="com.runwaysdk.business.BusinessDTO"%><c:set var="page_title" value="Query_ITN_Community_Distribution"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
