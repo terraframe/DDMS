@@ -1,8 +1,8 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="com.terraframe.mojo.business.ComponentQueryDTO"%>
+<%@page import="com.runwaysdk.business.ComponentQueryDTO"%>
 <%@page import="dss.vector.solutions.PersonWithDelegatesViewDTO"%>
     
     <mjl:attributeColumn attributeName="firstName">

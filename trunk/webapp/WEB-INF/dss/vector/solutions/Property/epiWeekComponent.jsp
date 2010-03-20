@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
@@ -7,9 +7,9 @@
 <%@page import="dss.vector.solutions.surveillance.PeriodType"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="dss.vector.solutions.surveillance.PeriodTypeDTO"%>
-<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%>
 
 <%@page import="dss.vector.solutions.PropertyDTO"%><c:set var="page_title" value="Epi_Week"  scope="request"/>
 <mjl:messages>
