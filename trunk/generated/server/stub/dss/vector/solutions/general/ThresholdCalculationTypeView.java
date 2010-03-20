@@ -6,6 +6,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -206,6 +207,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   @Transaction
   public static void calculateThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
+    InstallProperties.validateMasterOperation();
+    
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
     ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
     ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
@@ -214,6 +217,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   @Transaction
   public static void calculatePoliticalThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
+    InstallProperties.validateMasterOperation();
+    
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
     ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
   }
@@ -221,6 +226,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
   @Transaction
   public static void calculateFacilityThresholds(ThresholdCalculationTypeView thresholdCalculation, Boolean currentPeriod)
   {
+    InstallProperties.validateMasterOperation();
+    
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
     ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
   }

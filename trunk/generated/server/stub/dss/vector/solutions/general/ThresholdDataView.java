@@ -20,6 +20,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewArrayExcelExporter;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -125,6 +126,8 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   @Transaction
   public void apply()
   {
+    InstallProperties.validateMasterOperation();
+    
     ThresholdData concrete = new ThresholdData();
 
     if (this.hasConcrete())
@@ -309,6 +312,8 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   @Transaction
   public static ThresholdDataView[] applyAll(ThresholdDataView[] views)
   {
+    InstallProperties.validateMasterOperation();
+    
     for (ThresholdDataView view : views)
     {
       view.apply();

@@ -10,6 +10,8 @@ import com.runwaysdk.ApplicationException;
 import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.InstallProperties;
+
 public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1256576864223L;
@@ -79,7 +81,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
 
     return false;
   }
-  
+
   public void reachedThreshold(String attribute, Integer threshold)
   {
     EpiWeek week = EpiWeek.getEpiWeek(new Date());
@@ -98,7 +100,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     this.updateThresholdWeek(attribute, week);
     this.apply();
   }
-  
+
   private void setDateThresholdWasReached(String attribute, Date date)
   {
     try
@@ -139,9 +141,9 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     {
       throw new ApplicationException(e);
     }
-    
+
   }
-  
+
   public void setActualThreshold(String attribute, Integer threshold)
   {
     try
@@ -183,16 +185,16 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
       throw new ApplicationException(e);
     }
   }
-  
+
   public Integer getActualThreshold(String attribute)
   {
     try
     {
       String accessor = GenerationUtil.upperFirstCharacter(attribute);
-      
+
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("getActual" + accessor);
-      
+
       return (Integer) method.invoke(this);
     }
     catch (InvocationTargetException e)
@@ -225,7 +227,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
       throw new ApplicationException(e);
     }
   }
-  
+
   private Date getDateThresholdWasReached(String attribute)
   {
     try
@@ -236,8 +238,8 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
       Method method = clazz.getMethod("getFirst" + accessor);
 
       Object date = method.invoke(this);
-      
-      return (date != null ? (Date) date : null);
+
+      return ( date != null ? (Date) date : null );
     }
     catch (InvocationTargetException e)
     {
@@ -254,20 +256,20 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     List<WeeklyThresholdView> list = new LinkedList<WeeklyThresholdView>();
 
     String[] accessors = { IDENTIFICATION, NOTIFICATION, FACILITYIDENTIFICATION, FACILITYNOTIFICATION };
-    
+
     String entityLabel = this.getParent().getGeoEntity().getLabel();
     Integer period = this.getChild().getPeriod();
-    Integer year = this.getChild().getYearOfWeek();    
+    Integer year = this.getChild().getYearOfWeek();
 
-    for(String accessor : accessors)
+    for (String accessor : accessors)
     {
       Date date = this.getDateThresholdWasReached(accessor);
-      
-      if(date != null)
+
+      if (date != null)
       {
         Integer threshold = this.getActualThreshold(accessor);
         String type = this.getMdAttributeDAO(accessor).getDisplayLabel(Session.getCurrentLocale());
-        
+
         WeeklyThresholdView view = new WeeklyThresholdView();
         view.setThresholdValue(threshold);
         view.setThresholdDate(date);
@@ -275,11 +277,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
         view.setEntityLabel(entityLabel);
         view.setPeriod(period);
         view.setYearOfWeek(year);
-        
+
         list.add(view);
       }
     }
-    
+
     return list;
   }
 }
