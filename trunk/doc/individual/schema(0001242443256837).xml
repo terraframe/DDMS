@@ -32,7 +32,7 @@
             label="Search By Entity Name"
             description="Returns a list of GeoEntityViews that match the search criteria."
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="entityType"
               label="Entity Type"

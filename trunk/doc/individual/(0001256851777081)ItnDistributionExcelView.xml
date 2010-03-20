@@ -73,10 +73,10 @@
     <delete>
       <object
         key="dss.vector.solutions.export.ITNDistributionExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.export.AmbiguousRecipientProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem"/>
+        type="com.runwaysdk.system.metadata.MdProblem"/>
     </delete>
   </undoIt>
 </version>

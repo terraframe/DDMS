@@ -65,10 +65,10 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.Term.getTermById"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.ontology.TermSelectionProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
     </delete>
   </undoIt>
 </version>

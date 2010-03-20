@@ -22,10 +22,10 @@
     <delete>
       <object
         key="dss.vector.solutions.export.IndividualIPTExcelView.workGeoEntity"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.IndividualIPTExcelView.workInformation"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
     </delete>
   </undoIt>
 </version>

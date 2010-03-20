@@ -285,16 +285,16 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.getSymptoms"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.applyAll"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.create.symptoms"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.update.symptoms"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory"
         type="dss.vector.solutions.ontology.BrowserField"/>
@@ -312,7 +312,7 @@
         type="dss.vector.solutions.ontology.BrowserField"/>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCaseController.search.caseReportDate"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.IndividualInstance.symptom"
         type="dss.vector.solutions.ontology.BrowserField"/>
@@ -327,64 +327,64 @@
         type="dss.vector.solutions.ontology.BrowserField"/>
       <object
         key="dss.vector.solutions.surveillance.IndividualCaseSymptom"
-        type="com.terraframe.mojo.system.metadata.MdTree"/>
+        type="com.runwaysdk.system.metadata.MdTree"/>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.age"
-        type="com.terraframe.mojo.system.metadata.MdAttributeInteger" />
+        type="com.runwaysdk.system.metadata.MdAttributeInteger" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.probableSourceText"
-        type="com.terraframe.mojo.system.metadata.MdAttributeText" />
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.residence"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.residenceText"
-        type="com.terraframe.mojo.system.metadata.MdAttributeText" />
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.workplace"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.workplaceText"
-        type="com.terraframe.mojo.system.metadata.MdAttributeText" />
+        type="com.runwaysdk.system.metadata.MdAttributeText" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.patientCategory"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.referralReason"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.labTest"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatmentMethod"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.treatment"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.symptom"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.sampleType"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.malariaType"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.activelyDetected"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean" />
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.healthFacility"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance.detectedBy"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.newInstanceWithCase"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstanceController.createWithCase"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

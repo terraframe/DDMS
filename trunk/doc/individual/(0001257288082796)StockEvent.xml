@@ -403,31 +403,31 @@
     <delete>
       <object
         key="dss.vector.solutions.stock.StockItemView.itemId"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.stock.StockItem.itemId"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.stock.StockEventController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.stock.EventOption"
-        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
       <object
         key="dss.vector.solutions.stock.EventOptionMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.stock.StockStaff.getAll"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.stock.StockStaff.searchAll"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.stock.StockEventView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.stock.StockEvent"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

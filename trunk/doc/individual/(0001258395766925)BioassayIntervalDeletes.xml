@@ -5,22 +5,22 @@
     <delete>
       <object
         key="dss.vector.solutions.entomology.assay.AdultTestInterval"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.entomology.assay.AdultTestIntervalView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.assay.AdultAssay.getTestIntervals"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.entomology.assay.LarvaeAssay.getTestIntervals"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </doIt>
   <undoIt>

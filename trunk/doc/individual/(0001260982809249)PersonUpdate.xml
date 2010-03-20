@@ -106,7 +106,7 @@
     <delete>
       <object
         key="dss.vector.solutions.PersonWithDelegatesView"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

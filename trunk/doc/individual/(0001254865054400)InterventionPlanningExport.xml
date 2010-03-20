@@ -95,22 +95,22 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.TimeInterventionPlanningView.exportToExcel"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.InsecticideInterventionPlanningView.exportToExcel"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.OperatorInterventionPlanningView.exportToExcel"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.InterventionPlanningController.exportTimePlanning"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.irs.InterventionPlanningController.exportInsecticidePlanning"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.irs.InterventionPlanningController.exportOperatorPlanning"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

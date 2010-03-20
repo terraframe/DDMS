@@ -46,10 +46,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.applyWithInstance"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.createCaseAndInstance"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

@@ -25,7 +25,7 @@
     <delete>
       <object
         key="dss.vector.solutions.InvalidPositiveTestProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
     </delete>
   </undoIt>
 </version>

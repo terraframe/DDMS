@@ -22,7 +22,7 @@
             label="Query IRS"
             description="Query IRS"
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="queryXML"
               label="Query XML"
@@ -90,13 +90,13 @@
     <delete>
       <object
         key="dss.vector.solutions.query.QueryController.queryIRS"
-        type="com.terraframe.mojo.system.metadata.MdAction"/>
+        type="com.runwaysdk.system.metadata.MdAction"/>
       <object
         key="dss.vector.solutions.irs.ZoneSpray.queryIRS"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
       <object
         key="dss.vector.solutions.irs.ZoneSpray.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
   </undoIt>
 </version>

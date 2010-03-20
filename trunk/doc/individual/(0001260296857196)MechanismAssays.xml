@@ -455,34 +455,34 @@
         
       <object
         key="dss.vector.solutions.RequiredCollectionProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
       <object
         key="dss.vector.solutions.MolecularSumProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
       <object
         key="dss.vector.solutions.entomology.MosquitoCollectionView.getBiochemicalAssays"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.entomology.MosquitoCollectionView.getMolecularAssays"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.entomology.AssayController.searchMechanismAssay"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.entomology.AssayController.getMechanismAssays"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.entomology.MolecularAssayView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.BiochemicalAssayView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.MolecularAssay"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.entomology.BiochemicalAssay"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

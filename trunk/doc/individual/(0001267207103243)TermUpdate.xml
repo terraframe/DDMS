@@ -35,7 +35,7 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.Term.getRootChildren"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

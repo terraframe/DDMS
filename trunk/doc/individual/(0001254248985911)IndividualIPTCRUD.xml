@@ -508,7 +508,7 @@
             name="searchForPerson"
             label="Search for Person"
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="value"
               label="Value"
@@ -533,28 +533,28 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPTCaseView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPTView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPTCase"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualIPT"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.PersonView.applyNonDelegates"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.Person.searchForPerson"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.PersonController.updateRecipient"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.PersonController.editRecipient"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

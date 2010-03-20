@@ -3,7 +3,7 @@
 <delete>
   <object
     key="dss.vector.solutions.ontology.Term.searchTerms.parentTermId"
-    type="com.terraframe.mojo.system.metadata.MdParameter"/>
+    type="com.runwaysdk.system.metadata.MdParameter"/>
 </delete>
 <update>
 

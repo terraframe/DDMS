@@ -111,15 +111,15 @@
     
       <object
         key="dss.vector.solutions.query.LayerController.generateCategories.currentLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
         
       <object
         key="dss.vector.solutions.query.Layer.generateCategories.currentLayer"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
 
       <object
         key="dss.vector.solutions.DefaultGeoEntity"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
     
     </delete>
   </undoIt>

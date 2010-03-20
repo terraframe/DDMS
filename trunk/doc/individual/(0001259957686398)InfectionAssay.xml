@@ -432,25 +432,25 @@
         type="dss.vector.solutions.ontology.BrowserField" />    
       <object
         key="dss.vector.solutions.entomology.MosquitoCollectionView.getInfectionAssays"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.entomology.MosquitoCollectionView.getPooledInfectionAssays"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.entomology.AssayController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.entomology.PooledInfectionAssayView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.InfectionAssayView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.entomology.PooledInfectionAssay"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.entomology.InfectionAssay"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

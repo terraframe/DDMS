@@ -37,7 +37,7 @@
           <mdMethod
             name="searchOperators"
             label="Search Operators"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+            returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter
               name="value"
@@ -48,7 +48,7 @@
           <mdMethod
             name="getUnassignedOperators"
             label="Get Unassigned Operators"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+            returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter
               name="value"
@@ -59,7 +59,7 @@
           <mdMethod
             name="getOtherOperators"
             label="Get Other Operators"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+            returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter
               name="value"
@@ -116,40 +116,40 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.TeamMember.getView"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />    
+        type="com.runwaysdk.system.metadata.MdMethod" />    
       <object
         key="dss.vector.solutions.irs.TeamMemberView.searchOperators"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.TeamMemberView.getUnassignedOperators"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.TeamMemberView.getOtherOperators"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />    
+        type="com.runwaysdk.system.metadata.MdMethod" />    
       <object
         key="dss.vector.solutions.irs.OperatorSprayView.teamOperator"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.irs.OperatorSprayView.assignedOperator"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.irs.OperatorSprayView.floatingOperator"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />    
+        type="com.runwaysdk.system.metadata.MdAttribute" />    
       <object
         key="dss.vector.solutions.irs.SprayTeam.getOperatorViews"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.TeamMemberView.isSprayLeader"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.irs.TeamMemberView.isSprayOperator"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.irs.OperatorSpray.sprayTeam"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.irs.OperatorSprayView.sprayTeam"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

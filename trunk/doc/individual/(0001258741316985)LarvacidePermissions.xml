@@ -21,7 +21,7 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.Larvacide.natureOfControl"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

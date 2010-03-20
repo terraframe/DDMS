@@ -9,7 +9,7 @@
         name="dss.vector.solutions.intervention.monitor.SurveyPoint">
         <create>
           <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
-            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter name="xml" label="xml" order="0"
               type="java.lang.String" />
@@ -28,7 +28,7 @@
       <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
         <create>
           <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
-            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter name="xml" label="xml" order="0"
               type="java.lang.String" />
@@ -45,7 +45,7 @@
       <mdBusiness name="dss.vector.solutions.irs.ZoneSpray">
         <create>
           <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
-            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter name="xml" label="xml" order="0"
               type="java.lang.String" />
@@ -63,7 +63,7 @@
         name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
         <create>
           <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
-            description="Xml To ValueQuery" returnType="com.terraframe.mojo.query.ValueQuery"
+            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter name="xml" label="xml" order="0"
               type="java.lang.String" />

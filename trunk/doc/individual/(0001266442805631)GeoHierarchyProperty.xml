@@ -28,7 +28,7 @@
     <delete>
       <object
         key="dss.vector.solutions.geo.GeoHierarchyProperty"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

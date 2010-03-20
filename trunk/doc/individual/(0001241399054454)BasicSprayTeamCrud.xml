@@ -247,28 +247,28 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.SprayTeam.teamId"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter" />
       <object
         key="dss.vector.solutions.irs.SprayTeam.sprayZone"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+        type="com.runwaysdk.system.metadata.MdAttributeReference" />
       <object
         key="dss.vector.solutions.irs.SprayTeam.create"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.SprayTeam.edit"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.SprayTeamController.createAndAssign"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.irs.SprayTeamController.updateAssignments"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.irs.LeadTeam"
-        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+        type="com.runwaysdk.system.metadata.MdRelationship" />
       <object
         key="dss.vector.solutions.irs.TeamMemberView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

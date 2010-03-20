@@ -70,10 +70,10 @@
      -->
       <object
         key="dss.vector.solutions.util.LocalizationController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.util.LocalizationFacade"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

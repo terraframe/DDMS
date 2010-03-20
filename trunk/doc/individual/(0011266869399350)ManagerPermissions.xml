@@ -9,7 +9,7 @@
           roleName="mdss.GUIVisibility" />
         <grant>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.VaultFile">
+            type="com.runwaysdk.system.VaultFile">
             <operation
               name="CREATE" />
             <operation

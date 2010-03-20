@@ -52,13 +52,13 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.NotASprayEntityException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.GeoTargetView.getGeoTargetViews"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.general.PopulationDataView.getCalculatedPopulation"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

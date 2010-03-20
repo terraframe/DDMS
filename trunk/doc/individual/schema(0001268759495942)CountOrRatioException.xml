@@ -17,7 +17,7 @@
     
       <object
         key="dss.vector.solutions.query.CountOrRatioAloneException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
     
     </delete>
   </undoIt>

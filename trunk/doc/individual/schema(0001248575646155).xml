@@ -5,16 +5,16 @@
     <delete>
       <object
         key="dss.vector.solutions.entomology.assay.AbstractAssay.queryResistance"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
       <object
         key="dss.vector.solutions.entomology.assay.AbstractAssay.exportQueryToCSV"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
       <object
         key="dss.vector.solutions.entomology.assay.AbstractAssay.mapQuery"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
       <object
         key="dss.vector.solutions.entomology.assay.AbstractAssay.exportQueryToExcel"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
     <update>
 
@@ -26,7 +26,7 @@
             label="Query Resistance"
             description="Query Resistance"
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="queryXML"
               label="Query XML"

@@ -9,7 +9,7 @@
           <mdMethod
             name="searchByParameters"
             label="Search By Parameters"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+            returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter
               name="value"
@@ -30,7 +30,7 @@
     <delete>
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.searchByParameters"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

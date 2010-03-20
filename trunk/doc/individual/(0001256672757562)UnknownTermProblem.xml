@@ -5,7 +5,7 @@
     <delete>
       <object
         key="dss.vector.solutions.UnknownTermException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
     </delete>
     <create>
       <mdProblem
@@ -30,7 +30,7 @@
     <delete>
       <object
         key="dss.vector.solutions.UnknownTermProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem"/>
+        type="com.runwaysdk.system.metadata.MdProblem"/>
     </delete>
   </undoIt>
 </version>

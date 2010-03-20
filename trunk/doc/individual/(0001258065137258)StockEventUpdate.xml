@@ -31,10 +31,10 @@
     <delete>
       <object
         key="dss.vector.solutions.stock.StockEventView.otherParty"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.stock.StockEvent.otherParty"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

@@ -38,7 +38,7 @@
     
       <object
         key="dss.vector.solutions.query.Layer.thematicColumnAlias"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter" />
     
     </delete>
   </undoIt>

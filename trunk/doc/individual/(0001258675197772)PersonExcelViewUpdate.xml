@@ -5,7 +5,7 @@
     <delete>
       <object
         key="dss.vector.solutions.export.PersonExcelView.geoEntity"
-        type="com.terraframe.mojo.system.metadata.MdAttributeReference"/>
+        type="com.runwaysdk.system.metadata.MdAttributeReference"/>
     </delete>
     <update>
       <mdView
@@ -29,10 +29,10 @@
     <delete>
       <object
         key="dss.vector.solutions.export.PersonExcelView.residentialGeoEntity"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.PersonExcelView.workGeoEntity"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
     </delete>
   </undoIt>
 </version>

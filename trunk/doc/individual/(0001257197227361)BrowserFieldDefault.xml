@@ -10,7 +10,7 @@
           <reference
             name="mdAttribute"
             label="MdAttribute"
-            type="com.terraframe.mojo.system.metadata.MdAttribute"
+            type="com.runwaysdk.system.metadata.MdAttribute"
             required="true" />
           <reference
             name="defaultValue"
@@ -49,10 +49,10 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.FieldDefaultView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.ontology.BrowserFieldView.defaultValue"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

@@ -166,19 +166,19 @@
     <delete>
       <object
         key="dss.vector.solutions.general.PopulationData"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.PopulationDataView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.general.PopulationDataController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.general.YearValueException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.general.GeoEntityPopulationProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
     </delete>
   </undoIt>
 </version>

@@ -40,7 +40,7 @@
     <delete>
       <object
         key="dss.vector.solutions.export.GeoEntityExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
     </delete>
   </undoIt>
 </version>

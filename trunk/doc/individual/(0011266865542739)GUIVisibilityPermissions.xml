@@ -190,7 +190,7 @@
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.Users">
+            type="com.runwaysdk.system.Users">
             <operation
               name="READ" />
             <attributePermission
@@ -430,7 +430,7 @@
               name="READ" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
+            type="com.runwaysdk.system.metadata.MdAttributeVirtual">
             <operation
               name="READ" />
             <attributePermission
@@ -469,7 +469,7 @@
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.Roles">
+            type="com.runwaysdk.system.Roles">
             <operation
               name="READ" />
             <operation
@@ -490,21 +490,21 @@
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdAttributeBoolean">
+            type="com.runwaysdk.system.metadata.MdAttributeBoolean">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdAttributeInteger">
+            type="com.runwaysdk.system.metadata.MdAttributeInteger">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdAttributeReference">
+            type="com.runwaysdk.system.metadata.MdAttributeReference">
             <operation
               name="READ" />
             <operation
@@ -518,7 +518,7 @@
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdType">
+            type="com.runwaysdk.system.metadata.MdType">
             <operation
               name="READ" />
             <operation
@@ -530,14 +530,14 @@
             </attributePermission>
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
+            type="com.runwaysdk.system.metadata.MdAttributeConcrete">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.WebFile">
+            type="com.runwaysdk.system.WebFile">
             <operation
               name="CREATE" />
             <operation
@@ -552,7 +552,7 @@
               name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.VaultFile">
+            type="com.runwaysdk.system.VaultFile">
             <operation
               name="READ" />
             <operation
@@ -623,35 +623,35 @@
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdView">
+            type="com.runwaysdk.system.metadata.MdView">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdSession">
+            type="com.runwaysdk.system.metadata.MdSession">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdTransient">
+            type="com.runwaysdk.system.metadata.MdTransient">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MdClass">
+            type="com.runwaysdk.system.metadata.MdClass">
             <operation
               name="READ" />
             <operation
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.metadata.MetaData">
+            type="com.runwaysdk.system.metadata.MetaData">
             <operation
               name="READ" />
             <operation
@@ -898,7 +898,7 @@
               name="READ" />
           </mdBusinessPermission>
           <mdStructPermission
-            type="com.terraframe.mojo.system.metadata.MetaDataDisplayLabel">
+            type="com.runwaysdk.system.metadata.MetaDataDisplayLabel">
             <operation
               name="READ" />
             <operation

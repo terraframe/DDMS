@@ -16,7 +16,7 @@
     <delete>
       <object
         key="dss.vector.solutions.InvalidEpiStartFormat"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
     </delete>
   </undoIt>
 </version>

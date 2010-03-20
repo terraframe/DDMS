@@ -94,10 +94,10 @@
     <delete>
       <object
         key="dss.vector.solutions.export.InfectionAssayExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.export.PooledInfectionAssayExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

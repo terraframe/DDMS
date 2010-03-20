@@ -4,7 +4,7 @@
   <doIt>
     <create>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.stockStaff">
         <attribute
           name="roleName"
@@ -22,7 +22,7 @@
     <delete>
       <object
         key="Roles.mdss.stockStaff"
-        type="com.terraframe.mojo.system.Roles" />
+        type="com.runwaysdk.system.Roles" />
     </delete>
   </undoIt>
 </version>

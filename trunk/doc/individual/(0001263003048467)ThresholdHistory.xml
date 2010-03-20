@@ -101,34 +101,34 @@
     <delete>
       <object
         key="dss.vector.solutions.general.ThresholdDataController.exportHistory"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.actualNotification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.actualIdentification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.actualFacilityNotification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.actualFacilityIdentification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.firstNotification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.firstIdentification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.firstFacilityIdentification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.firstFacilityNotification"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.WeeklyThresholdView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

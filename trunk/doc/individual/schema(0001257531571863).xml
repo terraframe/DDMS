@@ -328,25 +328,25 @@
     <delete>
       <object
         key="dss.vector.solutions.general.ThresholdCalculationMethod"
-        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationMethodMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationType"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.WeeklyThreshold.calculationType"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationTypeView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.general.ThresholdDataController.calculateThresholds"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.thresholdCalculation"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
     </delete>
   </undoIt>
 </version>

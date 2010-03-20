@@ -46,10 +46,10 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.BrowserRoot.hasBrowserRoot"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.geo.GeoHierarchy.hasBrowserRoot"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

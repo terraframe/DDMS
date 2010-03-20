@@ -131,7 +131,7 @@
     <delete>
       <object
         key="dss.vector.solutions.export.IndividualCaseExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
     </delete>
   </undoIt>
 </version>

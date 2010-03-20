@@ -13,7 +13,7 @@
             label="Query Resistance"
             description="Query Resistance"
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="queryXML"
               label="Query XML"

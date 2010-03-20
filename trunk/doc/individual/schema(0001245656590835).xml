@@ -23,7 +23,7 @@
             label="Parent Universal"
             required="true"
             unique="false"
-            type="com.terraframe.mojo.system.metadata.MdBusiness"
+            type="com.runwaysdk.system.metadata.MdBusiness"
             description="The Universal of the Parent"
             indexType="non-unique index"/>
           <reference
@@ -39,7 +39,7 @@
             label="Child Universal"
             required="true"
             unique="false"
-            type="com.terraframe.mojo.system.metadata.MdBusiness"
+            type="com.runwaysdk.system.metadata.MdBusiness"
             description="The Universal of the Child"
             indexType="non-unique index"/>
         </attributes>

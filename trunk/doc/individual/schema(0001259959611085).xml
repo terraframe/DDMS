@@ -4,33 +4,33 @@
 
       <object
         key="dss.vector.solutions.query.Layer.geoHierarchy"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.MappingController.createLayer"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.query.MappingController.editLayer"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.query.SavedMap.addLayerToMap"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.query.LayerView.universalType"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
         
       <object
         key="dss.vector.solutions.geo.GeoEntityDefinition.parentTypeGeoHierarchyId"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
         
       <object
         key="dss.vector.solutions.query.RangeCategory.lowerBound"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.query.RangeCategory.upperBound"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.query.NonRangeCategory.exactValue"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />       
+        type="com.runwaysdk.system.metadata.MdAttribute" />       
     
     </delete>
 
@@ -259,7 +259,7 @@
       
       <object
         key="dss.vector.solutions.geo.GeoEntityDefinition.term"
-        type="com.terraframe.mojo.system.metadata.MdAttribute">
+        type="com.runwaysdk.system.metadata.MdAttribute">
         <attributeStruct name="displayLabel">
           <attribute name="defaultLocale" value="Type Root"/>
         </attributeStruct> 

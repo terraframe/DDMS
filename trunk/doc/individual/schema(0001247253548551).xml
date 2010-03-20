@@ -4,7 +4,7 @@
   <doIt>
 
     <delete>
-      <object key="dss.vector.solutions.intervention.monitor.SurveyPoint.querySurvey" type="com.terraframe.mojo.system.metadata.MdMethod"/> 
+      <object key="dss.vector.solutions.intervention.monitor.SurveyPoint.querySurvey" type="com.runwaysdk.system.metadata.MdMethod"/> 
     </delete>
 
     <update>
@@ -16,7 +16,7 @@
           label="Query Survey"
           description="Query Survey"
           static="true"
-          returnType="com.terraframe.mojo.query.ValueQuery">
+          returnType="com.runwaysdk.query.ValueQuery">
           <mdParameter
             name="queryXML"
             label="Query XML"

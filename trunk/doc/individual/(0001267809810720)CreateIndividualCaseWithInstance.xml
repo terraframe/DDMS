@@ -44,16 +44,16 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCaseController.create.instance"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCaseController.create.symptoms"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.applyWithPersonId.instance"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase.applyWithPersonId.symptoms"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
     </delete>
   </undoIt>
 </version>

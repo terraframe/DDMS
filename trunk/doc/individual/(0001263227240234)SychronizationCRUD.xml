@@ -9,7 +9,7 @@
         <attributes>
           <virtual
             concrete="exported"
-            type="com.terraframe.mojo.system.metadata.MdType"/>
+            type="com.runwaysdk.system.metadata.MdType"/>
           <char
             name="mdTypeId"
             label="MdType ID"
@@ -167,10 +167,10 @@
         <attributes>
           <virtual
             concrete="lastExportSeq"
-            type="com.terraframe.mojo.system.transaction.ImportLog"/>
+            type="com.runwaysdk.system.transaction.ImportLog"/>
           <virtual
             concrete="sourceSite"
-            type="com.terraframe.mojo.system.transaction.ImportLog"/>
+            type="com.runwaysdk.system.transaction.ImportLog"/>
         </attributes>
         <mdMethod
           name="getQuery"
@@ -248,14 +248,14 @@
             size="255"/>
           <virtual
             concrete="componentSeq"
-            type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+            type="com.runwaysdk.system.transaction.TransactionItem"/>
           <char
             name="componentLabel"
             label="Component Type Display Label"
             size="255"/>
           <virtual
             concrete="componentId"
-            type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+            type="com.runwaysdk.system.transaction.TransactionItem"/>
         </attributes>
         <mdMethod
           name="getQuery"
@@ -291,7 +291,7 @@
         <mdMethod
           name="getRecordQuery"
           label="Get Record Query"
-          returnType="com.terraframe.mojo.system.transaction.TransactionRecordQuery"
+          returnType="com.runwaysdk.system.transaction.TransactionRecordQuery"
           static="true">
           <mdParameter
             name="sortAttribute"
@@ -330,13 +330,13 @@
             size="255"/>
           <virtual
             concrete="componentId"
-            type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+            type="com.runwaysdk.system.transaction.TransactionItem"/>
           <virtual
             concrete="xmlRecord"
-            type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+            type="com.runwaysdk.system.transaction.TransactionItem"/>
           <virtual
             concrete="componentSeq"
-            type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+            type="com.runwaysdk.system.transaction.TransactionItem"/>
         </attributes>
         <mdMethod
           name="getByItemId"
@@ -425,25 +425,25 @@
     <delete>
       <object
         key="dss.vector.solutions.synchronization.SynchronizedTypeView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.synchronization.ExportController"
-        type="com.terraframe.mojo.system.metadata.MdController"/>
+        type="com.runwaysdk.system.metadata.MdController"/>
       <object
         key="dss.vector.solutions.synchronization.ImportLogView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.synchronization.ImportController"
-        type="com.terraframe.mojo.system.metadata.MdController"/>
+        type="com.runwaysdk.system.metadata.MdController"/>
       <object
         key="dss.vector.solutions.synchronization.TransactionController"
-        type="com.terraframe.mojo.system.metadata.MdController"/>
+        type="com.runwaysdk.system.metadata.MdController"/>
       <object
         key="dss.vector.solutions.synchronization.TransactionItemView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.synchronization.TransactionItemFullView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
     </delete>
   </undoIt>
 </version>

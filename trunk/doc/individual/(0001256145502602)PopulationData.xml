@@ -34,10 +34,10 @@
     <delete>
       <object
         key="dss.vector.solutions.general.PopulationDataView.estimated"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.PopulationData.estimated"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

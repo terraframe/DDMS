@@ -28,11 +28,11 @@
     
       <object
         key="dss.vector.solutions.query.MappingController.uploadMapImage"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     
       <object
         key="dss.vector.solutions.query.ImageUploadOnlyException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
     
     </delete>
   </undoIt>

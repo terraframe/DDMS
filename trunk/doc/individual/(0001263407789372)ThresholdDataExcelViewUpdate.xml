@@ -5,10 +5,10 @@
     <delete>
       <object
         key="dss.vector.solutions.export.ThresholdDataExcelView.startDate"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.ThresholdDataExcelView.endDate"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
     </delete>
     <update>
       <mdView
@@ -46,7 +46,7 @@
     <delete>
       <object
         key="dss.vector.solutions.export.ThresholdDataExcelView.thresholdType"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
     </delete>
   </undoIt>
 </version>

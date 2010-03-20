@@ -82,8 +82,8 @@
   </doIt>
   <undoIt>
     <delete>
-      <object key="dss.vector.solutions.irs.OperatorSprayController.search" type="com.terraframe.mojo.system.metadata.MdAction"/>
-      <object key="dss.vector.solutions.irs.OperatorSprayController.searchByParameters" type="com.terraframe.mojo.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.irs.OperatorSprayController.search" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.irs.OperatorSprayController.searchByParameters" type="com.runwaysdk.system.metadata.MdAction"/>
     </delete>
   </undoIt>
 </version>

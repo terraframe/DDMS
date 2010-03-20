@@ -325,7 +325,7 @@
 
     <create>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.coordinator">
         <attribute
           name="roleName"
@@ -338,7 +338,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.entomologist">
         <attribute
           name="roleName"
@@ -351,7 +351,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.operationalManager">
         <attribute
           name="roleName"
@@ -364,7 +364,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.MDSS">
         <attribute
           name="roleName"
@@ -377,7 +377,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.GUIVisibility">
         <attribute
           name="roleName"
@@ -390,7 +390,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.dataCapturer">
         <attribute
           name="roleName"
@@ -403,7 +403,7 @@
         </attributeStruct>
       </object>
       <object
-        type="com.terraframe.mojo.system.Roles"
+        type="com.runwaysdk.system.Roles"
         key="Roles.mdss.manager">
         <attribute
           name="roleName"
@@ -422,13 +422,13 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.AllPaths"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.ontology.Term"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.ontology.Ontology"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

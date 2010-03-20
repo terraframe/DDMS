@@ -22,12 +22,12 @@
     
       <object
         key="dss.vector.solutions.ontology.BrowserFieldView.mdAttributeLabel"
-        type="com.terraframe.mojo.system.metadata.MdAttribute">
+        type="com.runwaysdk.system.metadata.MdAttribute">
         <attribute name="required" value="false"/>
       </object>
       <object
         key="dss.vector.solutions.ontology.BrowserFieldView.mdClassLabel"
-        type="com.terraframe.mojo.system.metadata.MdAttribute">
+        type="com.runwaysdk.system.metadata.MdAttribute">
         <attribute name="required" value="false"/>
       </object>
       

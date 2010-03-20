@@ -5,15 +5,15 @@
 
       <object
         key="dss.vector.solutions.report.ReportController.generateReport.type"
-        type="com.terraframe.mojo.system.metadata.MdParameter"/>
+        type="com.runwaysdk.system.metadata.MdParameter"/>
 
       <object
         key="dss.vector.solutions.QueryType"
-        type="com.terraframe.mojo.system.metadata.MdEnumeration"/>
+        type="com.runwaysdk.system.metadata.MdEnumeration"/>
         
       <object
         key="dss.vector.solutions.QueryTypeMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>    
+        type="com.runwaysdk.system.metadata.MdBusiness"/>    
       
       
     
@@ -154,7 +154,7 @@
               label="MdAttribute"
               description="The MdAttribute to join on when defining the layer."
               required="true"
-              type="com.terraframe.mojo.system.metadata.MdAttribute" />
+              type="com.runwaysdk.system.metadata.MdAttribute" />
           </attributes>
           <mdMethod
             name="getAttributeGeoHierarchies"

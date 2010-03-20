@@ -40,7 +40,7 @@
         <mdMethod
           name="searchForLeader"
           label="Search for Leader"
-          returnType="com.terraframe.mojo.query.ValueQuery"
+          returnType="com.runwaysdk.query.ValueQuery"
           static="true">
           <mdParameter
             name="search"
@@ -230,7 +230,7 @@
         name="dss.vector.solutions.MDSSUser"
         label="MDSS User"
         description="Generic MDSS User"
-        extends="com.terraframe.mojo.system.Users"
+        extends="com.runwaysdk.system.Users"
         generateController="false">
         <attributes>
           <reference
@@ -385,28 +385,28 @@
     <delete>
       <object
         key="dss.vector.solutions.Person"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.PersonView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.MDSSUser"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.Patient"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNRecipient"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.IPTRecipient"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.irs.TeamMember"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.irs.SprayTeam"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

@@ -197,28 +197,28 @@
         type="dss.vector.solutions.Property" />
       <object
         key="dss.vector.solutions.general.ThresholdValueProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
       <object
         key="dss.vector.solutions.FileController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.general.OutbreakCalculationMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.OutbreakCalculation"
-        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
       <object
         key="dss.vector.solutions.geo.GeoHierarchy.getAllViews"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.general.ThresholdDataView.setThresholdConfiguration"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.general.ThresholdDataController.editThresholdConfiguration"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

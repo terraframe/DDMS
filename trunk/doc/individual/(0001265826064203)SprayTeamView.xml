@@ -74,7 +74,7 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.SprayTeamView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

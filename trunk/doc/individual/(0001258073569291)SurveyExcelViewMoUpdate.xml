@@ -5,28 +5,28 @@
     <delete>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.malariaePositive"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.mixedPositive"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.negative"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.notValid"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.ovalePositive"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.pfPositive"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.roof"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.vivaxPositive"
-        type="com.terraframe.mojo.system.metadata.MdAttributeBoolean"/>
+        type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
     </delete>
     <update>
       <mdView

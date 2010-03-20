@@ -56,13 +56,13 @@
     <delete>
       <object
         key="dss.vector.solutions.general.PopulationDataController.searchForPopulationData.populationType"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.general.PopulationDataView.populationType"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.PopulationDataView.getFacilityViews"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

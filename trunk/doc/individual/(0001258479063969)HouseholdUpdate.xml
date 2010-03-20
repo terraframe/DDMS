@@ -5,10 +5,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdController.create.nets"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdController.update.nets"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />    
+        type="com.runwaysdk.system.metadata.MdParameter" />    
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.PersonView.payment"
         type="dss.vector.solutions.ontology.BrowserField" />    
@@ -44,52 +44,52 @@
         type="dss.vector.solutions.ontology.BrowserField" />    
       <object
         key="dss.vector.solutions.intervention.monitor.PersonView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdPerson"
-        type="com.terraframe.mojo.system.metadata.MdTree" />
+        type="com.runwaysdk.system.metadata.MdTree" />
       <object
         key="dss.vector.solutions.intervention.monitor.PersonRDTResult"
-        type="com.terraframe.mojo.system.metadata.MdTree" />
+        type="com.runwaysdk.system.metadata.MdTree" />
       <object
         key="dss.vector.solutions.intervention.monitor.PersonController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.intervention.monitor.Person"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdNet"
-        type="com.terraframe.mojo.system.metadata.MdTree" />
+        type="com.runwaysdk.system.metadata.MdTree" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.HouseholdView.displayNets"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.getHouseholdNets"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdController.create.nets"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdController.update.nets"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />        
+        type="com.runwaysdk.system.metadata.MdParameter" />        
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.applyAll"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.displayNets"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.sleptUnderNets"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.netsUsed"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.Household.sleptUnderNets"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.Household.netsUsed"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
     <create>
       <enumerationMaster

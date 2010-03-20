@@ -98,13 +98,13 @@
     <delete>
       <object
         key="dss.vector.solutions.util.Facade.importExcelFile"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
 
     <delete>
       <object
         key="dss.vector.solutions.geo.GeoSynonym"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
     </delete>
 
   </undoIt>

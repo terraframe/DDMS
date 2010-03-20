@@ -24,10 +24,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.ITNInstance.receivedDate"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNInstance.retreatedDate"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

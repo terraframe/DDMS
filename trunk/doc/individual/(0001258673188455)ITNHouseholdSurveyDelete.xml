@@ -29,13 +29,13 @@
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurvey"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </doIt>
   <undoIt>

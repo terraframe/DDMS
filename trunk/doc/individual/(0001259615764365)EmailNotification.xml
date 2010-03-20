@@ -261,22 +261,22 @@
     <delete>
       <object
         key="dss.vector.solutions.general.EmailConfiguration"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.SystemAlertEmailTemplateVariables"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.SystemAlert"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.EmailProtocol"
-        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
       <object
         key="dss.vector.solutions.general.EmailProtocolMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.general.Email"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

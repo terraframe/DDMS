@@ -165,7 +165,7 @@
             label="Get Subclass Information"
             description="Fetches the class name and display labels for all children of this class."
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
           </mdMethod>
         </create>
       </mdUtil>    
@@ -190,27 +190,27 @@
     
       <object
         key="dss.vector.solutions.query.CategoryGen"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
     
       <object
         key="dss.vector.solutions.query.LayerController.requestGenerate"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
 
       <object
         key="dss.vector.solutions.query.LayerController.generateCategories"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
             
       <object
         key="dss.vector.solutions.query.Layer.generateCategories"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />    
+        type="com.runwaysdk.system.metadata.MdMethod" />    
 
       <object
         key="dss.vector.solutions.query.AbstractCategoryFactory.getSubclassInfo"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />    
+        type="com.runwaysdk.system.metadata.MdMethod" />    
 
       <object
         key="dss.vector.solutions.query.AbstractCategoryFactory.getAllRequiredAttributes"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />    
+        type="com.runwaysdk.system.metadata.MdMethod" />    
     
     </delete>
   </undoIt>

@@ -45,19 +45,19 @@
     
       <object
         key="dss.vector.solutions.geo.GeoEntityDefinition.spatialType"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
         
       <object
         key="dss.vector.solutions.geo.SpatialMaster"
-        type="com.terraframe.mojo.system.metadata.MdType"/>
+        type="com.runwaysdk.system.metadata.MdType"/>
 
       <object
         key="dss.vector.solutions.geo.SpatialTypeDefinedException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
         
       <object
         key="dss.vector.solutions.geo.SpatialTypeRequiredException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
         
     </delete>
     

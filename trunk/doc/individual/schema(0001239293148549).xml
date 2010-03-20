@@ -112,7 +112,7 @@
               required="true"
               immutable="true"
               description="The corresponding view of this age group"
-              type="com.terraframe.mojo.system.metadata.MdView" />
+              type="com.runwaysdk.system.metadata.MdView" />
           </attributes>
           <mdMethod
             name="getAll"
@@ -268,7 +268,7 @@
     <delete>
       <object
         key="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndDate"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
 
     <create>
@@ -966,13 +966,13 @@
     <delete>
       <object
         key="dss.vector.solutions.surveillance.InfiantCaseView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.surveillance.AdultCaseView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.surveillance.AggregatedCaseView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

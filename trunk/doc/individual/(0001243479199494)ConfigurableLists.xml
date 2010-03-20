@@ -23,7 +23,7 @@
     <delete>
       <object
         key="dss.vector.solutions.util.ConfigurableListController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
     </delete>
   </undoIt>
 </version>

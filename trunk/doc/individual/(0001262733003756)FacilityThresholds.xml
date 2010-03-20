@@ -86,16 +86,16 @@
 		<delete>
 			<object
 				key="dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholds"
-				type="com.terraframe.mojo.system.metadata.MdAction" />
+				type="com.runwaysdk.system.metadata.MdAction" />
 			<object
 				key="dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholds"
-				type="com.terraframe.mojo.system.metadata.MdAction" />
+				type="com.runwaysdk.system.metadata.MdAction" />
 			<object
 				key="dss.vector.solutions.general.ThresholdCalculationTypeView.calculatePoliticalThresholds"
-				type="com.terraframe.mojo.system.metadata.MdMethod" />
+				type="com.runwaysdk.system.metadata.MdMethod" />
 			<object
 				key="dss.vector.solutions.general.ThresholdCalculationTypeView.calculateFacilityThresholds"
-				type="com.terraframe.mojo.system.metadata.MdMethod" />
+				type="com.runwaysdk.system.metadata.MdMethod" />
 		</delete>
 	</undoIt>
 </version>

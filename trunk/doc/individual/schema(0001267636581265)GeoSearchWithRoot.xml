@@ -5,7 +5,7 @@
     
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     
     </delete>    
   
@@ -44,10 +44,10 @@
     
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId.enforceRoot"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.searchByParameters.enforceRoot"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
     
     </delete>
   </undoIt>

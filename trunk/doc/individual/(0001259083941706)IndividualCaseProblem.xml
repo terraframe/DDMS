@@ -12,7 +12,7 @@
     <delete>
       <object
         key="dss.vector.solutions.surveillance.RequiredDiagnosisDateProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
     </delete>
   </undoIt>
 </version>

@@ -6,7 +6,7 @@
   <undoIt>
     <delete>
       <object key="dss.vector.solutions.geo.GeoHierarchy.viewName"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter" />
     </delete>
   </undoIt>
 </version>

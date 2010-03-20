@@ -147,7 +147,7 @@
             label="Geo Entity Class"
             description="A reference to the GeoEntity MdClass"
             required="true"
-            type="com.terraframe.mojo.system.metadata.MdBusiness" />
+            type="com.runwaysdk.system.metadata.MdBusiness" />
         </attributes>
         <mdMethod
           name="collectHierarchies"
@@ -345,7 +345,7 @@
             name="typeName"
             required="true"
             concrete="typeName"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            type="com.runwaysdk.system.metadata.MdType" />
           <char
             name="displayLabel"
             required="true"
@@ -447,7 +447,7 @@
             name="typeName"
             required="true"
             concrete="typeName"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            type="com.runwaysdk.system.metadata.MdType" />
           <char
             name="displayLabel"
             required="true"
@@ -775,7 +775,7 @@
       </mdController>
 
       <mdController
-        name="com.terraframe.mojo.defaults.LoginController"
+        name="com.runwaysdk.defaults.LoginController"
         label="Login Controller"
         description="Provides functionallity for logging in and logging out">
         <mdAction
@@ -815,7 +815,7 @@
           label="Get All MDSS Classes"
           description="Returns a list of all MdClass definitions in the MDSS project"
           static="true"
-          returnType="com.terraframe.mojo.system.metadata.MdClassQuery">
+          returnType="com.runwaysdk.system.metadata.MdClassQuery">
         </mdMethod>
       </mdBusiness>
 
@@ -2798,7 +2798,7 @@
     <update>
       <object
         key="Users.SYSTEM"
-        type="com.terraframe.mojo.system.Users">
+        type="com.runwaysdk.system.Users">
         <attribute
           name="sessionLimit"
           value="20" />
@@ -2812,7 +2812,7 @@
     <delete>
       <object
         key="test.xmlclasses.Class1"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

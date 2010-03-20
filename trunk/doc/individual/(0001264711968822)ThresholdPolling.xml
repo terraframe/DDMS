@@ -31,10 +31,10 @@
     <delete>
       <object
         key="dss.vector.solutions.general.CalculationInProgressException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationTypeView.getPercentComplete"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

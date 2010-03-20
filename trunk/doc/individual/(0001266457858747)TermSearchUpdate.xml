@@ -9,7 +9,7 @@
           <mdMethod
             name="searchByRoots"
             label="Search by Roots"
-            returnType="com.terraframe.mojo.query.ValueQuery"
+            returnType="com.runwaysdk.query.ValueQuery"
             static="true">
             <mdParameter
               name="value"
@@ -30,7 +30,7 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.Term.searchByRoots"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

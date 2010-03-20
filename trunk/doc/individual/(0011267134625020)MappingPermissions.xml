@@ -101,7 +101,7 @@
             <operation name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.WebFile">
+            type="com.runwaysdk.system.WebFile">
             <operation name="READ" />
             <operation name="READ_ALL_ATTRIBUTES" />
             <operation name="CREATE" />

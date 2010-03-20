@@ -35,7 +35,7 @@
     <delete>
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedInByGeoId"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

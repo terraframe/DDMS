@@ -35,13 +35,13 @@
     <delete>
       <object
         key="dss.vector.solutions.general.ThresholdCalculationTypeView.epidemicUniversal"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationTypeView.countingMethod"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.general.ThresholdCalculationTypeView.calculationInterval"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

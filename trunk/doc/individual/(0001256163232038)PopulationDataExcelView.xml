@@ -29,7 +29,7 @@
     <delete>
       <object
         key="dss.vector.solutions.export.PopulationDataExcelView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

@@ -28,7 +28,7 @@
 		<delete>
 			<object
 				key="dss.vector.solutions.query.AbstractCategoryFactory"
-				type="com.terraframe.mojo.system.metadata.MdUtil" />
+				type="com.runwaysdk.system.metadata.MdUtil" />
 		</delete>
 	</undoIt>
 </version>

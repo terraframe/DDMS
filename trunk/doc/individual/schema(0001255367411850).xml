@@ -10,7 +10,7 @@
           label="Get Query Results"
           description="Run the Query on the passed method"
           static="true"
-          returnType="com.terraframe.mojo.query.ValueQuery">
+          returnType="com.runwaysdk.query.ValueQuery">
           <mdParameter
             name="queryType"
             label="Query Type"

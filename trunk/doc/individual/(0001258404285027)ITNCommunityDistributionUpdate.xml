@@ -31,10 +31,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView.itnsReceived"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.itnsReceived"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

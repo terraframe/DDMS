@@ -5,7 +5,7 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionView.recipient"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
     <update>
       <mdView
@@ -89,31 +89,31 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.person"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.facility"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.batchNumber"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.newInstance.distributionDate"
-        type="com.terraframe.mojo.system.metadata.MdParameter" />
+        type="com.runwaysdk.system.metadata.MdParameter" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionView.person"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionView.getRecipientView"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionView.searchHistory"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.search"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

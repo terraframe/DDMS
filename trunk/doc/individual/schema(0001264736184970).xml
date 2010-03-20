@@ -169,7 +169,7 @@
               label="Legend Color"
               description="The field used for the color value in the legend."
               required="true"
-              type="com.terraframe.mojo.system.metadata.MdAttribute" />
+              type="com.runwaysdk.system.metadata.MdAttribute" />
           </attributes>
         </create>
       </mdBusiness>
@@ -199,61 +199,61 @@
     
       <object
         key="dss.vector.solutions.query.CountOfOneProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem"/>
+        type="com.runwaysdk.system.metadata.MdProblem"/>
       <object
         key="dss.vector.solutions.query.MissingBoundsException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
       <object
         key="dss.vector.solutions.query.LowerGreaterThanUpperBoundsException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
         
       <object
         key="dss.vector.solutions.query.MappingController.addText"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
         
       <object
         key="dss.vector.solutions.query.FreeText"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
     
       <object
         key="dss.vector.solutions.query.Layer.enableLegend"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.showLegendBorder"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.createRawLegend"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendTitle"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendTitleFontFill"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendTitleFontFamily"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendTitleFontStyles"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendTitleFontSize"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendFontFill"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendFontFamily"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendFontStyles"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendFontSize"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
       <object
         key="dss.vector.solutions.query.Layer.legendColor"
-        type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+        type="com.runwaysdk.system.metadata.MdAttribute"/>
     
     </delete>
   </undoIt>

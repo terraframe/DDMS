@@ -44,7 +44,7 @@
     
     <delete>
       <object key="dss.vector.solutions.query.MapWithoutGeoEntityException"
-        type="com.terraframe.mojo.system.metadata.MdException"/>
+        type="com.runwaysdk.system.metadata.MdException"/>
     </delete>
     
   </doIt>
@@ -52,7 +52,7 @@
     <delete>
       <object
         key="dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem"
-        type="com.terraframe.mojo.system.metadata.MdProblem" />
+        type="com.runwaysdk.system.metadata.MdProblem" />
     </delete>
   </undoIt>
 </version>

@@ -109,7 +109,7 @@
           label="Query Survey"
           description="Query Survey"
           static="true"
-          returnType="com.terraframe.mojo.query.ValueQuery">
+          returnType="com.runwaysdk.query.ValueQuery">
           <mdParameter
             name="queryXML"
             label="Query XML"

@@ -144,16 +144,16 @@
     <delete>
       <object
         key="dss.vector.solutions.intervetion.monitor.LarvacideAssociation"
-        type="com.terraframe.mojo.system.metadata.MdRelationship"/>
+        type="com.runwaysdk.system.metadata.MdRelationship"/>
       <object
         key="dss.vector.solutions.intervetion.monitor.LarvacideInstanceView"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.intervetion.monitor.LarvacideInstance"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.intervetion.monitor.Larvacide"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
+        type="com.runwaysdk.system.metadata.MdBusiness"/>
     </delete>
   </undoIt>
 </version>

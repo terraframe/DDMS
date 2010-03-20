@@ -26,7 +26,7 @@
           <reference
             name="mdAttribute"
             label="MdAttribute"
-            type="com.terraframe.mojo.system.metadata.MdAttribute"
+            type="com.runwaysdk.system.metadata.MdAttribute"
             required="true"/>
         </attributes>
         <mdMethod
@@ -220,21 +220,21 @@
 
       <object
         key="dss.vector.solutions.ontology.BrowserFieldView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.ontology.BrowserRootView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
 
 
       <object
         key="dss.vector.solutions.ontology.BrowserField"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.ontology.BrowserRoot"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.ontology.BrowserRelationship"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
 
     </delete>
   </undoIt>

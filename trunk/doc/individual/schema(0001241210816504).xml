@@ -30,7 +30,7 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.ResourceTargetView.getResourceTargets"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

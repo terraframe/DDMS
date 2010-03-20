@@ -358,16 +358,16 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistribution"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup"
-        type="com.terraframe.mojo.system.metadata.MdTree" />
+        type="com.runwaysdk.system.metadata.MdTree" />
       <object
         key="dss.vector.solutions.PersonView.getDuplicatesPage"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

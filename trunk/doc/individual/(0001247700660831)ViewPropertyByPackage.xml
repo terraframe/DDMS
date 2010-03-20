@@ -29,7 +29,7 @@
     <delete>
       <object
         key="dss.vector.solutions.PropertyController.viewPackage"
-        type="com.terraframe.mojo.system.metadata.MdAction"/>
+        type="com.runwaysdk.system.metadata.MdAction"/>
     </delete>
   </undoIt>
 </version>

@@ -10,7 +10,7 @@
             name="getTextAttributeSugestions"
             label="getTextAttributeSugestions"
             static="true"
-            returnType="com.terraframe.mojo.query.ValueQuery">
+            returnType="com.runwaysdk.query.ValueQuery">
             <mdParameter
               name="match"
               label="match"

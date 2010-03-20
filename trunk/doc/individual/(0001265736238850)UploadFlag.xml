@@ -34,16 +34,16 @@
     <delete>
       <object
         key="dss.vector.solutions.PropertyController.setFlag"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.PropertyController.editFlag"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.FileRequiredException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.UnableToUploadFlagException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
     </delete>
   </undoIt>
 </version>

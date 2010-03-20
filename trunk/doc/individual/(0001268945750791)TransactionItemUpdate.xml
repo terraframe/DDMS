@@ -10,7 +10,7 @@
             <virtual
               name="componentSiteMaster"
               concrete="componentSiteMaster"
-              type="com.terraframe.mojo.system.transaction.TransactionItem"
+              type="com.runwaysdk.system.transaction.TransactionItem"
               required="false" />
           </attributes>
         </create>
@@ -22,7 +22,7 @@
             <virtual
               name="componentSiteMaster"
               concrete="componentSiteMaster"
-              type="com.terraframe.mojo.system.transaction.TransactionItem"/>
+              type="com.runwaysdk.system.transaction.TransactionItem"/>
           </attributes>
         </create>
       </mdView>
@@ -32,10 +32,10 @@
     <delete>
       <object
         key="dss.vector.solutions.synchronization.TransactionItemView.componentSiteMaster"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.synchronization.TransactionItemFullView.componentSiteMaster"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>
 </version>

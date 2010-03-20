@@ -35,7 +35,7 @@
             label="Get All MDSS Roles"
             description="Returns a list of all Roles in the MDSS project"
             static="true"
-            returnType="com.terraframe.mojo.system.Roles[]">
+            returnType="com.runwaysdk.system.Roles[]">
           </mdMethod>
         </create>
       </mdBusiness>
@@ -139,7 +139,7 @@
           <virtual
             name="username"
             concrete="username"
-            type="com.terraframe.mojo.system.Users"/>
+            type="com.runwaysdk.system.Users"/>
           <virtual
             name="firstName"
             concrete="firstName"
@@ -183,16 +183,16 @@
     <delete>
       <object
         key="dss.vector.solutions.RoleController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="dss.vector.solutions.MDSSUserView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.MDSSUser.updateRoles"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.util.Facade.getMDSSRoles"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

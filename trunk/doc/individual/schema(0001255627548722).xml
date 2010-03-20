@@ -17,7 +17,7 @@
               label="mdAttribute"
               description="The attribute to get valid terms for"
               order="0"
-              type="com.terraframe.mojo.system.metadata.MdAttribute"/>
+              type="com.runwaysdk.system.metadata.MdAttribute"/>
           </mdMethod>
         </create>
       </mdBusiness>
@@ -27,7 +27,7 @@
     <delete>
       <object
         key="dss.vector.solutions.ontology.Term.getAllTermsByAttribute"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
   </undoIt>
 </version>

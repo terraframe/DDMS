@@ -57,10 +57,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.LarvacideInstanceView.substance"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.LarvacideInstance.substance"
-        type="com.terraframe.mojo.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.LarvacideInstanceView"
         type="dss.vector.solutions.ontology.BrowserField" />

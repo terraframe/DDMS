@@ -201,10 +201,10 @@
     <delete>
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualCase"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.monitor.IndividualInstance"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

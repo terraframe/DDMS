@@ -44,7 +44,7 @@
             name="attributeName"
             required="true"
             concrete="attributeName"
-            type="com.terraframe.mojo.system.metadata.MdAttributeConcrete" />
+            type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
           <char
             name="displayLabel"
             required="true"
@@ -163,7 +163,7 @@
       </mdController>
       <object
         key="Users.testEntomologist"
-        type="com.terraframe.mojo.system.Users">
+        type="com.runwaysdk.system.Users">
         <attribute
           name="username"
           value="testEntomologist" />
@@ -180,13 +180,13 @@
     <delete>
       <object
         key="dss.vector.solutions.util.ReadableAttributeView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        type="com.runwaysdk.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.util.ReadableAttributeController"
-        type="com.terraframe.mojo.system.metadata.MdController" />
+        type="com.runwaysdk.system.metadata.MdController" />
       <object
         key="Users.testEntomologist"
-        type="com.terraframe.mojo.system.Users" />
+        type="com.runwaysdk.system.Users" />
     </delete>
   </undoIt>
 </version>

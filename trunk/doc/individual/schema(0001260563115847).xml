@@ -18,7 +18,7 @@
 	<undoIt>
 		<delete>
 			<object key="dss.vector.solutions.general.OutbreakAlert.emailFailure"
-				type="com.terraframe.mojo.system.metadata.MdAttributeBoolean" />
+				type="com.runwaysdk.system.metadata.MdAttributeBoolean" />
 		</delete>
 	</undoIt>
 </version>

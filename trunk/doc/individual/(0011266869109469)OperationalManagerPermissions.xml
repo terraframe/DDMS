@@ -90,7 +90,7 @@
               name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.Assignments">
+            type="com.runwaysdk.system.Assignments">
             <operation
               name="DELETE" />
           </mdBusinessPermission>
@@ -302,7 +302,7 @@
               name="DELETE" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.terraframe.mojo.system.VaultFile">
+            type="com.runwaysdk.system.VaultFile">
             <operation
               name="CREATE" />
             <operation

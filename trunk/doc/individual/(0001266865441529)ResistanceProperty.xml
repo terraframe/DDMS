@@ -130,7 +130,7 @@
     <delete>
       <object
         key="dss.vector.solutions.entomology.ResistanceProperty"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.runwaysdk.system.metadata.MdBusiness" />
     </delete>
   </undoIt>
 </version>

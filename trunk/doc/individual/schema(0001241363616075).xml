@@ -75,10 +75,10 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.ZoneSprayController.search"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.irs.ZoneSprayController.searchByParameters"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
 </version>

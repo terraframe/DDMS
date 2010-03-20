@@ -4,7 +4,7 @@
     
       <object
         key="dss.vector.solutions.query.Styles.fontStyle"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
         
     </delete>
     <create>

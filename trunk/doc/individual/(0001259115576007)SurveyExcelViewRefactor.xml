@@ -5,16 +5,16 @@
     <delete>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.bloodslide"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNet"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.feverTreatement"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.malariaTreatment"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
     </delete>
     <update>
       <mdView
@@ -167,112 +167,112 @@
     <delete>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.hasBeenSprayed"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.personId"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.headOfHousehold"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.dob"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.age"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.pregnant"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.immuneCompromised"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNetId"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.haemoglobinMeasured"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.haemoglobin"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.iron"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.rdtResult"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.rdtDetail"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.performedBloodslide"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.bloodslideReason"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.bloodslideResult"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.bloodslideDetail"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.malariaConformationTechnique"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.netId"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.netBrand"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.monthReceived"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.yearReceived"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.obtained"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.price"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.retreated"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.monthRetreated"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.yearRetreated"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.damaged"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.hanging"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.notUsedForSleeping"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.purpose"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.purposeComments"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.washed"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.washFrequency"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.washPeriod"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
       <object
         key="dss.vector.solutions.export.SurveyExcelView.sleptUnderNet"
-        type="com.terraframe.mojo.system.metadata.MdAttributeVirtual"/>
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
     </delete>
   </undoIt>
 </version>

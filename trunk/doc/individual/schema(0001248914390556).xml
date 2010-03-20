@@ -101,22 +101,22 @@
     <delete>
       <object
         key="dss.vector.solutions.AmbigiousGeoEntityException.entityName"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
     </delete>
     <delete>
       <object
         key="dss.vector.solutions.UnknownGeoEntityException.entityName"
-        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter"/>
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
     </delete>
     <delete>
       <object
         key="dss.vector.solutions.util.Facade.checkSynonyms"
-        type="com.terraframe.mojo.system.metadata.MdMethod"/>
+        type="com.runwaysdk.system.metadata.MdMethod"/>
     </delete>
     <delete>
       <object
         key="dss.vector.solutions.geo.UnknownGeoEntity"
-        type="com.terraframe.mojo.system.metadata.MdView"/>
+        type="com.runwaysdk.system.metadata.MdView"/>
     </delete>
 
   </undoIt>

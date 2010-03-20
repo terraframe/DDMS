@@ -61,7 +61,7 @@
         type="dss.vector.solutions.ontology.BrowserField" />            
       <object
         key="dss.vector.solutions.PersonView.applyAsITNRecipient"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
     </delete>
   </undoIt>
 </version>

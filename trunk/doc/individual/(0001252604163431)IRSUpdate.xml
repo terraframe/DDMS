@@ -100,25 +100,25 @@
     <delete>
       <object
         key="dss.vector.solutions.irs.UniqueSprayException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.UniqueOperatorSprayException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.UniqueTeamSprayException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.UniqueZoneSprayException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.ModifiedSprayMethodException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.ModifiedSprayTeamException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
       <object
         key="dss.vector.solutions.irs.ModifiedSprayZoneException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
     </delete>
   </undoIt>
 </version>

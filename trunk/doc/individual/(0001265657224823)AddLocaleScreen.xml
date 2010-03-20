@@ -75,7 +75,7 @@
             name="getInstalledLocales"
             label="Get Installed Locales"
             static="true"
-            returnType="com.terraframe.mojo.system.metadata.SupportedLocaleQuery">
+            returnType="com.runwaysdk.system.metadata.SupportedLocaleQuery">
           </mdMethod>
         </create>
       </mdBusiness>
@@ -85,19 +85,19 @@
     <delete>
       <object
         key="dss.vector.solutions.util.LocalizationController.newLocale"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.util.LocalizationController.installLocale"
-        type="com.terraframe.mojo.system.metadata.MdAction" />
+        type="com.runwaysdk.system.metadata.MdAction" />
       <object
         key="dss.vector.solutions.util.LocalizationFacade.installLocale"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.util.LocalizationFacade.getInstalledLocales"
-        type="com.terraframe.mojo.system.metadata.MdMethod" />
+        type="com.runwaysdk.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.util.LocaleNotInstalledException"
-        type="com.terraframe.mojo.system.metadata.MdException" />
+        type="com.runwaysdk.system.metadata.MdException" />
     </delete>
   </undoIt>
 </version>
