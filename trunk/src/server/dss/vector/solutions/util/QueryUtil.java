@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -29,6 +30,7 @@ import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -42,11 +44,14 @@ import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.system.metadata.SupportedLocale;
+import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -68,34 +73,34 @@ import dss.vector.solutions.query.QueryConstants;
 public class QueryUtil implements Reloadable
 {
 
-  private static final String GEO_DISPLAY_LABEL =         "geo_displayLabel";
+  private static final String GEO_DISPLAY_LABEL            = "geo_displayLabel";
 
-  public static final String DATEGROUP_EPIWEEK            = "dategroup_epiweek";
+  public static final String  DATEGROUP_EPIWEEK            = "dategroup_epiweek";
 
-  public static final String DATEGROUP_MONTH              = "dategroup_month";
+  public static final String  DATEGROUP_MONTH              = "dategroup_month";
 
-  public static final String DATEGROUP_QUARTER            = "dategroup_quarter";
+  public static final String  DATEGROUP_QUARTER            = "dategroup_quarter";
 
-  public static final String DATEGROUP_CALENDARYEAR       = "dategroup_year";
-  
-  public static final String DATEGROUP_EPIYEAR            = "dategroup_epiyear";
+  public static final String  DATEGROUP_CALENDARYEAR       = "dategroup_year";
 
-  public static final String DATEGROUP_SEASON             = "dategroup_season";
+  public static final String  DATEGROUP_EPIYEAR            = "dategroup_epiyear";
+
+  public static final String  DATEGROUP_SEASON             = "dategroup_season";
 
   public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
 
-  public static final String START_DATE_RANGE             = "start_date_range";
+  public static final String  START_DATE_RANGE             = "start_date_range";
 
-  public static final String RATIO                        = "ratio_of_this_row_to_total_count";
+  public static final String  RATIO                        = "ratio_of_this_row_to_total_count";
 
-  public static final String END_DATE_RANGE               = "end_date_range";
+  public static final String  END_DATE_RANGE               = "end_date_range";
 
   private static final String DATE_ATTRIBUTE               = "date_attribute";
 
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
-  
+
   public static final String  SHORT_DISPLAY_LABEL          = "shortDisplayLabel";
 
   /**
@@ -106,34 +111,34 @@ public class QueryUtil implements Reloadable
   public static void validateQuery(ValueQuery valueQuery)
   {
     validateDateSelectables(valueQuery);
-    
+
     int size = valueQuery.getSelectableRefs().size();
-    if(size == 0)
+    if (size == 0)
     {
       NoColumnsAddedException ex = new NoColumnsAddedException();
       throw ex;
     }
-    
-    if(size == 1 &&
-      (valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT))
+
+    if (size == 1 && ( valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
     {
       throw new CountOrRatioAloneException();
     }
-    else if(size == 2 && valueQuery.hasSelectableRef(RATIO))
+    else if (size == 2 && valueQuery.hasSelectableRef(RATIO))
     {
       // count and ratio are invalid
-      for(Selectable sel : valueQuery.getSelectableRefs())
+      for (Selectable sel : valueQuery.getSelectableRefs())
       {
-        if(sel instanceof COUNT)
+        if (sel instanceof COUNT)
         {
           throw new CountOrRatioAloneException();
         }
       }
     }
-  }  
-  
+  }
+
   /**
-   * Ensures that the ValueQuery contains more than the start and end date criteria.
+   * Ensures that the ValueQuery contains more than the start and end date
+   * criteria.
    * 
    * @param valueQuery
    */
@@ -143,50 +148,50 @@ public class QueryUtil implements Reloadable
     // to create a meaninful query.
     List<Selectable> selectables = valueQuery.getSelectableRefs();
     boolean hasOnlyDates = false;
-    if(selectables.size() == 1)
+    if (selectables.size() == 1)
     {
       String alias = selectables.get(0).getUserDefinedAlias();
-      if(QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
+      if (QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
       {
         hasOnlyDates = true;
       }
     }
-    else if(selectables.size() == 2)
+    else if (selectables.size() == 2)
     {
       boolean isStart = false;
       boolean isEnd = false;
-      
-      for(Selectable sel : selectables)
+
+      for (Selectable sel : selectables)
       {
         String alias = sel.getUserDefinedAlias();
-        if(QueryUtil.START_DATE_RANGE.equals(alias))
+        if (QueryUtil.START_DATE_RANGE.equals(alias))
         {
           isStart = true;
         }
-        else if(QueryUtil.END_DATE_RANGE.equals(alias))
+        else if (QueryUtil.END_DATE_RANGE.equals(alias))
         {
           isEnd = true;
         }
       }
-      
+
       hasOnlyDates = isStart && isEnd;
     }
-    
-    if(hasOnlyDates)
+
+    if (hasOnlyDates)
     {
       String error = "The start and end date must be added with other selectables.";
       throw new DatesOnlyException(error);
     }
   }
-  
+
   public static String getRelationshipTermSubSelect(String attribute, String parentClass, String relClass)
   {
     String parentTable = MdBusiness.getMdBusiness(parentClass).getTableName();
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable + " tJoin on rJoin." + RelationshipInfo.CHILD_ID
-        + " = tJoin.id)";
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable
+        + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
   }
 
   public static String[] filterSelectedAttributes(ValueQuery valueQuery, String[] attributes)
@@ -205,7 +210,7 @@ public class QueryUtil implements Reloadable
 
       if (s instanceof SelectableSQL)
       {
-//        String columnAlias = s.getColumnAlias();
+        // String columnAlias = s.getColumnAlias();
         String attributeName = s.getDbColumnName();
         for (String termAttrib : Arrays.asList(attributes))
         {
@@ -221,23 +226,22 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static void setSelectabeSQL(ValueQuery valueQuery ,String ref, String sql)
+  public static void setSelectabeSQL(ValueQuery valueQuery, String ref, String sql)
   {
-    if(valueQuery.hasSelectableRef(ref))
+    if (valueQuery.hasSelectableRef(ref))
     {
       Selectable s = valueQuery.getSelectableRef(ref);
-      
+
       while (s instanceof Function)
       {
         Function f = (Function) s;
         s = f.getSelectable();
       }
-      
-      ((SelectableSQL)s).setSQL(sql);
+
+      ( (SelectableSQL) s ).setSQL(sql);
     }
   }
-  
-  
+
   public static SelectableSQL[] filterSelectedSelectables(ValueQuery valueQuery, String[] attributes)
   {
 
@@ -320,8 +324,10 @@ public class QueryUtil implements Reloadable
   public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName, String attributeAlias)
   {
     String tableName = MdBusiness.getMdBusiness(klass).getTableName();
+    
+    String localeCoalesce = getLocaleCoalesce("gdl.");
 
-    String sql = "SELECT gdl.displayLabel FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attributeName + " = gdl.id";
+    String sql = "SELECT "+localeCoalesce+" FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attributeName + " = gdl.id";
 
     sql += " WHERE p.id = " + attributeAlias + "";
 
@@ -589,13 +595,17 @@ public class QueryUtil implements Reloadable
   {
     String tableName = MdBusiness.getMdBusiness(className).getTableName();
 
+   
+    
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
 
     int count = 0;
     for (String attr : attributes)
     {
-      select += " geo" + count + ".displayLabel as " + attr + "_displayLabel";
+      String localeCoalesce = getLocaleCoalesce(" geo" + count + ".");
+      
+      select += localeCoalesce+" AS " + attr + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
@@ -611,6 +621,37 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
+  
+
+
+  public static String getLocaleCoalesce(String prefix)
+  {
+    String localeString = Session.getCurrentLocale().toString().toLowerCase();
+    
+    SupportedLocaleQuery installedLocales = LocalizationFacade.getInstalledLocales();
+    OIterator<? extends SupportedLocale> iterator = installedLocales.getIterator();
+    List<String> list = new LinkedList<String>();
+
+    while (iterator.hasNext())
+    {
+      SupportedLocale supportedLocale = (SupportedLocale) iterator.next();
+      list.add(supportedLocale.getEnumName().toLowerCase());
+    }
+    
+    String localeColumns = "";
+    for (int i = localeString.length(); i > 0; i = localeString.lastIndexOf('_', i - 1))
+    {
+      String subLocale = localeString.substring(0, i).toLowerCase();
+      
+      if(list.contains(subLocale))
+      {
+        localeColumns += subLocale + ", ";
+      }
+      
+    }
+    localeColumns = "COALESCE(" + localeColumns + prefix + MdAttributeLocalInfo.DEFAULT_LOCALE + ")";
+    return localeColumns;
+  }
 
   public static String getEnumerationDisplayLabelSubSelect(String className, String... attributes)
   {
@@ -618,11 +659,13 @@ public class QueryUtil implements Reloadable
 
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
+    String localeColumns = getLocaleCoalesce("");
 
     int count = 0;
     for (String attr : attributes)
     {
-      select += "(SELECT defaultLocale FROM enumeration_master em join metadatadisplaylabel md on em.displaylabel = md.id  WHERE em.id = " + attr + "_c) as " + attr + "_displayLabel";
+
+      select += "(SELECT " + localeColumns + " FROM enumeration_master em join metadatadisplaylabel md on em.displaylabel = md.id  WHERE em.id = " + attr + "_c) as " + attr + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
@@ -683,14 +726,15 @@ public class QueryUtil implements Reloadable
         String attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-          String[] selectedUniversals = new String[universals.length()];
-          //we run addUniversalsForAttribute even if length is zero for the case of restricting without selecting 
-          for (int i = 0; i < universals.length(); i++)
-          {
-            selectedUniversals[i] = universals.getString(i);
-          }
+        String[] selectedUniversals = new String[universals.length()];
+        // we run addUniversalsForAttribute even if length is zero for the case
+        // of restricting without selecting
+        for (int i = 0; i < universals.length(); i++)
+        {
+          selectedUniversals[i] = universals.getString(i);
+        }
 
-          addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
       }
     }
     catch (JSONException e)
@@ -712,10 +756,11 @@ public class QueryUtil implements Reloadable
     }
 
     queryMap = valueQueryParser.parse();
-    
-    // Query validation is done here since all query screens must call this method.
+
+    // Query validation is done here since all query screens must call this
+    // method.
     validateQuery(valueQuery);
-    
+
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
     {
@@ -723,22 +768,23 @@ public class QueryUtil implements Reloadable
       valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
-      
+
       if (layer.hasThematicVariable())
       {
         String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
         Selectable thematic = valueQuery.getSelectableRef(alias);
-        
-        // Only lock and apply the layer if it's not new to avoid erroring out on a new
+
+        // Only lock and apply the layer if it's not new to avoid erroring out
+        // on a new
         // instance used for calculations.
-        if(!layer.isNew())
+        if (!layer.isNew())
         {
           layer.appLock();
         }
-        
+
         layer.setThematicColumnAlias(thematic.getColumnAlias());
-        
-        if(!layer.isNew())
+
+        if (!layer.isNew())
         {
           layer.apply();
         }
@@ -757,11 +803,12 @@ public class QueryUtil implements Reloadable
     }
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-    
+
     return queryMap;
   }
-  
-  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
+
+  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType,
+      String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     for (String selectedGeoEntityType : selectedUniversals)
@@ -777,10 +824,10 @@ public class QueryUtil implements Reloadable
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
       String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYNAME;
       String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
-      
+
       Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
-      String displaySQL = "SELECT "+SHORT_DISPLAY_LABEL+" FROM "+GEO_DISPLAY_LABEL+" gd WHERE gd.id = "+selectable1.getDefiningTableAlias()+".id";
+      String displaySQL = "SELECT " + SHORT_DISPLAY_LABEL + " FROM " + GEO_DISPLAY_LABEL + " gd WHERE gd.id = " + selectable1.getDefiningTableAlias() + ".id";
       Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, displaySQL, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
 
       selectables.add(selectable2);
@@ -903,15 +950,15 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
-      
+
       MdBusiness md = MdBusiness.getMdBusiness(klass);
       GeneratedEntityQuery attributeQuery = null;
-      while(attributeQuery == null)
+      while (attributeQuery == null)
       {
         attributeQuery = queryMap.get(md.definesType());
         md = md.getSuperMdBusiness();
       }
-      
+
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
@@ -971,11 +1018,11 @@ public class QueryUtil implements Reloadable
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da)
   {
     Set<String> found = new HashSet<String>();
-    
+
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
       found.add(DATEGROUP_SEASON);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
       dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms " + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + da + " AND ms." + MalariaSeason.ENDDATE + " >= " + da);
@@ -984,7 +1031,7 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       found.add(DATEGROUP_EPIWEEK);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       dateGroup.setSQL("get_epiWeek_from_date(" + da + "," + startDay + ")");
@@ -993,7 +1040,7 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
       found.add(DATEGROUP_MONTH);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
       dateGroup.setSQL("to_char(" + da + ",'MM')");
     }
@@ -1001,7 +1048,7 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
       found.add(DATEGROUP_QUARTER);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
       dateGroup.setSQL("to_char(" + da + ",'Q')");
     }
@@ -1009,30 +1056,32 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
     {
       found.add(DATEGROUP_CALENDARYEAR);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
     }
-    
+
     if (xml.indexOf(DATEGROUP_EPIYEAR) > 0)
     {
       found.add(DATEGROUP_EPIYEAR);
-      
+
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
       dateGroup.setSQL("get_epiYear_from_date(" + da + "," + startDay + ")");
     }
 
     ensureEntityInFromClause(found, valueQuery, target);
-    
+
     return setQueryDates(xml, valueQuery);
   }
-  
+
   /**
-   * Some query screens error out when only the date groups are selected because the GeneratedEntityQuery
-   * that contains the date attribute is not added to the FROM clause, causing an SQL syntax error. If this
-   * method detects that such a problem may occur, a tautological WHERE condition is added to the ValueQuery
-   * that will force the GeneratedEntityQuery to be added to the FROM clause.
+   * Some query screens error out when only the date groups are selected because
+   * the GeneratedEntityQuery that contains the date attribute is not added to
+   * the FROM clause, causing an SQL syntax error. If this method detects that
+   * such a problem may occur, a tautological WHERE condition is added to the
+   * ValueQuery that will force the GeneratedEntityQuery to be added to the FROM
+   * clause.
    * 
    * @param found
    * @param valueQuery
@@ -1040,25 +1089,28 @@ public class QueryUtil implements Reloadable
    */
   private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedEntityQuery target)
   {
-    // Include RATIO, which suffers from the same problem as the date selectables
-    if(valueQuery.hasSelectableRef(RATIO))
+    // Include RATIO, which suffers from the same problem as the date
+    // selectables
+    if (valueQuery.hasSelectableRef(RATIO))
     {
       found.add(RATIO);
     }
-    
-    if(found.size() > 0)
+
+    if (found.size() > 0)
     {
-      for(Selectable sel : valueQuery.getSelectableRefs())
+      for (Selectable sel : valueQuery.getSelectableRefs())
       {
-        if(!found.contains(sel.getUserDefinedAlias()))
+        if (!found.contains(sel.getUserDefinedAlias()))
         {
-          // A non-date selectable was found, so we must assume that the calling query screen
+          // A non-date selectable was found, so we must assume that the calling
+          // query screen
           // class has already handled this case (as it should).
           return;
         }
       }
-      
-      // Only date selectable were found, so force the tautological WHERE condition
+
+      // Only date selectable were found, so force the tautological WHERE
+      // condition
       SelectableChar id1 = (SelectableChar) target.id();
       SelectableChar id2 = (SelectableChar) target.id();
       valueQuery.WHERE(id1.EQ(id2));
@@ -1068,13 +1120,13 @@ public class QueryUtil implements Reloadable
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String sd, String ed)
   {
     Set<String> found = new HashSet<String>();
-    
+
     String intervalNotValid = "INTERVAL NOT VALID";
 
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
       found.add(DATEGROUP_SEASON);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
 
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
@@ -1084,44 +1136,42 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       found.add(DATEGROUP_EPIWEEK);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" +
-      "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")" +
-      "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::TEXT " +
-      "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::TEXT  END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+          + "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::TEXT " + "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::TEXT  END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
       found.add(DATEGROUP_MONTH);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")" + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed
-          + ",'MM') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
+          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
       found.add(DATEGROUP_QUARTER);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed
-          + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_CALENDARYEAR) > 0)
-    {      
+    {
       found.add(DATEGROUP_CALENDARYEAR);
-      
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
-          + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1131,13 +1181,13 @@ public class QueryUtil implements Reloadable
 
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
-          + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
       dateGroup.setSQL(dateGroupSql);
     }
-    
+
     ensureEntityInFromClause(found, valueQuery, target);
-    
+
     return setQueryDates(xml, valueQuery);
   }
 
