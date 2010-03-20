@@ -52,7 +52,7 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
         if(check.checked)
         {
           this._uncheckAllNotInGroup(check);
-          if(check.id.indexOf('abundance_') > -1)
+          if(check.id.indexOf('abundance_1') > -1)
           {
           	this._checkBox('taxon');
           	this._checkBox('collectionMethod_ab');

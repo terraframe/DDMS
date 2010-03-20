@@ -841,6 +841,8 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
         }
         else
         {
+        	if(visibleObj.type != 'sqldouble')
+        	{
           var select = document.createElement('select');
           this._defaults.push({element:select, index:0});
     
@@ -862,6 +864,7 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
           select.disabled = true; // default (must be checked to enabled)
     
           li.appendChild(select);
+        	}
         }
         li.appendChild(span);
   
