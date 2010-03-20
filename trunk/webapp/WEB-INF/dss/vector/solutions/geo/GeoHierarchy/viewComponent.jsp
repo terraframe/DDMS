@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
   <mjl:message />
@@ -12,7 +12,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntityClass.keyName}" action="com.terraframe.mojo.system.metadata.MdBusinessController.view.mojo" name="com.terraframe.mojo.system.metadata.MdBusiness.form.view.link">
+      <mjl:commandLink display="${item.geoEntityClass.keyName}" action="com.runwaysdk.system.metadata.MdBusinessController.view.mojo" name="com.runwaysdk.system.metadata.MdBusiness.form.view.link">
         <mjl:property value="${item.geoEntityClass.id}" name="id" />
       </mjl:commandLink>
     </dd>
