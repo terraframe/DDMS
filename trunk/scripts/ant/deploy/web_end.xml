@@ -4,7 +4,7 @@
       MojaxFilter
     </filter-name>
     <filter-class>
-      com.terraframe.mojo.web.MojaxFilter
+      com.runwaysdk.web.MojaxFilter
     </filter-class>
   </filter>
 
@@ -22,7 +22,7 @@
       MojoFilter
     </filter-name>
     <filter-class>
-      com.terraframe.mojo.web.MojoFilter
+      com.runwaysdk.web.RunwayFilter
     </filter-class>
   </filter>
 

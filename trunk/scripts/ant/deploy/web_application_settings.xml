@@ -1,9 +1,9 @@
 <listener>
-  <listener-class>com.terraframe.mojo.defaults.RMIContextListener</listener-class>
+  <listener-class>com.runwaysdk.defaults.RMIContextListener</listener-class>
 </listener>
 
 <listener>
-  <listener-class>com.terraframe.mojo.util.ClientInitializer</listener-class>
+  <listener-class>com.runwaysdk.util.ClientInitializer</listener-class>
 </listener>
 
 <listener>
@@ -21,7 +21,7 @@
 
 <filter>
   <filter-name>LoginFilter</filter-name>
-  <filter-class>com.terraframe.mojo.defaults.LoginFilter</filter-class>
+  <filter-class>com.runwaysdk.defaults.LoginFilter</filter-class>
 </filter>
 
 <filter-mapping>

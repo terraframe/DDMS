@@ -29,7 +29,7 @@
     <servlet-name>ActionServlet</servlet-name>
     <display-name>Action Servlet</display-name>
     <servlet-class>
-        com.terraframe.mojo.web.ActionServlet
+        com.runwaysdk.web.ActionServlet
     </servlet-class>
   </servlet>
 
@@ -42,19 +42,19 @@
     <servlet-name>SecureFileDownloadServlet</servlet-name>
     <display-name>Secure File Download Servlet</display-name>
     <servlet-class>
-        com.terraframe.mojo.web.SecureFileDownloadServlet
+        com.runwaysdk.web.SecureFileDownloadServlet
     </servlet-class>
   </servlet>
 
   <listener>
-    <listener-class>com.terraframe.mojo.web.UploadListener</listener-class>
+    <listener-class>com.runwaysdk.web.UploadListener</listener-class>
   </listener>
 
   <servlet>
     <servlet-name>SecureFileUploadServlet</servlet-name>
     <display-name>Secure File Upload Servlet</display-name>
     <servlet-class>
-        com.terraframe.mojo.web.SecureFileUploadServlet
+        com.runwaysdk.web.SecureFileUploadServlet
     </servlet-class>
   </servlet>
 
@@ -72,7 +72,7 @@
     <servlet-name>WebFileDownloadServlet</servlet-name>
     <display-name>Web File Download Servlet</display-name>
     <servlet-class>
-        com.terraframe.mojo.web.WebFileDownloadServlet
+        com.runwaysdk.web.WebFileDownloadServlet
     </servlet-class>
   </servlet>
 
@@ -80,7 +80,7 @@
     <servlet-name>WebFileUploadServlet</servlet-name>
     <display-name>Web File Upload Servlet</display-name>
     <servlet-class>
-        com.terraframe.mojo.web.WebFileUploadServlet
+        com.runwaysdk.web.WebFileUploadServlet
     </servlet-class>
   </servlet>
 
@@ -171,7 +171,7 @@
       JSONControllerServlet
     </servlet-name>
     <servlet-class>
-      com.terraframe.mojo.web.json.JSONControllerServlet
+      com.runwaysdk.web.json.JSONControllerServlet
     </servlet-class>
   </servlet>
 
@@ -189,7 +189,7 @@
       AdminLoginFilter
     </filter-name>
     <filter-class>
-      com.terraframe.mojo.web.AdminLoginFilter
+      com.runwaysdk.web.AdminLoginFilter
     </filter-class>
   </filter>
 
@@ -208,7 +208,7 @@
       JavascriptFilter
     </filter-name>
     <filter-class>
-      com.terraframe.mojo.web.javascript.JavascriptFilter
+      com.runwaysdk.web.javascript.JavascriptFilter
     </filter-class>
     <init-param>
       <param-name>encoding</param-name>
@@ -231,7 +231,7 @@
       AdminLoginServlet
     </servlet-name>
     <servlet-class>
-      com.terraframe.mojo.web.AdminLoginServlet
+      com.runwaysdk.web.AdminLoginServlet
     </servlet-class>
   </servlet>
 
@@ -249,7 +249,7 @@
       AdminLogoutServlet
     </servlet-name>
     <servlet-class>
-      com.terraframe.mojo.web.AdminLogoutServlet
+      com.runwaysdk.web.AdminLogoutServlet
     </servlet-class>
   </servlet>
 

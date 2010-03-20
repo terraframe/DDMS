@@ -7,9 +7,8 @@
 
 	<property name="profile.root" value="../../../profiles" />
 	<property name="system.password" value="mdsstest2" />
-	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
-	<tfproperties root="${profile.root}" />
-
+	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};runwayProperties.jar" />
+	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
 
 	<!-- execution path -->
@@ -216,7 +215,7 @@
 
 	<target name="change_schema_version" description="Updates the domain model to the given version of the schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
-		<java classname="com.terraframe.mojo.dataaccess.io.UpdateVersion" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.io.UpdateVersion" failonerror="true">
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}"/>
 			<arg value="${versionNumber}"/>
@@ -246,7 +245,7 @@
 
 	<target name="rebuild_db" description="Rebuilds the metadata" depends="get_root_login,get_root_password,get_root_database">
 		<echo message="Setting up users and metadata on database!!!!!" />
-		<java classname="com.terraframe.mojo.dataaccess.Installer" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.Installer" failonerror="true">
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
 			<arg value="${root.db}" />
@@ -262,7 +261,6 @@
 	<target name="install_db_procedures" description="Installs Dabase Procedures" depends="">
 		<echo message="Install Database Stored Procedures:" />
 		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true" fork="true">
-      			
 			<arg file="${local.root}/scripts/plsql/geoEntity_Views.sql" />
 			<classpath>
 				<path refid="framework.classpath" />
@@ -328,19 +326,19 @@
 	</target>
 
 	<target name="compile_generated">
-		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
+		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
+		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
+		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</iajc>
-		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
+		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
@@ -361,7 +359,7 @@
 
 	<target name="update_db_source_and_classes">
 		<!-- Update the database with the new sources and classes -->
-		<java classname="com.terraframe.mojo.util.UpdateDatabaseSourceAndClasses" failonerror="true">
+		<java classname="com.runwaysdk.util.UpdateDatabaseSourceAndClasses" failonerror="true">
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -370,7 +368,7 @@
 
 	<target name="update_deploy_source">
 		<!-- Update the database with the new sources and classes -->
-		<java classname="com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
 			<arg value="${export.package}" />
 			<classpath>
 				<path refid="framework.classpath" />
@@ -383,11 +381,11 @@
 
 	<target name="copy_properties">
 		<!-- Flatten a profile and stick it on tomcat. -->
-		<java classname="com.terraframe.mojo.ant.ProfileFlattener" fork="false" failonerror="true">
+		<java classname="com.runwaysdk.ant.ProfileFlattener" fork="false" failonerror="true">
 			<arg value="${deploy.profile}" />
 			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
-				<fileset file="${local.lib}/terraframe.jar" />
+				<fileset file="${local.lib}/runwaysdk.jar" />
 				<pathelement location="${profile.root}" />
 			</classpath>
 		</java>
@@ -400,10 +398,6 @@
 			<fileset dir="${profile.root}">
 				<exclude name="master.properties" />
 				<include name="*.*" />
-			</fileset>
-            <!-- And make sure MdssControlPanel gets copied as well -->
-			<fileset dir="${profile.root}/controlpanel">
-				<include name="MdssControlPanel.properties" />
 			</fileset>
 		</copy>
 
@@ -497,7 +491,7 @@
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<!-- You can comment this section out to speed up deploy if you want to use the class files produced by eclipse -->
-		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
+		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${client.bin}" />
@@ -538,7 +532,7 @@
 		</path>
 
 		<!-- define the core services -->
-		<java classname="com.terraframe.mojo.facade.wsdd.WebServiceDeployer" fork="true" failonerror="true">
+		<java classname="com.runwaysdk.facade.wsdd.WebServiceDeployer" fork="true" failonerror="true">
 			<classpath>
 				<path refid="framework.classpath" />
 				<path refid="axis.classpath" />
@@ -557,7 +551,7 @@
 	
 	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
 		<echo message="Merging model" />
-		<java classname="com.terraframe.mojo.dataaccess.schemamanager.SchemaManager" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true">
 			<arg value="-dir" />
 			<arg value="${version.dir}" />
 			<arg value="${profile.root}/version_gis.xsd"/>
@@ -567,7 +561,7 @@
 			</classpath>
 		</java>
 		<echo message="Update domain to the most recent schema" />
-		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<arg value="${model.dir}" />
 			<arg value="${version.xsd}"/>
 			<classpath>
@@ -578,7 +572,8 @@
 
 	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
-		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+	<echoproperties></echoproperties>	
+		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}"/>
 			<classpath>
@@ -589,7 +584,7 @@
 
 	<target name="redo_last_import" description="RollsBack one Version and then ReImports it" depends="get_version_number">
 			<echo message="Update domain to the most recent schema" />
-			<java classname="com.terraframe.mojo.dataaccess.io.RedoLastUpdate" failonerror="true">
+			<java classname="com.runwaysdk.dataaccess.io.RedoLastUpdate" failonerror="true">
 				<arg value="${version.dir}/" />
 				<arg value="${version.xsd}"/>
 				<classpath>
@@ -600,7 +595,7 @@
 
 	<target name="import_working_set" description="Performs the doIt command on all of the files in the working directory">
 			<echo message="Import working set" />
-			<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+			<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 				<arg value="${working.dir}/" />
 				<arg value="${version.xsd}"/>
 				<arg value="false"/>
@@ -612,7 +607,7 @@
 
 	<target name="unimport_working_set" description="Performs the undoIt command on all of the files in the working directory">
 			<echo message="Unimport working set" />
-			<java classname="com.terraframe.mojo.dataaccess.io.UndoAll" failonerror="true">
+			<java classname="com.runwaysdk.dataaccess.io.UndoAll" failonerror="true">
 				<arg value="${working.dir}/" />
 				<arg value="${version.xsd}"/>
 				<arg value="false"/>
@@ -624,7 +619,7 @@
 
 	<target name="create_new_domain_model" description="Creates a new time stamped domain model">
 		<echo message="Create a time stamped schema" />
-		<java classname="com.terraframe.mojo.dataaccess.io.CreateDomainModel" failonerror="true">
+		<java classname="com.runwaysdk.dataaccess.io.CreateDomainModel" failonerror="true">
 			<arg value="${working.dir}/" />
 			<classpath>
 				<path refid="framework.classpath" />
@@ -635,6 +630,7 @@
 	<target name="push_source" depends="">
 		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 			<jvmarg value="-Xmx1024m" />
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -650,7 +646,7 @@
 		<diagnostics/>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-	    
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -673,7 +669,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-			
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -692,7 +688,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-			
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -712,7 +708,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-	    
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -733,7 +729,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-	    
+      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -768,8 +764,9 @@
 		<echoproperties>
 		</echoproperties>
 		-->
-		<java classname="com.terraframe.mojo.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
+		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx1024m" />
+	      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -787,8 +784,9 @@
 		<echoproperties>
 		</echoproperties>
 		-->
-		<java classname="com.terraframe.mojo.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
+		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx1024m" />
+	      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
