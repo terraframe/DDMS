@@ -16,10 +16,10 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.system.metadata.SupportedLocaleQueryDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.system.metadata.SupportedLocaleQueryDTO;
 
-public class LocalizationController extends LocalizationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class LocalizationController extends LocalizationControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/util/Localization/";
 

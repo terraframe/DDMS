@@ -6,10 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -92,7 +92,7 @@ public class BrowserRootController extends BrowserRootControllerBase implements 
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
       this.resp.setStatus(500);
       this.resp.getWriter().write(ex.getJSON());
     }
@@ -141,7 +141,7 @@ public class BrowserRootController extends BrowserRootControllerBase implements 
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
       this.resp.setStatus(500);
       this.resp.getWriter().write(ex.getJSON());
     }

@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class ApplicationRateController extends ApplicationRateControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ApplicationRateController extends ApplicationRateControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240976699468L;
 

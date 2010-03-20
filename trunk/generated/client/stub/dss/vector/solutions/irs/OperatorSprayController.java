@@ -10,15 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class OperatorSprayController extends OperatorSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorSprayController extends OperatorSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/OperatorSpray/";
 

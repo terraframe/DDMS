@@ -15,16 +15,16 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.DeployProperties;
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.general.EpiConfigurationDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PropertyController extends PropertyControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/Property/";
 

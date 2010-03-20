@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
 public class SurveyedPersonTreatmentDTO extends SurveyedPersonTreatmentDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -1251820684;
   
-  public SurveyedPersonTreatmentDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId, String childId)
+  public SurveyedPersonTreatmentDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId, String childId)
   {
     super(clientRequest, parentId, childId);
     
@@ -16,7 +16,7 @@ public class SurveyedPersonTreatmentDTO extends SurveyedPersonTreatmentDTOBase
   * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SurveyedPersonTreatmentDTO(com.terraframe.mojo.business.RelationshipDTO relationshipDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SurveyedPersonTreatmentDTO(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(relationshipDTO, clientRequest);
   }

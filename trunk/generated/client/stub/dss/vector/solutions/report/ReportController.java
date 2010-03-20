@@ -37,11 +37,11 @@ import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-import com.terraframe.mojo.constants.ClientProperties;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.dataaccess.database.IDGenerator;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.constants.ClientProperties;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.dataaccess.database.IDGenerator;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.query.QueryBuilderDTO;
 import dss.vector.solutions.query.QueryConstants;

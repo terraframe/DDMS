@@ -3,10 +3,10 @@ package dss.vector.solutions.geo.generated;
 import dss.vector.solutions.geo.generated.EarthDTOBase;
 
 public class EarthDTO extends EarthDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1236717064836L;
   
-  public EarthDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public EarthDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class EarthDTO extends EarthDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected EarthDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EarthDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

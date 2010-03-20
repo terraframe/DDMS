@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;

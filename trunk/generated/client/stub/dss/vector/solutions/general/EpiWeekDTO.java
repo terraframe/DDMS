@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class EpiWeekDTO extends EpiWeekDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1256576864497L;
   
-  public EpiWeekDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public EpiWeekDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class EpiWeekDTO extends EpiWeekDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected EpiWeekDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EpiWeekDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class LethalTimePropertyDTO extends LethalTimePropertyDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1237411043612L;
   
-  public LethalTimePropertyDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public LethalTimePropertyDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class LethalTimePropertyDTO extends LethalTimePropertyDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LethalTimePropertyDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LethalTimePropertyDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

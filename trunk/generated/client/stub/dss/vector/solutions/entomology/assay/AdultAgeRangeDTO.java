@@ -3,10 +3,10 @@ package dss.vector.solutions.entomology.assay;
 import dss.vector.solutions.entomology.assay.AdultAgeRangeDTOBase;
 
 public class AdultAgeRangeDTO extends AdultAgeRangeDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1234731978161L;
   
-  public AdultAgeRangeDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public AdultAgeRangeDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class AdultAgeRangeDTO extends AdultAgeRangeDTOBase
   * @param structDTO The StructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AdultAgeRangeDTO(com.terraframe.mojo.business.StructDTO structDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAgeRangeDTO(com.runwaysdk.business.StructDTO structDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(structDTO, clientRequest);
   }

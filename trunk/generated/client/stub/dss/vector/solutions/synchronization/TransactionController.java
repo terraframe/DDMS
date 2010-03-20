@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.system.transaction.TransactionRecordDTO;
-import com.terraframe.mojo.system.transaction.TransactionRecordQueryDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.system.transaction.TransactionRecordDTO;
+import com.runwaysdk.system.transaction.TransactionRecordQueryDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 
-public class TransactionController extends TransactionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TransactionController extends TransactionControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/synchronization/Transaction/";
 

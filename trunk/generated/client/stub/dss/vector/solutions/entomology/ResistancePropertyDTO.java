@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
 public class ResistancePropertyDTO extends ResistancePropertyDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 919343868;
   
-  public ResistancePropertyDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ResistancePropertyDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class ResistancePropertyDTO extends ResistancePropertyDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ResistancePropertyDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ResistancePropertyDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

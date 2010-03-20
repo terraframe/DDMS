@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
 public class WellKnownNamesMasterDTO extends WellKnownNamesMasterDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1240901051819L;
   
-  public WellKnownNamesMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public WellKnownNamesMasterDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class WellKnownNamesMasterDTO extends WellKnownNamesMasterDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected WellKnownNamesMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected WellKnownNamesMasterDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

@@ -16,14 +16,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.business.BusinessDTO;
-import com.terraframe.mojo.business.ClassQueryDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.transport.attributes.AttributeDTO;
-import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
-import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.business.BusinessDTO;
+import com.runwaysdk.business.ClassQueryDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.transport.attributes.AttributeDTO;
+import com.runwaysdk.transport.attributes.AttributeReferenceDTO;
+import com.runwaysdk.transport.attributes.AttributeStructDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
 import dss.vector.solutions.entomology.InfectionAssayDTO;
@@ -90,7 +90,7 @@ import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryController extends QueryControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID                 = 1237863171352L;
 
@@ -508,7 +508,7 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }

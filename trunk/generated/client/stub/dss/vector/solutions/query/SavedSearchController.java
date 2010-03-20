@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class SavedSearchController extends SavedSearchControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SavedSearchController extends SavedSearchControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/SavedSearch/";
   public static final String LAYOUT = "/layout.jsp";
@@ -19,7 +19,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -33,7 +33,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.SavedSearchQueryDTO query = dss.vector.solutions.query.SavedSearchDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SavedSearchController Objects");
@@ -45,7 +45,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.SavedSearchQueryDTO query = dss.vector.solutions.query.SavedSearchDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SavedSearchController Objects");
@@ -69,7 +69,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("dss_vector_solutions_query_SavedSearch_thematicLayer", dss.vector.solutions.geo.GeoHierarchyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.query.SavedSearchDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View SavedSearchController");
@@ -86,7 +86,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -105,7 +105,7 @@ public class SavedSearchController extends SavedSearchControllerBase implements 
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
 public class ITNCommunityDistributionViewDTO extends ITNCommunityDistributionViewDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1252612685889L;
   
-  public ITNCommunityDistributionViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ITNCommunityDistributionViewDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-public class WeeklyThresholdController extends WeeklyThresholdControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class WeeklyThresholdController extends WeeklyThresholdControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/WeeklyThreshold/";
   public static final String LAYOUT = "/layout.jsp";
@@ -14,7 +14,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
   
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdQueryDTO query = dss.vector.solutions.general.WeeklyThresholdDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -25,7 +25,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdQueryDTO query = dss.vector.solutions.general.WeeklyThresholdDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -39,7 +39,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdDTO dto = dss.vector.solutions.general.WeeklyThresholdDTO.get(clientRequest, id);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -50,7 +50,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
   }
   public void newInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdDTO dto = new dss.vector.solutions.general.WeeklyThresholdDTO(clientRequest, parentId, childId);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
@@ -66,7 +66,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -99,7 +99,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -131,7 +131,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -159,7 +159,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
   }
   public void parentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdQueryDTO query = dss.vector.solutions.general.WeeklyThresholdDTO.parentQuery(clientRequest, parentId);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -170,7 +170,7 @@ public class WeeklyThresholdController extends WeeklyThresholdControllerBase imp
   }
   public void childQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.WeeklyThresholdQueryDTO query = dss.vector.solutions.general.WeeklyThresholdDTO.childQuery(clientRequest, childId);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");

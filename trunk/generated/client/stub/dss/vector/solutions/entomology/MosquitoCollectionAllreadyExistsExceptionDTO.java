@@ -1,45 +1,45 @@
 package dss.vector.solutions.entomology;
 
 public class MosquitoCollectionAllreadyExistsExceptionDTO extends MosquitoCollectionAllreadyExistsExceptionDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -419779112;
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.business.ExceptionDTO exceptionDTO)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.business.ExceptionDTO exceptionDTO)
   {
     super(exceptionDTO);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale,java.lang.String developerMessage)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale,java.lang.String developerMessage)
   {
     super(clientRequest, locale, developerMessage);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.Throwable cause)
   {
     super(clientRequest, locale, cause);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale, java.lang.String developerMessage, java.lang.Throwable cause)
   {
     super(clientRequest, locale, developerMessage, cause);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.Throwable cause)
   {
     super(clientRequest, cause);
   }
   
-  public MosquitoCollectionAllreadyExistsExceptionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
+  public MosquitoCollectionAllreadyExistsExceptionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String msg, java.lang.Throwable cause)
   {
     super(clientRequest, msg, cause);
   }

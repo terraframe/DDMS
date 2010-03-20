@@ -12,9 +12,9 @@ import javax.servlet.ServletException;
 
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
@@ -22,7 +22,7 @@ import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class ZoneSprayController extends ZoneSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ZoneSprayController extends ZoneSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ZoneSpray/";
 
@@ -272,7 +272,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
       dto.deleteConcrete();
       this.search();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }

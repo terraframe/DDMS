@@ -1,12 +1,12 @@
 package dss.vector.solutions.geo.generated;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public abstract class GeoEntityDTO extends GeoEntityDTOBase implements Reloadable
 {
   private static final long serialVersionUID = 1236367038920L;
 
-  public GeoEntityDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public GeoEntityDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -21,7 +21,7 @@ public abstract class GeoEntityDTO extends GeoEntityDTOBase implements Reloadabl
    *          The clientRequest this DTO should use to communicate with the
    *          server.
    */
-  protected GeoEntityDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected GeoEntityDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

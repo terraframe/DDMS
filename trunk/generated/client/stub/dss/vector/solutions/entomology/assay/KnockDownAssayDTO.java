@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
 public class KnockDownAssayDTO extends KnockDownAssayDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1237230639163L;
   
-  public KnockDownAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public KnockDownAssayDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class KnockDownAssayDTO extends KnockDownAssayDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected KnockDownAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected KnockDownAssayDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

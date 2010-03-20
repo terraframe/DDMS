@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
 public class ThematicVariableDTO extends ThematicVariableDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1242186805017L;
   
-  public ThematicVariableDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ThematicVariableDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class ThematicVariableDTO extends ThematicVariableDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ThematicVariableDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThematicVariableDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

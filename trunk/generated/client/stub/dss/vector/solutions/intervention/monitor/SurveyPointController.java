@@ -6,15 +6,15 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
-public class SurveyPointController extends SurveyPointControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyPointController extends SurveyPointControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/SurveyPoint/";
 

@@ -6,15 +6,15 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 
 public class AbstractCategoryController extends AbstractCategoryControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/query/AbstractCategory/";
 
@@ -73,7 +73,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -87,7 +87,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -109,7 +109,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -173,7 +173,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
@@ -189,7 +189,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.AbstractCategoryQueryDTO query = dss.vector.solutions.query.AbstractCategoryDTO
         .getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
@@ -204,7 +204,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
 
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.query.AbstractCategoryDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View AbstractCategoryController");
     render("viewComponent.jsp");
@@ -219,7 +219,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
       java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.AbstractCategoryQueryDTO query = dss.vector.solutions.query.AbstractCategoryDTO
         .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
 public class PersonWithDelegatesViewDTO extends PersonWithDelegatesViewDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -117685716;
   
-  public PersonWithDelegatesViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public PersonWithDelegatesViewDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
 public class ResourceTargetDTO extends ResourceTargetDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1240257020462L;
   
-  public ResourceTargetDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ResourceTargetDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class ResourceTargetDTO extends ResourceTargetDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ResourceTargetDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ResourceTargetDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

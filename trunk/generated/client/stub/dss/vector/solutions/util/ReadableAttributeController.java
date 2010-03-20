@@ -5,14 +5,14 @@ import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO;
 
-public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239296298324L;
 

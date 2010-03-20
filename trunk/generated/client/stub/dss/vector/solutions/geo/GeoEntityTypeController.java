@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.MdBusinessInfo;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID              = 1236133816932L;
 
@@ -62,7 +62,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -86,7 +86,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -124,7 +124,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -148,7 +148,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -172,7 +172,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -199,7 +199,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
       this.resp.setStatus(500);
       this.resp.getWriter().write(ex.getJSON());
     }
@@ -229,7 +229,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
       this.resp.setStatus(500);
       this.resp.getWriter().write(ex.getJSON());
     }

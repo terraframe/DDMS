@@ -4,10 +4,10 @@ import java.text.DateFormat;
 import java.util.Locale;
 
 public class SurveyPointDTO extends SurveyPointDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1239641306792L;
 
-  public SurveyPointDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public SurveyPointDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -18,7 +18,7 @@ public class SurveyPointDTO extends SurveyPointDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SurveyPointDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SurveyPointDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

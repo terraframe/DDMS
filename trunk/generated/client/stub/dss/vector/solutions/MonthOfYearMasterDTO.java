@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
 public class MonthOfYearMasterDTO extends MonthOfYearMasterDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -1664043212;
   
-  public MonthOfYearMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public MonthOfYearMasterDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class MonthOfYearMasterDTO extends MonthOfYearMasterDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected MonthOfYearMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MonthOfYearMasterDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

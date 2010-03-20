@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
 public class PooledInfectionAssayDTO extends PooledInfectionAssayDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 705084807;
   
-  public PooledInfectionAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public PooledInfectionAssayDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class PooledInfectionAssayDTO extends PooledInfectionAssayDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected PooledInfectionAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PooledInfectionAssayDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

@@ -1,15 +1,15 @@
 package dss.vector.solutions;
 
 public class InvalidPositiveTestProblemDTO extends InvalidPositiveTestProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1602157078;
   
-  public InvalidPositiveTestProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidPositiveTestProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidPositiveTestProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidPositiveTestProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }

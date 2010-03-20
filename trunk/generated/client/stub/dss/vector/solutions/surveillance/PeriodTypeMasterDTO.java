@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
 public class PeriodTypeMasterDTO extends PeriodTypeMasterDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1238693167828L;
   
-  public PeriodTypeMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public PeriodTypeMasterDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class PeriodTypeMasterDTO extends PeriodTypeMasterDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected PeriodTypeMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected PeriodTypeMasterDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

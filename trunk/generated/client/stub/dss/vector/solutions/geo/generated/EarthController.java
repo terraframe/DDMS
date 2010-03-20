@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-public class EarthController extends EarthControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class EarthController extends EarthControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/Earth/";
   public static final String LAYOUT = "/layout.jsp";
@@ -14,7 +14,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
   
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.EarthDTO dto = new dss.vector.solutions.geo.generated.EarthDTO(clientRequest);
     req.setAttribute("term", dto.getTerm());
     req.setAttribute("item", dto);
@@ -31,7 +31,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -59,7 +59,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
     }
     catch(java.lang.Throwable t)
     {
-      com.terraframe.mojo.web.json.JSONMojoExceptionDTO jsonE = new com.terraframe.mojo.web.json.JSONMojoExceptionDTO(t);
+      com.runwaysdk.web.json.JSONRunwayExceptionDTO jsonE = new com.runwaysdk.web.json.JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -73,7 +73,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.EarthDTO dto = dss.vector.solutions.geo.generated.EarthDTO.get(clientRequest, id);
     req.setAttribute("term", dto.getTerm());
     req.setAttribute("item", dto);
@@ -85,7 +85,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.EarthQueryDTO query = dss.vector.solutions.geo.generated.EarthDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -101,7 +101,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -129,7 +129,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.EarthQueryDTO query = dss.vector.solutions.geo.generated.EarthDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -145,7 +145,7 @@ public class EarthController extends EarthControllerBase implements com.terrafra
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);

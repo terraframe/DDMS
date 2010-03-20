@@ -1,14 +1,14 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.surveillance.PeriodTypeMasterDTO;
 
 public class EpiDateDTO extends EpiDateDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1243373494507L;
 
-  public EpiDateDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public EpiDateDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }

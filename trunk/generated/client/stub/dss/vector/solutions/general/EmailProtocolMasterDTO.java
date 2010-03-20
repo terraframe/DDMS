@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class EmailProtocolMasterDTO extends EmailProtocolMasterDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1650148974;
   
-  public EmailProtocolMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public EmailProtocolMasterDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class EmailProtocolMasterDTO extends EmailProtocolMasterDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected EmailProtocolMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected EmailProtocolMasterDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

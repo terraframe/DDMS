@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class ThematicVariableController extends ThematicVariableControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ThematicVariableController extends ThematicVariableControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/ThematicVariable/";
   public static final String LAYOUT = "/layout.jsp";
@@ -30,7 +30,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
@@ -43,7 +43,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.ThematicVariableQueryDTO query = dss.vector.solutions.query.ThematicVariableDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All ThematicVariableController Objects");
@@ -55,7 +55,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.query.ThematicVariableDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View ThematicVariableController");
     render("viewComponent.jsp");
@@ -80,7 +80,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -93,7 +93,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.ThematicVariableQueryDTO query = dss.vector.solutions.query.ThematicVariableDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All ThematicVariableController Objects");
@@ -110,7 +110,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -123,7 +123,7 @@ public class ThematicVariableController extends ThematicVariableControllerBase i
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.ThematicVariableDTO dto = new dss.vector.solutions.query.ThematicVariableDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create ThematicVariableController");

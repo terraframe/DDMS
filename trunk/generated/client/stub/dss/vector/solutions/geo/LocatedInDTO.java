@@ -3,10 +3,10 @@ package dss.vector.solutions.geo;
 import dss.vector.solutions.geo.LocatedInDTOBase;
 
 public class LocatedInDTO extends LocatedInDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1236133821085L;
   
-  public LocatedInDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId, String childId)
+  public LocatedInDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId, String childId)
   {
     super(clientRequest, parentId, childId);
     
@@ -18,7 +18,7 @@ public class LocatedInDTO extends LocatedInDTOBase
   * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LocatedInDTO(com.terraframe.mojo.business.RelationshipDTO relationshipDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LocatedInDTO(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(relationshipDTO, clientRequest);
   }

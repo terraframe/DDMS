@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
 public class ITNCommunityTargetGroupDTO extends ITNCommunityTargetGroupDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1252612169802L;
   
-  public ITNCommunityTargetGroupDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String parentId, String childId)
+  public ITNCommunityTargetGroupDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId, String childId)
   {
     super(clientRequest, parentId, childId);
     
@@ -16,7 +16,7 @@ public class ITNCommunityTargetGroupDTO extends ITNCommunityTargetGroupDTOBase
   * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ITNCommunityTargetGroupDTO(com.terraframe.mojo.business.RelationshipDTO relationshipDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ITNCommunityTargetGroupDTO(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(relationshipDTO, clientRequest);
   }

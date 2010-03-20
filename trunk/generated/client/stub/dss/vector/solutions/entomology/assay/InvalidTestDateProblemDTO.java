@@ -3,15 +3,15 @@ package dss.vector.solutions.entomology.assay;
 import dss.vector.solutions.entomology.assay.InvalidTestDateProblemDTOBase;
 
 public class InvalidTestDateProblemDTO extends InvalidTestDateProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1235164941124L;
   
-  public InvalidTestDateProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidTestDateProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidTestDateProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidTestDateProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }

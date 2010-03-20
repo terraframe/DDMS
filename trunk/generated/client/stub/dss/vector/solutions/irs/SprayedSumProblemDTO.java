@@ -1,15 +1,15 @@
 package dss.vector.solutions.irs;
 
 public class SprayedSumProblemDTO extends SprayedSumProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1251399485103L;
   
-  public SprayedSumProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public SprayedSumProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public SprayedSumProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public SprayedSumProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }

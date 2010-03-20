@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class PersistsSearchController extends PersistsSearchControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PersistsSearchController extends PersistsSearchControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/PersistsSearch/";
   public static final String LAYOUT = "/layout.jsp";
@@ -14,7 +14,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   
   public void parentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.PersistsSearchQueryDTO query = dss.vector.solutions.query.PersistsSearchDTO.parentQuery(clientRequest, parentId);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All PersistsSearchController Objects");
@@ -26,7 +26,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.PersistsSearchQueryDTO query = dss.vector.solutions.query.PersistsSearchDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All PersistsSearchController Objects");
@@ -38,7 +38,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   }
   public void newInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.PersistsSearchDTO dto = new dss.vector.solutions.query.PersistsSearchDTO(clientRequest, parentId, childId);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create PersistsSearchController");
@@ -55,7 +55,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -68,7 +68,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.query.PersistsSearchDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View PersistsSearchController");
     render("viewComponent.jsp");
@@ -90,7 +90,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.PersistsSearchQueryDTO query = dss.vector.solutions.query.PersistsSearchDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All PersistsSearchController Objects");
@@ -107,7 +107,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -125,7 +125,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
@@ -138,7 +138,7 @@ public class PersistsSearchController extends PersistsSearchControllerBase imple
   }
   public void childQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.PersistsSearchQueryDTO query = dss.vector.solutions.query.PersistsSearchDTO.childQuery(clientRequest, childId);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All PersistsSearchController Objects");

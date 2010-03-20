@@ -10,10 +10,10 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.business.generation.GenerationUtil;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.util.ColumnSetup;
@@ -23,7 +23,7 @@ import dss.vector.solutions.util.RedirectUtility;
 // TODO: delete unused methods from metadata
 
 public class ResourceTargetController extends ResourceTargetControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ResourceTarget/";
 

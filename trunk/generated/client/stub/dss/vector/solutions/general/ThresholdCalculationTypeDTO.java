@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class ThresholdCalculationTypeDTO extends ThresholdCalculationTypeDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1258003583323L;
   
-  public ThresholdCalculationTypeDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ThresholdCalculationTypeDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class ThresholdCalculationTypeDTO extends ThresholdCalculationTypeDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ThresholdCalculationTypeDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ThresholdCalculationTypeDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

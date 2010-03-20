@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
-public class NonRangeCategoryController extends NonRangeCategoryControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class NonRangeCategoryController extends NonRangeCategoryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/NonRangeCategory/";
   public static final String LAYOUT = "/layout.jsp";
@@ -25,7 +25,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
@@ -43,7 +43,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
@@ -56,7 +56,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.query.NonRangeCategoryDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View NonRangeCategoryController");
     render("viewComponent.jsp");
@@ -72,7 +72,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -111,7 +111,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -122,7 +122,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.NonRangeCategoryQueryDTO query = dss.vector.solutions.query.NonRangeCategoryDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All NonRangeCategoryController Objects");
@@ -134,7 +134,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.NonRangeCategoryQueryDTO query = dss.vector.solutions.query.NonRangeCategoryDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All NonRangeCategoryController Objects");
@@ -162,7 +162,7 @@ public class NonRangeCategoryController extends NonRangeCategoryControllerBase i
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }

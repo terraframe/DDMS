@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
 public class IndividualCaseDTO extends IndividualCaseDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1254360073799L;
   
-  public IndividualCaseDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public IndividualCaseDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class IndividualCaseDTO extends IndividualCaseDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected IndividualCaseDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected IndividualCaseDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

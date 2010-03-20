@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
 public abstract class OperatorSprayStatusDTO extends OperatorSprayStatusDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -62230850;
   
-  public OperatorSprayStatusDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public OperatorSprayStatusDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public abstract class OperatorSprayStatusDTO extends OperatorSprayStatusDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected OperatorSprayStatusDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected OperatorSprayStatusDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

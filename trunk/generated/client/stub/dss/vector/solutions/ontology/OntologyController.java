@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 import dss.vector.solutions.util.ErrorUtility;
 
-public class OntologyController extends OntologyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OntologyController extends OntologyControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/Ontology/";
 
@@ -40,7 +40,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
 
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.OntologyDTO dto = new dss.vector.solutions.ontology.OntologyDTO(clientRequest);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
@@ -58,7 +58,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -83,7 +83,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -118,7 +118,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.OntologyDTO dto = dss.vector.solutions.ontology.OntologyDTO.get(clientRequest, id);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -136,7 +136,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -156,7 +156,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.OntologyQueryDTO query = dss.vector.solutions.ontology.OntologyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -169,7 +169,7 @@ public class OntologyController extends OntologyControllerBase implements com.te
 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.OntologyQueryDTO query = dss.vector.solutions.ontology.OntologyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");

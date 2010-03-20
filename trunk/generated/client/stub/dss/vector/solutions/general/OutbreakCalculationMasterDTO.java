@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class OutbreakCalculationMasterDTO extends OutbreakCalculationMasterDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1256749759908L;
   
-  public OutbreakCalculationMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public OutbreakCalculationMasterDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class OutbreakCalculationMasterDTO extends OutbreakCalculationMasterDTOBa
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected OutbreakCalculationMasterDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected OutbreakCalculationMasterDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

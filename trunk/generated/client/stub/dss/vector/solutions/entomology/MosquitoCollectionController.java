@@ -12,11 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
@@ -81,7 +81,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     {
       if (this.isAsynchronous())
       {
-        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
         resp.setStatus(500);
         resp.getWriter().print(jsonE.getJSON());
       }

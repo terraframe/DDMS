@@ -2,10 +2,10 @@ package dss.vector.solutions.query;
 
 
 public class LayerDTO extends LayerDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable, LayerIF {
+ implements com.runwaysdk.generation.loader.Reloadable, LayerIF {
   private static final long serialVersionUID = 1240900979001L;
   
-  public LayerDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public LayerDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -16,7 +16,7 @@ public class LayerDTO extends LayerDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LayerDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected LayerDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

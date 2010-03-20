@@ -6,12 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.transport.attributes.AttributeDTO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.attributes.AttributeDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
@@ -327,7 +327,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
@@ -352,7 +352,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
@@ -449,7 +449,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     {
       if (this.isAsynchronous())
       {
-        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
         resp.setStatus(500);
         resp.getWriter().print(jsonE.getJSON());
       }
@@ -502,7 +502,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     {
       if (this.isAsynchronous())
       {
-        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
         resp.setStatus(500);
         resp.getWriter().print(jsonE.getJSON());
       }

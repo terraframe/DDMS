@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public class HasLayersController extends HasLayersControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HasLayersController extends HasLayersControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/HasLayers/";
   public static final String LAYOUT = "/layout.jsp";
@@ -23,7 +23,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
   }
   public void childQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersQueryDTO query = dss.vector.solutions.query.HasLayersDTO.childQuery(clientRequest, childId);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -39,7 +39,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -62,7 +62,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -90,7 +90,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
   }
   public void newInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersDTO dto = new dss.vector.solutions.query.HasLayersDTO(clientRequest, parentId, childId);
     req.setAttribute("item", dto);
     render("createComponent.jsp");
@@ -111,7 +111,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
   }
   public void parentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersQueryDTO query = dss.vector.solutions.query.HasLayersDTO.parentQuery(clientRequest, parentId);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -127,7 +127,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -148,7 +148,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersDTO dto = dss.vector.solutions.query.HasLayersDTO.get(clientRequest, id);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -159,7 +159,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersQueryDTO query = dss.vector.solutions.query.HasLayersDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -170,7 +170,7 @@ public class HasLayersController extends HasLayersControllerBase implements com.
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.HasLayersQueryDTO query = dss.vector.solutions.query.HasLayersDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");

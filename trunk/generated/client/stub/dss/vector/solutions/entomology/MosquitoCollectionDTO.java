@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
 public class MosquitoCollectionDTO extends MosquitoCollectionDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -914416560;
   
-  public MosquitoCollectionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public MosquitoCollectionDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class MosquitoCollectionDTO extends MosquitoCollectionDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected MosquitoCollectionDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected MosquitoCollectionDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

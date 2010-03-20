@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
 public class ChildCaseViewDTO extends ChildCaseViewDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1239151378545L;
 
-  public ChildCaseViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ChildCaseViewDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }

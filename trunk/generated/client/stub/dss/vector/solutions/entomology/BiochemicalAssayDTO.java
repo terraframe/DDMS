@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
 public class BiochemicalAssayDTO extends BiochemicalAssayDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -495522439;
   
-  public BiochemicalAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public BiochemicalAssayDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class BiochemicalAssayDTO extends BiochemicalAssayDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected BiochemicalAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected BiochemicalAssayDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

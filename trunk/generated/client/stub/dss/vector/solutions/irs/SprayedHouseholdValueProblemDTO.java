@@ -1,15 +1,15 @@
 package dss.vector.solutions.irs;
 
 public class SprayedHouseholdValueProblemDTO extends SprayedHouseholdValueProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1246651831914L;
   
-  public SprayedHouseholdValueProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public SprayedHouseholdValueProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public SprayedHouseholdValueProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public SprayedHouseholdValueProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }

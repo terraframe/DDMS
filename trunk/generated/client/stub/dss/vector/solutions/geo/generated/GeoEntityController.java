@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-public class GeoEntityController extends GeoEntityControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class GeoEntityController extends GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/GeoEntity/";
   public static final String LAYOUT = "/layout.jsp";
@@ -19,7 +19,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -41,7 +41,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.GeoEntityDTO dto = dss.vector.solutions.geo.generated.GeoEntityDTO.get(clientRequest, id);
     req.setAttribute("term", dto.getTerm());
     req.setAttribute("item", dto);
@@ -53,7 +53,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.GeoEntityQueryDTO query = dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -64,7 +64,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.geo.generated.GeoEntityQueryDTO query = dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -100,7 +100,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -124,7 +124,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);

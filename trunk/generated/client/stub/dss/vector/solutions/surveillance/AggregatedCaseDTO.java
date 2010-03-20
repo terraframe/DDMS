@@ -4,10 +4,10 @@ import java.text.DateFormat;
 import java.util.Locale;
 
 public class AggregatedCaseDTO extends AggregatedCaseDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1238693161900L;
 
-  public AggregatedCaseDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public AggregatedCaseDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -18,7 +18,7 @@ public class AggregatedCaseDTO extends AggregatedCaseDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AggregatedCaseDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AggregatedCaseDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

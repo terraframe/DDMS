@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-public class ConfigurableListController extends ConfigurableListControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ConfigurableListController extends ConfigurableListControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1243479609000L;
   

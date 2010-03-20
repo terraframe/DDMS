@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
 public class DefaultSavedMapDTO extends DefaultSavedMapDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -277882386;
   
-  public DefaultSavedMapDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public DefaultSavedMapDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class DefaultSavedMapDTO extends DefaultSavedMapDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected DefaultSavedMapDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected DefaultSavedMapDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

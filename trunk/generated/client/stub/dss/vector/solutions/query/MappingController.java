@@ -13,21 +13,21 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.DeployProperties;
-import com.terraframe.mojo.transport.conversion.json.JSONReturnObject;
-import com.terraframe.mojo.util.FileIO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.transport.conversion.json.JSONReturnObject;
+import com.runwaysdk.util.FileIO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.MDSSProperties;
 
 public class MappingController extends MappingControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID     = 1241150593672L;
 
@@ -57,7 +57,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -148,7 +148,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -279,7 +279,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -316,7 +316,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -339,7 +339,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }

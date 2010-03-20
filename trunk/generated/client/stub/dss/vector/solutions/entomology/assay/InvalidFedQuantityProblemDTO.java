@@ -3,15 +3,15 @@ package dss.vector.solutions.entomology.assay;
 import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblemDTOBase;
 
 public class InvalidFedQuantityProblemDTO extends InvalidFedQuantityProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1235164946525L;
   
-  public InvalidFedQuantityProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
+  public InvalidFedQuantityProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
     super(clientRequestIF);
   }
   
-  public InvalidFedQuantityProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
+  public InvalidFedQuantityProblemDTO(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
   }

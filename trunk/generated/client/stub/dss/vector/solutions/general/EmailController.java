@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -55,7 +55,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -82,7 +82,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
 
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -131,7 +131,7 @@ public class EmailController extends EmailControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);

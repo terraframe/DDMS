@@ -7,7 +7,7 @@ import java.util.Map;
 
 import dss.vector.solutions.util.ErrorUtility;
 
-public class BrowserFieldController extends BrowserFieldControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class BrowserFieldController extends BrowserFieldControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/BrowserField/";
 
@@ -22,7 +22,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.ontology.BrowserFieldQueryDTO query = dss.vector.solutions.ontology.BrowserFieldDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -37,7 +37,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
   {
     try
     {
-      com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+      com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
       // Map fields to their default terms (if one exists).
       BrowserFieldViewDTO[] results = BrowserFieldDTO.getAsViews(clientRequest);
@@ -88,7 +88,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
       render("viewAllComponent.jsp");
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failViewAll();
@@ -110,8 +110,8 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdAttribute", com.terraframe.mojo.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("mdAttribute", com.runwaysdk.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.ontology.BrowserFieldDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
@@ -128,7 +128,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -142,7 +142,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
   public void failCreate(dss.vector.solutions.ontology.BrowserFieldDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdAttribute", com.terraframe.mojo.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdAttribute", com.runwaysdk.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -150,7 +150,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.ontology.BrowserFieldDTO dto = dss.vector.solutions.ontology.BrowserFieldDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdAttribute", com.terraframe.mojo.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdAttribute", com.runwaysdk.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -167,7 +167,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -181,7 +181,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
   public void failUpdate(dss.vector.solutions.ontology.BrowserFieldDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdAttribute", com.terraframe.mojo.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdAttribute", com.runwaysdk.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -216,7 +216,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.delete();
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -230,7 +230,7 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
   public void failDelete(dss.vector.solutions.ontology.BrowserFieldDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdAttribute", com.terraframe.mojo.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdAttribute", com.runwaysdk.system.metadata.MdAttributeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class SystemAlertDisplayNameDTO extends SystemAlertDisplayNameDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 62286563;
   
-  public SystemAlertDisplayNameDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public SystemAlertDisplayNameDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class SystemAlertDisplayNameDTO extends SystemAlertDisplayNameDTOBase
   * @param localStructDTO The LocalStructDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SystemAlertDisplayNameDTO(com.terraframe.mojo.business.LocalStructDTO localStructDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected SystemAlertDisplayNameDTO(com.runwaysdk.business.LocalStructDTO localStructDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(localStructDTO, clientRequest);
   }

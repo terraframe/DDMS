@@ -2,13 +2,13 @@ package dss.vector.solutions.general;
 
 import java.util.List;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.constants.ClientRequestIF;
 
-public class InsecticideDTO extends InsecticideDTOBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InsecticideDTO extends InsecticideDTOBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237396178305L;
 
-  public InsecticideDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public InsecticideDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -23,7 +23,7 @@ public class InsecticideDTO extends InsecticideDTOBase implements com.terraframe
    *          The clientRequest this DTO should use to communicate with the
    *          server.
    */
-  protected InsecticideDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected InsecticideDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

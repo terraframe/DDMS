@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-public class AbstractSprayController extends AbstractSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AbstractSprayController extends AbstractSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/irs/AbstractSpray/";
   public static final String LAYOUT = "/layout.jsp";
@@ -28,7 +28,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failCreate(dto);
@@ -54,7 +54,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failDelete(dto);
@@ -93,7 +93,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(com.runwaysdk.ProblemExceptionDTO e)
     {
       dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
       this.failUpdate(dto);
@@ -117,7 +117,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.irs.AbstractSprayDTO dto = dss.vector.solutions.irs.AbstractSprayDTO.get(clientRequest, id);
     req.setAttribute("brand", java.util.Arrays.asList(dss.vector.solutions.irs.InsecticideBrandDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sprayMethod", dss.vector.solutions.irs.SprayMethodDTO.allItems(super.getClientSession().getRequest()));
@@ -131,7 +131,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.irs.AbstractSprayQueryDTO query = dss.vector.solutions.irs.AbstractSprayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -142,7 +142,7 @@ public class AbstractSprayController extends AbstractSprayControllerBase impleme
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.irs.AbstractSprayQueryDTO query = dss.vector.solutions.irs.AbstractSprayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");

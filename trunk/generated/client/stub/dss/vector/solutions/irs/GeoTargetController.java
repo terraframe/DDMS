@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -17,7 +17,7 @@ import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class GeoTargetController extends GeoTargetControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/GeoTarget/";
 

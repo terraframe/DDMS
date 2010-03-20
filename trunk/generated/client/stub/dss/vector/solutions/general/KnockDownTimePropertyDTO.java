@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
 public class KnockDownTimePropertyDTO extends KnockDownTimePropertyDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+ implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = 1237411050873L;
   
-  public KnockDownTimePropertyDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public KnockDownTimePropertyDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class KnockDownTimePropertyDTO extends KnockDownTimePropertyDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected KnockDownTimePropertyDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected KnockDownTimePropertyDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

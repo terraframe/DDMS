@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
-public class SavedMapController extends SavedMapControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SavedMapController extends SavedMapControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/SavedMap/";
   public static final String LAYOUT = "/layout.jsp";
@@ -51,7 +51,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -75,7 +75,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
   {
     try
     {
-      com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+      com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
       dss.vector.solutions.query.SavedMapDTO dto = new dss.vector.solutions.query.SavedMapDTO(clientRequest);
       req.setAttribute("item", dto);
       render("createComponent.jsp");
@@ -88,7 +88,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -112,7 +112,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
@@ -127,7 +127,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.SavedMapDTO dto = dss.vector.solutions.query.SavedMapDTO.get(clientRequest, id);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -138,7 +138,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.SavedMapQueryDTO query = dss.vector.solutions.query.SavedMapDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
@@ -149,7 +149,7 @@ public class SavedMapController extends SavedMapControllerBase implements com.te
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.query.SavedMapQueryDTO query = dss.vector.solutions.query.SavedMapDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
