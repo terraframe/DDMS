@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
   <mjl:message />
@@ -35,7 +35,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="com.terraframe.mojo.system.metadata.EnumerationAttributeItemController.childQuery.mojo" name="com.terraframe.mojo.system.metadata.EnumerationAttributeItem.childQuery.link">
+        <mjl:commandLink display="" action="com.runwaysdk.system.metadata.EnumerationAttributeItemController.childQuery.mojo" name="com.runwaysdk.system.metadata.EnumerationAttributeItem.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>

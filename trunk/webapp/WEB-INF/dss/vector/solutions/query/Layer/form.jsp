@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -9,7 +9,7 @@
 %>
 
 <%@page import="java.util.List"%>
-<%@page import="com.terraframe.mojo.business.ValueObjectDTO"%>
+<%@page import="com.runwaysdk.business.ValueObjectDTO"%>
 <%@page import="dss.vector.solutions.query.QueryConstants"%>
 <mjl:component item="${layer}" param="layer">
   <input type="hidden" id="layerId" value="${layer.id}" />

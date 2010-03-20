@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@page import="dss.vector.solutions.MDSSRoleInfo"%>
 
 <c:set var="page_title" value="Select_Class" scope="request" />
