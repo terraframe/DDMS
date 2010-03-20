@@ -12,9 +12,9 @@ import org.eclipse.birt.report.engine.api.EngineConfig;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.LocalProperties;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.LocalProperties;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.report.BirtConfigurationExceptionDTO;
 

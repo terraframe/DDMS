@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ElHelpers implements com.terraframe.mojo.generation.loader.Reloadable
+public class ElHelpers implements com.runwaysdk.generation.loader.Reloadable
 {
 
   public static String getDateFormatString(HttpServletRequest request)

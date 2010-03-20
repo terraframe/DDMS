@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.business.ValueObjectDTO;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.business.ValueObjectDTO;
+import com.runwaysdk.generation.loader.Reloadable;
 
 /**
  * This class is used instead of ValueObjectDTOs because those are tricky

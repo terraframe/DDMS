@@ -30,29 +30,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.business.BusinessDTO;
-import com.terraframe.mojo.business.ClassQueryDTO;
-import com.terraframe.mojo.business.ComponentDTO;
-import com.terraframe.mojo.business.ViewDTO;
-import com.terraframe.mojo.business.generation.GenerationUtil;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.Constants;
-import com.terraframe.mojo.controller.DTOFacade;
-import com.terraframe.mojo.dataaccess.attributes.ClientReadAttributePermissionException;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
-import com.terraframe.mojo.system.EnumerationMasterDTO;
-import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
+import com.runwaysdk.ApplicationException;
+import com.runwaysdk.business.BusinessDTO;
+import com.runwaysdk.business.ClassQueryDTO;
+import com.runwaysdk.business.ComponentDTO;
+import com.runwaysdk.business.ViewDTO;
+import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.Constants;
+import com.runwaysdk.controller.DTOFacade;
+import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.system.EnumerationMasterDTO;
+import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
+import com.runwaysdk.transport.metadata.AttributeDateMdDTO;
+import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
+import com.runwaysdk.transport.metadata.AttributeMdDTO;
+import com.runwaysdk.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 
-public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
+public class Halp implements com.runwaysdk.generation.loader.Reloadable
 {
 
   public final static String CLASS           = "dss.vector.solutions.util.Halp";
@@ -78,7 +78,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return formatter.format(date);
   }
 
-  static enum MdType implements com.terraframe.mojo.generation.loader.Reloadable {
+  static enum MdType implements com.runwaysdk.generation.loader.Reloadable {
     DATE, ENUMERATION, REFERENCE, OTHER;
     public static MdType toType(String attributeType)
     {

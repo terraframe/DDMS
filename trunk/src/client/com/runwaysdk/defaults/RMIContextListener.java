@@ -1,10 +1,10 @@
-package com.terraframe.mojo.defaults;
+package com.runwaysdk.defaults;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.terraframe.mojo.facade.RemoteAdapterServer;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.facade.RemoteAdapterServer;
+import com.runwaysdk.generation.loader.Reloadable;
 
 public class RMIContextListener implements ServletContextListener, Reloadable
 {

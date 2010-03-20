@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.constants.ClientConstants;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.system.metadata.MdClassQueryDTO;
+import com.runwaysdk.constants.ClientConstants;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdClassQueryDTO;
 
 public class ExcelExportServlet extends HttpServlet implements Reloadable
 {

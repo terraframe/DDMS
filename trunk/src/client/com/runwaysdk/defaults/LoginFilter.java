@@ -1,4 +1,4 @@
-package com.terraframe.mojo.defaults;
+package com.runwaysdk.defaults;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.terraframe.mojo.constants.ClientConstants;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.web.WebClientSession;
+import com.runwaysdk.constants.ClientConstants;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.web.WebClientSession;
 
 public class LoginFilter implements Filter, Reloadable
 {

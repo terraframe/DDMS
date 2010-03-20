@@ -1,7 +1,7 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 /**
  * Used as a wrapper for Style color options that a Layer legend references.

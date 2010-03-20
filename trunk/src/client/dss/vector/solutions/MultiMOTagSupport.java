@@ -7,14 +7,14 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspTag;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientConstants;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.controller.tag.ComponentMarkerIF;
-import com.terraframe.mojo.controller.tag.InputTagSupport;
-import com.terraframe.mojo.controller.tag.develop.AttributeAnnotation;
-import com.terraframe.mojo.controller.tag.develop.TagAnnotation;
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.ClientSession;
+import com.runwaysdk.constants.ClientConstants;
+import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.controller.tag.ComponentMarkerIF;
+import com.runwaysdk.controller.tag.InputTagSupport;
+import com.runwaysdk.controller.tag.develop.AttributeAnnotation;
+import com.runwaysdk.controller.tag.develop.TagAnnotation;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.BrowserRootDTO;
 import dss.vector.solutions.ontology.BrowserRootViewDTO;

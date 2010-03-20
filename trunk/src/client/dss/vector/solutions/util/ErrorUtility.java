@@ -9,14 +9,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.AttributeNotificationDTO;
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.InformationDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorExceptionDTO;
-import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.AttributeNotificationDTO;
+import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.InformationDTO;
+import com.runwaysdk.business.ProblemDTOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorExceptionDTO;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 public class ErrorUtility implements Reloadable
 {
@@ -75,7 +75,7 @@ public class ErrorUtility implements Reloadable
       }
       else
       {
-        JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
         resp.setStatus(500);
         resp.getWriter().print(jsonE.getJSON());
       }

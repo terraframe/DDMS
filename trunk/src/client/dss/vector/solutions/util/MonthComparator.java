@@ -2,7 +2,7 @@ package dss.vector.solutions.util;
 
 import java.util.Comparator;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.MonthOfYearDTO;
 import dss.vector.solutions.MonthOfYearMasterDTO;

@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-import com.terraframe.mojo.generation.loader.Reloadable;
+import com.runwaysdk.generation.loader.Reloadable;
 
 /**
  * @author jsmethie

@@ -6,7 +6,7 @@ import java.io.InputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import com.terraframe.mojo.util.FileIO;
+import com.runwaysdk.util.FileIO;
 
 public class FileDownloadUtil
 {
