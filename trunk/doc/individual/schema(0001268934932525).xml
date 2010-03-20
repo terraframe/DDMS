@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+      
+      <mdException
+        name="dss.vector.solutions.query.InvalidSelectableCombinationException"
+        label="Invalid Selectable Combination Exception"
+        description="Thrown when a user tries to query with an invalid combination of selectables.">
+      </mdException>    
+    
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.query.InvalidSelectableCombinationException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    
+    </delete>
+  </undoIt>
+</version>
