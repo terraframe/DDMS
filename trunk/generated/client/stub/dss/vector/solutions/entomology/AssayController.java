@@ -83,13 +83,24 @@ public class AssayController extends AssayControllerBase implements Reloadable
       collectionId = req.getParameter("collection_id");
     }
 
+    String collectionInput = req.getParameter("collectionInput");
+
     try
     {
-      validateParameters(collectionId);
+      validateParameters(collectionId, collectionInput);
 
       ClientRequestIF clientRequest = this.getClientRequest();
 
-      MosquitoCollectionViewDTO view = MosquitoCollectionDTO.getView(clientRequest, collectionId);
+      MosquitoCollectionViewDTO view = null;
+
+      if (collectionId != null)
+      {
+        view = MosquitoCollectionDTO.getView(clientRequest, collectionId);
+      }
+      else
+      {
+        view = MosquitoCollectionViewDTO.getViewByCollectionId(clientRequest, collectionInput);
+      }
 
       this.setupInfection(clientRequest, view);
       this.setupPooledInfection(clientRequest, view);
@@ -241,13 +252,24 @@ public class AssayController extends AssayControllerBase implements Reloadable
       collectionId = req.getParameter("collection_id");
     }
 
+    String collectionInput = req.getParameter("collectionInput");
+
     try
     {
-      validateParameters(collectionId);
+      validateParameters(collectionId, collectionInput);
 
       ClientRequestIF clientRequest = this.getClientRequest();
 
-      MosquitoCollectionViewDTO view = MosquitoCollectionDTO.getView(clientRequest, collectionId);
+      MosquitoCollectionViewDTO view = null;
+
+      if (collectionId != null)
+      {
+        view = MosquitoCollectionDTO.getView(clientRequest, collectionId);
+      }
+      else
+      {
+        view = MosquitoCollectionViewDTO.getViewByCollectionId(clientRequest, collectionInput);
+      }
 
       this.setupBiochemical(clientRequest, view);
       this.setupMolecular(clientRequest, view);
@@ -255,7 +277,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
       req.setAttribute("entity", view.getGeoEntity());
       req.setAttribute("collectionMethod", view.getCollectionMethod());
       req.setAttribute("item", view);
-      
+
       render("viewMechanismComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -269,7 +291,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
       this.failGetMechanismAssays(collectionId);
     }
   }
-  
+
   @Override
   public void failGetMechanismAssays(String collectionId) throws IOException, ServletException
   {
@@ -320,11 +342,11 @@ public class AssayController extends AssayControllerBase implements Reloadable
     return keys;
   }
 
-  private void validateParameters(String collectionId)
+  private void validateParameters(String collectionId, String collectionInput)
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
-    if (collectionId == null || collectionId.equals(""))
+    if ( ( collectionId == null || collectionId.equals("") ) && ( collectionInput == null || collectionInput.equals("") ))
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredCollectionProblemDTO(clientRequest, req.getLocale()));

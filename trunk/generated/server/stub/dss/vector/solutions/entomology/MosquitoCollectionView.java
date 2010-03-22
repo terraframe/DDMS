@@ -3,6 +3,8 @@ package dss.vector.solutions.entomology;
 import java.util.List;
 
 import com.runwaysdk.business.Entity;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
@@ -389,4 +391,32 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return collection;
   }
+
+  public static MosquitoCollectionView getViewByCollectionId(String collectionId)
+  {
+    MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
+
+    Condition condition = query.getCollectionId().EQ(collectionId);
+
+    query.WHERE(condition);
+
+    OIterator<? extends MosquitoCollection> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next().getView();
+      }
+
+      String errMsg = "An instance of type [" + MosquitoCollection.CLASS + "] with id ["+collectionId+"] does not exist.";
+      
+      throw new DataNotFoundException(errMsg, MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS));
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
 }

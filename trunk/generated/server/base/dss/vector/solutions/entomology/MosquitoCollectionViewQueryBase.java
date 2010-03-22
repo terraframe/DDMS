@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1926858930)
+@com.runwaysdk.business.ClassSignature(hash = 94690099)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1926858930;
+private static final long serialVersionUID = 94690099;
 
   public MosquitoCollectionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

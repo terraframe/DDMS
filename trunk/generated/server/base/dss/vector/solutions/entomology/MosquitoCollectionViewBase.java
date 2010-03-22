@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -631683611)
+@com.runwaysdk.business.ClassSignature(hash = -1871708868)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,7 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
-  private static final long serialVersionUID = -631683611;
+  private static final long serialVersionUID = -1871708868;
   
   public MosquitoCollectionViewBase()
   {
@@ -460,6 +460,12 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   {
     MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
     return _instance.getSubCollections();
+  }
+  
+  public static dss.vector.solutions.entomology.MosquitoCollectionView getViewByCollectionId(java.lang.String collectionId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.entomology.MosquitoCollectionViewQuery searchCollection(java.lang.String value)
