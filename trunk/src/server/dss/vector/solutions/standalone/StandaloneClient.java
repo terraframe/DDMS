@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -142,11 +144,15 @@ public class StandaloneClient extends JFrame implements ActionListener
   {
     try
     {
-      String url = DeployProperties.getApplicationURL();
+      String url = DeployProperties.getApplicationURL() + "/status.jsp";
       URL server = new URL(url);
       HttpURLConnection connection = (HttpURLConnection) server.openConnection();
       connection.connect();
 
+      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      in.readLine();
+      in.close();
+      
       connection.disconnect();
     }
     catch (Exception e)
