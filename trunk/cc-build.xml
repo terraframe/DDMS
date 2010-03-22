@@ -14,7 +14,7 @@
 	
 	<property name="geodata.db" value="mrc_${country}" />
 	<property name="deploy.db" value="mdssdeploy" />
-	<property name="postgres.bin" location="/Library/PostgreSQL/8.4/bin/" />
+	<property name="postgres.bin" location="/Library/PostgreSQL/8.4/bin" />
 	<property name="local.root" location="." />
 	<property name="deploy.root" location="artifacts/tomcat6" />
 	<property name="profile.root" location="profiles" />
@@ -33,10 +33,11 @@
         <cvs command="up -d -P"/>  -->
 		<!--Call the target that does everything-->		
 		
+		<echo message="Please set your ant memory like so: export ANT_OPTS='-Xmx1024m -XX:MaxPermSize=128M'" />
+		
 		<delete dir="${artifacts.path}/webapps/MDSS" />
 		
 		
-		<!--
 		<antcall target="remove_generated_universals" />
 		<antcall target="copy_country_schema" />
    
@@ -59,7 +60,6 @@
 			<target name="create_universal_queries"/>
 		</ant>
 		
-		-->
 		<antcall target="copy_dev_to_deploy" />
 
 		<!--<delete dir="${installer.path}" />
@@ -118,7 +118,7 @@
 			<redirector output="dump.sql">
 				<outputfilterchain>
 					<!--make sql dump stop on errors -->
-					<concatfilter prepend="drop_deploy.sql" />
+					<concatfilter prepend="scripts/ant/deploy/drop_deploy.sql" />
 					<!--change 'mdssdevelop' to 'mdssdeploy' -->
 					<tokenfilter>
 						<replacestring from="${develop.db}" to="${deploy.db}" />
