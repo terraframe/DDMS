@@ -1,17 +1,5 @@
 <listener>
-  <listener-class>com.runwaysdk.defaults.RMIContextListener</listener-class>
-</listener>
-
-<listener>
-  <listener-class>com.runwaysdk.util.ClientInitializer</listener-class>
-</listener>
-
-<listener>
-  <listener-class>dss.vector.solutions.general.EmailContextListener</listener-class>
-</listener>
-
-<listener>
-  <listener-class>dss.vector.solutions.CleanupContextListener</listener-class>
+  <listener-class>dss.vector.solutions.ContextListenerManager</listener-class>
 </listener>
 
 <error-page>
