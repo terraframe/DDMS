@@ -17,12 +17,12 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayMethod;
+import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246588713740L;
 
@@ -30,7 +30,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
   {
     super();
   }
-  
+
   public SprayMethod getSprayMethodByLabel(String label)
   {
     for (SprayMethod e : SprayMethod.values())
@@ -43,15 +43,15 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
     throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     this.applyNoPersist();
-    
+
     GeoEntity entity = getGeoEntity();
-    
+
     if (entity == null)
     {
       RequiredGeoIdProblem p = new RequiredGeoIdProblem();
@@ -66,20 +66,18 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       operatorId = operator.getId();
     }
 
-    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(),
-        getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()),
-        operatorId);
+    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()), operatorId);
 
     // Only create values if one already exists do not update
     if (osv.getConcreteId() == null || osv.getConcreteId().equals(""))
     {
       String leaderID = this.getLeaderId();
-      
+
       if (leaderID != null && !leaderID.equals(""))
       {
         TeamMember leader = TeamMember.getMemberById(leaderID);
 
-        if(leader != null)
+        if (leader != null)
         {
           osv.setTeamLeader(leader);
         }
@@ -89,15 +87,28 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
           throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
         }
       }
-      
+
       osv.setTeamSprayWeek(this.getTeamSprayWeek());
       osv.setTarget(this.getTarget());
       osv.setReceived(this.getReceived());
       osv.setRefills(this.getRefills());
       osv.setReturned(this.getReturned());
-      osv.setUsed(this.getUsed());      
-      osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
+      osv.setUsed(this.getUsed());
+      osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
       osv.setSprayOperator(operator);
+      
+      if(this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
+      {        
+        SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
+        
+        if(team == null)
+        {
+          String msg = "Unknown spray team [" + this.getSprayTeam() + "]";
+          throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(SprayTeam.CLASS));
+        }
+        
+        osv.setSprayTeam(team);
+      }
 
       osv.apply();
     }
@@ -126,7 +137,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.apply();
     }
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
