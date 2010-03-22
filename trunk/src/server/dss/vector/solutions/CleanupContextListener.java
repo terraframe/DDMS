@@ -29,34 +29,17 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   {
     // Clean up all database map views
     SavedMap.cleanOldViews(System.currentTimeMillis());
-    try
-    {
-      runSql(getDropSql());
-    }
-    catch (Exception e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
+    runSql(getDropSql());
   }
+  
   @StartSession
   public void contextInitialized(ServletContextEvent arg0)
   {
-    
-    try
-    {
-      //runSql(getDropSql());
+      runSql(getDropSql());
       runSql(getIndexSql());
       runSql(getGeoDisplayViewSQL());
       runSql(getGeohierarchyAllpathsSQL());
       runSql(getFunctionSql());
-    }
-    catch (Exception e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
   private String getDropSql()
@@ -267,7 +250,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   }
   
 
-  private  void runSql(String storedProcSource) throws Exception
+  private  void runSql(String storedProcSource) 
   {
     //System.out.println(storedProcSource);
 
@@ -281,7 +264,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     }
     catch (SQLException e)
     {
-      throw e;
+      e.printStackTrace();
     }
     finally
     {
@@ -293,7 +276,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
         }
         catch (SQLException e2)
         {
-          throw e2;
+          e2.printStackTrace();
         }
       }
     }
