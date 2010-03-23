@@ -28,6 +28,7 @@ import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
@@ -153,7 +154,8 @@ public class SavedSearch extends SavedSearchBase implements
 
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
-    SavedSearch defaultSearch = mdssUser.getDefaultSearch();
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedSearch defaultSearch = settings.getDefaultSearch();
     if (defaultSearch != null && defaultSearch.getId().equals(view.getSavedQueryId()))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
@@ -204,16 +206,6 @@ public class SavedSearch extends SavedSearchBase implements
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
-    if (asDefault)
-    {
-      // Always replace the old default search.
-      SavedSearch search = mdssUser.getDefaultSearch();
-
-      if (search != null)
-      {
-        search.delete();
-      }
-    }
 
     String name = view.getQueryName();
 
@@ -227,12 +219,21 @@ public class SavedSearch extends SavedSearchBase implements
     checkUniqueness(name, mdssUser);
 
     this.apply();
-
+    
     if (asDefault)
     {
-      mdssUser.appLock();
-      mdssUser.setDefaultSearch(this);
-      mdssUser.directApply();
+      // Always replace the old default search.
+      UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+      DefaultSavedSearch search = settings.getDefaultSearch();
+      
+      if (search != null)
+      {
+        search.delete();
+      }
+      
+      settings.appLock();
+      settings.setDefaultSearch((DefaultSavedSearch) this);
+      settings.apply();
     }
     else
     {
@@ -358,7 +359,8 @@ public class SavedSearch extends SavedSearchBase implements
 
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
-    SavedSearch search = mdssUser.getDefaultSearch();
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedSearch search = settings.getDefaultSearch();
     if (search != null && search.getId().equals(searchId))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();

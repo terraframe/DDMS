@@ -33,6 +33,7 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.util.ShapefileExporter;
 
 public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
@@ -504,7 +505,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
-    DefaultSavedMap defaultMap = (DefaultSavedMap) mdssUser.getDefaultMap();
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
     if (defaultMap != null)
     {
       defaultMap.delete();
@@ -512,10 +514,10 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     defaultMap = new DefaultSavedMap();
     defaultMap.apply();
-
-    mdssUser.appLock();
-    mdssUser.setDefaultMap(defaultMap);
-    mdssUser.apply();
+    
+    settings.appLock();
+    settings.setDefaultMap(defaultMap);
+    settings.apply();
 
     return defaultMap;
   }

@@ -1,0 +1,84 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+    
+      <object
+        key="dss.vector.solutions.MDSSUser.defaultSearch"
+        type="com.runwaysdk.system.metadata.MdAttributeReference"/>
+        
+      <object
+        key="dss.vector.solutions.MDSSUser.defaultMap"
+        type="com.runwaysdk.system.metadata.MdAttributeReference"/>
+    
+    </delete>
+    <create>
+    
+      <mdBusiness
+        name="dss.vector.solutions.UserSettings"
+        label="User Settings"
+        description="Class to attach user settings that will not be synchronized."
+        enforceSiteMaster="false"
+        generateController="false"
+        exported="false"
+        publish="false">
+        <attributes>
+          <reference
+            name="userRef"
+            label="User Reference"
+            description="Reference to the user that defines the settings."
+            required="true"
+            type="dss.vector.solutions.MDSSUser"
+            indexType="unique index"
+            setterVisibility="protected" />
+          <reference
+            name="defaultSearch"
+            label="Default Search"
+            description="Reference to the default search that is reloaded when querying."
+            required="false"
+            type="dss.vector.solutions.query.DefaultSavedSearch" />
+          <reference
+            name="defaultMap"
+            label="Default Map"
+            description="Reference to the default map that is reloaded when mapping"
+            required="false"
+            type="dss.vector.solutions.query.DefaultSavedMap" />
+        </attributes>
+      </mdBusiness>    
+    
+    </create>
+    <update>
+    
+    </update>
+    
+    <permissions>
+      <role
+        roleName="mdss.GUIVisibility">
+        <grant>
+          <mdBusinessPermission
+            type="dss.vector.solutions.UserSettings">
+            <operation
+              name="READ"/>
+            <operation
+              name="WRITE"/>
+            <operation
+              name="CREATE"/>
+            <operation
+             name="DELETE"/>
+            <operation
+             name="READ_ALL_ATTRIBUTES"/>
+            <operation
+             name="WRITE_ALL_ATTRIBUTES"/>
+          </mdBusinessPermission>    
+        </grant>
+      </role>
+    </permissions>
+    
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object key="dss.vector.solutions.UserSettings" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    
+    </delete>
+  </undoIt>
+</version>

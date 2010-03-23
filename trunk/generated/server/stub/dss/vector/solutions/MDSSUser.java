@@ -42,6 +42,14 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).assignMember(userDAO);
   }
   
+  @Override
+  public void delete()
+  {
+    UserSettings.deleteIfExists(this);
+    
+    super.delete();
+  }
+  
   @Transaction
   public void directApply()
   {

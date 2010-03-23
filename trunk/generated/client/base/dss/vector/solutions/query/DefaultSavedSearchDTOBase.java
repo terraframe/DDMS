@@ -52,7 +52,7 @@ public abstract class DefaultSavedSearchDTOBase extends dss.vector.solutions.que
   
   public static dss.vector.solutions.query.DefaultSavedSearchQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.DefaultSavedSearchQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.DefaultSavedSearch", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.DefaultSavedSearchQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.DefaultSavedSearchDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

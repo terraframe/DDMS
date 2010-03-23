@@ -52,7 +52,7 @@ public abstract class DefaultSavedMapDTOBase extends dss.vector.solutions.query.
   
   public static dss.vector.solutions.query.DefaultSavedMapQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.DefaultSavedMapQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.DefaultSavedMap", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.DefaultSavedMapQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.DefaultSavedMapDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
