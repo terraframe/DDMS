@@ -338,16 +338,6 @@
               name="READ_ALL_ATTRIBUTES" />
             <operation
               name="WRITE" />
-            <attributePermission
-              attributeName="defaultSearch">
-              <operation
-                name="WRITE" />
-            </attributePermission>
-            <attributePermission
-              attributeName="defaultMap">
-              <operation
-                name="WRITE" />
-            </attributePermission>
           </mdBusinessPermission>
           <mdBusinessPermission
             type="dss.vector.solutions.Patient">
