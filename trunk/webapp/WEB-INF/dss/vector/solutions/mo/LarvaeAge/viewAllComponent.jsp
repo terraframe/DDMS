@@ -28,8 +28,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+        <mjl:commandLink action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="view.link">
+          <fmt:message key="View" /><mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
@@ -42,4 +42,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Larvae Age" action="dss.vector.solutions.mo.LarvaeAgeController.newInstance.mojo" name="LarvaeAgeController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.LarvaeAgeController.newInstance.mojo" name="LarvaeAgeController.newInstance">
+<fmt:message key="Create_a_new_Larvae_Age" />
+</mjl:commandLink>

@@ -83,4 +83,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.ResistanceMethodologyController.edit.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.ResistanceMethodologyController.viewAll.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.ResistanceMethodologyController.viewAll.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

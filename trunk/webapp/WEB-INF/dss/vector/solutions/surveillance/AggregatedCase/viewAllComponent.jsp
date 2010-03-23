@@ -206,7 +206,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.surveillance.AggregatedCaseController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedCaseController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -220,4 +221,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Age Group" action="dss.vector.solutions.surveillance.AggregatedCaseController.newInstance.mojo" name="AggregatedCaseController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedCaseController.newInstance.mojo" name="AggregatedCaseController.newInstance">
+<fmt:message key="Create_a_new_Age_Group" />
+</mjl:commandLink>

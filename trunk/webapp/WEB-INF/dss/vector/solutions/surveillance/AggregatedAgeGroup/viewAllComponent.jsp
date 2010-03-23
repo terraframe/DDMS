@@ -64,7 +64,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>

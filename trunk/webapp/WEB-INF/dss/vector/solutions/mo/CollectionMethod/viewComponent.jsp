@@ -83,4 +83,7 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.CollectionMethodController.edit.mojo" name="dss.vector.solutions.mo.CollectionMethod.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.CollectionMethodController.viewAll.mojo" name="dss.vector.solutions.mo.CollectionMethod.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.CollectionMethodController.viewAll.mojo" name="dss.vector.solutions.mo.CollectionMethod.viewAll.link">
+<fmt:message key="View All" />
+</mjl:commandLink>
+

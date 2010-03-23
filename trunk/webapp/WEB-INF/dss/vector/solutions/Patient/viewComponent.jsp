@@ -21,4 +21,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.PatientController.viewAll.mojo" name="dss.vector.solutions.Patient.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.PatientController.viewAll.mojo" name="dss.vector.solutions.Patient.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

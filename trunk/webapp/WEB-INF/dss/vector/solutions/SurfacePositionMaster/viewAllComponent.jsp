@@ -21,7 +21,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.SurfacePositionMasterController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.SurfacePositionMasterController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -35,4 +36,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Surface Position" action="dss.vector.solutions.SurfacePositionMasterController.newInstance.mojo" name="SurfacePositionMasterController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.SurfacePositionMasterController.newInstance.mojo" name="SurfacePositionMasterController.newInstance">
+<fmt:message key="Create_a_new_Surface_Position" />
+</mjl:commandLink>

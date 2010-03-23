@@ -41,4 +41,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.PointStyleController.viewAll.mojo" name="dss.vector.solutions.PointStyle.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.PointStyleController.viewAll.mojo" name="dss.vector.solutions.PointStyle.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

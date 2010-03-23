@@ -28,7 +28,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.CollectionMethodController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.CollectionMethodController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -42,4 +43,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Collection Method" action="dss.vector.solutions.mo.CollectionMethodController.newInstance.mojo" name="CollectionMethodController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.CollectionMethodController.newInstance.mojo" name="CollectionMethodController.newInstance">
+<fmt:message key="Create_a_new_Collection_Method" />
+</mjl:commandLink>

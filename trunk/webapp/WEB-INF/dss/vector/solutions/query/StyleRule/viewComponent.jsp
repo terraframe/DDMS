@@ -10,4 +10,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.StyleRuleController.viewAll.mojo" name="dss.vector.solutions.query.StyleRule.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.StyleRuleController.viewAll.mojo" name="dss.vector.solutions.query.StyleRule.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

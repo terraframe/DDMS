@@ -83,4 +83,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.SpecieController.edit.mojo" name="dss.vector.solutions.mo.Specie.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.SpecieController.viewAll.mojo" name="dss.vector.solutions.mo.Specie.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.SpecieController.viewAll.mojo" name="dss.vector.solutions.mo.Specie.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

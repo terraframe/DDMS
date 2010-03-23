@@ -16,7 +16,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.view.mojo" name="view.link">
           <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
@@ -31,4 +31,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Display Label" action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.newInstance.mojo" name="AbstractTermDisplayLabelController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.newInstance.mojo" name="AbstractTermDisplayLabelController.newInstance">
+  <fmt:message key="Create_a_new_Display_Label" />
+ </mjl:commandLink>

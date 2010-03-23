@@ -30,4 +30,6 @@
   <mjl:command value="Edit" action="dss.vector.solutions.query.DefinesCategoriesController.edit.mojo" name="dss.vector.solutions.query.DefinesCategories.form.edit.button" />
   <br />
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.DefinesCategoriesController.viewAll.mojo" name="dss.vector.solutions.query.DefinesCategories.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.DefinesCategoriesController.viewAll.mojo" name="dss.vector.solutions.query.DefinesCategories.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

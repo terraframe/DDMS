@@ -10,4 +10,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.util.FacadeController.viewAll.mojo" name="dss.vector.solutions.util.Facade.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.util.FacadeController.viewAll.mojo" name="dss.vector.solutions.util.Facade.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink

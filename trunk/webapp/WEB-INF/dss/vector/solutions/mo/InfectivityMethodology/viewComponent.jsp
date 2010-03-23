@@ -83,4 +83,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.InfectivityMethodologyController.edit.mojo" name="dss.vector.solutions.mo.InfectivityMethodology.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.InfectivityMethodologyController.viewAll.mojo" name="dss.vector.solutions.mo.InfectivityMethodology.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.InfectivityMethodologyController.viewAll.mojo" name="dss.vector.solutions.mo.InfectivityMethodology.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

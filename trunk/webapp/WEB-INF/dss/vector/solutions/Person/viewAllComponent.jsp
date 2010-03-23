@@ -17,7 +17,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.PersonController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.PersonController.view.mojo" name="view.link">
           <fmt:message key="View" />
           <mjl:property value="${item.personId}" name="id" />
         </mjl:commandLink>
@@ -32,7 +32,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Person" action="dss.vector.solutions.PersonController.newInstance.mojo" name="PersonController.newInstance">
+<mjl:commandLink action="dss.vector.solutions.PersonController.newInstance.mojo" name="PersonController.newInstance">
 <fmt:message key="Create_a_new_Person" />
 </mjl:commandLink>
 

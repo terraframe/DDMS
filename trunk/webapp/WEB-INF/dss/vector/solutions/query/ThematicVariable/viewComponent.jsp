@@ -36,4 +36,6 @@
 </mjl:form>
 <dl>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.ThematicVariableController.viewAll.mojo" name="dss.vector.solutions.query.ThematicVariable.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.ThematicVariableController.viewAll.mojo" name="dss.vector.solutions.query.ThematicVariable.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

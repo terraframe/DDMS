@@ -21,7 +21,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.query.GeometryStyleController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.query.GeometryStyleController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -35,4 +36,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Geometry Style" action="dss.vector.solutions.query.GeometryStyleController.newInstance.mojo" name="GeometryStyleController.newInstance" />
+<mjl:commandLink  action="dss.vector.solutions.query.GeometryStyleController.newInstance.mojo" name="GeometryStyleController.newInstance">
+<fmt:message key="Create_a_new_Geometry_Style" />
+</mjl:commandLink>

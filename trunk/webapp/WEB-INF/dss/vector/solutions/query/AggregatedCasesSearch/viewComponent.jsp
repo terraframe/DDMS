@@ -82,4 +82,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.AggregatedCasesSearchController.viewAll.mojo" name="dss.vector.solutions.query.AggregatedCasesSearch.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.AggregatedCasesSearchController.viewAll.mojo" name="dss.vector.solutions.query.AggregatedCasesSearch.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

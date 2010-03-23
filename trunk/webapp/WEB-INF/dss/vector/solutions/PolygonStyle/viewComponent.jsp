@@ -35,4 +35,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.PolygonStyleController.viewAll.mojo" name="dss.vector.solutions.PolygonStyle.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.PolygonStyleController.viewAll.mojo" name="dss.vector.solutions.PolygonStyle.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

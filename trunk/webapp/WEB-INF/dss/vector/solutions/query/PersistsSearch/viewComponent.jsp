@@ -30,4 +30,6 @@
   <mjl:command value="Edit" action="dss.vector.solutions.query.PersistsSearchController.edit.mojo" name="dss.vector.solutions.query.PersistsSearch.form.edit.button" />
   <br />
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.PersistsSearchController.viewAll.mojo" name="dss.vector.solutions.query.PersistsSearch.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.PersistsSearchController.viewAll.mojo" name="dss.vector.solutions.query.PersistsSearch.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

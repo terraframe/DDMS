@@ -28,7 +28,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.ActiveIngredientController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.ActiveIngredientController.view.mojo" name="view.link">
           <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
@@ -43,4 +43,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Active Ingredient" action="dss.vector.solutions.mo.ActiveIngredientController.newInstance.mojo" name="ActiveIngredientController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.ActiveIngredientController.newInstance.mojo" name="ActiveIngredientController.newInstance">
+<fmt:message key="Create_a_new_Active_Ingredient" />
+</mjl:commandLink>
+

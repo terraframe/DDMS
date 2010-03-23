@@ -27,4 +27,6 @@
   <br />
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.GeometryStyleController.viewAll.mojo" name="dss.vector.solutions.query.GeometryStyle.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.GeometryStyleController.viewAll.mojo" name="dss.vector.solutions.query.GeometryStyle.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

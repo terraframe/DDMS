@@ -16,7 +16,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.AbstractTermController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.AbstractTermController.view.mojo" name="view.link">
           <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
@@ -31,6 +31,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new MO Term" action="dss.vector.solutions.mo.AbstractTermController.newInstance.mojo" name="AbstractTermController.newInstance">
+<mjl:commandLink action="dss.vector.solutions.mo.AbstractTermController.newInstance.mojo" name="AbstractTermController.newInstance">
 <fmt:message key="Create_a_new_MO_Term" />
 </mjl:commandLink>

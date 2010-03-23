@@ -83,4 +83,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.LarvaeAgeController.edit.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.LarvaeAgeController.viewAll.mojo" name="dss.vector.solutions.mo.LarvaeAge.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.LarvaeAgeController.viewAll.mojo" name="dss.vector.solutions.mo.LarvaeAge.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

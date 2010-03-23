@@ -31,7 +31,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.query.ThematicLayerController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.query.ThematicLayerController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -45,4 +46,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Thematic Layer" action="dss.vector.solutions.query.ThematicLayerController.newInstance.mojo" name="ThematicLayerController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.query.ThematicLayerController.newInstance.mojo" name="ThematicLayerController.newInstance">
+<fmt:message key="Create_a_new_Thematic_Layer" />
+</mjl:commandLink>

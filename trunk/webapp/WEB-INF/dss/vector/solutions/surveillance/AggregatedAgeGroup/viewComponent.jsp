@@ -45,4 +45,6 @@
   </dl>
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

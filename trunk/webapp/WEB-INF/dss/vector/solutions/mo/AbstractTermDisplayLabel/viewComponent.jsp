@@ -18,4 +18,7 @@
   <mjl:command value="Edit" action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.edit.mojo" name="dss.vector.solutions.mo.AbstractTermDisplayLabel.form.edit.button" />
   <br />
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.viewAll.mojo" name="dss.vector.solutions.mo.AbstractTermDisplayLabel.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.AbstractTermDisplayLabelController.viewAll.mojo" name="dss.vector.solutions.mo.AbstractTermDisplayLabel.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>
+

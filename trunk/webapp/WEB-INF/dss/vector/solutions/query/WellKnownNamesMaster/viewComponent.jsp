@@ -51,4 +51,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.WellKnownNamesMasterController.viewAll.mojo" name="dss.vector.solutions.query.WellKnownNamesMaster.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.WellKnownNamesMasterController.viewAll.mojo" name="dss.vector.solutions.query.WellKnownNamesMaster.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

@@ -74,4 +74,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.SavedSearchController.viewAll.mojo" name="dss.vector.solutions.query.SavedSearch.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.SavedSearchController.viewAll.mojo" name="dss.vector.solutions.query.SavedSearch.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

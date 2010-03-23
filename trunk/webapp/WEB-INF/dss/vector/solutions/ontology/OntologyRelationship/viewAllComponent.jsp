@@ -45,7 +45,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.ontology.OntologyRelationshipController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.ontology.OntologyRelationshipController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -59,4 +60,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Ontology Relationship" action="dss.vector.solutions.ontology.OntologyRelationshipController.newInstance.mojo" name="OntologyRelationshipController.newInstance" />
+<mjl:commandLink  action="dss.vector.solutions.ontology.OntologyRelationshipController.newInstance.mojo" name="OntologyRelationshipController.newInstance">
+<fmt:message key="Create_a_new_Ontology_Relationship" />
+</mjl:commandLink>

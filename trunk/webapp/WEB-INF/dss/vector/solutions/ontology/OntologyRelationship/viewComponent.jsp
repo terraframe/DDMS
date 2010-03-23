@@ -69,4 +69,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.ontology.OntologyRelationshipController.viewAll.mojo" name="dss.vector.solutions.ontology.OntologyRelationship.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.ontology.OntologyRelationshipController.viewAll.mojo" name="dss.vector.solutions.ontology.OntologyRelationship.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

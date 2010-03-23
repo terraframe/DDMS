@@ -21,7 +21,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.geo.SpatialMasterController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.geo.SpatialMasterController.view.mojo" name="view.link">
 	      <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
@@ -36,6 +36,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Spatial Master" action="dss.vector.solutions.geo.SpatialMasterController.newInstance.mojo" name="SpatialMasterController.newInstance">
+<mjl:commandLink action="dss.vector.solutions.geo.SpatialMasterController.newInstance.mojo" name="SpatialMasterController.newInstance">
 <fmt:message key="Create_a_new_Spatial_Master" />
 </mjl:commandLink>

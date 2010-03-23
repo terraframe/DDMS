@@ -113,6 +113,6 @@
     </mjl:component>    
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.PersonController.viewAll.mojo" name="dss.vector.solutions.Person.viewAll.link">
+<mjl:commandLink action="dss.vector.solutions.PersonController.viewAll.mojo" name="dss.vector.solutions.Person.viewAll.link">
 <fmt:message key="View_All" />
 </mjl:commandLink>

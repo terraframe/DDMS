@@ -28,7 +28,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.SpecieController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -42,4 +43,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Specie Method" action="dss.vector.solutions.mo.SpecieController.newInstance.mojo" name="SpecieController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.SpecieController.newInstance.mojo" name="SpecieController.newInstance">
+<fmt:message key="Create_a_new_Specie_Method" />
+</mjl:commandLink>

@@ -28,7 +28,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -42,4 +43,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Identification Method" action="dss.vector.solutions.mo.IdentificationMethodController.newInstance.mojo" name="IdentificationMethodController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.IdentificationMethodController.newInstance.mojo" name="IdentificationMethodController.newInstance">
+<fmt:message key="Create_a_new_Identification_Method" />
+</mjl:commandLink>
+

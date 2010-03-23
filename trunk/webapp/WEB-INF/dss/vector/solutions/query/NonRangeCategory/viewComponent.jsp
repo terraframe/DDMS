@@ -34,4 +34,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.NonRangeCategoryController.viewAll.mojo" name="dss.vector.solutions.query.NonRangeCategory.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.NonRangeCategoryController.viewAll.mojo" name="dss.vector.solutions.query.NonRangeCategory.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

@@ -37,7 +37,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.query.DefinesCategoriesController.view.mojo" name="view.link">
+        <mjl:commandLink action="dss.vector.solutions.query.DefinesCategoriesController.view.mojo" name="view.link">
+          <fmt:message key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -51,4 +52,6 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Defines Categories" action="dss.vector.solutions.query.DefinesCategoriesController.newRelationship.mojo" name="DefinesCategoriesController.newRelationship" />
+<mjl:commandLink  action="dss.vector.solutions.query.DefinesCategoriesController.newRelationship.mojo" name="DefinesCategoriesController.newRelationship">
+<fmt:message key="Create_a_new_Defines_Categories" />
+</mjl:commandLink>

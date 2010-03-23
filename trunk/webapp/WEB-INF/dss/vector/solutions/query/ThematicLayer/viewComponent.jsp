@@ -64,4 +64,6 @@
     </ul>
   </dd>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.query.ThematicLayerController.viewAll.mojo" name="dss.vector.solutions.query.ThematicLayer.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.query.ThematicLayerController.viewAll.mojo" name="dss.vector.solutions.query.ThematicLayer.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>

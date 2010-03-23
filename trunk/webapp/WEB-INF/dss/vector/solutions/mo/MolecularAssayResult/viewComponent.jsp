@@ -83,4 +83,6 @@
     <mjl:command value="Edit" action="dss.vector.solutions.mo.MolecularAssayResultController.edit.mojo" name="dss.vector.solutions.mo.MolecularAssayResult.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.MolecularAssayResultController.viewAll.mojo" name="dss.vector.solutions.mo.MolecularAssayResult.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.mo.MolecularAssayResultController.viewAll.mojo" name="dss.vector.solutions.mo.MolecularAssayResult.viewAll.link">
+<fmt:message key="View_All" />
+</mjl:commandLink>
