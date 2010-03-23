@@ -243,21 +243,36 @@ public class MdssLocalizationExporter implements Reloadable
           MdAttributeDAOIF mdAttribute = (MdAttributeDAOIF) entity;
           String definedAttribute = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
           if (definedAttribute.equalsIgnoreCase(MetaData.ID) ||
-              definedAttribute.equalsIgnoreCase(MetaData.CREATEDATE) ||
-              definedAttribute.equalsIgnoreCase(MetaData.CREATEDBY) ||
-              definedAttribute.equalsIgnoreCase(MetaData.ENTITYDOMAIN) ||
-              definedAttribute.equalsIgnoreCase(MetaData.ID) ||
-              definedAttribute.equalsIgnoreCase(MetaData.KEYNAME) ||
-              definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDATE) ||
-              definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDBY) ||
-              definedAttribute.equalsIgnoreCase(MetaData.LOCKEDBY) ||
-              definedAttribute.equalsIgnoreCase(MetaData.OWNER) ||
-              definedAttribute.equalsIgnoreCase(MetaData.SEQ) ||
-              definedAttribute.equalsIgnoreCase(MetaData.SITEMASTER) ||
-              definedAttribute.equalsIgnoreCase(MetaData.TYPE))
-          {
-            continue;
-          }
+                  definedAttribute.equalsIgnoreCase(MetaData.CREATEDBY) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.ENTITYDOMAIN) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.KEYNAME) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDATE) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDBY) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.LOCKEDBY) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.OWNER) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.SEQ) ||
+                  definedAttribute.equalsIgnoreCase(MetaData.TYPE))
+              {
+                continue;
+              }
+          
+          // Selectively get rid of create dates
+          if (definedAttribute.equalsIgnoreCase(MetaData.CREATEDATE))
+              {
+      	  		if (mdType.definesType().equals("dss.vector.solutions.general.Email")) {
+      	  			continue;
+      	  		}
+      	  		if (mdType.definesType().equals("com.runwaysdk.system.transaction.TransactionRecord")) {
+      	  			continue;
+      	  		}
+              }
+          
+          if (definedAttribute.equalsIgnoreCase(MetaData.SITEMASTER))
+              {
+    	  		if (mdType.definesType().equals("com.runwaysdk.system.transaction.TransactionRecord")) {
+      	  			continue;
+      	  		}
+              }
         }
         
         // We don't want to export the attribute definitions of the locales on our MdLocalStructs 
