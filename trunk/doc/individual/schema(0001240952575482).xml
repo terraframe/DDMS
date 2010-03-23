@@ -581,7 +581,7 @@
             rejectNegative="true" />
           <integer
             name="target"
-            label="Team Target"
+            label="Operator Target"
             rejectNegative="true" />
           <integer
             name="received"
