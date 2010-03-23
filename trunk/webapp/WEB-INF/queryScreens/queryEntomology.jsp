@@ -147,7 +147,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var biochemicalMaps = {<%=(String) request.getAttribute("biochemicalMaps")%>};
     var biochemicalAssay = new dss.vector.solutions.entomology.BiochemicalAssay;
-    var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","numberTested","numberElevated"];
+    var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assay","numberTested","numberElevated"];
     <%
       Halp.setReadableAttributes(request, "biochemicalAttribs", BiochemicalAssayViewDTO.CLASS, requestIF);
     %>
