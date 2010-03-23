@@ -4,7 +4,7 @@
   <xs:element name="Transactions">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="transactionRecord" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element ref="transactionRecord" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="site" type="xs:string" use="required"/>
       <xs:attribute name="startExportSeq" type="xs:integer" use="required"/>

@@ -2,6 +2,7 @@ package dss.vector.solutions.standalone;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.SwingWorker;
@@ -9,6 +10,8 @@ import javax.swing.SwingWorker;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.transaction.TransactionExportManager;
 import com.runwaysdk.session.StartSession;
+
+import dss.vector.solutions.InstallProperties;
 
 public class ExportManager extends SwingWorker<Void, Void>
 {
@@ -87,24 +90,23 @@ public class ExportManager extends SwingWorker<Void, Void>
       String path = location.getParent();
       String fileName = toke.nextToken();
 
-      if (option.equals(ExportOption.RANGE))
+      List<String> files = this.getApplicationFiles();
+
+      TransactionExportManager manager = new TransactionExportManager(files, CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path);
+      manager.addListener(component);
+      manager.setExportStoredApplicationFiles(!InstallProperties.isMaster());
+
+      if (option.equals(ExportOption.ALL))
       {
-        if (upper != null)
-        {
-          TransactionExportManager.export(new LinkedList<String>(), lower, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
-        }
-        else
-        {
-          TransactionExportManager.export(new LinkedList<String>(), lower, upper, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
-        }
+        manager.export(0L);
       }
-      else if (option.equals(ExportOption.ALL))
+      else if (option.equals(ExportOption.RANGE))
       {
-        TransactionExportManager.export(new LinkedList<String>(), 0L, CommonProperties.getTransactionXMLschemaLocation(), fileName, path, component);
+        manager.export(lower, upper);
       }
       else if (option.equals(ExportOption.NOT_IMPORTED))
       {
-        TransactionExportManager.export(new LinkedList<String>(), CommonProperties.getTransactionRecordXMLschemaLocation(), fileName, path, component);
+        manager.export();
       }
     }
     catch (Throwable t)
@@ -112,6 +114,18 @@ public class ExportManager extends SwingWorker<Void, Void>
       component.handleError(t);
     }
 
+  }
+
+  private List<String> getApplicationFiles()
+  {
+    List<String> files = new LinkedList<String>();
+
+    if (InstallProperties.isMaster())
+    {
+      files.add(File.separator + "WEB-INF" + File.separator + "dss" + File.separator + "vector" + File.separator + "solutions" + File.separator + "geo" + File.separator + "generated");
+    }
+    
+    return files;
   }
 
   private void validate()
@@ -125,8 +139,8 @@ public class ExportManager extends SwingWorker<Void, Void>
     if (option.equals(ExportOption.RANGE))
     {
       if (lower == null)
-      {        
-        String msg = "Please input a starting sequence";        
+      {
+        String msg = "Please input a starting sequence";
         throw new StartingExportSequenceException(msg);
       }
       else if (upper != null && lower > upper)
