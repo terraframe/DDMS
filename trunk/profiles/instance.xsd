@@ -18,7 +18,7 @@
         <!--The attribute-value pairings of the instance-->
         <xs:element ref="value"/>
         <!--The attribute-multi xml id pairing of the instance-->
-        <xs:element ref="selection"/>
+        <xs:element ref="enumeration"/>
         <!--The struct attribute values-->
         <xs:element ref="struct"/>
       </xs:choice>
@@ -36,7 +36,7 @@
         <!--The attribute-value pairings of the instance-->
         <xs:element ref="value"/>
         <!--The attribute-multi xml id pairing of the instance-->
-        <xs:element ref="selection"/>
+        <xs:element ref="enumeration"/>
         <!--The struct attribute values-->
         <xs:element ref="struct"/>
       </xs:choice>
@@ -65,7 +65,7 @@
   </xs:element>
 
   <!--Sets the value of an attribute which references multiple instances-->
-  <xs:element name="selection">
+  <xs:element name="enumeration">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="value" minOccurs="0" maxOccurs="unbounded">
@@ -87,7 +87,7 @@
         <!--The attribute-value pairings of the instance-->
         <xs:element ref="value"/>
         <!--The attribute-multi xml id pairing of the instance-->
-        <xs:element ref="selection"/>
+        <xs:element ref="enumeration"/>
       </xs:choice>
       <!--attribute: The name of the struct attribute-->
       <xs:attribute name="attribute" type="xs:string" use="required"/>
