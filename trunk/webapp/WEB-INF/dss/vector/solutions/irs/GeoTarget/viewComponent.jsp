@@ -84,20 +84,24 @@ MalariaSeasonDTO season = item.getSeason();
   Integer seasonStartYear = cal.get(Calendar.YEAR);
 
   EpiDateDTO[] weeks = season.getEpiWeeks(); 
-  int numWeeks =  weeks[0].getNumberOfEpiWeeks();
-  int startWeek = weeks[0].getPeriod();
+  
+  if(weeks.length > 0)
+  {
+    int numWeeks =  weeks[0].getNumberOfEpiWeeks();
+    int startWeek = weeks[0].getPeriod();
   
 
-int i = 0;
+    int i = 0;
 
 
-for (EpiDateDTO epiWeek : weeks){
-  String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
-  String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
-  colConfig += ",\n{width:20, sum:true, key:'Target_" + (epiWeek.getPeriod()%numWeeks) + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
-  i++;
-}
-
+    for (EpiDateDTO epiWeek : weeks)
+    {
+      String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
+      String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
+      colConfig += ",\n{width:20, sum:true, key:'Target_" + (epiWeek.getPeriod()%numWeeks) + "',label:'" + ((epiWeek.getPeriod()%numWeeks)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+      i++;
+    }
+  }
 %>
 <%=Halp.loadTypes(Arrays.asList(types_to_load))%>
 <script type="text/javascript" defer ="defer">
