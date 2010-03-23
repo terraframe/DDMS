@@ -30,6 +30,6 @@
   <mjl:command value="Edit" action="dss.vector.solutions.geo.AllowedInController.edit.mojo" name="dss.vector.solutions.geo.AllowedIn.form.edit.button" />
   <br />
 </mjl:form>
-<mjl:commandLink display="View All" action="dss.vector.solutions.geo.AllowedInController.viewAll.mojo" name="dss.vector.solutions.geo.AllowedIn.viewAll.link">
+<mjl:commandLink action="dss.vector.solutions.geo.AllowedInController.viewAll.mojo" name="dss.vector.solutions.geo.AllowedIn.viewAll.link">
   <fmt:message key="View_All" />
 </mjl:commandLink>

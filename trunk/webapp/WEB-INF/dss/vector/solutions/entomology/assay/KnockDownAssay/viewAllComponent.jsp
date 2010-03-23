@@ -82,7 +82,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Knock Down Assay" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="KnockDownAssayController.newInstance">
+<mjl:commandLink action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="KnockDownAssayController.newInstance">
   <fmt:message key="Create_a_new_Knock_Down_Assay" />
 </mjl:commandLink>
 
