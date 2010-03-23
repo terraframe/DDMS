@@ -23,12 +23,12 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
     concrete.setRoom(this.getRoom());
     concrete.setStructureArea(this.getStructureArea());
     concrete.setHousehold(this.getHousehold());
-    concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage()); 
+    concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage());
     concrete.setStartDate(this.getStartDate());
     concrete.setEndDate(this.getEndDate());
     concrete.clearTargetUnit();
-    
-    for(TargetUnit unit : this.getTargetUnit())
+
+    for (TargetUnit unit : this.getTargetUnit())
     {
       concrete.addTargetUnit(unit);
     }
@@ -42,26 +42,26 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
   @Override
   public void apply()
   {
-    if(this.getStartDate() == null)
+    if (this.getStartDate() == null)
     {
       this.setStartDate(new Date());
     }
 
     AreaStandards concrete = new AreaStandards();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       concrete = AreaStandards.lock(this.getAreaStandardsId());
     }
-    
-    this.apply(concrete); 
+
+    this.apply(concrete);
   }
 
   @Override
   @Transaction
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       AreaStandards.get(this.getAreaStandardsId()).delete();
     }
@@ -70,14 +70,11 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
   @Override
   public void applyClone()
   {
-    if(this.getStartDate() == null)
-    {
-      this.setStartDate(new Date());
-    }
-    
+    this.setStartDate(new Date());
+
     AreaStandards concrete = AreaStandards.get(this.getStartDate());
-    
-    if(concrete == null)
+
+    if (concrete == null)
     {
       concrete = new AreaStandards();
     }
@@ -85,7 +82,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
     {
       concrete.lock();
     }
-    
+
     this.apply(concrete);
   }
 
@@ -111,8 +108,8 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
       while (it.hasNext())
       {
         AreaStandards concrete = it.next();
-        
-        if(concrete.getStartDate() != null || !it.hasNext())
+
+        if (concrete.getStartDate() != null || !it.hasNext())
         {
           return concrete.getView();
         }
@@ -127,42 +124,42 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
   }
 
   public Float getTargetArea()
-  {    
-    for(TargetUnit unit : this.getTargetUnit())
+  {
+    for (TargetUnit unit : this.getTargetUnit())
     {
-      if(unit.equals(TargetUnit.HOUSEHOLD))
+      if (unit.equals(TargetUnit.HOUSEHOLD))
       {
         return this.getHousehold();
       }
-      else if(unit.equals(TargetUnit.ROOM))
+      else if (unit.equals(TargetUnit.ROOM))
       {
         return this.getRoom();
       }
-      if(unit.equals(TargetUnit.STRUCTURE))
+      if (unit.equals(TargetUnit.STRUCTURE))
       {
         return this.getStructureArea();
-      }      
+      }
     }
-    
+
     return this.getHousehold();
   }
-  
+
   public static AreaStandardsViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     AreaStandardsViewQuery query = new AreaStandardsViewQuery(new QueryFactory());
-    
-    if(sortAttribute == null)
+
+    if (sortAttribute == null)
     {
       sortAttribute = AreaStandardsView.STARTDATE;
     }
-    
+
     Selectable selectable = query.getComponentQuery().getSelectableRef(sortAttribute);
 
-    if(sortAttribute.equalsIgnoreCase(AreaStandardsView.TARGETUNIT))
+    if (sortAttribute.equalsIgnoreCase(AreaStandardsView.TARGETUNIT))
     {
-      selectable = ((AttributeEnumeration) selectable.getAttribute()).get(TargetUnitMaster.ENUMNAME);
+      selectable = ( (AttributeEnumeration) selectable.getAttribute() ).get(TargetUnitMaster.ENUMNAME);
     }
-    
+
     if (isAscending)
     {
       query.ORDER_BY_ASC((SelectablePrimitive) selectable, sortAttribute);
@@ -174,7 +171,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.runw
 
     if (pageSize != 0 && pageNumber != 0)
     {
-       query.restrictRows(pageSize, pageNumber);
+      query.restrictRows(pageSize, pageNumber);
     }
 
     return query;

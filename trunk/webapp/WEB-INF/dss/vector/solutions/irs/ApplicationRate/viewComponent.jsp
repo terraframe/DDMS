@@ -77,7 +77,7 @@
    <dl>
       <mjl:component item="${dto}" param="dto">
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
-      <mjl:input type="hidden" param="startDate" value="${dto.startDate}" classes="DatePick"/>
+      <mjl:input type="hidden" param="startDate" value="${dto.startDate}" classes="DatePick" id="startDate"/>
       <mjl:dt attribute="targetUnit">
         <mjl:select var="current" valueAttribute="enumName" items="${targetUnits}" param="targetUnit">
           <mjl:option selected="${mjl:contains(dto.targetUnitEnumNames, current.enumName) ? 'selected' : 'false'}">
