@@ -906,7 +906,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         li.appendChild(check);
         this._defaults.push({element:check, checked:false});
         
-        if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeCharacterDTO') != -1)
+        if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeCharacterDTO') != -1  && ! visibleObj.isGeoEntity)
         {
         	li.id = attribute.getKey()+'_li';
 
