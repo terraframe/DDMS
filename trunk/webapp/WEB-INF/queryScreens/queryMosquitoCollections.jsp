@@ -33,7 +33,8 @@
 <%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.util.ReadableAttributeViewDTO"%>
 <%@page import="java.util.Set"%>
-<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -212,6 +213,9 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
     query.render();
 
+    
+    var picker = query.getGeoPicker();
+    picker.addExtraUniversal('<%= CollectionSiteDTO.CLASS %>');
 });
 
 </script>
