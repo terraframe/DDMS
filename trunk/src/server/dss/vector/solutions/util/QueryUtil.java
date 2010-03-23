@@ -956,13 +956,18 @@ public class QueryUtil implements Reloadable
       while (attributeQuery == null)
       {
         attributeQuery = queryMap.get(md.definesType());
+        if(attributeQuery != null)
+        {
+          break;
+        }
+        
         md = md.getSuperMdBusiness();
       }
 
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
-        if (queryMap.containsKey(klass))
+        if (queryMap.containsKey(md.definesType()))
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.GE(start));
@@ -972,7 +977,7 @@ public class QueryUtil implements Reloadable
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         end = dateObj.getString("end");
-        if (queryMap.containsKey(klass))
+        if (queryMap.containsKey(md.definesType()))
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.LE(end));
