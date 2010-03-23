@@ -69,9 +69,9 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
 
         int index = ( week.getPeriod() % EpiDate.getNumberOfEpiWeeks(week.getYearOfWeek()) );
 
-        Integer notification = (this.getThresholdType() ? threshold.getNotification() : threshold.getFacilityNotification());
-        Integer ident = (this.getThresholdType() ? threshold.getIdentification() : threshold.getFacilityIdentification());
-        
+        Integer notification = ( this.getThresholdType() ? threshold.getNotification() : threshold.getFacilityNotification() );
+        Integer ident = ( this.getThresholdType() ? threshold.getIdentification() : threshold.getFacilityIdentification() );
+
         this.populateAttributes(this, "setOutbreak_" + index, notification);
         this.populateAttributes(this, "setIdentification_" + index, ident);
       }
@@ -127,7 +127,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   public void apply()
   {
     InstallProperties.validateMasterOperation();
-    
+
     ThresholdData concrete = new ThresholdData();
 
     if (this.hasConcrete())
@@ -188,7 +188,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
         else
         {
           threshold.setFacilityNotification(notification);
-          threshold.setFacilityIdentification(identification);          
+          threshold.setFacilityIdentification(identification);
         }
 
         threshold.setCalculationType(null);
@@ -260,10 +260,10 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   public static ThresholdDataView[] getFacilityViews(String geoId, MalariaSeason season)
   {
     GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
-    
+
     List<ThresholdDataView> list = new LinkedList<ThresholdDataView>();
     List<GeoEntity> children = geoEntity.getFacilityChildren();
-    
+
     for (GeoEntity child : children)
     {
       ThresholdDataView view = ThresholdDataView.getView(child, season, false);
@@ -291,7 +291,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
       if (it.hasNext())
       {
         ThresholdDataView view = it.next().getView(political);
-        
+
         return view;
       }
 
@@ -313,7 +313,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   public static ThresholdDataView[] applyAll(ThresholdDataView[] views)
   {
     InstallProperties.validateMasterOperation();
-    
+
     for (ThresholdDataView view : views)
     {
       view.apply();
@@ -392,23 +392,26 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     EpiDate[] weeks = this.getSeason().getEpiWeeks();
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
 
-    int startWeek = weeks[0].getPeriod();
-    int weeksInYear = weeks[0].getNumberOfEpiWeeks();
-
-    int i = startWeek;
-
-    for (EpiDate week : weeks)
+    if (weeks.length > 0)
     {
-      EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
+      int startWeek = weeks[0].getPeriod();
+      int weeksInYear = weeks[0].getNumberOfEpiWeeks();
 
-      Integer notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
-      Integer identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
+      int i = startWeek;
 
-      thresholds[i*2] = notification;
-      thresholds[i*2 + 1] = identificaiton;
-      i++;
-      
-      i = (i % weeksInYear);
+      for (EpiDate week : weeks)
+      {
+        EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
+
+        Integer notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
+        Integer identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
+
+        thresholds[i * 2] = notification;
+        thresholds[i * 2 + 1] = identificaiton;
+        i++;
+
+        i = ( i % weeksInYear );
+      }
     }
 
     return thresholds;
