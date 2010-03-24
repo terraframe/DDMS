@@ -71,8 +71,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     }
 
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
@@ -83,20 +81,25 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
-    String unit_operational_coverage = "SUM("+sprayedUnits+")) / (SUM("+avilableUnits+")";
-    String unit_application_rate = "(refills::FLOAT * active_ingredient_per_can) / ("+sprayedUnits+" * unitarea)";
+    String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
+    
+    String unit_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(SUM("+avilableUnits+"),0";
+    String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
     String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
 
     
     QueryUtil.setSelectabeSQL(valueQuery, "sprayedunits", sprayedUnits);
     QueryUtil.setSelectabeSQL(valueQuery, "unit_unsprayed" , unsprayedUnits);
     
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate", "SUM(" + unit_application_rate + ")");
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"SUM(" + unit_application_rate + ")");
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / SUM("+sprayedUnits+")");
+    QueryUtil.setSelectabeSQL(valueQuery, "refills * "+shareOfCans , unsprayedUnits);
+    
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate", "(" + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"(" + unit_application_rate + ")");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / nullif(SUM("+sprayedUnits+"),0)");
     QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
     
-    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+" * SUM(rooms)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
 

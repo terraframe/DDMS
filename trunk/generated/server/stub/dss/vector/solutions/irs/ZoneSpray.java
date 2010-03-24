@@ -153,6 +153,10 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
     select += "(households - sprayedhouseholds) AS household_unsprayed,\n";
     
+    select += "1 AS sprayedrooms_share,\n";
+    select += "1 AS sprayedstructures_share,\n";
+    select += "1 AS sprayedhouseholds_share,\n";
+    
     
 
     String from = " FROM ";

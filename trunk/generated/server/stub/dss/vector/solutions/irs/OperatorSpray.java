@@ -117,6 +117,8 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
 
   public static String getTempTableSQL(String targetView, boolean grouped)
   {
+    grouped = false;
+    
     String select = "SELECT operatorspray.id,\n";
 
     select += "'1'::TEXT AS aggregation_level,\n";
@@ -184,7 +186,13 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     select += "(structures - sprayedstructures) AS structure_unsprayed,\n";
     select += "(households - sprayedhouseholds) AS household_unsprayed,\n";
     
+    select += "sprayedrooms/nullif((SELECT SUM(sprayedrooms) from householdspraystatus hss where operatorspray.id = hss.spray),0)::float AS sprayedrooms_share,\n";
+    select += "sprayedstructures/nullif((SELECT SUM(sprayedstructures) from householdspraystatus hss where operatorspray.id = hss.spray),0)::float AS sprayedstructures_share,\n";
+    select += "sprayedhouseholds/nullif((SELECT SUM(sprayedhouseholds) from householdspraystatus hss where operatorspray.id = hss.spray),0)::float AS sprayedhouseholds_share,\n";
+    
     String from = " FROM ";
+    
+    //must group to fix coverage...
     
     if (grouped)
     {
