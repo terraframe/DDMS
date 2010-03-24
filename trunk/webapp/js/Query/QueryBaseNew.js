@@ -922,7 +922,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
         }
         
-        if(visibleObj.dtoType && visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1)
+        if(visibleObj.dtoType && (visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1  || visibleObj.dtoType.indexOf('AttributeFloatDTO') != -1 ))
         {
         	li.id = attribute.getKey()+'_li';
         	 	
