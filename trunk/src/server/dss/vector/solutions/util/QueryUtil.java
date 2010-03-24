@@ -967,21 +967,15 @@ public class QueryUtil implements Reloadable
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         start = dateObj.getString("start");
-        if (queryMap.containsKey(md.definesType()))
-        {
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-          valueQuery.AND(dateAttriute.GE(start));
-        }
+        AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+        valueQuery.AND(dateAttriute.GE(start));
 
       }
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         end = dateObj.getString("end");
-        if (queryMap.containsKey(md.definesType()))
-        {
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-          valueQuery.AND(dateAttriute.LE(end));
-        }
+        AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+        valueQuery.AND(dateAttriute.LE(end));
       }
 
       // now we set the columns that show the restictions
