@@ -65,7 +65,7 @@
 					name="displayName">
 					<attribute
 						name="defaultLocale"
-						value="Source Outbreak Identification" />
+						value="Source Outbreak Notification" />
 				</attributeStruct>
 			</object>
  		</update>
