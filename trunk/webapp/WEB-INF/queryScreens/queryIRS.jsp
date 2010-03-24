@@ -124,12 +124,11 @@ YAHOO.util.Event.onDOMReady(function(){
                             type:"sqlinteger",
                             attributeName:"planed_area_target",
                           },
-                          /* {
-                          
+                          {
                           key:"planned_coverage",
                           type:"sqldouble",
                           attributeName:"planned_coverage",
-                        },*/
+                        },
                       ];
 
     var Actual_Targets = [
@@ -357,14 +356,14 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"unit_application_rate",
                                      type:"sqldouble",
                                      attributeName:"unit_application_rate",
-                                     isAggregate:true
+                                     isAggregate:false
                                    },
                                    {
                                      
                                      key:"unit_application_rate_mg",
                                      type:"sqldouble",
                                      attributeName:"unit_application_rate_mg",
-                                     isAggregate:true
+                                     isAggregate:false
                                    },
                                    {
                                      
