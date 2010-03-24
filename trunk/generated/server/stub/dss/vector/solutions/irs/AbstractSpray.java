@@ -102,6 +102,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+" * SUM(rooms)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
+    QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
 
     
     return valueQuery;
