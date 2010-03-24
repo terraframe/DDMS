@@ -354,15 +354,17 @@ YAHOO.util.Event.onDOMReady(function(){
                                    {
                                      
                                      key:"unit_application_rate",
-                                     type:"sqldouble",
+                                     type:"sqlfloat",
                                      attributeName:"unit_application_rate",
+                                     dtoType : "AttributeFloatDTO",
                                      isAggregate:false
                                    },
                                    {
                                      
                                      key:"unit_application_rate_mg",
-                                     type:"sqldouble",
+                                     type:"sqlfloat",
                                      attributeName:"unit_application_rate_mg",
+                                     dtoType : "AttributeFloatDTO",
                                      isAggregate:false
                                    },
                                    {
