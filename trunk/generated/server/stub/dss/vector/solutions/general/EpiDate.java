@@ -294,13 +294,17 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     cal = getEpiCalendar(cal.get(Calendar.YEAR));
     cal.setTime(startDate);
 
-    int piviot = cal.get(period) ;
-    // we adjust the min and max to shift the window for the non-sunday week starts
-    int min = cal.getActualMinimum(period) - ( cal.getFirstDayOfWeek() - 1);
-    int max = cal.getActualMaximum(period) - ( cal.getFirstDayOfWeek() - 1);
-
-    int days_before_piviot = piviot - min;
-    int days_after_piviot = max - piviot;
+    
+    int piviot = cal.get(period) - cal.getFirstDayOfWeek();
+    
+    if (piviot < 0)
+    {
+      piviot = 7 + piviot;
+    }
+    
+    int days_before_piviot = piviot ;
+    
+    int days_after_piviot = 6 - piviot  ;
 
     // beginning of week wins in case of tie
 
@@ -317,7 +321,10 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     {
       cal.add(Calendar.DAY_OF_YEAR, days_after_piviot);
     }
-    return cal.getTime();
+    
+    Date d = cal.getTime();
+    
+    return d;
   }
 
   public static Date snapToMonth(Date startDate, Boolean snapToFirstDay)
