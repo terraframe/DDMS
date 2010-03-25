@@ -125,9 +125,10 @@ YAHOO.util.Event.onDOMReady(function(){
                             attributeName:"planed_area_target",
                           },
                           {
-                          key:"planned_coverage",
-                          type:"sqldouble",
-                          attributeName:"planned_coverage",
+                            key:"planned_coverage",
+                            type:"sqldouble",
+                            attributeName:"planned_coverage",
+                            isAggregate:true
                         },
                       ];
 
