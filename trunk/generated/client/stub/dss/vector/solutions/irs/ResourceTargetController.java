@@ -69,7 +69,8 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
       req.setAttribute("item", new ResourceTargetViewDTO(request));
       req.setAttribute("keys", keys);
-      req.setAttribute("columns", this.getColumns(keys, id.equals("ALL")));
+      //req.setAttribute("columns", this.getColumns(keys, id.equals("ALL")));
+      req.setAttribute("columns", this.getColumns(keys, false));
       req.setAttribute("resourceTargetViews", targets);
       render("viewComponent.jsp");
     }
@@ -103,7 +104,9 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     else
     {
       SprayTeamDTO team = SprayTeamDTO.get(request, id);
-      sprayTeams.add(team);
+      
+      //We do not want to show the team summary row since weeks do not add up 
+      //sprayTeams.add(team);
       
       sprayOperators.addAll(team.getAllSprayTeamMembers());
 
