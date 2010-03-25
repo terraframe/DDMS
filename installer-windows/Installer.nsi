@@ -81,6 +81,8 @@ Function userInputPage
   
   ${NSD_CreateText} 25% 0 74% 12u $InstallationNumber
   Pop $Text
+  # Set up the number validator
+  ${NSD_OnChange} $Text verifyNumber
   
   ${NSD_CreateHLine} 0 18u 100% 2 "HLine"
   Pop $Label
@@ -93,6 +95,19 @@ Function userInputPage
   nsDialogs::Show
 FunctionEnd
 
+# Enforces an Installation number between 1 and 999
+Function verifyNumber
+  Pop $1 # $1 == $ Text
+  
+  ${NSD_GetText} $Text $0
+  ${If} $0 > 999
+    ${NSD_SetText} $Text 999
+  ${EndIf}
+  ${If} $0 < 1
+    ${NSD_SetText} $Text 1
+  ${EndIf}
+FunctionEnd
+
 Function exitUserInputPage
   # Pull the text out of the form element and store it in $InstallationNumber
   ${NSD_GetText} $Text $InstallationNumber
@@ -101,14 +116,14 @@ FunctionEnd
 # Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
-    /*
+    
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Searching for Firefox"
     Call findFireFox
     StrCmp $FireFox "Unknown" installFireFox doneInstallFireFox
     installFireFox:
       !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Firefox"
-      File "Firefox Setup 3.5.5.exe"
-      ExecWait `"$INSTDIR\Firefox Setup 3.5.5.exe"`
+      File "Firefox Setup 3.6.2.exe"
+      ExecWait `"$INSTDIR\Firefox Setup 3.6.2.exe"`
       Call findFireFox
     doneInstallFireFox:
       
@@ -121,7 +136,6 @@ Section -Main SEC0000
     # Install the ScreenGrab addon
     installScreenGrab:
     File "/oname=$FireFox\extensions\screengrab-0.96.2-fx.xpi" "screengrab-0.96.2-fx.xpi"
-    */
     
     SetOverwrite on
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Qcal"
@@ -145,16 +159,30 @@ Section -Main SEC0000
     File /r tomcat6\*
     SetOutPath $INSTDIR
     
+    # Get the Windows Version (XP, Vista, etc.)
+    nsisos::osversion
+    
+    # Version 5 means XP.  No IPv6
+    ${If} $0 == 5
+      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv4.conf"
+    
+    # Version 5 means Vista or Seven.  IPv6 enabled
+    ${ElseIf} $0 == 6
+      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv6.conf"
+    
+    # Who knows what version we're on.
+    ${Else}
+      MessageBox MB_OK "Unable to detect your windows version. MDSS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
+      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv6.conf"
+    ${EndIf}
+    
+    # Copy the tweaked postgres config
+    File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
+    
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostgreSql"
     File "postgresql-8.4.1-1-windows.exe"
     ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount mdsspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-    
-    # Copy over pg_hba.conf
-    File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba.conf"
-    File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
-    # And restart the db
-    # ExecWait "C:\MDSS\PostgreSql\8.4\bin\pg_ctl restart"
     
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostGIS"
