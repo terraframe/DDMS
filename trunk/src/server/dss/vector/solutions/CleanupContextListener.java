@@ -470,7 +470,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "             _target := 0; \n";
     sql += "         _sql := 'SELECT child_id  FROM locatedin WHERE parent_id = ' || quote_literal(_geoEntityId); \n";
     sql += "         FOR  rec IN EXECUTE _sql LOOP \n";
-    sql += "           _target = _target + get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(rec.child_id,_seasonId,_targetColumn); \n";
+    sql += "           _target := _target + coalesce(get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(rec.child_id,_seasonId,_targetColumn),0); \n";
     sql += "         END LOOP; \n";
     sql += "       END IF; \n";
     sql += "    END IF; \n";
