@@ -8,21 +8,25 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
+import com.runwaysdk.ProblemException;
+import com.runwaysdk.ProblemIF;
 import com.runwaysdk.constants.DeployProperties;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class StandaloneClient extends JFrame implements ActionListener
+public class StandaloneClient extends JFrame implements ActionListener, ContainerIF
 {
   /**
    * 
@@ -49,9 +53,9 @@ public class StandaloneClient extends JFrame implements ActionListener
 
   private ImportPanel         importPanel;
 
-  private JPanel              backupPanel;
+  private ControlPanel        controlPanel;
 
-  public StandaloneClient()
+  public StandaloneClient(Locale locale)
   {
     // Try to use the native the look and feel
     try
@@ -90,13 +94,13 @@ public class StandaloneClient extends JFrame implements ActionListener
     importItem.addActionListener(this);
     menu.add(importItem);
 
-    exportPanel = new ExportPanel();
-    importPanel = new ImportPanel();
-    backupPanel = new BackupPanel();
+    exportPanel = new ExportPanel(this);
+    importPanel = new ImportPanel(this);
+    controlPanel = new ControlPanel(this, locale);
 
     contentPane = new JTabbedPane();
     contentPane.setSize(DIMENSION);
-    contentPane.add(MDSSProperties.getString("Control_Panel"), backupPanel);
+    contentPane.add(MDSSProperties.getString("Control_Panel"), controlPanel);
     contentPane.add(exportLabel, exportPanel);
     contentPane.add(importLabel, importPanel);
     contentPane.setVisible(true);
@@ -135,9 +139,18 @@ public class StandaloneClient extends JFrame implements ActionListener
     contentPane.setSelectedComponent(importPanel);
   }
 
-  public static void main(String args[])
+  public void lock()
   {
-    new StandaloneClient();
+    importPanel.lock();
+    exportPanel.lock();
+    controlPanel.lock();
+  }
+
+  public void unlock()
+  {
+    importPanel.unlock();
+    exportPanel.unlock();
+    controlPanel.unlock();
   }
 
   public static final boolean isServerUp()
@@ -152,7 +165,7 @@ public class StandaloneClient extends JFrame implements ActionListener
       BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
       in.readLine();
       in.close();
-      
+
       connection.disconnect();
     }
     catch (Exception e)
@@ -163,4 +176,44 @@ public class StandaloneClient extends JFrame implements ActionListener
     return true;
   }
 
+  public static void main(String[] args)
+  {
+    Locale locale = Locale.getDefault();
+
+    if (args.length > 0)
+    {
+      String[] localeInfo = args[0].split("_");
+      switch (localeInfo.length)
+      {
+        case 1:
+          locale = new Locale(localeInfo[0]);
+        case 2:
+          locale = new Locale(localeInfo[0], localeInfo[1]);
+        case 3:
+          locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
+      }
+    }
+
+    new StandaloneClient(locale);
+  }
+
+  public static void handleError(AbstractPanel component, Throwable t)
+  {
+    if (t instanceof ProblemException)
+    {
+      String message = "";
+      List<ProblemIF> problems = ( (ProblemException) t ).getProblems();
+
+      for (ProblemIF problem : problems)
+      {
+        message += problem.getLocalizedMessage() + "\n";
+      }
+    }
+    else
+    {
+      JOptionPane.showMessageDialog(component, t.getLocalizedMessage());
+    }
+
+    component.unlockContainer();
+  }
 }

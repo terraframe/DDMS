@@ -20,7 +20,7 @@ import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class ImportPanel extends JPanel implements ActionListener, PropertyChangeListener
+public class ImportPanel extends AbstractPanel implements ActionListener, PropertyChangeListener
 {
   /**
    * 
@@ -43,10 +43,10 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
 
   private JPanel              statusPanel;
 
-  public ImportPanel()
+  public ImportPanel(ContainerIF container)
   {
     // Create the content-pane-to-be.
-    super(new BorderLayout());
+    super(container, new BorderLayout());
 
     this.statusLabel = new JLabel(MDSSProperties.getString("Ready_To_Import"));
 
@@ -96,7 +96,7 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     if (TransactionPropertyChangeEvent.PROGRESS == evt.getPropertyName())
     {
       int progress = (Integer) evt.getNewValue();
-      
+
       progressBar.setValue(progress);
 
       if (progress >= 100)
@@ -110,10 +110,10 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
   {
     if (!StandaloneClient.isServerUp())
     {
-      this.importButton.setEnabled(false);
+      this.lockContainer();
       this.statusLabel.setText(MDSSProperties.getString("Import_in_progress"));
       this.progressBar.setValue(0);
-      
+
       ImportManager manager = new ImportManager(this.browser.getFile(), this);
       manager.execute();
     }
@@ -122,10 +122,10 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
       this.updateServerStatus();
     }
   }
-
+  
   private void complete()
   {
-    this.importButton.setEnabled(true);
+    this.unlockContainer();
     this.statusLabel.setText(MDSSProperties.getString("Import_Complete"));
   }
 
@@ -146,19 +146,20 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
       this.importButton.setActionCommand(IMPORT_COMMAND);
     }
   }
-
+  
   public void handleError(Exception e)
   {
     String message = MDSSProperties.getString("Import_Problem");
+    e.printStackTrace();
 
     try
     {
-      if(e instanceof ProblemException)
+      if (e instanceof ProblemException)
       {
         message += ":\n";
         List<ProblemIF> problems = ( (ProblemException) e ).getProblems();
-        
-        for(ProblemIF problem : problems)
+
+        for (ProblemIF problem : problems)
         {
           message += problem.getLocalizedMessage() + "\n";
         }
@@ -174,8 +175,18 @@ public class ImportPanel extends JPanel implements ActionListener, PropertyChang
     }
 
     JOptionPane.showMessageDialog(this, message);
-    
+
     this.complete();
   }
 
+  public void unlock()
+  {
+    this.importButton.setEnabled(true);
+  }
+
+  @Override
+  public void lock()
+  {
+    this.importButton.setEnabled(false);
+  }
 }

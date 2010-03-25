@@ -111,7 +111,7 @@ public class ExportManager extends SwingWorker<Void, Void>
     }
     catch (Throwable t)
     {
-      component.handleError(t);
+      StandaloneClient.handleError(component, t);
     }
 
   }

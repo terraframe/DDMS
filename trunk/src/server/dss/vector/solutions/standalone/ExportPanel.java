@@ -12,7 +12,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -21,7 +20,7 @@ import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class ExportPanel extends JPanel implements ActionListener, PropertyChangeListener
+public class ExportPanel extends AbstractPanel implements ActionListener, PropertyChangeListener
 {
   /**
    * 
@@ -60,10 +59,10 @@ public class ExportPanel extends JPanel implements ActionListener, PropertyChang
 
   private JPanel              buttonPanel;
 
-  public ExportPanel()
+  public ExportPanel(ContainerIF container)
   {
     // Create the content-pane-to-be.
-    super();
+    super(container);
 
     String saveLabel = MDSSProperties.getString("Save_Location");
     String exportLabel = MDSSProperties.getString("Export");
@@ -163,7 +162,7 @@ public class ExportPanel extends JPanel implements ActionListener, PropertyChang
     {
       String option = group.getSelection().getActionCommand();
 
-      this.exportButton.setEnabled(false);
+      this.lockContainer();
       this.progressBar.setValue(0);
 
       ExportManager manager = new ExportManager(this);
@@ -198,21 +197,19 @@ public class ExportPanel extends JPanel implements ActionListener, PropertyChang
 
       if (progress >= 100)
       {
-        this.reset();
+        this.unlockContainer();
       }
     }
   }
 
-  private void reset()
+  public void unlock()
   {
     this.exportButton.setEnabled(true);
   }
-
-  public void handleError(Throwable t)
+  
+  @Override
+  public void lock()
   {
-    JOptionPane.showMessageDialog(this, t.getLocalizedMessage());
-
-    this.reset();
-  }
-
+    this.exportButton.setEnabled(false);
+  }  
 }

@@ -35,7 +35,7 @@ import com.runwaysdk.constants.DeployProperties;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class BackupPanel extends JPanel
+public class ControlPanel extends AbstractPanel
 {
   /**
    * 
@@ -80,14 +80,14 @@ public class BackupPanel extends JPanel
 
   final JFileChooser          fc                    = new JFileChooser();
 
-  public BackupPanel()
+  public ControlPanel(ContainerIF container)
   {
-    this(Locale.getDefault());
+    this(container, Locale.getDefault());
   }
 
-  public BackupPanel(Locale locale)
+  public ControlPanel(ContainerIF container, Locale locale)
   {
-    super(new BorderLayout());
+    super(container, new BorderLayout());
 
     // System.out.println(System.getProperty("user.dir"));
     bundle = ResourceBundle.getBundle("MdssControlPanel", locale);
@@ -174,7 +174,7 @@ public class BackupPanel extends JPanel
     this.setVisible(true);
   }
 
-  private void setButtons()
+  void setButtons()
   {
     this.setButtons(StandaloneClient.isServerUp());
   }
@@ -522,7 +522,9 @@ public class BackupPanel extends JPanel
     File file = chooseFile(true);
     if (file != null)
     {
-      runCommand(BACKUP, file.getAbsolutePath(), group.getSelection().getActionCommand());
+      this.lockContainer();
+      
+      new BackupManager(this, file).execute();
     }
   }
 
@@ -531,29 +533,26 @@ public class BackupPanel extends JPanel
     File file = chooseFile(false);
     if (file != null)
     {
-      runCommand(RESTORE, file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - ( file.getName().length() + 1 )), file.getName());
+      this.lockContainer();
+
+      new RestoreManager(this, file).execute();
     }
   }
 
-  public static void main(String[] args)
+  public JTextArea getTextArea()
   {
-    Locale locale = Locale.getDefault();
-
-    if (args.length > 0)
-    {
-      String[] localeInfo = args[0].split("_");
-      switch (localeInfo.length)
-      {
-        case 1:
-          locale = new Locale(localeInfo[0]);
-        case 2:
-          locale = new Locale(localeInfo[0], localeInfo[1]);
-        case 3:
-          locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
-      }
-    }
-
-    new BackupPanel(locale);
+    return outputTextArea;
   }
 
+  @Override
+  public void unlock()
+  {
+    this.setButtons();
+  }
+  
+  @Override
+  public void lock()
+  {
+    this.disableButtons();
+  }
 }
