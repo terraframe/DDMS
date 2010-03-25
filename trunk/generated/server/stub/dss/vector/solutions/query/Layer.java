@@ -156,6 +156,10 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
   @Transaction
   public void applyWithStyles(Styles styles, String savedMapId)
   {
+    SavedMap map = SavedMap.get(savedMapId);
+
+    validateUniqueness(map);
+    
     styles.apply();
     
     boolean isNew = this.isNew();
@@ -169,30 +173,43 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
     
     if(isNew)
     {
-      SavedMap map = SavedMap.get(savedMapId);
-
-      QueryFactory f = new QueryFactory();
-      HasLayersQuery hQ = new HasLayersQuery(f);
-      LayerQuery lQ = new LayerQuery(f);
-      
-      lQ.WHERE(hQ.parentId().EQ(savedMapId));
-      lQ.AND(lQ.map(hQ));
-      
-      lQ.WHERE(lQ.getLayerName().EQ(this.getLayerName()));
-      
-      if(lQ.getCount() > 0)
-      {
-        String error = "The layer name ["+this.getLayerName()+"] already " +
-        		"exists for the map ["+map.getMapName()+"].";
-        throw new NonUniqueLayerNameException(error);
-      }
-      
       int count = (int) map.getLayerCount();
       
       HasLayers rel = this.addMap(map);
       rel.setLayerPosition((int)count);
       
       rel.apply();
+    }
+  }
+  
+  /**
+   * Validates that this Layer's name is unique on the map (but it
+   * doesn't have to be unique across the system). This should be called
+   * after this Layer has been applied.
+   * 
+   * @param savedMapId
+   */
+  public void validateUniqueness(SavedMap map)
+  {
+    QueryFactory f = new QueryFactory();
+    HasLayersQuery hQ = new HasLayersQuery(f);
+    LayerQuery lQ = new LayerQuery(f);
+    
+    hQ.WHERE(hQ.parentId().EQ(map.getId()));
+    lQ.WHERE(lQ.map(hQ ));
+    
+    lQ.WHERE(lQ.getLayerName().EQ(this.getLayerName()));
+    
+    if(!this.isNew())
+    {
+      lQ.AND(lQ.getId().NE(this.getId()));
+    }
+    
+    if(lQ.getCount() > 0)
+    {
+      String error = "The layer name ["+this.getLayerName()+"] already " +
+          "exists for the map ["+map.getMapName()+"].";
+      throw new NonUniqueLayerNameException(error);
     }
   }
   
