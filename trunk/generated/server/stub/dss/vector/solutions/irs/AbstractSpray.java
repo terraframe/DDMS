@@ -1,7 +1,9 @@
 package dss.vector.solutions.irs;
 
+import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,9 +14,15 @@ import com.runwaysdk.query.InnerJoinGtEq;
 import com.runwaysdk.query.InnerJoinLtEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractSpray extends AbstractSprayBase implements com.runwaysdk.generation.loader.Reloadable
@@ -84,6 +92,10 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
     
     String unit_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(SUM("+avilableUnits+"),0";
+    
+    //String planned_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(planed_area_target),0";
+    
+    
     String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
     String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
 
@@ -102,7 +114,9 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+" * SUM(rooms)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
-    QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
+    //QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
+    
+    calculatePlannedCoverage(valueQuery, abstractSprayQuery, queryConfig, xml, sprayedUnits);
 
     
     return valueQuery;
@@ -160,5 +174,72 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
   }
   
 
- 
+  private static void calculatePlannedCoverage(ValueQuery valueQuery, AbstractSprayQuery caseQuery,
+      JSONObject queryConfig, String xml, String sprayedUnits)
+  {
+    SelectableSQL calc;
+    if(valueQuery.hasSelectableRef("planned_coverage"))
+    {
+      calc = (SelectableSQL) valueQuery.getSelectableRef("planned_coverage");
+    }
+    else
+    {
+      return;
+    }
+
+    String geoType = null;
+    try
+    {
+      String attributeKey = null;
+
+      String[] selectedUniversals = null;
+
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if (universals.length() > 0
+            && attributeKey.equals(AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY))
+        {
+          selectedUniversals = new String[universals.length()];
+          for (int i = 0; i < universals.length(); i++)
+          {
+            selectedUniversals[i] = universals.getString(i);
+          }
+          // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
+          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
+          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
+          geoType = geoType.replace('.', '_');
+        }
+      }
+    }
+    
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    String sql = "NULL"; 
+
+    Selectable s;
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
+    
+    if(valueQuery.hasSelectableRef(geoType))
+    {
+      s = valueQuery.getSelectableRef(geoType);
+      String columnAlias = s.getQualifiedName();
+      sql = "SUM("+sprayedUnits+")::float / AVG(get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+
+      sql+="(SELECT id FROM geoentity g WHERE g.geoId = "+columnAlias+"), ";
+      sql+="spray_season, ";
+      sql+="'target_'||( get_epiWeek_from_date(sprayDate," + startDay + ")-1)))";
+    
+    }
+    calc.setSQL(sql);
+  }
 }
