@@ -76,8 +76,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw ex;
     }
     
-    QueryUtil.validateQuery(valueQuery);
-    
     return valueQuery;
   }
   
