@@ -122,7 +122,13 @@ public class ExportManager extends SwingWorker<Void, Void>
 
     if (InstallProperties.isMaster())
     {
-      files.add(File.separator + "WEB-INF" + File.separator + "dss" + File.separator + "vector" + File.separator + "solutions" + File.separator + "geo" + File.separator + "generated");
+      files.add(File.separator + "WEB-INF" + File.separator + "dss");
+      files.add(File.separator + "js");
+      files.add(File.separator + "css");
+      files.add(File.separator + "imgs");
+      files.add(File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "com");
+      files.add(File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "dss");
+      files.add(File.separator + "WEB-INF" + File.separator + "lib");
     }
     
     return files;
