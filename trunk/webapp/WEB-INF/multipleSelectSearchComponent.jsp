@@ -27,7 +27,7 @@
     </select>
       <c:choose>
         <c:when test="${status.first}">
-          <a href="#" id="treeOpener" style="margin-left: 20px"><img src="./imgs/icons/world.png" style="margin-right: 5px;"/>Tree</a><br />
+          <a href="#" id="treeOpener" style="margin-left: 20px"><img src="./imgs/icons/world.png" style="margin-right: 5px;"/><f:message key="Tree" /></a><br />
             <div class="yui-skin-sam" id="treeViewContainer" style="background-color:white">
               <div id="treeView"></div>
             </div>
