@@ -286,6 +286,8 @@ public class Sandbox
 
     OIterator<ValueObject> it = query.getIterator();
 
+System.out.println(query.getSQL());
+    
     while (it.hasNext())
     {
       ValueObject next = it.next();
@@ -572,8 +574,6 @@ public class Sandbox
   private static void updateAllPathsForUniversal(GeoHierarchy geoHierarchy)
   {
     MdBusiness mdBusiness = geoHierarchy.getGeoEntityClass();
-
-    System.out.println("\nHeads up: " + mdBusiness.getDisplayLabel() + ": " + mdBusiness.getSuperMdBusiness().getDisplayLabel());
 
     // We only need to do this for the parent most types.
     // The child types will be included when we update paths for

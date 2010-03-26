@@ -354,9 +354,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     else if (!isNew)
     {
-      // Heads up: is this check even necessary? Doesn't the Graph already
-      // enforce this?
-
       // confirm this entity can't be applied to the same
       // parent more than once.
       QueryFactory f = new QueryFactory();
@@ -792,13 +789,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       // the root is not a child of any other term
-      // Selectable childId = this.termRelQuery.childId();
-      // this.valueQuery.SELECT(childId);
-
-      // query.WHERE(this.termQuery.NOT_IN(this.termQuery.getId(),
-      // this.valueQuery));
-      // Heads up: clean up?
-      // query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.valueQuery));
       query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.termRelQuery.childId()));
 
       if (this.filterObsolete)
