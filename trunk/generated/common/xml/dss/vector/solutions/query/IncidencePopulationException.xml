@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="defaultLocale">Incidence cannot be calculated without selecting a universal as the population.</locale>
+  <locale language="defaultLocale">Aggregating functions in this query require selection of a GeoUniversal column to aggregate on. </locale>
 </exception>
