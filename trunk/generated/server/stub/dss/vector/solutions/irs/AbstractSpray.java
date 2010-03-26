@@ -94,12 +94,12 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String unit_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(SUM("+avilableUnits+"),0";
     
     //String planned_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(planed_area_target),0";
-    //weight avg for  app_rate
     //force insecticie
     //make area target aggreated
     
-    String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
-    String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
+   // String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
+    String unit_application_rate = "SUM(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(SUM("+sprayedUnits+" * unitarea),0)";
+    String unit_application_ratio = "(("+unit_application_rate+") / AVG(standard_application_rate))";
 
     
     QueryUtil.setSelectabeSQL(valueQuery, "sprayedunits", sprayedUnits);
@@ -110,7 +110,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     
     QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate", "(" + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"(" + unit_application_rate + ")");
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / nullif(SUM("+sprayedUnits+"),0)");
+    //QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / nullif(SUM("+sprayedUnits+"),0)");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", unit_application_ratio);
     QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
     
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
@@ -118,7 +119,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
     //QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
     
-    calculatePlannedCoverage(valueQuery, abstractSprayQuery, queryConfig, xml, sprayedUnits);
+    calculatePlannedCoverage(valueQuery, queryConfig, xml, sprayedUnits);
+    calculateAreaTargets(valueQuery, queryConfig, xml);
 
     
     return valueQuery;
@@ -175,19 +177,11 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
   }
   
-
-  private static void calculatePlannedCoverage(ValueQuery valueQuery, AbstractSprayQuery caseQuery,
-      JSONObject queryConfig, String xml, String sprayedUnits)
+  
+  
+  
+  private static String getGeoType(ValueQuery valueQuery, JSONObject queryConfig, String xml, String attrib)
   {
-    SelectableSQL calc;
-    if(valueQuery.hasSelectableRef("planned_coverage"))
-    {
-      calc = (SelectableSQL) valueQuery.getSelectableRef("planned_coverage");
-    }
-    else
-    {
-      return;
-    }
 
     String geoType = null;
     try
@@ -203,8 +197,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0
-            && attributeKey.equals(AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY))
+        if (universals.length() > 0 && attributeKey.equals(attrib))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
@@ -219,28 +212,78 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
         }
       }
     }
-    
+
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
-    
-    String sql = "NULL"; 
+
+    return geoType;
+  }
+
+  
+  private static void calculateAreaTargets(ValueQuery valueQuery, JSONObject queryConfig, String xml)
+  {
+    SelectableSQL calc;
+    if (valueQuery.hasSelectableRef("planed_area_target"))
+    {
+      calc = (SelectableSQL) valueQuery.getSelectableRef("planed_area_target");
+    }
+    else
+    {
+      return;
+    }
+
+    String geoType = getGeoType(valueQuery, queryConfig, xml, AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
+
+    String sql = "NULL";
 
     Selectable s;
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-    
-    
-    if(valueQuery.hasSelectableRef(geoType))
+
+    if (valueQuery.hasSelectableRef(geoType))
     {
       s = valueQuery.getSelectableRef(geoType);
       String columnAlias = s.getQualifiedName();
-      sql = "SUM("+sprayedUnits+")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+      sql = "get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+      sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
+      sql += "MAX(spray_season), ";
+      sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
 
-      sql+="MAX((SELECT id FROM geoentity g WHERE g.geoId = "+columnAlias+")), ";
-      sql+="MAX(spray_season), ";
-      sql+="'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
-    
+    }
+    calc.setSQL(sql);
+  }
+  
+  
+  private static void calculatePlannedCoverage(ValueQuery valueQuery, JSONObject queryConfig, String xml, String sprayedUnits)
+  {
+    SelectableSQL calc;
+    if (valueQuery.hasSelectableRef("planned_coverage"))
+    {
+      calc = (SelectableSQL) valueQuery.getSelectableRef("planned_coverage");
+    }
+    else
+    {
+      return;
+    }
+
+    String geoType = getGeoType(valueQuery, queryConfig, xml, AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
+
+    String sql = "NULL";
+
+    Selectable s;
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+
+    if (valueQuery.hasSelectableRef(geoType))
+    {
+      s = valueQuery.getSelectableRef(geoType);
+      String columnAlias = s.getQualifiedName();
+      sql = "SUM(" + sprayedUnits + ")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+
+      sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
+      sql += "MAX(spray_season), ";
+      sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
+
     }
     calc.setSQL(sql);
   }
