@@ -6,6 +6,11 @@
     <parameter value = "mdss_zambia" name = "database" />
     
     
+    # Database dump executable
+dataDumpExecutable=pg_dump
+# Database import executable
+dataImportExecutable=pg_restore
+    
         export_credentials_singleton
     export_tomcat_classloader
    <target name="import_geodata" />
@@ -98,7 +103,17 @@
 		</ant>
 		
 	  
-		<delete dir="${artifacts.path}/webapps/MDSS/WEB-INF/logs" />
+	  <antcall target="set_Vital_properties" />
+		
+		<antcall target="dump_db" />
+		
+		<antcall target="build_installer_exe" />
+
+		
+	</target>
+
+  <target name="set_vital_properties" depends="">
+  	<delete dir="${artifacts.path}/webapps/MDSS/WEB-INF/logs" />
 		<mkdir dir="${artifacts.path}/webapps/MDSS/WEB-INF/logs"/>
 		
 	  <touch file="${artifacts.path}/webapps/MDSS/WEB-INF/logs/seriousErrorLog.txt"/>
@@ -113,6 +128,9 @@
 			<entry key="db.connection.initial" value="10" />
 			<entry key="db.connection.max" value="15" />
 			<entry key="databaseBinDirectory" value="C:/MDSS/PostgreSQL/8.4/bin/" />
+			<entry key="dataDumpExecutable" value="pg_dump" />
+			<entry key="dataImportExecutable" value="pg_restore" />
+			
 		</propertyfile>
 		<replaceregexp flags="g" byline="true" 
 			file="${stage.classes}/database.properties"
@@ -142,18 +160,14 @@
 		<propertyfile file="${stage.classes}/MDSS.properties">
 			<entry key="Country" value="MDSS" />
 		</propertyfile>
-		
-		
+	
 	  <propertyfile file="${stage.classes}/server.properties">
 			<entry key="logTransactions" value="true" />
 		</propertyfile>
-		
-		<antcall target="dump_db" />
-		
-		<antcall target="build_installer_exe" />
+  
+  </target>
 
-		
-	</target>
+
 
 	<target name="dump_db" depends="">
 		
