@@ -35,10 +35,6 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public static void installLocale(String localeString)
   {
     install(localeString);
-    
-    LockHolder.lock(LoaderDecorator.instance());
-    ObjectCache.refreshCache();
-    LockHolder.unlock();
   }
 
   @Transaction
@@ -90,9 +86,5 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   {
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
     mli.read(file);
-    
-    LockHolder.lock(LoaderDecorator.instance());
-    ObjectCache.refreshCache();
-    LockHolder.unlock();
   }
 }
