@@ -236,13 +236,11 @@ public class SurveyedPersonController extends SurveyedPersonControllerBase imple
 
     this.setupReference(dto);
 
-    String netId = AttributeUtil.getString(SurveyedPersonViewDTO.SLEPTUNDERNET, dto);
+    ITNInstanceDTO net = (ITNInstanceDTO) AttributeUtil.getValue(SurveyedPersonViewDTO.SLEPTUNDERNET, dto);
 
-    if (netId != null && !netId.equals(""))
+    if (net != null)
     {
-      ITNInstanceViewDTO net = ITNInstanceDTO.getView(this.getClientRequest(), netId);
-
-      req.setAttribute("net", net);
+      req.setAttribute("net", net.getView());
     }
 
     req.setAttribute("item", dto);
