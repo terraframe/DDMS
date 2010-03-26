@@ -12,6 +12,7 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.InnerJoinGtEq;
 import com.runwaysdk.query.InnerJoinLtEq;
+import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
@@ -21,6 +22,7 @@ import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
@@ -70,75 +72,62 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     }
 
     InsecticideBrandQuery insecticideQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
-    
+
     if (insecticideQuery != null)
     {
       valueQuery.WHERE(abstractSprayQuery.getBrand().EQ(insecticideQuery));
-      
+
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideQuery);
     }
-
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-    
+
     AbstractSpray.setWithQuerySQL(abstractSprayQuery, valueQuery);
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
-    
-    String unit_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(SUM("+avilableUnits+"),0";
-    
-    //String planned_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(planed_area_target),0";
-    //force insecticie
-    //make area target aggreated
-    
-   // String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
-    String unit_application_rate = "SUM(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(SUM("+sprayedUnits+" * unitarea),0)";
-    String unit_application_ratio = "(("+unit_application_rate+") / AVG(standard_application_rate))";
 
-    
+    String unit_operational_coverage = "SUM(" + sprayedUnits + "))::float / nullif(SUM(" + avilableUnits + "),0";
+
+    String unit_application_rate = "SUM(refills::FLOAT * " + shareOfCans + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
+    String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
+
     QueryUtil.setSelectabeSQL(valueQuery, "sprayedunits", sprayedUnits);
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_unsprayed" , unsprayedUnits);
-    
-    QueryUtil.setSelectabeSQL(valueQuery, "refills * "+shareOfCans , unsprayedUnits);
-    
-    
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_unsprayed", unsprayedUnits);
+    QueryUtil.setSelectabeSQL(valueQuery, "refills * " + shareOfCans, unsprayedUnits);
+
     QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate", "(" + unit_application_rate + ")");
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg",  "1000.0 *" +"(" + unit_application_rate + ")");
-    //QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / nullif(SUM("+sprayedUnits+"),0)");
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_application_rate_mg", "1000.0 *" + "(" + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", unit_application_ratio);
-    QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
-    
-    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
-    QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
-    QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
-    //QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
-    
+    QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage);
+
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed", "(" + unit_operational_coverage + ") * SUM(rooms)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed", "(" + unit_operational_coverage + ") * SUM(structures)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed", "(" + unit_operational_coverage + ") * SUM(households)");
+
     calculatePlannedCoverage(valueQuery, queryConfig, xml, sprayedUnits);
     calculateAreaTargets(valueQuery, queryConfig, xml);
 
-    
     return valueQuery;
   }
- 
-  
+
   public static boolean queryIsGrouped(ValueQuery valueQuery)
   {
     for (Selectable s : valueQuery.getSelectableRefs())
     {
-      if(s.isAggregateFunction())
+      if (s.isAggregateFunction())
       {
         return true;
       }
     }
     return false;
   }
-  
+
   public static void setWithQuerySQL(AbstractSprayQuery abstractSprayQuery, ValueQuery valueQuery)
   {
 
@@ -147,39 +136,36 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String targetView = "targetView";
     String tableName = abstractSprayQuery.getMdClassIF().getTableName();
     String tableAlias = abstractSprayQuery.getTableAlias();
-    
-    String targetViewQuery =  ResourceTarget.getTempTableSQL();
+
+    String targetViewQuery = ResourceTarget.getTempTableSQL();
     String insecticideBrandQuery = InsecticideBrand.getTempTableSQL();
-    
-    String  sprayQuery = OperatorSpray.getTempTableSQL(targetView,queryIsGrouped(valueQuery));
-    sprayQuery += "\nUNION\n"+TeamSpray.getTempTableSQL(targetView);
-    sprayQuery += "\nUNION\n"+ZoneSpray.getTempTableSQL(targetView);
-    
+
+    String sprayQuery = OperatorSpray.getTempTableSQL(targetView, queryIsGrouped(valueQuery));
+    sprayQuery += "\nUNION\n" + TeamSpray.getTempTableSQL(targetView);
+    sprayQuery += "\nUNION\n" + ZoneSpray.getTempTableSQL(targetView);
+
     String sql = "WITH ";
-    
+
     sql += " " + targetView + " AS \n";
     sql += "(" + targetViewQuery + ")\n";
-    
-    sql += ", "+ insecticideView + " AS \n";
+
+    sql += ", " + insecticideView + " AS \n";
     sql += "(" + insecticideBrandQuery + ")\n";
-    
+
     sql += "," + sprayView + " AS \n";
     sql += "(" + sprayQuery + ")\n";
-    
+
     valueQuery.setSqlPrefix(sql);
-    
+
     valueQuery.WHERE(new InnerJoinEq("id", tableName, tableAlias, "id", sprayView, sprayView));
-    
+
     valueQuery.WHERE(new InnerJoinEq(AbstractSpray.BRAND, tableName, tableAlias, "id", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "startdate", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "enddate", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
   }
-  
-  
-  
-  
+
   private static String getGeoType(ValueQuery valueQuery, JSONObject queryConfig, String xml, String attrib)
   {
 
@@ -221,7 +207,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     return geoType;
   }
 
-  
   private static void calculateAreaTargets(ValueQuery valueQuery, JSONObject queryConfig, String xml)
   {
     SelectableSQL calc;
@@ -253,8 +238,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     }
     calc.setSQL(sql);
   }
-  
-  
+
   private static void calculatePlannedCoverage(ValueQuery valueQuery, JSONObject queryConfig, String xml, String sprayedUnits)
   {
     SelectableSQL calc;
@@ -268,23 +252,28 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     }
 
     String geoType = getGeoType(valueQuery, queryConfig, xml, AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
+    Selectable s;
+
+    try
+    {
+      s = valueQuery.getSelectableRef(geoType);
+    }
+    catch (QueryException e)
+    {
+      throw new IncidencePopulationException(e);
+    }
 
     String sql = "NULL";
 
-    Selectable s;
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
-    if (valueQuery.hasSelectableRef(geoType))
-    {
-      s = valueQuery.getSelectableRef(geoType);
-      String columnAlias = s.getQualifiedName();
-      sql = "SUM(" + sprayedUnits + ")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+    String columnAlias = s.getQualifiedName();
+    sql = "SUM(" + sprayedUnits + ")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
 
-      sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
-      sql += "MAX(spray_season), ";
-      sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
+    sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
+    sql += "MAX(spray_season), ";
+    sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
 
-    }
     calc.setSQL(sql);
   }
 }
