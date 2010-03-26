@@ -130,7 +130,7 @@ public class ExportManager extends SwingWorker<Void, Void>
       files.add(File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "dss");
       files.add(File.separator + "WEB-INF" + File.separator + "lib");
     }
-    
+
     return files;
   }
 
@@ -170,5 +170,13 @@ public class ExportManager extends SwingWorker<Void, Void>
     this.export();
 
     return null;
+  }
+  
+  @Override
+  protected void done()
+  {
+    super.done();
+    
+    component.unlockContainer();
   }
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -43,17 +44,20 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
 
   private JPanel              statusPanel;
 
-  public ImportPanel(ContainerIF container)
+  private Locale              locale;
+
+  public ImportPanel(ContainerIF container, Locale locale)
   {
     // Create the content-pane-to-be.
     super(container, new BorderLayout());
 
-    this.statusLabel = new JLabel(MDSSProperties.getString("Ready_To_Import"));
+    this.locale = locale;
+    this.statusLabel = new JLabel(MDSSProperties.getString("Ready_To_Import", locale));
 
     this.browser = new FileBrowser(false);
-    this.browser.setBorder(BorderFactory.createTitledBorder(MDSSProperties.getString("Import_transaction_file")));
+    this.browser.setBorder(BorderFactory.createTitledBorder(MDSSProperties.getString("Import_transaction_file", locale)));
 
-    this.importButton = new JButton(MDSSProperties.getString("Import"));
+    this.importButton = new JButton(MDSSProperties.getString("Import", locale));
     this.importButton.setActionCommand(IMPORT_COMMAND);
     this.importButton.addActionListener(this);
 
@@ -98,11 +102,6 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
       int progress = (Integer) evt.getNewValue();
 
       progressBar.setValue(progress);
-
-      if (progress >= 100)
-      {
-        this.complete();
-      }
     }
   }
 
@@ -111,10 +110,10 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
     if (!StandaloneClient.isServerUp())
     {
       this.lockContainer();
-      this.statusLabel.setText(MDSSProperties.getString("Import_in_progress"));
+      this.statusLabel.setText(MDSSProperties.getString("Import_in_progress", locale));
       this.progressBar.setValue(0);
 
-      ImportManager manager = new ImportManager(this.browser.getFile(), this);
+      ImportManager manager = new ImportManager(this.browser.getFile(), this, locale);
       manager.execute();
     }
     else
@@ -122,11 +121,11 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
       this.updateServerStatus();
     }
   }
-  
-  private void complete()
+
+  public void complete()
   {
     this.unlockContainer();
-    this.statusLabel.setText(MDSSProperties.getString("Import_Complete"));
+    this.statusLabel.setText(MDSSProperties.getString("Import_Complete", locale));
   }
 
   private final void updateServerStatus()
@@ -135,21 +134,21 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
 
     if (up)
     {
-      this.statusLabel.setText(MDSSProperties.getString("Server_Down"));
-      this.importButton.setText(MDSSProperties.getString("Refresh"));
+      this.statusLabel.setText(MDSSProperties.getString("Server_Down", locale));
+      this.importButton.setText(MDSSProperties.getString("Refresh", locale));
       this.importButton.setActionCommand(REFRESH_COMMAND);
     }
     else
     {
-      this.statusLabel.setText(MDSSProperties.getString("Ready_To_Import"));
-      this.importButton.setText(MDSSProperties.getString("Import"));
+      this.statusLabel.setText(MDSSProperties.getString("Ready_To_Import", locale));
+      this.importButton.setText(MDSSProperties.getString("Import", locale));
       this.importButton.setActionCommand(IMPORT_COMMAND);
     }
   }
-  
+
   public void handleError(Exception e)
   {
-    String message = MDSSProperties.getString("Import_Problem");
+    String message = MDSSProperties.getString("Import_Problem", locale);
     e.printStackTrace();
 
     try

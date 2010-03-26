@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -59,14 +60,17 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
   private JPanel              buttonPanel;
 
-  public ExportPanel(ContainerIF container)
+  private Locale              locale;
+
+  public ExportPanel(ContainerIF container, Locale locale)
   {
     // Create the content-pane-to-be.
     super(container);
 
-    String saveLabel = MDSSProperties.getString("Save_Location");
-    String exportLabel = MDSSProperties.getString("Export");
+    String saveLabel = MDSSProperties.getString("Save_Location", locale);
+    String exportLabel = MDSSProperties.getString("Export", locale);
 
+    this.locale = locale;
     this.setLayout(new BorderLayout());
 
     this.createSequencePanel();
@@ -97,7 +101,7 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
   private final void createSequencePanel()
   {
-    String sequenceLabel = MDSSProperties.getString("Export_Sequences");
+    String sequenceLabel = MDSSProperties.getString("Export_Sequences", locale);
 
     this.createRadioPanel();
     this.createRangePanel();
@@ -110,8 +114,8 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
   private final void createRangePanel()
   {
-    startLabel = new JLabel(MDSSProperties.getString("Start_Sequence"));
-    endLabel = new JLabel(MDSSProperties.getString("End_Sequence"));
+    startLabel = new JLabel(MDSSProperties.getString("Start_Sequence", locale));
+    endLabel = new JLabel(MDSSProperties.getString("End_Sequence", locale));
     startField = new NumericTextField(10);
     endField = new NumericTextField(10);
 
@@ -126,18 +130,18 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
   private final void createRadioPanel()
   {
-    allRadio = new JRadioButton(MDSSProperties.getString("All_Sequences"));
+    allRadio = new JRadioButton(MDSSProperties.getString("All_Sequences", locale));
     allRadio.setMnemonic(KeyEvent.VK_A);
     allRadio.setActionCommand(ExportOption.ALL.name());
     allRadio.addActionListener(this);
     allRadio.setSelected(true);
 
-    rangeRadio = new JRadioButton(MDSSProperties.getString("Range"));
+    rangeRadio = new JRadioButton(MDSSProperties.getString("Range", locale));
     rangeRadio.setMnemonic(KeyEvent.VK_R);
     rangeRadio.setActionCommand(ExportOption.RANGE.name());
     rangeRadio.addActionListener(this);
 
-    exportedRadio = new JRadioButton(MDSSProperties.getString("Not_exported"));
+    exportedRadio = new JRadioButton(MDSSProperties.getString("Not_exported", locale));
     exportedRadio.setMnemonic(KeyEvent.VK_N);
     exportedRadio.setActionCommand(ExportOption.NOT_IMPORTED.name());
     exportedRadio.addActionListener(this);
@@ -194,11 +198,6 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
       int progress = (Integer) evt.getNewValue();
 
       progressBar.setValue(progress);
-
-      if (progress >= 100)
-      {
-        this.unlockContainer();
-      }
     }
   }
 
@@ -206,10 +205,10 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
   {
     this.exportButton.setEnabled(true);
   }
-  
+
   @Override
   public void lock()
   {
     this.exportButton.setEnabled(false);
-  }  
+  }
 }

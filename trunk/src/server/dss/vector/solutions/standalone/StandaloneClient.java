@@ -70,10 +70,10 @@ public class StandaloneClient extends JFrame implements ActionListener, Containe
     // Create the menu bar.
     menuBar = new JMenuBar();
 
-    String synchronizationLabel = MDSSProperties.getString("Synchronization");
-    String optionLabel = MDSSProperties.getString("Synchronization_Options");
-    String exportLabel = MDSSProperties.getString("Export_Transactions");
-    String importLabel = MDSSProperties.getString("Import_Transactions");
+    String synchronizationLabel = MDSSProperties.getString("Synchronization", locale);
+    String optionLabel = MDSSProperties.getString("Synchronization_Options", locale);
+    String exportLabel = MDSSProperties.getString("Export_Transactions", locale);
+    String importLabel = MDSSProperties.getString("Import_Transactions", locale);
 
     // Build the first menu.
     menu = new JMenu(synchronizationLabel);
@@ -94,13 +94,13 @@ public class StandaloneClient extends JFrame implements ActionListener, Containe
     importItem.addActionListener(this);
     menu.add(importItem);
 
-    exportPanel = new ExportPanel(this);
-    importPanel = new ImportPanel(this);
+    exportPanel = new ExportPanel(this, locale);
+    importPanel = new ImportPanel(this, locale);
     controlPanel = new ControlPanel(this, locale);
 
     contentPane = new JTabbedPane();
     contentPane.setSize(DIMENSION);
-    contentPane.add(MDSSProperties.getString("Control_Panel"), controlPanel);
+    contentPane.add(MDSSProperties.getString("Control_Panel", locale), controlPanel);
     contentPane.add(exportLabel, exportPanel);
     contentPane.add(importLabel, importPanel);
     contentPane.setVisible(true);
@@ -112,7 +112,7 @@ public class StandaloneClient extends JFrame implements ActionListener, Containe
     this.add(contentPane);
     this.setResizable(true);
     this.setVisible(true);
-    this.setTitle(MDSSProperties.getString("MDSS"));
+    this.setTitle(MDSSProperties.getString("MDSS", locale));
   }
 
   public void actionPerformed(ActionEvent e)
