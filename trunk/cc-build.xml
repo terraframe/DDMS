@@ -50,9 +50,7 @@ dataImportExecutable=pg_restore
       <fileset dir="bin" includes="**/*"/>
     </delete>
 
-		
-    <delete dir="${artifacts.path}/webapps/MDSS/classes/com" />
-    <delete dir="${artifacts.path}/webapps/MDSS/classes/dss" />
+    <delete dir="${artifacts.path}/webapps/MDSS/" />
 
 		<delete dir="src/test" />		
 
