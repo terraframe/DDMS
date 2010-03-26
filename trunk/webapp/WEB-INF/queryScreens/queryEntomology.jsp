@@ -227,7 +227,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"collection", klass:mosquitoCollection.CLASS},
                 {title:"Infection_Assay", values:infectionColumns, group:"infection", klass:infectionAssay.CLASS},
-                {title:"Pooled_Infection_Assay", values:pooledInfectionColumns, group:"pooledInfection", klass:pooledInfectionAssay.CLASS},
+                {title:"Combined_Data", values:pooledInfectionColumns, group:"pooledInfection", klass:pooledInfectionAssay.CLASS},
                 {title:"Biochemical_Assay", values:biochemicalColumns, group:"biochemical", klass:biochemicalAssay.CLASS},
                 {title:"Molecular_Assay", values:molecularColumns, group:"molecular", klass:molecularAssay.CLASS}
         ];
