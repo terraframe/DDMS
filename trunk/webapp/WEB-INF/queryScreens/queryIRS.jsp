@@ -123,6 +123,7 @@ YAHOO.util.Event.onDOMReady(function(){
                             key:"planed_area_target",
                             type:"sqlinteger",
                             attributeName:"planed_area_target",
+                            isAggregate:true
                           },
                           {
                             key:"planned_coverage",
@@ -357,16 +358,14 @@ YAHOO.util.Event.onDOMReady(function(){
                                      key:"unit_application_rate",
                                      type:"sqlfloat",
                                      attributeName:"unit_application_rate",
-                                     dtoType : "AttributeFloatDTO",
-                                     isAggregate:false
+                                     isAggregate:true
                                    },
                                    {
                                      
                                      key:"unit_application_rate_mg",
                                      type:"sqlfloat",
                                      attributeName:"unit_application_rate_mg",
-                                     dtoType : "AttributeFloatDTO",
-                                     isAggregate:false
+                                     isAggregate:true
                                    },
                                    {
                                      
