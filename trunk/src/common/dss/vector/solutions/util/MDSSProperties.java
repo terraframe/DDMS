@@ -13,7 +13,8 @@ import com.runwaysdk.business.Business;
  */
 public class MDSSProperties
 {
-  private static ResourceBundle bundle = ResourceBundle.getBundle("MDSS", Locale.getDefault(), Business.class.getClassLoader());
+  private static final String NAME = "MDSS";
+  private static ResourceBundle bundle = ResourceBundle.getBundle(NAME, Locale.getDefault(), Business.class.getClassLoader());
 
   public static String getString(String key)
   {
@@ -23,5 +24,17 @@ public class MDSSProperties
   public static Object getObject(String key)
   {
     return bundle.getObject(key);
+  }
+  
+  public static String getString(String key, Locale locale)
+  {
+    ResourceBundle other = ResourceBundle.getBundle(NAME, locale, Business.class.getClassLoader());
+    return other.getString(key);
+  }
+  
+  public static Object getObject(String key, Locale locale)
+  {
+    ResourceBundle other = ResourceBundle.getBundle(NAME, locale, Business.class.getClassLoader());
+    return other.getObject(key);
   }
 }
