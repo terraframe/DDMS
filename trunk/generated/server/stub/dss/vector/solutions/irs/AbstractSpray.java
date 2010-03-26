@@ -94,7 +94,9 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String unit_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(SUM("+avilableUnits+"),0";
     
     //String planned_operational_coverage = "SUM("+sprayedUnits+"))::float / nullif(planed_area_target),0";
-    
+    //weight avg for  app_rate
+    //force insecticie
+    //make area target aggreated
     
     String unit_application_rate = "(refills::FLOAT * "+shareOfCans+" * active_ingredient_per_can) / nullif(("+sprayedUnits+" * unitarea),0)";
     String unit_application_ratio = "(("+unit_application_rate+") / standard_application_rate)";
@@ -111,7 +113,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     QueryUtil.setSelectabeSQL(valueQuery, "unit_application_ratio", "SUM("+sprayedUnits+"*"+unit_application_ratio+") / nullif(SUM("+sprayedUnits+"),0)");
     QueryUtil.setSelectabeSQL(valueQuery, "unit_operational_coverage", unit_operational_coverage );
     
-    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+" * SUM(rooms)");
+    QueryUtil.setSelectabeSQL(valueQuery, "calculated_rooms_sprayed" , "(" + unit_operational_coverage+") * SUM(rooms)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_structures_sprayed" ,"(" +  unit_operational_coverage+") * SUM(structures)");
     QueryUtil.setSelectabeSQL(valueQuery, "calculated_households_sprayed" ,"(" + unit_operational_coverage+") * SUM(households)");
     //QueryUtil.setSelectabeSQL(valueQuery, "planned_coverage" ,"0");
@@ -233,11 +235,11 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     {
       s = valueQuery.getSelectableRef(geoType);
       String columnAlias = s.getQualifiedName();
-      sql = "SUM("+sprayedUnits+")::float / AVG(get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
+      sql = "SUM("+sprayedUnits+")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
 
-      sql+="(SELECT id FROM geoentity g WHERE g.geoId = "+columnAlias+"), ";
-      sql+="spray_season, ";
-      sql+="'target_'||( get_epiWeek_from_date(sprayDate," + startDay + ")-1)))";
+      sql+="MAX((SELECT id FROM geoentity g WHERE g.geoId = "+columnAlias+")), ";
+      sql+="MAX(spray_season), ";
+      sql+="'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
     
     }
     calc.setSQL(sql);
