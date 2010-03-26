@@ -61,6 +61,10 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
   private JPanel              buttonPanel;
 
   private Locale              locale;
+  
+  private JLabel              statusLabel;
+  
+  private JPanel              statusPanel;
 
   public ExportPanel(ContainerIF container, Locale locale)
   {
@@ -77,6 +81,7 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
     this.browser = new FileBrowser(true);
     this.browser.setBorder(BorderFactory.createTitledBorder(saveLabel));
+    this.statusLabel = new JLabel("");
 
     this.exportButton = new JButton(exportLabel);
     this.exportButton.setActionCommand(EXPORT_COMMAND);
@@ -91,10 +96,14 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
     this.buttonPanel = new JPanel(new BorderLayout());
     this.buttonPanel.add(progressBar, BorderLayout.CENTER);
     this.buttonPanel.add(exportButton, BorderLayout.EAST);
+    
+    this.statusPanel = new JPanel(new BorderLayout());
+    this.statusPanel.add(statusLabel, BorderLayout.NORTH);
+    this.statusPanel.add(buttonPanel, BorderLayout.CENTER);
 
     this.add(sequencePanel, BorderLayout.NORTH);
     this.add(browser, BorderLayout.CENTER);
-    this.add(buttonPanel, BorderLayout.SOUTH);
+    this.add(statusPanel, BorderLayout.SOUTH);
 
     this.setSize(StandaloneClient.DIMENSION);
   }
@@ -168,6 +177,7 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
 
       this.lockContainer();
       this.progressBar.setValue(0);
+      this.statusLabel.setText(MDSSProperties.getString("Setting_up_export", locale));
 
       ExportManager manager = new ExportManager(this);
       manager.setOption(ExportOption.valueOf(option));
@@ -198,6 +208,15 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
       int progress = (Integer) evt.getNewValue();
 
       progressBar.setValue(progress);
+      
+      if(progress >= 100)
+      {
+        statusLabel.setText(MDSSProperties.getString("Cleaning_up_temp_files", locale));
+      }
+      else
+      {
+        statusLabel.setText(MDSSProperties.getString("Exporting_transactions", locale));        
+      }
     }
   }
 
@@ -210,5 +229,11 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
   public void lock()
   {
     this.exportButton.setEnabled(false);
+  }
+
+  public void complete()
+  {
+    this.statusLabel.setText(MDSSProperties.getString("Export_complete", locale));
+    this.unlockContainer();    
   }
 }

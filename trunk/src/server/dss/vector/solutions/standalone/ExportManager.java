@@ -177,6 +177,6 @@ public class ExportManager extends SwingWorker<Void, Void>
   {
     super.done();
     
-    component.unlockContainer();
+    component.complete();
   }
 }
