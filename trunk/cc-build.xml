@@ -4,13 +4,18 @@
 		<parameter value = "mdss_zambia" name = "user" />
     <parameter value = "mdss_zambia" name = "passwd" />
     <parameter value = "mdss_zambia" name = "database" />
-    
+    	  <propertyfile file="${stage.classes}/local.properties">
+			<entry key="environment" value="deploy" />
+			<entry key="web.dir" value="${deploy.path}/webDir/" />
+		</propertyfile>
     
     # Database dump executable
 dataDumpExecutable=pg_dump
 # Database import executable
 dataImportExecutable=pg_restore
     
+    
+			\
         export_credentials_singleton
     export_tomcat_classloader
    <target name="import_geodata" />
@@ -44,11 +49,13 @@ dataImportExecutable=pg_restore
 	<target name="build">
 		
 		
-			<!--<antcall target="write_revision" /> 		-->
+			<!--<antcall target="write_revision" /> 		
 		
 		<delete includeemptydirs="true">
       <fileset dir="bin" includes="**/*"/>
     </delete>
+    
+    -->
 
     <delete dir="${artifacts.path}/webapps/MDSS/" />
 
@@ -84,10 +91,12 @@ dataImportExecutable=pg_restore
 			<property name="root.db" value="${root.db}" />
 			<property name="geodata.db" value="${geodata.db}" />
 			<property name="profile.root" value="${profile.root}" />
+
 			
 		  <target name="rebuild_db" />
 			<target name="rebuild_model" />
 			<target name="deploy" />
+			<target name="deploy_all_files"/>
 			<target name="import_ontology" />
 			<target name="import_ontology_roots" />
 			<target name="build_all_paths_ontology" />						
@@ -97,7 +106,7 @@ dataImportExecutable=pg_restore
 		</ant>
 		
 	  
-	  <antcall target="set_Vital_properties" />
+	  <antcall target="set_vital_properties" />
 		
 		<antcall target="dump_db" />
 		
@@ -109,6 +118,9 @@ dataImportExecutable=pg_restore
   <target name="set_vital_properties" depends="">
   	<delete dir="${artifacts.path}/webapps/MDSS/WEB-INF/logs" />
 		<mkdir dir="${artifacts.path}/webapps/MDSS/WEB-INF/logs"/>
+		
+		<delete dir="${artifacts.path}/logs" />
+		<mkdir dir="${artifacts.path}/logs"/>
 		
 	  <touch file="${artifacts.path}/webapps/MDSS/WEB-INF/logs/seriousErrorLog.txt"/>
 		<touch file="${artifacts.path}/webapps/MDSS/WEB-INF/logs/errorLog.txt"/>
@@ -148,10 +160,7 @@ dataImportExecutable=pg_restore
 			file="${stage.classes}/jawr.properties">
 			<entry key="jawr.debug.on" value="false" />
 		</propertyfile>
-		
-		<propertyfile file="${stage.classes}/MDSS.properties">
-			<entry key="Country" value="MDSS" />
-		</propertyfile>
+
 	
 	  <propertyfile file="${stage.classes}/server.properties">
 			<entry key="logTransactions" value="true" />
@@ -161,25 +170,13 @@ dataImportExecutable=pg_restore
 	  <propertyfile file="${stage.classes}/install.properties">
 			<entry key="master" value="false" />
 		</propertyfile>
-		
-	  <propertyfile file="${stage.classes}/local.properties">
-			<entry key="environment" value="deploy" />
-			<entry key="web.dir" value="${deploy.path}/webDir/" />
-		</propertyfile>
-  
-  	  <propertyfile file="${stage.classes}/local.properties">
-			<entry key="environment" value="deploy" />
-			<entry key="web.dir" value="${deploy.path}/webDir/" />
-		</propertyfile>
-  
-  
+		  
     <propertyfile file="${stage.classes}/MdssControlPanel.properties">
 			<entry key="command.start" value="cmd /c C:/MDSS/tomcat6/bin/startup.bat" />
 			<entry key="command.stop" value="cmd /c C:/MDSS/tomcat6/bin/shutdown.bat" />
 		</propertyfile>
   
   </target>
-
 
 
 	<target name="dump_db" depends="">
