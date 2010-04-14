@@ -25,7 +25,15 @@ Name MDSS
 !include MUI2.nsh
 !include nsDialogs.nsh
 !include LogicLib.nsh
-!include FileFunc.nsh
+
+# Define access to the RIndexOf function
+!macro RIndexOf Var Str Char
+Push "${Char}"
+Push "${Str}"
+ Call RIndexOf
+Pop "${Var}"
+!macroend
+!define RIndexOf "!insertmacro RIndexOf"
 
 # Variables
 Var StartMenuGroup
@@ -35,7 +43,8 @@ Var Text
 Var InstallationNumber
 Var Params
 Var Master_Value
-Var FireFox
+Var FPath
+Var FVersion
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -63,7 +72,7 @@ VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
-RequestExecutionLevel none
+RequestExecutionLevel admin
 
 Function userInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Number" "Specify the installation number"
@@ -118,19 +127,24 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Searching for Firefox"
-
-
+    Call findFireFox
+    StrCmp $FPath "" installFireFox doneInstallFireFox
+    installFireFox:
       !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Firefox"
       File "Firefox Setup 3.6.2.exe"
       ExecWait `"$INSTDIR\Firefox Setup 3.6.2.exe"`
-
+      Call findFireFox
+    doneInstallFireFox:
       
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing the ScrenGrab Plugin"
-   
+    StrCmp $FPath "" fireFoxNotFound installScreenGrab
+    fireFoxNotFound:
+      MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
+      Abort
     
     # Install the ScreenGrab addon
     installScreenGrab:
-    File "/oname=$FireFox\extensions\screengrab-0.96.2-fx.xpi" "screengrab-0.96.2-fx.xpi"
+    File "/oname=$FPath\extensions\screengrab-0.96.2-fx.xpi" "screengrab-0.96.2-fx.xpi"
     
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
@@ -180,7 +194,7 @@ Section -Main SEC0000
     File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
     
     ExecWait `net start postgresql-8.4`
-      
+    
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostGIS"
     File "postgis-pg84-setup-1.4.2-1.exe"
@@ -214,7 +228,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FireFox\firefox.exe" "http://127.0.0.1:8080/MDSS/"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/MDSS/"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
@@ -278,7 +292,6 @@ Function .onInit
     # Initialize the value of the text string
     StrCpy $InstallationNumber "1"
     StrCpy $Master_Value "init"
-    StrCpy $FireFox "Unknown"
     
     # Read the command-line parameters
     ${GetParameters} $Params
@@ -296,21 +309,73 @@ Function .onInit
     
 FunctionEnd
 
-# Locates the firefox executable and stores the path in $FireFox
+# Finds the firefox executable by checking an assortment of registry keys and stores the path in $FPath
 Function findFireFox
-    ${Locate} "$PROGRAMFILES\" "/L=F /M=firefox.exe" "storeFireFoxPath"
-    IfErrors fireFox64 fireFoxFound
-    fireFox64:
-      ${Locate} "$PROGRAMFILES64\" "/L=F /M=firefox.exe" "storeFireFoxPath"
-#      IfErrors fireFoxFullSearch fireFoxFound
- #   fireFoxFullSearch:
-  #    ${Locate} "C:\" "/L=F /M=firefox.exe" "storeFireFoxPath"
-    fireFoxFound:
+    ReadRegStr $FPath HKCR "firefoxhtml\defaulticon" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKCR "firefoxurl\defaulticon" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\classes\firefoxhtml\defaulticon" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\classes\firefoxurl\defaulticon" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\clients\startmenuinternet\firefox.exe\shell\open\command" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\Microsoft\Windows\CurrentVersion\app paths\firefox.exe" ""
+    call StripPath
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\Microsoft\Windows\CurrentVersion\app paths\firefox.exe" "Path"
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FVersion HKLM "Software\mozilla\mozilla firefox" "CurrentVersion"
+    ReadRegStr $FPath HKLM "Software\mozilla\mozilla firefox\$FVersion\main" "Install Directory"
+    StrCmp $FPath "" +1 FDone
+    
+    ReadRegStr $FPath HKLM "Software\mozilla\mozilla firefox\$FVersion\main" "PathToExe"
+    call StripPath
+    
+    FDone:
 FunctionEnd
 
-# Called by findFireFox, saves the found path into $FireFox 
-Function storeFireFoxPath
-    StrCpy $FireFox "$R8"
+Function RIndexOf
+Exch $R0
+Exch
+Exch $R1
+Push $R2
+Push $R3
+ 
+ StrCpy $R3 $R0
+ StrCpy $R0 0
+ IntOp $R0 $R0 + 1
+  StrCpy $R2 $R3 1 -$R0
+  StrCmp $R2 "" +2
+  StrCmp $R2 $R1 +2 -3
+ 
+ StrCpy $R0 -1
+ 
+Pop $R3
+Pop $R2
+Pop $R1
+Exch $R0
+FunctionEnd
+
+# Removes anything after the final "\" in the FPath variable
+Function StripPath
+    StrLen $0 $FPath
+    ${RIndexOf} $1 $FPath "\"
+    IntOp $0 $0 - $1
+    StrCpy $FPath $FPath $0
 FunctionEnd
 
 # Uninstaller functions
