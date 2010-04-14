@@ -10,14 +10,14 @@ Name MDSS
 !define URL "http://www.ivcc.com/"
 
 # MUI Symbol Definitions
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-colorful.ico"
+!define MUI_ICON "logo.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_NODISABLE
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER MDSS
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall-colorful.ico"
+!define MUI_UNICON "logo.ico"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -63,7 +63,7 @@ VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
-RequestExecutionLevel admin
+RequestExecutionLevel none
 
 Function userInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Number" "Specify the installation number"
@@ -118,26 +118,20 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Searching for Firefox"
-    Call findFireFox
-    StrCmp $FireFox "Unknown" installFireFox doneInstallFireFox
-    installFireFox:
+
+
       !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Firefox"
       File "Firefox Setup 3.6.2.exe"
       ExecWait `"$INSTDIR\Firefox Setup 3.6.2.exe"`
-      Call findFireFox
-    doneInstallFireFox:
+
       
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing the ScrenGrab Plugin"
-    StrCmp $FireFox "Unknown" fireFoxNotFound installScreenGrab
-    fireFoxNotFound:
-      MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
-      Abort
+   
     
     # Install the ScreenGrab addon
     installScreenGrab:
     File "/oname=$FireFox\extensions\screengrab-0.96.2-fx.xpi" "screengrab-0.96.2-fx.xpi"
     
-    SetOverwrite on
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
     File /r IRMA\*
@@ -159,6 +153,12 @@ Section -Main SEC0000
     File /r tomcat6\*
     SetOutPath $INSTDIR
     
+    # Install Postgres
+    !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostgreSql"
+    File "postgresql-8.4.1-1-windows.exe"
+    ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount mdsspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
+    ExecWait `net stop postgresql-8.4`   
+    
     # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
     
@@ -179,11 +179,8 @@ Section -Main SEC0000
     # Copy the tweaked postgres config
     File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
     
-    # Install Postgres
-    !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostgreSql"
-    File "postgresql-8.4.1-1-windows.exe"
-    ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount mdsspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-    
+    ExecWait `net start postgresql-8.4`
+      
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing PostGIS"
     File "postgis-pg84-setup-1.4.2-1.exe"
@@ -222,7 +219,7 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe" "-cp C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\lib\* dss/vector/solutions/standalone/StandaloneClient"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512m -cp C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\lib\* dss/vector/solutions/standalone/StandaloneClient"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
@@ -275,9 +272,11 @@ SectionEnd
 
 # Installer functions
 Function .onInit
+    LogSet On
+    SetOverwrite try
     InitPluginsDir
     # Initialize the value of the text string
-    StrCpy $InstallationNumber "1-999"
+    StrCpy $InstallationNumber "1"
     StrCpy $Master_Value "init"
     StrCpy $FireFox "Unknown"
     
@@ -303,9 +302,9 @@ Function findFireFox
     IfErrors fireFox64 fireFoxFound
     fireFox64:
       ${Locate} "$PROGRAMFILES64\" "/L=F /M=firefox.exe" "storeFireFoxPath"
-      IfErrors fireFoxFullSearch fireFoxFound
-    fireFoxFullSearch:
-      ${Locate} "C:\" "/L=F /M=firefox.exe" "storeFireFoxPath"
+#      IfErrors fireFoxFullSearch fireFoxFound
+ #   fireFoxFullSearch:
+  #    ${Locate} "C:\" "/L=F /M=firefox.exe" "storeFireFoxPath"
     fireFoxFound:
 FunctionEnd
 
