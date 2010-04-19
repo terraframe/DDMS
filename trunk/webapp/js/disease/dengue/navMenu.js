@@ -101,127 +101,55 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 {
 	id: "Entomology_Surveillance",
 	itemdata: [
-	           { text: "Search_For_Collections(017)", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'Administrator' },
-	           { text: "Query_Mosquito_Collections(148)", url: "dss.vector.solutions.query.QueryController.queryMosquitoCollections.mojo" , visibleTo:'Administrator'},
-	           { text: "Enter_Infection_Assays(018)", url: "dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo", visibleTo:'Administrator' },
-	           { text: "Enter_Mechanism_Assays(013)", url: "dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo", visibleTo:'Administrator' },
-	           { text: "Query_Entomology(145)", url: "dss.vector.solutions.query.QueryController.queryEntomology.mojo" , visibleTo:'Administrator'},
 	           {
-	        	   text: "Resistance_Monitoring",
+	        	   text: "Mosquito_Collections",
 	        	   submenu: {
-	        	   id: "Resistance_Monitoring",
+	        	   id: "Mosquito_Collections",
 	        	   itemdata: [
-	        	              { text: "Adult_DDA(004)", url: "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Larvae_DDA(008)", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Knock_Down_Assay(006)", url: "dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Query_Resistance(033)", url: "dss.vector.solutions.query.QueryController.queryResistance.mojo" , visibleTo:'Administrator'},
+        		              { text: "Search_For_Collections(017)", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'Administrator' },
+	        		          { text: "Query_Mosquito_Collections(148)", url: "dss.vector.solutions.query.QueryController.queryMosquitoCollections.mojo" , visibleTo:'Administrator'},
 	        	              ]
 	           		}
 	           },
 	           {
-	        	   text: "Efficacy_studies",
+	        	   text: "Collections_of_Immatures",
 	        	   submenu: {
-	        	   id: "Efficacy_studies",
+	        	   id: "Collections_of_Immatures",
 	        	   itemdata: [
-	        	              { text: "Search_for_Efficacy_Studies_Adult(025)", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Query_Efficacy_Studies(147)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'}
+	        	              { text: "Immatures_Thresholds(DDSS903B)", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Immatures_by_Container_Type(DDSS903)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Query_Immatures_by_Container_Type(DDSS904)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Pupae_by_Individual_Container(DDSS905)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Query_Pupae_by_Individual_Container(DDSS906)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'}
 	        	              ]
-	           }
-
+            		}
 	           },
 	           {
-	        	   text: "Configuration",
+	        	   text: "Assays",
 	        	   submenu: {
-	        	   id: "Configuration",
+	        	   id: "Assays",
 	        	   itemdata: [
 	        	              { text: "Configure_Entomology_Variables", url: "dss.vector.solutions.entomology.ResistancePropertyController.viewAll.mojo", visibleTo:'Administrator' },
 	        	              { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'Administrator' },
 	        	              { text: "Manage_Knock_Down_Properties(009)", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'Administrator'},
 	        	              { text: "Manage_Lethal_Properties(009)", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'Administrator'},
 	        	              ]
-	           }
-
+	          		}
 	           },
-	           ]
-},
-{
-	id: "Surveys",
-	itemdata: [
-	           { text: "Enter_Indicator_Survey_records(026)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
-	           { text: "Query_Indicator_Surveys(140)", url: "dss.vector.solutions.query.QueryController.querySurvey.mojo" , visibleTo:'Administrator'},
 	           ]
 },
 {
 	id: "Intervention_Planning",
 	itemdata: [
-	           {
-	        	   text: "IRS_Intervention_Planning",
-	        	   submenu: {
-	        	   id: "IRS_INV",
-	        	   itemdata: [
-	        	              { text: "IRS_Planning(077)", url: "dss.vector.solutions.irs.InterventionPlanningController.search.mojo", visibleTo:'Administrator' },
-	        	              { text: "Configure_Application_Rate(106)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Manage_IRS_Teams(141)", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
-	        	              { text: "Area_Targets(028)", url: "dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Operator_and_Team_Targets(028)", url: "dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" , visibleTo:'Administrator'},
-
-	        	              ]
-	           }
-
-	           },
+	           { text: "Planning_Calculator(DDSS911)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
+               { text: "Configure_Application_Rate(106)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
 	           ]
 },
 {
 	id: "Intervention_Monitoring",
 	itemdata: [
-	           {
-	        	   text: "IRS",
-	        	   submenu: {
-	        	   id: "IRS_SPRAYS",
-	        	   itemdata: [
-	        	              { text: "Operator_Spray_Level_1(027)", url: "dss.vector.solutions.irs.OperatorSprayController.search.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Team_Spray_Level_2(027)", url: "dss.vector.solutions.irs.TeamSprayController.search.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Sprayed_Area_Level_3(027)", url: "dss.vector.solutions.irs.ZoneSprayController.search.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Query_IRS(132)", url: "dss.vector.solutions.query.QueryController.queryIRS.mojo" , visibleTo:'Administrator'}
-	        	              ]
-	           }
-	           },
-	           {
-	        	   text: "IPT",
-	        	   submenu: {
-	        	   id: "IPT",
-	        	   itemdata: [
-	        	              { text: "Enter_Aggregated_IPT_records(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_Aggregated_IPT(131)", url: "dss.vector.solutions.query.QueryController.queryAggregatedIPT.mojo", visibileTo:'Administrator'},
-	        	              { text: "Enter_Individual_IPT_records(081)", url: "dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_Individual_IPT(130)", url: "dss.vector.solutions.query.QueryController.queryIndividualIPT.mojo", visibileTo:'Administrator'}
-	        	              ]
-	           }
-	           },
-	           {
-	        	   text: "ITN",
-	        	   submenu: {
-	        	   id: "ITN",
-	        	   itemdata: [
-	        	              { text: "Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_Aggregated_ITN_Data_Distribution", url: "dss.vector.solutions.query.QueryController.queryAggregatedITN.mojo", visibileTo:'Administrator'},
-	        	              { text: "ITN_Facility_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_ITN_Facility_Distribution", url: "dss.vector.solutions.query.QueryController.queryITNDistribution.mojo", visibileTo:'Administrator'},
-	        	              { text: "ITN_Community_Distribution", url: "dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_ITN_Community_Distribution", url: "dss.vector.solutions.query.QueryController.queryITNCommunityDistribution.mojo", visibileTo:'Administrator'}
-	        	              ]
-	           }
-	           },
-	           {
-	        	   text: "Control_of_Immatures",
-	        	   submenu: {
-	        	   id: "Control_of_Immatures",
-	        	   itemdata: [
-	        	              { text: "Enter_for_Control_of_Immatures_records",  url: "dss.vector.solutions.intervention.monitor.LarvacideController.viewAll.mojo", visibileTo:'Administrator'},
-	        	              { text: "Query_Control_of_Immatures", url: "dss.vector.solutions.query.QueryController.queryLarvacide.mojo", visibileTo:'Administrator'}    	               	           
-	        	              ]
-	           }
-	           },
+	           { text: "Intervention_Control(DDSS907)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
+               { text: "Query_Intervention_Control(DDSS909)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
 	           ]
 },
 {

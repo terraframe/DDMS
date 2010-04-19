@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<script type="text/javascript" src="js/disease/malaria/navMenu.js"></script>
+<script type="text/javascript" src="js/disease/dengue/navMenu.js"></script>
 <div class="navContainer" style="min-width: 1152px;">
  <div id="mainNav" class="yuimenubar yuimenubarnav">
       <div class="bd">
