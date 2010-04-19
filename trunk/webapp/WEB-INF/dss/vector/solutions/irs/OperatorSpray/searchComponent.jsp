@@ -48,11 +48,11 @@
       <label><fmt:message key="Spray_Method"/></label>
     </dt>
     <dd>
-      <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="method">
-        <mjl:radioOption checked="${current.enumName == method ? 'checked' : 'false'}">
+      <mjl:group type="radio" var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="method">
+        <mjl:groupOption checked="${current.enumName == method ? 'checked' : 'false'}">
             ${current.displayLabel}
-        </mjl:radioOption>
-      </mjl:radioGroup>
+        </mjl:groupOption>
+      </mjl:group>
     </dd>
     <dt>
       <label><fmt:message key="Team" /></label>

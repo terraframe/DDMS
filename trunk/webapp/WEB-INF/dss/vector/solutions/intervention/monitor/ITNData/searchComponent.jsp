@@ -31,11 +31,11 @@
       </mjl:dt>
       <div class="periodType">
         <mjl:dt attribute="periodType">
-          <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
-            <mjl:radioOption checked="${current.enumName == checkedType ? 'checked' : 'false'}" id="periodType.${current.enumName}" classes="periodTypeOption">
+          <mjl:group type="radio" var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
+            <mjl:groupOption checked="${current.enumName == checkedType ? 'checked' : 'false'}" id="periodType.${current.enumName}" classes="periodTypeOption">
               ${current.displayLabel}
-            </mjl:radioOption>
-          </mjl:radioGroup>      
+            </mjl:groupOption>
+          </mjl:group>      
         </mjl:dt>
       </div>
       <div class="period">

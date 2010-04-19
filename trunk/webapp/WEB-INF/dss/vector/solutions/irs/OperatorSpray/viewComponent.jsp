@@ -74,51 +74,77 @@
     <mjl:component item="${item}" param="dto">
       <table class="irs_header">
         <tr>
-	      <td><mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </td></mjl:dt>
-	      <td><mjl:dt attribute="teamLeader">
-	        <c:if test="${item.teamLeader != null}">
-	          ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
-	        </c:if>
-	      </td></mjl:dt>
-	      <td><mjl:dt attribute="received"> ${item.received} </td></mjl:dt>
-	    </tr>
-	    <tr>
-	      <td><mjl:dt attribute="brand"> ${brand.brandName} </td></mjl:dt>
-	      <td><mjl:dt attribute="sprayOperator">
-	        ${item.sprayOperator.person.lastName}, ${item.sprayOperator.person.firstName}
-	      </td></mjl:dt>
-	      <td><mjl:dt attribute="refills"> ${item.refills} </td></mjl:dt>
-	    </tr>
-	    <tr>
-	      <td><mjl:dt attribute="sprayDate">
-	        <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
-	      </td></mjl:dt>
-	      <td><mjl:dt attribute="target"> ${item.target} </td></mjl:dt>
-	      <td><mjl:dt attribute="returned"> ${item.returned} </td></mjl:dt>
-	    </tr>
-	    <tr>
-	      <td><mjl:dt attribute="sprayMethod">
-	        <ul>
-	          <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
-	            <li>${item.sprayMethodMd.enumItems[enumName]}</li>
-	          </c:forEach>
-	        </ul>            
-	      </td></mjl:dt>
-	      <td><mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </td></mjl:dt>
-	      <td><mjl:dt attribute="used"> ${item.used} </td></mjl:dt>
-	    </tr>
-	    <tr>
-	      <td><mjl:dt attribute="surfaceType" >
-	        <c:if test="${surfaceType != null}">
-	          ${surfaceType.displayLabel}
-	        </c:if>
-	      </td></mjl:dt>
-	      <td><mjl:dt attribute="operatorSprayWeek"> ${item.operatorSprayWeek} </td></mjl:dt>
-        </tr>
-      </table>
-    </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.irs.OperatorSprayController.edit.mojo" name="dss.vector.solutions.irs.OperatorSpray.form.edit.button" />
-  </dl>
+        <td>
+          <mjl:dt attribute="geoEntity"> ${item.geoEntity.displayString} </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="teamLeader">
+            <c:if test="${item.teamLeader != null}">
+              ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
+            </c:if>
+          </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="received"> ${item.received} </mjl:dt>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="sprayOperator"> ${item.sprayOperator.person.lastName}, ${item.sprayOperator.person.firstName} </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="refills"> ${item.refills} </mjl:dt>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mjl:dt attribute="sprayDate">
+            <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
+          </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="target"> ${item.target} </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="returned"> ${item.returned} </mjl:dt>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mjl:dt attribute="sprayMethod">
+            <ul>
+              <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
+                <li>${item.sprayMethodMd.enumItems[enumName]}</li>
+              </c:forEach>
+            </ul>            
+          </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="used"> ${item.used} </mjl:dt>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mjl:dt attribute="surfaceType" >
+            <c:if test="${surfaceType != null}">
+              ${surfaceType.displayLabel}
+            </c:if>
+          </mjl:dt>
+        </td>
+        <td>
+          <mjl:dt attribute="operatorSprayWeek"> ${item.operatorSprayWeek} </mjl:dt>
+        </td>
+      </tr>
+    </table>
+  </mjl:component>
+  <mjl:command value="Edit" action="dss.vector.solutions.irs.OperatorSprayController.edit.mojo" name="dss.vector.solutions.irs.OperatorSpray.form.edit.button" />
+</dl>
 </mjl:form>
 
 <h2><fmt:message key="Households_Sprayed"/></h2>

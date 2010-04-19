@@ -36,7 +36,7 @@ public class StockDepotControllerBase implements com.runwaysdk.generation.loader
       }
       else
       {
-        req.setAttribute("jsp", dir+jsp);
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
         req.getRequestDispatcher(layout).forward(req, resp);
       }
     }

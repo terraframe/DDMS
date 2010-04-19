@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -44,7 +46,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="com.runwaysdk.system.metadata.EnumerationAttributeItemController.childQuery.mojo" name="com.runwaysdk.system.metadata.EnumerationAttributeItem.childQuery.link">
+        <mjl:commandLink action="com.runwaysdk.system.metadata.EnumerationAttributeItemController.childQuery.mojo" name="com.runwaysdk.system.metadata.EnumerationAttributeItem.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>

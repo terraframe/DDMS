@@ -28,11 +28,11 @@
         <mjl:input param="sprayDate" type="text" classes="DatePick NoFuture" id="sprayDate" value="${item.sprayDate}" />
       </mjl:dt>
       <mjl:dt attribute="sprayMethod">
-        <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="sprayMethod">
-          <mjl:radioOption checked="${mjl:contains(item.sprayMethodEnumNames, current.enumName)? 'checked' : 'false'}">
+        <mjl:group type="radio" var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="sprayMethod">
+          <mjl:groupOption checked="${mjl:contains(item.sprayMethodEnumNames, current.enumName)? 'checked' : 'false'}">
             ${current.displayLabel}
-          </mjl:radioOption>
-        </mjl:radioGroup>      
+          </mjl:groupOption>
+        </mjl:group>      
       </mjl:dt>
       <mjl:dt attribute="sprayTeam">
         <mjl:select var="current" valueAttribute="id" items="${teams}" id="teamSelect" param="sprayTeam" >

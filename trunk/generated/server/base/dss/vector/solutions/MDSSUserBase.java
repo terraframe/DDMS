@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1747108992)
+@com.runwaysdk.business.ClassSignature(hash = -198432657)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,86 +11,14 @@ package dss.vector.solutions;
 public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.MDSSUser";
-  public static java.lang.String DEFAULTMAP = "defaultMap";
-  public static java.lang.String DEFAULTSEARCH = "defaultSearch";
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
-  private static final long serialVersionUID = 1747108992;
+  private static final long serialVersionUID = -198432657;
   
   public MDSSUserBase()
   {
     super();
-  }
-  
-  public dss.vector.solutions.query.DefaultSavedMap getDefaultMap()
-  {
-    if (getValue(DEFAULTMAP).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.DefaultSavedMap.get(getValue(DEFAULTMAP));
-    }
-  }
-  
-  public void validateDefaultMap()
-  {
-    this.validateAttribute(DEFAULTMAP);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultMapMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTMAP);
-  }
-  
-  public void setDefaultMap(dss.vector.solutions.query.DefaultSavedMap value)
-  {
-    if(value == null)
-    {
-      setValue(DEFAULTMAP, "");
-    }
-    else
-    {
-      setValue(DEFAULTMAP, value.getId());
-    }
-  }
-  
-  public dss.vector.solutions.query.SavedSearch getDefaultSearch()
-  {
-    if (getValue(DEFAULTSEARCH).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.query.SavedSearch.get(getValue(DEFAULTSEARCH));
-    }
-  }
-  
-  public void validateDefaultSearch()
-  {
-    this.validateAttribute(DEFAULTSEARCH);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefaultSearchMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.MDSSUser.CLASS);
-    return mdClassIF.definesAttribute(DEFAULTSEARCH);
-  }
-  
-  public void setDefaultSearch(dss.vector.solutions.query.SavedSearch value)
-  {
-    if(value == null)
-    {
-      setValue(DEFAULTSEARCH, "");
-    }
-    else
-    {
-      setValue(DEFAULTSEARCH, value.getId());
-    }
   }
   
   public String getGeoRoot()

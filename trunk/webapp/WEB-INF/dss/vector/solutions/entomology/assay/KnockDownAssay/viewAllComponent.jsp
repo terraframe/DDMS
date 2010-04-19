@@ -63,7 +63,6 @@
       </mjl:header>
       <mjl:row >
         <mjl:commandLink
-          display="View"
           action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo"
           name="view.link">
           <fmt:message key="View" />

@@ -12,8 +12,9 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoHierarchy.keyName}" action="dss.vector.solutions.geo.GeoHierarchyController.view.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.geo.GeoHierarchyController.view.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.view.link">
         <mjl:property value="${item.geoHierarchy.id}" name="id" />
+        ${item.geoHierarchy.keyName}
       </mjl:commandLink>
     </dd>
     <dt>
@@ -22,8 +23,9 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geometryStyle.keyName}" action="dss.vector.solutions.query.GeometryStyleController.view.mojo" name="dss.vector.solutions.query.GeometryStyle.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.query.GeometryStyleController.view.mojo" name="dss.vector.solutions.query.GeometryStyle.form.view.link">
         <mjl:property value="${item.geometryStyle.id}" name="id" />
+        ${item.geometryStyle.keyName}
       </mjl:commandLink>
     </dd>
     <dt>
@@ -40,8 +42,9 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.textStyle.keyName}" action="dss.vector.solutions.query.TextStyleController.view.mojo" name="dss.vector.solutions.query.TextStyle.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.query.TextStyleController.view.mojo" name="dss.vector.solutions.query.TextStyle.form.view.link">
         <mjl:property value="${item.textStyle.id}" name="id" />
+        ${item.textStyle.keyName}
       </mjl:commandLink>
     </dd>
   </dl>
@@ -57,7 +60,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.query.DefinesCategoriesController.parentQuery.mojo" name="dss.vector.solutions.query.DefinesCategories.parentQuery.link">
+        <mjl:commandLink action="dss.vector.solutions.query.DefinesCategoriesController.parentQuery.mojo" name="dss.vector.solutions.query.DefinesCategories.parentQuery.link">
           <mjl:property value="${item.id}" name="parentId" />
         </mjl:commandLink>
       </li>

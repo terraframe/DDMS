@@ -58,7 +58,7 @@
         <dd>
           <table class="displayTable">
             <tr> 
-              <th>${item.displayTargetGroupsMd.displayLabel}</th>
+              <th> ${item.displayTargetGroupsMd.displayLabel} </th>
               <th><fmt:message key="Amount"/></th>
             </tr>      
             <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">

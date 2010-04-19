@@ -57,11 +57,11 @@
       </mjl:dt>
       
       <mjl:dt attribute="hasBeenSprayed">
-        <mjl:radioGroup param="hasBeenSprayed" items="${hasBeenSprayed}" var="current" valueAttribute="enumName">
-          <mjl:radioOption checked="${mjl:contains(item.hasBeenSprayedEnumNames, current.enumName) ? 'checked' : 'false'}" id="hasBeenSprayed.${current.enumName}">
+        <mjl:group type="radio" param="hasBeenSprayed" items="${hasBeenSprayed}" var="current" valueAttribute="enumName">
+          <mjl:groupOption checked="${mjl:contains(item.hasBeenSprayedEnumNames, current.enumName) ? 'checked' : 'false'}" id="hasBeenSprayed.${current.enumName}">
             ${item.hasBeenSprayedMd.enumItems[current.enumName]}
-          </mjl:radioOption>
-        </mjl:radioGroup>    
+          </mjl:groupOption>
+        </mjl:group>    
       </mjl:dt>     
       
       <div class="lastSprayed">

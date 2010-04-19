@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1199475529)
+@com.runwaysdk.business.ClassSignature(hash = 644183576)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class MDSSUserQuery extends com.runwaysdk.system.UsersQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1199475529;
+private static final long serialVersionUID = 644183576;
 
   public MDSSUserQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -38,52 +38,6 @@ private static final long serialVersionUID = -1199475529;
   public String getClassType()
   {
     return dss.vector.solutions.MDSSUser.CLASS;
-  }
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap()
-  {
-    return getDefaultMap(null);
-
-  }
- 
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultMap");
-
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTMAP, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultMap");
-
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTMAP, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch()
-  {
-    return getDefaultSearch(null);
-
-  }
- 
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultSearch");
-
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTSEARCH, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultSearch");
-
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.DEFAULTSEARCH, mdAttributeIF, this, alias, displayLabel);
-
   }
   public com.runwaysdk.query.SelectableChar getGeoRoot()
   {
@@ -152,15 +106,7 @@ private static final long serialVersionUID = -1199475529;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("defaultMap")) 
-    {
-       return new dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("defaultSearch")) 
-    {
-       return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("person")) 
+    if (name.equals("person")) 
     {
        return new dss.vector.solutions.PersonQuery.PersonQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -322,12 +268,6 @@ private static final long serialVersionUID = -1199475529;
   public interface MDSSUserQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF
   {
 
-    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap();
-    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias);
-    public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel);
-    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch();
-    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias);
-    public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getGeoRoot();
     public com.runwaysdk.query.SelectableChar getGeoRoot(String alias);
     public com.runwaysdk.query.SelectableChar getGeoRoot(String alias, String displayLabel);
@@ -380,7 +320,7 @@ private static final long serialVersionUID = -1199475529;
  implements MDSSUserQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1572882645;
+private static final long serialVersionUID = 2082784186;
 
   public MDSSUserQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -399,40 +339,6 @@ private static final long serialVersionUID = 1572882645;
       return this.NE(mDSSUser.getId());
     }
 
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap()
-  {
-    return getDefaultMap(null);
-
-  }
- 
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias)
-  {
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTMAP, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF getDefaultMap(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTMAP,  alias, displayLabel);
-
-  }
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch()
-  {
-    return getDefaultSearch(null);
-
-  }
- 
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias)
-  {
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTSEARCH, alias, null);
-
-  }
- 
-  public dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReferenceIF)this.get(dss.vector.solutions.MDSSUser.DEFAULTSEARCH,  alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getGeoRoot()
   {
     return getGeoRoot(null);
@@ -604,15 +510,7 @@ private static final long serialVersionUID = 1572882645;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("defaultMap")) 
-    {
-       return new dss.vector.solutions.query.DefaultSavedMapQuery.DefaultSavedMapQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("defaultSearch")) 
-    {
-       return new dss.vector.solutions.query.SavedSearchQuery.SavedSearchQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("person")) 
+    if (name.equals("person")) 
     {
        return new dss.vector.solutions.PersonQuery.PersonQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

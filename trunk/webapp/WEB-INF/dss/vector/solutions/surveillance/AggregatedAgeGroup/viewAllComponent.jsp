@@ -45,7 +45,7 @@
 </dd>
 
 <dt>
-  <label></label><fmt:message key="View_All_Age_Group"/></label>
+  <label><fmt:message key="View_All_Age_Group"/></label>
 </dt>
 <dd>
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">

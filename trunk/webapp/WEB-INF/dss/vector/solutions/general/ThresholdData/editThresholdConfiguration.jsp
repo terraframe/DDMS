@@ -20,11 +20,11 @@
       <label>${thresholdCalculation.countingMethodMd.displayLabel}</label>
     </dt>
     <dd>
-      <mjl:radioGroup var="current" valueAttribute="enumName" varStatus="status" items="${methods}" param="calulationMethod">
-       <mjl:radioOption checked="${((status.index == 0 && thresholdCalculation.countingMethod) || (status.index == 1 && !thresholdCalculation.countingMethod)) ? 'checked' : 'false'}">
+      <mjl:group type="radio" var="current" valueAttribute="enumName" varStatus="status" items="${methods}" param="calulationMethod">
+       <mjl:groupOption checked="${((status.index == 0 && thresholdCalculation.countingMethod) || (status.index == 1 && !thresholdCalculation.countingMethod)) ? 'checked' : 'false'}">
           ${current.displayLabel}
-       </mjl:radioOption>
-      </mjl:radioGroup>
+       </mjl:groupOption>
+      </mjl:group>
     </dd>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">    
       <mjl:dt attribute="epidemicUniversal">

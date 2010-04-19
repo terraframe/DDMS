@@ -71,13 +71,13 @@
     <mjl:boolean param="showThematicValue" />
   </mjl:dt>
   <mjl:dt attribute="renderAs">
-    <mjl:radioGroup var="current" valueAttribute="enumName" items="${renderAsOptions}" param="renderAs">
-      <mjl:radioOption
+    <mjl:group type="radio" var="current" valueAttribute="enumName" items="${renderAsOptions}" param="renderAs">
+      <mjl:groupOption
         value="${currentEnumName}"
         checked="${mjl:contains(layer.renderAsEnumNames, current.enumName) ? 'checked' : 'false'}">
         ${current.displayLabel} 
-      </mjl:radioOption>
-    </mjl:radioGroup>
+      </mjl:groupOption>
+    </mjl:group>
   </mjl:dt>  
   <mjl:dt attribute="clipToBaseLayer">
     <mjl:boolean param="clipToBaseLayer" />

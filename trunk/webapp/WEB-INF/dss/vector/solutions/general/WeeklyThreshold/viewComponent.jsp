@@ -15,8 +15,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:commandLink name="dss.vector.solutions.general.ThresholdData.form.view.link" action="dss.vector.solutions.general.ThresholdDataController.view.mojo" display="${item.parent.keyName}">
+        <mjl:commandLink name="dss.vector.solutions.general.ThresholdData.form.view.link" action="dss.vector.solutions.general.ThresholdDataController.view.mojo" >
           <mjl:property name="id" value="${item.parentId}" />
+          ${item.parent.keyName}
         </mjl:commandLink>
       </dd>
       <dt>
@@ -25,8 +26,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:commandLink name="dss.vector.solutions.general.EpiWeek.form.view.link" action="dss.vector.solutions.general.EpiWeekController.view.mojo" display="${item.parent.keyName}">
+        <mjl:commandLink name="dss.vector.solutions.general.EpiWeek.form.view.link" action="dss.vector.solutions.general.EpiWeekController.view.mojo">
           <mjl:property name="id" value="${item.parentId}" />
+          ${item.parent.keyName}
         </mjl:commandLink>
       </dd>
       <mjl:dt attribute="identification">

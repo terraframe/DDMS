@@ -14,8 +14,9 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.activeIngredient.displayLabel}" action="dss.vector.solutions.mo.ActiveIngredientController.view.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.view.link">
+      <mjl:commandLink action="dss.vector.solutions.mo.ActiveIngredientController.view.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.view.link">
         <mjl:property value="${item.activeIngredient.id}" name="id" />
+        ${item.activeIngredient.displayLabel}
       </mjl:commandLink>
     </dd>
     <dt>
