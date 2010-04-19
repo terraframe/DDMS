@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<script type="text/javascript" src="js/disease/malaria/navMenu.js"></script>
 <div class="navContainer" style="min-width: 1152px;">
  <div id="mainNav" class="yuimenubar yuimenubarnav">
       <div class="bd">
@@ -12,9 +12,6 @@
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Entomology_Surveillance"/></a>
-              </li>
-              <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Surveys"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Intervention_Planning"/></a>
