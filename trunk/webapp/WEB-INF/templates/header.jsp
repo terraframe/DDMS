@@ -3,5 +3,5 @@
 
 <%@ include file="/WEB-INF/templates/banner.jsp"%>
 
-<c:set var="disease" value="malaria"></c:set>
+<c:set var="disease" value="dengue"></c:set>
 <jsp:include page="/WEB-INF/disease/${disease}/navMenu.jsp" />
