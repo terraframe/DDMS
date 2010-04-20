@@ -116,11 +116,11 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	        	   submenu: {
 	        	   id: "Collections_of_Immatures",
 	        	   itemdata: [
-	        	              { text: "Immatures_Thresholds(DDSS903B)", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Immatures_by_Container_Type(DDSS903)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Query_Immatures_by_Container_Type(DDSS904)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Pupae_by_Individual_Container(DDSS905)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Query_Pupae_by_Individual_Container(DDSS906)", url: "dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" , visibleTo:'Administrator'}
+	        	              { text: "Immatures_Thresholds(DDSS903B)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
+	        	              { text: "Immatures_by_Container_Type(DDSS903)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
+	        	              { text: "Query_Immatures_by_Container_Type(DDSS904)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
+	        	              { text: "Pupae_by_Individual_Container(DDSS905)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
+	        	              { text: "Query_Pupae_by_Individual_Container(DDSS906)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'}
 	        	              ]
             		}
 	           },
@@ -129,11 +129,11 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	        	   submenu: {
 	        	   id: "Assays",
 	        	   itemdata: [
-	        	              { text: "Configure_Entomology_Variables", url: "dss.vector.solutions.entomology.ResistancePropertyController.viewAll.mojo", visibleTo:'Administrator' },
-	        	              { text: "Enter_bioassays(901)", url: "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'Administrator' },
-	        	              { text: "Manage_Knock_Down_Properties(009)", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'Administrator'},
-	        	              { text: "Manage_Lethal_Properties(009)", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'Administrator'},
+        		              { text: "Enter_Infection_Assays(018)", url: "dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo", visibleTo:'Administrator' },
+ 	        		          { text: "Enter_Mechanism_Assays(013)", url: "dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo", visibleTo:'Administrator' },
+	        		          { text: "Query_Entomology(145)", url: "dss.vector.solutions.query.QueryController.queryEntomology.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Enter_Bioassays(DDSS901)", url: "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo" , visibleTo:'Administrator'},
+	        	              { text: "Query_Bioassays(DDSS902)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
 	        	              ]
 	          		}
 	           },
@@ -149,8 +149,8 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 {
 	id: "Intervention_Monitoring",
 	itemdata: [
-	           { text: "Intervention_Control(DDSS907)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
-               { text: "Query_Intervention_Control(DDSS909)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
+	           { text: "Intervention_Control(DDSS907)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
+               { text: "Query_Intervention_Control(DDSS909)", url: "notYetImplemented.jsp" , visibleTo:'Administrator'},
 	           ]
 },
 {
