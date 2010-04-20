@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!--The root element of the xml schema-->
-  <xs:element name="TerraFrame" type="rootOptions" />
+  <xs:element name="Runway" type="rootOptions" />
 
   <xs:complexType name="rootOptions">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -38,6 +38,7 @@
           <xs:element name="mdException" type="mdException" />
           <xs:element name="mdProblem" type="mdException" />
           <xs:element name="mdInformation" type="mdException" />
+          <xs:element name="mdWarning" type="mdException" />
           <xs:element name="mdView" type="mdView" />
           <xs:element name="mdUtil" type="mdSession" />
           <xs:element name="mdController" type="mdController" />
@@ -68,6 +69,7 @@
         <xs:element name="mdException" type="mdException" />
         <xs:element name="mdProblem" type="mdException" />
         <xs:element name="mdInformation" type="mdException" />
+        <xs:element name="mdWarning" type="mdException" />
         <xs:element name="mdView" type="mdView" />
         <xs:element name="mdUtil" type="mdSession" />
         <xs:element name="mdController" type="mdController" />
