@@ -241,6 +241,13 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 
 	           ]
 },
+{
+	id: "Disease",
+	itemdata: [
+	           { text: "Malaria", url: "#" , visibleTo:'Administrator',checked:true},
+	           { text: "Dengue", url: "#" , visibleTo:'Administrator'}
+	           ]
+}
 ];
 
 
