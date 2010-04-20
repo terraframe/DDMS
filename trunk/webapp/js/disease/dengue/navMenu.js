@@ -141,7 +141,7 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 {
 	id: "Intervention_Planning",
 	itemdata: [
-	           { text: "Planning_Calculator(DDSS911)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
+	           { text: "Planning_Calculator(DDSS911)", url: "planningCalculator.jsp" , visibleTo:'Administrator'},
                { text: "Configure_Application_Rate(106)", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
 	           ]
 },

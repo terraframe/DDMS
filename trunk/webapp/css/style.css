@@ -977,6 +977,19 @@ width: 865px;
 vertical-align: top;
 }
 
+#planningCalculator th, #planningCalculator td {
+padding: 0 10px;
+width: 190px;
+}
+
+#planningCalculator dt {
+margin-bottom: 5px;
+}
+
+#planningCalculator dd {
+margin-bottom: 30px;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
