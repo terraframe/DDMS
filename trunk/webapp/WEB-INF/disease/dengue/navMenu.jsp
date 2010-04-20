@@ -26,6 +26,9 @@
                   <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="GIS"/></a>
               </li>
               <li class="yuimenubaritem">
+                  <a class="yuimenubaritemlabel" href="#" tabindex="-1"><fmt:message key="Disease"/></a>
+              </li>
+              <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="com.runwaysdk.defaults.LoginController.logout.mojo" tabindex="-1"><fmt:message key="Log_Out"/></a>
               </li>
               <li class="yuimenubaritem">
