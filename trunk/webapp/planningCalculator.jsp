@@ -5,11 +5,54 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
-<c:set var="page_title" value="About"  scope="request"/>
+<c:set var="page_title" value="Planning_Calculator"  scope="request"/>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="Planning_Calculator"/></div>
+
+<script>
+function round(n, places) {
+	var d = Math.pow(10,places);
+	return Math.round(n * d)/d
+}
+
+function calculate(aName, bName, cName, d, resultName) {
+	var a = aName ? parseFloat(document.getElementById(aName).value) : NaN;
+	var b = bName ? parseFloat(document.getElementById(bName).value) : NaN;
+	var c = cName ? parseFloat(document.getElementById(cName).value) : 1;
+	var result = round(a * b * c / d, 2);
+	if (isNaN(result)) {
+		document.getElementById(resultName).value = "";
+	} else {
+		document.getElementById(resultName).value = result;
+	} 
+}
+
+function pmc() {
+	calculate("pmc.blocks", "pmc.units-per-block", "pmc.days-per-unit", 1, "pmc.days");
+}
+
+function pgic() {
+	calculate("pgic.blocks", "pgic.units-per-block", "pgic.grams-per-unit", 1000, "pgic.kilograms");
+}
+
+function psic() {
+	calculate("psic.blocks", "psic.units-per-block", "psic.liters-per-unit", 1, "psic.liters");
+}
+
+function pmic() {
+	calculate("pmic.blocks", "pmic.units-per-block", "pmic.itms-per-unit", 1, "pmic.itms");
+}
+
+function vmc() {
+	calculate("vmc.blocks", "vmc.minutes-per-block", undefined, 60, "vmc.hours");
+}
+
+function vsic() {
+	calculate("vsic.blocks", "vsic.liters-per-block", undefined, 1000, "vsic.kiloliters");
+}
+</script>
 
 <dl id="planningCalculator">
 	<dt>
@@ -24,9 +67,9 @@
 				<th><fmt:message key="Days_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="pmc.blocks" /></td>
-				<td><input type="text" id="pmc.units-per-block" /></td>
-				<td><input type="text" id="pmc.days-per-unit" /></td>
+				<td><input type="text" id="pmc.blocks" onkeyup="pmc();" /></td>
+				<td><input type="text" id="pmc.units-per-block" onkeyup="pmc();" /></td>
+				<td><input type="text" id="pmc.days-per-unit" onkeyup="pmc();" /></td>
 				<td><input type="text" id="pmc.days" disabled="disabled"/></td>
 			</tr>
 		</table>
@@ -44,9 +87,9 @@
 				<th><fmt:message key="Kilograms_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="pgic.blocks" /></td>
-				<td><input type="text" id="pgic.units-per-block" /></td>
-				<td><input type="text" id="pgic.grams-per-unit" /></td>
+				<td><input type="text" id="pgic.blocks" onkeyup="pgic();" /></td>
+				<td><input type="text" id="pgic.units-per-block" onkeyup="pgic();" /></td>
+				<td><input type="text" id="pgic.grams-per-unit" onkeyup="pgic();" /></td>
 				<td><input type="text" id="pgic.kilograms" disabled="disabled"/></td>
 			</tr>
 		</table>
@@ -64,9 +107,9 @@
 				<th><fmt:message key="Liters_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="psic.blocks" /></td>
-				<td><input type="text" id="psic.units-per-block" /></td>
-				<td><input type="text" id="psic.liters-per-unit" /></td>
+				<td><input type="text" id="psic.blocks" onkeyup="psic();" /></td>
+				<td><input type="text" id="psic.units-per-block" onkeyup="psic();" /></td>
+				<td><input type="text" id="psic.liters-per-unit" onkeyup="psic();" /></td>
 				<td><input type="text" id="psic.liters" disabled="disabled"/></td>
 			</tr>
 		</table>
@@ -84,9 +127,9 @@
 				<th><fmt:message key="ITMs_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="pmic.blocks" /></td>
-				<td><input type="text" id="pmic.units-per-block" /></td>
-				<td><input type="text" id="pmic.itms-per-unit" /></td>
+				<td><input type="text" id="pmic.blocks" onkeyup="pmic();" /></td>
+				<td><input type="text" id="pmic.units-per-block" onkeyup="pmic();" /></td>
+				<td><input type="text" id="pmic.itms-per-unit" onkeyup="pmic();" /></td>
 				<td><input type="text" id="pmic.itms" disabled="disabled"/></td>
 			</tr>
 		</table>
@@ -100,13 +143,13 @@
 			<tr valign="top">
 				<th><fmt:message key="Blocks_Targeted"/></th>
 				<th><fmt:message key="Minutes_Per_Block"/></th>
-				<th></th>
+				<th>&nbsp;</th>
 				<th><fmt:message key="Hours_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="vmc.blocks" /></td>
-				<td><input type="text" id="vmc.minutes-per-block" /></td>
-				<td></td>
+				<td><input type="text" id="vmc.blocks" onkeyup="vmc();" /></td>
+				<td><input type="text" id="vmc.minutes-per-block" onkeyup="vmc();" /></td>
+				<td>&nbsp;</td>
 				<td><input type="text" id="vmc.hours" disabled="disabled"/></td>
 			</tr>
 		</table>
@@ -120,13 +163,13 @@
 			<tr valign="top">
 				<th><fmt:message key="Blocks_Targeted"/></th>
 				<th><fmt:message key="Liters_Per_Block"/></th>
-				<th></th>
+				<th>&nbsp;</th>
 				<th><fmt:message key="Kiloliters_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="vsic.blocks" /></td>
-				<td><input type="text" id="vsic.liters-per-block" /></td>
-				<td></td>
+				<td><input type="text" id="vsic.blocks" onkeyup="vsic();" /></td>
+				<td><input type="text" id="vsic.liters-per-block" onkeyup="vsic();" /></td>
+				<td>&nbsp;</td>
 				<td><input type="text" id="vsic.kiloliters" disabled="disabled"/></td>
 			</tr>
 		</table>
