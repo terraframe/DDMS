@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1660558001)
+@com.runwaysdk.business.ClassSignature(hash = -1395124630)
 public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = -1660558001;
+  private static final long serialVersionUID = -1395124630;
   
   protected GeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -44,6 +44,7 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String URBAN = "urban";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public java.util.Date getCreateDate()
   {
@@ -563,6 +564,43 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isUrbanWritable()
+  {
+    return isWritable(URBAN);
+  }
+  
+  public boolean isUrbanReadable()
+  {
+    return isReadable(URBAN);
+  }
+  
+  public boolean isUrbanModified()
+  {
+    return isModified(URBAN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
   }
   
   public Boolean getViewCreated()

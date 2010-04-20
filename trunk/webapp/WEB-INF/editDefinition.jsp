@@ -82,6 +82,17 @@
           <mjl:message />
         </mjl:messages>
       </dd>
+      <dt>
+        <label>
+          ${definition.urbanMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="urban" />
+        <mjl:messages attribute="urban">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
     </mjl:component>
     <mjl:command value="Update" action="dss.vector.solutions.geo.GeoEntityTypeController.updateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.updateDefinition.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelUpdateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelUpdateDefinition.button" />

@@ -804,6 +804,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     geoHierarchy.setGeoEntityClass(mdGeoEntity);
     geoHierarchy.setTerm(definition.getTerm());
     geoHierarchy.setPopulationAllowed(definition.getPopulationAllowed());
+    geoHierarchy.setUrban(definition.getUrban());
     geoHierarchy.apply();
     
     // IMPORTANT: geoHierarchy.apply() causes a reload which causes a class cast exception when
@@ -991,11 +992,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     
     boolean isPolitical = this.getPolitical();
     boolean isSpray = this.getSprayTargetAllowed();
+    boolean isUrban = this.getUrban();
 
     boolean politicalParent = false;
     boolean sprayParent = false;
     boolean politicalChild = false;
     boolean sprayChild = false;
+    boolean urbanParent = false;
+    boolean urbanChild = false;
 
     for (GeoHierarchy parent : parents)
     {
@@ -1009,6 +1013,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (parent.getSprayTargetAllowed())
       {
         sprayParent = true;
+      }
+      
+      if(parent.getUrban())
+      {
+        urbanParent = true;
       }
 
       // To avoid branching, we must check the immediate children of each
@@ -1028,6 +1037,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         if (child.getSprayTargetAllowed())
         {
           sprayChild = true;
+        }
+        
+        if(child.getUrban())
+        {
+          urbanChild = true;
         }
       }
     }
@@ -1085,6 +1099,33 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         child.apply();
       }
     }
+    
+    // check urban hierarchy
+    if(isUrban && !urbanParent)
+    {
+      String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
+      " gap in the urban hierarchy.";
+      HierarchyGapException ex = new HierarchyGapException(msg);
+      throw ex;
+    }
+    else if(isUrban && urbanChild)
+    {
+      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the urban hierarchy.";
+      HierarchyBranchException ex = new HierarchyBranchException(msg);
+      throw ex;
+    }
+    else if(!isUrban)
+    {
+      // Urban has been set to false, so set all of its children spray
+      // flags to false. Since no branching is allowed we can safely modify all
+      // children.
+      for (GeoHierarchy child : this.getAllChildren())
+      {
+        child.appLock();
+        child.setUrban(false);
+        child.apply();
+      }
+    }
   }
 
   @Transaction
@@ -1098,7 +1139,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
     geoHierarchy.setTerm(view.getTerm());
     geoHierarchy.setPopulationAllowed(view.getPopulationAllowed());
-
+    geoHierarchy.setUrban(view.getUrban());
+    
     geoHierarchy.validateConsistentHierarchy();
 
     geoHierarchy.apply();
@@ -1327,6 +1369,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     GeoHierarchyView view = new GeoHierarchyView();
     view.setPolitical(this.getPolitical());
     view.setSprayTargetAllowed(this.getSprayTargetAllowed());
+    view.setUrban(this.getUrban());
     view.setDescription(md.getDescription().getValue());
     view.setTypeName(md.getTypeName());
     view.setDisplayLabel(md.getDisplayLabel().getValue());

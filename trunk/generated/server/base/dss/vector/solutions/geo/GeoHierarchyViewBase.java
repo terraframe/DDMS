@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1722177261)
+@com.runwaysdk.business.ClassSignature(hash = -1261144448)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,7 +22,8 @@ public abstract class GeoHierarchyViewBase extends com.runwaysdk.business.View i
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = -1722177261;
+  public static java.lang.String URBAN = "urban";
+  private static final long serialVersionUID = -1261144448;
   
   public GeoHierarchyViewBase()
   {
@@ -329,6 +330,34 @@ public abstract class GeoHierarchyViewBase extends com.runwaysdk.business.View i
     else
     {
       setValue(TYPENAME, value);
+    }
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void validateUrban()
+  {
+    this.validateAttribute(URBAN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrbanMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
+    return mdClassIF.definesAttribute(URBAN);
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
     }
   }
   

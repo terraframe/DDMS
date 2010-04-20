@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 616441144)
+@com.runwaysdk.business.ClassSignature(hash = 340824211)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 616441144;
+private static final long serialVersionUID = 340824211;
 
   public GeoHierarchyQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -368,6 +368,23 @@ private static final long serialVersionUID = 616441144;
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getUrban()
+  {
+    return getUrban(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.URBAN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.geo.GeoHierarchy.URBAN, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getViewCreated()
@@ -741,6 +758,9 @@ private static final long serialVersionUID = 616441144;
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getUrban();
+    public com.runwaysdk.query.SelectableBoolean getUrban(String alias);
+    public com.runwaysdk.query.SelectableBoolean getUrban(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getViewCreated();
     public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias);
     public com.runwaysdk.query.SelectableBoolean getViewCreated(String alias, String displayLabel);
@@ -811,7 +831,7 @@ private static final long serialVersionUID = 616441144;
  implements GeoHierarchyQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1257369510;
+private static final long serialVersionUID = 1320141877;
 
   public GeoHierarchyQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1117,6 +1137,23 @@ private static final long serialVersionUID = -1257369510;
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.GeoHierarchy.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getUrban()
+  {
+    return getUrban(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.URBAN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.geo.GeoHierarchy.URBAN, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getViewCreated()

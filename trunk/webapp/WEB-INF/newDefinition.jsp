@@ -77,6 +77,14 @@
       <dd>
         <mjl:boolean param="populationAllowed" />
       </dd>
+      <dt>
+        <label>
+          ${definition.urbanMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="urban" />
+      </dd>
     </mjl:component>
     <mjl:command value="Create" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />

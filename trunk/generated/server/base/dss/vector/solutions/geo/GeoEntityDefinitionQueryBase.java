@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -914632205)
+@com.runwaysdk.business.ClassSignature(hash = -1931499680)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoEntityDefinitionQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -914632205;
+private static final long serialVersionUID = -1931499680;
 
   public GeoEntityDefinitionQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -186,6 +186,24 @@ private static final long serialVersionUID = -914632205;
   public com.runwaysdk.query.SelectableChar getTypeName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.TYPENAME, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban()
+  {
+    return getUrban(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.URBAN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getUrban(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.URBAN, alias, displayLabel);
 
   }
  

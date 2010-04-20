@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1221538378)
+@com.runwaysdk.business.ClassSignature(hash = -1695421449)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,7 +20,8 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1221538378;
+  public static java.lang.String URBAN = "urban";
+  private static final long serialVersionUID = -1695421449;
   
   public GeoEntityDefinitionBase()
   {
@@ -271,6 +272,34 @@ public abstract class GeoEntityDefinitionBase extends com.runwaysdk.business.Vie
     else
     {
       setValue(TYPENAME, value);
+    }
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void validateUrban()
+  {
+    this.validateAttribute(URBAN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrbanMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
+    return mdClassIF.definesAttribute(URBAN);
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
     }
   }
   

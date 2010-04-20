@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1245315274)
+@com.runwaysdk.business.ClassSignature(hash = 1554520695)
 public abstract class GeoEntityDefinitionDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityDefinition";
-  private static final long serialVersionUID = 1245315274;
+  private static final long serialVersionUID = 1554520695;
   
   protected GeoEntityDefinitionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -25,6 +25,7 @@ public abstract class GeoEntityDefinitionDTOBase extends com.runwaysdk.business.
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
+  public static java.lang.String URBAN = "urban";
   public String getDescription()
   {
     return getValue(DESCRIPTION);
@@ -326,6 +327,43 @@ public abstract class GeoEntityDefinitionDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTypeNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPENAME).getAttributeMdDTO();
+  }
+  
+  public Boolean getUrban()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(URBAN));
+  }
+  
+  public void setUrban(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(URBAN, "");
+    }
+    else
+    {
+      setValue(URBAN, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isUrbanWritable()
+  {
+    return isWritable(URBAN);
+  }
+  
+  public boolean isUrbanReadable()
+  {
+    return isReadable(URBAN);
+  }
+  
+  public boolean isUrbanModified()
+  {
+    return isModified(URBAN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
   }
   
   public static GeoEntityDefinitionDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
