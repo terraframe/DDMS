@@ -21,7 +21,6 @@ import dss.vector.solutions.RequiredCollectionProblemDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.RedirectUtility;
 
 public class AssayController extends AssayControllerBase implements Reloadable
 {
@@ -331,11 +330,6 @@ public class AssayController extends AssayControllerBase implements Reloadable
       collectionId = req.getParameter("collection_id");
     }    
     
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("collectionId", collectionId);
-    utility.put("collectionInput", collectionInput);
-    utility.checkURL(this.getClass().getSimpleName(), "getResistanceAssays");
-    
     try
     {
       validateParameters(collectionId, collectionInput);
@@ -374,8 +368,8 @@ public class AssayController extends AssayControllerBase implements Reloadable
   }
   
   @Override
-  public void failSearchResistanceAssays() throws IOException, ServletException
-  {
+  public void failGetResistanceAssays(String collectionId) throws IOException, ServletException
+  {  
     this.searchResistanceAssays();
   }
   
