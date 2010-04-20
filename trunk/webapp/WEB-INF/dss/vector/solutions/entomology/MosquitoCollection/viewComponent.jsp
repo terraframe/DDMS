@@ -60,12 +60,18 @@
          <mdss:selectBoolean param="abundance" id="abundance" includeBlank="true" value="${item.abundance == null ? '' : item.abundance}"/>
        </mjl:dt>
     </mjl:component>
-    <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
-    <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
-    <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>
+    <c:choose>
+      <c:when test="${false}">
+        <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
+        <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
+        <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>      
+      </c:when>
+      <c:otherwise>
+        <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Bioassays"/>
+      </c:otherwise>
+    </c:choose>
     <mjl:command name="ia.button" id="ia.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assays"/>
     <mjl:command name="ma.button" id="ma.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Mechanism_Assays"/>
-    <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Bioassays"/>
     <mjl:command name="delete" id="delete.button" classes="button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="Delete"/>
   </mjl:form>
 </dl>

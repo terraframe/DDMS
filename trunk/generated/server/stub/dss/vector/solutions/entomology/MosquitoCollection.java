@@ -109,6 +109,21 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
       assay.deleteConcrete();
     }
 
+    // DELETE ALL BIOASSAYS
+    DiagnosticAssayView[] diagnosticAssays = view.getDiagnosticAssays();
+    
+    for (DiagnosticAssayView assay : diagnosticAssays)
+    {
+      assay.deleteConcrete();
+    }
+    
+    TimeResponseAssayView[] timeResponseAssays = view.getTimeResponseAssays();
+    
+    for (TimeResponseAssayView assay : timeResponseAssays)
+    {
+      assay.deleteConcrete();
+    }
+    
     super.delete();
   }
 
