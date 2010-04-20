@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1091762800)
+@com.runwaysdk.business.ClassSignature(hash = 1915301165)
 public class MosquitoCollectionControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionController";
@@ -10,7 +10,7 @@ public class MosquitoCollectionControllerBase implements com.runwaysdk.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1091762800;
+  private static final long serialVersionUID = 1915301165;
   
   public MosquitoCollectionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -36,7 +36,7 @@ public class MosquitoCollectionControllerBase implements com.runwaysdk.generatio
       }
       else
       {
-        req.setAttribute("jsp", dir+jsp);
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
         req.getRequestDispatcher(layout).forward(req, resp);
       }
     }
@@ -191,6 +191,20 @@ public class MosquitoCollectionControllerBase implements com.runwaysdk.generatio
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSearchByParameters");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:collectionId, java.lang.String:comments", post=true)
+  public void setResistanceAssayComment(java.lang.String collectionId, java.lang.String comments) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.setResistanceAssayComment");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:collectionId, java.lang.String:comments", post=true)
+  public void failSetResistanceAssayComment(java.lang.String collectionId, java.lang.String comments) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.MosquitoCollectionController.failSetResistanceAssayComment");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber, java.lang.String:collectionId, java.lang.String:assayType", post=false)

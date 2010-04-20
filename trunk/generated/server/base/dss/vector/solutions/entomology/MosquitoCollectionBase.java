@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1931329553)
+@com.runwaysdk.business.ClassSignature(hash = 1764423653)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,10 +27,11 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   public static java.lang.String LIFESTAGENAME = "lifeStageName";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1931329553;
+  private static final long serialVersionUID = 1764423653;
   
   public MosquitoCollectionBase()
   {
@@ -469,6 +470,34 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public String getResistanceAssayComments()
+  {
+    return getValue(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void validateResistanceAssayComments()
+  {
+    this.validateAttribute(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResistanceAssayCommentsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollection.CLASS);
+    return mdClassIF.definesAttribute(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void setResistanceAssayComments(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, "");
+    }
+    else
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, value);
     }
   }
   

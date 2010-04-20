@@ -45,6 +45,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     this.setAbundance(concrete.getAbundance());
     this.setCollectionMethod(method);
     this.setCollectionId(concrete.getCollectionId());
+    this.setResistanceAssayComments(concrete.getResistanceAssayComments());
     this.clearLifeStage();
 
     for (LifeStage stage : concrete.getLifeStage())
@@ -70,6 +71,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     concrete.setAbundance(this.getAbundance());
     concrete.setCollectionMethod(this.getCollectionMethod());
     concrete.setCollectionId(this.getCollectionId());
+    concrete.setResistanceAssayComments(this.getResistanceAssayComments());
     concrete.clearLifeStage();
 
     for (LifeStage stage : this.getLifeStage())
@@ -87,6 +89,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     new AttributeNotificationMap(concrete, MosquitoCollection.COLLECTIONMETHOD, this, MosquitoCollectionView.COLLECTIONMETHOD);
     new AttributeNotificationMap(concrete, MosquitoCollection.ABUNDANCE, this, MosquitoCollectionView.ABUNDANCE);
     new AttributeNotificationMap(concrete, MosquitoCollection.LIFESTAGE, this, MosquitoCollectionView.LIFESTAGE);
+    new AttributeNotificationMap(concrete, MosquitoCollection.RESISTANCEASSAYCOMMENTS, this, MosquitoCollectionView.RESISTANCEASSAYCOMMENTS);
   }
 
   @Override
@@ -265,7 +268,57 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     return new MolecularAssayView[0];
   }
+  
+  @Override
+  public DiagnosticAssayView[] getDiagnosticAssays()
+  {
+    if (this.hasConcrete())
+    {
+      DiagnosticAssayViewQuery query = new DiagnosticAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
 
+      OIterator<? extends DiagnosticAssayView> it = query.getIterator();
+
+      try
+      {
+        List<? extends DiagnosticAssayView> list = it.getAll();
+
+        return list.toArray(new DiagnosticAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return new DiagnosticAssayView[0];
+  }
+  
+  @Override
+  public TimeResponseAssayView[] getTimeResponseAssays()
+  {
+    if (this.hasConcrete())
+    {
+      TimeResponseAssayViewQuery query = new TimeResponseAssayViewQuery(new QueryFactory());
+      query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+      
+      OIterator<? extends TimeResponseAssayView> it = query.getIterator();
+      
+      try
+      {
+        List<? extends TimeResponseAssayView> list = it.getAll();
+        
+        return list.toArray(new TimeResponseAssayView[list.size()]);
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+    
+    return new TimeResponseAssayView[0];
+  }
+  
   public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());

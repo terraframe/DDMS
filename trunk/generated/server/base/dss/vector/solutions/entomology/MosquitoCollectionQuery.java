@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1245178280)
+@com.runwaysdk.business.ClassSignature(hash = -285949924)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  class MosquitoCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1245178280;
+private static final long serialVersionUID = -285949924;
 
   public MosquitoCollectionQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -359,6 +359,23 @@ private static final long serialVersionUID = -1245178280;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollection.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments()
+  {
+    return getResistanceAssayComments(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.RESISTANCEASSAYCOMMENTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.MosquitoCollection.RESISTANCEASSAYCOMMENTS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -544,6 +561,9 @@ private static final long serialVersionUID = -1245178280;
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getResistanceAssayComments();
+    public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias);
+    public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -568,7 +588,7 @@ private static final long serialVersionUID = -1245178280;
  implements MosquitoCollectionQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -504606342;
+private static final long serialVersionUID = 1000686650;
 
   public MosquitoCollectionQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -857,6 +877,23 @@ private static final long serialVersionUID = -504606342;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MosquitoCollection.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments()
+  {
+    return getResistanceAssayComments(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.MosquitoCollection.RESISTANCEASSAYCOMMENTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResistanceAssayComments(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.MosquitoCollection.RESISTANCEASSAYCOMMENTS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()

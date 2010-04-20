@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -383238468)
+@com.runwaysdk.business.ClassSignature(hash = 1742229678)
 public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = -383238468;
+  private static final long serialVersionUID = 1742229678;
   
   protected MosquitoCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -26,6 +26,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
+  public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
   public Boolean getAbundance()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ABUNDANCE));
@@ -382,6 +383,43 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
   }
   
+  public String getResistanceAssayComments()
+  {
+    return getValue(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void setResistanceAssayComments(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, "");
+    }
+    else
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, value);
+    }
+  }
+  
+  public boolean isResistanceAssayCommentsWritable()
+  {
+    return isWritable(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public boolean isResistanceAssayCommentsReadable()
+  {
+    return isReadable(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public boolean isResistanceAssayCommentsModified()
+  {
+    return isModified(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getResistanceAssayCommentsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RESISTANCEASSAYCOMMENTS).getAttributeMdDTO();
+  }
+  
   public final dss.vector.solutions.entomology.SubCollectionViewDTO[] applyAll(dss.vector.solutions.entomology.SubCollectionViewDTO[] subCollections)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.entomology.SubCollectionView;"};
@@ -452,6 +490,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     Object[] _parameters = new Object[]{collection};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getCollection", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.DiagnosticAssayViewDTO[] getDiagnosticAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getDiagnosticAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.DiagnosticAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.DiagnosticAssayViewDTO[] getDiagnosticAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getDiagnosticAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.DiagnosticAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.entomology.InfectionAssayViewDTO[] getInfectionAssays()
@@ -556,6 +610,22 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getSubCollections", _declaredTypes);
     return (dss.vector.solutions.entomology.SubCollectionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.TimeResponseAssayViewDTO[] getTimeResponseAssays()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getTimeResponseAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.TimeResponseAssayViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.TimeResponseAssayViewDTO[] getTimeResponseAssays(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getTimeResponseAssays", _declaredTypes);
+    return (dss.vector.solutions.entomology.TimeResponseAssayViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.entomology.MosquitoCollectionViewDTO getViewByCollectionId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String collectionId)

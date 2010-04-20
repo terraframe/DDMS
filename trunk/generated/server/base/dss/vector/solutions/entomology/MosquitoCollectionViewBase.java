@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1871708868)
+@com.runwaysdk.business.ClassSignature(hash = -2134031826)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,8 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
-  private static final long serialVersionUID = -1871708868;
+  public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
+  private static final long serialVersionUID = -2134031826;
   
   public MosquitoCollectionViewBase()
   {
@@ -320,6 +321,34 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     return mdClassIF.definesAttribute(LIFESTAGE);
   }
   
+  public String getResistanceAssayComments()
+  {
+    return getValue(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void validateResistanceAssayComments()
+  {
+    this.validateAttribute(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getResistanceAssayCommentsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
+    return mdClassIF.definesAttribute(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void setResistanceAssayComments(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, "");
+    }
+    else
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, value);
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -382,6 +411,18 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.entomology.DiagnosticAssayView[] getDiagnosticAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.DiagnosticAssayView[] getDiagnosticAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getDiagnosticAssays();
   }
   
   public dss.vector.solutions.entomology.InfectionAssayView[] getInfectionAssays()
@@ -460,6 +501,18 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   {
     MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
     return _instance.getSubCollections();
+  }
+  
+  public dss.vector.solutions.entomology.TimeResponseAssayView[] getTimeResponseAssays()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.TimeResponseAssayView[] getTimeResponseAssays(java.lang.String id)
+  {
+    MosquitoCollectionView _instance = MosquitoCollectionView.get(id);
+    return _instance.getTimeResponseAssays();
   }
   
   public static dss.vector.solutions.entomology.MosquitoCollectionView getViewByCollectionId(java.lang.String collectionId)

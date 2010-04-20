@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 37993919)
+@com.runwaysdk.business.ClassSignature(hash = -534085476)
 public class AssayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.entomology.AssayController";
@@ -10,7 +10,7 @@ public class AssayControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 37993919;
+  private static final long serialVersionUID = -534085476;
   
   public AssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -36,7 +36,7 @@ public class AssayControllerBase implements com.runwaysdk.generation.loader.Relo
       }
       else
       {
-        req.setAttribute("jsp", dir+jsp);
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
         req.getRequestDispatcher(layout).forward(req, resp);
       }
     }
@@ -95,6 +95,20 @@ public class AssayControllerBase implements com.runwaysdk.generation.loader.Relo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failGetMechanismAssays");
   }
   
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:collectionId", post=false)
+  public void getResistanceAssays(java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.getResistanceAssays");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:collectionId", post=false)
+  public void failGetResistanceAssays(java.lang.String collectionId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failGetResistanceAssays");
+  }
+  
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
   public void searchInfectionAssay() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -121,6 +135,20 @@ public class AssayControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failSearchMechanismAssay");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void searchResistanceAssays() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.searchResistanceAssays");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void failSearchResistanceAssays() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AssayController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.AssayController.failSearchResistanceAssays");
   }
   
 }

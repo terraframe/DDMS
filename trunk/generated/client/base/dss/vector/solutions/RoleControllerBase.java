@@ -36,7 +36,7 @@ public class RoleControllerBase implements com.runwaysdk.generation.loader.Reloa
       }
       else
       {
-        req.setAttribute("jsp", dir+jsp);
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
         req.getRequestDispatcher(layout).forward(req, resp);
       }
     }

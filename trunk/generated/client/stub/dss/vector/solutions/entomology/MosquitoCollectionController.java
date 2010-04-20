@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
-import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
@@ -68,25 +66,32 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     {
       dto.apply();
     }
-    catch (ProblemExceptionDTO e)
+    catch (Throwable t)
     {
-      if (this.isAsynchronous())
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
       {
-        JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-        resp.setStatus(500);
-        resp.getWriter().print(jsonE.getJSON());
+        this.view(dto.getConcreteId());
       }
+    }
+  }
+  
+  @Override
+  public void setResistanceAssayComment(String collectionId, String comments) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+      
+      MosquitoCollectionViewDTO view = MosquitoCollectionDTO.getView(request, collectionId);
+      view.setResistanceAssayComments(comments);      
+      view.apply();
     }
     catch (Throwable t)
     {
-      if (this.isAsynchronous())
-      {
-        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
-        resp.setStatus(500);
-        resp.getWriter().print(jsonE.getJSON());
-      }
+      ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
     }
-
   }
 
   public void create(MosquitoCollectionViewDTO dto) throws IOException, ServletException

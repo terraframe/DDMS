@@ -130,6 +130,7 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	        	   id: "Assays",
 	        	   itemdata: [
 	        	              { text: "Configure_Entomology_Variables", url: "dss.vector.solutions.entomology.ResistancePropertyController.viewAll.mojo", visibleTo:'Administrator' },
+	        	              { text: "Enter_bioassays(901)", url: "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo" , visibleTo:'Administrator'},
 	        	              { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'Administrator' },
 	        	              { text: "Manage_Knock_Down_Properties(009)", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'Administrator'},
 	        	              { text: "Manage_Lethal_Properties(009)", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'Administrator'},

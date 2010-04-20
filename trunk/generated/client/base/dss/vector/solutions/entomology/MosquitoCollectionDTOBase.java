@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1658056303)
+@com.runwaysdk.business.ClassSignature(hash = -183051931)
 public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
-  private static final long serialVersionUID = 1658056303;
+  private static final long serialVersionUID = -183051931;
   
   protected MosquitoCollectionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -43,6 +43,7 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public static java.lang.String LIFESTAGENAME = "lifeStageName";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
@@ -597,6 +598,43 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public String getResistanceAssayComments()
+  {
+    return getValue(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public void setResistanceAssayComments(String value)
+  {
+    if(value == null)
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, "");
+    }
+    else
+    {
+      setValue(RESISTANCEASSAYCOMMENTS, value);
+    }
+  }
+  
+  public boolean isResistanceAssayCommentsWritable()
+  {
+    return isWritable(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public boolean isResistanceAssayCommentsReadable()
+  {
+    return isReadable(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public boolean isResistanceAssayCommentsModified()
+  {
+    return isModified(RESISTANCEASSAYCOMMENTS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getResistanceAssayCommentsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RESISTANCEASSAYCOMMENTS).getAttributeMdDTO();
   }
   
   public Long getSeq()
