@@ -230,14 +230,6 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     var collectionId = document.getElementById('collectionId');
     var abundance = document.getElementById('abundance');
 
-    var ada_button = document.getElementById('ada.button');
-    var lda_button = document.getElementById('lda.button');
-    var kda_button = document.getElementById('kda.button');
-    var ia_button = document.getElementById('ia.button');    
-    var ma_button = document.getElementById('ma.button');
-    var ra_button = document.getElementById('ra.button');
-    var delete_button = document.getElementById('delete.button');    
-
     // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
     var buttonHandler = function() {
       var buttons = YAHOO.util.Dom.getElementsByClassName("button");
