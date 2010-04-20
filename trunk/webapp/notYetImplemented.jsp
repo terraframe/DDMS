@@ -5,11 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
-<c:set var="page_title" value="Not Yet Implemented"  scope="request"/>
+<c:set var="page_title" value="Not_Yet_Implemented"  scope="request"/>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
-<div class="pageTitle">Not Yet Implemented</div>
+<div class="pageTitle"><fmt:message key="Not_Yet_Implemented"/></div>
 <dl>
 The menu item you followed has not been implemented yet!
 </dl>
