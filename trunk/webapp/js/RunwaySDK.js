@@ -1,8 +1,3 @@
-// FIXME use special Error subclass that automatically logs messages to the Logger and extends Error
-// FIXME replace JSON with latest from crockford's site
-// always use getMethod() instead of grabbing the prototype copy? This could cause as many problems as it solves so be careful.
-// TODO add IsFinal notion to class and methods
-
 /**
  * Terraframe Mojo Javascript library.
  * 
@@ -39,7 +34,7 @@ var Mojo = {
       return obj;
     },
     
-    shorthand : function(pattern, attachTo)
+    shorthand : function(pattern, attachTo, includePackage)
     {
       var anchorObj = attachTo || Mojo.GLOBAL;
       
@@ -53,27 +48,16 @@ var Mojo = {
         if(re.test(className))
         {
           var klass = Mojo.Meta._classes[className];
-          anchorObj[klass.getMetaClass().getName()] = klass;
-        }
-      }
-    },
-    
-    alias : function(pattern, attachTo)
-    {
-      var anchorObj = attachTo || Mojo.GLOBAL;
-      
-      var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')+'$';
-      var re = new RegExp(r);
-      
-      var classNames = Mojo.Util.getKeys(Mojo.Meta._classes);
-      for(var i=0; i<classNames.length; i++)
-      {
-        var className = classNames[i];
-        if(re.test(className))
-        {
-          var klass = Mojo.Meta._classes[className];
-          var namespace = Mojo.Meta._buildPackage(klass.getMetaClass().getPackage(), anchorObj);
-          namespace[klass.getMetaClass().getName()] = klass;
+          
+          if(includePackage)
+          {
+            var namespace = Mojo.Meta._buildPackage(klass.getMetaClass().getPackage(), anchorObj);
+            namespace[klass.getMetaClass().getName()] = klass;
+          }
+          else
+          {
+            anchorObj[klass.getMetaClass().getName()] = klass;
+          }
         }
       }
     },
@@ -131,8 +115,9 @@ var Mojo = {
       var sInitialize = klass.prototype.initialize;
       klass.prototype.initialize = function(){
      
-        throw Error("Cannot instantiate the singleton class ["+this.getMetaClass().getQualifiedName()+"]. " +
-          "Use the static [getInstance()] method instead.");
+        var message = "Cannot instantiate the singleton class ["+this.getMetaClass().getQualifiedName()+"]. " +
+          "Use the static [getInstance()] method instead.";
+        throw new com.runwaysdk.Exception(message);        
       };
       
       klass.getInstance = (function(sInit){
@@ -166,9 +151,7 @@ var Mojo = {
         if(Mojo.Meta._isInitialized && this.getMetaClass().isAbstract())
         {
           var msg = "Cannot instantiate the abstract class ["+this.getMetaClass().getQualifiedName()+"].";
-          var error = new Error(msg);
-          Mojo.log.LogManager.writeError(msg, error);
-          throw error;
+          throw new com.runwaysdk.Exception(msg);
         }
         
         this.__context = {}; // super context
@@ -230,29 +213,30 @@ var Mojo = {
     {
       var metaRef = qualifiedName === 'Mojo.Meta' ? this : Mojo.Meta;
 
+      if(definition == null)
+      {
+        definition = {};
+      }
+      
       var superClass;
       if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition.Extends))
       {
         superClass = definition.Extends;
-        if(!superClass)
-        {
-          throw new Error('The class ['+qualifiedName+'] does not extend a valid class.');
-        }
       }
       else if(Mojo.IS_STRING_TO_STRING === Object.prototype.toString.call(definition.Extends))
       {
         superClass = metaRef._classes[definition.Extends];
-        if(!superClass)
-        {
-          throw new Error('The class ['+qualifiedName+'] does not extend a valid class.');
-        }
       }
       else
       {
         superClass = metaRef._classes[Mojo.ROOT_PACKAGE+'Base'];
       }
       
-      var alias = definition.Alias || null;
+      if(!superClass)
+      {
+        throw new com.runwaysdk.Exception('The class ['+qualifiedName+'] does not extend a valid class.');
+      }
+      
       var constants = definition.Constants || {};
       var instances = definition.Instance || {};
       var statics = definition.Static || {};
@@ -284,15 +268,12 @@ var Mojo = {
       // wrap the constructor function
       var klass = metaRef._createConstructor();
       
-      // always add the namespace to the window
+      // always add the namespace to the global object and Mojo.$
       var namespace = metaRef._buildPackage(packageName, Mojo.GLOBAL);
       namespace[className] = klass;
        
-      if(alias !== null)
-      {
-        var namespace = metaRef._buildPackage(packageName, alias);
-        namespace[className] = klass;
-      }
+      namespace = metaRef._buildPackage(packageName, Mojo.$);
+      namespace[className] = klass;
       
       metaRef._classes[qualifiedName] = klass;
       
@@ -306,7 +287,7 @@ var Mojo = {
       // new A().constructor === A
       klass.prototype.constructor = klass;
 
-      // config obj for Class constructor
+      // config obj for MetaClass constructor
       var config = {
         packageName : packageName,
         className : className,
@@ -316,7 +297,6 @@ var Mojo = {
         instanceMethods : {},
         staticMethods : {},
         isAbstract : isAbstract,
-        alias : alias,
         qualifiedName : qualifiedName,
         isSingleton : isSingleton,
         constants : []
@@ -359,14 +339,14 @@ var Mojo = {
       // attach the metadata Class
       if(definition.Native)
       {
-        // Class will be constructed later to complete bootstrapping
+        // MetaClass will be constructed later to complete bootstrapping
         klass.__metaClass = config;
         klass.prototype.__metaClass = config;
         Mojo.Meta._native.push(klass);
       }
       else
       {
-        var cKlass = Mojo.$.com.runwaysdk.Class;
+        var cKlass = Mojo.$.com.runwaysdk.MetaClass;
         
         klass.__metaClass = new cKlass(config);
         klass.prototype.__metaClass = klass.__metaClass;
@@ -402,8 +382,6 @@ var Mojo = {
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
 
-  Alias : Mojo.$,
-  
   Native : true,
   
   IsAbstract : true,
@@ -428,6 +406,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
       return Mojo.Meta.newInstance(this.getMetaClass().getQualifiedName(), [].splice.call(arguments, 0));
     },
     
+    valueOf : function()
+    {
+      return this;
+    },
+    
     toString : function()
     {
       return '['+this.getMetaClass().getQualifiedName()+'] instance';
@@ -435,7 +418,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
   }
 });
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
+Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
 
   Alias: Mojo.$,
   
@@ -452,7 +435,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       this._isSingleton = config.isSingleton;
       this._klass = config.klass;
       this._superClass = config.superClass;
-      this._alias = config.alias;
       this._qualifiedName = config.qualifiedName;
       this._subclasses = {};
       
@@ -516,9 +498,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
         {
           var msg = "The class ["+this._qualifiedName+"] must " + 
             "implement the abstract method(s) ["+unimplemented.join(', ')+"].";
-          var error = new Error(msg);
-          Mojo.log.LogManager.writeError(msg, error);
-          throw error;
+          throw new com.runwaysdk.Exception(msg);
         }
       }
       
@@ -845,11 +825,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
       return this._isNative;
     },
     
-    getAlias : function()
-    {
-      return this._alias;
-    },
-    
     newInstance : function()
     {
       var args = [this.getQualifiedName()].concat([].splice.call(arguments, 0));
@@ -858,7 +833,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Class', {
     
     toString : function()
     {
-      return '[Class] ' + this.getQualifiedName();
+      return '[MetaClass] ' + this.getQualifiedName();
     }
   
   }
@@ -940,9 +915,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
       {
         var msg = "The non-abstract class ["+metaClass.getQualifiedName()+"] cannot " + 
           "cannot declare the abstract method ["+this._name+"].";
-        var error = new Error(msg);
-        Mojo.log.LogManager.writeError(msg, error);
-        throw error;
+        throw new com.runwaysdk.Exception(msg);
       }
       
       var method;
@@ -954,9 +927,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
             var definingClass = this.getMetaClass().getMethod(name).getDefiningClass().getMetaClass().getQualifiedName();
  
             var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
-            var error = new Error(msg);
-            Mojo.log.LogManager.writeError(msg, error);
-            throw error;
+            throw new com.runwaysdk.Exception(msg);
           };
         })(this._name);
         
@@ -1045,13 +1016,13 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
 // Finish bootstrapping the class system
 (function(){
 
-  var klass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'Class');
+  var klass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'MetaClass');
   
   for(var i=0; i<Mojo.Meta._native.length; i++)
   {
     var bootstrapped = Mojo.Meta._native[i];
     
-    // Convert the JSON config __metaClass into a Class instance
+    // Convert the JSON config __metaClass into a MetaClass instance
     // and re-attach the metadata to the class definition.
     var cClass = new klass(bootstrapped.__metaClass);
     bootstrapped.__metaClass = cClass
@@ -1089,8 +1060,8 @@ Mojo.Meta.newClass('Mojo.Util', {
   },
 
   Static : {
-	ISO8601_REGEX : "^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})([-+])([0-9]{2})([0-9]{2})$",
-	  
+  ISO8601_REGEX : "^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})([-+])([0-9]{2})([0-9]{2})$",
+    
     isObject : function(o)
     {
       return  o != null && Object.prototype.toString.call(o) === Mojo.IS_OBJECT_TO_STRING;
@@ -1147,9 +1118,37 @@ Mojo.Meta.newClass('Mojo.Util', {
       }
     },
     
+    /**
+     * Extracts all script tag contents and returns
+     * a string of executable code that can be evaluated.
+     */
+    extractScripts : function(html)
+    {
+      var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
+      var executables = [];
+      if(scripts != null)
+      {
+        for(var i=0; i<scripts.length; i++)
+        {
+          var scriptM = scripts[i].match(/<script\b[^>]*>([\s\S]*?)<\/script>/im);
+          executables.push(scriptM[1]);
+        }
+      }
+
+      return executables.join('');
+    },
+
+    /**
+     * Removes all scripts from the HTML and returns
+     * a string of the processed HTML.
+     */
+    removeScripts : function(html)
+    {
+      return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
+    },    
+    
     // TODO give credit to
     // http://blog.stevenlevithan.com/archives/faster-trim-javascript
-    // and replace all MDSS.util.stripWhitespace
     trim : function(str)
     {
       var str = str.replace(/^\s\s*/, '');
@@ -1263,8 +1262,8 @@ Mojo.Meta.newClass('Mojo.Util', {
       var tempDate = date;
          
       var zeropad = function (num) {
-    	var value = (num < 0 ? num * -1 : num);
-    	
+      var value = (num < 0 ? num * -1 : num);
+      
         return (value < 10 ? '0' + value : value);
       }
 
@@ -1286,208 +1285,227 @@ Mojo.Meta.newClass('Mojo.Util', {
       return str;
     },
     
+    JSON : (function(){
+      
+        function f(n) {
+            // Format integers to have at least two digits.
+            return n < 10 ? '0' + n : n;
+        }
 
-    /**
-     * This JSON object is based on the reference code provided by Douglas Crockford.
-     * The original, commented source is located at http://json.org/json2.js.
-     */
-    JSON : (function ()
-    {
-      var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
-          escapeable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
-          gap,
-          indent,
-          meta = {    // table of character substitutions
-              '\b': '\\b',
-              '\t': '\\t',
-              '\n': '\\n',
-              '\f': '\\f',
-              '\r': '\\r',
-              '"' : '\\"',
-              '\\': '\\\\'
-          },
-          rep;
+        if (typeof Date.prototype.toJSON !== 'function') {
 
+            Date.prototype.toJSON = function (key) {
 
-      function quote(string) {
+                return isFinite(this.valueOf()) ?
+                       this.getUTCFullYear()   + '-' +
+                     f(this.getUTCMonth() + 1) + '-' +
+                     f(this.getUTCDate())      + 'T' +
+                     f(this.getUTCHours())     + ':' +
+                     f(this.getUTCMinutes())   + ':' +
+                     f(this.getUTCSeconds())   + 'Z' : null;
+            };
 
-          escapeable.lastIndex = 0;
-          return escapeable.test(string) ?
-              '"' + string.replace(escapeable, function (a) {
-                  var c = meta[a];
-                  if (typeof c === 'string') {
-                      return c;
-                  }
-                  return '\\u' + ('0000' +
-                          (+(a.charCodeAt(0))).toString(16)).slice(-4);
-              }) + '"' :
-              '"' + string + '"';
-      }
+            String.prototype.toJSON =
+            Number.prototype.toJSON =
+            Boolean.prototype.toJSON = function (key) {
+                return this.valueOf();
+            };
+        }
 
-
-      function str(key, holder) {
-
-          var i,          // The loop counter.
-              k,          // The member key.
-              v,          // The member value.
-              length,
-              mind = gap,
-              partial,
-              value = holder[key];
-
-          if (typeof rep === 'function') {
-              value = rep.call(holder, key, value);
-          }
-
-          // Mojo change: A date specific check (server expects timestamps).
-          if(Mojo.Util.isDate(value))
-          {
-            return quote(Mojo.Util.toISO8601(value));
-          }
-
-          switch (typeof value) {
-          case 'string':
-              return quote(value);
-
-          case 'number':
-
-              return isFinite(value) ? String(value) : 'null';
-
-          case 'boolean':
-          case 'null':
-
-              return String(value);
-
-          case 'object':
-
-              if (!value) {
-                  return 'null';
-              }
-
-              gap += indent;
-              partial = [];
-
-              if (typeof value.length === 'number' &&
-                      !(value.propertyIsEnumerable('length'))) {
-
-                  length = value.length;
-                  for (i = 0; i < length; i += 1) {
-                      partial[i] = str(i, value) || 'null';
-                  }
-
-                  v = partial.length === 0 ? '[]' :
-                      gap ? '[\n' + gap +
-                              partial.join(',\n' + gap) + '\n' +
-                                  mind + ']' :
-                            '[' + partial.join(',') + ']';
-                  gap = mind;
-                  return v;
-              }
-
-              if (rep && typeof rep === 'object') {
-              
-                  length = rep.length;
-                  for (i = 0; i < length; i += 1) {
-                      k = rep[i];
-                      if (typeof k === 'string') {
-                          v = str(k, value, rep);
-                          if (v) {
-                              partial.push(quote(k) + (gap ? ': ' : ':') + v);
-                          }
-                      }
-                  }
-              } else {
-
-                  for (k in value) {
-                      if (Object.hasOwnProperty.call(value, k)) {
-                          v = str(k, value, rep);
-                          if (v) {
-                              partial.push(quote(k) + (gap ? ': ' : ':') + v);
-                          }
-                      }
-                  }
-              }
-
-              v = partial.length === 0 ? '{}' :
-                  gap ? '{\n' + gap + partial.join(',\n' + gap) + '\n' +
-                          mind + '}' : '{' + partial.join(',') + '}';
-              gap = mind;
-              return v;
-          }
-      }
-
-      return {
-          stringify: function (value , replacer, space) {
-
-              var i;
-              gap = '';
-              indent = '';
-
-              if (typeof space === 'number') {
-                  for (i = 0; i < space; i += 1) {
-                      indent += ' ';
-                  }
-
-              } else if (typeof space === 'string') {
-                  indent = space;
-              }
-
-              rep = replacer;
-              if (replacer && typeof replacer !== 'function' &&
-                      (typeof replacer !== 'object' ||
-                       typeof replacer.length !== 'number')) {
-                  throw new Error('JSON.stringify');
-              }
-
-              return str('', {'': value});
-          },
+        var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+            escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+            gap,
+            indent,
+            meta = {    // table of character substitutions
+                '\b': '\\b',
+                '\t': '\\t',
+                '\n': '\\n',
+                '\f': '\\f',
+                '\r': '\\r',
+                '"' : '\\"',
+                '\\': '\\\\'
+            },
+            rep;
 
 
-          parse: function (text, reviver) {
+        function quote(string) {
 
-              var j;
+            escapable.lastIndex = 0;
+            return escapable.test(string) ?
+                '"' + string.replace(escapable, function (a) {
+                    var c = meta[a];
+                    return typeof c === 'string' ? c :
+                        '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                }) + '"' :
+                '"' + string + '"';
+        }
 
-              function walk(holder, key) {
 
-                  var k, v, value = holder[key];
-                  if (value && typeof value === 'object') {
-                      for (k in value) {
-                          if (Object.hasOwnProperty.call(value, k)) {
-                              v = walk(value, k);
-                              if (v !== undefined) {
-                                  value[k] = v;
-                              } else {
-                                  delete value[k];
-                              }
-                          }
-                      }
-                  }
-                  return reviver.call(holder, key, value);
-              }
+        function str(key, holder) {
 
-              cx.lastIndex = 0;
-              if (cx.test(text)) {
-                  text = text.replace(cx, function (a) {
-                      return '\\u' + ('0000' +
-                              (+(a.charCodeAt(0))).toString(16)).slice(-4);
-                  });
-              }
+            var i,          // The loop counter.
+                k,          // The member key.
+                v,          // The member value.
+                length,
+                mind = gap,
+                partial,
+                value = holder[key];
 
-              if (/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
-                replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-                replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+            if (value && typeof value === 'object' &&
+                    typeof value.toJSON === 'function') {
+                value = value.toJSON(key);
+            }
 
-                  j = eval('(' + text + ')');
+            if (typeof rep === 'function') {
+                value = rep.call(holder, key, value);
+            }
 
-                  return typeof reviver === 'function' ?
-                      walk({'': j}, '') : j;
-              }
+            switch (typeof value) {
+            case 'string':
+                return quote(value);
 
-              throw new SyntaxError('JSON.parse');
-              }
-          };
+            case 'number':
+
+                return isFinite(value) ? String(value) : 'null';
+
+            case 'boolean':
+            case 'null':
+
+                return String(value);
+
+            case 'object':
+
+                if (!value) {
+                    return 'null';
+                }
+
+                gap += indent;
+                partial = [];
+
+                if (Object.prototype.toString.apply(value) === '[object Array]') {
+
+                    length = value.length;
+                    for (i = 0; i < length; i += 1) {
+                        partial[i] = str(i, value) || 'null';
+                    }
+
+                    v = partial.length === 0 ? '[]' :
+                        gap ? '[\n' + gap +
+                                partial.join(',\n' + gap) + '\n' +
+                                    mind + ']' :
+                              '[' + partial.join(',') + ']';
+                    gap = mind;
+                    return v;
+                }
+
+                if (rep && typeof rep === 'object') {
+                    length = rep.length;
+                    for (i = 0; i < length; i += 1) {
+                        k = rep[i];
+                        if (typeof k === 'string') {
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                            }
+                        }
+                    }
+                } else {
+
+                    for (k in value) {
+                        if (Object.hasOwnProperty.call(value, k)) {
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                            }
+                        }
+                    }
+                }
+
+                v = partial.length === 0 ? '{}' :
+                    gap ? '{\n' + gap + partial.join(',\n' + gap) + '\n' +
+                            mind + '}' : '{' + partial.join(',') + '}';
+                gap = mind;
+                return v;
+            }
+        }
+
+        return {
+        
+            stringify : function (value, replacer, space) {
+
+                var i;
+                gap = '';
+                indent = '';
+
+                if (typeof space === 'number') {
+                    for (i = 0; i < space; i += 1) {
+                        indent += ' ';
+                    }
+
+                } else if (typeof space === 'string') {
+                    indent = space;
+                }
+
+                rep = replacer;
+                if (replacer && typeof replacer !== 'function' &&
+                        (typeof replacer !== 'object' ||
+                         typeof replacer.length !== 'number')) {
+                    throw new com.runwaysdk.Exception('Mojo.Util.getJSON');
+                }
+
+                return str('', {'': value});
+            },
+
+
+            parse : function (text, reviver) {
+
+                var j;
+
+                function walk(holder, key) {
+
+                    var k, v, value = holder[key];
+                    if (value && typeof value === 'object') {
+                        for (k in value) {
+                            if (Object.hasOwnProperty.call(value, k)) {
+                                v = walk(value, k);
+                                if (v !== undefined) {
+                                    value[k] = v;
+                                } else {
+                                    delete value[k];
+                                }
+                            }
+                        }
+                    }
+                    return reviver.call(holder, key, value);
+                }
+
+                text = String(text);
+                cx.lastIndex = 0;
+                if (cx.test(text)) {
+                    text = text.replace(cx, function (a) {
+                        return '\\u' +
+                            ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                    });
+                }
+
+                if (/^[\],:{}\s]*$/.
+                  test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
+                  replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                  replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+
+                    j = eval('(' + text + ')');
+
+                    return typeof reviver === 'function' ?
+                        walk({'': j}, '') : j;
+                }
+
+                throw new com.runwaysdk.Exception('Mojo.Util.getObject');
+            }
+            
+        }
+
     })(),
-
+    
     getKeys : function(obj, hasOwnProp)
     {
       var keys = [];
@@ -3209,8 +3227,6 @@ Mojo.Meta.newClass('Mojo.Facade', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Instance : {
@@ -3307,8 +3323,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ValueQueryDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO',
   
   Instance : {
@@ -3345,8 +3359,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ValueQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ClassQueryDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO',
@@ -3378,8 +3390,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ClassQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'EntityQueryDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'ClassQueryDTO',
@@ -3475,8 +3485,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'EntityQueryDTO', {
 // OrderBy
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'OrderBy', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(attribute, order)
@@ -3495,8 +3503,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'OrderBy', {
 // Condition
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'Condition', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(attribute, condition, value)
@@ -3520,8 +3526,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'Condition', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ElementQueryDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'EntityQueryDTO',
@@ -3550,8 +3554,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ElementQueryDTO', {
 // StructOrderBy
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructOrderBy', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'OrderBy',
   
   Instance : {
@@ -3577,8 +3579,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructOrderBy', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructQueryDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'EntityQueryDTO',
 
   Instance : {
@@ -3596,8 +3596,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'BusinessQueryDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ElementQueryDTO',
 
   Instance : {
@@ -3635,8 +3633,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'BusinessQueryDTO', {
 // TypeInMdRelationshipAsChild
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsChild', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(obj)
@@ -3655,8 +3651,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsChild', {
 // TypeInMdRelationshipAsParent
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsParent', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(obj)
@@ -3677,8 +3671,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsParent', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'RelationshipQueryDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ElementQueryDTO',
 
   Instance : {
@@ -3700,8 +3692,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'RelationshipQueryDTO', {
 
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ViewQueryDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO',
 
   Instance : {
@@ -3719,8 +3709,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ViewQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Instance : {
@@ -3782,8 +3770,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
 
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MutableDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'ComponentDTO',
@@ -3834,8 +3820,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MutableDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ValueObjectDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ComponentDTO',
 
   Instance : {
@@ -3853,8 +3837,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ValueObjectDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TransientDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'MutableDTO',
@@ -3874,8 +3856,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TransientDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalizableDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'TransientDTO',
@@ -3895,8 +3875,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalizableDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ExceptionDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'LocalizableDTO',
 
   Instance : {
@@ -3914,8 +3892,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ExceptionDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'NotificationDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'LocalizableDTO',
   
   IsAbstract : true,
@@ -3935,8 +3911,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'NotificationDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MessageDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'NotificationDTO',
 
   Instance : {
@@ -3959,8 +3933,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MessageDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'InformationDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'MessageDTO',
 
   Instance : {
@@ -3978,8 +3950,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'InformationDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'WarningDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'MessageDTO',
 
   Instance : {
@@ -3997,8 +3967,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'WarningDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'NotificationDTO',
 
   Instance : {
@@ -4025,8 +3993,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ProblemDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MojoProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(obj)
@@ -4049,8 +4015,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'MojoProblemDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'MojoProblemDTO',
 
   Instance : {
@@ -4084,8 +4048,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', {
  */
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'EmptyValueProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO',
 
   Instance : {
@@ -4103,8 +4065,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'EmptyValueProblemDTO', {
  */
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'ImmutableAttributeProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO',
 
   Instance : {
@@ -4122,8 +4082,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'ImmutableAttributeProblemDTO'
  */
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'SystemAttributeProblemDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO',
 
   Instance : {
@@ -4144,8 +4102,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'SystemAttributeProblemDTO', {
  */
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.ROOT_PACKAGE+'Base',
   
   Instance : {
@@ -4208,8 +4164,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'SmartExceptionDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.ROOT_PACKAGE+'Exception',
 
   Instance : {
@@ -4254,8 +4208,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'SmartExceptionDTO', {
  */
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MojoExceptionDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.ROOT_PACKAGE+'Exception',
 
   Instance : {
@@ -4284,8 +4236,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MojoExceptionDTO', {
  * ProblemExceptionDTO
  */
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ProblemExceptionDTO', {
-
-  Alias : Mojo.$,
   
   Extends : Mojo.ROOT_PACKAGE+'Exception',
 
@@ -4331,8 +4281,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ProblemExceptionDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'SessionDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'TransientDTO',
@@ -4363,8 +4311,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'SessionDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'UtilDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'SessionDTO',
 
   Instance : {
@@ -4382,8 +4328,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'UtilDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ViewDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'SessionDTO',
 
   Instance : {
@@ -4400,8 +4344,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ViewDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'EntityDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'MutableDTO',
@@ -4426,8 +4368,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'EntityDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ElementDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.BUSINESS_PACKAGE+'EntityDTO',
@@ -4476,8 +4416,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ElementDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'BusinessDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ElementDTO',
 
   Instance : {
@@ -4515,8 +4453,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'BusinessDTO', {
  */
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'EnumerationDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Instance : {
@@ -4541,8 +4477,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'EnumerationDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'RelationshipDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'ElementDTO',
 
   Instance : {
@@ -4589,8 +4523,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'RelationshipDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.BUSINESS_PACKAGE+'EntityDTO',
 
   Instance : {
@@ -4621,8 +4553,6 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructDTO', {
 // attribute
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Instance : {
@@ -4677,8 +4607,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Instance : {
@@ -4717,8 +4645,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
 // number
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeNumberDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
@@ -4735,8 +4661,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeNumberDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeNumberMdDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
   
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
@@ -4765,8 +4689,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeNumberMdDTO', {
 // integer
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeIntegerDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeNumberDTO',
   
   Instance : {
@@ -4780,8 +4702,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeIntegerDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeIntegerMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeNumberMdDTO',
   
@@ -4798,8 +4718,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeIntegerMdDTO', {
 // long
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLongDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeNumberDTO',
   
   Instance : {
@@ -4813,8 +4731,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLongDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLongMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeNumberMdDTO',
   
@@ -4831,8 +4747,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLongMdDTO', {
 // dec
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeNumberDTO',
@@ -4849,8 +4763,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDecMdDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeNumberMdDTO',
@@ -4875,8 +4787,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDecMdDTO', {
 // decimal
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecimalDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecDTO',
   
   Instance : {
@@ -4890,8 +4800,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecimalDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDecimalMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeDecMdDTO',
   
@@ -4908,8 +4816,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDecimalMdDTO', {
 // double
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDoubleDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecDTO',
   
   Instance : {
@@ -4923,8 +4829,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDoubleDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDoubleMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeDecMdDTO',
   
@@ -4941,8 +4845,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDoubleMdDTO', {
 // float
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeFloatDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDecDTO',
   
   Instance : {
@@ -4956,8 +4858,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeFloatDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeFloatMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeDecMdDTO',
   
@@ -4974,8 +4874,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeFloatMdDTO', {
 // text
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeTextDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
   
@@ -4990,8 +4888,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeTextDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5008,8 +4904,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO', {
 // character
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeCharacterDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
   Instance : {
@@ -5023,8 +4917,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeCharacterDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeCharacterMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5045,8 +4937,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeCharacterMdDTO', {
 // boolean
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeBooleanDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
   Instance : {
@@ -5060,8 +4950,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeBooleanDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeBooleanMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5084,8 +4972,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeBooleanMdDTO', {
 
 // struct
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeStructDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
@@ -5116,8 +5002,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeStructDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeStructMdDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
   Instance : {
@@ -5137,8 +5021,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeStructMdDTO', {
 // moment
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
@@ -5197,8 +5079,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMomentMdDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
@@ -5216,8 +5096,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMomentMdDTO', {
 // datetime
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDateTimeDTO', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO',
   
   Instance : {
@@ -5231,8 +5109,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDateTimeDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDateTimeMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMomentMdDTO',
   
@@ -5249,8 +5125,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDateTimeMdDTO', {
 // date
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDateDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO',
   
   Instance : {
@@ -5264,8 +5138,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDateDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDateMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMomentMdDTO',
   
@@ -5282,8 +5154,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeDateMdDTO', {
 // time
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeTimeDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO',
   
   Instance : {
@@ -5297,8 +5167,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeTimeDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTimeMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMomentMdDTO',
   
@@ -5315,8 +5183,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTimeMdDTO', {
 // reference object
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeReferenceDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
   Instance : {
@@ -5330,8 +5196,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeReferenceDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeReferenceMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5351,8 +5215,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeReferenceMdDTO', {
 
 // enumeration
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEnumerationDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
   
@@ -5411,15 +5273,13 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEnumerationDTO', {
     {
       var enumType = this.getAttributeMdDTO().getReferencedMdEnumeration();
       var names = Mojo.Util.getKeys(this.enumNames);
-      Mojo.ClientSession.getEnumerations(clientRequest, enumType, names);
+      Mojo.Facade.getEnumerations(clientRequest, enumType, names);
     }
   
   }
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeEnumerationMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5468,8 +5328,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeEnumerationMdDTO', {
 // encryption
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEncryptionDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
@@ -5486,8 +5344,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEncryptionDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeEncryptionMdDTO', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
@@ -5509,8 +5365,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeEncryptionMdDTO', {
 // hash
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeHashDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEncryptionDTO',
   
   Instance : {
@@ -5524,8 +5378,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeHashDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeHashMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeEncryptionMdDTO',
   
@@ -5542,8 +5394,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeHashMdDTO', {
 // symmetric
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeSymmetricDTO', {
 
-  Alias : Mojo.$,
-
   Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEncryptionDTO',
   
   Instance : {
@@ -5557,8 +5407,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeSymmetricDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeSymmetricMdDTO', {
-
-  Alias : Mojo.$,
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeEncryptionMdDTO',
   
@@ -5574,8 +5422,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeSymmetricMdDTO', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'TypeMd', {
 
-  Alias : Mojo.$,
-  
   Instance : {
 
     initialize : function(obj)
@@ -5596,8 +5442,6 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'TypeMd', {
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'RelationshipMd', {
 
-  Alias : Mojo.$,
-  
   Extends : Mojo.MD_DTO_PACKAGE+'TypeMd',
   
   Instance : {
