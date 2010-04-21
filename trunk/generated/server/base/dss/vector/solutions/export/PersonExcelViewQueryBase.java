@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -437802300)
+@com.runwaysdk.business.ClassSignature(hash = -931259702)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class PersonExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -437802300;
+private static final long serialVersionUID = -931259702;
 
   public PersonExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,6 +41,24 @@ private static final long serialVersionUID = -437802300;
   public com.runwaysdk.query.SelectableMoment getDateOfBirth(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.PersonExcelView.DATEOFBIRTH, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDisease(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.DISEASE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDisease(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.PersonExcelView.DISEASE, alias, displayLabel);
 
   }
  

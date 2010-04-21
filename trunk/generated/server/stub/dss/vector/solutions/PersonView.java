@@ -5,6 +5,7 @@ import java.util.Date;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
@@ -61,6 +62,15 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     {
       this.setIsMDSSUser(true);
       this.setUsername(user.getUsername());
+      
+      UserSettings settings = UserSettings.getForUser(user);
+      if (settings!=null)
+      {
+        for (Disease d : settings.getDisease())
+        {
+          this.addDisease(d);
+        }
+      }
     }
 
     Patient patient = concrete.getPatientDelegate();
@@ -129,6 +139,14 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       user.setUsername(this.getUsername());
       user.setPassword(this.getPassword());
       user.apply();
+      
+      UserSettings settings = UserSettings.createIfNotExists(user);
+      settings.lock();
+      for (Disease d : this.getDisease())
+      {
+        settings.addDisease(d);
+      }
+      settings.apply();
     }
     else
     {

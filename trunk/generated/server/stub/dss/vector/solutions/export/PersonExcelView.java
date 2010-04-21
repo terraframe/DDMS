@@ -49,6 +49,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());
     personView.setPassword(this.getPassword());
+    personView.addDisease(ExcelEnums.getDisease(this.getDisease()));
     
     personView.setIsPatient(this.getIsPatient() != null && this.getIsPatient());
     personView.setIsIPTRecipient(this.getIsIPTRecipient() != null && this.getIsIPTRecipient());
@@ -74,6 +75,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     list.add(ISMDSSUSER);
     list.add(USERNAME);
     list.add(PASSWORD);
+    list.add(DISEASE);
     list.add(ISSPRAYLEADER);
     list.add(MEMBERID);
     list.add(ISSPRAYOPERATOR);

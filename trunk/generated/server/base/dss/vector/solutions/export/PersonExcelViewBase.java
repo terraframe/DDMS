@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -42453235)
+@com.runwaysdk.business.ClassSignature(hash = 363171027)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,6 +12,7 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
@@ -29,7 +30,7 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = -42453235;
+  private static final long serialVersionUID = 363171027;
   
   public PersonExcelViewBase()
   {
@@ -61,6 +62,34 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
     else
     {
       setValue(DATEOFBIRTH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getDisease()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value);
     }
   }
   

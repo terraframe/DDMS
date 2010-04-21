@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 402076342)
+@com.runwaysdk.business.ClassSignature(hash = -1358361950)
 public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = 402076342;
+  private static final long serialVersionUID = -1358361950;
   
   protected PersonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -18,6 +18,7 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   
   public static java.lang.String AGE = "age";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
@@ -110,6 +111,52 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateOfBirthMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFBIRTH).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.DiseaseDTO> getDisease()
+  {
+    return (java.util.List<dss.vector.solutions.general.DiseaseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.DiseaseDTO.CLASS, getEnumNames(DISEASE));
+  }
+  
+  public java.util.List<String> getDiseaseEnumNames()
+  {
+    return getEnumNames(DISEASE);
+  }
+  
+  public void addDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
+  {
+    addEnumItem(DISEASE, enumDTO.toString());
+  }
+  
+  public void removeDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
+  {
+    removeEnumItem(DISEASE, enumDTO.toString());
+  }
+  
+  public void clearDisease()
+  {
+    clearEnum(DISEASE);
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getFirstName()

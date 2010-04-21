@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -2109589819)
+@com.runwaysdk.business.ClassSignature(hash = -3666107)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class UserSettingsBase extends com.runwaysdk.business.Business i
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEFAULTMAP = "defaultMap";
   public static java.lang.String DEFAULTSEARCH = "defaultSearch";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -26,7 +27,7 @@ public abstract class UserSettingsBase extends com.runwaysdk.business.Business i
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String USERREF = "userRef";
-  private static final long serialVersionUID = -2109589819;
+  private static final long serialVersionUID = -3666107;
   
   public UserSettingsBase()
   {
@@ -140,6 +141,44 @@ public abstract class UserSettingsBase extends com.runwaysdk.business.Business i
     {
       setValue(DEFAULTSEARCH, value.getId());
     }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
+  {
+    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
+  }
+  
+  public void addDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value != null)
+    {
+      addEnumItem(DISEASE, value.getId());
+    }
+  }
+  
+  public void removeDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(DISEASE, value.getId());
+    }
+  }
+  
+  public void clearDisease()
+  {
+    clearEnum(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UserSettings.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()

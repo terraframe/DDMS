@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1228964918)
+@com.runwaysdk.business.ClassSignature(hash = -1555838686)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public final static String CLASS = "dss.vector.solutions.PersonView";
   public static java.lang.String AGE = "age";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
@@ -33,7 +34,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String UZERNAME = "uzername";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 1228964918;
+  private static final long serialVersionUID = -1555838686;
   
   public PersonViewBase()
   {
@@ -94,6 +95,44 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     {
       setValue(DATEOFBIRTH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
+  {
+    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
+  }
+  
+  public void addDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value != null)
+    {
+      addEnumItem(DISEASE, value.getId());
+    }
+  }
+  
+  public void removeDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(DISEASE, value.getId());
+    }
+  }
+  
+  public void clearDisease()
+  {
+    clearEnum(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
   }
   
   public String getFirstName()

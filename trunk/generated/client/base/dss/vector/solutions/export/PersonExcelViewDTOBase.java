@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1975310477)
+@com.runwaysdk.business.ClassSignature(hash = -686436781)
 public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = 1975310477;
+  private static final long serialVersionUID = -686436781;
   
   protected PersonExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,7 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   }
   
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
@@ -69,6 +70,43 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateOfBirthMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFBIRTH).getAttributeMdDTO();
+  }
+  
+  public String getDisease()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void setDisease(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value);
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getFirstName()

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -2058323780)
+@com.runwaysdk.business.ClassSignature(hash = -1789661778)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class UserSettingsQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2058323780;
+private static final long serialVersionUID = -1789661778;
 
   public UserSettingsQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -123,6 +123,29 @@ private static final long serialVersionUID = -2058323780;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("defaultSearch");
 
     return (dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.UserSettings.DEFAULTSEARCH, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("disease");
+
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getComponentQuery().internalAttributeFactory("disease", mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("disease");
+
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getComponentQuery().internalAttributeFactory("disease", mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -385,6 +408,21 @@ private static final long serialVersionUID = -2058323780;
     }
   }
 
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals("disease")) 
+    {
+       return new dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -429,6 +467,9 @@ private static final long serialVersionUID = -2058323780;
     public dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF getDefaultSearch();
     public dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF getDefaultSearch(String alias);
     public dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel);
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease();
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias);
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -477,7 +518,7 @@ private static final long serialVersionUID = -2058323780;
  implements UserSettingsQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1214946394;
+private static final long serialVersionUID = 1530050768;
 
   public UserSettingsQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -562,6 +603,23 @@ private static final long serialVersionUID = 1214946394;
   public dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF getDefaultSearch(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.DefaultSavedSearchQuery.DefaultSavedSearchQueryReferenceIF)this.get(dss.vector.solutions.UserSettings.DEFAULTSEARCH,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.get(dss.vector.solutions.UserSettings.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.get(dss.vector.solutions.UserSettings.DISEASE, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -786,6 +844,21 @@ private static final long serialVersionUID = 1214946394;
     else if (name.equals("userRef")) 
     {
        return new dss.vector.solutions.MDSSUserQuery.MDSSUserQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals("disease")) 
+    {
+       return new dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

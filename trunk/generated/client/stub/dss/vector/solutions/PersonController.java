@@ -13,6 +13,7 @@ import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -126,9 +127,15 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   private void renderCreate(PersonViewDTO view) throws IOException, ServletException
   {
+    prepareRequest(view);
+    render("createComponent.jsp");
+  }
+  
+  private void prepareRequest(PersonViewDTO view)
+  {
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
-    render("createComponent.jsp");
+    req.setAttribute("disease", DiseaseDTO.allItems(getClientRequest()));
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -184,8 +191,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
   private void renderEdit(PersonViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("sex", dto.getSex());
-    req.setAttribute("item", dto);
+    prepareRequest(dto);
     render("editComponent.jsp");
   }
 
@@ -224,8 +230,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, view));
-    req.setAttribute("sex", view.getSex());
-    req.setAttribute("item", view);
+    prepareRequest(view);
     render("viewComponent.jsp");
   }
 
