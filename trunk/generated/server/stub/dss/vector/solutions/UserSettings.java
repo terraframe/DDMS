@@ -51,7 +51,7 @@ public class UserSettings extends UserSettingsBase implements com.runwaysdk.gene
    * @param user
    * @return
    */
-  private static UserSettings getForUser(MDSSUser user)
+  public static UserSettings getForUser(MDSSUser user)
   {
     QueryFactory f = new QueryFactory();
     UserSettingsQuery q = new UserSettingsQuery(f);

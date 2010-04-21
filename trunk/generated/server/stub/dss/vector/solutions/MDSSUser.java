@@ -28,14 +28,21 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   @Override
   public void apply()
   {
+    boolean isNew = this.isNew();
     // Change for ticket #664
-    if (this.isNew())
+    if (isNew)
     {
       this.setSessionLimit(5);
+
     }
 
     super.apply();
 
+    if(isNew)
+    {
+      UserSettings.createIfNotExists(this);
+    }
+    
     // Assign this user to the GUIVisibility role
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
 
