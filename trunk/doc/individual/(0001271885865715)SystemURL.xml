@@ -1,0 +1,1005 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdBusiness
+				name="dss.vector.solutions.general.SystemURL"
+				label="URL">
+				<attributes>
+					<char
+						name="url"
+						label="URL"
+						size="2048"
+						required="true" />
+					<localText
+						name="displayLabel"
+						label="Display Label" />
+				</attributes>
+			</mdBusiness>
+
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Adult DDA">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Adult DDA" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Aggregated ITN Data Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Aggregated ITN Data Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Area Targets">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Area Targets" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Application Rate">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.ApplicationRateController.view.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Application Rate" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Case Surveillance">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Case Surveillance" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Entomology Variables">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.ResistancePropertyController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Entomology Variables" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Epi Week">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.PropertyController.newInstance.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Epi Week" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Malaria Season">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Malaria Season" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure System Variables">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.PropertyController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure System Variables" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Configure Thresholds">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.ThresholdDataController.editThresholdConfiguration.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Configure Thresholds" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Edit Visibility">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Edit Visibility" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Aggregated IPT records">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Aggregated IPT records" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Bioassays">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Bioassays" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter for Control of Immatures records">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.LarvacideController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter for Control of Immatures records" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter For Individual Cases">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter For Individual Cases" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Indicator Survey records">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Indicator Survey records" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Individual IPT records">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Individual IPT records" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Infection Assays">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Infection Assays" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Mechanism Assays">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Mechanism Assays" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Population Data">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.PopulationDataController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Population Data" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Enter Thresholds">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.ThresholdDataController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Enter Thresholds" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Generate Maps">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.MappingController.generateMaps.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Generate Maps" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Immatures by Container Type">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Immatures by Container Type" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Immatures Thresholds">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Immatures Thresholds" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Import Log">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.synchronization.ImportController.viewLog.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Import Log" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Intervention Control">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Intervention Control" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="IRS Planning">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.InterventionPlanningController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="IRS Planning" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="ITN Community Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="ITN Community Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="ITN Facility Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.intervention.monitor.ITNDistributionController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="ITN Facility Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Knock Down Assay">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Knock Down Assay" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Larvae DDA">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Larvae DDA" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Localization">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.util.LocalizationController.selectLocales.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Localization" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Geo Entities">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.geo.GeoEntityTreeController.displayTree.mojo?rootGeoEntityId=" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Geo Entities" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Insecticides">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.InsecticideController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Insecticides" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage IRS Teams">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.SprayTeamController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage IRS Teams" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Knock Down Properties">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Knock Down Properties" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Lethal Properties">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.LethalTimePropertyController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Lethal Properties" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage People">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.PersonController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage People" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Roles">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.RoleController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Roles" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Manage Stock">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.stock.StockEventController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Manage Stock" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Ontology Admin">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.ontology.TermController.viewTree.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Ontology Admin" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Ontology Fields">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.ontology.BrowserFieldController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Ontology Fields" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Operator and Team Targets">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Operator and Team Targets" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Operator Spray Level 1">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.OperatorSprayController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Operator Spray Level 1" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Planning Calculator">
+				<attribute
+					name="url"
+					value="planningCalculator.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Planning Calculator" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Pupae by Individual Container">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Pupae by Individual Container" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Aggregated Cases">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Aggregated Cases" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Aggregated IPT">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryAggregatedIPT.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Aggregated IPT" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Aggregated ITN Data Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryAggregatedITN.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Aggregated ITN Data Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Bioassays">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Bioassays" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Control of Immatures">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryLarvacide.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Control of Immatures" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Efficacy Studies">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryEfficacyAssay.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Efficacy Studies" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Entomology">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryEntomology.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Entomology" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Immatures by Container Type">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Immatures by Container Type" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Indicator Surveys">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.querySurvey.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Indicator Surveys" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Individual Cases">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryIndividualCases.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Individual Cases" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Individual IPT">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryIndividualIPT.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Individual IPT" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Intervention Control">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Intervention Control" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query IRS">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryIRS.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query IRS" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query ITN Community Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryITNCommunityDistribution.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query ITN Community Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query ITN Facility Distribution">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryITNDistribution.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query ITN Facility Distribution" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Mosquito Collections">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryMosquitoCollections.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Mosquito Collections" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Pupae by Individual Container">
+				<attribute
+					name="url"
+					value="notYetImplemented.jsp" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Pupae by Individual Container" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Resistance">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryResistance.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Resistance" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Query Stock">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.query.QueryController.queryStock.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Query Stock" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Search for Aggregated Cases">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Search for Aggregated Cases" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Search For Collections">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Search For Collections" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Search for Efficacy Studies Adult">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Search for Efficacy Studies Adult" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Sprayed Area Level 3">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.ZoneSprayController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Sprayed Area Level 3" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Team Spray Level 2">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.irs.TeamSprayController.search.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Team Spray Level 2" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Transaction Log">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.synchronization.TransactionController.viewRecordPage.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Transaction Log" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="Update Country Image">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.PropertyController.editFlag.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="Update Country Image" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="View All Email">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.EmailController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="View All Email" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="View All EmailConfiguration">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.EmailConfigurationController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="View All EmailConfiguration" />
+				</attributeStruct>
+			</object>
+			<object
+				type="dss.vector.solutions.general.SystemURL"
+				key="View All SystemAlert">
+				<attribute
+					name="url"
+					value="dss.vector.solutions.general.SystemAlertController.viewAll.mojo" />
+				<attributeStruct
+					name="displayLabel">
+					<attribute
+						name="defaultLocale"
+						value="View All SystemAlert" />
+				</attributeStruct>
+			</object>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.general.SystemURL"
+				type="com.runwaysdk.system.metadata.MdBusiness" />
+		</delete>
+	</undoIt>
+</version>
