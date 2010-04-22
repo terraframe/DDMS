@@ -9,7 +9,7 @@
       
       <object 
         type="dss.vector.solutions.general.DiseaseMaster"
-        key="dss.vector.solutions.general.DiseaseMaster.Malaria">
+        key="dss.vector.solutions.general.DiseaseMaster.MALARIA">
         <attribute
           name="enumName"
           value="MALARIA"/>
@@ -23,7 +23,7 @@
       
       <object 
         type="dss.vector.solutions.general.DiseaseMaster"
-        key="dss.vector.solutions.general.DiseaseMaster.Dengue">
+        key="dss.vector.solutions.general.DiseaseMaster.DENGUE">
         <attribute
           name="enumName"
           value="DENGUE"/>
