@@ -54,7 +54,7 @@
                required="true"
                type="dss.vector.solutions.general.Disease"
                selectMultiple="false"
-               defaultValueKey="dss.vector.solutions.general.DiseaseMaster.MALARIA"/>
+               defaultValue="MALARIA"/>
            </attributes>
          </create>
        </mdBusiness>
