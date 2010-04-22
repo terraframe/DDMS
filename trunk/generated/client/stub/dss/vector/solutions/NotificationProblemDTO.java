@@ -1,7 +1,9 @@
 package dss.vector.solutions;
 
 import com.runwaysdk.AttributeNotificationDTO;
+import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 public abstract class NotificationProblemDTO extends NotificationProblemDTOBase implements AttributeNotificationDTO, Reloadable
 {
@@ -18,4 +20,12 @@ public abstract class NotificationProblemDTO extends NotificationProblemDTOBase 
     super(clientRequest, locale);
   }
 
+  public void setNotification(MutableDTO mutable, AttributeMdDTO attribute)
+  {
+    this.setComponentId(mutable.getId());
+    this.setAttributeName(attribute.getName());
+    this.setAttributeDisplayLabel(attribute.getDisplayLabel());
+    this.setDefiningType(mutable.getType());
+    this.setDefiningTypeDisplayLabel(mutable.getMd().getDisplayLabel());
+  }
 }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1393314783)
+@com.runwaysdk.business.ClassSignature(hash = 191859749)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 1393314783;
+  private static final long serialVersionUID = 191859749;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1671,6 +1671,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllPersonsWithTreatments(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.entomology.PremiseTaxonDTO> getAllPremiseTaxons()
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PremiseTaxonDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.entomology.PremiseTaxonDTO> getAllPremiseTaxons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PremiseTaxonDTO>) clientRequestIF.getParents(id, dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.entomology.CollectionContainerDTO> getAllPremiseTaxonsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.CollectionContainerDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.entomology.CollectionContainerDTO> getAllPremiseTaxonsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.CollectionContainerDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.entomology.CollectionContainerDTO addPremiseTaxons(dss.vector.solutions.entomology.PremiseTaxonDTO parent)
+  {
+    return (dss.vector.solutions.entomology.CollectionContainerDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.entomology.CollectionContainerDTO addPremiseTaxons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.entomology.PremiseTaxonDTO parent)
+  {
+    return (dss.vector.solutions.entomology.CollectionContainerDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  public void removePremiseTaxons(dss.vector.solutions.entomology.CollectionContainerDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removePremiseTaxons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.entomology.CollectionContainerDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllPremiseTaxons()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  public static void removeAllPremiseTaxons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

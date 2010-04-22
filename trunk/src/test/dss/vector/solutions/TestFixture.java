@@ -1,5 +1,6 @@
 package dss.vector.solutions;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.ImmatureCollectionView;
 import dss.vector.solutions.entomology.LifeStageDTO;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
@@ -356,5 +358,20 @@ public class TestFixture
     return view;
   }
 
+  public static ImmatureCollectionView createImmatureCollection(GeoEntity entity, Term premiseType, Term taxon)
+  {
+    ImmatureCollectionView collection = new ImmatureCollectionView();
+    collection.setGeoEntity(entity);
+    collection.setStartDate(new Date());
+    collection.setEndDate(new Date());
+    collection.setCollectionId(TestFixture.getRandomTermId());
+    collection.setPremiseType(premiseType);
+    collection.setNumberExamined(5);
+    collection.setPremiseSize(new BigDecimal(8));
+    collection.setNumberInhabitants(9);
+    collection.setTaxon(taxon);
+    
+    return collection;
+  }
 
 }

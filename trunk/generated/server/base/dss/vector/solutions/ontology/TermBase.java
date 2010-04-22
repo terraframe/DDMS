@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1864780383)
+@com.runwaysdk.business.ClassSignature(hash = 716049061)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1864780383;
+  private static final long serialVersionUID = 716049061;
   
   public TermBase()
   {
@@ -1172,6 +1172,49 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment getPersonsWithTreatmentsRel(dss.vector.solutions.intervention.monitor.SurveyedPerson surveyedPerson)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment>) getRelationshipsWithParent(surveyedPerson, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatment.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.entomology.CollectionContainer addPremiseTaxons(dss.vector.solutions.entomology.PremiseTaxon premiseTaxon)
+  {
+    return (dss.vector.solutions.entomology.CollectionContainer) addParent(premiseTaxon, dss.vector.solutions.entomology.CollectionContainer.CLASS);
+  }
+  
+  public void removePremiseTaxons(dss.vector.solutions.entomology.PremiseTaxon premiseTaxon)
+  {
+    removeAllParents(premiseTaxon, dss.vector.solutions.entomology.CollectionContainer.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PremiseTaxon> getAllPremiseTaxons()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PremiseTaxon>) getParents(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer> getAllPremiseTaxonsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer>) getParentRelationships(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.entomology.CollectionContainer getPremiseTaxonsRel(dss.vector.solutions.entomology.PremiseTaxon premiseTaxon)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer>) getRelationshipsWithParent(premiseTaxon, dss.vector.solutions.entomology.CollectionContainer.CLASS);
     try
     {
       if (iterator.hasNext())

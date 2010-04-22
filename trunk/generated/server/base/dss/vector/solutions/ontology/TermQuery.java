@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 35706326)
+@com.runwaysdk.business.ClassSignature(hash = -833818340)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 35706326;
+private static final long serialVersionUID = -833818340;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -2099,6 +2099,122 @@ private static final long serialVersionUID = 35706326;
   }
 
 
+  public com.runwaysdk.query.Condition premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.getBusinessQuery().isChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.getBusinessQuery().isChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.getBusinessQuery().isNotChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3064,6 +3180,18 @@ private static final long serialVersionUID = 35706326;
   public com.runwaysdk.query.Condition SUBSELECT_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery);
 
 
+  public com.runwaysdk.query.Condition premiseTaxons();
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery);
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons();
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase();
   public com.runwaysdk.query.Condition referralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3292,6 +3420,18 @@ private static final long serialVersionUID = 35706326;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_personsWithTreatments(dss.vector.solutions.intervention.monitor.SurveyedPersonQuery surveyedPersonQuery, dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentQuery surveyedPersonTreatmentQuery);
 
 
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons();
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_referralAggregatedCase();
   public com.runwaysdk.query.Condition NOT_IN_referralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3361,7 +3501,7 @@ private static final long serialVersionUID = 35706326;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 444646516;
+private static final long serialVersionUID = -1146452550;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -4649,6 +4789,64 @@ private static final long serialVersionUID = 444646516;
   }
 
 
+  public com.runwaysdk.query.Condition premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.isChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.isChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.isChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.isChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -5748,6 +5946,64 @@ private static final long serialVersionUID = 444646516;
   {
     surveyedPersonTreatmentQuery.AND(surveyedPersonTreatmentQuery.hasParent(surveyedPersonQuery));
     return this.isNotChildIn_SUBSELECT(surveyedPersonTreatmentQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.isNotChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(premiseTaxonQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.isNotChildIn(collectionContainerQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery)
+  {
+    collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    return this.isNotChildIn_SUBSELECT(collectionContainerQuery);
   }
 
 
