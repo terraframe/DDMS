@@ -688,35 +688,53 @@ public class OntologyImporter
 
     for (TermRelationshipInfo termRelationshipInfo : this.termRelationshipInfoList)
     {
-      Term term = Term.getByKey(termRelationshipInfo.getParentTermId());
-      Term referencedTerm = Term.getByKey(termRelationshipInfo.getChildTermId());
-      TermRelationship termRelationship = new TermRelationship(term, referencedTerm);
-      termRelationship.setOntologyRelationship(this.ontologyRelationshipByNameMap.get(termRelationshipInfo.getRelationshipName()));
-
-      if (this.displayStatusToSysOut)
-      {
-        if (applyCount % feedbackMod == 0)
-        {
-          System.out.println();
-        }
-        System.out.print(".");
-        applyCount++;
+      Term term = null;
+      try {
+    	  term = Term.getByKey(termRelationshipInfo.getParentTermId());
       }
-
-      // create save point
-      Savepoint savepoint = Database.setSavepoint();
-      try
-      {
-        termRelationship.applyWithoutCreatingAllPaths();
+      catch (DataNotFoundException dnfe) {
+    	  // The parent is not found.  This is bad...
+    	  throw dnfe;
       }
-      catch (DuplicateGraphPathException e)
-      {
-        // a relationship between this typedef and the parent and the child already exists
-        Database.rollbackSavepoint(savepoint);
+      
+      Term referencedTerm = null;
+      try {
+    	  referencedTerm = Term.getByKey(termRelationshipInfo.getChildTermId());
+      } catch (DataNotFoundException dnfe) {
+    	  // The child is not found.  This is generally because the relationship was added,
+    	  // but the child was not (because it was obsolete), so we can ignore it.
+    	  // Do nothing here, just leave referencedTerm null
       }
-      finally
-      {
-        Database.releaseSavepoint(savepoint);
+      
+      if (term != null && referencedTerm != null) {
+	      TermRelationship termRelationship = new TermRelationship(term, referencedTerm);
+	      termRelationship.setOntologyRelationship(this.ontologyRelationshipByNameMap.get(termRelationshipInfo.getRelationshipName()));
+	
+	      if (this.displayStatusToSysOut)
+	      {
+	        if (applyCount % feedbackMod == 0)
+	        {
+	          System.out.println();
+	        }
+	        System.out.print(".");
+	        applyCount++;
+	      }
+	
+	      // create save point
+	      Savepoint savepoint = Database.setSavepoint();
+	      try
+	      {
+	        termRelationship.applyWithoutCreatingAllPaths();
+	      }
+	      catch (DuplicateGraphPathException e)
+	      {
+	        // a relationship between this typedef and the parent and the child already exists
+	        Database.rollbackSavepoint(savepoint);
+	      }
+	      finally
+	      {
+	        Database.releaseSavepoint(savepoint);
+	      }
       }
     }
   }
