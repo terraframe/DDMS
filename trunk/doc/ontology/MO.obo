@@ -1,11 +1,1613 @@
 format-version: 1.2
-date: 11:03:2010 16:01
-saved-by: Saul
+date: 22:04:2010 11:37
+saved-by: chris
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
 idspace: span http://www.ifomis.org/bfo/1.1/span#
 remark: alpha-version: please send comments to slozano[at]colostate.edu
 ﻿format-version: 1.2
+
+[Term]
+id: DDSS:0000000
+name: condition of dengue virus host
+is_a: IDOMAL:0001241 ! condition
+created_by: slozano
+creation_date: 2010-03-19T01:19:03Z
+
+[Term]
+id: DDSS:0000001
+name: hemorrhagic clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
+created_by: slozano
+creation_date: 2010-03-19T01:35:38Z
+
+[Term]
+id: DDSS:0000002
+name: insecticide-treated material
+is_a: IDOMAL:0001034 ! abiotic
+created_by: slozano
+creation_date: 2010-03-19T01:42:48Z
+
+[Term]
+id: DDSS:0000003
+name: insecticide-treated wall hanging
+is_a: DDSS:0000002 ! insecticide-treated material
+created_by: slozano
+creation_date: 2010-03-19T02:09:33Z
+
+[Term]
+id: DDSS:0000004
+name: insecticide-treated window screen
+is_a: DDSS:0000002 ! insecticide-treated material
+created_by: slozano
+creation_date: 2010-03-19T02:13:57Z
+
+[Term]
+id: DDSS:0000005
+name: quality of dengue virus
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T02:16:49Z
+
+[Term]
+id: DDSS:0000006
+name: dengue virus serotype
+is_a: DDSS:0000005 ! quality of dengue virus
+created_by: slozano
+creation_date: 2010-03-19T02:24:40Z
+
+[Term]
+id: DDSS:0000007
+name: Aedes spp.
+is_a: DDSS:0000089 ! dengue vector surveillance and control target taxa
+created_by: slozano
+creation_date: 2010-03-23T10:36:38Z
+
+[Term]
+id: DDSS:0000008
+name: premises roles
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-03-23T11:00:23Z
+
+[Term]
+id: DDSS:0000009
+name: any premises
+is_obsolete: true
+created_by: slozano
+creation_date: 2010-03-23T11:01:26Z
+
+[Term]
+id: DDSS:0000010
+name: malaria health provider
+is_a: MDSS:0000291 ! health provider
+created_by: slozano
+creation_date: 2010-04-02T01:56:54Z
+
+[Term]
+id: DDSS:0000011
+name: quality of dengue virus diagnostic test
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T02:31:00Z
+
+[Term]
+id: DDSS:0000012
+name: not determined
+is_a: DDSS:0000006 ! dengue virus serotype
+created_by: slozano
+creation_date: 2010-03-19T02:32:27Z
+
+[Term]
+id: DDSS:0000013
+name: inconclusive
+is_a: DDSS:0000016 ! dengue virus diagnostic test result
+is_a: DDSS:0000052 ! insecticide resistance bioassay test result
+created_by: slozano
+creation_date: 2010-03-19T02:35:05Z
+
+[Term]
+id: DDSS:0000014
+name: negative for dengue virus
+is_a: DDSS:0000016 ! dengue virus diagnostic test result
+created_by: slozano
+creation_date: 2010-03-19T02:35:05Z
+
+[Term]
+id: DDSS:0000015
+name: positive for dengue virus
+is_a: DDSS:0000016 ! dengue virus diagnostic test result
+created_by: slozano
+creation_date: 2010-03-19T02:35:05Z
+
+[Term]
+id: DDSS:0000016
+name: dengue virus diagnostic test result
+is_a: DDSS:0000011 ! quality of dengue virus diagnostic test
+created_by: slozano
+creation_date: 2010-03-19T02:36:58Z
+
+[Term]
+id: DDSS:0000017
+name: dengue virus serotype diagnostic test result
+is_a: DDSS:0000011 ! quality of dengue virus diagnostic test
+created_by: slozano
+creation_date: 2010-03-19T02:39:27Z
+
+[Term]
+id: DDSS:0000018
+name: multiple serotypes
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+created_by: slozano
+creation_date: 2010-03-19T02:42:14Z
+
+[Term]
+id: DDSS:0000019
+name: serotype not known
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+created_by: slozano
+creation_date: 2010-03-19T02:42:14Z
+
+[Term]
+id: DDSS:0000020
+name: swimming pool
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-30T02:14:47Z
+
+[Term]
+id: DDSS:0000021
+name: IgG antibody capture ELISA
+is_a: DDSS:0000078 ! laboratory test for dengue virus
+created_by: slozano
+creation_date: 2010-03-19T03:23:13Z
+
+[Term]
+id: DDSS:0000022
+name: IgM antibody capture ELISA
+is_a: DDSS:0000078 ! laboratory test for dengue virus
+created_by: slozano
+creation_date: 2010-03-19T03:27:14Z
+
+[Term]
+id: DDSS:0000023
+name: NS1 antigen campute ELISA
+is_a: DDSS:0000078 ! laboratory test for dengue virus
+created_by: slozano
+creation_date: 2010-03-19T03:27:14Z
+
+[Term]
+id: DDSS:0000024
+name: dengue fever with hemorrhagic manifestation
+is_a: DDSS:0000057 ! clinical diagnosis
+is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+created_by: slozano
+creation_date: 2010-03-30T01:27:25Z
+
+[Term]
+id: DDSS:0000025
+name: virus isolation
+is_a: DDSS:0000078 ! laboratory test for dengue virus
+created_by: slozano
+creation_date: 2010-03-19T03:27:14Z
+
+[Term]
+id: DDSS:0000026
+name: quality of container
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T03:38:31Z
+
+[Term]
+id: DDSS:0000027
+name: descriptive name
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000028
+name: drawdown frequency
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000029
+name: manual fill frequency
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000030
+name: presence of lid
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000031
+name: roof assistance
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000032
+name: shading
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000033
+name: cement trough (20-40 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-30T02:22:15Z
+
+[Term]
+id: DDSS:0000034
+name: water fill action
+is_a: DDSS:0000026 ! quality of container
+created_by: slozano
+creation_date: 2010-03-19T03:52:10Z
+
+[Term]
+id: DDSS:0000035
+name: daily
+is_a: DDSS:0000028 ! drawdown frequency
+is_a: DDSS:0000029 ! manual fill frequency
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000036
+name: monthly
+is_a: DDSS:0000028 ! drawdown frequency
+is_a: DDSS:0000029 ! manual fill frequency
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000037
+name: never
+is_a: DDSS:0000028 ! drawdown frequency
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000038
+name: weekly
+is_a: DDSS:0000028 ! drawdown frequency
+is_a: DDSS:0000029 ! manual fill frequency
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000039
+name: full shade
+is_a: DDSS:0000032 ! shading
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000040
+name: full sun
+is_a: DDSS:0000032 ! shading
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000041
+name: partial sun
+is_a: DDSS:0000032 ! shading
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000042
+name: large earthen jar (40-60 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-30T02:25:14Z
+
+[Term]
+id: DDSS:0000043
+name: any type of premises
+is_a: DDSS:0000008 ! premises roles
+created_by: slozano
+creation_date: 2010-04-06T01:41:15Z
+
+[Term]
+id: DDSS:0000044
+name: manual
+is_a: DDSS:0000034 ! water fill action
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000045
+name: rain
+is_a: DDSS:0000034 ! water fill action
+created_by: slozano
+creation_date: 2010-03-19T04:00:48Z
+
+[Term]
+id: DDSS:0000046
+name: quality of insecticide resistance bioassay test
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000047
+name: assay type
+is_a: DDSS:0000046 ! quality of insecticide resistance bioassay test
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000048
+name: knockdown/lethal time 50 (KT/LT50)
+is_a: DDSS:0000047 ! assay type
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000049
+name: knockdown/lethal time 95 (KT/LT95)
+is_a: DDSS:0000047 ! assay type
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000050
+name: knockdown/lethal dose 50 (KD/LD50)
+is_a: DDSS:0000047 ! assay type
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000051
+name: knockdown/lethal dose 95 (KD/LD95)
+is_a: DDSS:0000047 ! assay type
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000052
+name: insecticide resistance bioassay test result
+is_a: DDSS:0000046 ! quality of insecticide resistance bioassay test
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000053
+name: Aedes developmental stage
+is_a: DDSS:0000077 ! process of dengue virus vector
+created_by: slozano
+creation_date: 2010-04-06T01:57:27Z
+
+[Term]
+id: DDSS:0000054
+name: resistant
+is_a: DDSS:0000052 ! insecticide resistance bioassay test result
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000055
+name: susceptible
+is_a: DDSS:0000052 ! insecticide resistance bioassay test result
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000056
+name: quality of suspected dengue case
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000057
+name: clinical diagnosis
+is_a: DDSS:0000056 ! quality of suspected dengue case
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000058
+name: quality of vector control visit
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-03-19T05:35:46Z
+
+[Term]
+id: DDSS:0000059
+name: laboratory confirmed diagnosis
+is_a: DDSS:0000056 ! quality of suspected dengue case
+created_by: slozano
+creation_date: 2010-03-19T05:09:19Z
+
+[Term]
+id: DDSS:0000060
+name: reason for non-treatment
+is_a: DDSS:0000058 ! quality of vector control visit
+created_by: slozano
+creation_date: 2010-03-19T05:37:17Z
+
+[Term]
+id: DDSS:0000061
+name: no one home
+is_a: DDSS:0000060 ! reason for non-treatment
+created_by: slozano
+creation_date: 2010-03-19T05:38:01Z
+
+[Term]
+id: DDSS:0000062
+name: refusal
+is_a: DDSS:0000060 ! reason for non-treatment
+created_by: slozano
+creation_date: 2010-03-19T05:38:01Z
+
+[Term]
+id: DDSS:0000063
+name: process of dengue vector control
+is_a: IDOMAL:0000000 ! process
+created_by: slozano
+creation_date: 2010-03-22T09:42:42Z
+
+[Term]
+id: DDSS:0000064
+name: dengue vector control method
+is_a: DDSS:0000063 ! process of dengue vector control
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000065
+name: block level dengue vector control method
+is_a: DDSS:0000064 ! dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000066
+name: vehicle based space spraying for adults
+is_a: DDSS:0000065 ! block level dengue vector control method
+is_a: DDSS:0000075 ! insecticide based dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000067
+name: premises level dengue vector control method
+is_a: DDSS:0000064 ! dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000068
+name: biological larviciding
+is_a: DDSS:0000067 ! premises level dengue vector control method
+is_a: DDSS:0000075 ! insecticide based dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000069
+name: chemical larviciding
+is_a: DDSS:0000067 ! premises level dengue vector control method
+is_a: DDSS:0000075 ! insecticide based dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000070
+name: education campaign
+is_a: DDSS:0000067 ! premises level dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000071
+name: environmental source reduction
+is_a: DDSS:0000067 ! premises level dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000072
+name: space spraying for adults
+is_a: DDSS:0000067 ! premises level dengue vector control method
+is_a: DDSS:0000075 ! insecticide based dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000073
+name: insecticide-treated material
+is_a: DDSS:0000067 ! premises level dengue vector control method
+is_a: DDSS:0000075 ! insecticide based dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000074
+name: predators for immatures
+is_a: DDSS:0000067 ! premises level dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000075
+name: insecticide based dengue vector control method
+is_a: DDSS:0000064 ! dengue vector control method
+created_by: slozano
+creation_date: 2010-03-22T09:45:53Z
+
+[Term]
+id: DDSS:0000076
+name: process of dengue virus
+is_a: IDOMAL:0000000 ! process
+created_by: slozano
+creation_date: 2010-03-22T10:11:26Z
+
+[Term]
+id: DDSS:0000077
+name: process of dengue virus vector
+is_a: IDOMAL:0000000 ! process
+created_by: slozano
+creation_date: 2010-03-22T10:11:56Z
+
+[Term]
+id: DDSS:0000078
+name: laboratory test for dengue virus
+is_a: DDSS:0000076 ! process of dengue virus
+created_by: slozano
+creation_date: 2010-03-22T10:13:20Z
+
+[Term]
+id: DDSS:0000079
+name: dengue clinical feature
+def: "Any condition of the human dengue host that is often the result of the disease." [SLF:SLF]
+is_a: DDSS:0000000 ! condition of dengue virus host
+created_by: slozano
+creation_date: 2010-04-07T09:32:47Z
+
+[Term]
+id: DDSS:0000080
+name: myalgia
+def: "Myalgia is the medical term for muscle pain." [SLF:SLF]
+synonym: "MYA" RELATED []
+synonym: "Myalgia" RELATED []
+synonym: "Myalgias" RELATED []
+synonym: "myalgias" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:04:40Z
+
+[Term]
+id: DDSS:0000081
+name: arthralgia
+def: "Arthralgia is a general term which describes pain in one or more joints with or without joint inflammation. Arthralgia is the medical term for pain in the joints." [SLF:SLF]
+synonym: "Arthralgia" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:08:01Z
+
+[Term]
+id: DDSS:0000082
+name: retro-orbital pain
+def: "Pain localized behind the eye(s)." [SLF:SLF]
+synonym: "Retro-orbital pain" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:11:39Z
+
+[Term]
+id: DDSS:0000083
+name: exanthema
+def: "An exanthema (from Greek \"exanthema\", a breaking out) is a widespread rash usually occurring in children. Exanthems can be caused by toxins or drugs, microorganisms, or can result from autoimmune disease." [en.wikipedia.org:Exanthema<new dbxref>]
+synonym: "Exanthema" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:23:32Z
+
+[Term]
+id: DDSS:0000084
+name: house fogging
+is_obsolete: true
+created_by: slozano
+creation_date: 2010-03-22T10:16:43Z
+
+[Term]
+id: DDSS:0000085
+name: vehicle based fogging
+is_obsolete: true
+created_by: slozano
+creation_date: 2010-03-22T10:16:43Z
+
+[Term]
+id: DDSS:0000086
+name: Aedes aegypti breeding site
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-03-22T11:08:05Z
+
+[Term]
+id: DDSS:0000087
+name: standardized container list
+is_a: DDSS:0000086 ! Aedes aegypti breeding site
+created_by: slozano
+creation_date: 2010-03-22T11:13:53Z
+
+[Term]
+id: DDSS:0000088
+name: dengue virus vector
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-03-22T11:21:13Z
+
+[Term]
+id: DDSS:0000089
+name: dengue vector surveillance and control target taxa
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-03-22T11:50:49Z
+
+[Term]
+id: DDSS:0000090
+name: Plasmodium parasite
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-03-22T01:05:15Z
+
+[Term]
+id: DDSS:0000091
+name: insecticide-treated emanator
+is_a: DDSS:0000002 ! insecticide-treated material
+created_by: slozano
+creation_date: 2010-03-23T10:02:13Z
+
+[Term]
+id: DDSS:0000092
+name: water tank (>200 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000093
+name: bucket (5-20 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000094
+name: drum (200 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000095
+name: tire
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000096
+name: petechiae
+def: "small (1-2mm) red or purple spot on the body, caused by a minor hemorrhage" [ISBN:978-1-4160-2973-1 "Kumar, Vinay; Abbas, Abul K.; Fausto, Nelson; & Mitchell, Richard N. (2007). Robbins Basic Pathology (8th ed.). Saunders Elsevier. p. 86"]
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:30:01Z
+
+[Term]
+id: DDSS:0000097
+name: ecchymosis
+def: "An ecchymosis is the medical term for a subcutaneous hematoma larger than 1 centimeter, commonly called a bruise. It can be located both in the skin as well as in a mucous membrane." [http://en.wikipedia.org/\:ecchymosis]
+synonym: "Ecchymosis" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:34:57Z
+
+[Term]
+id: DDSS:0000098
+name: hematoma
+def: "Collection of blood outside the blood vessels, generally the result of hemorrhage, or more specifically, internal bleeding. It is commonly called a bruise." [http://en.wikipedia.org/\:hematoma]
+synonym: "Hematoma" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:37:57Z
+
+[Term]
+id: DDSS:0000099
+name: tourniquet test
+def: "It assesses fragility of capillary walls and is used to identify thrombocytopenia (a reduced platelet count)." [http://en.wikipedia.org/\:tourniquet test]
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T10:43:06Z
+
+[Term]
+id: DDSS:0000100
+name: ascitis
+def: "Ascitis is a medical problem in which an excess of fluid accumulation in the peritoneal cavity occurs." [SLF:SLF]
+synonym: "Ascitis" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:18:46Z
+
+[Term]
+id: DDSS:0000101
+name: cement cistern (>200 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000102
+name: flower pot
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000103
+name: small container (<5 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000104
+name: large container (5-20 liters)
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000105
+name: vase
+is_a: DDSS:0000027 ! descriptive name
+is_a: DDSS:0000087 ! standardized container list
+created_by: slozano
+creation_date: 2010-03-23T01:04:31Z
+
+[Term]
+id: DDSS:0000106
+name: edema
+def: "Edema is the medical term for swelling caused by collection of fluid in the small spaces that surround the body tissues and organs." [SLF:SLF]
+synonym: "Edema" RELATED []
+synonym: "edemas" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:20:47Z
+
+[Term]
+id: DDSS:0000107
+name: pleural effusion
+def: "Abnormal accumulation of fluid in the pleural space, between the two layers parietal and visceral pleura, covering the lung." [SLF:SLF]
+synonym: "Pleural Effusion" RELATED []
+synonym: "Pleural effusion" RELATED []
+synonym: "pleural effusions" RELATED []
+synonym: "Pleural effusions" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:24:01Z
+
+[Term]
+id: DDSS:0000108
+name: dengue
+is_a: IDOMAL:0001051 ! infectious disease
+created_by: slozano
+creation_date: 2010-03-23T01:38:36Z
+
+[Term]
+id: DDSS:0000109
+name: dengue hemorrhagic fever
+def: "Manifestation to a dengue virus infection characterized by hemorrhagic symptoms in the human host." [http://lib.bioinfo.pl/meid\:246244, SLF:SLF]
+is_a: DDSS:0000057 ! clinical diagnosis
+is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+created_by: slozano
+creation_date: 2010-03-29T12:05:08Z
+
+[Term]
+id: DDSS:0000110
+name: dengue fever
+def: "Dengue fever is an infectious disease that can be caused by a four Serotypes of Flavivirus, a genus of virus transmitted via mosquito bites." [CDC:dengue fever]
+synonym: "Dengue Fever" RELATED []
+synonym: "Dengue fever" RELATED []
+synonym: "DF" RELATED []
+is_a: DDSS:0000057 ! clinical diagnosis
+is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+created_by: slozano
+creation_date: 2010-03-29T12:07:09Z
+
+[Term]
+id: DDSS:0000111
+name: gingivorrhagia
+def: "Bleeding of the gingiva (oral gum)." [SLF:SLF]
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:30:30Z
+
+[Term]
+id: DDSS:0000112
+name: other disease (non-dengue case)
+is_a: DDSS:0000057 ! clinical diagnosis
+is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+created_by: slozano
+creation_date: 2010-03-29T12:25:18Z
+
+[Term]
+id: DDSS:0000113
+name: epistaxis
+def: "Hemorrhage from the nose, usually noticed when the blood drains out through the nostrils." [SLF:SLF]
+synonym: "Epistaxis" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:36:38Z
+
+[Term]
+id: DDSS:0000114
+name: dengue shock syndrome
+def: "Dengue shock syndrome is a severe complication of dengue hemorrhagic fever (DHF), characterized by a massive increase in vascular permeability." [http://lib.bioinfo.pl/meid\:246244]
+synonym: "Dengue Shock Syndrome" RELATED []
+synonym: "Dengue shock syndrome" RELATED []
+synonym: "DSS" RELATED []
+is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+created_by: slozano
+creation_date: 2010-03-29T12:29:44Z
+
+[Term]
+id: DDSS:0000115
+name: dengue health provider
+is_a: MDSS:0000291 ! health provider
+created_by: slozano
+creation_date: 2010-03-29T01:01:14Z
+
+[Term]
+id: DDSS:0000116
+name: physician
+def: "Physician is an individual that has undergone the advanced training to receive the credentials that allows them to practice medicine." [http://en.wikipedia.org/\:physician]
+is_a: DDSS:0000115 ! dengue health provider
+created_by: slozano
+creation_date: 2010-03-29T01:01:26Z
+
+[Term]
+id: DDSS:0000117
+name: hematemesis
+def: "Vomiting of blood. The source is generally the upper gastrointestinal tract." [http://en.wikipedia.org/\:hematemesis]
+synonym: "Hematemesis" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T04:55:09Z
+
+[Term]
+id: DDSS:0000118
+name: melena
+def: "Refers to the black, \"tarry\" feces that are associated with gastrointestinal hemorrhage." [http://en.wikipedia.org/\:melena]
+synonym: "Melena" RELATED []
+is_a: DDSS:0000079 ! dengue clinical feature
+created_by: slozano
+creation_date: 2010-04-07T05:03:48Z
+
+[Term]
+id: DDSS:0000119
+name: quality of dengue virus infection
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-08T02:29:57Z
+
+[Term]
+id: DDSS:0000120
+name: primary
+is_a: DDSS:0000124 ! primary or sequential dengue virus infection
+created_by: slozano
+creation_date: 2010-04-08T02:30:39Z
+
+[Term]
+id: DDSS:0000121
+name: secondary
+is_a: DDSS:0000124 ! primary or sequential dengue virus infection
+created_by: slozano
+creation_date: 2010-04-08T02:30:39Z
+
+[Term]
+id: DDSS:0000122
+name: tertiary
+is_a: DDSS:0000124 ! primary or sequential dengue virus infection
+created_by: slozano
+creation_date: 2010-04-08T02:30:39Z
+
+[Term]
+id: DDSS:0000123
+name: quaternary
+is_a: DDSS:0000124 ! primary or sequential dengue virus infection
+created_by: slozano
+creation_date: 2010-04-08T02:30:39Z
+
+[Term]
+id: DDSS:0000124
+name: primary or sequential dengue virus infection
+is_a: DDSS:0000119 ! quality of dengue virus infection
+created_by: slozano
+creation_date: 2010-04-09T12:31:32Z
+
+[Term]
+id: DDSS:0000125
+name: origin of dengue infection
+is_a: DDSS:0000119 ! quality of dengue virus infection
+created_by: slozano
+creation_date: 2010-04-09T12:32:24Z
+
+[Term]
+id: DDSS:0000126
+name: imported infection
+is_a: DDSS:0000125 ! origin of dengue infection
+created_by: slozano
+creation_date: 2010-04-09T12:33:20Z
+
+[Term]
+id: DDSS:0000127
+name: locally acquired infection
+is_a: DDSS:0000125 ! origin of dengue infection
+created_by: slozano
+creation_date: 2010-04-09T12:33:20Z
+
+[Term]
+id: DDSS:0000128
+name: quality of dengue diagnosis
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-09T12:33:34Z
+
+[Term]
+id: DDSS:0000129
+name: clinical diagnosis
+is_a: DDSS:0000131 ! type of diagnosis
+is_a: DDSS:0000133 ! type of malaria diagnosis
+created_by: slozano
+creation_date: 2010-04-09T12:34:06Z
+
+[Term]
+id: DDSS:0000130
+name: confirmed diagnosis
+is_a: DDSS:0000131 ! type of diagnosis
+created_by: slozano
+creation_date: 2010-04-09T12:34:06Z
+
+[Term]
+id: DDSS:0000131
+name: type of diagnosis
+is_a: DDSS:0000128 ! quality of dengue diagnosis
+created_by: slozano
+creation_date: 2010-04-09T03:13:00Z
+
+[Term]
+id: DDSS:0000132
+name: quality of malaria diagnosis
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-12T10:26:19Z
+
+[Term]
+id: DDSS:0000133
+name: type of malaria diagnosis
+is_a: DDSS:0000132 ! quality of malaria diagnosis
+created_by: slozano
+creation_date: 2010-04-12T10:26:37Z
+
+[Term]
+id: DDSS:0000134
+name: definitive diagnosis
+is_a: DDSS:0000133 ! type of malaria diagnosis
+created_by: slozano
+creation_date: 2010-04-12T10:27:28Z
+
+[Term]
+id: DDSS:0000135
+name: quality of malaria case
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-12T10:29:22Z
+
+[Term]
+id: DDSS:0000136
+name: type of malaria case
+is_a: DDSS:0000135 ! quality of malaria case
+created_by: slozano
+creation_date: 2010-04-12T10:29:40Z
+
+[Term]
+id: DDSS:0000137
+name: malaria
+is_a: DDSS:0000136 ! type of malaria case
+created_by: slozano
+creation_date: 2010-04-12T10:30:16Z
+
+[Term]
+id: DDSS:0000138
+name: quality of dengue patient
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-12T10:34:58Z
+
+[Term]
+id: DDSS:0000139
+name: age category
+is_a: DDSS:0000138 ! quality of dengue patient
+created_by: slozano
+creation_date: 2010-04-12T10:35:24Z
+
+[Term]
+id: DDSS:0000140
+name: <1 Yr (infant)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000141
+name: 1-5 Yr (small child)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000142
+name: 6-15 (school age child)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000143
+name: 16-25 (adult category I)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000144
+name: 26-40 (adult category II)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000145
+name: 41-60 (adult category III)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0000146
+name: > 60 (adult category IV)
+is_a: DDSS:0000139 ! age category
+created_by: slozano
+creation_date: 2010-04-12T10:37:13Z
+
+[Term]
+id: DDSS:0100000
+name: Dengue
+namespace: 
+is_a: MDDSS:0000001 ! menu
+created_by: chris
+creation_date: 2010-04-22T09:32:45Z
+
+[Term]
+id: DDSS:0100002
+name: Administration
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T09:33:47Z
+
+[Term]
+id: DDSS:0100003
+name: Configure system variables
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:43Z
+
+[Term]
+id: DDSS:0100004
+name: Configure transmission season
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:58Z
+
+[Term]
+id: DDSS:0100005
+name: Update logo
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:35:28Z
+
+[Term]
+id: DDSS:0100006
+name: Configure epidemiological week
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:37:21Z
+
+[Term]
+id: DDSS:0100007
+name: Enter population data
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:38:15Z
+
+[Term]
+id: DDSS:0100008
+name: Configure alerts
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:38:31Z
+
+[Term]
+id: DDSS:0100009
+name: Configure system alerts
+namespace: 
+is_a: DDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:38:50Z
+
+[Term]
+id: DDSS:0100010
+name: Configure email server
+namespace: 
+is_a: DDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:39:06Z
+
+[Term]
+id: DDSS:0100011
+name: View emails
+namespace: 
+is_a: DDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:39:25Z
+
+[Term]
+id: DDSS:0100012
+name: Person administration
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:39:46Z
+
+[Term]
+id: DDSS:0100013
+name: Manage people
+namespace: 
+is_a: DDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:02Z
+
+[Term]
+id: DDSS:0100014
+name: Configure GUI visibility
+namespace: 
+is_a: DDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:22Z
+
+[Term]
+id: DDSS:0100015
+name: Configure user roles
+namespace: 
+is_a: DDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:48Z
+
+[Term]
+id: DDSS:0100016
+name: Synchronise
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:41:15Z
+
+[Term]
+id: DDSS:0100017
+name: Transaction log
+namespace: 
+is_a: DDSS:0100016 ! Synchronise
+created_by: chris
+creation_date: 2010-04-22T09:41:34Z
+
+[Term]
+id: DDSS:0100018
+name: Import log
+namespace: 
+is_a: DDSS:0100016 ! Synchronise
+created_by: chris
+creation_date: 2010-04-22T09:41:51Z
+
+[Term]
+id: DDSS:0100019
+name: Localization
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:09Z
+
+[Term]
+id: DDSS:0100020
+name: Configure lookups and grids
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:30Z
+
+[Term]
+id: DDSS:0100021
+name: Term tree administration
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:50Z
+
+[Term]
+id: DDSS:0100022
+name: Case Surveillance
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T09:43:19Z
+
+[Term]
+id: DDSS:0100023
+name: Aggregated cases
+namespace: 
+is_a: DDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:43:49Z
+
+[Term]
+id: DDSS:0100024
+name: Enter aggregated cases
+namespace: 
+is_a: DDSS:0100023 ! Aggregated cases
+created_by: chris
+creation_date: 2010-04-22T09:44:06Z
+
+[Term]
+id: DDSS:0100025
+name: Query aggregated cases
+namespace: 
+is_a: DDSS:0100023 ! Aggregated cases
+created_by: chris
+creation_date: 2010-04-22T09:44:21Z
+
+[Term]
+id: DDSS:0100026
+name: Individual cases
+namespace: 
+is_a: DDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:44:36Z
+
+[Term]
+id: DDSS:0100027
+name: Enter individual cases
+namespace: 
+is_a: DDSS:0100026 ! Individual cases
+created_by: chris
+creation_date: 2010-04-22T09:45:11Z
+
+[Term]
+id: DDSS:0100028
+name: Query individual cases
+namespace: 
+is_a: DDSS:0100026 ! Individual cases
+created_by: chris
+creation_date: 2010-04-22T09:45:25Z
+
+[Term]
+id: DDSS:0100029
+name: Thresholds
+namespace: 
+is_a: DDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:45:50Z
+
+[Term]
+id: DDSS:0100030
+name: Configure thresholds
+namespace: 
+is_a: DDSS:0100029 ! Thresholds
+created_by: chris
+creation_date: 2010-04-22T09:46:08Z
+
+[Term]
+id: DDSS:0100031
+name: Enter thresholds
+namespace: 
+is_a: DDSS:0100029 ! Thresholds
+created_by: chris
+creation_date: 2010-04-22T09:46:30Z
+
+[Term]
+id: DDSS:0100032
+name: Configure case surveillance
+namespace: 
+is_a: DDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:46:50Z
+
+[Term]
+id: DDSS:0100033
+name: Entomological Surveillance
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T11:25:09Z
+
+[Term]
+id: DDSS:0100034
+name: Mosquito collections
+namespace: 
+is_a: DDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T11:25:29Z
+
+[Term]
+id: DDSS:0100035
+name: Search/enter a collection
+namespace: 
+is_a: DDSS:0100034 ! Mosquito collections
+created_by: chris
+creation_date: 2010-04-22T11:25:49Z
+
+[Term]
+id: DDSS:0100036
+name: Query mosquito collections and abundance
+namespace: 
+is_a: DDSS:0100034 ! Mosquito collections
+created_by: chris
+creation_date: 2010-04-22T11:26:11Z
+
+[Term]
+id: DDSS:0100037
+name: Collections of immatures
+namespace: 
+is_a: DDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T11:26:33Z
+
+[Term]
+id: DDSS:0100038
+name: Thresholds
+namespace: 
+is_a: DDSS:0100037 ! Collections of immatures
+created_by: chris
+creation_date: 2010-04-22T11:26:46Z
+
+[Term]
+id: DDSS:0100039
+name: Immatures by container type
+namespace: 
+is_a: DDSS:0100037 ! Collections of immatures
+created_by: chris
+creation_date: 2010-04-22T11:26:57Z
+
+[Term]
+id: DDSS:0100040
+name: Query immatures by container type
+namespace: 
+is_a: DDSS:0100037 ! Collections of immatures
+created_by: chris
+creation_date: 2010-04-22T11:27:22Z
+
+[Term]
+id: DDSS:0100041
+name: Pupae by individual container
+namespace: 
+is_a: DDSS:0100037 ! Collections of immatures
+created_by: chris
+creation_date: 2010-04-22T11:27:43Z
+
+[Term]
+id: DDSS:0100042
+name: Query pupae by individual container
+namespace: 
+is_a: DDSS:0100037 ! Collections of immatures
+created_by: chris
+creation_date: 2010-04-22T11:28:04Z
+
+[Term]
+id: DDSS:0100043
+name: Assays
+namespace: 
+is_a: DDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T11:28:17Z
+
+[Term]
+id: DDSS:0100044
+name: Enter infection data
+namespace: 
+is_a: DDSS:0100043 ! Assays
+created_by: chris
+creation_date: 2010-04-22T11:28:27Z
+
+[Term]
+id: DDSS:0100045
+name: Enter resistance mechanisms data
+namespace: 
+is_a: DDSS:0100043 ! Assays
+created_by: chris
+creation_date: 2010-04-22T11:28:52Z
+
+[Term]
+id: DDSS:0100046
+name: Query resistance mechanisms
+namespace: 
+is_a: DDSS:0100043 ! Assays
+created_by: chris
+creation_date: 2010-04-22T11:29:12Z
+
+[Term]
+id: DDSS:0100047
+name: Enter bioassays
+namespace: 
+is_a: DDSS:0100043 ! Assays
+created_by: chris
+creation_date: 2010-04-22T11:29:31Z
+
+[Term]
+id: DDSS:0100048
+name: Query bioassays
+namespace: 
+is_a: DDSS:0100043 ! Assays
+created_by: chris
+creation_date: 2010-04-22T11:29:46Z
+
+[Term]
+id: DDSS:0100049
+name: Intervention Planning
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T11:30:05Z
+
+[Term]
+id: DDSS:0100050
+name: Planning calculator
+namespace: 
+is_a: DDSS:0100049 ! Intervention Planning
+created_by: chris
+creation_date: 2010-04-22T11:30:18Z
+
+[Term]
+id: DDSS:0100051
+name: Insecticide configuration
+namespace: 
+is_a: DDSS:0100049 ! Intervention Planning
+created_by: chris
+creation_date: 2010-04-22T11:30:35Z
+
+[Term]
+id: DDSS:0100052
+name: Intervention Monitoring
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T11:31:17Z
+
+[Term]
+id: DDSS:0100053
+name: Intervention control
+namespace: 
+is_a: DDSS:0100052 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T11:31:29Z
+
+[Term]
+id: DDSS:0100054
+name: Query intervention control
+namespace: 
+is_a: DDSS:0100052 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T11:36:00Z
+
+[Term]
+id: DDSS:0100083
+name: Stock Control
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T10:31:12Z
+
+[Term]
+id: DDSS:0100084
+name: Configure stock items
+namespace: 
+is_a: DDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:24Z
+
+[Term]
+id: DDSS:0100085
+name: Manage stock
+namespace: 
+is_a: DDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:39Z
+
+[Term]
+id: DDSS:0100086
+name: Query stock
+namespace: 
+is_a: DDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:54Z
+
+[Term]
+id: DDSS:0100087
+name: GIS
+namespace: 
+is_a: DDSS:0100000 ! Dengue
+created_by: chris
+creation_date: 2010-04-22T10:33:23Z
+
+[Term]
+id: DDSS:0100088
+name: Universal tree administration
+namespace: 
+is_a: DDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:33:37Z
+
+[Term]
+id: DDSS:0100089
+name: Geographical entity tree administration
+namespace: 
+is_a: DDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:33:51Z
+
+[Term]
+id: DDSS:0100090
+name: Generate maps
+namespace: 
+is_a: DDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:34:14Z
+
+[Term]
+id: IDO:0000064
+name: pathogen
+is_a: IDOMAL:0000001 ! role
 
 [Term]
 id: IDOMAL:0000000
@@ -111,6 +1713,7 @@ creation_date: 2007-12-14T11:32:00Z
 id: IDOMAL:0000129
 name: Plasmodium falciparum
 def: "A human parasite causing the malignant form of tertian (pernicious or malignant ) malaria, found in all continents." [KL:KL]
+is_a: DDSS:0000090 ! Plasmodium parasite
 is_a: IDOMAL:0000128 ! subgenus Laverania
 created_by: louis
 creation_date: 2007-12-14T11:34:00Z
@@ -127,6 +1730,7 @@ creation_date: 2007-12-14T11:36:00Z
 id: IDOMAL:0000131
 name: Plasmodium ovale
 def: "A human parasite causing the less frequent form of benign (ovale) tertian malaria. P. ovale may also infect chimpanzees." [KL:KL]
+is_a: DDSS:0000090 ! Plasmodium parasite
 is_a: IDOMAL:0000127 ! subgenus Plasmodium
 created_by: louis
 creation_date: 2007-12-14T11:40:00Z
@@ -135,6 +1739,7 @@ creation_date: 2007-12-14T11:40:00Z
 id: IDOMAL:0000132
 name: Plasmodium vivax
 def: "A human parasite causing the most frequent form of benign (simple) tertian malaria. P. viax may also infect chimpanzees and orangutans." [KL:KL]
+is_a: DDSS:0000090 ! Plasmodium parasite
 is_a: IDOMAL:0000127 ! subgenus Plasmodium
 created_by: louis
 creation_date: 2007-12-14T11:42:00Z
@@ -143,6 +1748,7 @@ creation_date: 2007-12-14T11:42:00Z
 id: IDOMAL:0000133
 name: Plasmodium malariae
 def: "A human parasite causing quartan malaria." [KL:KL]
+is_a: DDSS:0000090 ! Plasmodium parasite
 is_a: IDOMAL:0000127 ! subgenus Plasmodium
 created_by: louis
 creation_date: 2007-12-14T11:43:00Z
@@ -767,6 +2373,7 @@ id: IDOMAL:0000259
 name: insecticide-treated net
 def: "An insecticide-treated net is a mosquito net that repels, disables and/or kills mosquitoes coming into contact with insecticide on the netting material. There are two categories of ITNs: conventionally treated nets and long-lasting insecticidal nets." [KL:KL]
 synonym: "ITN" EXACT []
+is_a: DDSS:0000002 ! insecticide-treated material
 is_a: MDSS:0000020 ! net
 created_by: louis
 creation_date: 2008-05-16T08:37:08Z
@@ -1023,7 +2630,8 @@ creation_date: 2009-06-30T02:49:02Z
 id: IDOMAL:0000490
 name: malaise
 def: "Malaise is a \"general feeling of being unwell\"." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:46:43Z
 
@@ -1031,7 +2639,8 @@ creation_date: 2008-06-22T08:46:43Z
 id: IDOMAL:0000491
 name: fatigue
 def: "Physical fatigue is the inability to continue functioning at the level of one's normal abilities." [Wikipedia:fatigue]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:47:02Z
 
@@ -1040,7 +2649,8 @@ id: IDOMAL:0000492
 name: lassitude
 def: "Lassitude  is a weariness." [KL:KL]
 synonym: "exhaustion" NARROW []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:47:16Z
 
@@ -1049,7 +2659,8 @@ id: IDOMAL:0000493
 name: headache
 def: "In medicine a headache is a symptom of a number of different conditions of the head and sometimes neck." [KL:KL]
 synonym: "Cephalalgia " EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:47:55Z
 
@@ -1058,7 +2669,8 @@ id: IDOMAL:0000494
 name: dizziness
 def: "Dizziness refers to an impairment in spatial perception and stability." [Wikipedia:<new dbxref>dizziness]
 synonym: "vertigo" NARROW []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:48:14Z
 
@@ -1066,7 +2678,8 @@ creation_date: 2008-06-22T08:48:14Z
 id: IDOMAL:0000495
 name: anorexia
 def: "Anorexia is the symptom of poor appetite whatever the cause." [Wikipedia:Wikipedia]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:48:36Z
 
@@ -1074,7 +2687,8 @@ creation_date: 2008-06-22T08:48:36Z
 id: IDOMAL:0000496
 name: nausea
 def: "Nausea is the sensation of unease and discomfort in the stomach with an urge to vomit." [Wikipedia:nausea]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:48:45Z
 
@@ -1082,14 +2696,16 @@ creation_date: 2008-06-22T08:48:45Z
 id: IDOMAL:0000497
 name: vomiting
 def: "Vomiting (known medically as emesis and informally as throwing up and a number of other terms) is the forceful expulsion of the contents of one's stomach through the mouth and sometimes the nose." [Wikipedia:vomiting]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:48:52Z
 
 [Term]
 id: IDOMAL:0000499
 name: mild shivering
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:50:22Z
 
@@ -1097,7 +2713,8 @@ creation_date: 2008-06-22T08:50:22Z
 id: IDOMAL:0000500
 name: teeth chattering
 def: "An uncontrolled vibration of the teeth, often at night or in cases of feeling cold." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:50:50Z
 
@@ -1106,28 +2723,32 @@ id: IDOMAL:0000501
 name: rigor
 def: "Rigor is a shaking occurring during a high fever." [Wikipedia:rigor]
 synonym: "body shake" RELATED []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:51:13Z
 
 [Term]
 id: IDOMAL:0000502
 name: peripheral vasoconstriction
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:52:52Z
 
 [Term]
 id: IDOMAL:0000503
 name: rapid pulse
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:53:15Z
 
 [Term]
 id: IDOMAL:0000504
 name: low volume pulse
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:53:47Z
 
@@ -1136,21 +2757,24 @@ id: IDOMAL:0000505
 name: febrile convulsions
 def: "A febrile is a convulsion triggered by a rise in body temperature." [KL:KL]
 synonym: "febrile seizure" EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:54:24Z
 
 [Term]
 id: IDOMAL:0000507
 name: severe throbbing headache
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:55:57Z
 
 [Term]
 id: IDOMAL:0000508
 name: palpitation
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:56:35Z
 
@@ -1158,21 +2782,24 @@ creation_date: 2008-06-22T08:56:35Z
 id: IDOMAL:0000509
 name: tachypnoea
 def: "A state characterized by rapid breathing." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:56:51Z
 
 [Term]
 id: IDOMAL:0000510
 name: prostration
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:57:17Z
 
 [Term]
 id: IDOMAL:0000511
 name: posturnal syncope
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:57:32Z
 
@@ -1180,7 +2807,8 @@ creation_date: 2008-06-22T08:57:32Z
 id: IDOMAL:0000512
 name: epigastric discomfort
 def: "Not very intense pain in the epigastric area." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T08:57:53Z
 
@@ -1188,14 +2816,15 @@ creation_date: 2008-06-22T08:57:53Z
 id: IDOMAL:0000513
 name: delirium
 def: "Delirium is an acute and relatively sudden (developing over hours to days) decline in attention-focus, perception, and cognition." [Wikipedia:delirium]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T09:00:31Z
 
 [Term]
 id: IDOMAL:0000514
 name: splenic enlargement
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T09:01:50Z
 
@@ -1205,7 +2834,8 @@ name: fever
 def: "Fever is a frequent medical sign that describes an increase in internal body temperature to levels above normal." [KL:KL]
 synonym: "febrile response" NARROW []
 synonym: "pyrexia" EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T09:03:57Z
 
@@ -1214,7 +2844,8 @@ id: IDOMAL:0000517
 name: sweating
 def: "Sweating is the production of a fluid, consisting primarily of water as well as various dissolved solids, that is excreted by the sweat glands in the skin of mammals." [KL:KL]
 synonym: "Perspiration" EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T09:04:20Z
 
@@ -1223,35 +2854,39 @@ id: IDOMAL:0000522
 name: anaemia
 def: "Anaemia is a decrease in normal number of red blood cells or less than the normal quantity of hemoglobin in the blood." [KL:KL]
 synonym: "Anemia" EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:30:56Z
 
 [Term]
 id: IDOMAL:0000523
 name: hyperpyrexia
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:31:44Z
 
 [Term]
 id: IDOMAL:0000524
 name: hyperparasitaemia
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:32:01Z
 
 [Term]
 id: IDOMAL:0000525
 name: hypoglycaemia
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:32:19Z
 
 [Term]
 id: IDOMAL:0000526
 name: renal failure
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:32:48Z
 
@@ -1261,7 +2896,8 @@ name: hepatic dysfunction
 def: "Malfunction of the liver." [KL:KL]
 synonym: "hepatic disfunction" EXACT []
 synonym: "hepatic malfunction" EXACT []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:32:57Z
 
@@ -1269,14 +2905,16 @@ creation_date: 2008-06-22T10:32:57Z
 id: IDOMAL:0000528
 name: water-electrolyte imbalance
 def: "Any situation in which the levels of one of the common electrolytes is either elevated or lowered in the serum of a patient." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:33:19Z
 
 [Term]
 id: IDOMAL:0000529
 name: pulmonary oedema
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:33:52Z
 
@@ -1284,14 +2922,15 @@ creation_date: 2008-06-22T10:33:52Z
 id: IDOMAL:0000530
 name: massive intravascular haemolysis
 synonym: "blackwater fever" RELATED []
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:34:33Z
 
 [Term]
 id: IDOMAL:0000531
 name: splenic rupture
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:35:34Z
 
@@ -1299,7 +2938,8 @@ creation_date: 2008-06-22T10:35:34Z
 id: IDOMAL:0000532
 name: circulatory collapse
 def: "A circulatory collapse is defined as a general or specific failure of the circulation, either cardiac or peripheral in nature." [KL:KL]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: Administrator
 creation_date: 2008-06-22T10:39:38Z
 
@@ -1536,6 +3176,29 @@ def: "Any life cycle stage of Plasmodium that is spent in the vertebrate host." 
 is_a: IDOMAL:0000296 ! Plasmodium parasite stage
 created_by: Pantelis
 creation_date: 2008-09-11T10:27:21Z
+
+[Term]
+id: IDOMAL:0001050
+name: disposition
+def: "A realizable dependent continuant that typically causes a specific process in the object in which it inheres when the object is introduced into certain specific circumstances." [Nature Precedings:hdl\:10101/npre.2008.1941.1 "Function, Role, and Disposition in Basic Formal Ontology"]
+created_by: Pantelis
+creation_date: 2008-12-22T08:44:20Z
+
+[Term]
+id: IDOMAL:0001051
+name: infectious disease
+def: "A disease whose physical basis is an infection." [IDO:436]
+is_a: IDOMAL:0001050 ! disposition
+created_by: Pantelis
+creation_date: 2008-12-22T08:45:03Z
+
+[Term]
+id: IDOMAL:0001052
+name: malaria
+def: "An acute febrile illness characterized by periodic febrile paroxysms caused by parasites of the genus Plasmodium." [KL:KL]
+is_a: IDOMAL:0001051 ! infectious disease
+created_by: Pantelis
+creation_date: 2008-12-22T08:45:26Z
 
 [Term]
 id: IDOMAL:0001055
@@ -1929,6 +3592,7 @@ creation_date: 2009-06-03T03:42:53Z
 id: IDOMAL:0001228
 name: Plasmodium knowlesi
 def: "A parasite causing malaria to monkeys and also found to be causing malaria naturally to humans in SE Asia." [KL:KL]
+is_a: DDSS:0000090 ! Plasmodium parasite
 is_a: IDOMAL:0000127 ! subgenus Plasmodium
 created_by: louis
 creation_date: 2009-06-03T03:47:12Z
@@ -1965,7 +3629,7 @@ creation_date: 2009-06-29T01:46:09Z
 
 [Term]
 id: IDOMAL:0001242
-name: clinical feature
+name: malaria clinical feature
 def: "Any condition of the human malaria host that is often the result of a disease." [KL:KL]
 is_a: IDOMAL:0000093 ! condition of malaria host
 created_by: louis
@@ -2024,6 +3688,7 @@ id: IDOMAL:0001253
 name: adult
 def: "The winged and last stage of development." [KL:KL]
 synonym: "imago" EXACT []
+is_a: DDSS:0000053 ! Aedes developmental stage
 is_a: IDOMAL:0000612 ! Anopheles developmental stage
 created_by: louis
 creation_date: 2009-06-04T03:34:16Z
@@ -2080,7 +3745,8 @@ creation_date: 2009-06-09T01:00:35Z
 id: IDOMAL:0001289
 name: coma
 def: "A coma is a profound state of unconsciousness." [Wikipedia:coma]
-is_a: IDOMAL:0001242 ! clinical feature
+is_a: DDSS:0000079 ! dengue clinical feature
+is_a: IDOMAL:0001242 ! malaria clinical feature
 created_by: louis
 creation_date: 2009-06-29T03:02:07Z
 
@@ -2167,6 +3833,13 @@ alt_id: EV:0100164
 alt_id: FMAMDSS:20935
 alt_id: MA:0002503
 is_a: MDSS:0000489 ! type of sample
+
+[Term]
+id: MDDSS:0000001
+name: menu
+namespace: 
+created_by: chris
+creation_date: 2010-04-22T09:21:42Z
 
 [Term]
 id: MDSS:0000000
@@ -2340,6 +4013,7 @@ creation_date: 2009-08-12T02:42:29Z
 id: MDSS:0000021
 name: Insecticide-treated curtain
 def: "Screening material treated with an insecticide and used as curtain." [SLF:SLF]
+is_a: DDSS:0000002 ! insecticide-treated material
 is_a: IDOMAL:0001024 ! screening material surface
 created_by: Saul
 creation_date: 2009-08-13T10:34:19Z
@@ -2925,6 +4599,7 @@ creation_date: 2009-08-14T04:19:18Z
 [Term]
 id: MDSS:0000102
 name: immature
+is_a: DDSS:0000053 ! Aedes developmental stage
 is_a: IDOMAL:0000612 ! Anopheles developmental stage
 created_by: Saul
 creation_date: 2009-09-16T09:58:43Z
@@ -3108,6 +4783,7 @@ creation_date: 2009-08-14T04:23:17Z
 [Term]
 id: MDSS:0000128
 name: commercial premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3115,6 +4791,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000129
 name: educational premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3122,6 +4799,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000130
 name: health facility premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3129,6 +4807,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000131
 name: farm premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3136,6 +4815,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000132
 name: industrial premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3143,6 +4823,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000133
 name: lodge or resort premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3150,6 +4831,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000134
 name: reserve premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3157,6 +4839,7 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000135
 name: residential premises
+is_a: DDSS:0000008 ! premises roles
 is_a: MDSS:0000119 ! premises
 created_by: Saul
 creation_date: 2009-08-14T04:24:42Z
@@ -3164,42 +4847,42 @@ creation_date: 2009-08-14T04:24:42Z
 [Term]
 id: MDSS:0000136
 name: rural residential premises
-is_a: MDSS:0000135 ! residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:06Z
 
 [Term]
 id: MDSS:0000137
 name: urban residential premises
-is_a: MDSS:0000135 ! residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:06Z
 
 [Term]
 id: MDSS:0000138
 name: village residential premises
-is_a: MDSS:0000136 ! rural residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:32Z
 
 [Term]
 id: MDSS:0000139
 name: farm residential premises
-is_a: MDSS:0000136 ! rural residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:32Z
 
 [Term]
 id: MDSS:0000140
 name: city residential premises
-is_a: MDSS:0000137 ! urban residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:52Z
 
 [Term]
 id: MDSS:0000141
 name: town residential premises
-is_a: MDSS:0000137 ! urban residential premises
+is_obsolete: true
 created_by: Saul
 creation_date: 2009-08-14T04:25:52Z
 
@@ -3573,6 +5256,7 @@ creation_date: 2009-08-25T04:11:46Z
 id: MDSS:0000193
 name: egg
 def: "Is the zygote, resulting from fertilization of the ovum with its protective layers." [SLF:SLF]
+is_a: DDSS:0000053 ! Aedes developmental stage
 is_a: IDOMAL:0000612 ! Anopheles developmental stage
 created_by: Saul
 creation_date: 2009-08-27T11:31:01Z
@@ -4277,35 +5961,36 @@ creation_date: 2009-09-01T04:23:18Z
 [Term]
 id: MDSS:0000293
 name: healer
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
 created_by: Saul
 creation_date: 2009-09-01T04:24:29Z
 
 [Term]
 id: MDSS:0000294
 name: other type of health provider
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
+is_a: DDSS:0000115 ! dengue health provider
 created_by: Saul
 creation_date: 2009-09-01T04:24:29Z
 
 [Term]
 id: MDSS:0000295
 name: pharmacist
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
 created_by: Saul
 creation_date: 2009-09-01T04:24:29Z
 
 [Term]
 id: MDSS:0000296
 name: private practitioner
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
 created_by: Saul
 creation_date: 2009-09-01T04:24:29Z
 
 [Term]
 id: MDSS:0000297
 name: publicly employed practitioner
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
 created_by: Saul
 creation_date: 2009-09-01T04:24:29Z
 
@@ -4763,6 +6448,8 @@ creation_date: 2009-09-18T03:42:56Z
 [Term]
 id: MDSS:0000360
 name: yes
+is_a: DDSS:0000030 ! presence of lid
+is_a: DDSS:0000031 ! roof assistance
 is_a: MDSS:0000356 ! answer type 0
 is_a: MDSS:0000357 ! answer type 1
 is_a: MDSS:0000358 ! answer type 2
@@ -4773,6 +6460,8 @@ creation_date: 2009-09-18T03:43:22Z
 [Term]
 id: MDSS:0000361
 name: no
+is_a: DDSS:0000030 ! presence of lid
+is_a: DDSS:0000031 ! roof assistance
 is_a: MDSS:0000356 ! answer type 0
 is_a: MDSS:0000357 ! answer type 1
 is_a: MDSS:0000358 ! answer type 2
@@ -4872,7 +6561,7 @@ creation_date: 2009-09-18T03:48:02Z
 [Term]
 id: MDSS:0000374
 name: none
-is_a: MDSS:0000291 ! health provider
+is_a: DDSS:0000010 ! malaria health provider
 created_by: Saul
 creation_date: 2009-09-18T03:50:56Z
 
@@ -5689,6 +7378,726 @@ name: type of sample
 is_a: MDSS:0000051 ! sample from human
 created_by: Saul
 creation_date: 2010-03-11T03:57:16Z
+
+[Term]
+id: MDSS:0100000
+name: Malaria
+namespace: 
+is_a: MDDSS:0000001 ! menu
+created_by: chris
+creation_date: 2010-04-22T09:32:17Z
+
+[Term]
+id: MDSS:0100002
+name: Administration
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T09:33:47Z
+
+[Term]
+id: MDSS:0100003
+name: Configure system variables
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:43Z
+
+[Term]
+id: MDSS:0100004
+name: Configure transmission season
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:58Z
+
+[Term]
+id: MDSS:0100005
+name: Update logo
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:35:28Z
+
+[Term]
+id: MDSS:0100006
+name: Configure epidemiological week
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:37:21Z
+
+[Term]
+id: MDSS:0100007
+name: Enter population data
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:38:15Z
+
+[Term]
+id: MDSS:0100008
+name: Configure alerts
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:38:31Z
+
+[Term]
+id: MDSS:0100009
+name: Configure system alerts
+namespace: 
+is_a: MDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:38:50Z
+
+[Term]
+id: MDSS:0100010
+name: Configure email server
+namespace: 
+is_a: MDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:39:06Z
+
+[Term]
+id: MDSS:0100011
+name: View emails
+namespace: 
+is_a: MDSS:0100008 ! Configure alerts
+created_by: chris
+creation_date: 2010-04-22T09:39:25Z
+
+[Term]
+id: MDSS:0100012
+name: Person administration
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:39:46Z
+
+[Term]
+id: MDSS:0100013
+name: Manage people
+namespace: 
+is_a: MDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:02Z
+
+[Term]
+id: MDSS:0100014
+name: Configure GUI visibility
+namespace: 
+is_a: MDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:22Z
+
+[Term]
+id: MDSS:0100015
+name: Configure user roles
+namespace: 
+is_a: MDSS:0100012 ! Person administration
+created_by: chris
+creation_date: 2010-04-22T09:40:48Z
+
+[Term]
+id: MDSS:0100016
+name: Synchronise
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:41:15Z
+
+[Term]
+id: MDSS:0100017
+name: Transaction log
+namespace: 
+is_a: MDSS:0100016 ! Synchronise
+created_by: chris
+creation_date: 2010-04-22T09:41:34Z
+
+[Term]
+id: MDSS:0100018
+name: Import log
+namespace: 
+is_a: MDSS:0100016 ! Synchronise
+created_by: chris
+creation_date: 2010-04-22T09:41:51Z
+
+[Term]
+id: MDSS:0100019
+name: Localization
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:09Z
+
+[Term]
+id: MDSS:0100020
+name: Configure lookups and grids
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:30Z
+
+[Term]
+id: MDSS:0100021
+name: Term tree administration
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:50Z
+
+[Term]
+id: MDSS:0100022
+name: Case Surveillance
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T09:43:19Z
+
+[Term]
+id: MDSS:0100023
+name: Aggregated cases
+namespace: 
+is_a: MDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:43:49Z
+
+[Term]
+id: MDSS:0100024
+name: Enter aggregated cases
+namespace: 
+is_a: MDSS:0100023 ! Aggregated cases
+created_by: chris
+creation_date: 2010-04-22T09:44:06Z
+
+[Term]
+id: MDSS:0100025
+name: Query aggregated cases
+namespace: 
+is_a: MDSS:0100023 ! Aggregated cases
+created_by: chris
+creation_date: 2010-04-22T09:44:21Z
+
+[Term]
+id: MDSS:0100026
+name: Individual cases
+namespace: 
+is_a: MDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:44:36Z
+
+[Term]
+id: MDSS:0100027
+name: Enter individual cases
+namespace: 
+is_a: MDSS:0100026 ! Individual cases
+created_by: chris
+creation_date: 2010-04-22T09:45:11Z
+
+[Term]
+id: MDSS:0100028
+name: Query individual cases
+namespace: 
+is_a: MDSS:0100026 ! Individual cases
+created_by: chris
+creation_date: 2010-04-22T09:45:25Z
+
+[Term]
+id: MDSS:0100029
+name: Thresholds
+namespace: 
+is_a: MDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:45:50Z
+
+[Term]
+id: MDSS:0100030
+name: Configure thresholds
+namespace: 
+is_a: MDSS:0100029 ! Thresholds
+created_by: chris
+creation_date: 2010-04-22T09:46:08Z
+
+[Term]
+id: MDSS:0100031
+name: Enter thresholds
+namespace: 
+is_a: MDSS:0100029 ! Thresholds
+created_by: chris
+creation_date: 2010-04-22T09:46:30Z
+
+[Term]
+id: MDSS:0100032
+name: Configure case surveillance
+namespace: 
+is_a: MDSS:0100022 ! Case Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:46:50Z
+
+[Term]
+id: MDSS:0100033
+name: Entomological Surveillance
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T09:47:20Z
+
+[Term]
+id: MDSS:0100034
+name: Search/enter a collection
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:47:40Z
+
+[Term]
+id: MDSS:0100035
+name: Query mosquito collections and abundance
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T09:48:05Z
+
+[Term]
+id: MDSS:0100036
+name: Enter infection data
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:12:55Z
+
+[Term]
+id: MDSS:0100037
+name: Enter resistance mechanisms data
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:13:08Z
+
+[Term]
+id: MDSS:0100038
+name: Query resistance mechanisms
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:13:45Z
+
+[Term]
+id: MDSS:0100039
+name: Resistance monitoring
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:14:05Z
+
+[Term]
+id: MDSS:0100040
+name: Enter adult diagnostic data
+namespace: 
+is_a: MDSS:0100039 ! Resistance monitoring
+created_by: chris
+creation_date: 2010-04-22T10:14:21Z
+
+[Term]
+id: MDSS:0100041
+name: Enter larval diagnostic data
+namespace: 
+is_a: MDSS:0100039 ! Resistance monitoring
+created_by: chris
+creation_date: 2010-04-22T10:14:43Z
+
+[Term]
+id: MDSS:0100042
+name: Enter adult time response data
+namespace: 
+is_a: MDSS:0100039 ! Resistance monitoring
+created_by: chris
+creation_date: 2010-04-22T10:15:01Z
+
+[Term]
+id: MDSS:0100043
+name: Query resistance
+namespace: 
+is_a: MDSS:0100039 ! Resistance monitoring
+created_by: chris
+creation_date: 2010-04-22T10:15:20Z
+
+[Term]
+id: MDSS:0100044
+name: Efficacy studies
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:15:40Z
+
+[Term]
+id: MDSS:0100045
+name: Search/enter adult efficacy studies
+namespace: 
+is_a: MDSS:0100044 ! Efficacy studies
+created_by: chris
+creation_date: 2010-04-22T10:15:59Z
+
+[Term]
+id: MDSS:0100046
+name: Query efficacy studies
+namespace: 
+is_a: MDSS:0100044 ! Efficacy studies
+created_by: chris
+creation_date: 2010-04-22T10:16:27Z
+
+[Term]
+id: MDSS:0100047
+name: Configuration
+namespace: 
+is_a: MDSS:0100033 ! Entomological Surveillance
+created_by: chris
+creation_date: 2010-04-22T10:16:49Z
+
+[Term]
+id: MDSS:0100048
+name: Diagnostic assay cutoff values
+namespace: 
+is_a: MDSS:0100047 ! Configuration
+created_by: chris
+creation_date: 2010-04-22T10:17:02Z
+
+[Term]
+id: MDSS:0100049
+name: Manage insecticides
+namespace: 
+is_a: MDSS:0100047 ! Configuration
+created_by: chris
+creation_date: 2010-04-22T10:17:23Z
+
+[Term]
+id: MDSS:0100050
+name: Adult time response assay cutoff values
+namespace: 
+is_a: MDSS:0100047 ! Configuration
+created_by: chris
+creation_date: 2010-04-22T10:17:40Z
+
+[Term]
+id: MDSS:0100051
+name: Adult lethal time cutoff values
+namespace: 
+is_a: MDSS:0100047 ! Configuration
+created_by: chris
+creation_date: 2010-04-22T10:17:59Z
+
+[Term]
+id: MDSS:0100052
+name: Surveys
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T10:18:35Z
+
+[Term]
+id: MDSS:0100053
+name: Enter indicator survey records
+namespace: 
+is_a: MDSS:0100052 ! Surveys
+created_by: chris
+creation_date: 2010-04-22T10:19:33Z
+
+[Term]
+id: MDSS:0100054
+name: Query indicator surveys
+namespace: 
+is_a: MDSS:0100052 ! Surveys
+created_by: chris
+creation_date: 2010-04-22T10:19:49Z
+
+[Term]
+id: MDSS:0100055
+name: Intervention Planning
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T10:20:05Z
+
+[Term]
+id: MDSS:0100056
+name: IRS intervention planning
+namespace: 
+is_a: MDSS:0100055 ! Intervention Planning
+created_by: chris
+creation_date: 2010-04-22T10:20:19Z
+
+[Term]
+id: MDSS:0100057
+name: IRS planning
+namespace: 
+is_a: MDSS:0100056 ! IRS intervention planning
+created_by: chris
+creation_date: 2010-04-22T10:20:41Z
+
+[Term]
+id: MDSS:0100058
+name: Configure IRS
+namespace: 
+is_a: MDSS:0100056 ! IRS intervention planning
+created_by: chris
+creation_date: 2010-04-22T10:20:55Z
+
+[Term]
+id: MDSS:0100059
+name: Manage IRS teams
+namespace: 
+is_a: MDSS:0100056 ! IRS intervention planning
+created_by: chris
+creation_date: 2010-04-22T10:21:12Z
+
+[Term]
+id: MDSS:0100060
+name: Enter area targets
+namespace: 
+is_a: MDSS:0100056 ! IRS intervention planning
+created_by: chris
+creation_date: 2010-04-22T10:21:25Z
+
+[Term]
+id: MDSS:0100061
+name: Enter operator and team targets
+namespace: 
+is_a: MDSS:0100056 ! IRS intervention planning
+created_by: chris
+creation_date: 2010-04-22T10:21:39Z
+
+[Term]
+id: MDSS:0100062
+name: Intervention Monitoring
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T10:22:04Z
+
+[Term]
+id: MDSS:0100063
+name: IRS
+namespace: 
+is_a: MDSS:0100062 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T10:22:26Z
+
+[Term]
+id: MDSS:0100064
+name: Operator spray level 1
+namespace: 
+is_a: MDSS:0100063 ! IRS
+created_by: chris
+creation_date: 2010-04-22T10:22:37Z
+
+[Term]
+id: MDSS:0100065
+name: Team spray level 2
+namespace: 
+is_a: MDSS:0100063 ! IRS
+created_by: chris
+creation_date: 2010-04-22T10:22:54Z
+
+[Term]
+id: MDSS:0100066
+name: Sprayed area level 3
+namespace: 
+is_a: MDSS:0100063 ! IRS
+created_by: chris
+creation_date: 2010-04-22T10:23:09Z
+
+[Term]
+id: MDSS:0100067
+name: Query IRS
+namespace: 
+is_a: MDSS:0100063 ! IRS
+created_by: chris
+creation_date: 2010-04-22T10:23:26Z
+
+[Term]
+id: MDSS:0100068
+name: IPT
+namespace: 
+is_a: MDSS:0100062 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T10:23:43Z
+
+[Term]
+id: MDSS:0100069
+name: Enter aggregated IPT records
+namespace: 
+is_a: MDSS:0100068 ! IPT
+created_by: chris
+creation_date: 2010-04-22T10:23:52Z
+
+[Term]
+id: MDSS:0100070
+name: Query aggregated IPT
+namespace: 
+is_a: MDSS:0100068 ! IPT
+created_by: chris
+creation_date: 2010-04-22T10:24:09Z
+
+[Term]
+id: MDSS:0100071
+name: Enter individual IPT records
+namespace: 
+is_a: MDSS:0100068 ! IPT
+created_by: chris
+creation_date: 2010-04-22T10:24:27Z
+
+[Term]
+id: MDSS:0100072
+name: Query individual IPT
+namespace: 
+is_a: MDSS:0100068 ! IPT
+created_by: chris
+creation_date: 2010-04-22T10:24:47Z
+
+[Term]
+id: MDSS:0100073
+name: ITN
+namespace: 
+is_a: MDSS:0100062 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T10:26:06Z
+
+[Term]
+id: MDSS:0100074
+name: Enter aggregated ITN distribution records
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:26:19Z
+
+[Term]
+id: MDSS:0100075
+name: Query aggregated ITN distribution
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:27:12Z
+
+[Term]
+id: MDSS:0100076
+name: Enter ITN facility distribution records
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:27:29Z
+
+[Term]
+id: MDSS:0100077
+name: Query ITN facility distribution
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:27:47Z
+
+[Term]
+id: MDSS:0100078
+name: Enter ITN community distribution records
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:28:22Z
+
+[Term]
+id: MDSS:0100079
+name: Query ITN community distribution
+namespace: 
+is_a: MDSS:0100073 ! ITN
+created_by: chris
+creation_date: 2010-04-22T10:28:40Z
+
+[Term]
+id: MDSS:0100080
+name: Control of immatures
+namespace: 
+is_a: MDSS:0100062 ! Intervention Monitoring
+created_by: chris
+creation_date: 2010-04-22T10:29:41Z
+
+[Term]
+id: MDSS:0100081
+name: Enter control of immatures records
+namespace: 
+is_a: MDSS:0100080 ! Control of immatures
+created_by: chris
+creation_date: 2010-04-22T10:30:01Z
+
+[Term]
+id: MDSS:0100082
+name: Query control of immatures
+namespace: 
+is_a: MDSS:0100080 ! Control of immatures
+created_by: chris
+creation_date: 2010-04-22T10:30:51Z
+
+[Term]
+id: MDSS:0100083
+name: Stock Control
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T10:31:12Z
+
+[Term]
+id: MDSS:0100084
+name: Configure stock items
+namespace: 
+is_a: MDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:24Z
+
+[Term]
+id: MDSS:0100085
+name: Manage stock
+namespace: 
+is_a: MDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:39Z
+
+[Term]
+id: MDSS:0100086
+name: Query stock
+namespace: 
+is_a: MDSS:0100083 ! Stock Control
+created_by: chris
+creation_date: 2010-04-22T10:31:54Z
+
+[Term]
+id: MDSS:0100087
+name: GIS
+namespace: 
+is_a: MDSS:0100000 ! Malaria
+created_by: chris
+creation_date: 2010-04-22T10:33:23Z
+
+[Term]
+id: MDSS:0100088
+name: Universal tree administration
+namespace: 
+is_a: MDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:33:37Z
+
+[Term]
+id: MDSS:0100089
+name: Geographical entity tree administration
+namespace: 
+is_a: MDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:33:51Z
+
+[Term]
+id: MDSS:0100090
+name: Generate maps
+namespace: 
+is_a: MDSS:0100087 ! GIS
+created_by: chris
+creation_date: 2010-04-22T10:34:14Z
 
 [Term]
 id: MIRO:00000001
@@ -7986,6 +10395,7 @@ id: MIRO:20000035
 name: RT-PCR assay
 namespace: mosquito_insecticide_resistance_ontology
 def: "RT-PCR based assay (Reverse Transcriptase - PCR) which measures gene expression products associated with insecticide resistance." [KL:KL]
+is_a: DDSS:0000078 ! laboratory test for dengue virus
 is_a: MIRO:20000024 ! expression analysis
 
 [Term]
@@ -8390,14 +10800,14 @@ name: real time PCR
 namespace: mosquito_insecticide_resistance_ontology
 def: "Real Time PCR or quantitative PCR (qPCR) is a modification of the polymerase chain reaction used to rapidly measure the quantity of DNA, cDNA or ribonucleic acid present in a sample." [Wikipedia:RT-PCR]
 is_a: MDSS:0000270 ! PCR
-is_a: MIRO:20000035 ! RT-PCR assay
+is_obsolete: true
 
 [Term]
 id: MIRO:20000109
 name: semi-quantitative PCR
 namespace: mosquito_insecticide_resistance_ontology
 def: "RT-PCR assay, to estimate relative abundance of a specific mRNA." [KL:KL]
-is_a: MIRO:20000035 ! RT-PCR assay
+is_obsolete: true
 
 [Term]
 id: MIRO:20000113
@@ -11670,6 +14080,7 @@ namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Diceromyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes africana" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes nigra" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000415 ! Diceromyia
 
 [Term]
@@ -11799,6 +14210,7 @@ id: MIRO:40000442
 name: Aedes taylori
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Diceromyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000415 ! Diceromyia
 
 [Term]
@@ -12367,6 +14779,8 @@ synonym: "Aedes sugens" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalo
 synonym: "Aedes taeniatus" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes toxorhynchus" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes viridifrons" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
+is_a: DDSS:0000089 ! dengue vector surveillance and control target taxa
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12382,6 +14796,7 @@ name: Aedes africanus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes dubia" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12399,6 +14814,8 @@ def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosqui
 synonym: "Aedes nigritia" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes quasinigritia" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes samarensis" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
+is_a: DDSS:0000089 ! dengue vector surveillance and control target taxa
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12532,6 +14949,7 @@ id: MIRO:40000540
 name: Aedes cooki
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12734,6 +15152,7 @@ id: MIRO:40000567
 name: Aedes hebrideus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12839,6 +15258,7 @@ id: MIRO:40000582
 name: Aedes luteocephalus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12853,6 +15273,7 @@ id: MIRO:40000584
 name: Aedes malayensis
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -12969,6 +15390,7 @@ id: MIRO:40000600
 name: Aedes opok
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13018,6 +15440,7 @@ id: MIRO:40000607
 name: Aedes polynesiensis
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13054,6 +15477,7 @@ id: MIRO:40000612
 name: Aedes pseudoscutellaris
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13096,6 +15520,7 @@ id: MIRO:40000618
 name: Aedes rotumae
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13133,6 +15558,7 @@ namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes variegatus" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes zonatipes" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13217,6 +15643,7 @@ id: MIRO:40000635
 name: Aedes tongae
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Stegomyia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000517 ! Stegomyia
 
 [Term]
@@ -13303,6 +15730,7 @@ id: MIRO:40000649
 name: Aedes niveus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Finlaya." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000648 ! Finlaya
 
 [Term]
@@ -14971,6 +17399,7 @@ name: Aedes mediovittatus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Gymnometopa." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes uncatus" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40000881 ! Gymnometopa
 
 [Term]
@@ -17467,6 +19896,7 @@ name: Aedes triseriatus
 namespace: mosquito_insecticide_resistance_ontology
 def: "A species of subgenus Protomacleaya." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
 synonym: "Aedes nigra" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: DDSS:0000088 ! dengue virus vector
 is_a: MIRO:40001170 ! Protomacleaya
 
 [Term]
@@ -36722,6 +39152,191 @@ xref: CARO:0000003
 is_a: IDOMAL:0000343 ! biotic
 created_by: Pantelis
 creation_date: 2009-07-12T07:43:37Z
+
+[Term]
+id: NCBITaxon:10239
+name: Viruses
+is_a: IDOMAL:0000343 ! biotic
+
+[Term]
+id: NCBITaxon:11051
+name: Flavivirus
+xref: GC_ID:1
+is_a: NCBITaxon:10239 ! Viruses
+property_value: has_rank NCBITaxon:genus
+
+[Term]
+id: NCBITaxon:11052
+name: Dengue virus group
+xref: GC_ID:1
+is_a: NCBITaxon:11051 ! Flavivirus
+property_value: has_rank NCBITaxon:subgenus
+
+[Term]
+id: NCBITaxon:11053
+name: Dengue virus 1
+synonym: "dengue type 1 D1 virus" RELATED []
+synonym: "Dengue virus type 1" RELATED []
+synonym: "dengue virus type 1 DEN1" RELATED []
+synonym: "dengue virus type I" RELATED []
+synonym: "dengue virus-1 DEN-1" RELATED []
+synonym: "type 1 dengue virus DEN-1" RELATED []
+xref: GC_ID:1
+is_a: DDSS:0000006 ! dengue virus serotype
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+is_a: NCBITaxon:12637 ! Dengue virus
+
+[Term]
+id: NCBITaxon:11054
+name: Dengue virus 1 strain 495-1
+synonym: "Dengue virus type 1 (strain 495-1)" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11055
+name: Dengue virus 1 Philippines/836-1/1984
+synonym: "Dengue virus type 1 (strain 836-1)" RELATED []
+synonym: "Dengue virus type 1 Philippines/836-1/1984" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11056
+name: Dengue virus 1 924-1
+synonym: "Dengue virus 1 (strain 924-1)" RELATED []
+synonym: "Dengue virus type 1 (strain 924-1)" RELATED []
+synonym: "Dengue virus type 1 924-1" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11057
+name: Dengue virus 1 Thailand/AHF 82-80/1980
+synonym: "Dengue virus type 1 (strain AHF 82-80)" RELATED []
+synonym: "Dengue virus type 1 Thailand/AHF 82-80/1980" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11058
+name: Dengue virus 1 Jamaica/CV1636/1977
+synonym: "Dengue virus type 1 (strain CV1636/77)" RELATED []
+synonym: "Dengue virus type 1 Jamaica/CV1636/1977" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11059
+name: Dengue virus 1 Nauru/West Pac/1974
+synonym: "Dengue virus type 1 (strain Western Pacific)" RELATED []
+synonym: "Dengue virus type 1 Nauru/West Pac/1974" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11060
+name: Dengue virus 2
+synonym: "dengue 2 virus DEN-2" RELATED []
+synonym: "Dengue virus type 2" RELATED []
+synonym: "dengue-2 virus" RELATED []
+synonym: "dengue-2 virus DEN-2" RELATED []
+xref: GC_ID:1
+is_a: DDSS:0000006 ! dengue virus serotype
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+is_a: NCBITaxon:12637 ! Dengue virus
+
+[Term]
+id: NCBITaxon:11061
+name: Dengue virus 2 Malaysia M1
+synonym: "Dengue virus type 2 (isolate Malaysia M1)" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11062
+name: Dengue virus 2 Malaysia M2
+synonym: "Dengue virus type 2 (isolate Malaysia M2)" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11063
+name: Dengue virus 2 Malaysia M3
+synonym: "Dengue virus type 2 (isolate Malaysia M3)" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11064
+name: Dengue virus 2 Jamaica/1409/1983
+synonym: "Dengue virus type 2 (strain Jamaica)" RELATED []
+synonym: "Dengue virus type 2 Jamaica/1409/1983" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11065
+name: Dengue virus 2 Thailand/NGS-C/1944
+synonym: "Dengue virus NGC" RELATED []
+synonym: "Dengue virus prototype strain New Guinea C (NGC)" RELATED []
+synonym: "Dengue virus type 2 (NGC-prototype)" RELATED []
+synonym: "Dengue virus type 2 (strain New Guinea C)" RELATED []
+synonym: "Dengue virus type 2 Thailand/NGS-C/1944" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11066
+name: Dengue virus 2 Puerto Rico/PR159-S1/1969
+synonym: "Dengue virus type 2 (strain PR159/S1)" RELATED []
+synonym: "Dengue virus type 2 Puerto Rico/PR159-S1/1969" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11067
+name: Dengue virus 2 Tonga/EKB194/1974
+synonym: "Dengue virus type 2 (strain Tonga 1974)" RELATED []
+synonym: "Dengue virus type 2 Tonga/EKB194/1974" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11068
+name: Dengue virus 2 Thailand/PUO-218/1980
+synonym: "Dengue virus type 2 (strain PUO-218)" RELATED []
+synonym: "Dengue virus type 2 Thailand/PUO-218/1980" RELATED []
+xref: GC_ID:1
+is_obsolete: true
+
+[Term]
+id: NCBITaxon:11069
+name: Dengue virus 3
+synonym: "dengue 3 virus" RELATED []
+synonym: "Dengue virus type 3" RELATED []
+xref: GC_ID:1
+is_a: DDSS:0000006 ! dengue virus serotype
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+is_a: NCBITaxon:12637 ! Dengue virus
+
+[Term]
+id: NCBITaxon:11070
+name: Dengue virus 4
+synonym: "dengue type 4 virus DEN4" RELATED []
+synonym: "Dengue virus type 4" RELATED []
+xref: GC_ID:1
+is_a: DDSS:0000006 ! dengue virus serotype
+is_a: DDSS:0000017 ! dengue virus serotype diagnostic test result
+is_a: NCBITaxon:12637 ! Dengue virus
+
+[Term]
+id: NCBITaxon:12637
+name: Dengue virus
+xref: GC_ID:1
+is_a: IDO:0000064 ! pathogen
+is_a: NCBITaxon:11052 ! Dengue virus group
+property_value: has_rank NCBITaxon:species
 
 [Term]
 id: snap:Site
