@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdClass;
@@ -21,10 +22,13 @@ import com.runwaysdk.system.metadata.MdClass;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.InvalidOBOFormatException;
+import dss.vector.solutions.ontology.MO;
+import dss.vector.solutions.ontology.OBO;
 import dss.vector.solutions.ontology.Ontology;
 import dss.vector.solutions.ontology.OntologyQuery;
 import dss.vector.solutions.ontology.OntologyRelationship;
 import dss.vector.solutions.ontology.OntologyRelationshipQuery;
+import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRelationship;
@@ -57,7 +61,7 @@ public class OntologyImporter
   private static final String OBO_FIELD_IS_TRANSITIVE                = "is_transitive";
   private static final String OBO_FIELD_IS_OBSOLETE                  = "is_obsolete";
   private static final String OBO_FIELD_IS_ANTI_SYMMETRIC            = "is_anti_symmetric";
-
+  
   private String ontologyTitle;
   private String fileName;
   private Ontology ontology = null;
@@ -737,6 +741,46 @@ public class OntologyImporter
 	      }
       }
     }
+
+    attachRoots();
+  }
+  
+  private void attachRoots()
+  {
+    Ontology ontology = Ontology.getByKey(MO.KEY);
+    OntologyRelationship ontologyRel = OntologyRelationship.getByKey(OBO.IS_A);
+    
+    RootTerm root = new RootTerm();
+    root.setTermId("ROOT");
+    root.setName("ROOT");
+    root.setDisplay("Root");
+    root.setOntology(ontology);
+    root.apply();
+    
+    QueryFactory f = new QueryFactory();
+    TermQuery q = new TermQuery(f);
+    TermRelationshipQuery r = new TermRelationshipQuery(f);
+    
+    q.WHERE(q.getId().SUBSELECT_NOT_IN(r.childId()));
+    q.AND(q.getId().NE(root.getId()));
+    
+    OIterator<? extends Term> iter = q.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        Term oldRoot = iter.next();
+      
+        TermRelationship rel = root.addChildTerm(oldRoot);
+        rel.setOntologyRelationship(ontologyRel);
+        rel.applyWithoutCreatingAllPaths();
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
   }
 
   private boolean importTerm(BufferedReader br, String line) throws Exception
@@ -874,18 +918,18 @@ public class OntologyImporter
     }
   }
 
-  private void processRelationship(String line, Term term)
+  private boolean processRelationship(String line, Term term)
   {
     int delimIndex = line.indexOf(":");
     if (delimIndex <= -1)
     {
-      return;
+      return false;
     }
 
     int separatorIndex = line.indexOf("!");
     if (separatorIndex <= -1)
     {
-      return;
+      return false;
     }
 
     String relationshipName = line.substring(0, delimIndex).trim();
@@ -895,8 +939,11 @@ public class OntologyImporter
     {
       TermRelationshipInfo termRelationshipInfo = new TermRelationshipInfo(referencedTermId, term.getTermId(), relationshipName);
       this.termRelationshipInfoList.add(termRelationshipInfo);
+      
+      return true;
     }
 
+    return false;
   }
 
   private String extractFieldValue(String fieldDelimiter, String line)

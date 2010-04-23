@@ -788,12 +788,23 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
-      // the root is not a child of any other term
-      query.WHERE(this.termQuery.getId().SUBSELECT_NOT_IN(this.termRelQuery.childId()));
+      String rootId = RootTerm.getRootInstance().getId();
 
+      // When filtering is enabled, we know the context is the ontology browser,
+      // which means we want the roots that are the children of the single
+      // instance of RootTerm. When filtering is not enabled, we know the context
+      // is to fetch the single instance of RootTerm as the root (for the term tree admin
+      // screen).
       if (this.filterObsolete)
       {
+        query.WHERE(this.termRelQuery.parentId().EQ(rootId));
+        query.AND(termQuery.parentTerm(this.termRelQuery));
+
         query.AND(termQuery.getObsolete().EQ(false));
+      }
+      else
+      {
+        query.WHERE(termQuery.getId().EQ(rootId));
       }
 
       // query.ORDER_BY_ASC(this.termQuery.getName());

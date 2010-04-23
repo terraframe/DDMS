@@ -18,7 +18,14 @@
     <mjl:input type="text" param="namespace" />
   </mjl:dt>
   <mjl:dt attribute="obsolete">
-    <mjl:boolean param="obsolete" />
+    <c:choose>
+      <c:when test="${isRoot}">
+        <mjl:boolean param="obsolete" disabled="disabled" />
+      </c:when>
+      <c:otherwise>
+        <mjl:boolean param="obsolete" />
+      </c:otherwise>
+    </c:choose>
   </mjl:dt>
   <mjl:dt attribute="termId">
     <mjl:input type="text" param="termId" />

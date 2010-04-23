@@ -73,7 +73,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
 
   public void failDelete(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -100,7 +100,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
 
   public void failUpdate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -111,7 +111,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.ontology.TermDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
@@ -143,7 +143,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
 
   public void failCreate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -188,8 +188,11 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     try
     {
       dss.vector.solutions.ontology.TermDTO dto = dss.vector.solutions.ontology.TermDTO.lock(super.getClientRequest(), id);
-      req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+//      req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
+      
+      req.setAttribute("isRoot", dto instanceof RootTermDTO);
+      
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)

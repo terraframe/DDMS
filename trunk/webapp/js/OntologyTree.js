@@ -259,6 +259,17 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
       if (htmlNode) {
         this._selectedNode = this._tree.getNodeByElement(htmlNode);
+        
+        // disable the delete menu item for the root
+        if(this._selectedNode.parent.isRoot())
+        {
+          this._menu.itemData[2].cfg.setProperty('disabled', true);
+        }
+        else
+        {
+          this._menu.itemData[2].cfg.setProperty('disabled', false);
+        }
+        
         this._menu.bringToTop();
       }
       else {
@@ -304,7 +315,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
         that: ontologyTree,
         onSuccess: function(html)
         {
-           this.that._createModal(html, true);
+           this.that._createModal(html, true, true);
         }
       });
 
@@ -312,7 +323,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var childId = childNode.data.termId;
       
       var parentEl = document.getElementById(id);
-      var parentNode = this.node.tree.getNodeByElement(parentEl);
+      var parentNode = childNode.parent;
+//      var parentNode = this.node.tree.getNodeByElement(parentEl);
       var parentId = parentNode.data.termId;
       
       // Change the listeners to contain the relevant nodes and info
@@ -499,6 +511,13 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       {
         html = '<h3>&nbsp;</h3><div class="innerContentModal">' + html +"</div>";
       }
+      
+      this._panel.subscribe('hide', function(){
+        var that = this;
+        setTimeout(function(){
+          that.destroy();
+        }, 15);
+      });
 
       this._panel.setBody(html);
       this._panel.render(document.body);
