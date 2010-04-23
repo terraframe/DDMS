@@ -48,7 +48,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     
     for(CollectionPremise premise : premises)
     {
-      premise.delete();
+      premise.deleteAll();
     }
     
     this.delete();

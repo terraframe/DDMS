@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology;
 
 import java.util.List;
 
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -167,7 +168,10 @@ public class ImmatureCollectionTest extends TestCase
   public void testMultiQuery()
   {
     ImmatureCollectionView search = TestFixture.createImmatureCollection(entity2, premiseType2, taxon2);
+
     ImmatureCollectionView _collection = ImmatureCollectionView.getCollection(search);
+    _collection.setCollectionId(TestFixture.getRandomTermId());
+    _collection.setNumberExamined(55);
     _collection.apply();
 
     try
@@ -190,17 +194,17 @@ public class ImmatureCollectionTest extends TestCase
     {
       _collection.deleteConcrete();
     }
-  }  
-  
+  }
+
   public void testSearchQuery()
   {
     ImmatureCollectionViewQuery query = ImmatureCollectionView.searchCollections(collection, ImmatureCollectionView.GEOENTITY, false, 20, 1);
     OIterator<? extends ImmatureCollectionView> it = query.getIterator();
-    
+
     try
     {
       List<? extends ImmatureCollectionView> list = it.getAll();
-      
+
       assertEquals(1, list.size());
     }
     finally
@@ -208,7 +212,7 @@ public class ImmatureCollectionTest extends TestCase
       it.close();
     }
   }
-  
+
   public void testNoSearchQuery()
   {
     ImmatureCollectionView search = TestFixture.createImmatureCollection(entity2, premiseType2, taxon1);
@@ -224,6 +228,99 @@ public class ImmatureCollectionTest extends TestCase
     finally
     {
       it.close();
+    }
+  }
+
+  public void testDelete()
+  {
+    ImmatureCollectionView view = TestFixture.createImmatureCollection(entity2, premiseType2, taxon1);
+
+    view.apply();
+
+    view.deleteTaxon();
+
+    try
+    {
+      PremiseTaxon.get(view.getTaxonId());
+
+      fail("Delete failed to delete taxon");
+    }
+    catch (DataNotFoundException e)
+    {
+      // This is expected
+    }
+
+    try
+    {
+      CollectionPremise.get(view.getPremiseId());
+
+      fail("Delete failed to delete Premise");
+    }
+    catch (DataNotFoundException e)
+    {
+      // This is expected
+    }
+
+    try
+    {
+      ImmatureCollection.get(view.getConcreteId());
+
+      fail("Delete failed to delete collection");
+    }
+    catch (DataNotFoundException e)
+    {
+      // This is expected
+    }
+  }
+
+  public void testPartialDelete()
+  {
+    ImmatureCollectionView view = TestFixture.createImmatureCollection(entity2, premiseType2, taxon1);
+    view.apply();
+
+    ImmatureCollectionView search = TestFixture.createImmatureCollection(entity2, premiseType2, taxon2);
+
+    ImmatureCollectionView view2 = ImmatureCollectionView.getCollection(search);
+    view2.setTaxon(taxon2);
+    view2.apply();
+
+    try
+    {
+      view.deleteTaxon();
+
+      try
+      {
+        PremiseTaxon.get(view.getTaxonId());
+
+        fail("Delete failed to delete taxon");
+      }
+      catch (DataNotFoundException e)
+      {
+        // This is expected
+      }
+
+      try
+      {
+        CollectionPremise.get(view.getPremiseId());
+      }
+      catch (DataNotFoundException e)
+      {
+        fail("Deleted premise with existing taxons");
+      }
+
+      try
+      {
+        ImmatureCollection.get(view.getConcreteId());
+
+      }
+      catch (DataNotFoundException e)
+      {
+        fail("Deleted collection with existins premises");
+      }
+    }
+    finally
+    {
+      view2.deleteConcrete();
     }
   }
 }
