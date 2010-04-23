@@ -726,7 +726,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
         pckName = '&nbsp;';
       }
       
-      var alias = meta.getAlias();
       var subclasses = meta.getSubClasses();
       var sublinks = [];
       for(var i=0; i<subclasses.length; i++)
