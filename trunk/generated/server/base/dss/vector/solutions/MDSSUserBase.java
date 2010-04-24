@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -198432657)
+@com.runwaysdk.business.ClassSignature(hash = 1752086810)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
   public static java.lang.String GEOROOT = "geoRoot";
   public static java.lang.String PERSON = "person";
   public static java.lang.String ROOTGEOENTITY = "rootGeoEntity";
-  private static final long serialVersionUID = -198432657;
+  private static final long serialVersionUID = 1752086810;
   
   public MDSSUserBase()
   {
@@ -169,10 +169,34 @@ public abstract class MDSSUserBase extends com.runwaysdk.system.Users implements
     return (MDSSUser) com.runwaysdk.business.Business.get(CLASS, key);
   }
   
+  public void changeDisease(java.lang.String diseaseName)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.MDSSUser.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void changeDisease(java.lang.String id, java.lang.String diseaseName)
+  {
+    MDSSUser _instance = MDSSUser.get(id);
+    _instance.changeDisease(diseaseName);
+  }
+  
   public static void changeRootGeoEntity(java.lang.String geoEntityId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.MDSSUser.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public java.lang.String getDiseaseName()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.MDSSUser.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getDiseaseName(java.lang.String id)
+  {
+    MDSSUser _instance = MDSSUser.get(id);
+    return _instance.getDiseaseName();
   }
   
   public void updateRoles(java.lang.String[] assign, java.lang.String[] revoke)

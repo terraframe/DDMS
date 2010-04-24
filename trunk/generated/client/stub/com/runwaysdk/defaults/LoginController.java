@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
@@ -14,6 +15,7 @@ import com.runwaysdk.constants.MdActionInfo;
 import com.runwaysdk.web.ServletUtility;
 import com.runwaysdk.web.WebClientSession;
 
+import dss.vector.solutions.MDSSUserDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
 
@@ -48,6 +50,10 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
       GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
       globalSessionListener.setCookie(this.getResponse());
       req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
+      
+      BusinessDTO user = clientRequest.getSessionUser();
+      MDSSUserDTO mdss = (MDSSUserDTO) user;
+      req.getSession().setAttribute(MDSSUserDTO.DISEASE+"Name", mdss.getDiseaseName());
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
@@ -82,6 +88,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
     }
     req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
     req.getSession().removeAttribute(ClientConstants.CLIENTSESSION);
+    req.getSession().removeAttribute(MDSSUserDTO.DISEASE + "Name");
     req.getSession().invalidate();
 
     req.getRequestDispatcher("login.jsp").forward(req, resp);

@@ -173,7 +173,7 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 {
 	id: "Disease",
 	itemdata: [
-	           { text: "Malaria", url: "#" , visibleTo:'Administrator'},
+	           { text: "Malaria", url: "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=MALARIA" , visibleTo:'Administrator'},
 	           { text: "Dengue", url: "#" , visibleTo:'Administrator',checked:true}
 	           ]
 }

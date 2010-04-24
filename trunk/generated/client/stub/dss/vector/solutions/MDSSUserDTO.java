@@ -1,8 +1,9 @@
 package dss.vector.solutions;
 
-public class MDSSUserDTO extends MDSSUserDTOBase
- implements com.runwaysdk.generation.loader.Reloadable{
+public class MDSSUserDTO extends MDSSUserDTOBase implements com.runwaysdk.generation.loader.Reloadable
+ {
   private static final long serialVersionUID = 1240853345960L;
+  public static final String DISEASE = "disease";
   
   public MDSSUserDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {

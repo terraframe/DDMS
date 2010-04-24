@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.attributes.AttributeDTO;
@@ -525,6 +526,22 @@ public class PersonController extends PersonControllerBase implements Reloadable
     req.setAttribute("item", patient);
 
     render("editRecipientComponent.jsp");
+  }
+  
+  @Override
+  public void changeDisease(String diseaseName) throws IOException, ServletException
+  {
+    ClientRequestIF cr = getClientRequest();
+    if(cr.isLoggedIn())
+    {
+      BusinessDTO user = cr.getSessionUser();
+      MDSSUserDTO mdss = (MDSSUserDTO) user;
+      mdss.changeDisease(diseaseName);
+    }
+    
+    req.getSession().setAttribute(MDSSUserDTO.DISEASE+"Name", diseaseName);
+    
+    req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 
 }

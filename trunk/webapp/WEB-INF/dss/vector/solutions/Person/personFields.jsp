@@ -77,6 +77,14 @@
                 <mjl:message />
               </mjl:messages>
             </dd>
+            <mjl:dt attribute="disease">
+              <mjl:select param="disease" items="${disease}" var="current" valueAttribute="enumName" id="disease">
+                <mjl:option selected="${mjl:contains(item.diseaseEnumNames, current.enumName) ? 'selected' :  'false'}" id="disease.${current.enumName}">
+                  ${item.diseaseMd.enumItems[current.enumName]}
+                </mjl:option>
+              </mjl:select>
+            </mjl:dt>
+            
           </fieldset>
         </div>
       </dd>

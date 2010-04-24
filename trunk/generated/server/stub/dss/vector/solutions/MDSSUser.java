@@ -1,5 +1,7 @@
 package dss.vector.solutions;
 
+import java.util.List;
+
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
@@ -14,6 +16,8 @@ import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.Assignments;
 import com.runwaysdk.system.Roles;
 
+import dss.vector.solutions.export.ExcelEnums;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.loader.Reloadable
@@ -130,5 +134,29 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     mdssUser.appLock();
     mdssUser.setRootGeoEntity(geoEntity);
     mdssUser.apply();
+  }
+  
+  @Override
+  @Transaction
+  public void changeDisease(String diseaseName)
+  {
+    UserSettings settings = UserSettings.createIfNotExists(this);
+    settings.lock();
+    Disease disease = ExcelEnums.getDisease(diseaseName);
+    settings.clearDisease();
+    settings.addDisease(disease);
+    settings.apply();
+  }
+  
+  @Override
+  public String getDiseaseName()
+  {
+    UserSettings settings = UserSettings.createIfNotExists(this);
+    List<Disease> disease = settings.getDisease();
+    if (disease.size()>0)
+    {
+      return disease.get(0).getEnumName();
+    }
+    return Disease.MALARIA.getEnumName();
   }
 }

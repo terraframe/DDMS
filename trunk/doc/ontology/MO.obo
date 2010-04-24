@@ -1126,19 +1126,19 @@ creation_date: 2010-04-22T09:33:47Z
 
 [Term]
 id: DDSS:0100003
-name: Configure system variables
-namespace: 
-is_a: DDSS:0100002 ! Administration
-created_by: chris
-creation_date: 2010-04-22T09:34:43Z
-
-[Term]
-id: DDSS:0100004
 name: Configure transmission season
 namespace: 
 is_a: DDSS:0100002 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:34:58Z
+
+[Term]
+id: DDSS:0100004
+name: Configure system variables
+namespace: 
+is_a: DDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:43Z
 
 [Term]
 id: DDSS:0100005
@@ -7405,19 +7405,19 @@ creation_date: 2010-04-22T09:34:43Z
 
 [Term]
 id: MDSS:0100004
-name: Configure transmission season
-namespace: 
-is_a: MDSS:0100002 ! Administration
-created_by: chris
-creation_date: 2010-04-22T09:34:58Z
-
-[Term]
-id: MDSS:0100005
 name: Update logo
 namespace: 
 is_a: MDSS:0100002 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:35:28Z
+
+[Term]
+id: MDSS:0100005
+name: Configure transmission season
+namespace: 
+is_a: MDSS:0100002 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:58Z
 
 [Term]
 id: MDSS:0100006

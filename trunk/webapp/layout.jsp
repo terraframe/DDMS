@@ -16,7 +16,7 @@
 <% String jsp_as_string = Halp.renderJspToString(request, response, (String) request.getAttribute(JSPFetcher.INNER_JSP)); %>
 
 <%// render the component inside a pageContent div%>
-<jsp:include page="${header_jsp}"  flush="false"  />
+<jsp:include page="${header_jsp}"  flush="false"  /> 
 <div class="pageContent"> 
 
 <div class="pageTitle"><fmt:message key="${page_title}"/></div>

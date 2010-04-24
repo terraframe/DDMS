@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 936674587)
+@com.runwaysdk.business.ClassSignature(hash = -1264347200)
 public class PersonControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.PersonController";
@@ -10,7 +10,7 @@ public class PersonControllerBase implements com.runwaysdk.generation.loader.Rel
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 936674587;
+  private static final long serialVersionUID = -1264347200;
   
   public PersonControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -79,6 +79,20 @@ public class PersonControllerBase implements com.runwaysdk.generation.loader.Rel
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PersonController.failCancel");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:diseaseName", post=false)
+  public void changeDisease(java.lang.String diseaseName) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PersonController.changeDisease");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:diseaseName", post=false)
+  public void failChangeDisease(java.lang.String diseaseName) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PersonController.failChangeDisease");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.PersonViewDTO:person", post=true)

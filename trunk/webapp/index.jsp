@@ -48,9 +48,10 @@
 <br><br>
   <%
    Locale locale = request.getLocale();
-   out.println("Your Detected Locale is "+locale.toString());
+   out.println("Your Detected Locale is "+locale.toString() + ".");
    %>
    <br>
+   Your current disease is ${diseaseName}.
    <br>
 <pre>
 

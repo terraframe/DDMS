@@ -44,6 +44,15 @@
           <dd>
             ${item.username}
           </dd>
+          <mjl:dt attribute="disease">
+            <ul>
+              <c:forEach items="${item.diseaseEnumNames}" var="enumName">
+                <li>
+                  ${item.diseaseMd.enumItems[enumName]}
+                </li>
+              </c:forEach>
+            </ul>
+          </mjl:dt>
         </fieldset>
       </dd>
     </c:if>
