@@ -136,7 +136,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
-    req.setAttribute("disease", DiseaseDTO.allItems(getClientRequest()));
+    req.setAttribute("allDiseases", DiseaseDTO.allItems(getClientRequest()));
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -539,7 +539,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
       mdss.changeDisease(diseaseName);
     }
     
-    req.getSession().setAttribute(MDSSUserDTO.DISEASE+"Name", diseaseName);
+    req.getSession().setAttribute(MDSSUserDTO.DISEASE, diseaseName);
     
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
