@@ -61,7 +61,7 @@
        </mjl:dt>
     </mjl:component>
     <c:choose>
-      <c:when test="${false}">
+      <c:when test="${diseaseName == 'MALARIA'}">
         <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
         <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
         <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>      
