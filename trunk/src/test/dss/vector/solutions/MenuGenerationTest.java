@@ -99,19 +99,20 @@ public class MenuGenerationTest extends TestCase {
 		menuRoot = Term.getByTermId("MDSS:0100000");
 		this.generateMenu(Disease.MALARIA);
 		this.generateDiseaseSubMenu(Disease.MALARIA);
-		System.out.println(this.generateJsp(menu));
+		System.out.println(this.generateJsp(Disease.MALARIA, menu));
 		System.out.println("====================================");
-		System.out.println(this.generateJs(menu));
+		System.out.println(this.generateJs(Disease.MALARIA, menu));
 	}
 	
 	@Transaction
-	public void xtestDengueMenu() {
+	public void testDengueMenu() {
 		System.out.println("========== DENGUE MENU ============");
 		menuRoot = Term.getByTermId("DDSS:0100000");
 		this.generateMenu(Disease.DENGUE);
-		System.out.println(this.generateJsp(menu));
+		this.generateDiseaseSubMenu(Disease.DENGUE);
+		System.out.println(this.generateJsp(Disease.DENGUE, menu));
 		System.out.println("====================================");
-		System.out.println(this.generateJs(menu));
+		System.out.println(this.generateJs(Disease.DENGUE, menu));
 	}
 
 	@Transaction
@@ -138,9 +139,9 @@ public class MenuGenerationTest extends TestCase {
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:"+(n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
 		for (Disease disease: Disease.values()) {
 			if (disease.equals(menuDisease)) {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), null));
+				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), "#"));
 			} else {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), null));
+				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease));
 			}
 		}
 		menu.addChild(diseaseSubMenu);
@@ -205,7 +206,11 @@ public class MenuGenerationTest extends TestCase {
 	
 	private void printItem(PrintWriter out, int level, GuiMenuItem guiMenuItem) {
 		if (guiMenuItem.getChildren().size() == 0) {
-			printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'}");
+			String label = "text: '" + guiMenuItem.getLabel() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
+			if (guiMenuItem.getUrl().equals("#")) {
+				label += ", checked: true";
+			}
+			printIndented(out, level, "{ " + label + "}");
 		} else {
 			printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "',");
 			printIndented(out, level, "  submenu: {");
@@ -233,7 +238,7 @@ public class MenuGenerationTest extends TestCase {
 			out.println(label);
 	}
 	
-	private String generateJsp(GuiMenuItem guiMenuItem) {
+	private String generateJsp(Disease disease, GuiMenuItem guiMenuItem) {
 		Writer out = new StringWriter();
 		
 		VelocityEngine ve = new VelocityEngine();
@@ -247,6 +252,7 @@ public class MenuGenerationTest extends TestCase {
 			ve.init();
 			VelocityContext context = new VelocityContext();
 			context.put("menu", guiMenuItem);
+			context.put("diseaseName", disease.toString());
 			ve.mergeTemplate("navMenuTemplate.jsp", "UTF-8", context, out);
 		} catch (Exception e) {
 			return "Error processing template (" + e.getLocalizedMessage()  + ")";
@@ -255,7 +261,7 @@ public class MenuGenerationTest extends TestCase {
 		return out.toString();
 	}
 	
-	private String generateJs(GuiMenuItem guiMenuItem) {
+	private String generateJs(Disease disease, GuiMenuItem guiMenuItem) {
 		Writer out = new StringWriter();
 		
 		VelocityEngine ve = new VelocityEngine();
@@ -269,6 +275,7 @@ public class MenuGenerationTest extends TestCase {
 			ve.init();
 			VelocityContext context = new VelocityContext();
 			context.put("menu", guiMenuItem);
+			context.put("diseaseName", disease.toString());
 			context.put("menuJson", this.generateJson(guiMenuItem));
 			ve.mergeTemplate("navMenuTemplate.js", "UTF-8", context, out);
 		} catch (Exception e) {
