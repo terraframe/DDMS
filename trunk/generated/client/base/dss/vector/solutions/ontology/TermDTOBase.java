@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 191859749)
+@com.runwaysdk.business.ClassSignature(hash = -273314408)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 191859749;
+  private static final long serialVersionUID = -273314408;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -34,13 +34,14 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
+  public static java.lang.String INACTIVEDENGUE = "inactiveDengue";
+  public static java.lang.String INACTIVEMALARIA = "inactiveMalaria";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
-  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -259,6 +260,80 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
+  public Boolean getInactiveDengue()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEDENGUE));
+  }
+  
+  public void setInactiveDengue(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVEDENGUE, "");
+    }
+    else
+    {
+      setValue(INACTIVEDENGUE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isInactiveDengueWritable()
+  {
+    return isWritable(INACTIVEDENGUE);
+  }
+  
+  public boolean isInactiveDengueReadable()
+  {
+    return isReadable(INACTIVEDENGUE);
+  }
+  
+  public boolean isInactiveDengueModified()
+  {
+    return isModified(INACTIVEDENGUE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInactiveDengueMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INACTIVEDENGUE).getAttributeMdDTO();
+  }
+  
+  public Boolean getInactiveMalaria()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEMALARIA));
+  }
+  
+  public void setInactiveMalaria(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVEMALARIA, "");
+    }
+    else
+    {
+      setValue(INACTIVEMALARIA, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isInactiveMalariaWritable()
+  {
+    return isWritable(INACTIVEMALARIA);
+  }
+  
+  public boolean isInactiveMalariaReadable()
+  {
+    return isReadable(INACTIVEMALARIA);
+  }
+  
+  public boolean isInactiveMalariaModified()
+  {
+    return isModified(INACTIVEMALARIA);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInactiveMalariaMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INACTIVEMALARIA).getAttributeMdDTO();
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -457,43 +532,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNamespaceMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
-  }
-  
-  public Boolean getObsolete()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
-  }
-  
-  public void setObsolete(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OBSOLETE, "");
-    }
-    else
-    {
-      setValue(OBSOLETE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isObsoleteWritable()
-  {
-    return isWritable(OBSOLETE);
-  }
-  
-  public boolean isObsoleteReadable()
-  {
-    return isReadable(OBSOLETE);
-  }
-  
-  public boolean isObsoleteModified()
-  {
-    return isModified(OBSOLETE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.OntologyDTO getOntology()

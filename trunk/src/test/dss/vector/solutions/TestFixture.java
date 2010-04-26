@@ -63,7 +63,7 @@ public class TestFixture
     term.setTermId(TestFixture.getRandomTermId());
     term.setName("Test Term");
     term.setComment("Test Comment");
-    term.setObsolete(false);
+//    term.setObsolete(false);
     term.apply();
 
     return term;
@@ -176,7 +176,7 @@ public class TestFixture
     term.setTermId(TestFixture.getRandomTermId());
     term.setName("Test Term");
     term.setComment("Test Comment");
-    term.setObsolete(false);
+//    term.setObsolete(false);
     term.apply();
 
     return term;

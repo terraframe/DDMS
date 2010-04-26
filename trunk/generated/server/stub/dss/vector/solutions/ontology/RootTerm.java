@@ -38,9 +38,9 @@ public class RootTerm extends RootTermBase implements com.runwaysdk.generation.l
     
     // Cannot mark the root as obsolete because it will invalidate
     // the entire tree (the UI should not allow this modification).
-    if(this.getObsolete())
+    if(this.getInactiveDengue() || this.getInactiveMalaria())
     {
-      String error = "Cannot set the root as obsolete.";
+      String error = "Cannot set the root as inactive.";
       throw new ProgrammingErrorException(error);
     }
 

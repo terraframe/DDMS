@@ -789,6 +789,7 @@ public class OntologyImporter
     String termId = "";
 
     boolean encounteredNewTerm = false;
+    boolean isObsolete = false; // DEFAULT
     try
     {
       while ((line = br.readLine()) != null)
@@ -833,7 +834,9 @@ public class OntologyImporter
         {
           String obsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
           term = initTerm(term, termId);
-          term.setObsolete(Boolean.parseBoolean(obsoleteString));
+          
+          isObsolete = Boolean.parseBoolean(obsoleteString);
+//          term.setObsolete(Boolean.parseBoolean(obsoleteString));
         }
         else
         {
@@ -851,7 +854,7 @@ public class OntologyImporter
       throw e;
     }
 
-    if (!term.getObsolete())
+    if (!isObsolete)
     {
       term.setOntology(this.ontology);
       term.apply();

@@ -17,13 +17,13 @@
   <mjl:dt attribute="namespace">
     <mjl:input type="text" param="namespace" />
   </mjl:dt>
-  <mjl:dt attribute="obsolete">
+  <mjl:dt attribute="${inactiveAttribute}">
     <c:choose>
       <c:when test="${isRoot}">
-        <mjl:boolean param="obsolete" disabled="disabled" />
+        <mjl:boolean param="${inactiveAttribute}" disabled="disabled" />
       </c:when>
       <c:otherwise>
-        <mjl:boolean param="obsolete" />
+        <mjl:boolean param="${inactiveAttribute}" />
       </c:otherwise>
     </c:choose>
   </mjl:dt>

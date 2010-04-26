@@ -5,6 +5,8 @@ import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 
+import dss.vector.solutions.general.DiseaseWrapper;
+
 public class TermQueryFactory implements Reloadable
 {
   private QueryFactory f;
@@ -91,7 +93,7 @@ public class TermQueryFactory implements Reloadable
         }
       }
 
-      query.AND(termQuery.getObsolete().EQ(false));
+      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 
   }
@@ -148,7 +150,7 @@ public class TermQueryFactory implements Reloadable
         query.AND(this.pathsQuery.getParentTerm().EQ(""));
       }
 
-      query.AND(termQuery.getObsolete().EQ(false));
+      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 
   }

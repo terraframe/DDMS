@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -833818340)
+@com.runwaysdk.business.ClassSignature(hash = -350379441)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -833818340;
+private static final long serialVersionUID = -350379441;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -170,6 +170,40 @@ private static final long serialVersionUID = -833818340;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue()
+  {
+    return getInactiveDengue(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria()
+  {
+    return getInactiveMalaria(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -282,23 +316,6 @@ private static final long serialVersionUID = -833818340;
   public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getObsolete()
-  {
-    return getObsolete(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
@@ -2939,6 +2956,12 @@ private static final long serialVersionUID = -833818340;
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getInactiveDengue();
+    public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias);
+    public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria();
+    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias);
+    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -2957,9 +2980,6 @@ private static final long serialVersionUID = -833818340;
     public com.runwaysdk.query.SelectableChar getNamespace();
     public com.runwaysdk.query.SelectableChar getNamespace(String alias);
     public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getObsolete();
-    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias);
-    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology();
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias, String displayLabel);
@@ -3501,7 +3521,7 @@ private static final long serialVersionUID = -833818340;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1146452550;
+private static final long serialVersionUID = 808182381;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -3639,6 +3659,40 @@ private static final long serialVersionUID = -1146452550;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue()
+  {
+    return getInactiveDengue(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria()
+  {
+    return getInactiveMalaria(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -3739,23 +3793,6 @@ private static final long serialVersionUID = -1146452550;
   public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getObsolete()
-  {
-    return getObsolete(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()

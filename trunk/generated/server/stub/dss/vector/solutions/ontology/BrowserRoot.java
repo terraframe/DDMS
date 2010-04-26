@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.DiseaseWrapper;
 import dss.vector.solutions.geo.GeoHierarchy;
 
 public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.generation.loader.Reloadable {
@@ -131,7 +132,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 			fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
 		}
 
-		rootQuery.WHERE(rootQuery.getTerm().getObsolete().EQ(false));
+		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 
 		return rootQuery;
@@ -223,7 +224,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 		BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
 
 		BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
-		rootQuery.WHERE(rootQuery.getTerm().getObsolete().EQ(false));
+		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 
 		return (rootQuery.getCount() > 0);

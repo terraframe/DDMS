@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 716049061)
+@com.runwaysdk.business.ClassSignature(hash = -1775850472)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,20 +18,21 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
+  public static java.lang.String INACTIVEDENGUE = "inactiveDengue";
+  public static java.lang.String INACTIVEMALARIA = "inactiveMalaria";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
-  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 716049061;
+  private static final long serialVersionUID = -1775850472;
   
   public TermBase()
   {
@@ -212,6 +213,62 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     return mdClassIF.definesAttribute(ID);
   }
   
+  public Boolean getInactiveDengue()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEDENGUE));
+  }
+  
+  public void validateInactiveDengue()
+  {
+    this.validateAttribute(INACTIVEDENGUE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveDengueMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(INACTIVEDENGUE);
+  }
+  
+  public void setInactiveDengue(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVEDENGUE, "");
+    }
+    else
+    {
+      setValue(INACTIVEDENGUE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getInactiveMalaria()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEMALARIA));
+  }
+  
+  public void validateInactiveMalaria()
+  {
+    this.validateAttribute(INACTIVEMALARIA);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveMalariaMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(INACTIVEMALARIA);
+  }
+  
+  public void setInactiveMalaria(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVEMALARIA, "");
+    }
+    else
+    {
+      setValue(INACTIVEMALARIA, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -355,34 +412,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     else
     {
       setValue(NAMESPACE, value);
-    }
-  }
-  
-  public Boolean getObsolete()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
-  }
-  
-  public void validateObsolete()
-  {
-    this.validateAttribute(OBSOLETE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObsoleteMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
-    return mdClassIF.definesAttribute(OBSOLETE);
-  }
-  
-  public void setObsolete(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OBSOLETE, "");
-    }
-    else
-    {
-      setValue(OBSOLETE, java.lang.Boolean.toString(value));
     }
   }
   

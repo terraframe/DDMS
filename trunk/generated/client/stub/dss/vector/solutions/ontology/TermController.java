@@ -8,6 +8,8 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.general.DiseaseWrapperDTO;
+
 public class TermController extends TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/Term/";
@@ -192,6 +194,9 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
       req.setAttribute("item", dto);
       
       req.setAttribute("isRoot", dto instanceof RootTermDTO);
+      
+      String inactiveAttr = DiseaseWrapperDTO.getTermInactiveAttribute(this.getClientRequest());
+      req.setAttribute("inactiveAttribute", inactiveAttr);
       
       render("editComponent.jsp");
     }
