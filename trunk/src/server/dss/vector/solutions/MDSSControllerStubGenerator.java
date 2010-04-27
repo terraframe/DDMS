@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.util.Arrays;
 
+import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.business.generation.facade.ControllerStubGenerator;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.MdAttributeReferenceInfo;
@@ -26,6 +27,21 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
   {
     super(mdController);
   }
+  
+  protected void writeFields()
+  {
+    MdEntityDAOIF mdEntity = this.getMdTypeDAOIF().getMdEntity();
+
+    if (mdEntity != null)
+    {
+      String jsp = GenerationUtil.replacePackageDotsWithSlashes(mdEntity.definesType());
+
+      getWriter().writeLine("public static final String JSP_DIR = \"WEB-INF/" + jsp + "\";");
+      getWriter().writeLine("public static final String LAYOUT = \"/layout.jsp\";");
+      getWriter().writeLine("");
+    }
+  }
+
 
   @Override
   protected void writeUpdateAction(String args)
