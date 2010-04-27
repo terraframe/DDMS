@@ -24,6 +24,9 @@
         </mdMethod>
       </mdUtil>
     
+    </create>
+    <update>
+    
       <mdBusiness
         name="dss.vector.solutions.ontology.Term">
         <create>
@@ -46,10 +49,9 @@
               negativeLabel="false" />
           </attributes>
         </create>
-      </mdBusiness>
+      </mdBusiness>    
     
-    </create>
-    <update></update>
+    </update>
     
     <permissions>
     
