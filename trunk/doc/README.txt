@@ -32,12 +32,12 @@ MDSS INSTALLER README
     Click on Start->All Programs ,  Look for an "MDSS"  folder, if you see an MDSS folder, open it and run "Unstall MDSS", see above for detailed uninstall instructions.
     For regular installs: Open the CD-ROM in in windows explorer and double click on InstallMDSS
     For master installs: WindowsKey+R -> type "D:\InstallMDDS.exe -master" where "D" is the drive letter of your cd-rom
-    Windows may ask you if you want to run this program, click yes.
+    Windows Vista or later may ask you if you want to run this program, click yes.
     The installer will first verify the integrity of the CD, if this step fails, it means your CD has been damaged. Obtain a new CD.
     The installer will ask you to choose a install number, it is VITAL that your install number be different from all other installs for your country.
     The installer will ask you to choose a start menu folder, we recommend you leave it set to "MDSS"
     The installer will now run through,  You may see some black screens pop up with white text in them. This is normal.
-    Your firewall may ask if you want to allow or deny network access for "Postgres" or "JAVA", click allow.  You must do this quickly after the prompt comes up or the firewall will prevent proper installation. If you see an error such as "Could not Connect to Postgres" The firewall is the likely source. Add Postgres or port 5444.
+    Your firewall may ask if you want to allow or deny network access for "Postgres" or "JAVA", click allow.  You must do this quickly after the prompt comes up or the firewall will prevent proper installation. If you see an error such as "Could not Connect to Postgres" The firewall is the likely source. Add Postgres or port 5444 to your exceptions list.
     
 3. Post Install
    After the install is completed click on Start->All Programs->MDSS->Start MDSS
