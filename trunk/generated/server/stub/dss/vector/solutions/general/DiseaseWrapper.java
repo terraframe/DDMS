@@ -171,14 +171,40 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 		try {
 			while (it.hasNext()) {
 				MenuItem menuItem = it.next();
-				GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem);
-				processMenuItem(disease, menu, menuItem.getTerm(), guiMenuItem);
+				if (menuItem.getTerm().isLeaf()) {
+					GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem);
+					processMenuItem(disease, menu, menuItem.getTerm(), guiMenuItem);
+				}
 			}
 		} finally {
 			it.close();
 		}
 	}
 	
+	private static void processMenuItem(Disease disease, GuiMenuItem menu, Term term, GuiMenuItem guiMenuItem) {
+		if (!isInactive(term,disease)) {
+			OIterator<? extends Term> parents = term.getAllParentTerm();
+			try {
+				if (parents.hasNext()) {
+					while (parents.hasNext()) {
+						Term parent = parents.next();
+						if (parent.getId().equals(getDiseaseRoot(disease).getId())) {
+							consolidateMenu(menu, guiMenuItem);
+						} else {
+							GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);
+							parentGuiMenuItem.addChild(guiMenuItem);
+							processMenuItem(disease, menu, parent, parentGuiMenuItem);
+						}
+					}
+				} else {
+					// Got to top of tree without hitting menu root, so this is a dead end
+				}
+			} finally {
+				parents.close();
+			}
+		}
+	}
+
 	private static void generateDiseaseSubMenu(Disease menuDisease, GuiMenuItem menu) {
 		int n = 6000000;
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:"+(n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
@@ -191,29 +217,7 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 		}
 		menu.addChild(diseaseSubMenu);
 	}
-	
-	private static void processMenuItem(Disease disease, GuiMenuItem menu, Term term, GuiMenuItem guiMenuItem) {
-		OIterator<? extends Term> parents = term.getAllParentTerm();
-		try {
-			if (parents.hasNext()) {
-				while (parents.hasNext()) {
-					Term parent = parents.next();
-					if (parent.getId().equals(getDiseaseRoot(disease).getId())) {
-						consolidateMenu(menu, guiMenuItem);
-					} else {
-						GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);
-						parentGuiMenuItem.addChild(guiMenuItem);
-						processMenuItem(disease, menu, parent, parentGuiMenuItem);
-					}
-				}
-			} else {
-				// Got to top of tree without hitting menu root, so this is a dead end
-			}
-		} finally {
-			parents.close();
-		}
-	}
-	
+
 	private static String generateJson(GuiMenuItem guiMenuItem) {
 		StringWriter out = new StringWriter();
 		printMenu(new PrintWriter(out), 0, guiMenuItem);
@@ -267,14 +271,7 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 			out.println(label);
 	}
 	
-	// TODO - Replace this with the real code to get roots once Naifeh writes it!
-	private static Term getDiseaseRoot(Disease disease) {
-		if (disease.equals(Disease.MALARIA)) {
-			return Term.getByTermId("MDSS:0100000");
-		} else {
-			return Term.getByTermId("DDSS:0100000");
-		}
-	}
+
 	
 	private static void consolidateMenu(GuiMenuItem oldMenu, GuiMenuItem newMenu) {
 		GuiMenuItem existing = oldMenu.getChildren().get(newMenu.getId());
@@ -284,6 +281,26 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 			for (GuiMenuItem child: newMenu.getChildren().values()) {
 				consolidateMenu(existing, child);
 			}
+		}
+	}
+	
+	// TODO - Replace this with the real code to get roots once Naifeh writes it!
+	private static Term getDiseaseRoot(Disease disease) {
+		if (disease.equals(Disease.MALARIA)) {
+			return Term.getByTermId("MDSS:0100000");
+		} else {
+			return Term.getByTermId("DDSS:0100000");
+		}
+	}	
+	
+	// TODO - Replace this with the generic code to get inactive once Naifeh writes it!
+	private static boolean isInactive(Term term, Disease disease) {
+		if (disease.equals(Disease.MALARIA)) {
+			return term.getInactiveMalaria();
+		} else if (disease.equals(Disease.DENGUE)) {
+			return term.getInactiveDengue();
+		} else {
+			return false;
 		}
 	}
 }
