@@ -54,7 +54,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
       
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
-      req.getSession().setAttribute(MDSSUserDTO.DISEASE+"Name", mdss.getDiseaseName());
+      req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
       req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
@@ -90,7 +90,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
     }
     req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
     req.getSession().removeAttribute(ClientConstants.CLIENTSESSION);
-    req.getSession().removeAttribute(MDSSUserDTO.DISEASE + "Name");
+    req.getSession().removeAttribute(MDSSUserDTO.DISEASENAME);
     req.getSession().removeAttribute("menu");
     req.getSession().invalidate();
 

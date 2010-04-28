@@ -540,7 +540,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
       mdss.changeDisease(diseaseName);
     }
     
-    req.getSession().setAttribute(MDSSUserDTO.DISEASE, diseaseName);
+    req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
     req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
     
     req.getRequestDispatcher("index.jsp").forward(req, resp);
