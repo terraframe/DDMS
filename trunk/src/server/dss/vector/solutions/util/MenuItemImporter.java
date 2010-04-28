@@ -19,6 +19,9 @@ import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.ontology.Term;
 
 public class MenuItemImporter {
+	private static final int DISEASE_SHEET = 0;
+	private static final int SYSTEMURL_SHEET = 1;
+	private static final int MENUITEM_SHEET = 2;
 	private String fileName = null;
 
 	/**
@@ -32,7 +35,7 @@ public class MenuItemImporter {
 			String fileName = args[0];
 			System.out.println("Start");
 			MenuItemImporter i = new MenuItemImporter(fileName);
-			i.importMenuItemsAndDiseaseRoots();
+			i.importAll();
 			System.out.println("End");
 			break;
 		default:
@@ -50,10 +53,12 @@ public class MenuItemImporter {
 	}
 
 	@Transaction
-	public void importMenuItemsAndDiseaseRoots() throws Exception {
+	public void importAll() throws Exception {
 		this.deleteAllTableRecords(MenuItem.CLASS);
-		this.importMenuItems();
+		this.deleteAllTableRecords(SystemURL.CLASS);
 		this.importDiseaseRoots();
+		this.importSystemUrls();
+		this.importMenuItems();
 	}
 
 	@Transaction
@@ -63,10 +68,54 @@ public class MenuItemImporter {
 	}
 
 	@Transaction
+	private void importDiseaseRoots() throws Exception {
+		InputStream is = new FileInputStream(this.fileName);
+		HSSFWorkbook wb = new HSSFWorkbook(is);
+		HSSFSheet sheet = wb.getSheetAt(DISEASE_SHEET);
+		int rowCount = 1; // Start at second row
+		HSSFRow row = sheet.getRow(rowCount++);
+		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+			String diseaseId = this.getCellValue(row, 0);
+			String termId = this.getCellValue(row, 1);
+			if (diseaseId != null && diseaseId.length() > 0) {
+				Disease disease = Disease.valueOf(diseaseId);
+				Term term = Term.getByTermId(termId);
+				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
+				// TODO - Add this
+				// disease.lock();
+				// disease.setMenuRoot(term);
+				// disease.apply();
+			}
+			row = sheet.getRow(rowCount++);
+		}
+	}
+
+	@Transaction
+	private void importSystemUrls() throws Exception {
+		InputStream is = new FileInputStream(this.fileName);
+		HSSFWorkbook wb = new HSSFWorkbook(is);
+		HSSFSheet sheet = wb.getSheetAt(SYSTEMURL_SHEET); // Use first sheet
+		int rowCount = 1; // Start at second row
+		HSSFRow row = sheet.getRow(rowCount++);
+		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
+			String urlId = this.getCellValue(row, 0);
+			String url = this.getCellValue(row, 1);
+			System.out.println("SystemURL: " + urlId + "|" + url);
+			if (urlId != null && urlId.length() > 0) {
+				SystemURL systemUrl = new SystemURL();
+				systemUrl.setUrl(url);
+				systemUrl.getDisplayLabel().setValue("defaultLocale", urlId);
+				systemUrl.apply();
+			}
+			row = sheet.getRow(rowCount++);
+		}
+	}
+
+	@Transaction
 	private void importMenuItems() throws Exception {
 		InputStream is = new FileInputStream(this.fileName);
 		HSSFWorkbook wb = new HSSFWorkbook(is);
-		HSSFSheet sheet = wb.getSheetAt(0); // Use first sheet
+		HSSFSheet sheet = wb.getSheetAt(MENUITEM_SHEET); // Use first sheet
 		int rowCount = 1; // Start at second row
 		HSSFRow row = sheet.getRow(rowCount++);
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
@@ -88,27 +137,6 @@ public class MenuItemImporter {
 		}
 	}
 
-	@Transaction
-	private void importDiseaseRoots() throws Exception {
-		InputStream is = new FileInputStream(this.fileName);
-		HSSFWorkbook wb = new HSSFWorkbook(is);
-		HSSFSheet sheet = wb.getSheetAt(1); // Use second sheet
-		int rowCount = 1; // Start at second row
-		HSSFRow row = sheet.getRow(rowCount++);
-		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
-			String diseaseId = this.getCellValue(row, 0);
-			String termId = this.getCellValue(row, 1);
-			if (diseaseId != null && diseaseId.length() > 0) {
-				Disease disease = Disease.valueOf(diseaseId);
-				Term term = Term.getByTermId(termId);
-				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
-				// disease.lock();
-				// disease.setMenuRoot(term);
-				// disease.apply();
-			}
-			row = sheet.getRow(rowCount++);
-		}
-	}
 
 	private String getCellValue(HSSFRow row, int col) {
 		return ExcelUtil.getString(row.getCell(col));

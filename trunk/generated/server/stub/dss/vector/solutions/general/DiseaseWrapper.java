@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEnumerationDAO;
-import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableBoolean;
@@ -30,7 +30,7 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 	/*
 	 * Utility class to hold nodes of the menu tree
 	 */
-	public static class GuiMenuItem {
+	public static class GuiMenuItem implements Reloadable {
 		private String id;
 		private String name;
 		private String label;

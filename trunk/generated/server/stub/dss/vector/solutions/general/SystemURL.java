@@ -8,5 +8,11 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
   {
     super();
   }
+
+@Override
+protected String buildKey() {
+	return this.getDisplayLabel().getValue("defaultLocale");
+}
+  
   
 }
