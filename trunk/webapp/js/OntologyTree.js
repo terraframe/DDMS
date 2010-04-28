@@ -83,7 +83,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       });
     
       var childId = params['childId'];
-      var parentId = params['parentId'];
+//      var parentId = params['parentId'];
+      var parentId = parentNode.data.termId;
       var oldParentId = childNode.parent.data.termId;
       this._Term.applyWithParent(request, childId, parentId, cloneOperation, oldParentId);
     },
@@ -337,17 +338,18 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var childNode = this.node;
       var childId = childNode.data.termId;
       
-      var parentEl = document.getElementById(id);
-      var oldParentId = childNode.parent.data.termId;
-      
-      var parentNode = this.node.tree.getNodeByElement(parentEl);
+      var newParentEl = document.getElementById(id);
+      var newParentNode = this.node.tree.getNodeByElement(newParentEl);
+
+      var oldParentNode = childNode.parent;
+      var oldParentId = oldParentNode.data.termId;
       
       // Change the listeners to contain the relevant nodes and info
       var termController = Mojo.$.dss.vector.solutions.ontology.TermController;
       termController.setDoCloneListener(Mojo.Util.bind(ontologyTree, 
-        ontologyTree._changeParentListener, true, childNode, parentNode));
+        ontologyTree._changeParentListener, true, childNode, newParentNode));
       termController.setDoNotCloneListener(Mojo.Util.bind(ontologyTree,
-        ontologyTree._changeParentListener, false, childNode, parentNode));      
+        ontologyTree._changeParentListener, false, childNode, newParentNode));      
       
       Mojo.$.dss.vector.solutions.ontology.TermController.confirmChangeParent(request, childId, oldParentId);
     },
