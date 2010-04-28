@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 207980794)
+@com.runwaysdk.business.ClassSignature(hash = -939787951)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,11 +11,47 @@ package dss.vector.solutions.general;
 public abstract class DiseaseMasterBase extends com.runwaysdk.system.EnumerationMaster implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.DiseaseMaster";
-  private static final long serialVersionUID = 207980794;
+  public static java.lang.String MENUROOT = "menuRoot";
+  private static final long serialVersionUID = -939787951;
   
   public DiseaseMasterBase()
   {
     super();
+  }
+  
+  public dss.vector.solutions.ontology.Term getMenuRoot()
+  {
+    if (getValue(MENUROOT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(MENUROOT));
+    }
+  }
+  
+  public void validateMenuRoot()
+  {
+    this.validateAttribute(MENUROOT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMenuRootMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.DiseaseMaster.CLASS);
+    return mdClassIF.definesAttribute(MENUROOT);
+  }
+  
+  public void setMenuRoot(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(MENUROOT, "");
+    }
+    else
+    {
+      setValue(MENUROOT, value.getId());
+    }
   }
   
   protected String getDeclaredType()

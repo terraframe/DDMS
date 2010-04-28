@@ -14,6 +14,7 @@ import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.DiseaseMaster;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.ontology.Term;
@@ -125,6 +126,13 @@ public class MenuItemImporter {
 			if (diseaseId != null && diseaseId.length() > 0) {
 				Disease disease = Disease.valueOf(diseaseId);
 				Term term = Term.getByTermId(termId);
+				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
+				
+				DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
+				dMaster.appLock();
+				dMaster.setMenuRoot(term);
+				dMaster.apply();
+
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
 				System.out.println("MenuItem: " + diseaseId + "|" + urlId + "|" + termId);
 				MenuItem menuItem = new MenuItem();

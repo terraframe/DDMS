@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1956882566)
+@com.runwaysdk.business.ClassSignature(hash = 1447282641)
 public abstract class DiseaseMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.DiseaseMaster";
-  private static final long serialVersionUID = -1956882566;
+  private static final long serialVersionUID = 1447282641;
   
   protected DiseaseMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -25,6 +25,51 @@ public abstract class DiseaseMasterDTOBase extends com.runwaysdk.system.Enumerat
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public static java.lang.String MENUROOT = "menuRoot";
+  public dss.vector.solutions.ontology.TermDTO getMenuRoot()
+  {
+    if(getValue(MENUROOT) == null || getValue(MENUROOT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(MENUROOT));
+    }
+  }
+  
+  public void setMenuRoot(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(MENUROOT, "");
+    }
+    else
+    {
+      setValue(MENUROOT, value.getId());
+    }
+  }
+  
+  public boolean isMenuRootWritable()
+  {
+    return isWritable(MENUROOT);
+  }
+  
+  public boolean isMenuRootReadable()
+  {
+    return isReadable(MENUROOT);
+  }
+  
+  public boolean isMenuRootModified()
+  {
+    return isModified(MENUROOT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMenuRootMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MENUROOT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.general.DiseaseMasterDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

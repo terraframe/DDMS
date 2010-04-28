@@ -271,7 +271,10 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 			out.println(label);
 	}
 	
-
+	private static Term getDiseaseRoot(Disease disease) {
+		  DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
+			return dMaster.getMenuRoot();
+	}
 	
 	private static void consolidateMenu(GuiMenuItem oldMenu, GuiMenuItem newMenu) {
 		GuiMenuItem existing = oldMenu.getChildren().get(newMenu.getId());
@@ -283,15 +286,6 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 			}
 		}
 	}
-	
-	// TODO - Replace this with the real code to get roots once Naifeh writes it!
-	private static Term getDiseaseRoot(Disease disease) {
-		if (disease.equals(Disease.MALARIA)) {
-			return Term.getByTermId("MDSS:0100000");
-		} else {
-			return Term.getByTermId("DDSS:0100000");
-		}
-	}	
 	
 	// TODO - Replace this with the generic code to get inactive once Naifeh writes it!
 	private static boolean isInactive(Term term, Disease disease) {

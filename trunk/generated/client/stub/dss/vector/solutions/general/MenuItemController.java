@@ -1,9 +1,20 @@
 package dss.vector.solutions.general;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+
+import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.util.RedirectUtility;
+
 public class MenuItemController extends MenuItemControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/general/MenuItem/";
-  public static final String LAYOUT = "WEB-INF/templates/layout.jsp";
+  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/MenuItem/";
+  
+  private static final String EDIT_DISEASE_JSP = "editDisease.jsp";
+  
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 492263447;
   
@@ -172,8 +183,15 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
+    String diseaseName = (String) this.getRequest().getSession().getAttribute(MDSSUserDTO.DISEASENAME);
+    List<DiseaseMasterDTO> diseases = DiseaseDTO.items(this.getClientRequest(), DiseaseDTO.valueOf(diseaseName));
+    
+    req.setAttribute("diseaseMaster", diseases.get(0));
+    
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.MenuItemQueryDTO query = dss.vector.solutions.general.MenuItemDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.general.MenuItemViewQueryDTO query = dss.vector.solutions.general.MenuItemViewDTO.getViewsForDisease(clientRequest);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -181,6 +199,35 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   {
     resp.sendError(500);
   }
+  
+  @Override
+  public void editDisease(String id) throws IOException, ServletException
+  {
+    DiseaseMasterDTO dto = DiseaseMasterDTO.get(this.getClientRequest(), id);
+    dto.lock();
+    
+    req.setAttribute("term", dto.getMenuRoot());
+    req.setAttribute("item", dto);
+    
+    render(EDIT_DISEASE_JSP);
+  }
+  
+  @Override
+  public void updateDisease(DiseaseMasterDTO dto) throws IOException, ServletException
+  {
+    dto.apply();
+    
+    this.viewAll();
+  }
+  
+  @Override
+  public void cancelDisease(String id) throws IOException, ServletException
+  {
+    DiseaseMasterDTO.unlock(this.getClientRequest(), id);
+    
+    this.viewAll();
+  }
+  
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();

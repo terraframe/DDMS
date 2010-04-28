@@ -7,7 +7,10 @@ import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.DiseaseMaster;
 import dss.vector.solutions.general.DiseaseWrapper;
+import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.geo.GeoHierarchy;
 
 public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.generation.loader.Reloadable {
@@ -83,6 +86,22 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
 		return views.toArray(new BrowserRootView[views.size()]);
 	}
+	
+	public static BrowserRootView[] getMenuItemRoot()
+	{
+	  Disease disease = DiseaseWrapper.getDisease();
+	  DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
+	  
+	  TermViewQuery q = Term.getByIds(new String[] { dMaster.getMenuRoot().getId()});
+	  OIterator<? extends TermView> iter = q.getIterator();
+	  
+    try {
+      BrowserRootView view = toView(iter.next());
+      return new BrowserRootView[] { view };
+    } finally {
+      iter.close();
+    }
+	}
 
 	public static BrowserRootView[] getDefaultGeoRoots(String universalType) {
 		GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
@@ -151,6 +170,12 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 	public static BrowserRootView[] getAttributeRoots(String className, String attribute) {
 		List<BrowserRootView> views = new LinkedList<BrowserRootView>();
 
+    // MenuItem searching
+    if(className.equals(MenuItem.CLASS) && attribute.equals(MenuItem.TERM))
+    {
+      return getMenuItemRoot();
+    }
+		
 		BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
 
 		OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
@@ -219,6 +244,12 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 			return false;
 		}
 
+		// MenuItems always have roots as given by DiseaseMaster.getMenuTerm()
+		if(className.equals(MenuItem.CLASS) && attributeName.equals(MenuItem.TERM))
+		{
+		  return true;
+		}
+		
 		QueryFactory factory = new QueryFactory();
 
 		BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
