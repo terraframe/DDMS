@@ -171,6 +171,20 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     _getTermFromParams : function(params)
     {
       var term = new this._Term();
+      
+      var names = term.getAttributeNames();
+      for(var i=0; i<names.length; i++)
+      {
+        var name = names[i];
+        var param = 'dto.'+name;
+        if(param in params)
+        {
+          var value = params[param];
+          term.setValue(name, value);
+        }
+      }
+      
+      /*
       term.setName(params['dto.name']);
       term.setDisplay(params['dto.display']);
       term.setNamespace(params['dto.namespace']);
@@ -178,6 +192,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       term.setComment(params['dto.comment']);
       term.setDef(params['dto.def']);
       term.setObsolete(params['dto.obsolete']);
+      */
       
       return term;
     },

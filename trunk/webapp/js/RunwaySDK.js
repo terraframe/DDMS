@@ -3763,8 +3763,12 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
   
     setValue : function(attributeName, value) { this.getAttributeDTO(attributeName).setValue(value); },
   
-    getValue : function(attributeName) { return this.getAttributeDTO(attributeName).getValue(); }
-  
+    getValue : function(attributeName) { return this.getAttributeDTO(attributeName).getValue(); },
+    
+    getAttributeNames : function()
+    {
+      return Mojo.Util.getKeys(this.attributeMap, true);
+    }
   }
 });
 
