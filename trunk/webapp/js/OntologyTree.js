@@ -338,9 +338,9 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var childId = childNode.data.termId;
       
       var parentEl = document.getElementById(id);
-//      var parentNode = childNode.parent;
+      var oldParentId = childNode.parent.data.termId;
+      
       var parentNode = this.node.tree.getNodeByElement(parentEl);
-      var parentId = parentNode.data.termId;
       
       // Change the listeners to contain the relevant nodes and info
       var termController = Mojo.$.dss.vector.solutions.ontology.TermController;
@@ -349,7 +349,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       termController.setDoNotCloneListener(Mojo.Util.bind(ontologyTree,
         ontologyTree._changeParentListener, false, childNode, parentNode));      
       
-      Mojo.$.dss.vector.solutions.ontology.TermController.confirmChangeParent(request, childId, parentId);
+      Mojo.$.dss.vector.solutions.ontology.TermController.confirmChangeParent(request, childId, oldParentId);
     },
     
     _addNodeHandler : function()
