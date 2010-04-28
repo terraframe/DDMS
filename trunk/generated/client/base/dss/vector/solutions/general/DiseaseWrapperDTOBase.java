@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2142300148)
+@com.runwaysdk.business.ClassSignature(hash = -1443060939)
 public abstract class DiseaseWrapperDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.DiseaseWrapper";
-  private static final long serialVersionUID = -2142300148;
+  private static final long serialVersionUID = -1443060939;
   
   protected DiseaseWrapperDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,14 @@ public abstract class DiseaseWrapperDTOBase extends com.runwaysdk.business.UtilD
   }
   
   public static java.lang.String ID = "id";
+  public static final java.lang.String getMenuJson(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseWrapperDTO.CLASS, "getMenuJson", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final java.lang.String getTermInactiveAttribute(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};

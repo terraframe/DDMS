@@ -518,6 +518,18 @@
 			</java>
 		</target>
 
+		<target name="import_menuitems" description="imports default MenuItems into the develop db">
+			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import_menuitems">
+				<jvmarg value="-Xmx${max_memory_use}" />
+				<classpath>
+					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				</classpath>
+				<arg value="-buildfile" />
+				<arg file="deploy.xml" />
+				<arg value="import_menuitems" />
+			</java>
+		</target>
+
 	<target name="develop_build_all_paths_geodata" depends="kill_tomcat" description="builds the all paths geo entity table for development">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_build_all_paths_geodata">
 			<classpath>

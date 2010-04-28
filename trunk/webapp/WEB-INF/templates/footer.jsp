@@ -35,6 +35,7 @@ Long startTime = (Long) request.getAttribute("startTime");
 Double serverTime = (new Date().getTime() - startTime) / 1000.0;
 request.setAttribute("serverTime",serverTime);
 %>
+(${diseaseName})
 <br>
 ST=<fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>
 CT=<span id="clientTime"></span>

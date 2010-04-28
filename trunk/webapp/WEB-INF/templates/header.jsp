@@ -3,4 +3,4 @@
 
 <%@ include file="/WEB-INF/templates/banner.jsp"%>
 
-<jsp:include page="/WEB-INF/disease/${diseaseName}/navMenu.jsp" />
+<jsp:include page="/WEB-INF/templates/navMenu.jsp" />

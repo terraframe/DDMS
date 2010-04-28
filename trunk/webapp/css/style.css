@@ -196,6 +196,15 @@ h2 {
     margin-left: 20em;
 }
 
+#menuBar li {
+	font-size: 12px;
+}
+
+#menuBar #Print {
+background: url("/MDSS/imgs/icons/printer.png") no-repeat center;
+border: 0px;
+}
+
 label {
 	font-weight: bold;
 	font-size: 14px;

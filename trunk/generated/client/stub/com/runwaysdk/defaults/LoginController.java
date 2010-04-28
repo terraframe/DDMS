@@ -16,6 +16,7 @@ import com.runwaysdk.web.ServletUtility;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.general.DiseaseWrapperDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
 
@@ -54,6 +55,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
       req.getSession().setAttribute(MDSSUserDTO.DISEASE+"Name", mdss.getDiseaseName());
+      req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
@@ -89,6 +91,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
     req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
     req.getSession().removeAttribute(ClientConstants.CLIENTSESSION);
     req.getSession().removeAttribute(MDSSUserDTO.DISEASE + "Name");
+    req.getSession().removeAttribute("menu");
     req.getSession().invalidate();
 
     req.getRequestDispatcher("login.jsp").forward(req, resp);

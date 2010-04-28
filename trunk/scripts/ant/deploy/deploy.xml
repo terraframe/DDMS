@@ -697,6 +697,22 @@
 		</java>
 	</target>
 
+	<target name="import_menuitems" depends="" description="imports the default MenuItems into the db">
+		<!--
+		<diagnostics/>
+		<echoproperties>
+		</echoproperties>
+		-->
+		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
+			<jvmarg value="-Xmx1024m" />
+      
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="../../../doc/menu/MenuItems.xls" />
+		</java>
+	</target>
+	
 	<!-- =================================================================== -->
 	<!-- Rebuild the geodata all paths table                                 -->
 	<!-- =================================================================== -->

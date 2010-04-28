@@ -15,6 +15,7 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
+import dss.vector.solutions.general.DiseaseWrapperDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -540,6 +541,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     }
     
     req.getSession().setAttribute(MDSSUserDTO.DISEASE, diseaseName);
+    req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
     
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }

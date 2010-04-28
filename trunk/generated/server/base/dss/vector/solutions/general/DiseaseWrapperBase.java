@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 409097868)
+@com.runwaysdk.business.ClassSignature(hash = 1941946805)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class DiseaseWrapperBase extends com.runwaysdk.business.Util imp
 {
   public final static String CLASS = "dss.vector.solutions.general.DiseaseWrapper";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 409097868;
+  private static final long serialVersionUID = 1941946805;
   
   public DiseaseWrapperBase()
   {
@@ -43,6 +43,12 @@ public abstract class DiseaseWrapperBase extends com.runwaysdk.business.Util imp
   public static DiseaseWrapper get(String id)
   {
     return (DiseaseWrapper) com.runwaysdk.business.Util.get(id);
+  }
+  
+  public static java.lang.String getMenuJson()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.DiseaseWrapper.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static java.lang.String getTermInactiveAttribute()

@@ -1,79 +1,28 @@
-
-/*
-     Initialize and render the MenuBar when its elements are ready
-     to be scripted.
- */
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<div class="navContainer" style="min-width: 1152px;">
+ <div id="mainNav" class="yuimenubar yuimenubarnav">
+  </div>
+</div>
+<script>
 YAHOO.util.Event.onContentReady("mainNav", function () {
-
-	/*
-	 * Instantiate a MenuBar: The first argument passed to the constructor is the id
-	 * for the Menu element to be created, the second is an object literal of
-	 * configuration properties.
-	 */
-
-	var oMenuBar = new YAHOO.widget.MenuBar("mainNav", {
+ 
+	//	Instantiate a Menu:  The first argument passed to the constructor
+	//	is the id for the Menu element to be created, the second is an 
+	//	object literal of configuration properties.
+ 
+	//	Add items to the Menu instance by passing an array of object literals 
+	//	(each of which represents a set of YAHOO.widget.MenuItem 
+	//	configuration properties) to the "addItems" method.
+ 
+    var aMenuItems = [${menu}];
+    
+    var oMenuBar = new YAHOO.widget.MenuBar("menuBar",{
+        itemdata : aMenuItems,
 		autosubmenudisplay: true,
 		hidedelay: 750,
 		lazyload: true });
-
-	/*
-	 * Define an array of object literals, each containing the data necessary to
-	 * create a submenu.
-	 */
-
-	var aSubmenuData = [
-$menuJson
-];
-
-
-
-//	Nifty recursive localizations and permisions!
-	function localizeText(text_obj)
-	{
-		/* depth first search */
-		for each(var obj in text_obj)
-		{
-			if(typeof obj == 'object')
-			{
-				localizeText(obj);
-			}
-		}
-
-		/* do the localization */
-		if(typeof text_obj.text == 'string')
-		{
-			// remove the use case number and localize
-			var label = text_obj.text.split('(')[0];
-			label = MDSS.localize(label);
-			// add the use case number back in
-			if(text_obj.text.split('(')[1])
-			{
-				//commenting out line below disable use case numbers
-//				label += "<em class=\"helptext\">" + text_obj.text.split('(')[1].substring(0,3)  +"</em>";
-			}
-			text_obj.text = label;
-		}
-
-//		/*after depth first search then check permissions*/
-//		if(typeof text_obj.visibleTo == 'string')
-//		{
-//		//check if the user is in any role that has access to this link
-//		for each(role in MDSS.user.roles)
-//		{
-//		if(text_obj.visibleTo.indexOf(role) >= 0)
-//		{
-//		return(false);
-//		}
-//		}
-//		/*if we make it here the user does not have access
-//		text_obj.text = null;*/
-//		delete text_obj.text;
-//		}
-	}
-
-	localizeText(aSubmenuData);
-
+ 
+ 
 	var ua = YAHOO.env.ua,
 	oAnim;  // Animation instance
 
@@ -320,29 +269,6 @@ $menuJson
 
 	}
 
-
-	/*
-	 * Subscribe to the "beforerender" event, adding a submenu to each of the items
-	 * in the MenuBar instance.
-	 */
-
-	oMenuBar.subscribe("beforeRender", function () {
-
-		var nSubmenus = aSubmenuData.length,
-		i;
-
-
-		if (this.getRoot() == this) {
-
-			for (i = 0; i < nSubmenus; i++) {
-				this.getItem(i).cfg.setProperty("submenu", aSubmenuData[i]);
-			}
-
-		}
-
-	});
-
-
 	/*
 	 * Subscribe to the "beforeShow" and "show" events for each submenu of the
 	 * MenuBar instance.
@@ -351,12 +277,16 @@ $menuJson
 	oMenuBar.subscribe("beforeShow", onSubmenuBeforeShow);
 	oMenuBar.subscribe("show", onSubmenuShow);
 
-
-	/*
-	 * Call the "render" method with no arguments since the markup for this MenuBar
-	 * instance is already exists in the page.
-	 */
-
-	oMenuBar.render();
+	//	Since this Menu instance is built completely from script, call the 
+	//	"render" method passing in the DOM element that it should be 
+	//	appended to.
+ 
+    oMenuBar.render("mainNav");
+ 
+ 
+    // Show the Menu instance    
+ 
+    oMenuBar.show();
 
 });
+ </script>
