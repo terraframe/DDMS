@@ -338,8 +338,8 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       var childId = childNode.data.termId;
       
       var parentEl = document.getElementById(id);
-      var parentNode = childNode.parent;
-//      var parentNode = this.node.tree.getNodeByElement(parentEl);
+//      var parentNode = childNode.parent;
+      var parentNode = this.node.tree.getNodeByElement(parentEl);
       var parentId = parentNode.data.termId;
       
       // Change the listeners to contain the relevant nodes and info
