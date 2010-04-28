@@ -163,7 +163,9 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   {
     try
     {
-      req.setAttribute("item", new TermDTO(this.getClientRequest()));
+      TermDTO dto = new TermDTO(this.getClientRequest());
+      populateReqForTerm(dto);
+      
       render("createComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -184,19 +186,23 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   {
     resp.sendError(500);
   }
+  
+  private void populateReqForTerm(TermDTO dto)
+  {
+    req.setAttribute("item", dto);
+    
+    req.setAttribute("isRoot", dto instanceof RootTermDTO);
+    
+    String inactiveAttr = DiseaseWrapperDTO.getTermInactiveAttribute(this.getClientRequest());
+    req.setAttribute("inactiveAttribute", inactiveAttr);
+  }
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dss.vector.solutions.ontology.TermDTO dto = dss.vector.solutions.ontology.TermDTO.lock(super.getClientRequest(), id);
-//      req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-      req.setAttribute("item", dto);
-      
-      req.setAttribute("isRoot", dto instanceof RootTermDTO);
-      
-      String inactiveAttr = DiseaseWrapperDTO.getTermInactiveAttribute(this.getClientRequest());
-      req.setAttribute("inactiveAttribute", inactiveAttr);
+      populateReqForTerm(dto);
       
       render("editComponent.jsp");
     }
