@@ -28,6 +28,15 @@
         </attributes>
       </mdBusiness>
 
+      <mdBusiness
+        name="dss.vector.solutions.general.MenuItem">
+        <attributes>
+          <reference
+            name="term"
+            indexType="unique index"/>
+        </attributes>
+      </mdBusiness>
+
       <mdController
         name="dss.vector.solutions.general.MenuItemController">
         <create>

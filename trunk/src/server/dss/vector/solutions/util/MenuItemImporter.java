@@ -127,7 +127,6 @@ public class MenuItemImporter {
 			if (diseaseId != null && diseaseId.length() > 0) {
 				Disease disease = Disease.valueOf(diseaseId);
 				Term term = Term.getByTermId(termId);
-				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
 				System.out.println("MenuItem: " + diseaseId + "|" + urlId + "|" + termId);
