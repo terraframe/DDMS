@@ -25,6 +25,7 @@ Name MDSS
 !include MUI2.nsh
 !include nsDialogs.nsh
 !include LogicLib.nsh
+!include FileFunc.nsh
 
 # Define access to the RIndexOf function
 !macro RIndexOf Var Str Char
@@ -75,6 +76,8 @@ ShowUninstDetails show
 RequestExecutionLevel admin
 
 Function userInputPage
+  StrCmp  $Master_Value "true" 0 +2
+    Return  
   !insertmacro MUI_HEADER_TEXT "Installation Number" "Specify the installation number"
   nsDialogs::Create 1018
   Pop $TfDialog
@@ -118,6 +121,8 @@ Function verifyNumber
 FunctionEnd
 
 Function exitUserInputPage
+ StrCmp  $Master_Value "true" 0 +2
+    Return  
   # Pull the text out of the form element and store it in $InstallationNumber
   ${NSD_GetText} $Text $InstallationNumber
 FunctionEnd
@@ -235,6 +240,7 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512m -cp C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\lib\* dss/vector/solutions/standalone/StandaloneClient"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
+    RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
@@ -299,11 +305,12 @@ Function .onInit
     ${GetOptions} "$Params" "-master" $R0
  
 	IfErrors masterFalse masterTrue
-	masterFalse:
+   masterFalse:
       StrCpy $Master_Value "false"
       Goto masterDone
     masterTrue:
       StrCpy $Master_Value "true"
+      StrCpy $InstallationNumber "0"
     masterDone:
       ClearErrors
     
