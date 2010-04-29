@@ -82,10 +82,11 @@ public class MenuItemImporter {
 				Disease disease = Disease.valueOf(diseaseId);
 				Term term = Term.getByTermId(termId);
 				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
-				// TODO - Add this
-				// disease.lock();
-				// disease.setMenuRoot(term);
-				// disease.apply();
+        
+        DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
+        dMaster.appLock();
+        dMaster.setMenuRoot(term);
+        dMaster.apply();
 			}
 			row = sheet.getRow(rowCount++);
 		}
@@ -127,11 +128,6 @@ public class MenuItemImporter {
 				Disease disease = Disease.valueOf(diseaseId);
 				Term term = Term.getByTermId(termId);
 				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
-				
-				DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
-				dMaster.appLock();
-				dMaster.setMenuRoot(term);
-				dMaster.apply();
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
 				System.out.println("MenuItem: " + diseaseId + "|" + urlId + "|" + termId);
