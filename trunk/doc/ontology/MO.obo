@@ -1,6 +1,6 @@
 format-version: 1.2
-date: 22:04:2010 11:37
-saved-by: chris
+date: 27:04:2010 15:37
+saved-by: slozano
 auto-generated-by: OBO-Edit 2.0
 default-namespace: mdss_namespace
 idspace: span http://www.ifomis.org/bfo/1.1/span#
@@ -183,6 +183,7 @@ id: DDSS:0000024
 name: dengue fever with hemorrhagic manifestation
 is_a: DDSS:0000057 ! clinical diagnosis
 is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+is_a: VDSS:0000065 ! quality of disease manifestation
 created_by: slozano
 creation_date: 2010-03-30T01:27:25Z
 
@@ -827,6 +828,7 @@ name: dengue hemorrhagic fever
 def: "Manifestation to a dengue virus infection characterized by hemorrhagic symptoms in the human host." [http://lib.bioinfo.pl/meid\:246244, SLF:SLF]
 is_a: DDSS:0000057 ! clinical diagnosis
 is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+is_a: VDSS:0000065 ! quality of disease manifestation
 created_by: slozano
 creation_date: 2010-03-29T12:05:08Z
 
@@ -839,6 +841,7 @@ synonym: "Dengue fever" RELATED []
 synonym: "DF" RELATED []
 is_a: DDSS:0000057 ! clinical diagnosis
 is_a: DDSS:0000059 ! laboratory confirmed diagnosis
+is_a: VDSS:0000065 ! quality of disease manifestation
 created_by: slozano
 creation_date: 2010-03-29T12:07:09Z
 
@@ -1042,6 +1045,7 @@ creation_date: 2010-04-12T10:29:40Z
 id: DDSS:0000137
 name: malaria
 is_a: DDSS:0000136 ! type of malaria case
+is_a: VDSS:0000065 ! quality of disease manifestation
 created_by: slozano
 creation_date: 2010-04-12T10:30:16Z
 
@@ -1112,12 +1116,12 @@ creation_date: 2010-04-12T10:37:13Z
 id: DDSS:0100000
 name: Dengue
 namespace: 
-is_a: MDDSS:0000001 ! menu
+is_a: VDSS:0000066 ! menu
 created_by: chris
 creation_date: 2010-04-22T09:32:45Z
 
 [Term]
-id: DDSS:0100002
+id: DDSS:0100020
 name: Administration
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1125,159 +1129,167 @@ created_by: chris
 creation_date: 2010-04-22T09:33:47Z
 
 [Term]
-id: DDSS:0100003
-name: Configure transmission season
-namespace: 
-is_a: DDSS:0100002 ! Administration
-created_by: chris
-creation_date: 2010-04-22T09:34:58Z
-
-[Term]
-id: DDSS:0100004
+id: DDSS:0100030
 name: Configure system variables
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:34:43Z
 
 [Term]
-id: DDSS:0100005
+id: DDSS:0100040
 name: Update logo
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:35:28Z
 
 [Term]
-id: DDSS:0100006
+id: DDSS:0100050
+name: Configure transmission season
+namespace: 
+is_a: DDSS:0100020 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:34:58Z
+
+[Term]
+id: DDSS:0100060
 name: Configure epidemiological week
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:37:21Z
 
 [Term]
-id: DDSS:0100007
+id: DDSS:0100070
 name: Enter population data
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:38:15Z
 
 [Term]
-id: DDSS:0100008
+id: DDSS:0100080
 name: Configure alerts
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:38:31Z
 
 [Term]
-id: DDSS:0100009
+id: DDSS:0100090
 name: Configure system alerts
 namespace: 
-is_a: DDSS:0100008 ! Configure alerts
+is_a: DDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:38:50Z
 
 [Term]
-id: DDSS:0100010
+id: DDSS:0100100
 name: Configure email server
 namespace: 
-is_a: DDSS:0100008 ! Configure alerts
+is_a: DDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:39:06Z
 
 [Term]
-id: DDSS:0100011
+id: DDSS:0100110
 name: View emails
 namespace: 
-is_a: DDSS:0100008 ! Configure alerts
+is_a: DDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:39:25Z
 
 [Term]
-id: DDSS:0100012
+id: DDSS:0100120
 name: Person administration
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:39:46Z
 
 [Term]
-id: DDSS:0100013
+id: DDSS:0100130
 name: Manage people
 namespace: 
-is_a: DDSS:0100012 ! Person administration
+is_a: DDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:02Z
 
 [Term]
-id: DDSS:0100014
+id: DDSS:0100140
 name: Configure GUI visibility
 namespace: 
-is_a: DDSS:0100012 ! Person administration
+is_a: DDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:22Z
 
 [Term]
-id: DDSS:0100015
+id: DDSS:0100150
 name: Configure user roles
 namespace: 
-is_a: DDSS:0100012 ! Person administration
+is_a: DDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:48Z
 
 [Term]
-id: DDSS:0100016
+id: DDSS:0100160
 name: Synchronise
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:41:15Z
 
 [Term]
-id: DDSS:0100017
+id: DDSS:0100170
 name: Transaction log
 namespace: 
-is_a: DDSS:0100016 ! Synchronise
+is_a: DDSS:0100160 ! Synchronise
 created_by: chris
 creation_date: 2010-04-22T09:41:34Z
 
 [Term]
-id: DDSS:0100018
+id: DDSS:0100180
 name: Import log
 namespace: 
-is_a: DDSS:0100016 ! Synchronise
+is_a: DDSS:0100160 ! Synchronise
 created_by: chris
 creation_date: 2010-04-22T09:41:51Z
 
 [Term]
-id: DDSS:0100019
+id: DDSS:0100190
 name: Localization
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:09Z
 
 [Term]
-id: DDSS:0100020
+id: DDSS:0100200
 name: Configure lookups and grids
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:30Z
 
 [Term]
-id: DDSS:0100021
+id: DDSS:0100210
 name: Term tree administration
 namespace: 
-is_a: DDSS:0100002 ! Administration
+is_a: DDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:50Z
 
 [Term]
-id: DDSS:0100022
+id: DDSS:0100215
+name: Configure menus
+namespace: 
+is_a: DDSS:0100020 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:50Z
+
+[Term]
+id: DDSS:0100220
 name: Case Surveillance
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1285,87 +1297,87 @@ created_by: chris
 creation_date: 2010-04-22T09:43:19Z
 
 [Term]
-id: DDSS:0100023
+id: DDSS:0100230
 name: Aggregated cases
 namespace: 
-is_a: DDSS:0100022 ! Case Surveillance
+is_a: DDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:43:49Z
 
 [Term]
-id: DDSS:0100024
+id: DDSS:0100240
 name: Enter aggregated cases
 namespace: 
-is_a: DDSS:0100023 ! Aggregated cases
+is_a: DDSS:0100230 ! Aggregated cases
 created_by: chris
 creation_date: 2010-04-22T09:44:06Z
 
 [Term]
-id: DDSS:0100025
+id: DDSS:0100250
 name: Query aggregated cases
 namespace: 
-is_a: DDSS:0100023 ! Aggregated cases
+is_a: DDSS:0100230 ! Aggregated cases
 created_by: chris
 creation_date: 2010-04-22T09:44:21Z
 
 [Term]
-id: DDSS:0100026
+id: DDSS:0100260
 name: Individual cases
 namespace: 
-is_a: DDSS:0100022 ! Case Surveillance
+is_a: DDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:44:36Z
 
 [Term]
-id: DDSS:0100027
+id: DDSS:0100270
 name: Enter individual cases
 namespace: 
-is_a: DDSS:0100026 ! Individual cases
+is_a: DDSS:0100260 ! Individual cases
 created_by: chris
 creation_date: 2010-04-22T09:45:11Z
 
 [Term]
-id: DDSS:0100028
+id: DDSS:0100280
 name: Query individual cases
 namespace: 
-is_a: DDSS:0100026 ! Individual cases
+is_a: DDSS:0100260 ! Individual cases
 created_by: chris
 creation_date: 2010-04-22T09:45:25Z
 
 [Term]
-id: DDSS:0100029
+id: DDSS:0100290
 name: Thresholds
 namespace: 
-is_a: DDSS:0100022 ! Case Surveillance
+is_a: DDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:45:50Z
 
 [Term]
-id: DDSS:0100030
+id: DDSS:0100300
 name: Configure thresholds
 namespace: 
-is_a: DDSS:0100029 ! Thresholds
+is_a: DDSS:0100290 ! Thresholds
 created_by: chris
 creation_date: 2010-04-22T09:46:08Z
 
 [Term]
-id: DDSS:0100031
+id: DDSS:0100310
 name: Enter thresholds
 namespace: 
-is_a: DDSS:0100029 ! Thresholds
+is_a: DDSS:0100290 ! Thresholds
 created_by: chris
 creation_date: 2010-04-22T09:46:30Z
 
 [Term]
-id: DDSS:0100032
+id: DDSS:0100320
 name: Configure case surveillance
 namespace: 
-is_a: DDSS:0100022 ! Case Surveillance
+is_a: DDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:46:50Z
 
 [Term]
-id: DDSS:0100033
+id: DDSS:0100330
 name: Entomological Surveillance
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1373,127 +1385,127 @@ created_by: chris
 creation_date: 2010-04-22T11:25:09Z
 
 [Term]
-id: DDSS:0100034
+id: DDSS:0100340
 name: Mosquito collections
 namespace: 
-is_a: DDSS:0100033 ! Entomological Surveillance
+is_a: DDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T11:25:29Z
 
 [Term]
-id: DDSS:0100035
+id: DDSS:0100350
 name: Search/enter a collection
 namespace: 
-is_a: DDSS:0100034 ! Mosquito collections
+is_a: DDSS:0100340 ! Mosquito collections
 created_by: chris
 creation_date: 2010-04-22T11:25:49Z
 
 [Term]
-id: DDSS:0100036
+id: DDSS:0100360
 name: Query mosquito collections and abundance
 namespace: 
-is_a: DDSS:0100034 ! Mosquito collections
+is_a: DDSS:0100340 ! Mosquito collections
 created_by: chris
 creation_date: 2010-04-22T11:26:11Z
 
 [Term]
-id: DDSS:0100037
+id: DDSS:0100370
 name: Collections of immatures
 namespace: 
-is_a: DDSS:0100033 ! Entomological Surveillance
+is_a: DDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T11:26:33Z
 
 [Term]
-id: DDSS:0100038
+id: DDSS:0100380
 name: Thresholds
 namespace: 
-is_a: DDSS:0100037 ! Collections of immatures
+is_a: DDSS:0100370 ! Collections of immatures
 created_by: chris
 creation_date: 2010-04-22T11:26:46Z
 
 [Term]
-id: DDSS:0100039
+id: DDSS:0100390
 name: Immatures by container type
 namespace: 
-is_a: DDSS:0100037 ! Collections of immatures
+is_a: DDSS:0100370 ! Collections of immatures
 created_by: chris
 creation_date: 2010-04-22T11:26:57Z
 
 [Term]
-id: DDSS:0100040
+id: DDSS:0100400
 name: Query immatures by container type
 namespace: 
-is_a: DDSS:0100037 ! Collections of immatures
+is_a: DDSS:0100370 ! Collections of immatures
 created_by: chris
 creation_date: 2010-04-22T11:27:22Z
 
 [Term]
-id: DDSS:0100041
+id: DDSS:0100410
 name: Pupae by individual container
 namespace: 
-is_a: DDSS:0100037 ! Collections of immatures
+is_a: DDSS:0100370 ! Collections of immatures
 created_by: chris
 creation_date: 2010-04-22T11:27:43Z
 
 [Term]
-id: DDSS:0100042
+id: DDSS:0100420
 name: Query pupae by individual container
 namespace: 
-is_a: DDSS:0100037 ! Collections of immatures
+is_a: DDSS:0100370 ! Collections of immatures
 created_by: chris
 creation_date: 2010-04-22T11:28:04Z
 
 [Term]
-id: DDSS:0100043
+id: DDSS:0100430
 name: Assays
 namespace: 
-is_a: DDSS:0100033 ! Entomological Surveillance
+is_a: DDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T11:28:17Z
 
 [Term]
-id: DDSS:0100044
+id: DDSS:0100440
 name: Enter infection data
 namespace: 
-is_a: DDSS:0100043 ! Assays
+is_a: DDSS:0100430 ! Assays
 created_by: chris
 creation_date: 2010-04-22T11:28:27Z
 
 [Term]
-id: DDSS:0100045
+id: DDSS:0100450
 name: Enter resistance mechanisms data
 namespace: 
-is_a: DDSS:0100043 ! Assays
+is_a: DDSS:0100430 ! Assays
 created_by: chris
 creation_date: 2010-04-22T11:28:52Z
 
 [Term]
-id: DDSS:0100046
+id: DDSS:0100460
 name: Query resistance mechanisms
 namespace: 
-is_a: DDSS:0100043 ! Assays
+is_a: DDSS:0100430 ! Assays
 created_by: chris
 creation_date: 2010-04-22T11:29:12Z
 
 [Term]
-id: DDSS:0100047
+id: DDSS:0100470
 name: Enter bioassays
 namespace: 
-is_a: DDSS:0100043 ! Assays
+is_a: DDSS:0100430 ! Assays
 created_by: chris
 creation_date: 2010-04-22T11:29:31Z
 
 [Term]
-id: DDSS:0100048
+id: DDSS:0100480
 name: Query bioassays
 namespace: 
-is_a: DDSS:0100043 ! Assays
+is_a: DDSS:0100430 ! Assays
 created_by: chris
 creation_date: 2010-04-22T11:29:46Z
 
 [Term]
-id: DDSS:0100049
+id: DDSS:0100490
 name: Intervention Planning
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1501,23 +1513,23 @@ created_by: chris
 creation_date: 2010-04-22T11:30:05Z
 
 [Term]
-id: DDSS:0100050
+id: DDSS:0100500
 name: Planning calculator
 namespace: 
-is_a: DDSS:0100049 ! Intervention Planning
+is_a: DDSS:0100490 ! Intervention Planning
 created_by: chris
 creation_date: 2010-04-22T11:30:18Z
 
 [Term]
-id: DDSS:0100051
+id: DDSS:0100510
 name: Insecticide configuration
 namespace: 
-is_a: DDSS:0100049 ! Intervention Planning
+is_a: DDSS:0100490 ! Intervention Planning
 created_by: chris
 creation_date: 2010-04-22T11:30:35Z
 
 [Term]
-id: DDSS:0100052
+id: DDSS:0100520
 name: Intervention Monitoring
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1525,23 +1537,23 @@ created_by: chris
 creation_date: 2010-04-22T11:31:17Z
 
 [Term]
-id: DDSS:0100053
+id: DDSS:0100530
 name: Intervention control
 namespace: 
-is_a: DDSS:0100052 ! Intervention Monitoring
+is_a: DDSS:0100520 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T11:31:29Z
 
 [Term]
-id: DDSS:0100054
+id: DDSS:0100540
 name: Query intervention control
 namespace: 
-is_a: DDSS:0100052 ! Intervention Monitoring
+is_a: DDSS:0100520 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T11:36:00Z
 
 [Term]
-id: DDSS:0100083
+id: DDSS:0100830
 name: Stock Control
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1549,31 +1561,31 @@ created_by: chris
 creation_date: 2010-04-22T10:31:12Z
 
 [Term]
-id: DDSS:0100084
+id: DDSS:0100840
 name: Configure stock items
 namespace: 
-is_a: DDSS:0100083 ! Stock Control
+is_a: DDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:24Z
 
 [Term]
-id: DDSS:0100085
+id: DDSS:0100850
 name: Manage stock
 namespace: 
-is_a: DDSS:0100083 ! Stock Control
+is_a: DDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:39Z
 
 [Term]
-id: DDSS:0100086
+id: DDSS:0100860
 name: Query stock
 namespace: 
-is_a: DDSS:0100083 ! Stock Control
+is_a: DDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:54Z
 
 [Term]
-id: DDSS:0100087
+id: DDSS:0100870
 name: GIS
 namespace: 
 is_a: DDSS:0100000 ! Dengue
@@ -1581,26 +1593,26 @@ created_by: chris
 creation_date: 2010-04-22T10:33:23Z
 
 [Term]
-id: DDSS:0100088
+id: DDSS:0100880
 name: Universal tree administration
 namespace: 
-is_a: DDSS:0100087 ! GIS
+is_a: DDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:33:37Z
 
 [Term]
-id: DDSS:0100089
+id: DDSS:0100890
 name: Geographical entity tree administration
 namespace: 
-is_a: DDSS:0100087 ! GIS
+is_a: DDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:33:51Z
 
 [Term]
-id: DDSS:0100090
+id: DDSS:0100900
 name: Generate maps
 namespace: 
-is_a: DDSS:0100087 ! GIS
+is_a: DDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:34:14Z
 
@@ -3835,13 +3847,6 @@ alt_id: MA:0002503
 is_a: MDSS:0000489 ! type of sample
 
 [Term]
-id: MDDSS:0000001
-name: menu
-namespace: 
-created_by: chris
-creation_date: 2010-04-22T09:21:42Z
-
-[Term]
 id: MDSS:0000000
 name: floor surface
 def: "The bottom or lower part of any room; the supporting surface of a room. The lower inside surface of a hollow space. A structure formed of beams, girders, etc, with proper covering, which divides a building horizontally into storeys/stories. The supporting surface or platform of a structure such as a bridge." [en.wiktionary.org:\:/wiki/floor]
@@ -5996,8 +6001,9 @@ creation_date: 2009-09-01T04:24:29Z
 
 [Term]
 id: MDSS:0000298
-name: in-patient
+name: in-patient (hospitalized)
 is_a: MDSS:0000292 ! malaria patient
+is_a: VDSS:0000000 ! patient
 created_by: Saul
 creation_date: 2009-09-01T04:25:35Z
 
@@ -6005,6 +6011,7 @@ creation_date: 2009-09-01T04:25:35Z
 id: MDSS:0000299
 name: out-patient
 is_a: MDSS:0000292 ! malaria patient
+is_a: VDSS:0000000 ! patient
 created_by: Saul
 creation_date: 2009-09-01T04:25:35Z
 
@@ -7383,12 +7390,12 @@ creation_date: 2010-03-11T03:57:16Z
 id: MDSS:0100000
 name: Malaria
 namespace: 
-is_a: MDDSS:0000001 ! menu
+is_a: VDSS:0000066 ! menu
 created_by: chris
 creation_date: 2010-04-22T09:32:17Z
 
 [Term]
-id: MDSS:0100002
+id: MDSS:0100020
 name: Administration
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7396,159 +7403,167 @@ created_by: chris
 creation_date: 2010-04-22T09:33:47Z
 
 [Term]
-id: MDSS:0100003
+id: MDSS:0100030
 name: Configure system variables
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:34:43Z
 
 [Term]
-id: MDSS:0100004
+id: MDSS:0100040
 name: Update logo
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:35:28Z
 
 [Term]
-id: MDSS:0100005
+id: MDSS:0100050
 name: Configure transmission season
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:34:58Z
 
 [Term]
-id: MDSS:0100006
+id: MDSS:0100060
 name: Configure epidemiological week
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:37:21Z
 
 [Term]
-id: MDSS:0100007
+id: MDSS:0100070
 name: Enter population data
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:38:15Z
 
 [Term]
-id: MDSS:0100008
+id: MDSS:0100080
 name: Configure alerts
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:38:31Z
 
 [Term]
-id: MDSS:0100009
+id: MDSS:0100090
 name: Configure system alerts
 namespace: 
-is_a: MDSS:0100008 ! Configure alerts
+is_a: MDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:38:50Z
 
 [Term]
-id: MDSS:0100010
+id: MDSS:0100100
 name: Configure email server
 namespace: 
-is_a: MDSS:0100008 ! Configure alerts
+is_a: MDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:39:06Z
 
 [Term]
-id: MDSS:0100011
+id: MDSS:0100110
 name: View emails
 namespace: 
-is_a: MDSS:0100008 ! Configure alerts
+is_a: MDSS:0100080 ! Configure alerts
 created_by: chris
 creation_date: 2010-04-22T09:39:25Z
 
 [Term]
-id: MDSS:0100012
+id: MDSS:0100120
 name: Person administration
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:39:46Z
 
 [Term]
-id: MDSS:0100013
+id: MDSS:0100130
 name: Manage people
 namespace: 
-is_a: MDSS:0100012 ! Person administration
+is_a: MDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:02Z
 
 [Term]
-id: MDSS:0100014
+id: MDSS:0100140
 name: Configure GUI visibility
 namespace: 
-is_a: MDSS:0100012 ! Person administration
+is_a: MDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:22Z
 
 [Term]
-id: MDSS:0100015
+id: MDSS:0100150
 name: Configure user roles
 namespace: 
-is_a: MDSS:0100012 ! Person administration
+is_a: MDSS:0100120 ! Person administration
 created_by: chris
 creation_date: 2010-04-22T09:40:48Z
 
 [Term]
-id: MDSS:0100016
+id: MDSS:0100160
 name: Synchronise
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:41:15Z
 
 [Term]
-id: MDSS:0100017
+id: MDSS:0100170
 name: Transaction log
 namespace: 
-is_a: MDSS:0100016 ! Synchronise
+is_a: MDSS:0100160 ! Synchronise
 created_by: chris
 creation_date: 2010-04-22T09:41:34Z
 
 [Term]
-id: MDSS:0100018
+id: MDSS:0100180
 name: Import log
 namespace: 
-is_a: MDSS:0100016 ! Synchronise
+is_a: MDSS:0100160 ! Synchronise
 created_by: chris
 creation_date: 2010-04-22T09:41:51Z
 
 [Term]
-id: MDSS:0100019
+id: MDSS:0100190
 name: Localization
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:09Z
 
 [Term]
-id: MDSS:0100020
+id: MDSS:0100200
 name: Configure lookups and grids
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:30Z
 
 [Term]
-id: MDSS:0100021
+id: MDSS:0100210
 name: Term tree administration
 namespace: 
-is_a: MDSS:0100002 ! Administration
+is_a: MDSS:0100020 ! Administration
 created_by: chris
 creation_date: 2010-04-22T09:42:50Z
 
 [Term]
-id: MDSS:0100022
+id: MDSS:0100215
+name: Configure menus
+namespace: 
+is_a: MDSS:0100020 ! Administration
+created_by: chris
+creation_date: 2010-04-22T09:42:50Z
+
+[Term]
+id: MDSS:0100220
 name: Case Surveillance
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7556,87 +7571,87 @@ created_by: chris
 creation_date: 2010-04-22T09:43:19Z
 
 [Term]
-id: MDSS:0100023
+id: MDSS:0100230
 name: Aggregated cases
 namespace: 
-is_a: MDSS:0100022 ! Case Surveillance
+is_a: MDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:43:49Z
 
 [Term]
-id: MDSS:0100024
+id: MDSS:0100240
 name: Enter aggregated cases
 namespace: 
-is_a: MDSS:0100023 ! Aggregated cases
+is_a: MDSS:0100230 ! Aggregated cases
 created_by: chris
 creation_date: 2010-04-22T09:44:06Z
 
 [Term]
-id: MDSS:0100025
+id: MDSS:0100250
 name: Query aggregated cases
 namespace: 
-is_a: MDSS:0100023 ! Aggregated cases
+is_a: MDSS:0100230 ! Aggregated cases
 created_by: chris
 creation_date: 2010-04-22T09:44:21Z
 
 [Term]
-id: MDSS:0100026
+id: MDSS:0100260
 name: Individual cases
 namespace: 
-is_a: MDSS:0100022 ! Case Surveillance
+is_a: MDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:44:36Z
 
 [Term]
-id: MDSS:0100027
+id: MDSS:0100270
 name: Enter individual cases
 namespace: 
-is_a: MDSS:0100026 ! Individual cases
+is_a: MDSS:0100260 ! Individual cases
 created_by: chris
 creation_date: 2010-04-22T09:45:11Z
 
 [Term]
-id: MDSS:0100028
+id: MDSS:0100280
 name: Query individual cases
 namespace: 
-is_a: MDSS:0100026 ! Individual cases
+is_a: MDSS:0100260 ! Individual cases
 created_by: chris
 creation_date: 2010-04-22T09:45:25Z
 
 [Term]
-id: MDSS:0100029
+id: MDSS:0100290
 name: Thresholds
 namespace: 
-is_a: MDSS:0100022 ! Case Surveillance
+is_a: MDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:45:50Z
 
 [Term]
-id: MDSS:0100030
+id: MDSS:0100300
 name: Configure thresholds
 namespace: 
-is_a: MDSS:0100029 ! Thresholds
+is_a: MDSS:0100290 ! Thresholds
 created_by: chris
 creation_date: 2010-04-22T09:46:08Z
 
 [Term]
-id: MDSS:0100031
+id: MDSS:0100310
 name: Enter thresholds
 namespace: 
-is_a: MDSS:0100029 ! Thresholds
+is_a: MDSS:0100290 ! Thresholds
 created_by: chris
 creation_date: 2010-04-22T09:46:30Z
 
 [Term]
-id: MDSS:0100032
+id: MDSS:0100320
 name: Configure case surveillance
 namespace: 
-is_a: MDSS:0100022 ! Case Surveillance
+is_a: MDSS:0100220 ! Case Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:46:50Z
 
 [Term]
-id: MDSS:0100033
+id: MDSS:0100330
 name: Entomological Surveillance
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7644,151 +7659,151 @@ created_by: chris
 creation_date: 2010-04-22T09:47:20Z
 
 [Term]
-id: MDSS:0100034
+id: MDSS:0100340
 name: Search/enter a collection
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:47:40Z
 
 [Term]
-id: MDSS:0100035
+id: MDSS:0100350
 name: Query mosquito collections and abundance
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T09:48:05Z
 
 [Term]
-id: MDSS:0100036
+id: MDSS:0100360
 name: Enter infection data
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:12:55Z
 
 [Term]
-id: MDSS:0100037
+id: MDSS:0100370
 name: Enter resistance mechanisms data
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:13:08Z
 
 [Term]
-id: MDSS:0100038
+id: MDSS:0100380
 name: Query resistance mechanisms
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:13:45Z
 
 [Term]
-id: MDSS:0100039
+id: MDSS:0100390
 name: Resistance monitoring
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:14:05Z
 
 [Term]
-id: MDSS:0100040
+id: MDSS:0100400
 name: Enter adult diagnostic data
 namespace: 
-is_a: MDSS:0100039 ! Resistance monitoring
+is_a: MDSS:0100390 ! Resistance monitoring
 created_by: chris
 creation_date: 2010-04-22T10:14:21Z
 
 [Term]
-id: MDSS:0100041
+id: MDSS:0100410
 name: Enter larval diagnostic data
 namespace: 
-is_a: MDSS:0100039 ! Resistance monitoring
+is_a: MDSS:0100390 ! Resistance monitoring
 created_by: chris
 creation_date: 2010-04-22T10:14:43Z
 
 [Term]
-id: MDSS:0100042
+id: MDSS:0100420
 name: Enter adult time response data
 namespace: 
-is_a: MDSS:0100039 ! Resistance monitoring
+is_a: MDSS:0100390 ! Resistance monitoring
 created_by: chris
 creation_date: 2010-04-22T10:15:01Z
 
 [Term]
-id: MDSS:0100043
+id: MDSS:0100430
 name: Query resistance
 namespace: 
-is_a: MDSS:0100039 ! Resistance monitoring
+is_a: MDSS:0100390 ! Resistance monitoring
 created_by: chris
 creation_date: 2010-04-22T10:15:20Z
 
 [Term]
-id: MDSS:0100044
+id: MDSS:0100440
 name: Efficacy studies
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:15:40Z
 
 [Term]
-id: MDSS:0100045
+id: MDSS:0100450
 name: Search/enter adult efficacy studies
 namespace: 
-is_a: MDSS:0100044 ! Efficacy studies
+is_a: MDSS:0100440 ! Efficacy studies
 created_by: chris
 creation_date: 2010-04-22T10:15:59Z
 
 [Term]
-id: MDSS:0100046
+id: MDSS:0100460
 name: Query efficacy studies
 namespace: 
-is_a: MDSS:0100044 ! Efficacy studies
+is_a: MDSS:0100440 ! Efficacy studies
 created_by: chris
 creation_date: 2010-04-22T10:16:27Z
 
 [Term]
-id: MDSS:0100047
+id: MDSS:0100470
 name: Configuration
 namespace: 
-is_a: MDSS:0100033 ! Entomological Surveillance
+is_a: MDSS:0100330 ! Entomological Surveillance
 created_by: chris
 creation_date: 2010-04-22T10:16:49Z
 
 [Term]
-id: MDSS:0100048
+id: MDSS:0100480
 name: Diagnostic assay cutoff values
 namespace: 
-is_a: MDSS:0100047 ! Configuration
+is_a: MDSS:0100470 ! Configuration
 created_by: chris
 creation_date: 2010-04-22T10:17:02Z
 
 [Term]
-id: MDSS:0100049
+id: MDSS:0100490
 name: Manage insecticides
 namespace: 
-is_a: MDSS:0100047 ! Configuration
+is_a: MDSS:0100470 ! Configuration
 created_by: chris
 creation_date: 2010-04-22T10:17:23Z
 
 [Term]
-id: MDSS:0100050
+id: MDSS:0100500
 name: Adult time response assay cutoff values
 namespace: 
-is_a: MDSS:0100047 ! Configuration
+is_a: MDSS:0100470 ! Configuration
 created_by: chris
 creation_date: 2010-04-22T10:17:40Z
 
 [Term]
-id: MDSS:0100051
+id: MDSS:0100510
 name: Adult lethal time cutoff values
 namespace: 
-is_a: MDSS:0100047 ! Configuration
+is_a: MDSS:0100470 ! Configuration
 created_by: chris
 creation_date: 2010-04-22T10:17:59Z
 
 [Term]
-id: MDSS:0100052
+id: MDSS:0100520
 name: Surveys
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7796,23 +7811,23 @@ created_by: chris
 creation_date: 2010-04-22T10:18:35Z
 
 [Term]
-id: MDSS:0100053
+id: MDSS:0100530
 name: Enter indicator survey records
 namespace: 
-is_a: MDSS:0100052 ! Surveys
+is_a: MDSS:0100520 ! Surveys
 created_by: chris
 creation_date: 2010-04-22T10:19:33Z
 
 [Term]
-id: MDSS:0100054
+id: MDSS:0100540
 name: Query indicator surveys
 namespace: 
-is_a: MDSS:0100052 ! Surveys
+is_a: MDSS:0100520 ! Surveys
 created_by: chris
 creation_date: 2010-04-22T10:19:49Z
 
 [Term]
-id: MDSS:0100055
+id: MDSS:0100550
 name: Intervention Planning
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7820,55 +7835,55 @@ created_by: chris
 creation_date: 2010-04-22T10:20:05Z
 
 [Term]
-id: MDSS:0100056
+id: MDSS:0100560
 name: IRS intervention planning
 namespace: 
-is_a: MDSS:0100055 ! Intervention Planning
+is_a: MDSS:0100550 ! Intervention Planning
 created_by: chris
 creation_date: 2010-04-22T10:20:19Z
 
 [Term]
-id: MDSS:0100057
+id: MDSS:0100570
 name: IRS planning
 namespace: 
-is_a: MDSS:0100056 ! IRS intervention planning
+is_a: MDSS:0100560 ! IRS intervention planning
 created_by: chris
 creation_date: 2010-04-22T10:20:41Z
 
 [Term]
-id: MDSS:0100058
+id: MDSS:0100580
 name: Configure IRS
 namespace: 
-is_a: MDSS:0100056 ! IRS intervention planning
+is_a: MDSS:0100560 ! IRS intervention planning
 created_by: chris
 creation_date: 2010-04-22T10:20:55Z
 
 [Term]
-id: MDSS:0100059
+id: MDSS:0100590
 name: Manage IRS teams
 namespace: 
-is_a: MDSS:0100056 ! IRS intervention planning
+is_a: MDSS:0100560 ! IRS intervention planning
 created_by: chris
 creation_date: 2010-04-22T10:21:12Z
 
 [Term]
-id: MDSS:0100060
+id: MDSS:0100600
 name: Enter area targets
 namespace: 
-is_a: MDSS:0100056 ! IRS intervention planning
+is_a: MDSS:0100560 ! IRS intervention planning
 created_by: chris
 creation_date: 2010-04-22T10:21:25Z
 
 [Term]
-id: MDSS:0100061
+id: MDSS:0100610
 name: Enter operator and team targets
 namespace: 
-is_a: MDSS:0100056 ! IRS intervention planning
+is_a: MDSS:0100560 ! IRS intervention planning
 created_by: chris
 creation_date: 2010-04-22T10:21:39Z
 
 [Term]
-id: MDSS:0100062
+id: MDSS:0100620
 name: Intervention Monitoring
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -7876,167 +7891,167 @@ created_by: chris
 creation_date: 2010-04-22T10:22:04Z
 
 [Term]
-id: MDSS:0100063
+id: MDSS:0100630
 name: IRS
 namespace: 
-is_a: MDSS:0100062 ! Intervention Monitoring
+is_a: MDSS:0100620 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T10:22:26Z
 
 [Term]
-id: MDSS:0100064
+id: MDSS:0100640
 name: Operator spray level 1
 namespace: 
-is_a: MDSS:0100063 ! IRS
+is_a: MDSS:0100630 ! IRS
 created_by: chris
 creation_date: 2010-04-22T10:22:37Z
 
 [Term]
-id: MDSS:0100065
+id: MDSS:0100650
 name: Team spray level 2
 namespace: 
-is_a: MDSS:0100063 ! IRS
+is_a: MDSS:0100630 ! IRS
 created_by: chris
 creation_date: 2010-04-22T10:22:54Z
 
 [Term]
-id: MDSS:0100066
+id: MDSS:0100660
 name: Sprayed area level 3
 namespace: 
-is_a: MDSS:0100063 ! IRS
+is_a: MDSS:0100630 ! IRS
 created_by: chris
 creation_date: 2010-04-22T10:23:09Z
 
 [Term]
-id: MDSS:0100067
+id: MDSS:0100670
 name: Query IRS
 namespace: 
-is_a: MDSS:0100063 ! IRS
+is_a: MDSS:0100630 ! IRS
 created_by: chris
 creation_date: 2010-04-22T10:23:26Z
 
 [Term]
-id: MDSS:0100068
+id: MDSS:0100680
 name: IPT
 namespace: 
-is_a: MDSS:0100062 ! Intervention Monitoring
+is_a: MDSS:0100620 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T10:23:43Z
 
 [Term]
-id: MDSS:0100069
+id: MDSS:0100690
 name: Enter aggregated IPT records
 namespace: 
-is_a: MDSS:0100068 ! IPT
+is_a: MDSS:0100680 ! IPT
 created_by: chris
 creation_date: 2010-04-22T10:23:52Z
 
 [Term]
-id: MDSS:0100070
+id: MDSS:0100700
 name: Query aggregated IPT
 namespace: 
-is_a: MDSS:0100068 ! IPT
+is_a: MDSS:0100680 ! IPT
 created_by: chris
 creation_date: 2010-04-22T10:24:09Z
 
 [Term]
-id: MDSS:0100071
+id: MDSS:0100710
 name: Enter individual IPT records
 namespace: 
-is_a: MDSS:0100068 ! IPT
+is_a: MDSS:0100680 ! IPT
 created_by: chris
 creation_date: 2010-04-22T10:24:27Z
 
 [Term]
-id: MDSS:0100072
+id: MDSS:0100720
 name: Query individual IPT
 namespace: 
-is_a: MDSS:0100068 ! IPT
+is_a: MDSS:0100680 ! IPT
 created_by: chris
 creation_date: 2010-04-22T10:24:47Z
 
 [Term]
-id: MDSS:0100073
+id: MDSS:0100730
 name: ITN
 namespace: 
-is_a: MDSS:0100062 ! Intervention Monitoring
+is_a: MDSS:0100620 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T10:26:06Z
 
 [Term]
-id: MDSS:0100074
+id: MDSS:0100740
 name: Enter aggregated ITN distribution records
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:26:19Z
 
 [Term]
-id: MDSS:0100075
+id: MDSS:0100750
 name: Query aggregated ITN distribution
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:27:12Z
 
 [Term]
-id: MDSS:0100076
+id: MDSS:0100760
 name: Enter ITN facility distribution records
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:27:29Z
 
 [Term]
-id: MDSS:0100077
+id: MDSS:0100770
 name: Query ITN facility distribution
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:27:47Z
 
 [Term]
-id: MDSS:0100078
+id: MDSS:0100780
 name: Enter ITN community distribution records
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:28:22Z
 
 [Term]
-id: MDSS:0100079
+id: MDSS:0100790
 name: Query ITN community distribution
 namespace: 
-is_a: MDSS:0100073 ! ITN
+is_a: MDSS:0100730 ! ITN
 created_by: chris
 creation_date: 2010-04-22T10:28:40Z
 
 [Term]
-id: MDSS:0100080
+id: MDSS:0100800
 name: Control of immatures
 namespace: 
-is_a: MDSS:0100062 ! Intervention Monitoring
+is_a: MDSS:0100620 ! Intervention Monitoring
 created_by: chris
 creation_date: 2010-04-22T10:29:41Z
 
 [Term]
-id: MDSS:0100081
+id: MDSS:0100810
 name: Enter control of immatures records
 namespace: 
-is_a: MDSS:0100080 ! Control of immatures
+is_a: MDSS:0100800 ! Control of immatures
 created_by: chris
 creation_date: 2010-04-22T10:30:01Z
 
 [Term]
-id: MDSS:0100082
+id: MDSS:0100820
 name: Query control of immatures
 namespace: 
-is_a: MDSS:0100080 ! Control of immatures
+is_a: MDSS:0100800 ! Control of immatures
 created_by: chris
 creation_date: 2010-04-22T10:30:51Z
 
 [Term]
-id: MDSS:0100083
+id: MDSS:0100830
 name: Stock Control
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -8044,31 +8059,31 @@ created_by: chris
 creation_date: 2010-04-22T10:31:12Z
 
 [Term]
-id: MDSS:0100084
+id: MDSS:0100840
 name: Configure stock items
 namespace: 
-is_a: MDSS:0100083 ! Stock Control
+is_a: MDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:24Z
 
 [Term]
-id: MDSS:0100085
+id: MDSS:0100850
 name: Manage stock
 namespace: 
-is_a: MDSS:0100083 ! Stock Control
+is_a: MDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:39Z
 
 [Term]
-id: MDSS:0100086
+id: MDSS:0100860
 name: Query stock
 namespace: 
-is_a: MDSS:0100083 ! Stock Control
+is_a: MDSS:0100830 ! Stock Control
 created_by: chris
 creation_date: 2010-04-22T10:31:54Z
 
 [Term]
-id: MDSS:0100087
+id: MDSS:0100870
 name: GIS
 namespace: 
 is_a: MDSS:0100000 ! Malaria
@@ -8076,26 +8091,26 @@ created_by: chris
 creation_date: 2010-04-22T10:33:23Z
 
 [Term]
-id: MDSS:0100088
+id: MDSS:0100880
 name: Universal tree administration
 namespace: 
-is_a: MDSS:0100087 ! GIS
+is_a: MDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:33:37Z
 
 [Term]
-id: MDSS:0100089
+id: MDSS:0100890
 name: Geographical entity tree administration
 namespace: 
-is_a: MDSS:0100087 ! GIS
+is_a: MDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:33:51Z
 
 [Term]
-id: MDSS:0100090
+id: MDSS:0100900
 name: Generate maps
 namespace: 
-is_a: MDSS:0100087 ! GIS
+is_a: MDSS:0100870 ! GIS
 created_by: chris
 creation_date: 2010-04-22T10:34:14Z
 
@@ -39399,6 +39414,427 @@ name: adult salivary gland
 def: "A pair of salivary glands is present in the thorax, just above the forelegs and flanking the oesophagus. In both sexes of most species each gland normally consists of three lobes, two lateral and one median." [ISBN:0-412-40180-0]
 comment: adult salivary gland in ISBN:0-937548-00-6.
 is_a: MDSS:0000022 ! mosquito anatomical structure
+
+[Term]
+id: VDSS:0000000
+name: patient
+is_a: IDOMAL:0000001 ! role
+created_by: slozano
+creation_date: 2010-04-26T03:57:38Z
+
+[Term]
+id: VDSS:0000001
+name: quality of VDSS system
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-26T04:35:05Z
+
+[Term]
+id: VDSS:0000002
+name: aggregated cases (diagnosis) root 1
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000003
+name: aggregated cases (diagnosis) root 2
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000004
+name: aggregated cases (manifestation) root 1
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000005
+name: aggregated cases (patient) root 1
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000006
+name: aggregated cases (patient) root 2
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000007
+name: referrals to other facilities
+is_a: VDSS:0000008 ! case referrals root 1
+created_by: slozano
+creation_date: 2010-04-26T05:44:23Z
+
+[Term]
+id: VDSS:0000008
+name: case referrals root 1
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T04:37:06Z
+
+[Term]
+id: VDSS:0000009
+name: total male cases
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000010
+name: total female cases
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000011
+name: female pregnant cases
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000012
+name: total in-patients (hospitalizations)
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000013
+name: total male in-patients (hospitalizations)
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000014
+name: total female in-patients (hospitalizations)
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000015
+name: female pregnant in-patients (hospitalizations)
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000016
+name: total out-patients
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000017
+name: total male out-patients
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000018
+name: total female out-patients
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000019
+name: female pregnant out-patients
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000020
+name: total deaths
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000021
+name: total male deaths
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000022
+name: total female deaths
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000023
+name: female pregnant deaths
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000024
+name: still births
+is_a: VDSS:0000002 ! aggregated cases (diagnosis) root 1
+created_by: slozano
+creation_date: 2010-04-26T04:42:29Z
+
+[Term]
+id: VDSS:0000025
+name: passively detected cases
+is_a: VDSS:0000003 ! aggregated cases (diagnosis) root 2
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T04:53:54Z
+
+[Term]
+id: VDSS:0000026
+name: actively detected cases
+is_a: VDSS:0000003 ! aggregated cases (diagnosis) root 2
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T04:53:54Z
+
+[Term]
+id: VDSS:0000027
+name: locally acquired cases
+is_a: VDSS:0000003 ! aggregated cases (diagnosis) root 2
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T04:53:54Z
+
+[Term]
+id: VDSS:0000028
+name: imported cases
+is_a: VDSS:0000003 ! aggregated cases (diagnosis) root 2
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T04:54:26Z
+
+[Term]
+id: VDSS:0000029
+name: clinically diagnosed cases
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000030
+name: clinically diagnosed case in-patients (hospitalizations)
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000031
+name: clinically diagnosed case deaths
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000032
+name: confirmed cases
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000033
+name: confirmed case in-patients (hospitalizations)
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000034
+name: confirmed case deaths
+is_a: VDSS:0000004 ! aggregated cases (manifestation) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:09:39Z
+
+[Term]
+id: VDSS:0000035
+name: aggregated cases (manifestation) root 2
+is_a: VDSS:0000064 ! grid labels
+created_by: slozano
+creation_date: 2010-04-26T05:15:18Z
+
+[Term]
+id: VDSS:0000036
+name: confirmed cases with Dengue virus 1
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000037
+name: confirmed cases with Dengue virus 2
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000038
+name: confirmed cases with Dengue virus 3
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000039
+name: confirmed cases with Dengue virus 4
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000040
+name: confirmed cases with multiple serotypes
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000041
+name: confirmed cases with serotype not known
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000042
+name: confirmed cases with Falciparum malaria
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000043
+name: confirmed cases with Malariae malaria
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000044
+name: confirmed cases with Ovale malaria
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000045
+name: confirmed cases with Vivax malaria
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000046
+name: confirmed cases with mixed infection with falciparum
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000047
+name: confirmed cases with mixed infection without falciparum
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000048
+name: confirmed cases with malaria type not known
+is_a: VDSS:0000035 ! aggregated cases (manifestation) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:20:17Z
+
+[Term]
+id: VDSS:0000049
+name: did not receive treatment
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:25:08Z
+
+[Term]
+id: VDSS:0000050
+name: female pregnant with anaemia
+is_a: VDSS:0000005 ! aggregated cases (patient) root 1
+created_by: slozano
+creation_date: 2010-04-26T05:25:08Z
+
+[Term]
+id: VDSS:0000059
+name: all in-patients (not limited by disease)
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:37:56Z
+
+[Term]
+id: VDSS:0000060
+name: all out-patients (not limited by disease)
+is_a: VDSS:0000006 ! aggregated cases (patient) root 2
+created_by: slozano
+creation_date: 2010-04-26T05:37:56Z
+
+[Term]
+id: VDSS:0000061
+name: referrals from other facilities
+is_a: VDSS:0000008 ! case referrals root 1
+created_by: slozano
+creation_date: 2010-04-26T05:44:23Z
+
+[Term]
+id: VDSS:0000062
+name: referrals from other facilities that were pregnant & with confirmed diagnosis
+is_a: VDSS:0000008 ! case referrals root 1
+created_by: slozano
+creation_date: 2010-04-26T05:44:23Z
+
+[Term]
+id: VDSS:0000063
+name: days that the facility/s were out of stock of treatment
+is_a: VDSS:0000008 ! case referrals root 1
+created_by: slozano
+creation_date: 2010-04-26T05:44:23Z
+
+[Term]
+id: VDSS:0000064
+name: grid labels
+is_a: VDSS:0000001 ! quality of VDSS system
+created_by: slozano
+creation_date: 2010-04-26T05:48:15Z
+
+[Term]
+id: VDSS:0000065
+name: quality of disease manifestation
+is_a: IDOMAL:0000002 ! quality
+created_by: slozano
+creation_date: 2010-04-26T06:00:59Z
+
+[Term]
+id: VDSS:0000066
+name: menu
+is_a: VDSS:0000001 ! quality of VDSS system
+created_by: slozano
+creation_date: 2010-04-27T09:59:36Z
 
 [Typedef]
 id: agent_in
