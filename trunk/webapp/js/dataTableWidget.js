@@ -18,6 +18,7 @@ Mojo.Meta.newClass('MDSS.Event', {
       return this.value;
     }    
   },
+  
   Static : {
     AFTER_ROW_ADD : 1,
     BEFORE_ROW_ADD : 2,
@@ -27,8 +28,31 @@ Mojo.Meta.newClass('MDSS.Event', {
     AFTER_SELECTION : 6,
     AFTER_DELETE : 7,
     BEFORE_SEARCH : 8,
-    RELOAD_VALUE : 9,
-    SUCCESSFUL_SAVE: 10
+    RELOAD_VALUE : 9
+  }
+});
+
+Mojo.Meta.newClass('MDSS.ArrayMetadata', {
+  Instance : {
+    initialize : function(metadata) {
+      this._metadata = metadata;
+    },
+    
+    getMetadata : function() {
+      return this._metadata;
+    },
+    
+    getKeys : function() {
+      var keys = new Array();
+      
+      for(var i in this._metadata) {
+        var _keys = this._metadata[i].getKeys()
+
+        keys = keys.concat(_keys);
+      }     
+      
+      return keys;
+    },
   }
 });
 
@@ -60,6 +84,26 @@ Mojo.Meta.newClass('MDSS.ModelMetadata', {
     getType : function() {
       return this._type;
     }
+  },
+  
+  Static : {
+    init : function(array) {
+      var metadata = [];
+      
+      for(var i in array) {
+        var prop = array[i];
+    
+        if(prop.metadata == null){    
+          metadata.push(new MDSS.ModelMetadata(prop));
+        }
+        else {
+          var _metadata = MDSS.ModelMetadata.init(prop.metadata);
+          metadata.push(new MDSS.ArrayMetadata(_metadata));
+        }
+      }
+      
+      return metadata;
+    }
   }
 });
 
@@ -74,15 +118,17 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
     },
             
     _update : function(rows) {
-      var keys = this._metadata.getKeys();
+      // IMPORTANT: It is assumed that the function only returns objects for the first data type
+      var keys = this._metadata[0].getKeys();
       var length = this.length();
   
-      // Refresh the values of all the columns
+      // Refresh the values of all the columns in the first object.
       for( var i = 0; i < length; i++) {
 
         for(var j = 0; j < keys.length; j++) {
           var key = keys[j];
-          var attributeName = key.substr(0, 1).toLowerCase() + key.substr(1);
+            
+          var attributeName = (key.substr(0, 1).toLowerCase() + key.substr(1)).split('^^')[0];
                     
           var value = rows[i].getValue(attributeName);              
           
@@ -92,7 +138,7 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
         }
       }
       
-      this.fireEvent(new MDSS.Event(MDSS.Event.SUCCESSFUL_SAVE, {}));
+      this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SAVE, {}));
     },
     
     _createRequest : function(){
@@ -128,36 +174,61 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
     save : function() {      
       var request = this._createRequest();         
 
-      var objects = this.getObjects();
+      var objects = this.getParameters();
           
       // Save the table
       this._saveHandler(request, objects);
     },
         
-    getObjects : function() {
-      var objects = new Array();
+    getParameters : function() {
+      var parameters = new Array();
       
-      var type = this._metadata.getType();
-      var start = this._metadata.getStart();
-      var end = this._metadata.getEnd();
-
-      for ( var r = 0; r < this._rows.length; r++) {
-        var row = this._rows[r];
-                
-        var _contructor = Mojo.Meta.findClass(type);
-        var object = new _contructor();
-
-        for ( var i = start; i < end; i++) {
-          var key = this._metadata.getKey(i);
-          var value = row[key];
-
-          this._setObjectValue(object, key, value);
+      for (var m in this._metadata) {
+        var objects = new Array();        
+        for ( var r = 0; r < this._rows.length; r++) {
+          var object = this.getParameter(this._metadata[m], r);
+        
+          objects.push(object);
         }
         
-        objects.push(object);
+        parameters.push(objects)
       }
         
-      return objects;
+      return parameters;
+    },
+    
+    getParameter : function(metadata, index) {          
+      if(metadata instanceof MDSS.ArrayMetadata) {
+        var array = [];
+        var components = metadata.getMetadata();
+    
+        for(var c in components) {
+          var object = this.getParameter(components[c], index);
+      
+          array.push(object);
+        }
+        
+        return array;
+      }
+      else {
+        var type = metadata.getType();       
+        var start = metadata.getStart();
+        var end = metadata.getEnd() + 1;
+        var row = this._rows[index];
+      
+        var _contructor = Mojo.Meta.findClass(type);
+        var object = new _contructor();
+              
+        for ( var i = start; i < end; i++) {
+          var key = metadata.getKey(i-start);
+          var value = row[key];
+
+          var attribute = key.split('^^')[0];
+          
+          this._setObjectValue(object, attribute, value);
+        }
+        return object;
+      }
     },
     
     _setObjectValue : function(object, key, value){
@@ -222,7 +293,7 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
         
     deleteRow : function(index) {
       if(this.hasRow(index)) {
-        var key = this._metadata.getKey(0);
+        var key = this._getIdKey();
         var id = this.getData(index, key);
 
         var request = new MDSS.Request( {
@@ -234,13 +305,21 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
           }
         });
 
-        if(id != null) {
+        if(id != null && id != "") {
           Mojo.Facade.deleteEntity(request, id);
         }
         else {
           this.removeRow(index, id);
         }
       }
+    },
+    
+    _getIdKey : function() {
+      for(i in this._metadata) {
+        return this._metadata[i].getKey(0);
+      }
+      
+      return null;
     },
     
     removeRow : function(index, id) {
@@ -265,8 +344,10 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
         // Get the save function
         var saveMethod = klass[saveFunction];
             
+        parameters.unshift(request); // put the request as the first parameter
+        
         // Invoke the save method
-        saveMethod(request, parameters);
+        saveMethod.apply(this, parameters);
       };
       
       return handler;
@@ -323,14 +404,16 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.btnSaveRows = false;
       this.btnAddRow = false;
       this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
+      this.after_row_load = data.after_row_load;
 
       // set the fields
-      if (typeof this.tableData.fields === 'undefined') {
-        this.tableData.fields = this.tableData.columnDefs.map( function(c) {
-          return c.key;
-        }).filter( function(c) {
-          return (c !== 'delete');
-        });
+      if (typeof data.fields === 'undefined') {
+        this._fields = new Array();
+    
+        this.tableData.columnDefs.map(this._initializeField, this);
+      }
+      else {
+        this._fields = data.fields;
       }
                 
       if (typeof this.tableData.addButton === 'undefined') {
@@ -347,7 +430,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.myDataSource = new YAHOO.util.DataSource(this._model.getRows());
       this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
       this.myDataSource.responseSchema = {
-        fields : this.tableData.fields
+        fields : this._fields
       };
         
       // Scrolling Data Table is slow, so we use regular data table if possible
@@ -359,11 +442,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       else {
         this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
       }          
-                   
-      //set this so it accessable by other methods in the jsp
-      this.myDataTable.tableData = this.tableData;          
-      this.tableData.myDataTable = this.myDataTable;
-          
+                             
       // the data comes from the server as ids, we need to set the labels
       this._initializeRecords();
           
@@ -386,6 +465,19 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this._setUpButtons();
 
       this._model.addListener(Mojo.Util.bind(this, this._modelEventHandler));
+      
+      //set this so it accessable by other methods in the jsp
+      this.myDataTable.tableData = this;          
+//      this.tableData.myDataTable = this.myDataTable;
+    },
+    
+    _initializeField : function(c) {
+      if(c.key && c.key != "delete") {
+        this._fields.push(c.key);
+      }         
+      else if(c.children) {
+        c.children.map(this._initializeField, this);
+      }
     },
     
     _getDisableButton : function() {
@@ -393,8 +485,18 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
   
     _getLabelFromId : function(field, id) {
-      var i = window[field + "Ids"].indexOf(id);
-      return window[field + "Labels"][i];
+    
+      var options = window[field + "Options"]
+                          
+      for(var i in options) {
+        var option = options[i];
+        
+        if(option.value == id) {
+          return option.label;
+        }
+      }
+      
+      return id;
     },
     
     _trackReverseSorts : function(oArg) {
@@ -421,7 +523,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       else if(event.getType() == MDSS.Event.AFTER_FAILURE) {
         this.enableSaveButton();
       }
-      else if(event.getType() == MDSS.Event.SUCCESSFUL_SAVE) {
+      else if(event.getType() == MDSS.Event.AFTER_SAVE) {
         this.success();
       }
       else if(event.getType() == MDSS.Event.AFTER_DELETE) {
@@ -431,13 +533,30 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       }
     },
     
+    getDataTable : function () {
+      return this.myDataTable;
+    },
+    
+    getModel : function() {
+      return this._model;
+    },
+    
     updateValue : function(row, col, value) {
       var record = this.myDataTable.getRecord(row);
                       
-      var editor = this.myDataTable.getColumn(col).editor;
-      
-      if (editor && !(editor instanceof YAHOO.widget.DropdownCellEditor || editor instanceof YAHOO.widget.OntologyTermEditor )) {
-        record.setData(col, value);                  
+      var column = this.myDataTable.getColumn(col);
+
+      // Do not update the value of the last row on summed columns
+      if(column.hidden) {
+        record.setData(col, value);        
+      }
+      else if (!(column.sum  && this._model.length() > row)) {
+        var editor = column.editor;
+        
+        // Do not update the value for drop down or ontology editors
+        if (!editor || ! (editor instanceof YAHOO.widget.DropdownCellEditor || editor instanceof YAHOO.widget.OntologyTermEditor)) {
+          record.setData(col, value);                  
+        }
       }
     },
     
@@ -453,6 +572,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       }
                 
       this.myDataTable.fireEvent("tableSaveEvent");    
+    },
+    
+    save : function() {
+      this.getModel().save();
     },
     
     // Add one row to the bottom
@@ -530,77 +653,93 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         var value = ((defaults[key].value != null) ? defaults[key].value : defaults[key]) ;
         var label = defaults[key].label;
             
-        row[key] = ((label != null )?label:value);
+        row[key] = ((label != null ) ? label : value);
       }
         
       return row;
     },    
     
     _initializeRecords : function() {
-      this.recordIndex = 0;
-      this.myDataTable.getRecordSet().getRecords().map( function(record) {
-        this.record = record;
-        this.tableData.columnDefs.map( function(field) {
-          var editor = this.myDataTable.getColumn(field.key).editor;
-
-          if (field.save_as_id) {
-            var label = this._getLabelFromId(field.key, this.record.getData(field.key));
-            this.record.setData(field.key, label);
-          }
-          else{
-            if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){
-              
-              //data comes in as value instead of label, so we fix this.
-              for( var i = 0; i < editor.dropdownOptions.length; i++) {
-                var recordValue = this.record.getData(field.key);
-                
-                var optionValue = editor.dropdownOptions[i].value;
-                var label = editor.dropdownOptions[i].label;
-                
-                if (recordValue === optionValue){
-                  this.record.setData(field.key, label);
-                }
-              }
-            }
-          }
-          
-          if (editor instanceof YAHOO.widget.OntologyTermEditor )            
-          {
-            editor.tableData = this.tableData;
-            var data = this.record.getData(field.key);
-            if(data){
-              var id = data.split('^^^^')[1];
-              var displayLabel = data.split('^^^^')[0];
-                
-              if(this._model.hasRow(this.recordIndex)) {
-                this._model.setData(this.recordIndex, field.key, id);
-                this.record.setData(field.key, displayLabel);
-              }
-            }
-          }
-          
-          if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-            var date = MDSS.Calendar.parseDate(this.record.getData(field.key));
-            this.myDataTable.updateCell(this.record, field.key, date);
-          }
-
-          if (field.title) {
-            var th = this.myDataTable.getThEl(this.myDataTable.getColumn(field.key));
-            if(th) {
-              th.title = field.title;
-            }
-          }
-        },this);
+      var records = this.myDataTable.getRecordSet().getRecords()
+                  
+      for(var index = 0; index < records.length; index++) {
+        var record = records[index];
         
-        if (this.tableData.after_row_load) {
-          this.tableData.after_row_load(this.record);
+        var func = Mojo.Util.bind(this, this._initializeRecordColumn, record, index);
+        
+        Mojo.Iter.map(this.tableData.columnDefs, func, this);
+        
+        if (this.after_row_load) {
+          this.after_row_load(record);
+        }
+      }
+    },
+    
+    _initializeRecordColumn : function(record, index, field) {
+      if(field.children != null) {
+        for(var c in field.children) {
+          var child = field.children[c];
+          
+          this._initializeRecordColumn(record, index, child);
+        }
+      }
+      else {
+        var editor = field.editor;
+        
+        if(!editor) {
+          var column = this.myDataTable.getColumn(field.key);
+          
+          editor = column.editor;
+        }
+
+        if (field.save_as_id) {
+          var label = this._getLabelFromId(field.key, record.getData(field.key));
+          record.setData(field.key, label);
+        }
+        else if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){           
+          //data comes in as value instead of label, so we fix this.
+      
+          for( var i = 0; i < editor.dropdownOptions.length; i++) {
+            var recordValue = record.getData(field.key);
+          
+            var optionValue = editor.dropdownOptions[i].value;
+            var label = editor.dropdownOptions[i].label;
+              
+            if (recordValue === optionValue){
+              record.setData(field.key, label);
+            }
+          }
         }
         
-        this.recordIndex++;
-      },this);
+        if (editor instanceof YAHOO.widget.OntologyTermEditor ) {
+          editor.tableData = this.tableData;
+  
+          var data = record.getData(field.key);
       
-      this.record = null;
-      this.recordIndex  = null;
+          if(data){
+            var id = data.split('^^^^')[1];
+            var displayLabel = data.split('^^^^')[0];
+              
+            if(this._model.hasRow(index)) {
+              this._model.setData(index, field.key, id);
+              record.setData(field.key, displayLabel);
+            }
+          }
+        }
+        
+        if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
+          var date = MDSS.Calendar.parseDate(record.getData(field.key));
+          this.myDataTable.updateCell(record, field.key, date);
+        }
+
+        if (field.title) {
+          var th = this.myDataTable.getThEl(this.myDataTable.getColumn(field.key));
+        
+          if(th) {
+            th.title = field.title;
+          }
+        }
+      }
     },
     
     _setUpButtons : function(record) {
@@ -788,6 +927,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.tableData.dirty = true;
       
       this.enableSaveButton();
+      
       if (this.tableData.after_row_edit) {
         this.tableData.after_row_edit(record);
       }
@@ -796,6 +936,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
       //this.myDataTable.unselectCell(editor.getTdEl());
       //YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
+    },
+    
+    addListener : function(listener) {
+      this._model.addListener(listener);
     },
     
     _persistHandler : function() {
@@ -813,7 +957,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
       if (oArgs.editor.getColumn().sum  && this._model.length() > 1) {
         var editor = oArgs.editor;
-        var record = oeditor.getRecord();
+        var record = editor.getRecord();
         var key = editor.getColumn().key;
         var cellValue = record.getData(key);
         var lastIndex = this._model.length() - 1;
@@ -939,7 +1083,7 @@ MojoGrid.createDataTable = function(data){
     }
   }
 
-  var metadata = new MDSS.ModelMetadata({start:0, end:keys.length, type:type, keys:keys});
+  var metadata = new MDSS.ModelMetadata.init([{start:0, end:(keys.length - 1), type:type, keys:keys}]);
   
   var model = new MDSS.DataGridModel(metadata, data.rows, saveHandler);
 

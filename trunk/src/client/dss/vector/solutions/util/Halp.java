@@ -35,7 +35,6 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.business.ComponentDTO;
 import com.runwaysdk.business.ViewDTO;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.Constants;
 import com.runwaysdk.controller.DTOFacade;
@@ -43,7 +42,6 @@ import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionExceptio
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.EnumerationMasterDTO;
 import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
-import com.runwaysdk.transport.metadata.AttributeDateMdDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 import com.runwaysdk.transport.metadata.AttributeReferenceMdDTO;
@@ -51,6 +49,8 @@ import com.runwaysdk.transport.metadata.AttributeReferenceMdDTO;
 import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class Halp implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -458,296 +458,11 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     }
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException
-  {
-    return getColumnSetup(view, attribs, extra_rows, autoload, 1);
-  }
-
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException
-  {
-    ArrayList<Integer> no_edit_cols = new ArrayList<Integer>();
-    ArrayList<Integer> no_show_cols = new ArrayList<Integer>();
-
-    for (Integer i = 0; i < num_to_hide; i++)
-    {
-      no_edit_cols.add(i);
-      no_show_cols.add(i);
-    }
-
-    return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols, no_show_cols);
-  }
-
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
-  {
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-
-    for (Integer i : no_show)
-    {
-      String key = attribs[i];
-
-      ColumnSetup setup = new ColumnSetup();
-      setup.setHidden(true);
-
-      map.put(key, setup);
-    }
-
-    for (Integer i : no_edit)
-    {
-      String key = attribs[i];
-
-      ColumnSetup setup = new ColumnSetup();
-
-      if (map.containsKey(key))
-      {
-        setup = map.get(key);
-      }
-
-      setup.setEditable(false);
-
-      map.put(attribs[i], setup);
-    }
-
-    return getColumnSetup(view, attribs, extra_rows, autoload, map);
-  }
-
   public static String getColumnSetup(ViewDTO view, String[] attributes, String extra_rows, boolean autoload, Map<String, ColumnSetup> map) throws JSONException
   {
-    List<String> list = Arrays.asList(attributes);
-
-    List<String> columns = new ArrayList<String>();
-    List<String> ordered = new ArrayList<String>(list);
-
-    for (String accessorName : view.getAccessorNames())
-    {
-      String upcased_attrib = GenerationUtil.upperFirstCharacter(accessorName);
-
-      if (!ordered.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
-      {
-        ordered.add(upcased_attrib);
-      }
-
-      if (!view.isReadable(accessorName))
-      {
-        ordered.remove(upcased_attrib);
-      }
-    }
-
-    for (String attribute : ordered)
-    {
-      ColumnSetup setup = new ColumnSetup();
-
-      if (map.containsKey(attribute))
-      {
-        setup = map.get(attribute);
-      }
-
-      String buffer = Halp.generateColumnMap(view, setup, attribute);
-
-      columns.add("{" + buffer + "}");
-    }
-
-    if (extra_rows.length() > 0)
-    {
-      columns.add(extra_rows);
-    }
-    return ( "[" + Halp.join(columns, ",\n") + "]" );
-  }
-
-  public static String getEditorDefinitions(ViewDTO view, Map<String, ColumnSetup> map) throws JSONException
-  {
-    JSONObject json = new JSONObject();
-
-    try
-    {
-      for (String attribute : view.getAccessorNames())
-      {
-        ColumnSetup setup = new ColumnSetup();
-
-        if (map.containsKey(attribute))
-        {
-          setup = map.get(attribute);
-        }
-        String key = attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
-
-        AttributeMdDTO md = new DTOFacade(attribute, view).getAttributeMdDTO();
-
-        String buffer = Halp.generateEditor(view, attribute, md, setup);
-        buffer = buffer.replaceFirst("editor:", "");
-
-        json.put(key, buffer);
-      }
-    }
-    catch (Exception e)
-    {
-
-    }
-
-    return json.toString();
-  }
-
-  private static String generateColumnMap(ViewDTO view, ColumnSetup setup, String attrib)
-  {
-    try
-    {
-      ArrayList<String> buff = new ArrayList<String>();
-      AttributeMdDTO md = new DTOFacade(attrib, view).getAttributeMdDTO();
-
-      String label = md.getDisplayLabel();
-
-      if (setup.getLabel() != null)
-      {
-        label = setup.getLabel();
-      }
-
-      buff.add("key:'" + attrib + "'");
-      buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
-
-      if (setup.isSum())
-      {
-        buff.add("sum:true");
-      }
-
-      if (setup.getTitle() != null)
-      {
-        buff.add("title:'" + setup.getTitle() + "'");
-      }
-
-      if (setup.isHidden())
-      {
-        buff.add("hidden:true");
-      }
-      else
-      {
-        buff.add(Halp.generateFormatter(md));
-        buff.add(Halp.generateSaveFlag(md));
-
-        if (setup.isEditable())
-        {
-          buff.add(Halp.generateEditor(view, attrib, md, setup));
-        }
-      }
-
-      return Halp.join(buff);
-    }
-    catch (Exception e)
-    {
-      // TODO fix exception handling
-      throw new RuntimeException(e);
-    }
-  }
-
-  private static String generateValidator(ViewDTO view, AttributeMdDTO md, ColumnSetup setup)
-  {
-    if (view.isWritable(md.getAccessorName()) && setup.isEditable())
-    {
-      if (setup.getValidator() != null)
-      {
-        return "validator:" + setup.getValidator();
-      }
-    }
-
-    return null;
-  }
-
-  private static String generateSaveFlag(AttributeMdDTO md)
-  {
-    if (md instanceof AttributeReferenceMdDTO)
-    {
-      Class<?> refrenced_class = md.getJavaType();
-
-      if (LabeledDTO.class.isAssignableFrom(refrenced_class))
-      {
-        return "save_as_id:true";
-      }
-    }
-
-    return null;
-  }
-
-  private static String generateFormatter(AttributeMdDTO md)
-  {
-    if (md instanceof AttributeDateMdDTO)
-    {
-      return "formatter:YAHOO.widget.DataTable.formatDate";
-    }
-
-    return null;
-  }
-
-  private static String generateEditor(ViewDTO view, String attrib, AttributeMdDTO md, ColumnSetup setup)
-  {
-    String DROPDOWN_EDITOR = "new YAHOO.widget.DropdownCellEditor";
-    String TEXTBOX_EDITOR = "new YAHOO.widget.TextboxCellEditor";
-    String DATE_EDITOR = "new YAHOO.widget.DateCellEditor";
-    String TERM_EDITOR = "new YAHOO.widget.OntologyTermEditor";
-
-    // Default to a text box editor
-    String editor = TEXTBOX_EDITOR;
-    List<String> options = new LinkedList<String>();
-
-    if (md instanceof AttributeBooleanMdDTO)
-    {
-      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'");
-      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'");
-
-      List<String> radioOptions = new LinkedList<String>();
-      radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
-      radioOptions.add("{label:'" + negativeLabel + "', value:'false'}");
-
-      options.add("dropdownOptions:[" + Halp.join(radioOptions) + "]");
-
-      editor = DROPDOWN_EDITOR;
-    }
-    else if (md instanceof AttributeDateMdDTO)
-    {
-      options.add("calendar:MDSS.Calendar.init()");
-
-      editor = DATE_EDITOR;
-    }
-    else
-    {
-      if (md instanceof AttributeEnumerationMdDTO)
-      {
-        List<String> dropdownOptions = new LinkedList<String>();
-        AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-
-        for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
-        {
-          dropdownOptions.add("{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}");
-        }
-
-        options.add("dropdownOptions:[" + Halp.join(dropdownOptions) + "]");
-
-        editor = DROPDOWN_EDITOR;
-      }
-      else
-      {
-        Class<?> refrenced_class = md.getJavaType();
-
-        if (setup.getType() != null)
-        {
-          refrenced_class = LoaderDecorator.load(setup.getType());
-        }
-
-        if (LabeledDTO.class.isAssignableFrom(refrenced_class))
-        {
-          options.add("dropdownOptions:" + attrib + "Options");
-
-          editor = DROPDOWN_EDITOR;
-        }
-        else if (TermDTO.class.isAssignableFrom(refrenced_class))
-        {
-          options.add("klass:'" + view.getType() + "'");
-          options.add("attribute:'" + attrib + "'");
-          editor = TERM_EDITOR;
-        }
-      }
-    }
-
-    options.add(generateValidator(view, md, setup));
-    options.add("disableBtns:true");
-
-    return "editor:" + editor + "({" + Halp.join(options) + "})";
+    ViewDataGrid grid = new ViewDataGrid(view, map, attributes, new ViewDTO[0]);
+    
+    return grid.getColumnSetup(extra_rows);
   }
 
   public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)

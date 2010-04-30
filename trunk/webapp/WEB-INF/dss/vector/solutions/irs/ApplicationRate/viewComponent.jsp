@@ -4,63 +4,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
-
-
 <%@page import="dss.vector.solutions.util.RowSetup"%>
-<%@page import="java.util.Arrays"%><c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
-
-<%
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-  InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
-  InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAll(clientRequest);
-  String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
-
-  Map<String, ColumnSetup> brandMap = new HashMap<String, ColumnSetup>();
-  brandMap.put("InsecticdeId", new ColumnSetup(true, false));
-  brandMap.put("BrandName", new ColumnSetup(false, true));
-  brandMap.put("ActiveIngredient", new ColumnSetup(false, true));
-  brandMap.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));    
-  brandMap.put("Weight", new ColumnSetup(false, true));
-  brandMap.put("SachetsPerRefill", new ColumnSetup(false, true));   
-  brandMap.put("Enabled", new ColumnSetup(false, true));
-  
-  NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
-  NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
-  String[] nozzleAttributes = {"NozzleId", "DisplayLabel", "Ratio", "Enabled"};
-
-  InsecticideNozzleViewDTO insecticideNozzleDTO = new InsecticideNozzleViewDTO(clientRequest);
-  InsecticideNozzleViewDTO[] insecticideNozzleRows = InsecticideNozzleViewDTO.getAll(clientRequest);
-  String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "ConfigurationDate", "Brand", "Nozzle", "Enabled"};
-
-  Map<String, ColumnSetup> configurationMap = new HashMap<String, ColumnSetup>();
-  configurationMap.put("InsecticideNozzleId", new ColumnSetup(true, false));
-  configurationMap.put("ConfigurationDate", new ColumnSetup(false, true));
-  configurationMap.put("Brand", new ColumnSetup(false, true, null, brandDTO.getClass().getName(), "getAllActive"));
-  configurationMap.put("Nozzle", new ColumnSetup(false, true, null, nozzleDTO.getClass().getName(), "getAllActive"));
-  configurationMap.put("Enabled", new ColumnSetup(false, true));
-  configurationMap.put("BrandLabel", new ColumnSetup(true, false));
-  configurationMap.put("NozzleLabel", new ColumnSetup(true, false));
-  
-  Map<String, RowSetup> rowMap = new HashMap<String, RowSetup>();
-  rowMap.put("Brand", new RowSetup("getBrandView"));
-  rowMap.put("Nozzle", new RowSetup("getNozzleView"));
-  
-  Map<String, String> map = new HashMap<String, String>();
-  map.put("Brand", InsecticideBrandViewDTO.class.getName());
-  map.put("Nozzle", NozzleViewDTO.class.getName());
-
-  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-%>
-
+<%@page import="java.util.Arrays"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.irs.InsecticideBrandViewDTO"%>
 <%@page import="dss.vector.solutions.irs.NozzleViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InsecticideNozzleViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
+
+<c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
 <h2><fmt:message key="Insecticide_Brand"/></h2>
 <div id="InsecticideBrand"></div>
@@ -98,36 +54,39 @@
 
   <%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideBrandViewDTO.CLASS, NozzleViewDTO.CLASS, InsecticideNozzleViewDTO.CLASS}))%>
 
+<%
+DataGrid brandGrid = (DataGrid) request.getAttribute("brandGrid");
+DataGrid nozzleGrid = (DataGrid) request.getAttribute("nozzleGrid");
+DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid");
+%>
 
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
 
-	  var validateAmount = function(oData) {
-	    var re = /^(100|[0-9]?[0-9])$/;
-	    
-	    // Validate
-	    if(re.test(oData) || oData === "") {
-	        return oData;
-	    }
-	    else {
-	        alert(MDSS.localize("Value_Not_Between_0_and_100"));
-	        return undefined;
-	    }
+    var validateAmount = function(oData) {
+      var re = /^(100|[0-9]?[0-9])$/;
+      
+      // Validate
+      if(re.test(oData) || oData === "") {
+          return oData;
+      }
+      else {
+          alert(MDSS.localize("Value_Not_Between_0_and_100"));
+          return undefined;
+      }
     }
 
-	  var onSaveAndDelete = function(event) {
-		  if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
- 		    window.location.reload( false );
-		  }
-	  }
-	
-    <%=Halp.getDropdownSetup(brandDTO, brandAttributes, deleteColumn, clientRequest)%>
-
+    var onSaveAndDelete = function(event) {
+      if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
+         window.location.reload( false );
+      }
+    }
+  
     brandData = {
-      rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
-      columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true, brandMap)%>,
-      defaults:<%=Halp.getDefaultValues(brandDTO, brandAttributes)%>,
+      rows:<%=brandGrid.getData()%>,
+      columnDefs:<%=brandGrid.getColumnSetupWithDelete()%>,
+      defaults:<%=brandGrid.getDefaultValues()%>,
       copy_from_above: [],
       div_id: "InsecticideBrand",
       data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
@@ -135,13 +94,10 @@
       excelButtons:false
     };
 
-    <%=Halp.getDropdownSetup(nozzleDTO, nozzleAttributes, deleteColumn, clientRequest)%>
-
-
     nozzleData = {
-      rows:<%=Halp.getDataMap(nozzleRows, nozzleAttributes, nozzleDTO)%>,
-      columnDefs:<%=Halp.getColumnSetup(nozzleDTO, nozzleAttributes, deleteColumn, true)%>,
-      defaults:<%=Halp.getDefaultValues(nozzleDTO, nozzleAttributes)%>,
+      rows:<%=nozzleGrid.getData()%>,
+      columnDefs:<%=nozzleGrid.getColumnSetupWithDelete()%>,
+      defaults:<%=nozzleGrid.getDefaultValues()%>,
       copy_from_above: [],
       div_id: "Nozzle",
       data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
@@ -149,12 +105,12 @@
       excelButtons:false
     };
 
-    <%=Halp.getDropdownSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, clientRequest, map)%>
+    <%=configurationGrid.getDropDownMap()%>
 
     insecticideNozzleData = {
-      rows:<%=Halp.getDataMap(insecticideNozzleRows, insecticideNozzleAttributes, insecticideNozzleDTO, rowMap)%>,
-      columnDefs:<%=Halp.getColumnSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, true, configurationMap)%>,
-      defaults:<%=Halp.getDefaultValues(insecticideNozzleDTO, insecticideNozzleAttributes)%>,
+      rows:<%=configurationGrid.getData()%>,
+      columnDefs:<%=configurationGrid.getColumnSetupWithDelete()%>,
+      defaults:<%=configurationGrid.getDefaultValues()%>,
       copy_from_above: [],
       div_id: "InsecticideNozzle",
       excelButtons:false,

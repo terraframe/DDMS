@@ -2,36 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-
-<%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
-<%@page import="dss.vector.solutions.irs.TimeInterventionPlanningViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InterventionPlanningController"%>
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.irs.OperatorInterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
+<c:set var="page_title" value="Operator_Intervention_Planning"  scope="request"/>
 
-<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%><c:set var="page_title" value="Operator_Intervention_Planning"  scope="request"/>
-
-<mjl:messages>
-  <mjl:message />
-</mjl:messages>
-
-<%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-OperatorInterventionPlanningViewDTO view = (OperatorInterventionPlanningViewDTO) request.getAttribute(InterventionPlanningController.ITEM);
-OperatorInterventionPlanningViewDTO[] rows = (OperatorInterventionPlanningViewDTO[]) request.getAttribute(InterventionPlanningController.VIEWS);
-
-String[] attributes = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "NumberofDays", "UnitsPerDay", "RequiredOperators"};
-
-String deleteColumn = "";
-%>
 
 <dl>
   <dt>
@@ -69,25 +48,17 @@ String deleteColumn = "";
   </mjl:commandLink>
 </span>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS}))%>
-<%=Halp.loadTypes(Arrays.asList(new String[]{OperatorInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
 <%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("Id", new ColumnSetup(true, false));
-map.put("GeoEntity", new ColumnSetup(true, false));
-map.put("EntityLabel", new ColumnSetup(false, false));
-map.put("Season", new ColumnSetup(true, false));
-map.put("SeasonLabel", new ColumnSetup(true, false));
-map.put("RequiredOperators", new ColumnSetup(false, false));
-map.put("NumberofDays",  new ColumnSetup(false, true, "validateNumberofDays", null, null));    
-map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null, null));    
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
+
+<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS, OperatorInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    <%=grid.getDropDownMap()%>
 
     var validateNumberofDays = function (oData) {
         var days = parseInt(oData, 10);
@@ -113,9 +84,9 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
     };
     
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "InterventionPlanning",
       data_type: "Mojo.$.<%=OperatorInterventionPlanningViewDTO.CLASS%>",
       saveFunction:"calculate",
@@ -128,7 +99,7 @@ map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.createObjectRepresentation();
+            var objects = grid.getModel().getParameters()[0];
             var form = document.getElementById('planning.export');
             var innerHTML = '';
 

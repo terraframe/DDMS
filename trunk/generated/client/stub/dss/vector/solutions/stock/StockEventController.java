@@ -3,8 +3,10 @@ package dss.vector.solutions.stock;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -18,6 +20,8 @@ import dss.vector.solutions.geo.generated.StockDepotDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class StockEventController extends StockEventControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -184,15 +188,33 @@ public class StockEventController extends StockEventControllerBase implements co
     // Ensure the user has the ability to create stock events
     new StockEventDTO(request);
 
-    StockEventViewDTO[] views = StockEventViewDTO.getViews(request, geoId, item, date, option);
+    StockEventViewDTO[] data = StockEventViewDTO.getViews(request, geoId, item, date, option);
     StockStaffDTO[] staff = StockStaffDTO.getAll(request);
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
     this.req.setAttribute("term", item);
     this.req.setAttribute("date", new DefaultConverter(Date.class).format(date, req.getLocale()));
 
-    this.req.setAttribute(ITEM, new StockEventViewDTO(request));
-    this.req.setAttribute(VIEWS, views);
+    String[] keys = {"ConcreteId", "StockDepot", "Staff", "StaffLabel", "OtherParty", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost"};
+
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    map.put("ConcreteId", new ColumnSetup(true, false));
+    map.put("StockDepot", new ColumnSetup(true, false));
+    map.put("Staff", new ColumnSetup(true, false));
+    map.put("StaffLabel", new ColumnSetup(true, false));
+    map.put("OtherParty", new ColumnSetup(true, true));
+    map.put("EventDate", new ColumnSetup(true, false));
+    map.put("Item", new ColumnSetup(true, false));
+    map.put("TransactionType", new ColumnSetup(true, false));
+    map.put("ItemLabel", new ColumnSetup(false, false));
+    map.put("AvailableStock", new ColumnSetup(false, false));
+    map.put("Quantity", new ColumnSetup(false, true));
+    map.put("Cost", new ColumnSetup(false, true));
+    
+    StockEventViewDTO view = new StockEventViewDTO(request);
+    
+    this.req.setAttribute(ITEM, view);
+    this.req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
     this.req.setAttribute("staff", Arrays.asList(staff));
 
     if (option.equals(EventOptionDTO.STOCK_IN))

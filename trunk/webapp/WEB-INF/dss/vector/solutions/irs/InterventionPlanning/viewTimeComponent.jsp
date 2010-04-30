@@ -10,27 +10,15 @@
 <%@page import="dss.vector.solutions.irs.TimeInterventionPlanningViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InterventionPlanningController"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 
 
-<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%><c:set var="page_title" value="Time_Intervention_Planning"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-<mjl:messages>
-  <mjl:message />
-</mjl:messages>
-
-<%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-TimeInterventionPlanningViewDTO view = new TimeInterventionPlanningViewDTO(clientRequest);
-TimeInterventionPlanningViewDTO[] rows = (TimeInterventionPlanningViewDTO[]) request.getAttribute(InterventionPlanningController.VIEWS);
-
-String[] attributes = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "Operators", "RequiredDays"};
-
-String deleteColumn = "";
-%>
+<c:set var="page_title" value="Time_Intervention_Planning"  scope="request"/>
 
 <dl>
   <dt>
@@ -75,29 +63,22 @@ String deleteColumn = "";
   </mjl:commandLink>
 </span>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS}))%>
-<%=Halp.loadTypes(Arrays.asList(new String[]{TimeInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS, TimeInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+
 <%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("Id", new ColumnSetup(true, false));
-map.put("GeoEntity", new ColumnSetup(true, false));
-map.put("EntityLabel", new ColumnSetup(false, false));
-map.put("Season", new ColumnSetup(true, false));
-map.put("SeasonLabel", new ColumnSetup(true, false));
-map.put("RequiredDays", new ColumnSetup(false, false));
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
     
-	  var unitsPerDay = document.getElementById('unitsPerDay');    
-	  var button = document.getElementById('units.button');    
+    var unitsPerDay = document.getElementById('unitsPerDay');    
+    var button = document.getElementById('units.button');    
 
-	  button.value = MDSS.localize('Update_Default');
-	  
+    button.value = MDSS.localize('Update_Default');
+    
     var saveUnits = function() {
         var units = parseInt(unitsPerDay.value, 10);
 
@@ -108,9 +89,10 @@ map.put("RequiredDays", new ColumnSetup(false, false));
         }
     };
 
-    var saveHandler = function(request, view_array) {
+    var saveHandler = function(request, parameters) {
       // Invoke the save method
       var units = parseInt(unitsPerDay.value, 10);
+      var view_array = parameters[0];
         
       if(Mojo.Util.isNumber(units)) {
         Mojo.$.<%=TimeInterventionPlanningViewDTO.CLASS%>.calculate(request, view_array, units);          
@@ -124,18 +106,18 @@ map.put("RequiredDays", new ColumnSetup(false, false));
         var units = parseInt(unitsPerDay.value, 10);
         
         if(!(Mojo.Util.isNumber(units) && units > 0 && units < 100)) {
-        	unitsPerDay.value = 1;
+          unitsPerDay.value = 1;
 
-        	var message = MDSS.localize('Spray_Units_Must_Be_Integer');
+          var message = MDSS.localize('Spray_Units_Must_Be_Integer');
 
-        	alert(message);
+          alert(message);
         }
     };
     
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "InterventionPlanning",
       data_type: "Mojo.$.<%=TimeInterventionPlanningViewDTO.CLASS%>",
       saveFunction:"calculateDefault",
@@ -149,7 +131,7 @@ map.put("RequiredDays", new ColumnSetup(false, false));
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.createObjectRepresentation();
+            var objects = grid.getModel().getParameters()[0];
             var form = document.getElementById('planning.export');
             var innerHTML = '';
 

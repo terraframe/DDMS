@@ -2,36 +2,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-
-<%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
-<%@page import="dss.vector.solutions.irs.TimeInterventionPlanningViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InterventionPlanningController"%>
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-
-<%@page import="dss.vector.solutions.irs.InterventionPlanningViewDTO"%><c:set var="page_title" value="Insecticide_Intervention_Planning"  scope="request"/>
+<c:set var="page_title" value="Insecticide_Intervention_Planning"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-
-<%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-InsecticideInterventionPlanningViewDTO view = (InsecticideInterventionPlanningViewDTO) request.getAttribute(InterventionPlanningController.ITEM);
-InsecticideInterventionPlanningViewDTO[] rows = (InsecticideInterventionPlanningViewDTO[]) request.getAttribute(InterventionPlanningController.VIEWS);
-
-String[] attributes = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide"};
-
-String deleteColumn = "";
-%>
 
 <dl>
   <dt>
@@ -79,39 +61,33 @@ String deleteColumn = "";
   </mjl:commandLink>
 </span>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS}))%>
-<%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{InterventionPlanningViewDTO.CLASS, InsecticideInterventionPlanningViewDTO.CLASS, InterventionPlanningController.CLASS}))%>
+
 <%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("Id", new ColumnSetup(true, false));
-map.put("GeoEntity", new ColumnSetup(true, false));
-map.put("EntityLabel", new ColumnSetup(false, false));
-map.put("Season", new ColumnSetup(true, false));
-map.put("SeasonLabel", new ColumnSetup(true, false));
-map.put("RequiredInsecticide", new ColumnSetup(false, false));
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    <%=grid.getDropDownMap()%>
     
     var configuration = document.getElementById('configuration.id');    
 
-    var saveHandler = function(request, view_array) {
+    var saveHandler = function(request, parameters) {
       // Invoke the save method
       var configurationId = configuration.value;
         
       if(Mojo.Util.isString(configurationId)) {
-        Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>.calculate(request, view_array, configurationId);          
+        Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>.calculate(request, parameters[0], configurationId);          
       }
     };
     
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "InterventionPlanning",
       data_type: "Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>",
       saveFunction:"calculate",
@@ -125,7 +101,7 @@ map.put("RequiredInsecticide", new ColumnSetup(false, false));
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.createObjectRepresentation();
+            var objects = grid.getModel().getParameters()[0];
             var form = document.getElementById('planning.export');
             var innerHTML = '';
 

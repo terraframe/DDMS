@@ -3,8 +3,10 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class InterventionPlanningController extends InterventionPlanningControllerBase implements Reloadable
 {
@@ -81,11 +85,21 @@ public class InterventionPlanningController extends InterventionPlanningControll
       TimeInterventionPlanningViewDTO item = new TimeInterventionPlanningViewDTO(request);
       item.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
       item.setSeason(season);
+      
+      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "Operators", "RequiredDays"};
+      
+      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+      map.put("Id", new ColumnSetup(true, false));
+      map.put("GeoEntity", new ColumnSetup(true, false));
+      map.put("EntityLabel", new ColumnSetup(false, false));
+      map.put("Season", new ColumnSetup(true, false));
+      map.put("SeasonLabel", new ColumnSetup(true, false));
+      map.put("RequiredDays", new ColumnSetup(false, false));
 
       Integer unitsPerDay = PropertyDTO.getInt(request, PropertyInfo.STANDARDS_PACKAGE, PropertyInfo.DEFAULT_UNITS);
 
       req.setAttribute("unitsPerDay", unitsPerDay);
-      req.setAttribute(VIEWS, views);
+      req.setAttribute("grid", new ViewDataGrid(item, map, keys, views));
       req.setAttribute(ITEM, item);
 
       render("viewTimeComponent.jsp");
@@ -149,17 +163,27 @@ public class InterventionPlanningController extends InterventionPlanningControll
 
       ClientRequestIF request = this.getClientRequest();
 
-      InsecticideInterventionPlanningViewDTO[] views = InsecticideInterventionPlanningViewDTO.getViews(request, geoId, season);
+      InsecticideInterventionPlanningViewDTO[] data = InsecticideInterventionPlanningViewDTO.getViews(request, geoId, season);
 
-      InsecticideInterventionPlanningViewDTO item = new InsecticideInterventionPlanningViewDTO(request);
-      item.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
-      item.setSeason(season);
+      InsecticideInterventionPlanningViewDTO view = new InsecticideInterventionPlanningViewDTO(request);
+      view.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
+      view.setSeason(season);
+      
+      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+      map.put("Id", new ColumnSetup(true, false));
+      map.put("GeoEntity", new ColumnSetup(true, false));
+      map.put("EntityLabel", new ColumnSetup(false, false));
+      map.put("Season", new ColumnSetup(true, false));
+      map.put("SeasonLabel", new ColumnSetup(true, false));
+      map.put("RequiredInsecticide", new ColumnSetup(false, false));
+
+      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide"};
 
       InsecticideNozzleViewDTO[] configurations = InsecticideNozzleViewDTO.getAllActive(request);
 
       req.setAttribute("configurations", Arrays.asList(configurations));
-      req.setAttribute(VIEWS, views);
-      req.setAttribute(ITEM, item);
+      req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
+      req.setAttribute(ITEM, view);
 
       render("viewInsecticideComponent.jsp");
     }
@@ -197,8 +221,21 @@ public class InterventionPlanningController extends InterventionPlanningControll
       OperatorInterventionPlanningViewDTO item = new OperatorInterventionPlanningViewDTO(request);
       item.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
       item.setSeason(season);
+      
+      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "NumberofDays", "UnitsPerDay", "RequiredOperators"};
+      
+      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+      map.put("Id", new ColumnSetup(true, false));
+      map.put("GeoEntity", new ColumnSetup(true, false));
+      map.put("EntityLabel", new ColumnSetup(false, false));
+      map.put("Season", new ColumnSetup(true, false));
+      map.put("SeasonLabel", new ColumnSetup(true, false));
+      map.put("RequiredOperators", new ColumnSetup(false, false));
+      map.put("NumberofDays",  new ColumnSetup(false, true, "validateNumberofDays", null, null));    
+      map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null, null));    
 
-      req.setAttribute(VIEWS, views);
+
+      req.setAttribute("grid", new ViewDataGrid(item, map, keys, views));
       req.setAttribute(ITEM, item);
 
       render("viewOperatorComponent.jsp");

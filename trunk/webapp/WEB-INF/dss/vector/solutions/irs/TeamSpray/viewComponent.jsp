@@ -3,26 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-  TeamSprayViewDTO spray = ((TeamSprayViewDTO) request.getAttribute("item"));  
-  
-  OperatorSprayStatusViewDTO view = new OperatorSprayStatusViewDTO(clientRequest);
-  view.setValue(OperatorSprayStatusViewDTO.SPRAY, spray.getConcreteId());
-
-  OperatorSprayStatusViewDTO[] rows = (OperatorSprayStatusViewDTO[]) request.getAttribute("status");
-  
-  String[] attributes = {"ConcreteId", "Spray", "SprayOperator", "OperatorSprayWeek", "Received",
-       "Refills", "Returned", "Used",   "Households", "Structures",
-       "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-       "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
-
-  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-  
-  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-  map.put("ConcreteId", new ColumnSetup(true, false));
-  map.put("Spray", new ColumnSetup(true, false));
-  map.put("OperatorLabel", new ColumnSetup(true, false));  
 %>
 
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
@@ -35,11 +15,12 @@
 
 
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 
 
-<%@page import="java.util.Arrays"%><style type="text/css">
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><style type="text/css">
 .yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
 {
   vertical-align:bottom;
@@ -129,24 +110,35 @@
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{OperatorSprayStatusViewDTO.CLASS}))%>
 
+<%
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
+%>
+
 
 <script type="text/javascript">
 (function(){
     YAHOO.util.Event.onDOMReady(function(){
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+
+    <%=grid.getDropDownMap()%>
     
     var createButton = new YAHOO.widget.Button("StatusCreate", {type:"link", href:"dss.vector.solutions.irs.TeamSprayController.search.mojo"});
 
     operators = <%=request.getAttribute("operators")%>;
     
     data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetupWithDelete()%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "Status",
       data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
       saveFunction:"applyAll",
-      excelButtons:false
+      excelButtons:false,
+      after_row_load:function(record) {
+        var label = record.getData('OperatorLabel');
+        
+        record.setData('SprayOperator', label);
+      }
     };
 
     var beforeRowAdd = function(event) {
@@ -157,7 +149,7 @@
     
     var validateSprayOperator = function(oData) {
         // Validate
-      var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+      var selectedValues = dataTable.getRecordSet().getRecords().map( function(record) {
         return record.getData('SprayOperator');
       });
         
@@ -170,15 +162,15 @@
     }
 
     var loadUnusedOperators = function(e){
-        var column = data.myDataTable.getColumn('SprayOperator');
-        var cell = e.editor.getTdEl();
+      var column = dataTable.getColumn('SprayOperator');
+      var cell = e.editor.getTdEl();
 
-        // Get a list of operators which already have data set for them
-      var usedOperators = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+      // Get a list of operators which already have data set for them
+      var usedOperators = dataTable.getRecordSet().getRecords().map( function(record) {
         return record.getData('SprayOperator');
       });
 
-        // Filter the list of possible operators by operators which have already been used
+      // Filter the list of possible operators by operators which have already been used
       var filteredLabels = SprayOperatorLabels.filter(function(operator){
         return (usedOperators.indexOf(operator) === -1);
       });
@@ -225,7 +217,7 @@
     var indexRefused = 20;
     var indexOther = 21;
   
-    var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+    var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
 
     if (!isMainSpray)
     {
@@ -243,7 +235,7 @@
       delete data.columnDefs[indexOther].editor;      
     }
     
-    SprayOperatorLabels=Mojo.Util.getValues(operators);   
+    SprayOperatorLabels=Mojo.Util.getValues(operators);
     SprayOperatorIds=Mojo.Util.getKeys(operators);   
      
     data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
@@ -252,6 +244,8 @@
 
     var grid = MojoGrid.createDataTable(data);
     grid.addListener(beforeRowAdd);
+
+    var dataTable = grid.getDataTable();
     
   });
 })();

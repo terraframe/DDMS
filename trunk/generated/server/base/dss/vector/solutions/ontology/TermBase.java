@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1775850472)
+@com.runwaysdk.business.ClassSignature(hash = -1807380294)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,13 +26,14 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
+  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1775850472;
+  private static final long serialVersionUID = -1807380294;
   
   public TermBase()
   {
@@ -412,6 +413,34 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     else
     {
       setValue(NAMESPACE, value);
+    }
+  }
+  
+  public Boolean getObsolete()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
+  }
+  
+  public void validateObsolete()
+  {
+    this.validateAttribute(OBSOLETE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObsoleteMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(OBSOLETE);
+  }
+  
+  public void setObsolete(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OBSOLETE, "");
+    }
+    else
+    {
+      setValue(OBSOLETE, java.lang.Boolean.toString(value));
     }
   }
   

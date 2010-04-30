@@ -4,19 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%>
-<%@page import="dss.vector.solutions.entomology.InfectionAssayViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@page import="dss.vector.solutions.entomology.AssayController"%>
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.entomology.InfectionAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.PooledInfectionAssayViewDTO"%>
-
-
-<%@page import="dss.vector.solutions.ontology.TermDTO"%>
-<%@page import="com.runwaysdk.transport.metadata.AttributeBooleanMdDTO"%>
 
 <c:set var="page_title" value="Enter_Infection_Assays"  scope="request"/>
 
@@ -66,19 +59,8 @@
 
 
 <%
-InfectionAssayViewDTO infection = (InfectionAssayViewDTO) request.getAttribute(AssayController.INFECTION);
-InfectionAssayViewDTO[] infectionRows = (InfectionAssayViewDTO[]) request.getAttribute(AssayController.INFECTION_ROWS);
-
-String[] infectionKeys = (String[]) request.getAttribute(AssayController.INFECTION_KEYS);
-Map<String, ColumnSetup> infectionMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.INFECTION_COLUMNS);
-
-PooledInfectionAssayViewDTO pooled = (PooledInfectionAssayViewDTO) request.getAttribute(AssayController.POOLED);
-PooledInfectionAssayViewDTO[] pooledRows = (PooledInfectionAssayViewDTO[]) request.getAttribute(AssayController.POOLED_ROWS);
-
-String[] pooledKeys = (String[]) request.getAttribute(AssayController.POOLED_KEYS);
-Map<String, ColumnSetup> pooledMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.POOLED_COLUMNS);
-
-String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+DataGrid infection = (DataGrid) request.getAttribute(AssayController.INFECTION_GRID);
+DataGrid pooled = (DataGrid) request.getAttribute(AssayController.POOLED_GRID);
 %>
 
 
@@ -90,10 +72,9 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
   YAHOO.util.Event.onDOMReady(function(){ 
     // SETUP THE INFECTION DATA GRID
     var infectionData = {
-      rows:<%=Halp.getDataMap(infectionRows, infectionKeys, infection)%>,
-      columnDefs:<%=Halp.getColumnSetup(infection, infectionKeys, deleteColumn, true, infectionMap)%>,
-      defaults:<%=Halp.getDefaultValues(infection, infectionKeys)%>,
-      reloadKeys: ['MosquitoId'],
+      rows:<%=infection.getData()%>,
+      columnDefs:<%=infection.getColumnSetupWithDelete()%>,
+      defaults:<%=infection.getDefaultValues()%>,
       copy_from_above : ['IdentMethod'],
       div_id: "InfectionAssay",
       data_type: "Mojo.$.<%=InfectionAssayViewDTO.CLASS%>",
@@ -106,17 +87,16 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 
     // SETUP THE POOLED DATA GRID
     var pooledData = {
-      rows:<%=Halp.getDataMap(pooledRows, pooledKeys, pooled)%>,
-      columnDefs:<%=Halp.getColumnSetup(pooled, pooledKeys, deleteColumn, true, pooledMap)%>,
-      defaults:<%=Halp.getDefaultValues(pooled, pooledKeys)%>,
-      reloadKeys: ['PoolId'],
+      rows:<%=pooled.getData()%>,
+      columnDefs:<%=pooled.getColumnSetupWithDelete()%>,
+      defaults:<%=pooled.getDefaultValues()%>,
       copy_from_above : ['IdentMethod'],      
       div_id: "PooledInfectionAssay",
       data_type: "Mojo.$.<%=PooledInfectionAssayViewDTO.CLASS%>",
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:true
-    };        
+    };
  
     var pooledGrid = MojoGrid.createDataTable(pooledData);    
   });

@@ -1147,7 +1147,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
         var parameters = [this.attributeClass, this.browserField];
             
         Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);
-      }    	
+      }
     },
     
     _selectionHandler : function(selection)
@@ -1242,8 +1242,9 @@ focus : function() {
   {    
     var row  = this.getDataTable().getTrIndex(this.getRecord());
     var column = this.getColumn().getField();
+    var model = this.tableData.getModel();
   
-    var termId = this.tableData.rows[row][column];
+    var termId = model.getData(row, column);
     var selected = [];
     
     if(Mojo.Util.isString(termId) && termId !== '') {

@@ -8,9 +8,10 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 
-<mjl:messages>
+
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <c:set var="page_title" value="Edit_Spray_Team_Target"  scope="request"/>
@@ -38,14 +39,7 @@
 }
 </style>
 <%
-String sum = request.getAttribute("sumLastRow").toString();
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-ResourceTargetViewDTO mdView = (ResourceTargetViewDTO) request.getAttribute("item");
-ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");
-
-String[] keys = (String[]) request.getAttribute("keys");
-Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute("columns");
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{ResourceTargetViewDTO.CLASS}))%>
@@ -54,9 +48,9 @@ Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute("
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
     ResourceTargetData = {
-      rows:<%=Halp.getDataMap(rows, keys, mdView)%>,
-      columnDefs:<%=Halp.getColumnSetup(mdView, keys, "", true, map)%>,
-      defaults:<%=Halp.getDefaultValues(mdView, keys)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "ResourceTargets",
       data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
       saveFunction: "applyAll",
@@ -64,29 +58,7 @@ Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute("
       excelButtons:false
     };
     
-    MojoGrid.createDataTable(ResourceTargetData);
-
-    var dt = ResourceTargetData.myDataTable;
-    var numRows = dt.getRecordSet().getLength();
-    var lastRow =  dt.getRecordSet().getRecord(numRows-1);
-
-    for (var i =0; i<53 ;i++) {        
-      if(! lastRow.getData('Target_'+i)) {
-        var sum = 0;
-        
-        for(var j=0; j < numRows - 1 ;j++) {
-          var value = dt.getRecordSet().getRecord(j).getData('Target_'+i);          
-
-          if(value) {
-            sum += parseInt(value,10);
-          }
-        }
-        
-        if(sum > 0) {
-          dt.updateCell(lastRow, 'Target_'+i,'<span class="calculated">' + sum + '</span>');
-        }
-      }
-    }
+    var grid = MojoGrid.createDataTable(ResourceTargetData);
   });
 })();                  
 </script>

@@ -5,28 +5,14 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.intervention.monitor.LarvacideInstanceViewDTO"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
-<%@page import="dss.vector.solutions.intervention.monitor.LarvacideDTO"%><c:set var="page_title" value="View_Larvacide" scope="request" />
+<%@page import="dss.vector.solutions.intervention.monitor.LarvacideDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="View_Larvacide" scope="request" />
 
-<%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-LarvacideDTO control = (LarvacideDTO) request.getAttribute("item");
-LarvacideInstanceViewDTO view = (LarvacideInstanceViewDTO) request.getAttribute("view");
-LarvacideInstanceViewDTO[] rows = (LarvacideInstanceViewDTO[]) request.getAttribute("rows");
-
-String[] attributes = {"ConcreteId", "ControlId", "Target", "Treated", "ControlMethod", "Substance", "Unit", "UnitsUsed"};
-
-String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-%>
-
-<mjl:messages>
-  <mjl:message />
-</mjl:messages>
 <dl>
   <mjl:form name="dss.vector.solutions.intervention.monitor.Larvacide.form.name" id="dss.vector.solutions.intervention.monitor.Larvacide.form.id" method="POST">
     <mjl:input value="${item.id}" type="hidden" param="id" />
@@ -71,27 +57,19 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 <%=Halp.loadTypes(Arrays.asList(new String[]{LarvacideInstanceViewDTO.CLASS}))%>
 
 <%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("ConcreteId", new ColumnSetup(true, false));
-map.put("ControlId", new ColumnSetup(true, false));
-map.put("Target", new ColumnSetup(false, true));
-map.put("Treated", new ColumnSetup(false, true));
-map.put("Substance", new ColumnSetup(false, true));
-map.put("ControlMethod", new ColumnSetup(false, true));
-map.put("Unit", new ColumnSetup(false, true));
-map.put("UnitsUsed", new ColumnSetup(false, true));
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    <%=grid.getDropDownMap()%>
         
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetupWithDelete()%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "LaravacideInstance",
       data_type: "Mojo.$.<%=LarvacideInstanceViewDTO.CLASS%>",
       saveFunction:"applyAll",

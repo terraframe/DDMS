@@ -8,27 +8,24 @@
 
 <%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.general.PopulationDataController"%>
 <%@page import="dss.vector.solutions.general.PopulationDataViewDTO"%>
 
-<c:set var="page_title" value="Population_Data"  scope="request"/>
+
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="Population_Data"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 
 <%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
 PopulationDataViewDTO view = (PopulationDataViewDTO) request.getAttribute(PopulationDataController.ITEM);
-PopulationDataViewDTO[] rows = (PopulationDataViewDTO[]) request.getAttribute(PopulationDataController.VIEWS);
 
-String[] attributes = {"ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated"};
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 
-String deleteColumn = "";
 %>
 
 <dl>
@@ -60,34 +57,17 @@ String deleteColumn = "";
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{PopulationDataViewDTO.CLASS}))%>
 <%=Halp.loadTypes(Arrays.asList(new String[]{PopulationDataViewDTO.CLASS, PopulationDataController.CLASS}))%>
-<%
-ColumnSetup population = new ColumnSetup(false, true);
-population.setSum(view.getPopulationType());
-
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("ConcreteId", new ColumnSetup(true, false));
-map.put("GeoEntity", new ColumnSetup(true, false));
-map.put("YearOfData", new ColumnSetup(true, false));
-map.put("PopulationType", new ColumnSetup(true, false));
-map.put("EntityLabel", new ColumnSetup(false, false));
-map.put("Population", population);
-map.put("GrowthRate", new ColumnSetup(false, true));
-map.put("Estimated", new ColumnSetup(true, false));
-
-%>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-
     var populationType = <%=view.getPopulationType()%>;
     
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "PopulationData",
       data_type: "Mojo.$.<%=PopulationDataViewDTO.CLASS%>",
       saveFunction:"applyAll",
@@ -96,14 +76,15 @@ map.put("Estimated", new ColumnSetup(true, false));
       after_row_load:function(record){          
         if(populationType == true && record.getCount() < (data.rows.length - 1))
         {
-        	var str = '<form method = "post"';
+          var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
           str += '<input type="hidden" name="geoId" value="'+record.getData('GeoEntity')+'"/>';
           str += '<input type="hidden" name="yearOfData" value="'+record.getData('YearOfData')+'"/>';
           str += '<input type="hidden" name="populationType" value="true"/>';
           str += " <a href=\"#\" onclick=\"document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
-          data.myDataTable.updateCell(record, 'EntityLabel', str);
+          
+          this.getDataTable().updateCell(record, 'EntityLabel', str);
         }
       },
     };        
@@ -114,7 +95,7 @@ map.put("Estimated", new ColumnSetup(true, false));
       out.println("var calculatedValues = " + request.getAttribute("calculatedValues") + ";");
     %>
 
-    var dt = data.myDataTable;
+    var dt = grid.getDataTable();
 
     dt.getRecordSet().getRecords().map( function(row) {
 

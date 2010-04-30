@@ -2,32 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-  ZoneSprayViewDTO spray = ((ZoneSprayViewDTO) request.getAttribute("item"));
-
-  TeamSprayStatusViewDTO view = new TeamSprayStatusViewDTO(clientRequest);
-  view.setValue(TeamSprayStatusViewDTO.SPRAY, spray.getConcreteId());
-  
-  TeamSprayStatusViewDTO[] rows = (TeamSprayStatusViewDTO[]) request.getAttribute("status");
-
-  String[] attributes = {"ConcreteId", "Spray", "SprayTeam", "TeamLeader",
-       "TeamSprayWeek", "Target", "Received", "Refills", "Returned", "Used", "Households", "Structures",
-       "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-       "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
-
-  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-  
-  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-  map.put("ConcreteId", new ColumnSetup(true, false));
-  map.put("SprayData", new ColumnSetup(true, false));
-  map.put("Spray", new ColumnSetup(true, false));
-  map.put("TeamLabel", new ColumnSetup(true, false));  
-%>
-
-
-
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.irs.ZoneSprayViewDTO"%>
@@ -40,8 +14,10 @@
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
 
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.HashMap"%><c:set var="page_title" value="View_Zone_Spray"  scope="request"/>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
+<%@page import="javax.xml.crypto.Data"%><c:set var="page_title" value="View_Zone_Spray"  scope="request"/>
 
 <style type="text/css">
 .yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
@@ -135,6 +111,11 @@ background:none;
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS, TeamSprayStatusViewDTO.CLASS}))%>
 
+<%
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+ZoneSprayViewDTO view = (ZoneSprayViewDTO) request.getAttribute("item");
+%>
+
 <script type="text/javascript">
 (function(){
     YAHOO.util.Event.onDOMReady(function(){
@@ -143,35 +124,40 @@ background:none;
       teams = <%=request.getAttribute("teams")%>;
       operators = <%=request.getAttribute("operators")%>;
       
-      <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-      
       data = {
-        rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-        columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-        defaults:<%=Halp.getDefaultValues(view, attributes)%>,
-         
+        rows:<%=grid.getData()%>,
+        columnDefs:<%=grid.getColumnSetupWithDelete()%>,
+        defaults:<%=grid.getDefaultValues()%>,         
         div_id: "Status",
         data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
         saveFunction:"applyAll",
         excelButtons:false,
         after_row_load:function(record){
+          // Overwrite the team leader label
+          var dataTable = this.getDataTable();
+          var model = this.getModel();
+          
           var team = record.getData('SprayTeam');
           var leaderId = record.getData('TeamLeader');
              
           if(team !== 'undefined' && leaderId !== null) {
-            var row = data.myDataTable.getRecordIndex(record);
-            var teamId = data.rows[row].SprayTeam;
+            var row = dataTable.getRecordIndex(record);
+            var teamId = model.getData(row, 'SprayTeam');
             var leader = operators[teamId][leaderId];
 
             record.setData('TeamLeader', leader);
           }
+
+          // Overwrite the team label
+          var label = record.getData('TeamLabel');
+          record.setData('SprayTeam', label);
         }
      };
 
      var validateSprayTeam = function(oData) {
        // Validate
-       var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
-       return record.getData('SprayTeam');
+       var selectedValues = dataTable.getRecordSet().getRecords().map( function(record) {
+         return record.getData('SprayTeam');
        });
     
        if(selectedValues.indexOf(oData) !== -1) {
@@ -189,24 +175,26 @@ background:none;
      }
       
      var loadUnusedTeams = function(e){
-       var column = data.myDataTable.getColumn('SprayTeam');
+       var column = dataTable.getColumn('SprayTeam');
        var cell = e.editor.getTdEl();
-       var currentTeam = e.editor.getRecord().getColumn('SprayTeam').getData();
+
+       var _record = e.editor.getRecord();
+       var currentTeam = _record.getData('SprayTeam');
 
        // Get a list of operators which already have data set for them
-       var usedTeams = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+       var usedTeams = dataTable.getRecordSet().getRecords().map( function(record) {
          return record.getData('SprayTeam');
        });
 
-
-       usedTeams.filter(function(team){
-         return team != currentTeam;
-       });
-
-         // Filter the list of possible operators by operators which have already been used
+       // Filter the list of possible teams by teams which have already been used
        var filteredLabels = SprayTeamLabels.filter(function(operator){
          return (usedTeams.indexOf(operator) === -1);
        });
+
+       // Include the current team in the list of selectable teams
+       if(currentTeam != null && currentTeam != "") {
+         filteredLabels.unshift(currentTeam);
+       }
 
        // Update the editor to use the list of valid operators
        e.editor.dropdownOptions = filteredLabels;
@@ -237,10 +225,10 @@ background:none;
      }
      
      var swap = function(e){
-       var row = data.myDataTable.getRecordIndex(e.editor.getRecord());
-       var teamId = data.rows[row].SprayTeam;
+       var row = dataTable.getRecordIndex(e.editor.getRecord());
+       var teamId = grid.getModel().getData(row, 'SprayTeam');
 
-       var column = data.myDataTable.getColumn('TeamLeader');
+       var column = dataTable.getColumn('TeamLeader');
        var cell = e.editor.getTdEl();
          
        TeamLeaderLabels=Mojo.Util.getValues(operators[teamId]);   
@@ -287,7 +275,7 @@ background:none;
      var indexRefused = 22;
      var indexOther = 23;
   
-     var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+     var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
 
      if (!isMainSpray)
      {
@@ -307,16 +295,23 @@ background:none;
      
      SprayTeamLabels=Mojo.Util.getValues(teams);   
      SprayTeamIds=Mojo.Util.getKeys(teams);   
- 
-     data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayTeamLabels,disableBtns:true,validator:validateSprayTeam});
-     data.columnDefs[2].save_as_id = true;
-     data.columnDefs[2].editor.subscribe('showEvent', loadUnusedTeams);     
 
-     data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
-     data.columnDefs[3].editor.subscribe('showEvent', swap);
+     var sprayTeamColumnDef = data.columnDefs[2];
+     
+     sprayTeamColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayTeamLabels,disableBtns:true,validator:validateSprayTeam});
+     sprayTeamColumnDef.save_as_id = true;
+     sprayTeamColumnDef.editor.subscribe('showEvent', loadUnusedTeams);
+
+
+     var teamLeaderColumnDef = data.columnDefs[4];
+
+     teamLeaderColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
+     teamLeaderColumnDef.editor.subscribe('showEvent', swap);
      
      var grid = MojoGrid.createDataTable(data);
      grid.addListener(beforeRowAdd);
+
+     var dataTable = grid.getDataTable();
   });
 })();
 </script>

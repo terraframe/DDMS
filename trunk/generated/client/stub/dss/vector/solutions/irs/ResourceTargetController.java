@@ -16,9 +16,10 @@ import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.MalariaSeasonDTO;
-import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 // TODO: delete unused methods from metadata
 
@@ -64,14 +65,13 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
       String[] targetIds = this.getTargetIds(id, geoId, request);
 
-      ResourceTargetViewDTO[] targets = ResourceTargetViewDTO.getResourceTargets(request, targetIds, season);
+      ResourceTargetViewDTO view = new ResourceTargetViewDTO(request);
+      ResourceTargetViewDTO[] data = ResourceTargetViewDTO.getResourceTargets(request, targetIds, season);
+      
       String[] keys = this.getKeys();
-
-      req.setAttribute("item", new ResourceTargetViewDTO(request));
-      req.setAttribute("keys", keys);
-      //req.setAttribute("columns", this.getColumns(keys, id.equals("ALL")));
-      req.setAttribute("columns", this.getColumns(keys, false));
-      req.setAttribute("resourceTargetViews", targets);
+      Map<String, ColumnSetup> map = this.getColumns(keys, false);
+      
+      req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
       render("viewComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -99,7 +99,6 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     {
       //Get the GeoEntity which corresponds to the GeoId
       sprayTeams.addAll(Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
-      req.setAttribute("sumLastRow", false);
     }
     else
     {
@@ -109,8 +108,6 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
       //sprayTeams.add(team);
       
       sprayOperators.addAll(team.getAllSprayTeamMembers());
-
-      req.setAttribute("sumLastRow", true);
     }
 
     // add all the team members
@@ -189,7 +186,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
       
       if(i >= 3 && ! sum)
       {
-        setup.setSum(true);
+        setup.setSum(sum);
       }
       
       map.put(keys[i], setup);

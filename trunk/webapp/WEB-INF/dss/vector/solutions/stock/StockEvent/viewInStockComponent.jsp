@@ -8,13 +8,16 @@
 
 <%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 
 
 <%@page import="dss.vector.solutions.stock.StockEventViewDTO"%>
 <%@page import="dss.vector.solutions.stock.StockEventController"%>
+
+
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
 <c:set var="page_title" value="In_Stock"  scope="request"/>
 
@@ -23,14 +26,7 @@
 </mjl:messages>
 
 <%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-StockEventViewDTO view = (StockEventViewDTO) request.getAttribute(StockEventController.ITEM);
-StockEventViewDTO[] rows = (StockEventViewDTO[]) request.getAttribute(StockEventController.VIEWS);
-
-String[] attributes = {"ConcreteId", "StockDepot", "Staff", "StaffLabel", "OtherParty", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost"};
-
-String deleteColumn = "";
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <dl>
@@ -69,32 +65,16 @@ String deleteColumn = "";
 </span>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{StockEventViewDTO.CLASS}))%>
-<%
-Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-map.put("ConcreteId", new ColumnSetup(true, false));
-map.put("StockDepot", new ColumnSetup(true, false));
-map.put("Staff", new ColumnSetup(true, false));
-map.put("StaffLabel", new ColumnSetup(true, false));
-map.put("OtherParty", new ColumnSetup(true, true));
-map.put("EventDate", new ColumnSetup(true, false));
-map.put("Item", new ColumnSetup(true, false));
-map.put("TransactionType", new ColumnSetup(true, false));
-map.put("ItemLabel", new ColumnSetup(false, false));
-map.put("AvailableStock", new ColumnSetup(false, false));
-map.put("Quantity", new ColumnSetup(false, true));
-map.put("Cost", new ColumnSetup(false, true));
-%>
 
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
 	  
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
-
-    var saveHandler = function(request, view_array) {
+    var saveHandler = function(request, parameters) {
       var staff = document.getElementById('staff').value;
       var otherParty = document.getElementById('otherParty').value;
+      var view_array = parameters[0];
       var valid = true;
 
       if(staff === "")  {
@@ -113,9 +93,9 @@ map.put("Cost", new ColumnSetup(false, true));
     };
       
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "StockEvent",
       data_type: "Mojo.$.<%=StockEventViewDTO.CLASS%>",
       saveFunction:"applyAll",

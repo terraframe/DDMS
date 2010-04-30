@@ -3,6 +3,7 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,9 @@ import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.DataGrid;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class ZoneSprayController extends ZoneSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -130,7 +134,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
     ClientRequestIF request = this.getClientRequest();
 
-    TeamSprayStatusViewDTO[] status = dto.getStatus();
     SprayTeamDTO[] teams = SprayTeamDTO.findByLocation(request, dto.getGeoEntity().getGeoId());
     InsecticideBrandDTO brand = dto.getBrand();
 
@@ -138,14 +141,34 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     String operators = buildOperatorsMap(teams);
 
     this.setupReferences(dto);
-
+    
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
-    req.setAttribute("status", status);
+    req.setAttribute("grid", getGrid(dto, request));
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
+  }
+
+  private DataGrid getGrid(ZoneSprayViewDTO dto, ClientRequestIF request)
+  {
+    TeamSprayStatusViewDTO view = new TeamSprayStatusViewDTO(request);
+    view.setValue(TeamSprayStatusViewDTO.SPRAY, dto.getConcreteId());
+    TeamSprayStatusViewDTO[] data = dto.getStatus();
+    
+    String[] keys = {"ConcreteId", "Spray", "SprayTeam", "TeamLabel", "TeamLeader",
+         "TeamSprayWeek", "Target", "Received", "Refills", "Returned", "Used", "Households", "Structures",
+         "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
+         "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
+
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    map.put("ConcreteId", new ColumnSetup(true, false));
+    map.put("SprayData", new ColumnSetup(true, false));
+    map.put("Spray", new ColumnSetup(true, false));
+    map.put("TeamLabel", new ColumnSetup(true, false));  
+
+    return new ViewDataGrid(view, map, keys, data);
   }
 
   private void setupReferences(ZoneSprayViewDTO dto)

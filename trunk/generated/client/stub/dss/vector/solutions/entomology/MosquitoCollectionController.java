@@ -21,10 +21,11 @@ import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.geo.generated.CollectionSiteDTO;
-import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements Reloadable
 {
@@ -128,11 +129,17 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.setupReferences(dto);
 
     List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
+    
+    SubCollectionViewDTO view = new SubCollectionViewDTO(this.getClientRequest());
+    view.setTotal(0);
+    
+    String[] keys = this.getKeys();
+    Map<String, ColumnSetup> map = this.getColumns(dto);
+    SubCollectionViewDTO[] data = dto.getSubCollections();
 
-    req.setAttribute(ROWS, dto.getSubCollections());
-    req.setAttribute(COLLECTION, new SubCollectionViewDTO(this.getClientRequest()));
-    req.setAttribute(KEYS, this.getKeys());
-    req.setAttribute(COLUMNS, this.getColumns(dto));
+    ViewDataGrid grid = new ViewDataGrid(view, map, keys, data);
+
+    req.setAttribute("grid", grid);
     req.setAttribute("ada", ada);
     req.setAttribute("lda", lda);
     req.setAttribute("kda", kda);

@@ -1,6 +1,8 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,8 @@ import dss.vector.solutions.irs.TeamMemberDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class LarvacideController extends LarvacideControllerBase implements Reloadable
 {
@@ -103,8 +107,6 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
       ClientRequestIF clientRequest = super.getClientRequest();
       LarvacideDTO dto = LarvacideDTO.get(clientRequest, id);
 
-      LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
-      view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
 
       TeamMemberDTO leader = (TeamMemberDTO) AttributeUtil.getValue(LarvacideDTO.TEAMLEADER, dto);
 
@@ -113,9 +115,8 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
         req.setAttribute("leader", leader.getView());
       }
 
-      req.setAttribute("rows", dto.getInstanceViews());
-      req.setAttribute("view", view);
-      req.setAttribute("item", dto);
+      req.setAttribute("grid", this.getDataGrid(dto, clientRequest));
+     req.setAttribute("item", dto);
 
       render("viewComponent.jsp");
     }
@@ -129,6 +130,27 @@ public class LarvacideController extends LarvacideControllerBase implements Relo
       ErrorUtility.prepareThrowable(t, req);
       this.failView(id);
     }
+  }
+
+  private ViewDataGrid getDataGrid(LarvacideDTO dto, ClientRequestIF clientRequest)
+  {
+    LarvacideInstanceViewDTO view = new LarvacideInstanceViewDTO(clientRequest);
+    view.setValue(LarvacideInstanceViewDTO.CONTROLID, dto.getId());
+    
+    LarvacideInstanceViewDTO[] data = dto.getInstanceViews();
+    String[] keys = { "ConcreteId", "ControlId", "Target", "Treated", "ControlMethod", "Substance", "Unit", "UnitsUsed" };
+
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    map.put("ConcreteId", new ColumnSetup(true, false));
+    map.put("ControlId", new ColumnSetup(true, false));
+    map.put("Target", new ColumnSetup(false, true));
+    map.put("Treated", new ColumnSetup(false, true));
+    map.put("Substance", new ColumnSetup(false, true));
+    map.put("ControlMethod", new ColumnSetup(false, true));
+    map.put("Unit", new ColumnSetup(false, true));
+    map.put("UnitsUsed", new ColumnSetup(false, true));
+    
+    return new ViewDataGrid(view, map, keys, data);
   }
 
   public void failView(String id) throws IOException, ServletException

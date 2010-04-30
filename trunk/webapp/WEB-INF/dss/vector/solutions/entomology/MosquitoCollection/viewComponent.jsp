@@ -11,11 +11,10 @@
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.LifeStageDTO"%>
 <%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
 <c:set var="page_title" value="Create_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
@@ -206,15 +205,7 @@
 </c:if>
 
 <%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-SubCollectionViewDTO view = (SubCollectionViewDTO) request.getAttribute("collection");
-SubCollectionViewDTO[] rows = (SubCollectionViewDTO[]) request.getAttribute(MosquitoCollectionController.ROWS);
-
-String[] attributes = (String[]) request.getAttribute(MosquitoCollectionController.KEYS);
-Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute(MosquitoCollectionController.COLUMNS);
-
-String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 
@@ -300,7 +291,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
     }
 
     // THE SAVE HANDLER FOR THE SUB COLLECTIONS DATA GRID
-    var saveCollection = function(request, subCollections) {
+    var saveCollection = function(request, parameters) {
       var collection = populateCollection();
 
       var oldOnSuccess = request.onSuccess;
@@ -312,8 +303,7 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 
       request.onSuccess = newOnSuccess;
 
-      
-      collection.applyAll(request, subCollections);
+      collection.applyAll(request, parameters[0]);
     };
 
 
@@ -331,19 +321,24 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 
     // SETUP THE SUB COLLECTIONS DATA GRID
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetupWithDelete()%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "SubCollection",
       data_type: "Mojo.$.<%=SubCollectionViewDTO.CLASS%>",
       saveFunction:"applyAll",
       excelButtons:false,
       addButton:true,
       copy_from_above: ["IdentMethod", "SubCollectionId"],      
-      reloadKeys : ["SubCollectionId"],
       saveLabelKey : "Save_Collection",
       saveHandler : saveCollection,
-      after_row_edit:function(record){this.myDataTable.updateCell(record, 'Total', calculateTotal(record))}
+      after_row_edit:function(record){
+        var total = calculateTotal(record);
+
+        var dataTable = grid.getDataTable();
+
+        dataTable.updateCell(record, 'Total', total);
+      }
     };        
  
     var grid = MojoGrid.createDataTable(data);

@@ -8,7 +8,7 @@
 
 <%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.general.ThresholdDataController"%>
@@ -19,7 +19,8 @@
 
 <%@page import="org.json.JSONObject"%>
 <%@page import="dss.vector.solutions.irs.GeoTargetViewDTO"%>
-<%@page import="org.json.JSONArray"%><c:set var="page_title" value="Threshold_Data"  scope="request"/>
+<%@page import="org.json.JSONArray"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="Threshold_Data"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
@@ -29,12 +30,9 @@
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
 ThresholdDataViewDTO view = (ThresholdDataViewDTO) request.getAttribute(ThresholdDataController.ITEM);
-ThresholdDataViewDTO[] rows = (ThresholdDataViewDTO[]) request.getAttribute(ThresholdDataController.VIEWS);
+ThresholdDataViewDTO[] rows = (ThresholdDataViewDTO[]) request.getAttribute(ThresholdDataController.ITEMS);
 
-String[] attributes = (String[]) request.getAttribute(ThresholdDataController.KEYS);
-Map<String, ColumnSetup> map = (Map<String, ColumnSetup>) request.getAttribute(ThresholdDataController.COLUMNS);
-
-String deleteColumn = "";
+DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
 <dl>
@@ -75,7 +73,6 @@ String deleteColumn = "";
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
     var thresholdValidator = function (oData) {
       if(oData === "")
@@ -96,9 +93,9 @@ String deleteColumn = "";
     }
 
     var data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetup("")%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "ThresholdData",
       data_type: "Mojo.$.<%=ThresholdDataViewDTO.CLASS%>",
       saveFunction:"applyAll",
@@ -117,14 +114,15 @@ String deleteColumn = "";
           str += '<input type="hidden" name="thresholdType" value="'+thresholdType+'"/>';
           str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
-          data.myDataTable.updateCell(record, 'EntityLabel', str);
+          data.getDataTable().updateCell(record, 'EntityLabel', str);
         }
       },
       customButtons : [{
           id : 'Export',
           label : MDSS.localize('Export'),
           action : function() {
-            var objects = grid.createObjectRepresentation();
+            var parameters = grid.getModel().getParameters(); 
+            var objects = parameters[0];
             var form = document.getElementById('threshold.export');
             var innerHTML = '';
 
@@ -197,7 +195,7 @@ String deleteColumn = "";
     
     var grid = MojoGrid.createDataTable(data);
 
-    var dt = data.myDataTable;
+    var dt = grid.getDataTable();
 
     dt.getRecordSet().getRecords().map( function(row) {
       var geoId = row.getData('GeoEntity')

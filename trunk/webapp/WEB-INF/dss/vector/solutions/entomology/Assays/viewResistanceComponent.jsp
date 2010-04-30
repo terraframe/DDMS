@@ -8,7 +8,7 @@
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.entomology.AssayController"%>
 <%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.entomology.DiagnosticAssayViewDTO"%>
@@ -19,7 +19,8 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 
-<c:set var="page_title" value="Enter_bioassays"  scope="request"/>
+
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="Enter_bioassays"  scope="request"/>
 
 <jsp:include page="resistanceForm.jsp"/>
 
@@ -82,19 +83,8 @@
 
 
 <%
-DiagnosticAssayViewDTO diagnostic = (DiagnosticAssayViewDTO) request.getAttribute(AssayController.DIAGNOSTIC);
-DiagnosticAssayViewDTO[] diagnosticRows = (DiagnosticAssayViewDTO[]) request.getAttribute(AssayController.DIAGNOSTIC_ROWS);
-
-String[] diagnosticKeys = (String[]) request.getAttribute(AssayController.DIAGNOSTIC_KEYS);
-Map<String, ColumnSetup> diagnosticMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.DIAGNOSTIC_COLUMNS);
-
-TimeResponseAssayViewDTO timeResponse = (TimeResponseAssayViewDTO) request.getAttribute(AssayController.TIME_RESPONSE);
-TimeResponseAssayViewDTO[] timeResponseRows = (TimeResponseAssayViewDTO[]) request.getAttribute(AssayController.TIME_RESPONSE_ROWS);
-
-String[] timeResponseKeys = (String[]) request.getAttribute(AssayController.TIME_RESPONSE_KEYS);
-Map<String, ColumnSetup> timeResponseMap = (Map<String, ColumnSetup>) request.getAttribute(AssayController.TIME_RESPONSE_COLUMNS);
-
-String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+DataGrid diagnostic = (DataGrid) request.getAttribute(AssayController.DIAGNOSTIC_GRID);
+DataGrid timeresponse = (DataGrid) request.getAttribute(AssayController.TIME_RESPONSE_GRID);
 %>
 
 
@@ -115,9 +105,9 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
        
     // SETUP THE INFECTION DATA GRID
     var biochemicalData = {
-      rows:<%=Halp.getDataMap(diagnosticRows, diagnosticKeys, diagnostic)%>,
-      columnDefs:<%=Halp.getColumnSetup(diagnostic, diagnosticKeys, deleteColumn, true, diagnosticMap)%>,
-      defaults:<%=Halp.getDefaultValues(diagnostic, diagnosticKeys)%>,
+      rows:<%=diagnostic.getData()%>,
+      columnDefs:<%=diagnostic.getColumnSetupWithDelete()%>,
+      defaults:<%=diagnostic.getDefaultValues()%>,
       div_id: "DiagnosticAssay",
       data_type: "Mojo.$.<%=DiagnosticAssayViewDTO.CLASS%>",
       saveFunction:"applyAll",
@@ -129,9 +119,9 @@ String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', act
 
     // SETUP THE POOLED DATA GRID
     var molecularData = {
-      rows:<%=Halp.getDataMap(timeResponseRows, timeResponseKeys, timeResponse)%>,
-      columnDefs:<%=Halp.getColumnSetup(timeResponse, timeResponseKeys, deleteColumn, true, timeResponseMap)%>,
-      defaults:<%=Halp.getDefaultValues(timeResponse, timeResponseKeys)%>,
+      rows:<%=timeresponse.getData()%>,
+      columnDefs:<%=timeresponse.getColumnSetupWithDelete()%>,
+      defaults:<%=timeresponse.getDefaultValues()%>,
       div_id: "TimeResponseAssay",
       data_type: "Mojo.$.<%=TimeResponseAssayViewDTO.CLASS%>",
       saveFunction:"applyAll",

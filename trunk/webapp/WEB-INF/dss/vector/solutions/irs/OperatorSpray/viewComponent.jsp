@@ -2,46 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-  OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
-
-  HouseholdSprayStatusViewDTO[] rows = (HouseholdSprayStatusViewDTO[]) request.getAttribute("status");
-  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
-  view.setValue(HouseholdSprayStatusViewDTO.SPRAY, spray.getConcreteId());
-  
-  // If the order of these attributes are changed, you need to change the javascript indexes at the bottom!
-  String[] attributes = {"ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
-       "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-       "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
-
-  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-  
-  Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-  map.put("ConcreteId", new ColumnSetup(true, false));
-  map.put("Spray", new ColumnSetup(true, false));
-  map.put("Households", new ColumnSetup(true, false));    
-  map.put("Structures", new ColumnSetup(true, false));
-  map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
-  map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
-  map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
-  map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
-%>
-
-
-<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.HashMap"%>
-
-
-<%@page import="java.util.Arrays"%><style type="text/css">
+<style type="text/css">
 .yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
 {
   vertical-align:bottom;
@@ -159,10 +126,15 @@
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{HouseholdSprayStatusViewDTO.CLASS}))%>
 
+<%
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
+%>
+
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+    <%=grid.getDropDownMap()%>
 
     var structuresInput = document.getElementById('#strucutresInput');
 
@@ -200,7 +172,7 @@
     var beforeRowHandler = function() {
       addRows = true;
       // Save the existing data before adding new rows
-      grid.persistData();
+      grid.save();
     }
 
     var dataListener = function(event) {
@@ -222,11 +194,8 @@
       var rows = structuresInput.value * 1;
       if(Mojo.Util.isNumber(rows) && rows > 0) {
         var request = new MDSS.Request({
-            grid: grid,
-            data: data,
-            
-            onSuccess: function(ids)
-            {
+            grid: grid,            
+            onSuccess: function(ids)  {
               var householdId = ids[0];
               
               for(var i = 0; i < rows; i++) {
@@ -237,12 +206,14 @@
                   
                 record.setData("HouseholdId", householdId);
                 record.setData("StructureId", structureId);
+
+                var model = grid.getModel();
                 
-                this.data.rows[index]['HouseholdId'] = householdId;
-                this.data.rows[index]['StructureId'] = structureId;
+                model.setData(index, 'HouseholdId', householdId);
+                model.setData(index, 'StructureId', structureId);                
               }
               
-              this.data.myDataTable.render();
+              grid.getDataTable().render();
             }
           });
 
@@ -265,12 +236,12 @@
     var indexRefused = 16;
     var indexOther = 17;
   
-    var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+    var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
   
     data = {
-      rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-      columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
-      defaults:<%=Halp.getDefaultValues(view, attributes)%>,
+      rows:<%=grid.getData()%>,
+      columnDefs:<%=grid.getColumnSetupWithDelete()%>,
+      defaults:<%=grid.getDefaultValues()%>,
       div_id: "Status",
       data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
       saveFunction:"applyAll",

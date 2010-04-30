@@ -22,11 +22,12 @@ import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.irs.RequiredSeasonProblemDTO;
-import dss.vector.solutions.util.ColumnSetup;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
+import dss.vector.solutions.util.yui.ColumnSetup;
+import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class ThresholdDataController extends ThresholdDataControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -36,13 +37,9 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  public static final String VIEWS            = "views";
-
   public static final String ITEM             = "item";
 
-  public static final String KEYS             = "keys";
-
-  public static final String COLUMNS          = "columns";
+  public static final String ITEMS            = "items";
 
   public ThresholdDataController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -83,15 +80,15 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      ThresholdDataViewDTO[] views = null;
+      ThresholdDataViewDTO[] data = null;
 
       if (thresholdType)
       {
-        views = ThresholdDataViewDTO.getViews(request, geoId, season);
+        data = ThresholdDataViewDTO.getViews(request, geoId, season);
       }
       else
       {
-        views = ThresholdDataViewDTO.getFacilityViews(request, geoId, season);
+        data = ThresholdDataViewDTO.getFacilityViews(request, geoId, season);
       }
 
       ThresholdDataViewDTO item = new ThresholdDataViewDTO(request);
@@ -102,11 +99,10 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       String[] keys = getAttributeKeys(weeks);
       Map<String, ColumnSetup> map = getColumns(weeks, thresholdType);
-
+      
       req.setAttribute(ITEM, item);
-      req.setAttribute(VIEWS, views);
-      req.setAttribute(KEYS, keys);
-      req.setAttribute(COLUMNS, map);
+      req.setAttribute(ITEMS, data);
+      req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));      
       req.setAttribute("season", season);
       req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 
