@@ -10,3 +10,13 @@
 <c:set var="page_title" value="Enter_bioassays" scope="request" />
 
 <jsp:include page="resistanceForm.jsp" />
+
+<h1><fmt:message key="Import_Export_Diagnostic_Assays"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.DiagnosticAssayExcelView" name="excelType"/>
+</jsp:include>
+
+<h1><fmt:message key="Import_Export_Time_Response_Assays"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.TimeResponseAssayExcelView" name="excelType"/>
+</jsp:include>

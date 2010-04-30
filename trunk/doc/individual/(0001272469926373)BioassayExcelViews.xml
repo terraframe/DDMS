@@ -1,0 +1,102 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.DiagnosticAssayExcelView"
+        label="Diagnostic Dose Assay Excel View">
+        <attributes>
+          <char
+            name="collectionId"
+            label="Collection ID"
+            description="Mosquito Collection ID"
+            required="true"
+            size="64"/>
+          <char
+            name="activeIngredient"
+            label="Active Ingredient"
+            description="MO term for Active Ingredient"
+            required="true"
+            size="64"/>
+          <char
+            name="species"
+            label="Species"
+            description="MO term for Species"
+            required="true"
+            size="64"/>
+          <char
+            name="lifeStage"
+            label="Life Stage"
+            description="MO term for Life Stage"
+            required="true"
+            size="64"/>
+          <virtual
+            concrete="synergist"
+            type="dss.vector.solutions.entomology.DiagnosticAssay" />
+          <char
+            name="outcome"
+            label="Outcome"
+            description="MO term for Outcome"
+            required="true"
+            size="64"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.TimeResponseAssayExcelView"
+        label="Time Response Assay Excel View">
+        <attributes>
+          <char
+            name="collectionId"
+            label="Collection ID"
+            description="Mosquito Collection ID"
+            required="true"
+            size="64"/>
+         <char
+            name="assay"
+            label="Assay"
+            description="MO term for Assay"
+            required="true"
+            size="64"/>
+         <char
+            name="activeIngredient"
+            label="Active Ingredient"
+            description="MO term for Active Ingredient"
+            required="true"
+            size="64"/>
+          <char
+            name="species"
+            label="Species"
+            description="MO term for Species"
+            required="true"
+            size="64"/>
+          <char
+            name="lifeStage"
+            label="Life Stage"
+            description="MO term for Life Stage"
+            required="true"
+            size="64"/>
+          <virtual
+            concrete="synergist"
+            type="dss.vector.solutions.entomology.TimeResponseAssay" />
+          <virtual
+            concrete="testStrainResult"
+            type="dss.vector.solutions.entomology.TimeResponseAssay" />
+          <virtual
+            concrete="referenceStrainResult"
+            type="dss.vector.solutions.entomology.TimeResponseAssay" />
+        </attributes>
+      </mdView>
+    </create>
+    <update>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.DiagnosticAssayExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.TimeResponseAssayExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>
