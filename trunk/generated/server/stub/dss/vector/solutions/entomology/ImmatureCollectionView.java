@@ -31,7 +31,11 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
   {
     if (concrete != null)
     {
-      this.setConcreteId(concrete.getId());
+      String cid = concrete.getId();
+      if (!cid.equals(this.getConcreteId()))
+      {
+        this.setConcreteId(cid);
+      }
       this.setGeoEntity(concrete.getGeoEntity());
       this.setStartDate(concrete.getStartDate());
       this.setEndDate(concrete.getEndDate());
@@ -41,7 +45,11 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
 
     if (premise != null)
     {
-      this.setPremiseId(premise.getId());
+      String pid = premise.getId();
+      if (!pid.equals(this.getPremiseId()))
+      {
+        this.setPremiseId(pid);
+      }
       this.setPremiseType(premise.getPremiseType());
       this.setNumberExamined(premise.getNumberExamined());
       this.setPremiseSize(premise.getPremiseSize());
@@ -50,7 +58,11 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
 
     if (taxon != null)
     {
-      this.setTaxonId(taxon.getId());
+      String tid = taxon.getId();
+      if (!tid.equals(this.getTaxonId()))
+      {
+        this.setTaxonId(tid);
+      }
       this.setTaxon(taxon.getTaxon());
     }
   }
