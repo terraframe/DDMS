@@ -1505,6 +1505,22 @@ created_by: chris
 creation_date: 2010-04-22T11:29:46Z
 
 [Term]
+id: DDSS:0100482
+name: Enter insecticide efficacy bioassay data
+namespace: 
+is_a: DDSS:0100430 ! Assays
+created_by: chris
+creation_date: 2010-04-22T10:15:59Z
+
+[Term]
+id: DDSS:0100484
+name: Query insecticide efficacy bioassays
+namespace: 
+is_a: DDSS:0100430 ! Assays
+created_by: chris
+creation_date: 2010-04-22T10:16:27Z
+
+[Term]
 id: DDSS:0100490
 name: Intervention Planning
 namespace: 
