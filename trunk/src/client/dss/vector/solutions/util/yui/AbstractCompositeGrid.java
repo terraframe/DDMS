@@ -118,15 +118,18 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
       {
         JSONArray data = generators[i].getData();
 
-        try
+        if (data.length() == length)
         {
-          JSONObject _object = data.getJSONObject(j);
+          try
+          {
+            JSONObject _object = data.getJSONObject(j);
 
-          concat(object, _object);
-        }
-        catch (Exception e)
-        {
-          throw new ApplicationException(e);
+            concat(object, _object);
+          }
+          catch (Exception e)
+          {
+            throw new ApplicationException(e);
+          }
         }
 
       }
@@ -158,7 +161,6 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
       throw new ApplicationException(e);
     }
   }
-  
 
   @Override
   public List<String> getDefaultValuesAsList()
@@ -174,7 +176,7 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
 
     return defaults;
   }
-  
+
   @Override
   protected List<String> getDropDownOptions()
   {

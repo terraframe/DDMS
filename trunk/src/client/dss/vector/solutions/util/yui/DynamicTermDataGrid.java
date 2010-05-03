@@ -51,7 +51,10 @@ public class DynamicTermDataGrid extends AbstractCompositeGrid implements Reload
 
     List<String> sub = super.getColumns();
 
-    columns.add("{label:\"" + label + "\", children:[" + Halp.join(sub, ",") + "]}");
+    if(sub.size() > 0)
+    {
+      columns.add("{label:\"" + label + "\", children:[" + Halp.join(sub, ",") + "]}");
+    }
 
     return columns;
   }
