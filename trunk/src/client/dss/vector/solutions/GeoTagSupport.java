@@ -52,6 +52,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   private Boolean                spray;
 
   /**
+   * Flag indicating if this fields should restrict by urban universals
+   */
+  private Boolean                urban;
+
+  /**
    * List of additional accepted universals
    */
   private List<String>           universals;
@@ -73,10 +78,13 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
 
   private String                 filter;
 
+  private String                 listener;
+
   private List<FilterTagSupport> radioFilters;
-  
+
   /**
-   * Flag denoting if searching on this geo tag should enforce the system geo root
+   * Flag denoting if searching on this geo tag should enforce the system geo
+   * root
    */
   private Boolean                enforceRoot;
 
@@ -85,6 +93,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.political = true;
     this.populated = false;
     this.spray = false;
+    this.urban = false;
     this.concrete = true;
     this.enforceRoot = true;
     this.universals = new LinkedList<String>();
@@ -133,6 +142,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   public void setSpray(Boolean spray)
   {
     this.spray = spray;
+  }
+
+  @AttributeAnnotation(rtexprvalue = true, description = "Flag indicating if this fields should restrict by urban universals")
+  public Boolean getUrban()
+  {
+    return urban;
+  }
+
+  public void setUrban(Boolean urban)
+  {
+    this.urban = urban;
   }
 
   @AttributeAnnotation(rtexprvalue = true, description = "Flag indicating if this fields should restrict by populated universals")
@@ -205,7 +225,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   {
     this.radioFilters.add(tag);
   }
-  
+
   @AttributeAnnotation(rtexprvalue = true, required = false, description = "Flag denoting if the searching on this geo tag should use the global geo root")
   public Boolean getEnforceRoot()
   {
@@ -215,6 +235,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   public void setEnforceRoot(Boolean enforceRoot)
   {
     this.enforceRoot = enforceRoot;
+  }
+
+  @AttributeAnnotation(rtexprvalue = false, required = false, description = "Java-script selection listener function")
+  public String getListener()
+  {
+    return listener;
+  }
+
+  public void setListener(String listener)
+  {
+    this.listener = listener;
   }
 
   private Set<String> getExtraUniversals()
@@ -333,6 +364,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
 
     out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
 
+    if(this.listener != null)
+    {      
+      out.write("    geoSearch.addListener(" + this.listener + ");\n");
+    }
+    
     this.writeFilterTags(out);
 
     out.write("  })\n");
@@ -352,6 +388,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    selectSearch.setPolitical(" + this.getPolitical() + ");\n");
     out.write("    selectSearch.setPopulated(" + this.getPopulated() + ");\n");
     out.write("    selectSearch.setSprayTargetAllowed(" + this.getSpray() + ");\n");
+    out.write("    selectSearch.setUrban(" + this.getUrban() + ");\n");
 
     for (String universal : _universals)
     {

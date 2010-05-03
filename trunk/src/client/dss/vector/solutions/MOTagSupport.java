@@ -152,7 +152,7 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
     try
     {
       // Generate mojo form tags
-      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class, GeoTagSupport.class, FilterTagSupport.class }, "MDSS lib").generate();
+      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class, GeoTagSupport.class, FilterTagSupport.class }, "MDSS").generate();
     }
     catch (IOException e)
     {

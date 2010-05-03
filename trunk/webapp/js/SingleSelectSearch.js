@@ -113,7 +113,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
         onValidGeoEntitySelected();
       }
       
-      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{}));
+      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected}));
     },
     
     addListener : function(listener)
@@ -227,6 +227,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     
     initialize : function(geoInput, selectSearch)
     {
+      this._listeners = [];
       this._selectSearch = selectSearch || null; // 101 widget reference
       
       this._geoInput = Mojo.Util.isString(geoInput) ? document.getElementById(geoInput) : geoInput;
@@ -301,7 +302,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       if(this._selectSearch != null)
       {
         this._selectSearch.addListener(this);
-      }
+      }      
     },
     
     _clickHandler : function(e)
@@ -377,7 +378,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       handler(geoEntityId, true);
       
-      this._validateSelection();
+      this._validateSelection(selected);      
     },
     
     _searchFunction : function(request, value)
@@ -394,22 +395,27 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         var political = this._selectSearch.getPolitical();
         var populated = this._selectSearch.getPopulated();
         var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
-        var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
+        var urban = this._selectSearch.getUrban();
+
+        var parameters = [political, populated, sprayTarget, urban].concat(this._selectSearch.getExtraUniversals());
         
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, enforceRoot);
       }
     },
     
-    _getValidationRequest : function()
+    _getValidationRequest : function(selected)
     {
       var request = new MDSS.Request({
         that : this,
+        selected : selected,
         onSend : function(){}, 
         onComplete : function(){},        
         onFailure : function(e){          
           MDSS.Calendar.removeError(this.that._opener);
           
           MDSS.Calendar.addError(this.that._opener, e.getMessage());
+          
+          this.that.fireEvent(new MDSS.Event(MDSS.Event.AFTER_INVALID_SELECTION, {selected:selected}));
         },
         onProblemExceptionDTO : function(e){
           MDSS.Calendar.removeError(this.that._opener);
@@ -419,9 +425,13 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
             var problem = problems[i];
             MDSS.Calendar.addError(this.that._opener, problem.getMessage());
           }
+          
+          this.that.fireEvent(new MDSS.Event(MDSS.Event.AFTER_INVALID_SELECTION, {selected:selected}));
         },
         onSuccess : function() {
           MDSS.Calendar.removeError(this.that._opener);
+          
+          this.that.fireEvent(new MDSS.Event(MDSS.Event.AFTER_VALID_SELECTION, {selected:selected}));
         }            
       });
         
@@ -445,13 +455,13 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       }    
     },
     
-    _validateSelection : function()
+    _validateSelection : function(selected)
     {
       var geoId = this._geoInput.value;
       
       if(Mojo.Util.isString(geoId) && geoId != '')
       {
-        var request = this._getValidationRequest();
+        var request = this._getValidationRequest(selected);
         
         this._validator(request, geoId);
       }
@@ -470,7 +480,9 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
         var political = this._selectSearch.getPolitical();
         var populated = this._selectSearch.getPopulated();
         var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
-        var parameters = [political, populated, sprayTarget].concat(this._selectSearch.getExtraUniversals());
+        var urban = this._selectSearch.getUrban();
+        
+        var parameters = [political, populated, sprayTarget, urban].concat(this._selectSearch.getExtraUniversals());
            
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
       }    
@@ -515,7 +527,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     {
       if(event.getType() == MDSS.Event.AFTER_SELECTION)
       {
-        this._validateSelection();
+        this._validateSelection(event.getValue().selected);
       }
     },
     
@@ -526,7 +538,21 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       }
       
       this._genericSearch.resetCache();
+    },
+    
+    addListener : function(listener) 
+    {
+      this._listeners.push(listener);
+    },
+    
+    fireEvent : function(event)
+    {
+      for(var i = 0; i < this._listeners.length; i++)
+      {
+        this._listeners[i](event);
+      }    
     }
+
     
     /*
     _checkManualEntry : function(e)

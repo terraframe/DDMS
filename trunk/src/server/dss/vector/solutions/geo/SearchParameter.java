@@ -32,6 +32,11 @@ public class SearchParameter implements Reloadable
   private boolean populated;
 
   /**
+   * Flag denoting if the search should restrict by urban hierarchies
+   */
+  private boolean urban;
+
+  /**
    * Flag denoting if the search should get the ancestors or decendants
    */
   private boolean ancestor;
@@ -43,14 +48,15 @@ public class SearchParameter implements Reloadable
 
   public SearchParameter()
   {
-    this(false, false, false, false, false);
+    this(false, false, false, false, false, false);
   }
 
-  public SearchParameter(boolean political, boolean spray, boolean populated, boolean ancestor, boolean first)
+  public SearchParameter(boolean political, boolean spray, boolean populated, boolean urban, boolean ancestor, boolean first)
   {
     this.political = political;
     this.spray = spray;
     this.populated = populated;
+    this.urban = urban;
     this.ancestor = ancestor;
     this.first = first;
   }
@@ -105,6 +111,16 @@ public class SearchParameter implements Reloadable
     this.first = first;
   }
 
+  public boolean isUrban()
+  {
+    return urban;
+  }
+
+  public void setUrban(boolean urban)
+  {
+    this.urban = urban;
+  }
+
   public List<GeoHierarchy> getHierarchies(GeoHierarchy hierarchy)
   {
     if (this.isAncestor())
@@ -117,24 +133,25 @@ public class SearchParameter implements Reloadable
 
   /**
    * Validates that the given GeoHierarchy meets the SearchParameter criteria
-   * only on hierarchy flags (Political, Spray Targets) and any modifier flags (Populated).
+   * only on hierarchy flags (Political, Spray Targets) and any modifier flags
+   * (Populated).
    * 
    * @param hierarchy
    * @return
    */
   public boolean validateFlagsAndModifiers(GeoHierarchy hierarchy)
-  {    
+  {
     if (this.isPopulated() && !hierarchy.getPopulationAllowed())
     {
       return false;
     }
-    
+
     return this.validateFlags(hierarchy);
   }
-  
+
   /**
    * Validates that the given GeoHierarchy meets the SearchParameter criteria
-   * only on hierarchy flags (Political, Spray Targets).  However, it does not
+   * only on hierarchy flags (Political, Spray Targets). However, it does not
    * check any modifier flags (Populated).
    * 
    * @param hierarchy
@@ -151,14 +168,19 @@ public class SearchParameter implements Reloadable
     {
       return false;
     }
-    
+
+    if (hierarchy.getUrban() == null || (this.isUrban() && !hierarchy.getUrban()))
+    {
+      return false;
+    }
+
     return true;
   }
 
   public AllPathsQuery getPathsQuery(QueryFactory factory, GeoEntity entity)
   {
     AllPathsQuery query = new AllPathsQuery(factory);
-    
+
     Condition[] array = this.getUniversalConditions(entity, query);
 
     if (this.isAncestor())
@@ -178,7 +200,7 @@ public class SearchParameter implements Reloadable
     List<Condition> conditions = new LinkedList<Condition>();
 
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(entity, this);
-    
+
     for (GeoHierarchyView view : views)
     {
       MdClass mdClass = MdClass.getMdClass(view.getGeneratedType());
@@ -193,9 +215,9 @@ public class SearchParameter implements Reloadable
       }
 
     }
-    
+
     // No hierarchy values are valid so just default to earth
-    if(conditions.size() == 0)
+    if (conditions.size() == 0)
     {
       MdClass mdClass = MdClass.getMdClass(Earth.CLASS);
 
@@ -206,9 +228,9 @@ public class SearchParameter implements Reloadable
       else
       {
         conditions.add(query.getChildUniversal().EQ(mdClass));
-      }      
+      }
     }
-    
+
     return conditions.toArray(new Condition[conditions.size()]);
   }
 

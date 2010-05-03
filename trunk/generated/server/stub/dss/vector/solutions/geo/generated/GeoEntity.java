@@ -65,7 +65,6 @@ import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.util.IdParser;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
 
 import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
@@ -299,8 +298,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     boolean political = Boolean.parseBoolean(filter[0]);
     boolean populated = Boolean.parseBoolean(filter[1]);
     boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+    boolean urban = Boolean.parseBoolean(filter[3]);
 
-    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);
+    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, urban, false, false);
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
     for (GeoHierarchyView view : views)
@@ -353,6 +353,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    * @param filter
    *          [2] = spray Target
    * @param filter
+   *          [3] = urban
+   * @param filter
    *          [..] = extra universals
    * @return
    */
@@ -373,8 +375,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     boolean political = Boolean.parseBoolean(filter[0]);
     boolean populated = Boolean.parseBoolean(filter[1]);
     boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+    boolean urban = Boolean.parseBoolean(filter[3]);
 
-    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, false, false);
+    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, urban, false, false);
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
     SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
@@ -868,7 +871,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getPoliticalChildren()
   {
-    return this.getFamily(new SearchParameter(true, false, false, false, true));
+    return this.getFamily(new SearchParameter(true, false, false, false, false, true));
   }
 
   /**
@@ -876,7 +879,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getPoliticalAncestors()
   {
-    return this.getFamily(new SearchParameter(true, false, false, true, false));
+    return this.getFamily(new SearchParameter(true, false, false, false, true, false));
   }
 
   /**
@@ -884,7 +887,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntityQuery getPoliticalDecendants(QueryFactory factory)
   {
-    return this.getFamily(factory, new SearchParameter(true, false, false, false, false));
+    return this.getFamily(factory, new SearchParameter(true, false, false, false, false, false));
   }
 
   /**
@@ -892,7 +895,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntityQuery getAllDecendants(QueryFactory factory)
   {
-    return this.getFamily(factory, new SearchParameter(false, false, false, false, false));
+    return this.getFamily(factory, new SearchParameter(false, false, false, false, false, false));
   }
 
   /**
@@ -900,7 +903,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntityQuery getPopulationDecendants(QueryFactory factory)
   {
-    return this.getFamily(factory, new SearchParameter(true, false, true, false, false));
+    return this.getFamily(factory, new SearchParameter(true, false, true, false, false, false));
   }
 
   public GeoEntity[] getImmediateSprayChildren()
@@ -914,7 +917,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getSprayChildren()
   {
-    return this.getFamily(new SearchParameter(false, true, false, false, true));
+    return this.getFamily(new SearchParameter(false, true, false, false, false, true));
   }
 
   /**
@@ -922,7 +925,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getSprayAncestors()
   {
-    return this.getFamily(new SearchParameter(false, true, false, true, false));
+    return this.getFamily(new SearchParameter(false, true, false, false, true, false));
   }
 
   /**
@@ -931,7 +934,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getPopulationChildren()
   {
-    return this.getFamily(new SearchParameter(true, false, true, false, true));
+    return this.getFamily(new SearchParameter(true, false, true, false, false, true));
   }
 
   /**
@@ -940,7 +943,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public GeoEntity[] getPopulationAncestors()
   {
-    return this.getFamily(new SearchParameter(true, false, true, true, false));
+    return this.getFamily(new SearchParameter(true, false, true, false, true, false));
   }
 
   /**

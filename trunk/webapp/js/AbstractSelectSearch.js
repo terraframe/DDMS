@@ -53,6 +53,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._populated = false;
   
       this._sprayTargetAllowed = false;
+      
+      this._urban = false;
 
       // must be set before instantiating a subclass.
       this._extraUniversals = [],
@@ -165,8 +167,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      */
     eventHandler : function(e) {
       if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
-    	var autocomplete = e.getValue().autocomplete;
-    	
+    var autocomplete = e.getValue().autocomplete;
+    
         var searchedId = autocomplete.getDisplayElement().id;
           
         // When a new value is inputed we want to hide all
@@ -178,7 +180,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
           if(searchedId != elementId) {
             element.hide();
           }
-        }    	  
+        }      
       }
     },
     
@@ -281,6 +283,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       });
   
       var method = this._getControllerAction();
+//      method(request, MDSS.SelectSearchRootId, this.getPolitical(), this.getSprayTargetAllowed(), this.getUrban(), this.getExtraUniversals());
       method(request, MDSS.SelectSearchRootId, this.getPolitical(), this.getSprayTargetAllowed(), this.getExtraUniversals());
     },
   
@@ -450,6 +453,16 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     getSprayTargetAllowed : function()
     {
       return this._sprayTargetAllowed;
+    },
+    
+    setUrban : function(urban)
+    {
+      this._urban = urban;
+    },
+    
+    getUrban : function()
+    {
+      return this._urban;
     },
     
     addExtraUniversal : function(universal)
