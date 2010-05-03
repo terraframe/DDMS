@@ -40,7 +40,7 @@
 		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
 		
-	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
@@ -327,32 +327,19 @@
     </java>    	
  	</target>
 
-
 	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
-			<jvmarg value="-Dmojo.keepSource=true" />
-			<!--
-			<jvmarg value="-Dmojo.skipCodeGenAndCompile=true" />
-			-->
-<!--
-			<jvmarg value="-Xdebug" />
-			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y" />
--->
-
+			<jvmarg value="-XX:MaxPermSize=256M" />
 			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" ></pathelement>
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="-Droot.db=${root.db}" />
-
 			<arg value="rebuild_db" />
-<!--
-			<arg value="delete_generated_base" />
--->
 			<arg value="rebuild_model" />
 			<arg value="install_db_procedures" />
 		</java>
@@ -781,3 +768,4 @@
 		<copy file="../../../webapp/imgs/flags/${geodata.db}.gif" tofile="../../../webapp/imgs/flags/current" overwrite="true" />
 	</target>
 </project>
+
