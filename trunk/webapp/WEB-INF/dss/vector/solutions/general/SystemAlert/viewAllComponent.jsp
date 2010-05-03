@@ -10,7 +10,23 @@
 	<mjl:context
 		action="dss.vector.solutions.general.SystemAlertController.viewPage.mojo" />
 	<mjl:columns>
-		<mjl:attributeColumn attributeName="displayName">
+		<mjl:attributeColumn attributeName="alertType">
+			<mjl:row>
+				<ul>
+					<c:forEach items="${item.alertTypeEnumNames}" var="enumName">
+						<li> ${item.alertTypeMd.enumItems[enumName]} </li>
+					</c:forEach>
+				</ul>
+			</mjl:row>
+		</mjl:attributeColumn>
+		<mjl:attributeColumn attributeName="disease">
+			<mjl:row>
+				<ul>
+					<c:forEach items="${item.diseaseEnumNames}" var="enumName">
+						<li> ${item.diseaseMd.enumItems[enumName]} </li>
+					</c:forEach>
+				</ul>
+			</mjl:row>
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isOnscreenActive">
 		</mjl:attributeColumn>

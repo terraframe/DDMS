@@ -10,6 +10,9 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
+import com.runwaysdk.query.QueryFactory;
 
 public class SystemAlert extends SystemAlertBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1254672710;
@@ -17,13 +20,33 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 	public SystemAlert() {
 		super();
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return this.getDisplayName().toString();
+	
+	
+	@Transaction
+	public static SystemAlert getAlert(SystemAlertType type) {
+		return getAlert(DiseaseWrapper.getDisease(), type);
 	}
+	
+	@Transaction
+	public static SystemAlert getAlert(Disease disease, SystemAlertType type) {
+		SystemAlert alert = null;
+		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
+		q.WHERE(q.getAlertType().containsExactly(type));
+		q.WHERE(OR.get(q.getDisease().containsExactly(disease), q.getDisease().EQ(null)));
+		q.ORDER_BY_DESC(q.getDisease().getEnumName());
+		OIterator<? extends SystemAlert> it = q.getIterator();
 
+		try {
+			if (it.hasNext()) {
+				alert =  (SystemAlert) it.next();
+			}
+		} finally {
+			it.close();
+		}
+		
+		return alert;
+	}
+	
 	@Transaction
 	public boolean sendEmail(Map<String,Object> data) {
 		boolean sent = false;

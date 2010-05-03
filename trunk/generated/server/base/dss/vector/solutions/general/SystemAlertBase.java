@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2037115048)
+@com.runwaysdk.business.ClassSignature(hash = -1278863243)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,19 +11,15 @@ package dss.vector.solutions.general;
 public abstract class SystemAlertBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
+  public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DISPLAYNAME = "displayName";
-  private com.runwaysdk.business.Struct displayName = null;
-  
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
   public static java.lang.String EMAILSUBJECT = "emailSubject";
-  public static java.lang.String EMAILTEMPLATEVARIABLES = "emailTemplateVariables";
-  private com.runwaysdk.business.Struct emailTemplateVariables = null;
-  
   public static java.lang.String EMAILTOADDRESSES = "emailToAddresses";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -37,13 +33,49 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2037115048;
+  private static final long serialVersionUID = -1278863243;
   
   public SystemAlertBase()
   {
     super();
-    displayName = super.getStruct("displayName");
-    emailTemplateVariables = super.getStruct("emailTemplateVariables");
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.SystemAlertType> getAlertType()
+  {
+    return (java.util.List<dss.vector.solutions.general.SystemAlertType>) getEnumValues(ALERTTYPE);
+  }
+  
+  public void addAlertType(dss.vector.solutions.general.SystemAlertType value)
+  {
+    if(value != null)
+    {
+      addEnumItem(ALERTTYPE, value.getId());
+    }
+  }
+  
+  public void removeAlertType(dss.vector.solutions.general.SystemAlertType value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(ALERTTYPE, value.getId());
+    }
+  }
+  
+  public void clearAlertType()
+  {
+    clearEnum(ALERTTYPE);
+  }
+  
+  public void validateAlertType()
+  {
+    this.validateAttribute(ALERTTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
+    return mdClassIF.definesAttribute(ALERTTYPE);
   }
   
   public java.util.Date getCreateDate()
@@ -85,20 +117,42 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
-  public dss.vector.solutions.general.SystemAlertDisplayName getDisplayName()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
   {
-    return (dss.vector.solutions.general.SystemAlertDisplayName) displayName;
+    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
   }
   
-  public void validateDisplayName()
+  public void addDisease(dss.vector.solutions.general.Disease value)
   {
-    this.validateAttribute(DISPLAYNAME);
+    if(value != null)
+    {
+      addEnumItem(DISEASE, value.getId());
+    }
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayNameMd()
+  public void removeDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(DISEASE, value.getId());
+    }
+  }
+  
+  public void clearDisease()
+  {
+    clearEnum(DISEASE);
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYNAME);
+    return mdClassIF.definesAttribute(DISEASE);
   }
   
   public String getEmailBccAddresses()
@@ -239,22 +293,6 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     {
       setValue(EMAILSUBJECT, value);
     }
-  }
-  
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariables getEmailTemplateVariables()
-  {
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariables) emailTemplateVariables;
-  }
-  
-  public void validateEmailTemplateVariables()
-  {
-    this.validateAttribute(EMAILTEMPLATEVARIABLES);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailTemplateVariablesMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILTEMPLATEVARIABLES);
   }
   
   public String getEmailToAddresses()

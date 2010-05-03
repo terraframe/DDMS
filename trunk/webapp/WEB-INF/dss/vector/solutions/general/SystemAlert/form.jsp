@@ -28,11 +28,8 @@
     <mjl:input param="emailSubject" type="text" />
   </mjl:dt>
   <mjl:dt attribute="emailBody">
-    <mjl:textarea param="emailBody" rows="5"/>
+    <mjl:textarea param="emailBody" rows="5" />
+    <i><b>${templateVariables}:</b> ${master.emailTemplateVariables}</i>
   </mjl:dt>
-  <mjl:dt attribute="emailTemplateVariables">
-    <mjl:struct param="emailTemplateVariables">
-        ${item.emailTemplateVariables}
-    </mjl:struct>
-  </mjl:dt>
+
 </mjl:component>

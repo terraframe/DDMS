@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -144030248)
+@com.runwaysdk.business.ClassSignature(hash = -857209099)
 public abstract class SystemAlertDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = -144030248;
+  private static final long serialVersionUID = -857209099;
   
   protected SystemAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,15 +27,15 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     return CLASS;
   }
   
+  public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DISPLAYNAME = "displayName";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
   public static java.lang.String EMAILSUBJECT = "emailSubject";
-  public static java.lang.String EMAILTEMPLATEVARIABLES = "emailTemplateVariables";
   public static java.lang.String EMAILTOADDRESSES = "emailToAddresses";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -49,6 +49,52 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.SystemAlertTypeDTO> getAlertType()
+  {
+    return (java.util.List<dss.vector.solutions.general.SystemAlertTypeDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.SystemAlertTypeDTO.CLASS, getEnumNames(ALERTTYPE));
+  }
+  
+  public java.util.List<String> getAlertTypeEnumNames()
+  {
+    return getEnumNames(ALERTTYPE);
+  }
+  
+  public void addAlertType(dss.vector.solutions.general.SystemAlertTypeDTO enumDTO)
+  {
+    addEnumItem(ALERTTYPE, enumDTO.toString());
+  }
+  
+  public void removeAlertType(dss.vector.solutions.general.SystemAlertTypeDTO enumDTO)
+  {
+    removeEnumItem(ALERTTYPE, enumDTO.toString());
+  }
+  
+  public void clearAlertType()
+  {
+    clearEnum(ALERTTYPE);
+  }
+  
+  public boolean isAlertTypeWritable()
+  {
+    return isWritable(ALERTTYPE);
+  }
+  
+  public boolean isAlertTypeReadable()
+  {
+    return isReadable(ALERTTYPE);
+  }
+  
+  public boolean isAlertTypeModified()
+  {
+    return isModified(ALERTTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getAlertTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(ALERTTYPE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -106,29 +152,50 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.general.SystemAlertDisplayNameDTO getDisplayName()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.DiseaseDTO> getDisease()
   {
-    return (dss.vector.solutions.general.SystemAlertDisplayNameDTO) this.getAttributeStructDTO(DISPLAYNAME).getStructDTO();
+    return (java.util.List<dss.vector.solutions.general.DiseaseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.DiseaseDTO.CLASS, getEnumNames(DISEASE));
   }
   
-  public boolean isDisplayNameWritable()
+  public java.util.List<String> getDiseaseEnumNames()
   {
-    return isWritable(DISPLAYNAME);
+    return getEnumNames(DISEASE);
   }
   
-  public boolean isDisplayNameReadable()
+  public void addDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
   {
-    return isReadable(DISPLAYNAME);
+    addEnumItem(DISEASE, enumDTO.toString());
   }
   
-  public boolean isDisplayNameModified()
+  public void removeDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
   {
-    return isModified(DISPLAYNAME);
+    removeEnumItem(DISEASE, enumDTO.toString());
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeStructMdDTO getDisplayNameMd()
+  public void clearDisease()
   {
-    return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(DISPLAYNAME).getAttributeMdDTO();
+    clearEnum(DISEASE);
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getEmailBccAddresses()
@@ -314,31 +381,6 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEmailSubjectMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EMAILSUBJECT).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesDTO getEmailTemplateVariables()
-  {
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesDTO) this.getAttributeStructDTO(EMAILTEMPLATEVARIABLES).getStructDTO();
-  }
-  
-  public boolean isEmailTemplateVariablesWritable()
-  {
-    return isWritable(EMAILTEMPLATEVARIABLES);
-  }
-  
-  public boolean isEmailTemplateVariablesReadable()
-  {
-    return isReadable(EMAILTEMPLATEVARIABLES);
-  }
-  
-  public boolean isEmailTemplateVariablesModified()
-  {
-    return isModified(EMAILTEMPLATEVARIABLES);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeStructMdDTO getEmailTemplateVariablesMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(EMAILTEMPLATEVARIABLES).getAttributeMdDTO();
   }
   
   public String getEmailToAddresses()

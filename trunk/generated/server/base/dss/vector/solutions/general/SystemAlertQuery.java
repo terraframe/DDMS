@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1442377023)
+@com.runwaysdk.business.ClassSignature(hash = 67505502)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class SystemAlertQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1442377023;
+private static final long serialVersionUID = 67505502;
 
   public SystemAlertQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -38,6 +38,29 @@ private static final long serialVersionUID = -1442377023;
   public String getClassType()
   {
     return dss.vector.solutions.general.SystemAlert.CLASS;
+  }
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType()
+  {
+    return getAlertType(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("alertType");
+
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.getComponentQuery().internalAttributeFactory("alertType", mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("alertType");
+
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.getComponentQuery().internalAttributeFactory("alertType", mdAttributeIF, this, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -79,27 +102,27 @@ private static final long serialVersionUID = -1442377023;
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName()
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease()
   {
-    return getDisplayName(null);
+    return getDisease(null);
 
   }
  
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias)
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.DISPLAYNAME);
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("disease");
 
-    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, mdAttributeIF, this, alias, null);
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getComponentQuery().internalAttributeFactory("disease", mdAttributeIF, this, alias, null);
 
   }
  
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel)
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.DISPLAYNAME);
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("disease");
 
-    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, mdAttributeIF, this, alias, displayLabel);
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getComponentQuery().internalAttributeFactory("disease", mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailBccAddresses()
@@ -185,29 +208,6 @@ private static final long serialVersionUID = -1442377023;
   public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables()
-  {
-    return getEmailTemplateVariables(null);
-
-  }
- 
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES);
-
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES);
-
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailToAddresses()
@@ -486,17 +486,17 @@ private static final long serialVersionUID = -1442377023;
     }
   }
 
-  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.general.SystemAlert.DISPLAYNAME)) 
+    if (name.equals("alertType")) 
     {
-       return new dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
+    else if (name.equals("disease")) 
     {
-       return new dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -537,15 +537,18 @@ private static final long serialVersionUID = -1442377023;
   public interface SystemAlertQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType();
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias);
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName();
-    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias);
-    public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel);
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease();
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias);
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses();
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias);
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias, String displayLabel);
@@ -561,9 +564,6 @@ private static final long serialVersionUID = -1442377023;
     public com.runwaysdk.query.SelectableChar getEmailSubject();
     public com.runwaysdk.query.SelectableChar getEmailSubject(String alias);
     public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel);
-    public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables();
-    public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias);
-    public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getEmailToAddresses();
     public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias);
     public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias, String displayLabel);
@@ -618,7 +618,7 @@ private static final long serialVersionUID = -1442377023;
  implements SystemAlertQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 155756515;
+private static final long serialVersionUID = -1232220800;
 
   public SystemAlertQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -637,6 +637,23 @@ private static final long serialVersionUID = 155756515;
       return this.NE(systemAlert.getId());
     }
 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType()
+  {
+    return getAlertType(null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.get(dss.vector.solutions.general.SystemAlert.ALERTTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF getAlertType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQueryIF)this.get(dss.vector.solutions.general.SystemAlert.ALERTTYPE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -671,21 +688,21 @@ private static final long serialVersionUID = 155756515;
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemAlert.CREATEDBY,  alias, displayLabel);
 
   }
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName()
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease()
   {
-    return getDisplayName(null);
+    return getDisease(null);
 
   }
  
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias)
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias)
   {
-    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.get(dss.vector.solutions.general.SystemAlert.DISEASE, alias, null);
 
   }
  
-  public dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF getDisplayName(String alias, String displayLabel)
+  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.DISPLAYNAME, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
+    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.get(dss.vector.solutions.general.SystemAlert.DISEASE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailBccAddresses()
@@ -771,23 +788,6 @@ private static final long serialVersionUID = 155756515;
   public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables()
-  {
-    return getEmailTemplateVariables(null);
-
-  }
- 
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias)
-  {
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
-
-  }
- 
-  public dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF getEmailTemplateVariables(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailToAddresses()
@@ -1042,17 +1042,17 @@ private static final long serialVersionUID = 155756515;
     }
   }
 
-  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.general.SystemAlert.DISPLAYNAME)) 
+    if (name.equals("alertType")) 
     {
-       return new dss.vector.solutions.general.SystemAlertDisplayNameQuery.SystemAlertDisplayNameQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.general.SystemAlertTypeMasterQuery.SystemAlertTypeQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILTEMPLATEVARIABLES)) 
+    else if (name.equals("disease")) 
     {
-       return new dss.vector.solutions.general.SystemAlertEmailTemplateVariablesQuery.SystemAlertEmailTemplateVariablesQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
