@@ -6,8 +6,10 @@ import junit.framework.TestCase;
 
 import com.runwaysdk.session.StartSession;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Email;
 import dss.vector.solutions.general.SystemAlert;
+import dss.vector.solutions.general.SystemAlertType;
 
 public class EmailTest extends TestCase {
 	protected void setUp() throws Exception {
@@ -73,7 +75,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.getByKey("PoliticalOutbreakNotification");
+		SystemAlert alert = SystemAlert.get(Disease.MALARIA, SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION);
 		if (!alert.sendEmail(data)) {
 			fail();
 		}
@@ -87,7 +89,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.getByKey("PoliticalOutbreakIdentification");
+		SystemAlert alert = SystemAlert.get(Disease.MALARIA, SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION);
 		if (!alert.sendEmail(data)) {
 			fail();
 		}
@@ -95,7 +97,7 @@ public class EmailTest extends TestCase {
 	
 	@StartSession
 	public void testSendAll() {
-		Email email = new Email("mdsstest@gmail.com", "chris@reigrut.net", "Test Subject " + System.currentTimeMillis(), "This is a test of resending a " + "plain text e-mail through the configured server from Java.\n" + "Here is line 2.");
+		Email email = new Email("mdsstest@gmail.com", "mdsstest@gmail.com", "Test Subject " + System.currentTimeMillis(), "This is a test of resending a " + "plain text e-mail through the configured server from Java.\n" + "Here is line 2.");
 		email.apply(); // Save the email
 		Email.sendAll();
 	}
