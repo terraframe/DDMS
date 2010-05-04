@@ -6,7 +6,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.ImmatureThreshold"
         label="Configure thresholds for collection of immatures by container type"
-        generateController="true">
+        generateController="true"
+        cacheAlgorithm="everything">
         <attributes>
           <char
             name="thresholdIndex"
