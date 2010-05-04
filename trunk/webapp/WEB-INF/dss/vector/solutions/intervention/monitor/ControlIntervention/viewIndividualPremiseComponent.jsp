@@ -9,9 +9,9 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodViewDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-
-<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="premises_units_visit"  scope="request"/>
+<c:set var="page_title" value="premises_units_visit"  scope="request"/>
 
 <div id="premises"></div>
 
