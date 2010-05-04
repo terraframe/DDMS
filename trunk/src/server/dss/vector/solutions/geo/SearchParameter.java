@@ -169,7 +169,7 @@ public class SearchParameter implements Reloadable
       return false;
     }
 
-    if (hierarchy.getUrban() == null || (this.isUrban() && !hierarchy.getUrban()))
+    if (this.isUrban() && (hierarchy.getUrban() == null || !hierarchy.getUrban()))
     {
       return false;
     }
