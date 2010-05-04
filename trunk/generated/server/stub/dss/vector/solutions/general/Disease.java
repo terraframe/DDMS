@@ -42,7 +42,12 @@ public enum Disease implements com.runwaysdk.business.BusinessEnumeration, com.r
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel().getValue(com.runwaysdk.session.Session.getCurrentLocale());
+    String label = enumeration.getDisplayLabel().getValue(com.runwaysdk.session.Session.getCurrentLocale());
+    // Fix for the 5/4/10 problem where Malaria's display label was blank
+    if (label == null || label.trim().length() == 0) {
+    	label = this.toString();
+    }
+    return label;
   }
   
   public static Disease get(String id)

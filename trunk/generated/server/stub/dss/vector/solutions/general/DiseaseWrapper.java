@@ -210,9 +210,6 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:"+(n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
 		for (Disease disease: Disease.values()) {
 			String label = disease.getDisplayLabel();
-			if (label == null || label.trim().length() == 0) {
-				label = disease.toString();
-			}
 			if (disease.equals(menuDisease)) {
 				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), label, "#"));
 			} else {
