@@ -23,12 +23,12 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 	
 	
 	@Transaction
-	public static SystemAlert getAlert(SystemAlertType type) {
-		return getAlert(DiseaseWrapper.getDisease(), type);
+	public static SystemAlert get(SystemAlertType type) {
+		return get(DiseaseWrapper.getDisease(), type);
 	}
 	
 	@Transaction
-	public static SystemAlert getAlert(Disease disease, SystemAlertType type) {
+	public static SystemAlert get(Disease disease, SystemAlertType type) {
 		SystemAlert alert = null;
 		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
 		q.WHERE(q.getAlertType().containsExactly(type));

@@ -155,7 +155,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
 
 	public void viewAll() throws IOException, ServletException {
 		ClientRequestIF clientRequest = super.getClientRequest();
-		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstances(clientRequest, null, true, 20, 1);
+		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstances(clientRequest, SystemAlertDTO.KEYNAME, true, 20, 1);
 		req.setAttribute("query", query);
 		render("viewAllComponent.jsp");
 	}
