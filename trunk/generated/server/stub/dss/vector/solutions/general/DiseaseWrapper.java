@@ -209,10 +209,14 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 		int n = 6000000;
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:"+(n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
 		for (Disease disease: Disease.values()) {
+			String label = disease.getDisplayLabel();
+			if (label == null || label.trim().length() == 0) {
+				label = disease.toString();
+			}
 			if (disease.equals(menuDisease)) {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), "#"));
+				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), label, "#"));
 			} else {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), disease.getDisplayLabel(), "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease));
+				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease));
 			}
 		}
 		menu.addChild(diseaseSubMenu);
