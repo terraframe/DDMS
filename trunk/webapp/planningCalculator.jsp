@@ -52,9 +52,19 @@ function vmc() {
 function vsic() {
 	calculate("vsic.blocks", "vsic.liters-per-block", undefined, 1000, "vsic.kiloliters");
 }
+
+function checkGTE(field) {
+	if (parseFloat(field.value) < 0) {
+		alert('<fmt:message key="Value_Not_GTE_0" />');
+		setTimeout("document.getElementById('"+field.id+"').focus();",1);
+		setTimeout("document.getElementById('"+field.id+"').select();",1);
+	} 
+}
 </script>
 
 <dl id="planningCalculator">
+	<h2><fmt:message key="Premises_Calculator_Subheading" /></h2>
+      
 	<dt>
 		<label title="<fmt:message key="Premises_Manpower_Calculator"/>"><fmt:message key="Premises_Manpower_Calculator"/></label>
 	</dt>
@@ -67,8 +77,8 @@ function vsic() {
 				<th><fmt:message key="Days_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="pmc.blocks" onkeyup="pmc();" /></td>
-				<td><input type="text" id="pmc.units-per-block" onkeyup="pmc();" /></td>
+				<td><input type="text" id="pmc.blocks" onkeyup="checkGTE(this);pmc();" onblur="" /></td>
+				<td><input class="validate-number" type="text" id="pmc.units-per-block" onkeyup="pmc();" /></td>
 				<td><input type="text" id="pmc.days-per-unit" onkeyup="pmc();" /></td>
 				<td><input type="text" id="pmc.days" disabled="disabled"/></td>
 			</tr>
@@ -134,6 +144,8 @@ function vsic() {
 			</tr>
 		</table>
 	</dd>
+
+	<h2><fmt:message key="Vehicle_Calculator_Subheading" /></h2>
 
 	<dt>
 		<label title="<fmt:message key="Vehicle_Manpower_Calculator"/>"><fmt:message key="Vehicle_Manpower_Calculator"/></label>
