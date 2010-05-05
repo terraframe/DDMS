@@ -170,17 +170,11 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="political"
-            label="political"
-            description="denotes if only political GeoHierarchies should be allowed."
+            name="flags"
+            label="Flags"
+            description="Flags that restrict which GeoHierarchies should be allowed."
             order="1"
-            type="java.lang.Boolean" />
-          <mdParameter
-            name="sprayZoneAllowed"
-            label="Spray Zone Allowed"
-            description="Denotes if only spray zone GeoHierarchies should be allowed."
-            order="2"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean[]" />
           <mdParameter
             name="extraUniversals"
             label="Extra Univerals"
@@ -381,6 +375,17 @@
             concrete="populationAllowed"
             type="dss.vector.solutions.geo.GeoHierarchy" />
         </attributes>
+        <mdMethod
+          name="getUrbanHierarchies"
+          label="Get Urban Hierarchies"
+          returnType="dss.vector.solutions.geo.GeoHierarchyView[]"
+          static="true">
+          <mdParameter
+            name="entityId"
+            label="Entity Id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
       </mdView>
 
       <mdTree
@@ -587,17 +592,11 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="political"
-            label="political"
-            description="denotes if only political GeoHierarchies should be allowed."
+            name="flags"
+            label="Flags"
+            description="Flags that restrict which GeoHierarchies should be allowed."
             order="1"
-            type="java.lang.Boolean" />
-          <mdParameter
-            name="sprayZoneAllowed"
-            label="Spray Zone Allowed"
-            description="Denotes if only spray zone GeoHierarchies should be allowed."
-            order="2"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean[]" />
           <mdParameter
             name="extraUniversals"
             label="Extra Univerals"
@@ -617,17 +616,11 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="political"
-            label="political"
-            description="denotes if only political GeoHierarchies should be allowed."
+            name="flags"
+            label="Flags"
+            description="Flags that restrict which GeoHierarchies should be allowed."
             order="1"
-            type="java.lang.Boolean" />
-          <mdParameter
-            name="sprayZoneAllowed"
-            label="Spray Zone Allowed"
-            description="Denotes if only spray zone GeoHierarchies should be allowed."
-            order="2"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean[]" />
           <mdParameter
             name="extraUniversals"
             label="Extra Univerals"
@@ -2675,44 +2668,18 @@
         <attribute
           name="propertyValidator"
           value="^[0-9]{0,3}$" />
-      <attribute
-       name="validValues"
+        <attribute
+          name="validValues"
           value="0-999" />
         <attribute
           name="description"
           value="The id address space offset or install number, MUST be unique for each server, 0-999" />
       </object>
       <!--
-        <object type="dss.vector.solutions.Property" id="dateFormat">
-        <attribute name="propertyName" value="dateFormat" /> <attribute
-        name="displayLabel" value="Date Format" /> <attribute
-        name="propertyPackage" value="dss.vector.solutions" />
-        <attribute name="propertyValue" value="mm/dd/yyyy" /> <attribute
-        name="propertyType" value="String" /> <attribute
-        name="propertyValidator" value="^[MmDdYy/- ]+$" /> <attribute
-        name="description" value="Date Format For Display" /> <attribute
-        name="validValues" value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
-        </object> <object type="dss.vector.solutions.Property"
-        id="systemDateFormat"> <attribute name="propertyName"
-        value="systemDateFormat" /> <attribute name="displayLabel"
-        value="Date Format" /> <attribute name="propertyPackage"
-        value="dss.vector.solutions" /> <attribute name="propertyValue"
-        value="yyyy-mm-dd" /> <attribute name="propertyType"
-        value="String" /> <attribute name="propertyValidator"
-        value="^yyyy-mm-dd$" /> <attribute name="description"
-        value="Date Format for system date Properties, NOT EDITABLE" />
-        <attribute name="validValues" value="yyyy-mm-dd" /> </object>
-        <object type="dss.vector.solutions.Property"
-        id="dateFormatShort"> <attribute name="propertyName"
-        value="dateFormatShort" /> <attribute name="displayLabel"
-        value="Short Date Format" /> <attribute name="propertyPackage"
-        value="dss.vector.solutions" /> <attribute name="propertyValue"
-        value="mm/yy" /> <attribute name="propertyType" value="String"
-        /> <attribute name="propertyValidator" value="^[MmDdYy/- ]+$" />
-        <attribute name="validValues"
-        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <attribute
-        name="description" value="Short Date Format, should not include
-        year" /> </object>
+        <object type="dss.vector.solutions.Property" id="dateFormat"> <attribute name="propertyName" value="dateFormat" /> <attribute name="displayLabel" value="Date Format" /> <attribute name="propertyPackage" value="dss.vector.solutions" /> <attribute name="propertyValue" value="mm/dd/yyyy" /> <attribute name="propertyType" value="String" /> <attribute name="propertyValidator" value="^[MmDdYy/- ]+$" /> <attribute name="description" value="Date Format For Display" /> <attribute
+        name="validValues" value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> </object> <object type="dss.vector.solutions.Property" id="systemDateFormat"> <attribute name="propertyName" value="systemDateFormat" /> <attribute name="displayLabel" value="Date Format" /> <attribute name="propertyPackage" value="dss.vector.solutions" /> <attribute name="propertyValue" value="yyyy-mm-dd" /> <attribute name="propertyType" value="String" /> <attribute name="propertyValidator" value="^yyyy-mm-dd$" /> <attribute
+        name="description" value="Date Format for system date Properties, NOT EDITABLE" /> <attribute name="validValues" value="yyyy-mm-dd" /> </object> <object type="dss.vector.solutions.Property" id="dateFormatShort"> <attribute name="propertyName" value="dateFormatShort" /> <attribute name="displayLabel" value="Short Date Format" /> <attribute name="propertyPackage" value="dss.vector.solutions" /> <attribute name="propertyValue" value="mm/yy" /> <attribute name="propertyType" value="String"
+        /> <attribute name="propertyValidator" value="^[MmDdYy/- ]+$" /> <attribute name="validValues" value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <attribute name="description" value="Short Date Format, should not include year" /> </object>
       -->
 
 
