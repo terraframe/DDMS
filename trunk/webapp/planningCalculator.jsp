@@ -77,8 +77,8 @@ function checkGTE(field) {
 				<th><fmt:message key="Days_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
-				<td><input type="text" id="pmc.blocks" onkeyup="checkGTE(this);pmc();" onblur="" /></td>
-				<td><input class="validate-number" type="text" id="pmc.units-per-block" onkeyup="pmc();" /></td>
+				<td><input type="text" id="pmc.blocks" onkeyup="pmc();" /></td>
+				<td><input type="text" id="pmc.units-per-block" onkeyup="pmc();" /></td>
 				<td><input type="text" id="pmc.days-per-unit" onkeyup="pmc();" /></td>
 				<td><input type="text" id="pmc.days" disabled="disabled"/></td>
 			</tr>
