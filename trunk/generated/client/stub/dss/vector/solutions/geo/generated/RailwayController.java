@@ -1,27 +1,27 @@
 package dss.vector.solutions.geo.generated;
 
-public class StockDepotController extends StockDepotControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class RailwayController extends RailwayControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/StockDepot/";
+  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/Railway/";
   public static final String LAYOUT = "/layout.jsp";
   
-  private static final long serialVersionUID = -742206791;
+  private static final long serialVersionUID = 1494626340;
   
-  public StockDepotController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public RailwayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void cancel(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
   }
-  public void create(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -37,13 +37,13 @@ public class StockDepotController extends StockDepotControllerBase implements co
       }
     }
   }
-  public void failCreate(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -59,7 +59,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
       }
     }
   }
-  public void failDelete(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
     req.setAttribute("item", dto);
@@ -69,7 +69,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
   {
     try
     {
-      dss.vector.solutions.geo.generated.StockDepotDTO dto = dss.vector.solutions.geo.generated.StockDepotDTO.lock(super.getClientRequest(), id);
+      dss.vector.solutions.geo.generated.RailwayDTO dto = dss.vector.solutions.geo.generated.RailwayDTO.lock(super.getClientRequest(), id);
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
       req.setAttribute("item", dto);
       render("editComponent.jsp");
@@ -92,7 +92,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
     try
     {
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.geo.generated.StockDepotDTO dto = new dss.vector.solutions.geo.generated.StockDepotDTO(clientRequest);
+      dss.vector.solutions.geo.generated.RailwayDTO dto = new dss.vector.solutions.geo.generated.RailwayDTO(clientRequest);
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
       req.setAttribute("item", dto);
       render("createComponent.jsp");
@@ -110,7 +110,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
   {
     this.viewAll();
   }
-  public void update(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -126,7 +126,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
       }
     }
   }
-  public void failUpdate(dss.vector.solutions.geo.generated.StockDepotDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.geo.generated.RailwayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
     req.setAttribute("item", dto);
@@ -140,7 +140,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
       utility.put("id", id);
       utility.checkURL(this.getClass().getSimpleName(), "view");
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-      dss.vector.solutions.geo.generated.StockDepotDTO dto = dss.vector.solutions.geo.generated.StockDepotDTO.get(clientRequest, id);
+      dss.vector.solutions.geo.generated.RailwayDTO dto = dss.vector.solutions.geo.generated.RailwayDTO.get(clientRequest, id);
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.geo.generated.GeoEntityDTO.TERM, dto));
       req.setAttribute("item", dto);
       render("viewComponent.jsp");
@@ -161,7 +161,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.StockDepotQueryDTO query = dss.vector.solutions.geo.generated.StockDepotDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    dss.vector.solutions.geo.generated.RailwayQueryDTO query = dss.vector.solutions.geo.generated.RailwayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -172,7 +172,7 @@ public class StockDepotController extends StockDepotControllerBase implements co
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.geo.generated.StockDepotQueryDTO query = dss.vector.solutions.geo.generated.StockDepotDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    dss.vector.solutions.geo.generated.RailwayQueryDTO query = dss.vector.solutions.geo.generated.RailwayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

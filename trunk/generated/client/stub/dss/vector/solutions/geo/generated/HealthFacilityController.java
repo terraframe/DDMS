@@ -2,8 +2,8 @@ package dss.vector.solutions.geo.generated;
 
 public class HealthFacilityController extends HealthFacilityControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/geo/generated/HealthFacility/";
-  public static final String LAYOUT = "WEB-INF/templates/layout.jsp";
+  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/HealthFacility/";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = -1993267046;
   
