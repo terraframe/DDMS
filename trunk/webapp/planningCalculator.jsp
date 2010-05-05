@@ -22,7 +22,7 @@ function calculate(aName, bName, cName, d, resultName) {
 	var b = bName ? parseFloat(document.getElementById(bName).value) : NaN;
 	var c = cName ? parseFloat(document.getElementById(cName).value) : 1;
 	var result = round(a * b * c / d, 2);
-	if (isNaN(result)) {
+	if (isNaN(result) || a < 0 || b < 0 || c < 0) {
 		document.getElementById(resultName).value = "";
 	} else {
 		document.getElementById(resultName).value = result;
