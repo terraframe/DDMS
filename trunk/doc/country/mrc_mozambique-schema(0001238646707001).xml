@@ -2,7 +2,7 @@
 	xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--
-		Created on Mon Feb 22 16:32:17 MST 2010 from
+		Created on Wed May 05 09:32:05 MDT 2010 from
 		./doc/country/mrc_mozambique-universals.xls
 	-->
 	<doIt>
@@ -188,6 +188,9 @@
 					name="sprayTargetAllowed"
 					value="true" />
 				<attribute
+					name="urban"
+					value="true" />
+				<attribute
 					name="populationAllowed"
 					value="true" />
 				<attributeReference
@@ -203,6 +206,9 @@
 					value="true" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="true" />
+				<attribute
+					name="urban"
 					value="true" />
 				<attribute
 					name="populationAllowed"
@@ -222,6 +228,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -237,6 +246,9 @@
 					value="false" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="urban"
 					value="false" />
 				<attribute
 					name="populationAllowed"
@@ -256,6 +268,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -271,6 +286,9 @@
 					value="true" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="true" />
+				<attribute
+					name="urban"
 					value="true" />
 				<attribute
 					name="populationAllowed"
@@ -290,6 +308,9 @@
 					name="sprayTargetAllowed"
 					value="true" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -306,6 +327,9 @@
 				<attribute
 					name="sprayTargetAllowed"
 					value="true" />
+				<attribute
+					name="urban"
+					value="false" />
 				<attribute
 					name="populationAllowed"
 					value="false" />
@@ -324,6 +348,9 @@
 					name="sprayTargetAllowed"
 					value="true" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -340,6 +367,9 @@
 				<attribute
 					name="sprayTargetAllowed"
 					value="false" />
+				<attribute
+					name="urban"
+					value="true" />
 				<attribute
 					name="populationAllowed"
 					value="false" />
@@ -358,6 +388,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="true" />
+				<attribute
 					name="populationAllowed"
 					value="true" />
 				<attributeReference
@@ -373,6 +406,9 @@
 					value="true" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="true" />
+				<attribute
+					name="urban"
 					value="true" />
 				<attribute
 					name="populationAllowed"
@@ -392,6 +428,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -407,6 +446,9 @@
 					value="false" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="urban"
 					value="false" />
 				<attribute
 					name="populationAllowed"
@@ -426,6 +468,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -441,6 +486,9 @@
 					value="false" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="urban"
 					value="false" />
 				<attribute
 					name="populationAllowed"
@@ -460,6 +508,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -475,6 +526,9 @@
 					value="false" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="urban"
 					value="false" />
 				<attribute
 					name="populationAllowed"
@@ -494,6 +548,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -511,6 +568,9 @@
 					name="sprayTargetAllowed"
 					value="false" />
 				<attribute
+					name="urban"
+					value="false" />
+				<attribute
 					name="populationAllowed"
 					value="false" />
 				<attributeReference
@@ -526,6 +586,9 @@
 					value="false" />
 				<attribute
 					name="sprayTargetAllowed"
+					value="false" />
+				<attribute
+					name="urban"
 					value="false" />
 				<attribute
 					name="populationAllowed"
@@ -702,7 +765,7 @@
 					value="dss.vector.solutions.system.install" />
 				<attribute
 					name="propertyValue"
-					value="1100" />
+					value="000000" />
 				<attribute
 					name="propertyType"
 					value="STRING" />

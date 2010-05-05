@@ -3,21 +3,6 @@
     <create></create>
     <update>
     
-      <mdBusiness
-        name="dss.vector.solutions.geo.GeoHierarchy">
-        <create>
-          <attributes>
-            <boolean
-              name="urban"
-              label="Urban"
-              description="Flag denoting if the universal belongs to the urban hierarchy."
-              positiveLabel="true"
-              negativeLabel="false"
-              defaultValue="false"
-              required="true" />
-          </attributes>
-        </create>
-      </mdBusiness>
       <mdView
         name="dss.vector.solutions.geo.GeoEntityDefinition">
         <create>

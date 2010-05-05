@@ -134,7 +134,16 @@
             description="Spray Target Allowed"
             required="true"
             negativeLabel="No"
-            positiveLabel="Yes" />
+            positiveLabel="Yes"
+            defaultValue="false" />
+          <boolean
+            name="urban"
+            label="Urban"
+            description="Flag denoting if the universal belongs to the urban hierarchy."
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes"
+            defaultValue="false" />
           <boolean
             name="populationAllowed"
             label="Population Allowed"

@@ -103,9 +103,10 @@ public class UniversalImporter {
 				String universalAllowedIn = this.getCellValue(row, 1);
 				boolean political = this.getCellValue(row,2).toUpperCase().equals("Y");
 				boolean sprayTarget = this.getCellValue(row,3).toUpperCase().equals("Y");
-				boolean populationAllowed = this.getCellValue(row,4).toUpperCase().equals("Y");
-				String moRoot = this.getCellValue(row, 5);
-				this.processUniversal(universalName, universalAllowedIn, political, sprayTarget, populationAllowed, moRoot);
+				boolean urban = this.getCellValue(row,4).toUpperCase().equals("Y");
+				boolean populationAllowed = this.getCellValue(row,5).toUpperCase().equals("Y");
+				String moRoot = this.getCellValue(row, 6);
+				this.processUniversal(universalName, universalAllowedIn, political, sprayTarget, urban, populationAllowed, moRoot);
 			}
 			row = sheet.getRow(rowCount++);
 		}
@@ -120,9 +121,9 @@ public class UniversalImporter {
 		return ExcelUtil.getString(row.getCell(col));
 	}
 
-	private void processUniversal(String description, String allowedIn, boolean political, boolean sprayTarget, boolean populationAllowed, String moRoot) {
+	private void processUniversal(String description, String allowedIn, boolean political, boolean sprayTarget, boolean urban, boolean populationAllowed, String moRoot) {
 
-		Universal u = new Universal(description, political, sprayTarget, populationAllowed, moRoot);
+		Universal u = new Universal(description, political, sprayTarget, urban, populationAllowed, moRoot);
 		// System.out.println(u);
 
 		if (this.getUniversal(description) != null) {
