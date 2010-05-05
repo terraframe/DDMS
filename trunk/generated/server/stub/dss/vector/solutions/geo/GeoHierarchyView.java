@@ -57,4 +57,13 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   {
     return MDSSInfo.GENERATED_GEO_PACKAGE + "." + this.getTypeName();
   }
+  
+  public static GeoHierarchyView[] getUrbanHierarchies(java.lang.String geoId)
+  {
+    GeoEntity entity = GeoEntity.get(geoId);
+    SearchParameter parameter = new SearchParameter(false, false, false, true, false, false);
+    
+    return GeoHierarchy.getGeoHierarchiesByType(entity.getType(), parameter);
+  }
+
 }

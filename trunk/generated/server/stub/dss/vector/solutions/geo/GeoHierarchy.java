@@ -73,8 +73,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public static final Integer SRID             = 4326;
 
   private static String       allowedInTree    = null;
-  
-  private static final String THEMATIC_SUFFIX = "_thematic";
+
+  private static final String THEMATIC_SUFFIX  = "_thematic";
 
   // private static Object lockObj = new Object();
 
@@ -82,9 +82,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     super();
   }
-  
-  public static ValueQuery xmlToValueQuery(String xml, String config,
-      Layer layer)
+
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
     JSONObject queryConfig;
     try
@@ -93,24 +92,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
       Iterator<?> keys = selectedUniMap.keys();
       String universalType = (String) keys.next();
-      
+
       // Load the type-specific universal query class
       QueryFactory f = new QueryFactory();
       GeoEntityQuery geoQuery = new GeoEntityQuery(f);
       GeoEntityQuery geoQuery2 = new GeoEntityQuery(f);
-      
+
       // Add the GeoEntity selectables to the ValueQuery
       List<Selectable> selectables = new LinkedList<Selectable>();
-      
+
       selectables.add(geoQuery.getEntityName(GeoEntity.ENTITYNAME));
       selectables.add(geoQuery.getGeoId(GeoEntity.GEOID));
       selectables.add(geoQuery.getType(GeoEntity.TYPE));
 
       // If we're mapping then include the geometry column
-      if(layer != null)
+      if (layer != null)
       {
         Attribute attr;
-        if(layer.getRenderAs().get(0).equals(AllRenderTypes.POINT))
+        if (layer.getRenderAs().get(0).equals(AllRenderTypes.POINT))
         {
           attr = geoQuery.get(GeoEntity.GEOPOINT);
         }
@@ -121,47 +120,49 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
         attr.setUserDefinedAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
         selectables.add(attr);
-        
-        // Look for the thematic variable. The user alias is the name of the attribute
-        if(layer.hasThematicVariable())
+
+        // Look for the thematic variable. The user alias is the name of the
+        // attribute
+        if (layer.hasThematicVariable())
         {
           String thematicUserAlias = layer.getThematicUserAlias();
           Attribute thematic = geoQuery2.get(thematicUserAlias);
-          
-          // Set a user alias that differs from any alias specified on the first geoQuery
+
+          // Set a user alias that differs from any alias specified on the first
+          // geoQuery
           // to avoid an AmbiguousAttributeException.
-          thematic.setUserDefinedAlias(thematicUserAlias+THEMATIC_SUFFIX);
+          thematic.setUserDefinedAlias(thematicUserAlias + THEMATIC_SUFFIX);
           selectables.add(thematic);
         }
       }
-      
+
       ValueQuery vq = new ValueQuery(f);
-      
+
       vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-      
+
       // Rename the column aliases so GeoServer and the SLD can read them
       vq.getSelectableRef(GeoEntity.ENTITYNAME).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
       vq.getSelectableRef(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
-      
-      if(layer != null)
+
+      if (layer != null)
       {
         Selectable geometry = vq.getSelectableRef(QueryConstants.GEOMETRY_NAME_COLUMN);
         geometry.setColumnAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
         vq.WHERE(geometry.NE(null));
-        
-        if(layer.hasThematicVariable())
+
+        if (layer.hasThematicVariable())
         {
-          Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias()+THEMATIC_SUFFIX);
+          Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias() + THEMATIC_SUFFIX);
           layer.appLock();
           layer.setThematicColumnAlias(thematic.getColumnAlias());
           layer.apply();
-          
+
           vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
       }
-      
+
       vq.WHERE(geoQuery.get(GeoEntity.TYPE).EQ(universalType));
-      
+
       return vq;
     }
     catch (JSONException e1)
@@ -169,23 +170,25 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       throw new ProgrammingErrorException(e1);
     }
   }
-  
-  
-  public static String getQueryType() {
+
+  public static String getQueryType()
+  {
     return QueryConstants.namespaceQuery(GeoHierarchy.CLASS, QueryConstants.QueryType.QUERY_UNIVERSAL);
   }
 
-	@Override
-	public void apply() {
-		boolean isNew = this.isNew();
-		super.apply();
-		if (isNew) {
-			UniversalSearchHelper helper = new UniversalSearchHelper();
-			helper.createSearch(this);
-		}
-	}
+  @Override
+  public void apply()
+  {
+    boolean isNew = this.isNew();
+    super.apply();
+    if (isNew)
+    {
+      UniversalSearchHelper helper = new UniversalSearchHelper();
+      helper.createSearch(this);
+    }
+  }
 
-/**
+  /**
    * Returns the {@link GeoHierarchyView} that represents Earth.
    * 
    * @return
@@ -551,14 +554,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static Set<String> deleteGeoHierarchy2(String geoHierarchyId)
   {
     InstallProperties.validateMasterOperation();
-    
+
     Set<String> ids = new HashSet<String>();
 
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
-    
+
     // Don't allow the user to delete Earth for very obvious reasons.
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
-    if(geoEntityClass.definesType().equals(Earth.CLASS))
+    if (geoEntityClass.definesType().equals(Earth.CLASS))
     {
       String error = "Cannot delete the Earth Universal.";
       DeleteEarthException ex = new DeleteEarthException(error);
@@ -591,26 +594,26 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     ids.add(this.getId());
 
     MdBusiness geoEntityClass = this.getGeoEntityClass();
-    
+
     // Regenerate the all paths table if any entities exist for this universal
     QueryFactory f = new QueryFactory();
     GeoEntityQuery q = new GeoEntityQuery(f);
-    
+
     q.WHERE(q.getType().EQ(geoEntityClass.definesType()));
-    
+
     boolean hasEntries = q.getCount() > 0;
-    if(hasEntries)
+    if (hasEntries)
     {
       MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
       mdBusiness.deleteAllTableRecords();
     }
-    
+
     // Remove all references to this universal in the saved queries
     String type = geoEntityClass.definesType();
     QueryFactory f2 = new QueryFactory();
     SavedSearchQuery ssq = new SavedSearchQuery(f2);
-    
-    for(SavedSearch search : ssq.getIterator().getAll())
+
+    for (SavedSearch search : ssq.getIterator().getAll())
     {
       try
       {
@@ -619,49 +622,48 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
         Iterator iter = selected.keys();
         boolean modified = false;
-        while(iter.hasNext())
+        while (iter.hasNext())
         {
           String key = (String) iter.next();
           JSONArray filtered = new JSONArray();
           JSONArray universals = selected.getJSONArray(key);
-          for(int i=0; i<universals.length(); i++)
+          for (int i = 0; i < universals.length(); i++)
           {
             String universal = universals.getString(i);
-            if(!universal.equals(type))
+            if (!universal.equals(type))
             {
               filtered.put(universal);
             }
           }
-          
-          if(filtered.length() != universals.length())
+
+          if (filtered.length() != universals.length())
           {
             modified = true;
             selected.put(key, filtered);
           }
         }
-        
-        if(modified)
+
+        if (modified)
         {
           search.appLock();
           search.setConfig(config.toString());
           search.apply();
         }
       }
-      catch(JSONException e)
+      catch (JSONException e)
       {
         throw new ProgrammingErrorException(e);
       }
     }
-    
 
     super.delete();
-    
+
     UniversalSearchHelper helper = new UniversalSearchHelper();
     helper.deleteSearch(this);
 
     geoEntityClass.delete();
 
-    if(hasEntries)
+    if (hasEntries)
     {
       GeoEntity.buildAllPathsFast();
     }
@@ -687,7 +689,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static String defineGeoEntity2(GeoEntityDefinition definition)
   {
     InstallProperties.validateMasterOperation();
-    
+
     // validate attributes
     definition.applyNoPersist();
 
@@ -777,24 +779,25 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     // Define permissions on the new Universal
     RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
     RoleDAO mdssCorrdinator = RoleDAO.findRole(MDSSRoleInfo.MDSS_CORRDINATOR).getBusinessDAO();
-    //RoleDAO entomologist = RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
+    // RoleDAO entomologist =
+    // RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
 
     // Define all read permissions
     guiVisibility.grantPermission(Operation.READ, mdGeoEntity.getId());
-    
+
     mdssCorrdinator.grantPermission(Operation.WRITE, mdGeoEntity.getId());
     mdssCorrdinator.grantPermission(Operation.CREATE, mdGeoEntity.getId());
     mdssCorrdinator.grantPermission(Operation.DELETE, mdGeoEntity.getId());
 
-    //entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
-    //entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
-    //entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
+    // entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
+    // entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
+    // entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
 
     for (MdAttribute mdAttribute : mdGeoEntity.getAllAttribute())
     {
       guiVisibility.grantPermission(Operation.READ, mdAttribute.getId());
       mdssCorrdinator.grantPermission(Operation.WRITE, mdAttribute.getId());
-      //entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
+      // entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
     }
 
     // create the GeoHeirachy and relationship
@@ -806,21 +809,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     geoHierarchy.setPopulationAllowed(definition.getPopulationAllowed());
     geoHierarchy.setUrban(definition.getUrban());
     geoHierarchy.apply();
-    
-    // IMPORTANT: geoHierarchy.apply() causes a reload which causes a class cast exception when
-    //            GeoHierarchy.get(geoHierarchy.getId()) is invoked on the out dated class.
-    //            Therefore we need to use reflection to get the current GeoHierarchy class definition.
+
+    // IMPORTANT: geoHierarchy.apply() causes a reload which causes a class cast
+    // exception when
+    // GeoHierarchy.get(geoHierarchy.getId()) is invoked on the out dated class.
+    // Therefore we need to use reflection to get the current GeoHierarchy class
+    // definition.
     try
     {
       Class<?> ghClass = LoaderDecorator.load(GeoHierarchy.CLASS);
       Method getMethod = ghClass.getMethod("get", String.class);
       Object childUniversal = getMethod.invoke(null, geoHierarchy.getId());
       Object parentUniversal = getMethod.invoke(null, definition.getParentGeoHierarchyId());
-      Entity allowedIn = (Entity)ghClass.getMethod("addAllowedInGeoEntity", parentUniversal.getClass()).invoke(childUniversal, parentUniversal);
+      Entity allowedIn = (Entity) ghClass.getMethod("addAllowedInGeoEntity", parentUniversal.getClass()).invoke(childUniversal, parentUniversal);
       allowedIn.apply();
-      
+
       ghClass.getMethod("validateConsistentHierarchy").invoke(childUniversal);
-      return ((Entity)childUniversal).getId();
+      return ( (Entity) childUniversal ).getId();
     }
     catch (InvocationTargetException e)
     {
@@ -835,20 +840,21 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     {
       throw new ApplicationException(e);
     }
-//
-//    GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
-//    geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
-//
-//    geoHierarchy.validateConsistentHierarchy();
-//
-//    return geoHierarchy.getId();
+    //
+    // GeoHierarchy allowedIn =
+    // GeoHierarchy.get(definition.getParentGeoHierarchyId());
+    // geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
+    //
+    // geoHierarchy.validateConsistentHierarchy();
+    //
+    // return geoHierarchy.getId();
   }
 
   @Override
   public void confirmChangeParent(String parentId)
   {
     InstallProperties.validateMasterOperation();
-    
+
     GeoHierarchy view = GeoHierarchy.get(parentId);
     String label = view.getGeoEntityClass().getDisplayLabel().getValue();
 
@@ -862,7 +868,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public String[] confirmDeleteHierarchy(String parentId)
   {
     InstallProperties.validateMasterOperation();
-    
+
     List<GeoHierarchy> parents = this.getImmediateParents();
     if (parents.size() > 1)
     {
@@ -936,9 +942,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   @Transaction
   public void lock()
   {
-    
+
     InstallProperties.validateMasterOperation();
-    
+
     super.lock();
 
     this.getGeoEntityClass().lock();
@@ -984,12 +990,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public void validateConsistentHierarchy()
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
-    if(parents.size() == 0)
+    if (parents.size() == 0)
     {
       // Don't validate if there are no parents (i.e., Earth)
       return;
     }
-    
+
     boolean isPolitical = this.getPolitical();
     boolean isSpray = this.getSprayTargetAllowed();
     boolean isUrban = this.getUrban();
@@ -1014,8 +1020,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       {
         sprayParent = true;
       }
-      
-      if(parent.getUrban())
+
+      if (parent.getUrban() != null && parent.getUrban())
       {
         urbanParent = true;
       }
@@ -1038,8 +1044,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         {
           sprayChild = true;
         }
-        
-        if(child.getUrban())
+
+        if (child.getUrban() != null && child.getUrban())
         {
           urbanChild = true;
         }
@@ -1049,14 +1055,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     // check political hierarchy
     if (isPolitical && !politicalParent)
     {
-        String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
-          " gap in the political hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
-        throw ex;
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
+      HierarchyGapException ex = new HierarchyGapException(msg);
+      throw ex;
     }
     else if (isPolitical && politicalChild)
     {
-      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the political hierarchy.";
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the political hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
@@ -1076,14 +1081,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     // check spray hierarchy
     if (isSpray && !sprayParent)
     {
-      String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
-        " gap in the spray hierarchy.";
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the spray hierarchy.";
       HierarchyGapException ex = new HierarchyGapException(msg);
       throw ex;
     }
     else if (isSpray && sprayChild)
     {
-      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the spray hierarchy.";
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the spray hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
@@ -1099,22 +1103,21 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         child.apply();
       }
     }
-    
+
     // check urban hierarchy
-    if(isUrban && !urbanParent)
+    if (isUrban && !urbanParent)
     {
-      String msg = "The universal ["+this.getQualifiedType()+"] attempted to create a"+
-      " gap in the urban hierarchy.";
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
       HierarchyGapException ex = new HierarchyGapException(msg);
       throw ex;
     }
-    else if(isUrban && urbanChild)
+    else if (isUrban && urbanChild)
     {
-      String msg = "The universal ["+this.getQualifiedType()+"] attempted to branch the urban hierarchy.";
+      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the urban hierarchy.";
       HierarchyBranchException ex = new HierarchyBranchException(msg);
       throw ex;
     }
-    else if(!isUrban)
+    else if (!isUrban)
     {
       // Urban has been set to false, so set all of its children spray
       // flags to false. Since no branching is allowed we can safely modify all
@@ -1132,7 +1135,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static void updateFromView2(GeoHierarchyView view)
   {
     InstallProperties.validateMasterOperation();
-    
+
     // GeoHierarchy should already be locked
     GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
     geoHierarchy.setPolitical(view.getPolitical());
@@ -1140,7 +1143,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     geoHierarchy.setTerm(view.getTerm());
     geoHierarchy.setPopulationAllowed(view.getPopulationAllowed());
     geoHierarchy.setUrban(view.getUrban());
-    
+
     geoHierarchy.validateConsistentHierarchy();
 
     geoHierarchy.apply();
@@ -1180,7 +1183,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static void applyExistingWithParent2(String childGeoHierarchyId, String parentGeoHierarchyId, Boolean cloneOperation)
   {
     InstallProperties.validateMasterOperation();
-    
+
     GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
     GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
 
@@ -1296,7 +1299,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public static GeoHierarchyViewQuery getGeoEntityHierarchyViews(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     InstallProperties.validateMasterOperation();
-    
+
     QueryFactory f = new QueryFactory();
     GeoHierarchyViewQuery viewQuery = new GeoHierarchyViewQuery(f, sortAttribute, ascending, pageSize, pageNumber);
 
@@ -1346,7 +1349,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return list.toArray(new GeoHierarchy[list.size()]);
   }
 
-
   /**
    * @return An array of all Geo Hierarchies where Political==true
    */
@@ -1357,7 +1359,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     List<? extends GeoHierarchy> list = query.getIterator().getAll();
     return list.toArray(new GeoHierarchy[list.size()]);
   }
-  
+
   /**
    * Returns a {@link GeoHierarchyView} representative of this GeoHierarchy.
    */
@@ -1410,15 +1412,22 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    *          Any extra univerals to append to the final list.
    * @return
    */
-  public static GeoHierarchyView[] collectHierarchies(String rootGeoEntityId, Boolean political, Boolean sprayZoneAllowed, String[] extraUniversals)
+  public static GeoHierarchyView[] collectHierarchies(String rootGeoEntityId, Boolean[] flags, String[] extraUniversals)
   {
+    boolean[] _flags = new boolean[flags.length];
+    
+    for(int i = 0; i < flags.length; i++)
+    {
+      _flags[i] = flags[i].booleanValue();
+    }
+    
     GeoEntity geoEntity = GeoEntity.get(rootGeoEntityId);
     String type = geoEntity.getType();
 
     GeoHierarchy parent = getGeoHierarchyFromType(type);
 
     LinkedHashSet<GeoHierarchyView> hierarchies = new LinkedHashSet<GeoHierarchyView>();
-    collect(hierarchies, parent, political.booleanValue(), sprayZoneAllowed.booleanValue());
+    collect(hierarchies, parent, _flags);
 
     // add the extra universals
     for (String universal : extraUniversals)
@@ -1449,12 +1458,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return hierarchies.toArray(new GeoHierarchyView[hierarchies.size()]);
   }
 
-  public static void collect(LinkedHashSet<GeoHierarchyView> hierarchies, GeoHierarchy parent, boolean political, boolean sprayZoneAllowed)
+  public static void collect(LinkedHashSet<GeoHierarchyView> hierarchies, GeoHierarchy parent, boolean[] flags)
   {
     boolean isPolitical = parent.getPolitical().booleanValue();
     boolean isSprayZoneAllowed = parent.getSprayTargetAllowed().booleanValue();
+    boolean isUrban = parent.getUrban() != null ? parent.getUrban().booleanValue() : false;
+    
+    boolean political = flags[0];
+    boolean sprayZoneAllowed = flags[1];
+    boolean urban = flags[2];
 
-    if (!political && !sprayZoneAllowed)
+    if (!political && !sprayZoneAllowed && !urban)
     {
       // special way to mean *any* universal as political=false and
       // sprayZoneAllowed=false would
@@ -1469,11 +1483,15 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     {
       hierarchies.add(parent.getViewForGeoHierarchy());
     }
+    else if (urban && isUrban)
+    {
+      hierarchies.add(parent.getViewForGeoHierarchy());
+    }
 
     List<GeoHierarchy> children = parent.getImmediateChildren();
     for (GeoHierarchy childH : children)
     {
-      collect(hierarchies, childH, political, sprayZoneAllowed);
+      collect(hierarchies, childH, flags);
     }
   }
 
@@ -1535,8 +1553,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     if (valid)
     {
       views.add(hierarchy.getViewForGeoHierarchy());
-      
-      if(!parameter.isFirst())
+
+      if (!parameter.isFirst())
       {
         List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
 
@@ -1545,7 +1563,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
           treeRecurse(views, childH, parameter);
         }
       }
-    }    
+    }
     else if (parameter.validateFlags(hierarchy))
     {
       List<GeoHierarchy> hierachies = parameter.getHierarchies(hierarchy);
@@ -1763,19 +1781,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     return getGeoHierarchyMappedToMO(termId).getGeoEntityClass();
   }
-  
+
   /**
-   * Returns the display label of this GeoHierarchy, which is actually
-   * the display label of the underlying MdBusiness that this instance
-   * references. NOTE: this should only be called after this GeoHierarchy
-   * has been successfully applied because then the required MdBusiness
-   * reference will be available.
+   * Returns the display label of this GeoHierarchy, which is actually the
+   * display label of the underlying MdBusiness that this instance references.
+   * NOTE: this should only be called after this GeoHierarchy has been
+   * successfully applied because then the required MdBusiness reference will be
+   * available.
    * 
    * @return
    */
   public String getDisplayLabel()
   {
-   return this.getGeoEntityClass().getDisplayLabel().getValue(); 
+    return this.getGeoEntityClass().getDisplayLabel().getValue();
   }
 
   public String toString()
@@ -1910,23 +1928,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     return false;
   }
-  
+
   public static String getMostChildishUniversialType(String[] types)
   {
 
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery lowestUniversial = new ValueQuery(queryFactory);
-    
+
     SelectableSQLCharacter childType = lowestUniversial.aSQLCharacter("child_type", "child_type");
-    
+
     SelectableSQLInteger childCount = lowestUniversial.aSQLAggregateInteger("child_count", "COUNT(*)");
-    
-    lowestUniversial.SELECT(new Selectable[] {childType,childCount});
+
+    lowestUniversial.SELECT(new Selectable[] { childType, childCount });
     lowestUniversial.FROM("geohierarchy_allpaths", "geohierarchy_allpaths");
     lowestUniversial.WHERE(childType.IN(types));
     lowestUniversial.ORDER_BY_DESC(childCount);
-    
+
     OIterator<ValueObject> iter = lowestUniversial.getIterator();
     try
     {
@@ -1941,73 +1959,88 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
     return null;
   }
-  
+
   public static Boolean hasBrowserRoot(String className)
   {
     GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(className);
-    
-    if(hierarchy != null)
+
+    if (hierarchy != null)
     {
-      return (hierarchy.getTerm() != null);    
+      return ( hierarchy.getTerm() != null );
     }
-    
+
     return false;
   }
-  
-	public static String getSystemName(String description)
-	{
-		String systemName = description;
-		String name = description
-			.replace("/", " Or ")
-			.replace("&", " And ");
-		String[] parts = name.split("[^a-zA-Z0-9]");
-		StringBuffer sb = new StringBuffer();
-		if (parts.length==1 && description.equals(description.toUpperCase())) {
-			// It's an acronym, so use it as is.
-			systemName = description;
-		} else {
-			// Create a camelcase representation of the description
-			for (int i = 0; i < parts.length; i++) {
-				String part = parts[i];
-				if (part.length() > 0) {
-					if (i == parts.length - 1) {
-						// Last part
-						String arabicPart = convertRomanToArabic(part);
-						if (arabicPart.equals(part)) {
-							// Not a roman numeral
-							sb.append(part.substring(0,1).toUpperCase());
-							sb.append(part.substring(1).toLowerCase());
-						} else {
-							// Roman numeral converted to arabic
-							sb.append(arabicPart);
-						}
-					} else {
-						sb.append(part.substring(0,1).toUpperCase());
-						sb.append(part.substring(1).toLowerCase());
-					}
-				}
-			}
-			systemName = sb.toString();
-		}
-		return systemName;
-	}
 
-	private static String convertRomanToArabic(String part) {
-		if ("IV".equals(part.toUpperCase())) {
-			return part.substring(0,part.length()-2) + "4";
-		}
-		if ("V".equals(part.toUpperCase())) {
-			return part.substring(0,part.length()-1) + "5";
-		}
-		if ("III".equals(part.toUpperCase())) {
-			return part.substring(0,part.length()-3) + "3";
-		}
-		if ("II".equals(part.toUpperCase())) {
-			return part.substring(0,part.length()-2) + "2";
-		}
-		if ("I".equals(part.toUpperCase())) {
-			return part.substring(0,part.length()-1) + "1";
-		}
-		return part;
-	}
+  public static String getSystemName(String description)
+  {
+    String systemName = description;
+    String name = description.replace("/", " Or ").replace("&", " And ");
+    String[] parts = name.split("[^a-zA-Z0-9]");
+    StringBuffer sb = new StringBuffer();
+    if (parts.length == 1 && description.equals(description.toUpperCase()))
+    {
+      // It's an acronym, so use it as is.
+      systemName = description;
+    }
+    else
+    {
+      // Create a camelcase representation of the description
+      for (int i = 0; i < parts.length; i++)
+      {
+        String part = parts[i];
+        if (part.length() > 0)
+        {
+          if (i == parts.length - 1)
+          {
+            // Last part
+            String arabicPart = convertRomanToArabic(part);
+            if (arabicPart.equals(part))
+            {
+              // Not a roman numeral
+              sb.append(part.substring(0, 1).toUpperCase());
+              sb.append(part.substring(1).toLowerCase());
+            }
+            else
+            {
+              // Roman numeral converted to arabic
+              sb.append(arabicPart);
+            }
+          }
+          else
+          {
+            sb.append(part.substring(0, 1).toUpperCase());
+            sb.append(part.substring(1).toLowerCase());
+          }
+        }
+      }
+      systemName = sb.toString();
+    }
+    return systemName;
+  }
+
+  private static String convertRomanToArabic(String part)
+  {
+    if ("IV".equals(part.toUpperCase()))
+    {
+      return part.substring(0, part.length() - 2) + "4";
+    }
+    if ("V".equals(part.toUpperCase()))
+    {
+      return part.substring(0, part.length() - 1) + "5";
+    }
+    if ("III".equals(part.toUpperCase()))
+    {
+      return part.substring(0, part.length() - 3) + "3";
+    }
+    if ("II".equals(part.toUpperCase()))
+    {
+      return part.substring(0, part.length() - 2) + "2";
+    }
+    if ("I".equals(part.toUpperCase()))
+    {
+      return part.substring(0, part.length() - 1) + "1";
+    }
+    return part;
+  }
 }

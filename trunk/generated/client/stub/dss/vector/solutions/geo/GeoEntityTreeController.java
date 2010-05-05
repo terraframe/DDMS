@@ -29,13 +29,13 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   {
     super(req, resp, isAsynchronous);
   }
-
+  
   @Override
-  public void displaySingleSelectSearch(String rootGeoEntityId, Boolean political, Boolean sprayZoneAllowed, String[] extraUniversals) throws IOException, ServletException
+  public void displaySingleSelectSearch(String rootGeoEntityId, Boolean[] flags, String[] extraUniversals) throws IOException, ServletException
   {
     try
     {
-      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, political, sprayZoneAllowed, extraUniversals);
+      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, flags, extraUniversals);
       req.setAttribute("views", views);
 
       req.getRequestDispatcher(SINGLE_SELECT_SEARCH_COMPONENT_JSP).forward(req, resp);
@@ -47,13 +47,13 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
       this.resp.getWriter().write(ex.getJSON());
     }
   }
-
+  
   @Override
-  public void displayMultipleSelectSearch(String rootGeoEntityId, Boolean political, Boolean sprayZoneAllowed, String[] extraUniversals) throws IOException, ServletException
+  public void displayMultipleSelectSearch(String rootGeoEntityId, Boolean[] flags, String[] extraUniversals) throws IOException, ServletException
   {
     try
     {
-      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, political, sprayZoneAllowed, extraUniversals);
+      GeoHierarchyViewDTO[] views = GeoHierarchyDTO.collectHierarchies(this.getClientRequest(), rootGeoEntityId, flags, extraUniversals);
       req.setAttribute("views", views);
 
       req.getRequestDispatcher(MULTIPLE_SELECT_SEARCH_COMPONENT_JS).forward(req, resp);

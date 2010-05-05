@@ -283,8 +283,19 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       });
   
       var method = this._getControllerAction();
-//      method(request, MDSS.SelectSearchRootId, this.getPolitical(), this.getSprayTargetAllowed(), this.getUrban(), this.getExtraUniversals());
-      method(request, MDSS.SelectSearchRootId, this.getPolitical(), this.getSprayTargetAllowed(), this.getExtraUniversals());
+      
+      method(request, MDSS.SelectSearchRootId, this.getFlags(), this.getExtraUniversals());
+    },
+    
+    getFlags : function()
+    {
+      var flags = new Array();
+        
+      flags.push(this.getPolitical());
+      flags.push(this.getSprayTargetAllowed());
+      flags.push(this.getUrban());
+      
+      return flags;
     },
   
     /**
