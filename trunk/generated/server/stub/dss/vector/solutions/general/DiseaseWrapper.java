@@ -19,6 +19,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF;
 import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.MenuGenerator;
 
 public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = -619081050;
@@ -26,54 +27,6 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 	public DiseaseWrapper() {
 		super();
 	}
-
-	/*
-	 * Utility class to hold nodes of the menu tree
-	 */
-	public static class GuiMenuItem implements Reloadable {
-		private String id;
-		private String name;
-		private String label;
-		private String url;
-		private Map<String,GuiMenuItem> children = new TreeMap<String,GuiMenuItem>();
-		public GuiMenuItem(MenuItem menuItem) {
-			this(menuItem.getTerm().getTermId(), menuItem.getTerm().getDisplay(), menuItem.getUrl().getUrl());
-		}
-		public GuiMenuItem(Term term) {
-			this(term.getTermId(), term.getDisplay(), null);
-		}
-		public GuiMenuItem(String id,String label, String url) {
-			this(id, label.replace(' ', '_'), label, url);
-		}
-		public GuiMenuItem(String id, String name, String label, String url) {
-			this.id = id;
-			this.name = name;
-			this.label = label;
-			this.url = url;
-		}
-		public Map<String, GuiMenuItem> getChildren() {
-			return children;
-		}
-		public String getId() {
-			return this.id;
-		}
-		public String getLabel() {
-			return this.label;
-		}
-		public String getName() {
-			return this.name;
-		}
-		public String getUrl() { 
-			return this.url;
-		}
-		public String toString() {
-			return this.getId() + " " + this.getLabel();
-		}
-		public void addChild(GuiMenuItem child) {
-			this.children.put(child.getId(), child);
-		}
-	}
-	
 	
 	/**
 	 * Returns the name of the Term attribute for the inactive flag based on the
@@ -148,154 +101,11 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 	}
 
 	public static String getMenuJson() {
-		GuiMenuItem menu = generateMenu(getDisease());
-		return generateJson(menu);
+		MenuGenerator menuGenerator = new MenuGenerator(getDisease());
+		
+		menuGenerator.generateMenu();
+		return menuGenerator.getJson();
 	}
 
-	private static GuiMenuItem generateMenu(Disease disease) {
-		GuiMenuItem menu = new GuiMenuItem("menu", "menu", null);
-		generateConfigurableMenu(disease, menu);
-		generateDiseaseSubMenu(disease, menu);
-		menu.addChild(new GuiMenuItem("ZZZZ:7000000", "Log_Out", MDSSProperties.getString("Log_Out"), "com.runwaysdk.defaults.LoginController.logout.mojo"));
-		menu.addChild(new GuiMenuItem("ZZZZ:8000000", "About", MDSSProperties.getString("About"), "about.jsp"));
-		menu.addChild(new GuiMenuItem("ZZZZ:9000000", "Print", "&nbsp;", "javascript:window.print()"));
-		return menu;
-	}
-	
-	private static void generateConfigurableMenu(Disease disease, GuiMenuItem menu) {
-		MenuItemQuery query = new MenuItemQuery(new QueryFactory());
-		query.WHERE(query.getDisease().containsExactly(disease));
-		query.ORDER_BY(query.getTerm().getTermId(), SortOrder.ASC);
-		OIterator<? extends MenuItem> it = query.getIterator();
 
-		try {
-			while (it.hasNext()) {
-				MenuItem menuItem = it.next();
-				if (menuItem.getTerm().isLeaf()) {
-					GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem);
-					processMenuItem(disease, menu, menuItem.getTerm(), guiMenuItem);
-				}
-			}
-		} finally {
-			it.close();
-		}
-	}
-	
-	private static void processMenuItem(Disease disease, GuiMenuItem menu, Term term, GuiMenuItem guiMenuItem) {
-		if (!isInactive(term,disease)) {
-			OIterator<? extends Term> parents = term.getAllParentTerm();
-			try {
-				if (parents.hasNext()) {
-					while (parents.hasNext()) {
-						Term parent = parents.next();
-						if (parent.getId().equals(getDiseaseRoot(disease).getId())) {
-							consolidateMenu(menu, guiMenuItem);
-						} else {
-							GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);
-							parentGuiMenuItem.addChild(guiMenuItem);
-							processMenuItem(disease, menu, parent, parentGuiMenuItem);
-						}
-					}
-				} else {
-					// Got to top of tree without hitting menu root, so this is a dead end
-				}
-			} finally {
-				parents.close();
-			}
-		}
-	}
-
-	private static void generateDiseaseSubMenu(Disease menuDisease, GuiMenuItem menu) {
-		int n = 6000000;
-		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:"+(n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
-		for (Disease disease: Disease.values()) {
-			String label = disease.getDisplayLabel();
-			if (disease.equals(menuDisease)) {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), label, "#"));
-			} else {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:"+(n++), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease));
-			}
-		}
-		menu.addChild(diseaseSubMenu);
-	}
-
-	private static String generateJson(GuiMenuItem guiMenuItem) {
-		StringWriter out = new StringWriter();
-		printMenu(new PrintWriter(out), 0, guiMenuItem);
-		return out.toString();
-	}
-	
-	private static void printMenu(PrintWriter out, int level, GuiMenuItem guiMenuItem) {
-		boolean first = true;
-		for (GuiMenuItem child: guiMenuItem.getChildren().values()) {
-			if (first) {
-				first = false;
-			} else {
-				printIndented(out, level, ",");
-			}
-			printItem(out, level, child);
-		}
-	}
-	
-	private static void printItem(PrintWriter out, int level, GuiMenuItem guiMenuItem) {
-		if (guiMenuItem.getChildren().size() == 0) {
-			String label = "text: '" + guiMenuItem.getLabel() + "', id: '" + guiMenuItem.getName() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
-			if (guiMenuItem.getUrl().equals("#")) {
-				label += ", checked: true";
-			}
-			printIndented(out, level, "{ " + label + "}");
-		} else {
-			printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "',");
-			printIndented(out, level, "  id: '" + guiMenuItem.getName() + "',");
-			printIndented(out, level, "  submenu: {");
-			printIndented(out, level, "    id: '" + guiMenuItem.getName() + "_Submenu',");
-			printIndented(out, level, "    itemdata: [");
-			boolean first = true;
-			for (GuiMenuItem child : guiMenuItem.getChildren().values()) {
-				if (first) {
-					first = false;
-				} else {
-					printIndented(out, level+1, ",");
-				}
-				printItem(out, level+1, child);
-			}
-			printIndented(out, level, "    ]");
-			printIndented(out, level, "  }");
-			printIndented(out, level, "}");
-		}
-	}
-	
-	private static void printIndented(PrintWriter out, int level, String label) {
-			for (int i=0; i < level; i++) {
-				out.print("\t");
-			}
-			out.println(label);
-	}
-	
-	private static Term getDiseaseRoot(Disease disease) {
-		  DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
-			return dMaster.getMenuRoot();
-	}
-	
-	private static void consolidateMenu(GuiMenuItem oldMenu, GuiMenuItem newMenu) {
-		GuiMenuItem existing = oldMenu.getChildren().get(newMenu.getId());
-		if (existing == null) {
-			oldMenu.addChild(newMenu);
-		} else {
-			for (GuiMenuItem child: newMenu.getChildren().values()) {
-				consolidateMenu(existing, child);
-			}
-		}
-	}
-	
-	// TODO - Replace this with the generic code to get inactive once Naifeh writes it!
-	private static boolean isInactive(Term term, Disease disease) {
-		if (disease.equals(Disease.MALARIA)) {
-			return term.getInactiveMalaria();
-		} else if (disease.equals(Disease.DENGUE)) {
-			return term.getInactiveDengue();
-		} else {
-			return false;
-		}
-	}
 }
