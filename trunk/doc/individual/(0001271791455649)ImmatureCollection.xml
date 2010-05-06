@@ -61,7 +61,7 @@
             type="dss.vector.solutions.entomology.ImmatureCollection" />
           <reference
             name="premiseType"
-            label="Permise Type"
+            label="Premise Type"
             required="true"
             type="dss.vector.solutions.ontology.Term" />
           <integer
