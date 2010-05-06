@@ -352,68 +352,69 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     CollectionPremiseQuery premiseQuery = new CollectionPremiseQuery(factory);
     PremiseTaxonQuery taxonQuery = new PremiseTaxonQuery(factory);
 
-    Condition collectionCondition = collectionQuery.getGeoEntity().EQ(collection.getGeoEntity());
-    collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(collection.getStartDate()));
-    collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(collection.getEndDate()));
-    collectionQuery.WHERE(collectionCondition);
-
-    Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
-    premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(collection.getPremiseType()));
-    premiseQuery.WHERE(premiseCondition);
-
-    Condition taxonCondition = taxonQuery.getPremise().EQ(premiseQuery);
-    taxonCondition = AND.get(taxonCondition, taxonQuery.getTaxon().EQ(collection.getTaxon()));
-    taxonQuery.WHERE(taxonCondition);
-
-    OIterator<? extends PremiseTaxon> taxonIt = taxonQuery.getIterator();
-
-    try
-    {
-      if (taxonIt.hasNext())
-      {
-        return taxonIt.next().getView();
-      }
+    if (collection.getGeoEntity() != null) {
+	    Condition collectionCondition = collectionQuery.getGeoEntity().EQ(collection.getGeoEntity());
+	    collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(collection.getStartDate()));
+	    collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(collection.getEndDate()));
+	    collectionQuery.WHERE(collectionCondition);
+	
+	    Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
+	    premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(collection.getPremiseType()));
+	    premiseQuery.WHERE(premiseCondition);
+	
+	    Condition taxonCondition = taxonQuery.getPremise().EQ(premiseQuery);
+	    taxonCondition = AND.get(taxonCondition, taxonQuery.getTaxon().EQ(collection.getTaxon()));
+	    taxonQuery.WHERE(taxonCondition);
+	
+	    OIterator<? extends PremiseTaxon> taxonIt = taxonQuery.getIterator();
+	
+	    try
+	    {
+	      if (taxonIt.hasNext())
+	      {
+	        return taxonIt.next().getView();
+	      }
+	    }
+	    finally
+	    {
+	      taxonIt.close();
+	    }
+	
+	    OIterator<? extends CollectionPremise> premiseIt = premiseQuery.getIterator();
+	
+	    try
+	    {
+	      if (premiseIt.hasNext())
+	      {
+	        ImmatureCollectionView view = premiseIt.next().getView();
+	        view.setTaxon(collection.getTaxon());
+	
+	        return view;
+	      }
+	    }
+	    finally
+	    {
+	      premiseIt.close();
+	    }
+	
+	    OIterator<? extends ImmatureCollection> collectionIt = collectionQuery.getIterator();
+	
+	    try
+	    {
+	      if (collectionIt.hasNext())
+	      {
+	        ImmatureCollectionView view = collectionIt.next().getView();
+	        view.setPremiseType(collection.getPremiseType());
+	        view.setTaxon(collection.getTaxon());
+	
+	        return view;
+	      }
+	    }
+	    finally
+	    {
+	      collectionIt.close();
+	    }
     }
-    finally
-    {
-      taxonIt.close();
-    }
-
-    OIterator<? extends CollectionPremise> premiseIt = premiseQuery.getIterator();
-
-    try
-    {
-      if (premiseIt.hasNext())
-      {
-        ImmatureCollectionView view = premiseIt.next().getView();
-        view.setTaxon(collection.getTaxon());
-
-        return view;
-      }
-    }
-    finally
-    {
-      premiseIt.close();
-    }
-
-    OIterator<? extends ImmatureCollection> collectionIt = collectionQuery.getIterator();
-
-    try
-    {
-      if (collectionIt.hasNext())
-      {
-        ImmatureCollectionView view = collectionIt.next().getView();
-        view.setPremiseType(collection.getPremiseType());
-        view.setTaxon(collection.getTaxon());
-
-        return view;
-      }
-    }
-    finally
-    {
-      collectionIt.close();
-    }
-
     return collection.searchClone();
   }
 }
