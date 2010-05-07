@@ -2,13 +2,25 @@ package dss.vector.solutions.entomology;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
+import dss.vector.solutions.intervention.monitor.Larvacide;
+import dss.vector.solutions.intervention.monitor.LarvacideInstance;
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.util.QueryUtil;
 
 public class ImmatureCollection extends ImmatureCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -117,5 +129,50 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     view.populateView(this, null, null);
     
     return view;
+  }
+  
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   * 
+   * @param xml
+   * @return
+   */
+  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+
+    ImmatureCollectionQuery collectionQuery = ( ImmatureCollectionQuery  ) queryMap.get(ImmatureCollection.CLASS);
+
+//    valueQuery.WHERE(larvacideAssQuery.parentId().EQ(larvacideQuery.getId()));
+
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, Larvacide.CLASS, collectionQuery );
+
+    QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, collectionQuery );
+
+    QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
+    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+    SelectableMoment dateAttribute = collectionQuery.getStartDate();
+
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, dateAttribute);
+
   }
 }
