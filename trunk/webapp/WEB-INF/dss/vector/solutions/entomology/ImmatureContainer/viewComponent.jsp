@@ -35,36 +35,36 @@
         <mdss:mo param="taxon" value="${taxon}"/>
       </mjl:dt>      
       
-      <mjl:command name="Go" action="dss.vector.solutions.entomology.ImmatureContainerController.forward.mojo" value="Go"/>
+      <button id="button.go"><fmt:message key="Go" /></button>
          
       <hr />
       
        <mjl:dt attribute="collectionId">
-         <mjl:input type="text" param="collectionId" id="collectionId"/>
+         <mjl:input type="text" param="collectionId" classes="mutable" id="collectionId"/>
        </mjl:dt>
        <mjl:dt attribute="notes">
-         <mjl:textarea param="notes" rows="5" cols="15">${item.notes}</mjl:textarea>
+         <mjl:textarea param="notes" classes="mutable" rows="5" cols="15">${item.notes}</mjl:textarea>
        </mjl:dt>
        
        <hr />
        
        <mjl:dt attribute="numberExamined">
-         <mjl:input type="text" param="numberExamined"/>
+         <mjl:input type="text" classes="mutable" param="numberExamined"/>
        </mjl:dt>
        <mjl:dt attribute="numberWithLarvae">
-         <mjl:input type="text" param="numberWithLarvae"/>
+         <mjl:input type="text" classes="mutable" param="numberWithLarvae"/>
        </mjl:dt>
        <mjl:dt attribute="numberWithPupae">
-         <mjl:input type="text" param="numberWithPupae"/>
+         <mjl:input type="text" classes="mutable" param="numberWithPupae"/>
        </mjl:dt>
        <mjl:dt attribute="numberWithImmatures">
-         <mjl:input type="text" param="numberWithImmatures"/>
+         <mjl:input type="text" classes="mutable" param="numberWithImmatures"/>
        </mjl:dt>
        <mjl:dt attribute="premiseSize">
-         <mjl:input type="text" param="premiseSize"/>
+         <mjl:input type="text" classes="mutable" param="premiseSize"/>
        </mjl:dt>
        <mjl:dt attribute="numberInhabitants">
-         <mjl:input type="text" param="numberInhabitants"/>
+         <mjl:input type="text" classes="mutable" param="numberInhabitants"/>
        </mjl:dt>
        
     </mjl:component>    
@@ -98,31 +98,31 @@
                 ${current.term.displayLabel}
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberContainers" size="9" />
+                <mjl:input type="text" param="numberContainers" classes="mutable" size="9" />
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberWithWater" size="9"/>
+                <mjl:input type="text" param="numberWithWater" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberDestroyed" size="9"/>
+                <mjl:input type="text" param="numberDestroyed" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberWithLarvicide" size="9"/>
+                <mjl:input type="text" param="numberWithLarvicide" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberImmatures" size="9"/>
+                <mjl:input type="text" param="numberImmatures" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberLarvae" size="9"/>
+                <mjl:input type="text" param="numberLarvae" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberPupae" size="9"/>
+                <mjl:input type="text" param="numberPupae" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberLarvaeCollected" size="9"/>
+                <mjl:input type="text" param="numberLarvaeCollected" classes="mutable" size="9"/>
               </td>
               <td class="integerColumn">
-                <mjl:input type="text" param="numberPupaeCollected" size="9"/>
+                <mjl:input type="text" param="numberPupaeCollected" classes="mutable" size="9"/>
               </td>
               <td>
                 <mjl:messages attribute="*">
@@ -141,3 +141,46 @@
     </c:if>
   </mjl:form>
 </dl>
+
+<script>
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    var dirty = false;
+
+    var valueChange = function() {
+      dirty = true;
+    };
+    
+    var mutables = YAHOO.util.Dom.getElementsByClassName("mutable");
+     
+    for each (el in mutables) {
+      YAHOO.util.Event.on(el, 'change', valueChange);
+    }
+
+    var submitForm = function() {
+      var formEl = document.getElementById("ImmatureContainer.form");
+      formEl.action = "dss.vector.solutions.entomology.ImmatureContainerController.forward.mojo";
+      formEl.submit();        
+    }
+
+    var onGoHandler = function(e) {
+      if(dirty) {
+        var x=window.confirm("You have unsaved data.  Do you want to continue?");
+
+        if (x) {
+          submitForm();
+        }
+        else {
+          YAHOO.util.Event.preventDefault(e);            
+        }        
+      }    
+      else {
+        submitForm();          
+      }
+    }
+
+    YAHOO.util.Event.on('button.go', 'click', onGoHandler);          
+  });
+})();
+
+</script>
