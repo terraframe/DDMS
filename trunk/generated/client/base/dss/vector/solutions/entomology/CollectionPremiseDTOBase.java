@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -902801672)
+@com.runwaysdk.business.ClassSignature(hash = 485273383)
 public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.CollectionPremise";
-  private static final long serialVersionUID = -902801672;
+  private static final long serialVersionUID = 485273383;
   
   protected CollectionPremiseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,9 @@ public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.Bu
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NUMBEREXAMINED = "numberExamined";
   public static java.lang.String NUMBERINHABITANTS = "numberInhabitants";
+  public static java.lang.String NUMBERWITHIMMATURES = "numberWithImmatures";
+  public static java.lang.String NUMBERWITHLARVAE = "numberWithLarvae";
+  public static java.lang.String NUMBERWITHPUPAE = "numberWithPupae";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PREMISESIZE = "premiseSize";
   public static java.lang.String PREMISETYPE = "premiseType";
@@ -387,6 +390,117 @@ public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.Bu
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberInhabitantsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERINHABITANTS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberWithImmatures()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHIMMATURES));
+  }
+  
+  public void setNumberWithImmatures(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHIMMATURES, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHIMMATURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberWithImmaturesWritable()
+  {
+    return isWritable(NUMBERWITHIMMATURES);
+  }
+  
+  public boolean isNumberWithImmaturesReadable()
+  {
+    return isReadable(NUMBERWITHIMMATURES);
+  }
+  
+  public boolean isNumberWithImmaturesModified()
+  {
+    return isModified(NUMBERWITHIMMATURES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberWithImmaturesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERWITHIMMATURES).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberWithLarvae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHLARVAE));
+  }
+  
+  public void setNumberWithLarvae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHLARVAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHLARVAE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberWithLarvaeWritable()
+  {
+    return isWritable(NUMBERWITHLARVAE);
+  }
+  
+  public boolean isNumberWithLarvaeReadable()
+  {
+    return isReadable(NUMBERWITHLARVAE);
+  }
+  
+  public boolean isNumberWithLarvaeModified()
+  {
+    return isModified(NUMBERWITHLARVAE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberWithLarvaeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERWITHLARVAE).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberWithPupae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHPUPAE));
+  }
+  
+  public void setNumberWithPupae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHPUPAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHPUPAE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberWithPupaeWritable()
+  {
+    return isWritable(NUMBERWITHPUPAE);
+  }
+  
+  public boolean isNumberWithPupaeReadable()
+  {
+    return isReadable(NUMBERWITHPUPAE);
+  }
+  
+  public boolean isNumberWithPupaeModified()
+  {
+    return isModified(NUMBERWITHPUPAE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberWithPupaeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERWITHPUPAE).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.ActorDTO getOwner()

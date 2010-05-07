@@ -51,6 +51,15 @@
        <mjl:dt attribute="numberExamined">
          <mjl:input type="text" param="numberExamined"/>
        </mjl:dt>
+       <mjl:dt attribute="numberWithLarvae">
+         <mjl:input type="text" param="numberWithLarvae"/>
+       </mjl:dt>
+       <mjl:dt attribute="numberWithPupae">
+         <mjl:input type="text" param="numberWithPupae"/>
+       </mjl:dt>
+       <mjl:dt attribute="numberWithImmatures">
+         <mjl:input type="text" param="numberWithImmatures"/>
+       </mjl:dt>
        <mjl:dt attribute="premiseSize">
          <mjl:input type="text" param="premiseSize"/>
        </mjl:dt>

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1993663329)
+@com.runwaysdk.business.ClassSignature(hash = -1996846242)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  class CollectionPremiseQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1993663329;
+private static final long serialVersionUID = -1996846242;
 
   public CollectionPremiseQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -256,6 +256,57 @@ private static final long serialVersionUID = 1993663329;
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERINHABITANTS, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures()
+  {
+    return getNumberWithImmatures(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae()
+  {
+    return getNumberWithLarvae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae()
+  {
+    return getNumberWithPupae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -474,6 +525,15 @@ private static final long serialVersionUID = 1993663329;
     public com.runwaysdk.query.SelectableInteger getNumberInhabitants();
     public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures();
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae();
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae();
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -507,7 +567,7 @@ private static final long serialVersionUID = 1993663329;
  implements CollectionPremiseQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 629837699;
+private static final long serialVersionUID = 93287036;
 
   public CollectionPremiseQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -711,6 +771,57 @@ private static final long serialVersionUID = 629837699;
   public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERINHABITANTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures()
+  {
+    return getNumberWithImmatures(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHIMMATURES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae()
+  {
+    return getNumberWithLarvae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHLARVAE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae()
+  {
+    return getNumberWithPupae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.CollectionPremise.NUMBERWITHPUPAE, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()

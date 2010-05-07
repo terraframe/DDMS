@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 449800312)
+@com.runwaysdk.business.ClassSignature(hash = -1669395033)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,13 +22,16 @@ public abstract class CollectionPremiseBase extends com.runwaysdk.business.Busin
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NUMBEREXAMINED = "numberExamined";
   public static java.lang.String NUMBERINHABITANTS = "numberInhabitants";
+  public static java.lang.String NUMBERWITHIMMATURES = "numberWithImmatures";
+  public static java.lang.String NUMBERWITHLARVAE = "numberWithLarvae";
+  public static java.lang.String NUMBERWITHPUPAE = "numberWithPupae";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PREMISESIZE = "premiseSize";
   public static java.lang.String PREMISETYPE = "premiseType";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 449800312;
+  private static final long serialVersionUID = -1669395033;
   
   public CollectionPremiseBase()
   {
@@ -303,6 +306,90 @@ public abstract class CollectionPremiseBase extends com.runwaysdk.business.Busin
     else
     {
       setValue(NUMBERINHABITANTS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberWithImmatures()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHIMMATURES));
+  }
+  
+  public void validateNumberWithImmatures()
+  {
+    this.validateAttribute(NUMBERWITHIMMATURES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithImmaturesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionPremise.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHIMMATURES);
+  }
+  
+  public void setNumberWithImmatures(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHIMMATURES, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHIMMATURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberWithLarvae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHLARVAE));
+  }
+  
+  public void validateNumberWithLarvae()
+  {
+    this.validateAttribute(NUMBERWITHLARVAE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithLarvaeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionPremise.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHLARVAE);
+  }
+  
+  public void setNumberWithLarvae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHLARVAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHLARVAE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberWithPupae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHPUPAE));
+  }
+  
+  public void validateNumberWithPupae()
+  {
+    this.validateAttribute(NUMBERWITHPUPAE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithPupaeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.CollectionPremise.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHPUPAE);
+  }
+  
+  public void setNumberWithPupae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHPUPAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHPUPAE, java.lang.Integer.toString(value));
     }
   }
   

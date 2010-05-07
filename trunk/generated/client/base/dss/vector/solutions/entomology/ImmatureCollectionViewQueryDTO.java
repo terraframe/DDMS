@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -314489352)
+@com.runwaysdk.business.ClassSignature(hash = 638543941)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class ImmatureCollectionViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -314489352;
+private static final long serialVersionUID = 638543941;
 
   protected ImmatureCollectionViewQueryDTO(String type)
   {

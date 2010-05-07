@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -2028146678)
+@com.runwaysdk.business.ClassSignature(hash = -84098217)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class ImmatureCollectionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2028146678;
+private static final long serialVersionUID = -84098217;
 
   public ImmatureCollectionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -187,6 +187,60 @@ private static final long serialVersionUID = -2028146678;
   public com.runwaysdk.query.SelectableInteger getNumberInhabitants(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERINHABITANTS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures()
+  {
+    return getNumberWithImmatures(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHIMMATURES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHIMMATURES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae()
+  {
+    return getNumberWithLarvae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHLARVAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHLARVAE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae()
+  {
+    return getNumberWithPupae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHPUPAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.ImmatureCollectionView.NUMBERWITHPUPAE, alias, displayLabel);
 
   }
  

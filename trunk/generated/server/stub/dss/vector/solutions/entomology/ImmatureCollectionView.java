@@ -54,6 +54,9 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       this.setNumberExamined(premise.getNumberExamined());
       this.setPremiseSize(premise.getPremiseSize());
       this.setNumberInhabitants(premise.getNumberInhabitants());
+      this.setNumberWithImmatures(premise.getNumberWithImmatures());
+      this.setNumberWithLarvae(premise.getNumberWithLarvae());
+      this.setNumberWithPupae(premise.getNumberWithPupae());
     }
 
     if (taxon != null)
@@ -87,6 +90,9 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     premise.setNumberExamined(this.getNumberExamined());
     premise.setPremiseSize(this.getPremiseSize());
     premise.setNumberInhabitants(this.getNumberInhabitants());
+    premise.setNumberWithImmatures(this.getNumberWithImmatures());
+    premise.setNumberWithLarvae(this.getNumberWithLarvae());
+    premise.setNumberWithPupae(this.getNumberWithPupae());
 
     if (taxon.isNew())
     {
@@ -105,6 +111,9 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     new AttributeNotificationMap(premise, CollectionPremise.ID, this, ImmatureCollectionView.PREMISEID);
     new AttributeNotificationMap(premise, CollectionPremise.PREMISETYPE, this, ImmatureCollectionView.PREMISETYPE);
     new AttributeNotificationMap(premise, CollectionPremise.NUMBEREXAMINED, this, ImmatureCollectionView.NUMBEREXAMINED);
+    new AttributeNotificationMap(premise, CollectionPremise.NUMBERWITHPUPAE, this, ImmatureCollectionView.NUMBERWITHPUPAE);
+    new AttributeNotificationMap(premise, CollectionPremise.NUMBERWITHLARVAE, this, ImmatureCollectionView.NUMBERWITHLARVAE);
+    new AttributeNotificationMap(premise, CollectionPremise.NUMBERWITHIMMATURES, this, ImmatureCollectionView.NUMBERWITHIMMATURES);
     new AttributeNotificationMap(premise, CollectionPremise.PREMISESIZE, this, ImmatureCollectionView.PREMISESIZE);
     new AttributeNotificationMap(premise, CollectionPremise.NUMBERINHABITANTS, this, ImmatureCollectionView.NUMBERINHABITANTS);
     new AttributeNotificationMap(taxon, PremiseTaxon.ID, this, ImmatureCollectionView.TAXONID);
