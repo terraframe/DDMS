@@ -21,11 +21,11 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.transport.attributes.AttributeDTO;
-import com.runwaysdk.transport.attributes.AttributeReferenceDTO;
 import com.runwaysdk.transport.attributes.AttributeStructDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
+import dss.vector.solutions.entomology.ImmatureCollectionDTO;
 import dss.vector.solutions.entomology.InfectionAssayDTO;
 import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
@@ -113,6 +113,8 @@ public class QueryController extends QueryControllerBase implements
   private static final String QUERY_STOCK                      = "/WEB-INF/queryScreens/queryStock.jsp";
 
   private static final String QUERY_LARVACIDE                  = "/WEB-INF/queryScreens/queryLarvacide.jsp";
+
+  private static final String QUERY_IMMATURE_CONTAINER_COLLECTION = "/WEB-INF/queryScreens/queryImmatureContainerCollections.jsp";
 
   private static final String NEW_QUERY                        = "/WEB-INF/queryScreens/newQuery.jsp";
 
@@ -833,8 +835,34 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
+  
   /**
-   * Creates the screen to query for Entomology (mosquitos).
+   * Creates the screen to query contaner collections
+   */
+  public void queryImmatureContainerCollection() throws IOException, ServletException
+  {
+    try
+    {
+      loadQuerySpecifics(LarvacideDTO.CLASS, QueryConstants.QueryType.QUERY_LARVACIDE);
+
+      ClientRequestIF request = this.getClientRequest();
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO collection = request.getQuery(ImmatureCollectionDTO.CLASS);
+      String map = Halp.getDropDownMaps(collection, request, ", ");
+      req.setAttribute("collectionMap", map);
+
+      req.getRequestDispatcher(QUERY_IMMATURE_CONTAINER_COLLECTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  /**
+   * Creates the screen to query
    */
   @Override
   public void queryIndividualCases() throws IOException, ServletException
