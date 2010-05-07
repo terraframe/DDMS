@@ -50,5 +50,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink name="MenuItemController.newInstance" action="dss.vector.solutions.general.MenuItemController.newInstance.mojo">
-  <fmt:message key="Create_a_new_URL" />
+  <fmt:message key="Create_a_new_Menu_Item" />
 </mjl:commandLink>
