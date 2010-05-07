@@ -95,6 +95,8 @@ public class PupalCollectionViewQuery extends dss.vector.solutions.entomology.Pu
     @Override
     protected void buildWhereClause()
     {
+      super.buildWhereClause();
+      
       PupalCollectionViewQuery vQuery = this.getViewQuery();
 
       if (view.getGeoEntity() != null)

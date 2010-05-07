@@ -75,20 +75,20 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       concrete.setStartDate(this.getStartDate());
       concrete.setEndDate(this.getEndDate());
     }
-    
+
     concrete.setCollectionId(this.getCollectionId());
     concrete.setNotes(this.getNotes());
-    
-    if(premise.isNew())
+
+    if (premise.isNew())
     {
       premise.setPremiseType(this.getPremiseType());
     }
-    
+
     premise.setNumberExamined(this.getNumberExamined());
     premise.setPremiseSize(this.getPremiseSize());
     premise.setNumberInhabitants(this.getNumberInhabitants());
-    
-    if(taxon.isNew())
+
+    if (taxon.isNew())
     {
       taxon.setTaxon(this.getTaxon());
     }
@@ -273,7 +273,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       p.throwIt();
     }
   }
-  
+
   public void deleteConcrete()
   {
     if (this.hasConcrete())
@@ -281,7 +281,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       ImmatureCollection.get(this.getConcreteId()).deleteAll();
     }
   }
-  
+
   @Override
   public void deletePremise()
   {
@@ -290,7 +290,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       CollectionPremise.get(this.getPremiseId()).deleteAll();
     }
   }
-    
+
   @Override
   public void deleteTaxon()
   {
@@ -299,7 +299,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       PremiseTaxon.get(this.getTaxonId()).delete();
     }
   }
-  
+
   public static ImmatureCollectionViewQuery getMostRecent()
   {
     return ImmatureCollectionViewQuery.searchCollections();
@@ -352,68 +352,69 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     CollectionPremiseQuery premiseQuery = new CollectionPremiseQuery(factory);
     PremiseTaxonQuery taxonQuery = new PremiseTaxonQuery(factory);
 
-    if (collection.getGeoEntity() != null) {
-	    Condition collectionCondition = collectionQuery.getGeoEntity().EQ(collection.getGeoEntity());
-	    collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(collection.getStartDate()));
-	    collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(collection.getEndDate()));
-	    collectionQuery.WHERE(collectionCondition);
-	
-	    Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
-	    premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(collection.getPremiseType()));
-	    premiseQuery.WHERE(premiseCondition);
-	
-	    Condition taxonCondition = taxonQuery.getPremise().EQ(premiseQuery);
-	    taxonCondition = AND.get(taxonCondition, taxonQuery.getTaxon().EQ(collection.getTaxon()));
-	    taxonQuery.WHERE(taxonCondition);
-	
-	    OIterator<? extends PremiseTaxon> taxonIt = taxonQuery.getIterator();
-	
-	    try
-	    {
-	      if (taxonIt.hasNext())
-	      {
-	        return taxonIt.next().getView();
-	      }
-	    }
-	    finally
-	    {
-	      taxonIt.close();
-	    }
-	
-	    OIterator<? extends CollectionPremise> premiseIt = premiseQuery.getIterator();
-	
-	    try
-	    {
-	      if (premiseIt.hasNext())
-	      {
-	        ImmatureCollectionView view = premiseIt.next().getView();
-	        view.setTaxon(collection.getTaxon());
-	
-	        return view;
-	      }
-	    }
-	    finally
-	    {
-	      premiseIt.close();
-	    }
-	
-	    OIterator<? extends ImmatureCollection> collectionIt = collectionQuery.getIterator();
-	
-	    try
-	    {
-	      if (collectionIt.hasNext())
-	      {
-	        ImmatureCollectionView view = collectionIt.next().getView();
-	        view.setPremiseType(collection.getPremiseType());
-	        view.setTaxon(collection.getTaxon());
-	
-	        return view;
-	      }
-	    }
-	    finally
-	    {
-	      collectionIt.close();
-	    }
+    if (collection.getGeoEntity() != null)
+    {
+      Condition collectionCondition = collectionQuery.getGeoEntity().EQ(collection.getGeoEntity());
+      collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(collection.getStartDate()));
+      collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(collection.getEndDate()));
+      collectionQuery.WHERE(collectionCondition);
+
+      Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
+      premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(collection.getPremiseType()));
+      premiseQuery.WHERE(premiseCondition);
+
+      Condition taxonCondition = taxonQuery.getPremise().EQ(premiseQuery);
+      taxonCondition = AND.get(taxonCondition, taxonQuery.getTaxon().EQ(collection.getTaxon()));
+      taxonQuery.WHERE(taxonCondition);
+
+      OIterator<? extends PremiseTaxon> taxonIt = taxonQuery.getIterator();
+
+      try
+      {
+        if (taxonIt.hasNext())
+        {
+          return taxonIt.next().getView();
+        }
+      }
+      finally
+      {
+        taxonIt.close();
+      }
+
+      OIterator<? extends CollectionPremise> premiseIt = premiseQuery.getIterator();
+
+      try
+      {
+        if (premiseIt.hasNext())
+        {
+          ImmatureCollectionView view = premiseIt.next().getView();
+          view.setTaxon(collection.getTaxon());
+
+          return view;
+        }
+      }
+      finally
+      {
+        premiseIt.close();
+      }
+
+      OIterator<? extends ImmatureCollection> collectionIt = collectionQuery.getIterator();
+
+      try
+      {
+        if (collectionIt.hasNext())
+        {
+          ImmatureCollectionView view = collectionIt.next().getView();
+          view.setPremiseType(collection.getPremiseType());
+          view.setTaxon(collection.getTaxon());
+
+          return view;
+        }
+      }
+      finally
+      {
+        collectionIt.close();
+      }
     }
     return collection.searchClone();
   }

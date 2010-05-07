@@ -96,6 +96,8 @@ public class ImmatureCollectionViewQuery extends dss.vector.solutions.entomology
     @Override
     protected void buildWhereClause()
     {
+      super.buildWhereClause();
+            
       ImmatureCollectionViewQuery vQuery = this.getViewQuery();
 
       if (view.getGeoEntity() != null)

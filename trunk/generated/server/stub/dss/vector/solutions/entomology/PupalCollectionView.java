@@ -295,6 +295,8 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     }
 
     query.restrictRows(pageSize, pageNumber);
+    
+//    System.out.println(query.getSQL());
 
     return query;
   }
