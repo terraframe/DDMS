@@ -227,6 +227,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     view.setEndDate(this.getEndDate());
     view.setPremiseType(this.getPremiseType());
     view.setTaxon(this.getTaxon());
+    view.setCollectionId(this.getCollectionId());
 
     return view;
   }

@@ -206,6 +206,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     view.setStartDate(this.getStartDate());
     view.setEndDate(this.getEndDate());
     view.setPremiseType(this.getPremiseType());
+    view.setCollectionId(this.getCollectionId());
 
     return view;
   }
