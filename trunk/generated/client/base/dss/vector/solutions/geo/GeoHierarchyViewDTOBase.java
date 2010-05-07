@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -761202688)
+@com.runwaysdk.business.ClassSignature(hash = -1748895421)
 public abstract class GeoHierarchyViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchyView";
-  private static final long serialVersionUID = -761202688;
+  private static final long serialVersionUID = -1748895421;
   
   protected GeoHierarchyViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -440,6 +440,14 @@ public abstract class GeoHierarchyViewDTOBase extends com.runwaysdk.business.Vie
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getUrbanMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(URBAN).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getUrbanHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String entityId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{entityId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyViewDTO.CLASS, "getUrbanHierarchies", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static GeoHierarchyViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

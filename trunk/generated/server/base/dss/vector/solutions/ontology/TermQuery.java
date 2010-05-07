@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 610186595)
+@com.runwaysdk.business.ClassSignature(hash = -1832046095)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 610186595;
+private static final long serialVersionUID = -1832046095;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -2249,6 +2249,122 @@ private static final long serialVersionUID = 610186595;
   }
 
 
+  public com.runwaysdk.query.Condition pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.getBusinessQuery().isChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.getBusinessQuery().isNotChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -3232,6 +3348,18 @@ private static final long serialVersionUID = 610186595;
   public com.runwaysdk.query.Condition SUBSELECT_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
 
 
+  public com.runwaysdk.query.Condition pupalContainerAmounts();
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery);
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts();
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery);
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase();
   public com.runwaysdk.query.Condition referralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3472,6 +3600,18 @@ private static final long serialVersionUID = 610186595;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_premiseTaxons(dss.vector.solutions.entomology.PremiseTaxonQuery premiseTaxonQuery, dss.vector.solutions.entomology.CollectionContainerQuery collectionContainerQuery);
 
 
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts();
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_referralAggregatedCase();
   public com.runwaysdk.query.Condition NOT_IN_referralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3541,7 +3681,7 @@ private static final long serialVersionUID = 610186595;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -744267515;
+private static final long serialVersionUID = 1450988819;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -4921,6 +5061,64 @@ private static final long serialVersionUID = -744267515;
   }
 
 
+  public com.runwaysdk.query.Condition pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.isChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.isChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.isChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.isChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+
   public com.runwaysdk.query.Condition referralAggregatedCase()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -6078,6 +6276,64 @@ private static final long serialVersionUID = -744267515;
   {
     collectionContainerQuery.AND(collectionContainerQuery.hasParent(premiseTaxonQuery));
     return this.isNotChildIn_SUBSELECT(collectionContainerQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.isNotChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(pupalContainerQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.isNotChildIn(pupalContainerAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_pupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerQuery pupalContainerQuery, dss.vector.solutions.entomology.PupalContainerAmountQuery pupalContainerAmountQuery)
+  {
+    pupalContainerAmountQuery.AND(pupalContainerAmountQuery.hasParent(pupalContainerQuery));
+    return this.isNotChildIn_SUBSELECT(pupalContainerAmountQuery);
   }
 
 

@@ -931,6 +931,20 @@
     </attribute>
     <attribute>
       <description>
+        Classes of the concrete tag
+      </description>
+      <name>
+        concreteClass
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
         Flag indicating if this tag should generate a hidden field for the concrete id
       </description>
       <name>

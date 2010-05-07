@@ -99,8 +99,22 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
           var key = keys[j];
             
           var attributeName = (key.substr(0, 1).toLowerCase() + key.substr(1)).split('^^')[0];
+          
+          var attributeDTO = rows[i].getAttributeDTO(attributeName);
                     
-          var value = rows[i].getValue(attributeName);              
+          var value = ""; 
+          
+          if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
+        	// IMPORTANT: The datagrid can only support single select enumerations
+            var enumNames = attributeDTO.getEnumNames();
+            
+            if(enumNames.length == 1) {
+              value = enumNames[0];
+            }
+          }
+          else {
+            value = attributeDTO.getValue();
+          }
           
           this.setData(i, key, value);
           
@@ -228,6 +242,8 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
     
     setData : function(row, col, value) {
       this._rows[row][col] = value;
+      
+      this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SET_DATA, {row:row, col:col, value:value}));
     },
     
     getData : function(row, col) {
@@ -509,6 +525,13 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     getModel : function() {
       return this._model;
+    },
+    
+    setData : function(row, col, value) {
+      this._model.setData(row, col, value);
+
+      var record = this.myDataTable.getRecord(row);
+      record.setData(col, value);
     },
     
     updateValue : function(row, col, value) {

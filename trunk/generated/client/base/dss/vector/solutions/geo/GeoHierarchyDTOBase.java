@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1395124630)
+@com.runwaysdk.business.ClassSignature(hash = -353779738)
 public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = -1395124630;
+  private static final long serialVersionUID = -353779738;
   
   protected GeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -648,10 +648,10 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] collectHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String rootGeoEntityId, java.lang.Boolean political, java.lang.Boolean sprayZoneAllowed, java.lang.String[] extraUniversals)
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] collectHierarchies(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String rootGeoEntityId, java.lang.Boolean[] flags, java.lang.String[] extraUniversals)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Boolean", "[Ljava.lang.String;"};
-    Object[] _parameters = new Object[]{rootGeoEntityId, political, sprayZoneAllowed, extraUniversals};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.Boolean;", "[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{rootGeoEntityId, flags, extraUniversals};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "collectHierarchies", _declaredTypes);
     return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

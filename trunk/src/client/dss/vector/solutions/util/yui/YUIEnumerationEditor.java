@@ -25,6 +25,11 @@ public class YUIEnumerationEditor extends YUIEditor implements Reloadable
 
     List<String> dropdownOptions = new LinkedList<String>();
 
+    if(!attribute.isRequired())
+    {
+      dropdownOptions.add("{label:'', value:''}");
+    }
+    
     for (Map.Entry<String, String> e : attribute.getEnumItems().entrySet())
     {
       dropdownOptions.add("{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}");

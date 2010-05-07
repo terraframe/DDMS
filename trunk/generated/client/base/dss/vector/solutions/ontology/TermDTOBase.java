@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1106976966)
+@com.runwaysdk.business.ClassSignature(hash = -1936083448)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -1106976966;
+  private static final long serialVersionUID = -1936083448;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1801,6 +1801,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllPremiseTaxons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.entomology.CollectionContainerDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.entomology.PupalContainerDTO> getAllPupalContainerAmounts()
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PupalContainerDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.entomology.PupalContainerDTO> getAllPupalContainerAmounts(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PupalContainerDTO>) clientRequestIF.getParents(id, dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.entomology.PupalContainerAmountDTO> getAllPupalContainerAmountsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PupalContainerAmountDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.entomology.PupalContainerAmountDTO> getAllPupalContainerAmountsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.entomology.PupalContainerAmountDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.entomology.PupalContainerAmountDTO addPupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerDTO parent)
+  {
+    return (dss.vector.solutions.entomology.PupalContainerAmountDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.entomology.PupalContainerAmountDTO addPupalContainerAmounts(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.entomology.PupalContainerDTO parent)
+  {
+    return (dss.vector.solutions.entomology.PupalContainerAmountDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  public void removePupalContainerAmounts(dss.vector.solutions.entomology.PupalContainerAmountDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removePupalContainerAmounts(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.entomology.PupalContainerAmountDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllPupalContainerAmounts()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
+  }
+  
+  public static void removeAllPupalContainerAmounts(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.entomology.PupalContainerAmountDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

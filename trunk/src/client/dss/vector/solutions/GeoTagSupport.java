@@ -67,6 +67,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   private String                 classes;
 
   /**
+   * Class attribute
+   */
+  private String                 concreteClass;
+  
+  /**
    * Id attribute
    */
   private String                 id;
@@ -177,6 +182,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.classes = classes;
   }
 
+  @AttributeAnnotation(rtexprvalue = true, description = "Classes of the concrete tag")  
+  public String getConcreteClass()
+  {
+    return concreteClass;
+  }
+  
+  public void setConcreteClass(String concreteClass)
+  {
+    this.concreteClass = concreteClass;
+  }
+  
   @AttributeAnnotation(rtexprvalue = true, description = "Id of tag")
   public String getId()
   {
@@ -186,7 +202,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   public void setId(String id)
   {
     this.id = id;
-  }
+  }  
 
   @AttributeAnnotation(rtexprvalue = true, description = "Current value of the tag this can be either a String with the geoId or a GeoEntityDTO")
   public Object getValue()
@@ -344,6 +360,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
       concreteInput.setId(_id + "_geoEntityId");
       concreteInput.setType("hidden");
       concreteInput.setParam(_param);
+      concreteInput.setClasses(this.getConcreteClass());
 
       if (_value != null && _value instanceof GeoEntityDTO)
       {

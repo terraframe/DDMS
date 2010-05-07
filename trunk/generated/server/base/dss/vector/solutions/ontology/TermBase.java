@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1807380294)
+@com.runwaysdk.business.ClassSignature(hash = 624297864)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1807380294;
+  private static final long serialVersionUID = 624297864;
   
   public TermBase()
   {
@@ -1273,6 +1273,49 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public dss.vector.solutions.entomology.CollectionContainer getPremiseTaxonsRel(dss.vector.solutions.entomology.PremiseTaxon premiseTaxon)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.CollectionContainer>) getRelationshipsWithParent(premiseTaxon, dss.vector.solutions.entomology.CollectionContainer.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.entomology.PupalContainerAmount addPupalContainerAmounts(dss.vector.solutions.entomology.PupalContainer pupalContainer)
+  {
+    return (dss.vector.solutions.entomology.PupalContainerAmount) addParent(pupalContainer, dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+  }
+  
+  public void removePupalContainerAmounts(dss.vector.solutions.entomology.PupalContainer pupalContainer)
+  {
+    removeAllParents(pupalContainer, dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainer> getAllPupalContainerAmounts()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainer>) getParents(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainerAmount> getAllPupalContainerAmountsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainerAmount>) getParentRelationships(dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.entomology.PupalContainerAmount getPupalContainerAmountsRel(dss.vector.solutions.entomology.PupalContainer pupalContainer)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainerAmount> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.entomology.PupalContainerAmount>) getRelationshipsWithParent(pupalContainer, dss.vector.solutions.entomology.PupalContainerAmount.CLASS);
     try
     {
       if (iterator.hasNext())

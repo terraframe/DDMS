@@ -2751,6 +2751,9 @@
         <attribute
           name="populationAllowed"
           value="false" />
+        <attribute
+          name="urban"
+          value="true" />
         <attributeReference
           name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Earth" />

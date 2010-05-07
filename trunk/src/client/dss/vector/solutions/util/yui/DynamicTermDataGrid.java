@@ -37,10 +37,18 @@ public class DynamicTermDataGrid extends AbstractCompositeGrid implements Reload
 
     for (int i = 0; i < this.terms.length; i++)
     {
-      setup.prepare(map, this.terms[i]);
+      setup.prepare(this.terms[i], map, view);
+      
       String postfix = this.getPostfix(i);
-
-      this.generators[i] = new ViewDataGrid(view, map, keys, t[i], postfix);
+      
+      if(t.length == 0)
+      {
+        this.generators[i] = new ViewDataGrid(view, map, keys, null, postfix);
+      }
+      else
+      {
+        this.generators[i] = new ViewDataGrid(view, map, keys, t[i], postfix);        
+      }
     }
   }
 

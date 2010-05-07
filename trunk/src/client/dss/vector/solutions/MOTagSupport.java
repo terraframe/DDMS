@@ -76,6 +76,7 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
     attributeInput.setId(_id);
     attributeInput.setType("hidden");
     attributeInput.setParam(_param);
+    attributeInput.setClasses(this.getClasses());
 
     if (_value != null)
     {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1261144448)
+@com.runwaysdk.business.ClassSignature(hash = 499152835)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class GeoHierarchyViewBase extends com.runwaysdk.business.View i
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPENAME = "typeName";
   public static java.lang.String URBAN = "urban";
-  private static final long serialVersionUID = -1261144448;
+  private static final long serialVersionUID = 499152835;
   
   public GeoHierarchyViewBase()
   {
@@ -369,6 +369,12 @@ public abstract class GeoHierarchyViewBase extends com.runwaysdk.business.View i
   public static GeoHierarchyView get(String id)
   {
     return (GeoHierarchyView) com.runwaysdk.business.View.get(id);
+  }
+  
+  public static dss.vector.solutions.geo.GeoHierarchyView[] getUrbanHierarchies(java.lang.String entityId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchyView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

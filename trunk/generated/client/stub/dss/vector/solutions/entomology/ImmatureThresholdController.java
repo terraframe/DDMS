@@ -239,10 +239,6 @@ public class ImmatureThresholdController extends ImmatureThresholdControllerBase
     {
       ImmatureThresholdViewDTO dto = ImmatureThresholdDTO.lockView(super.getClientRequest(), id);
 
-      List<String> entityUniversals = Arrays.asList(new String[] { SentinelSiteDTO.CLASS });
-
-      req.setAttribute("entityUniversals", entityUniversals);
-      req.setAttribute("SentinelSite", SentinelSiteDTO.CLASS);
       req.setAttribute("item", dto);
 
       render("editComponent.jsp");

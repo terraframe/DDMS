@@ -45,7 +45,7 @@ public class ColumnSetup implements Reloadable
   private String  getter;
 
   private String  setter;
-  
+
   private Integer width;
 
   public ColumnSetup()
@@ -173,7 +173,7 @@ public class ColumnSetup implements Reloadable
 
   public boolean hasGetter()
   {
-    return (this.getter != null && this.getter.length() > 0);
+    return ( this.getter != null && this.getter.length() > 0 );
   }
 
   public Integer getWidth()
@@ -184,5 +184,5 @@ public class ColumnSetup implements Reloadable
   public void setWidth(Integer width)
   {
     this.width = width;
-  }  
+  }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -1220725279)
+@com.runwaysdk.business.ClassSignature(hash = -937147287)
 public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.GeoEntityTreeController";
@@ -10,7 +10,7 @@ public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1220725279;
+  private static final long serialVersionUID = -937147287;
   
   public GeoEntityTreeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,29 +67,29 @@ public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loa
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, java.lang.Boolean:political, java.lang.Boolean:sprayZoneAllowed, [Ljava.lang.String;:extraUniversals", post=true)
-  public void displayMultipleSelectSearch(java.lang.String rootGeoEntityId, java.lang.Boolean political, java.lang.Boolean sprayZoneAllowed, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, [Ljava.lang.Boolean;:flags, [Ljava.lang.String;:extraUniversals", post=true)
+  public void displayMultipleSelectSearch(java.lang.String rootGeoEntityId, java.lang.Boolean[] flags, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, java.lang.String:political, java.lang.String:sprayZoneAllowed, [Ljava.lang.String;:extraUniversals", post=true)
-  public void failDisplayMultipleSelectSearch(java.lang.String rootGeoEntityId, java.lang.String political, java.lang.String sprayZoneAllowed, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, [Ljava.lang.String;:flags, [Ljava.lang.String;:extraUniversals", post=true)
+  public void failDisplayMultipleSelectSearch(java.lang.String rootGeoEntityId, java.lang.String[] flags, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplayMultipleSelectSearch");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, java.lang.Boolean:political, java.lang.Boolean:sprayZoneAllowed, [Ljava.lang.String;:extraUniversals", post=true)
-  public void displaySingleSelectSearch(java.lang.String rootGeoEntityId, java.lang.Boolean political, java.lang.Boolean sprayZoneAllowed, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, [Ljava.lang.Boolean;:flags, [Ljava.lang.String;:extraUniversals", post=true)
+  public void displaySingleSelectSearch(java.lang.String rootGeoEntityId, java.lang.Boolean[] flags, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, java.lang.String:political, java.lang.String:sprayZoneAllowed, [Ljava.lang.String;:extraUniversals", post=true)
-  public void failDisplaySingleSelectSearch(java.lang.String rootGeoEntityId, java.lang.String political, java.lang.String sprayZoneAllowed, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId, [Ljava.lang.String;:flags, [Ljava.lang.String;:extraUniversals", post=true)
+  public void failDisplaySingleSelectSearch(java.lang.String rootGeoEntityId, java.lang.String[] flags, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplaySingleSelectSearch");
