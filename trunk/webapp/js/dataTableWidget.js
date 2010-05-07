@@ -105,7 +105,7 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
           var value = ""; 
           
           if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
-        	// IMPORTANT: The datagrid can only support single select enumerations
+        // IMPORTANT: The datagrid can only support single select enumerations
             var enumNames = attributeDTO.getEnumNames();
             
             if(enumNames.length == 1) {
@@ -454,7 +454,6 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       
       //set this so it accessable by other methods in the jsp
       this.myDataTable.tableData = this;          
-//      this.tableData.myDataTable = this.myDataTable;
     },
     
     _initializeField : function(c) {
@@ -532,6 +531,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
       var record = this.myDataTable.getRecord(row);
       record.setData(col, value);
+    },
+    
+    getData : function(row, col) {
+      return this._model.getData(row, col);    
     },
     
     updateValue : function(row, col, value) {

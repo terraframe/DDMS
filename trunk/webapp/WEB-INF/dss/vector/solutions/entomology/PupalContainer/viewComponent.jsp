@@ -63,8 +63,8 @@
     <hr />
     
     <div id="containers"></div>   
-            
-    <mjl:command name="Delete" id="delete.button" classes="button" action="dss.vector.solutions.entomology.PupalContainerController.delete.mojo" value="Delete"/>    
+
+    <button type="button" id="delete.button"> <fmt:message key="Delete"/> </button>
   </mjl:form>
 </dl> 
 
@@ -121,16 +121,6 @@
       YAHOO.util.Event.on(el, 'change', enableSave);   
     }
     
-
-    // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
-    var buttonHandler = function() {
-      var buttons = YAHOO.util.Dom.getElementsByClassName("button");
-      
-      for each (el in buttons) {
-        el.disabled = (premiseId.value == '');
-      }        
-    }
-
     // FORM SCRAPPER USED TO POPULATE A MOSQUITO COLLECTION VIEW USED IN THE SAVE HANDLER
     var populateCollection = function() {
       var collection = new Mojo.$.dss.vector.solutions.entomology.PupalCollectionView();
@@ -224,8 +214,9 @@
 
     var validateType = function(test, oData) {
       var record = this.getCellEditor().getRecord();
+      var index = record.getCount();
 
-      var shape = record.getData('Shape');
+      var shape = grid.getData(index, 'Shape');
       var valid = test(shape);
 
       if(valid) {
@@ -235,8 +226,8 @@
       return undefined;
     };
 
-    var validateRectangle = Mojo.Util.curry(validateType, function(shape){return shape == 'Rectangle'});
-    var validateCircle = Mojo.Util.curry(validateType, function(shape){return shape == 'Circle'});
+    var validateRectangle = Mojo.Util.curry(validateType, function(shape){return shape == 'RECTANGLE'});
+    var validateCircle = Mojo.Util.curry(validateType, function(shape){return shape == 'CIRCLE'});
     var validateShape = Mojo.Util.curry(validateType, function(shape){return shape != ''});
       
     // SETUP THE CONTAINER DATA GRID
@@ -246,7 +237,8 @@
       div_id: "containers",
       excelButtons:false,
       addButton:true,
-      saveLabelKey : "Save_Collection"
+      saveLabelKey : "Save_Collection",
+      
     };
     
     var rows = <%=grid.getData()%>;
@@ -283,6 +275,19 @@
         }
       }
     };
+
+    var deleteButton = new YAHOO.widget.Button("delete.button");
+
+    deleteButton.on("click", function(){
+      var formEl = document.getElementById("PupalContainer.form");
+      formEl.action = "dss.vector.solutions.entomology.PupalContainerController.delete.mojo";
+      formEl.submit();
+    });    
+   
+    // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
+    var buttonHandler = function() {
+      deleteButton.set("disabled", (premiseId.value == ''));
+    }    
 
     var grid = new MDSS.DataGrid(model, data);
 
