@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {id} id
     - {term} term
     -->
-  <locale language="defaultLocale">The term [{term}] also has relationships with other parents.  Do you want to delete the term, or just this relationship?</locale>
+  <locale language="defaultLocale">Do you want to delete the Term or its relationship with [{term}]?</locale>
 </exception>
