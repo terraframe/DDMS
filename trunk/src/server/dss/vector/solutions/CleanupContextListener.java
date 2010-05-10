@@ -229,9 +229,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     for (String locale : list)
     {
       //sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
-      sql += "geo0.entityName|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter.display,'')   || ') - ' || geo0.geoId AS " + locale +", \n";
+      sql += "geo0.entityName|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter.name,'')   || ') - ' || geo0.geoId AS " + locale +", \n";
     }
-    sql += "geo0.entityName|| COALESCE(' : ' || ter.display,'')   AS shortDisplayLabel \n"; 
+    sql += "geo0.entityName|| COALESCE(' : ' || ter.name,'')   AS shortDisplayLabel \n"; 
     sql += "FROM  \n";
     sql += "geohierarchy g1,  \n";
     sql += "md_type t1 , \n";
