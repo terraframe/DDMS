@@ -74,9 +74,6 @@ public class FilterTagSupport extends SimpleTagSupport implements Reloadable, Co
     {
       GeoTagSupport geo = (GeoTagSupport) parent;
 
-      int code = this.hashCode();
-      System.out.println(code);
-
       if (!geo.hasFilter(this))
       {
         String name = "#" + geo.getParam() + "_Filter";
