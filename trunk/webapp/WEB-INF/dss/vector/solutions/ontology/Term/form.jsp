@@ -5,8 +5,8 @@
   <mjl:dt attribute="name">
     <mjl:input type="text" param="name" />
   </mjl:dt>
-  <mjl:dt attribute="displayLabel">
-    <mjl:input type="text" param="displayLabel" />
+  <mjl:dt attribute="termDisplayLabel">
+    <mjl:input type="text" param="termDisplayLabel" />
   </mjl:dt>
   <mjl:dt attribute="termId">
     <mjl:input type="text" param="termId" />
