@@ -757,20 +757,8 @@ public class OntologyImporter
     root.setTermId(rootStr);
     root.setName(rootStr);
     root.getTermDisplayLabel().setValue(rootStr);
-//    root.getDisplayLabel().setDefaultValue("Root");
     root.setOntology(ontology);
     root.apply();
-    
-    // set inactive for all diseases by default
-    for(Disease disease : Disease.values())
-    {
-      InactiveProperty prop = new InactiveProperty();
-      prop.setInactive(false);
-      prop.addDisease(disease);
-      prop.apply();
-      
-      root.addInactiveProperties(prop).apply();
-    }
     
     QueryFactory f = new QueryFactory();
     TermQuery q = new TermQuery(f);
@@ -873,17 +861,6 @@ public class OntologyImporter
     {
       term.setOntology(this.ontology);
       term.apply();
-      
-      // set inactive for all diseases by default
-      for(Disease disease : Disease.values())
-      {
-        InactiveProperty prop = new InactiveProperty();
-        prop.setInactive(false);
-        prop.addDisease(disease);
-        prop.apply();
-        
-        term.addInactiveProperties(prop).apply();
-      }
     }
     else // term.getObsolete() == true;
     {

@@ -220,7 +220,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     // If this is new, set the Ontology value to the MO ontology.
     // FIXME this will be removed once Term subclasses are refactored
     // out and Term will be come concrete.
-    if (this.isNew())
+    boolean isNew = this.isNew();
+    if (isNew)
     {
       Ontology moOntology = Ontology.getByKey(MO.KEY);
       // There WILL be one record; otherwise, the application was not set up
@@ -229,6 +230,20 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     super.apply();
+    
+    if(isNew)
+    {
+      // set inactive for all diseases by default
+      for(Disease disease : Disease.values())
+      {
+        InactiveProperty prop = new InactiveProperty();
+        prop.setInactive(false);
+        prop.addDisease(disease);
+        prop.apply();
+        
+        this.addInactiveProperties(prop).apply();
+      }
+    }
   }
 
   /**
@@ -408,35 +423,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
       AllPaths.rebuildAllPaths();
     }
     
-    // set inactive by disease
-    if(isNew)
+    if(inactive != null)
     {
-      // set inactive for all diseases by default
-      Disease currentDisease = DiseaseWrapper.getDisease();
-      for(Disease disease : Disease.values())
-      {
-        Boolean inactiveValue = disease == currentDisease ? inactive : false;
-        
-        InactiveProperty prop = new InactiveProperty();
-        prop.setInactive(inactiveValue);
-        prop.addDisease(disease);
-        prop.apply();
-        
-        this.addInactiveProperties(prop).apply();
-      }
-    }
-    else if(inactive != null)
-    {
-      Disease currentDisease = DiseaseWrapper.getDisease();
-      for(InactiveProperty prop : this.getAllInactiveProperties().getAll())
-      {
-        if(prop.getDisease().get(0) == currentDisease)
-        {
-          prop.appLock();
-          prop.setInactive(inactive);
-          prop.apply();
-        }
-      }
+      InactiveProperty prop = this.getInactiveByDisease();
+      prop.appLock();
+      prop.setInactive(inactive);
+      prop.apply();
     }
 
     TermViewQuery query = getByIds(new String[] { this.getId() });
