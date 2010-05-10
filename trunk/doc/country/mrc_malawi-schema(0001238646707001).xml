@@ -730,7 +730,7 @@
 					value="dss.vector.solutions.system.install" />
 				<attribute
 					name="propertyValue"
-					value="000000" />
+					value="1105" />
 				<attribute
 					name="propertyType"
 					value="STRING" />
