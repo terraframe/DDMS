@@ -12,7 +12,7 @@ import com.runwaysdk.controller.tag.develop.TagAnnotation;
 import com.runwaysdk.generation.loader.Reloadable;
 
 @TagAnnotation(name = "filter", bodyContent = "scriptless", description = "Geo filter tag")
-public class FilterTagSupport extends SimpleTagSupport implements Reloadable
+public class FilterTagSupport extends SimpleTagSupport implements Reloadable, Comparable<FilterTagSupport>
 {
   private String  id;
 
@@ -23,6 +23,12 @@ public class FilterTagSupport extends SimpleTagSupport implements Reloadable
   public FilterTagSupport()
   {
     this.checked = false;
+  }
+
+  @Override
+  public int compareTo(FilterTagSupport o)
+  {
+    return this.universal.compareTo(o.universal);
   }
 
   @AttributeAnnotation(required = true, rtexprvalue = true, description = "Id of the filter input")
@@ -67,20 +73,24 @@ public class FilterTagSupport extends SimpleTagSupport implements Reloadable
     if (parent != null)
     {
       GeoTagSupport geo = (GeoTagSupport) parent;
-      
-      String name = "#" + geo.getParam() + "_Filter";
-      String check = this.getChecked() ? " checked=\"checked\"" : "";
 
-      out.write("<input type=\"radio\" name=\"" + name + "\" id=\"" + this.getId() + "\" value=\"" + this.getUniversal() + "\"" + check + "/>\n");
+      int code = this.hashCode();
+      System.out.println(code);
 
-      if (this.getJspBody() != null)
+      if (!geo.hasFilter(this))
       {
-        this.getJspBody().invoke(null);
+        String name = "#" + geo.getParam() + "_Filter";
+        String check = this.getChecked() ? " checked=\"checked\"" : "";
+
+        out.write("<input type=\"radio\" name=\"" + name + "\" id=\"" + this.getId() + "\" value=\"" + this.getUniversal() + "\"" + check + "/>\n");
+
+        if (this.getJspBody() != null)
+        {
+          this.getJspBody().invoke(null);
+        }
+
+        geo.addRadioFilter(this);
       }
-
-
-      geo.addRadioFilter(this);
     }
   }
-
 }

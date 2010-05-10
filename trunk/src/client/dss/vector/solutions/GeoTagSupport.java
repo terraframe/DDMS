@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -27,71 +28,71 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   /**
    * Name of the controller parameter or attribute being inputed
    */
-  private String                 param;
+  private String                param;
 
   /**
    * Flag indication if this tag should generate a hidden field for the selected
    * id
    */
-  private Boolean                concrete;
+  private Boolean               concrete;
 
   /**
    * Flag indicating if this fields should restrict by political universals
    */
-  private Boolean                political;
+  private Boolean               political;
 
   /**
    * Flag indicating if this fields should restrict by populated universals
    */
-  private Boolean                populated;
+  private Boolean               populated;
 
   /**
    * Flag indicating if this fields should restrict by spray target allowed
    * universals
    */
-  private Boolean                spray;
+  private Boolean               spray;
 
   /**
    * Flag indicating if this fields should restrict by urban universals
    */
-  private Boolean                urban;
+  private Boolean               urban;
 
   /**
    * List of additional accepted universals
    */
-  private List<String>           universals;
+  private List<String>          universals;
 
   /**
    * Class attribute
    */
-  private String                 classes;
+  private String                classes;
 
   /**
    * Class attribute
    */
-  private String                 concreteClass;
-  
+  private String                concreteClass;
+
   /**
    * Id attribute
    */
-  private String                 id;
+  private String                id;
 
   /**
    * Current value term
    */
-  private Object                 value;
+  private Object                value;
 
-  private String                 filter;
+  private String                filter;
 
-  private String                 listener;
+  private String                listener;
 
-  private List<FilterTagSupport> radioFilters;
+  private Set<FilterTagSupport> radioFilters;
 
   /**
    * Flag denoting if searching on this geo tag should enforce the system geo
    * root
    */
-  private Boolean                enforceRoot;
+  private Boolean               enforceRoot;
 
   public GeoTagSupport()
   {
@@ -102,7 +103,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.concrete = true;
     this.enforceRoot = true;
     this.universals = new LinkedList<String>();
-    this.radioFilters = new LinkedList<FilterTagSupport>();
+    this.radioFilters = new TreeSet<FilterTagSupport>();
   }
 
   @AttributeAnnotation(required = true, description = "The name of the controller parameter or attribute")
@@ -182,17 +183,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.classes = classes;
   }
 
-  @AttributeAnnotation(rtexprvalue = true, description = "Classes of the concrete tag")  
+  @AttributeAnnotation(rtexprvalue = true, description = "Classes of the concrete tag")
   public String getConcreteClass()
   {
     return concreteClass;
   }
-  
+
   public void setConcreteClass(String concreteClass)
   {
     this.concreteClass = concreteClass;
   }
-  
+
   @AttributeAnnotation(rtexprvalue = true, description = "Id of tag")
   public String getId()
   {
@@ -202,7 +203,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   public void setId(String id)
   {
     this.id = id;
-  }  
+  }
 
   @AttributeAnnotation(rtexprvalue = true, description = "Current value of the tag this can be either a String with the geoId or a GeoEntityDTO")
   public Object getValue()
@@ -240,6 +241,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   protected void addRadioFilter(FilterTagSupport tag)
   {
     this.radioFilters.add(tag);
+  }
+  
+  protected boolean hasFilter(FilterTagSupport tag)
+  {
+    return this.radioFilters.contains(tag);
   }
 
   @AttributeAnnotation(rtexprvalue = true, required = false, description = "Flag denoting if the searching on this geo tag should use the global geo root")
@@ -381,11 +387,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
 
     out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
 
-    if(this.listener != null)
-    {      
+    if (this.listener != null)
+    {
       out.write("    geoSearch.addListener(" + this.listener + ");\n");
     }
-    
+
     this.writeFilterTags(out);
 
     out.write("  })\n");
@@ -431,4 +437,5 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
       out.write("     }, null, geoSearch);\n");
     }
   }
+
 }
