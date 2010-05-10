@@ -165,13 +165,13 @@
 
     var onGoHandler = function(e) {
       if(dirty) {
-        var x=window.confirm("You have unsaved data.  Do you want to continue?");
+        var x=window.confirm(MDSS.localize("Unsaved_Data"));
 
         if (x) {
           submitForm();
         }
         else {
-          YAHOO.util.Event.preventDefault(e);            
+          YAHOO.util.Event.preventDefault(e);
         }        
       }    
       else {
