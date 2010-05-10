@@ -24,12 +24,12 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
   {
     for (Term location : Term.getRootChildren(SurveyedPersonView.getDisplayLocationsMd()))
     {
-      extraColumns.add(new ExcelColumn(LOCATIONS + location.getTermId(), location.getDisplay()));
+      extraColumns.add(new ExcelColumn(LOCATIONS + location.getTermId(), location.getTermDisplayLabel().getValue()));
     }
     
     for (Term treatment : Term.getRootChildren(SurveyedPersonView.getDisplayTreatmentsMd()))
     {
-      extraColumns.add(new ExcelColumn(TREATMENTS + treatment.getTermId(), treatment.getDisplay()));
+      extraColumns.add(new ExcelColumn(TREATMENTS + treatment.getTermId(), treatment.getTermDisplayLabel().getValue()));
     }
   }
 

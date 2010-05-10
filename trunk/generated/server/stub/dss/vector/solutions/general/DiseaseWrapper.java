@@ -1,24 +1,14 @@
 package dss.vector.solutions.general;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Map;
-import java.util.TreeMap;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdEnumerationDAO;
-import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableBoolean;
-import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF;
-import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.MenuGenerator;
 
 public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.generation.loader.Reloadable {
@@ -28,84 +18,85 @@ public class DiseaseWrapper extends DiseaseWrapperBase implements com.runwaysdk.
 		super();
 	}
 	
-	/**
-	 * Returns the name of the Term attribute for the inactive flag based on the
-	 * current disease selected for the session user.
-	 * 
-	 * @return
-	 */
-	public static String getTermInactiveAttribute() {
-		Disease disease = getDisease();
+	public static Condition getInactiveCriteria(QueryFactory f, TermQuery termQuery, Boolean inactive)
+	{
+	  Disease disease = getDisease();
+	  
+	  InactivePropertyQuery ipQ = new InactivePropertyQuery(f);
+	  
+    ipQ.AND(ipQ.getDisease().containsExactly(disease));
+    ipQ.AND(ipQ.getInactive().EQ(inactive));
+	  
+    return termQuery.inactiveProperties(ipQ);
+	}
+	
+	
+	
+	public static Condition getInactiveCriteria(QueryFactory f, TermQueryReferenceIF termQueryRef, Boolean inactive)
+	{
+// The following has a bug in the query API
+//	  Disease disease = getDisease();
+//	  
+//	  InactivePropertyQuery ipQ = new InactivePropertyQuery(f);
+//	  
+//	  ipQ.AND(ipQ.getDisease().containsExactly(disease));
+//	  ipQ.AND(ipQ.getInactive().EQ(inactive));
+//	  
+//	  return termQueryRef.inactiveProperties(ipQ);
+	  
+    TermQuery t = new TermQuery(f);
+    InactivePropertyQuery ip = new InactivePropertyQuery(f);
+    
+    
+    Disease disease = DiseaseWrapper.getDisease();
+    ip.WHERE(ip.getDisease().containsExactly(disease));
+    ip.WHERE(ip.getInactive().EQ(inactive));
+    
+    t.AND(t.inactiveProperties(ip));
 
-		if (disease == Disease.DENGUE) {
-			return Term.INACTIVEDENGUE;
-		} else if (disease == Disease.MALARIA) {
-			return Term.INACTIVEMALARIA;
-		} else {
-			String error = "The disease [" + disease + "] is currently not supported.";
-			throw new ProgrammingErrorException(error);
-		}
+    return termQueryRef.EQ(t);
 	}
 
 	/**
-	 * Returns the correct SelectableBoolean for the active flag depending on
-	 * which disease is being used by the current user.
+	 * Checks if the given Term is inactive for the given Disease.
 	 * 
-	 * @param termQuery
-	 * @return
+	 * @param term
+	 * @param disease
+	 * @return true if the Term is inactive for the Disease; otherwise, false.
 	 */
-	public static SelectableBoolean getInactive(TermQuery termQuery) {
-		Disease disease = getDisease();
-
-		if (disease == Disease.DENGUE) {
-			return termQuery.getInactiveDengue();
-		} else if (disease == Disease.MALARIA) {
-			return termQuery.getInactiveMalaria();
-		} else {
-			String error = "The disease [" + disease + "] is currently not supported.";
-			throw new ProgrammingErrorException(error);
-		}
+	public static boolean isInactive(Term term, Disease disease) {
+	  
+	  QueryFactory f = new QueryFactory();
+	  
+	  TermQuery tq = new TermQuery(f);
+	  InactivePropertyQuery ipQ = new InactivePropertyQuery(f);
+	  
+	  tq.WHERE(tq.getId().EQ(term.getId()));
+	  
+	  ipQ.WHERE(ipQ.getDisease().containsExactly(disease));
+	  ipQ.AND(ipQ.term(tq));
+	  ipQ.AND(ipQ.getInactive().EQ(true));
+	  
+	  return ipQ.getCount() == 1;
 	}
+	
+	 /**
+   * Returns the Disease enum item of the user in the current session.
+   * 
+   * @return
+   */
+  public static Disease getDisease() {
+    String id = Session.getCurrentSession().getUser().getId();
+    MDSSUser user = MDSSUser.get(id);
 
-	/**
-	 * Returns the correct SelectableBoolean for the active flag depending on
-	 * which disease is being used by the current user.
-	 * 
-	 * @param termQuery
-	 * @return
-	 */
-	public static SelectableBoolean getInactive(TermQueryReferenceIF termQueryRefIF) {
-		Disease disease = getDisease();
-
-		if (disease == Disease.DENGUE) {
-			return termQueryRefIF.getInactiveDengue();
-		} else if (disease == Disease.MALARIA) {
-			return termQueryRefIF.getInactiveMalaria();
-		} else {
-			String error = "The disease [" + disease + "] is currently not supported.";
-			throw new ProgrammingErrorException(error);
-		}
-	}
-
-	/**
-	 * Returns the Disease enum item of the user in the current session.
-	 * 
-	 * @return
-	 */
-	public static Disease getDisease() {
-		String id = Session.getCurrentSession().getUser().getId();
-		MDSSUser user = MDSSUser.get(id);
-
-		String name = user.getDiseaseName();
-		return Disease.valueOf(name);
-	}
-
-	public static String getMenuJson() {
-		MenuGenerator menuGenerator = new MenuGenerator(getDisease());
-		
-		menuGenerator.generateMenu();
-		return menuGenerator.getJson();
-	}
-
-
+    String name = user.getDiseaseName();
+    return Disease.valueOf(name);
+  }
+  
+  public static String getMenuJson() {
+    MenuGenerator menuGenerator = new MenuGenerator(getDisease());
+    
+    menuGenerator.generateMenu();
+    return menuGenerator.getJson();
+  }
 }

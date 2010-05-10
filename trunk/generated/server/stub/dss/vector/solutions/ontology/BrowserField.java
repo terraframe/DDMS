@@ -146,17 +146,18 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   }
 
   public void validateRoot(BrowserRoot root) {
-    Term term = root.getTerm();
 	OIterator<? extends BrowserRoot> roots = this.getAllroot();
     try
     {
       while (roots.hasNext())
       {
-    	BrowserRoot existingRoot = roots.next();
-        if (existingRoot.getTerm().equals(term))
+    	  BrowserRoot existingRoot = roots.next();
+    	  // Don't compare the root to itself, which BrowserRoot.equals() does not account for
+        if(!existingRoot.getId().equals(root.getId()) && existingRoot.equals(root))
         {
           String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
 
+          Term term = root.getTerm();
           String msg = "The field [" + display + "] already defines the root [" + term.getName() + "].";
           DuplicateRootException ex = new DuplicateRootException(msg);
           ex.setBrowserField(display);

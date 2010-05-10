@@ -69,7 +69,7 @@ public class TermQueryFactory implements Reloadable
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getDisplay());
+      query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -93,7 +93,8 @@ public class TermQueryFactory implements Reloadable
         }
       }
 
-      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
+      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+//      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 
   }
@@ -126,7 +127,7 @@ public class TermQueryFactory implements Reloadable
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      query.map(TermView.TERMNAME, termQuery.getDisplay());
+      query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
     }
 
@@ -150,7 +151,8 @@ public class TermQueryFactory implements Reloadable
         query.AND(this.pathsQuery.getParentTerm().EQ(""));
       }
 
-      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
+      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+//      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 
   }

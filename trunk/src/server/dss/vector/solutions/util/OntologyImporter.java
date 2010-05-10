@@ -19,8 +19,10 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdClass;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.ontology.InactiveProperty;
 import dss.vector.solutions.ontology.InvalidOBOFormatException;
 import dss.vector.solutions.ontology.MO;
 import dss.vector.solutions.ontology.OBO;
@@ -750,12 +752,25 @@ public class OntologyImporter
     Ontology ontology = Ontology.getByKey(MO.KEY);
     OntologyRelationship ontologyRel = OntologyRelationship.getByKey(OBO.IS_A);
     
+    String rootStr = MDSSProperties.getString("ROOT");
     RootTerm root = new RootTerm();
-    root.setTermId("ROOT");
-    root.setName("ROOT");
-    root.setDisplay("Root");
+    root.setTermId(rootStr);
+    root.setName(rootStr);
+    root.getTermDisplayLabel().setValue(rootStr);
+//    root.getDisplayLabel().setDefaultValue("Root");
     root.setOntology(ontology);
     root.apply();
+    
+    // set inactive for all diseases by default
+    for(Disease disease : Disease.values())
+    {
+      InactiveProperty prop = new InactiveProperty();
+      prop.setInactive(false);
+      prop.addDisease(disease);
+      prop.apply();
+      
+      root.addInactiveProperties(prop).apply();
+    }
     
     QueryFactory f = new QueryFactory();
     TermQuery q = new TermQuery(f);
@@ -858,6 +873,17 @@ public class OntologyImporter
     {
       term.setOntology(this.ontology);
       term.apply();
+      
+      // set inactive for all diseases by default
+      for(Disease disease : Disease.values())
+      {
+        InactiveProperty prop = new InactiveProperty();
+        prop.setInactive(false);
+        prop.addDisease(disease);
+        prop.apply();
+        
+        term.addInactiveProperties(prop).apply();
+      }
     }
     else // term.getObsolete() == true;
     {

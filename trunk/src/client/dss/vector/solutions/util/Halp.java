@@ -269,7 +269,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
   public static String getTermIdWithDisplayLabel(TermDTO term)
   {
-    String label = term.getDisplayLabel();
+    String label = term.getTermDisplayLabel().getValue();
     String id = term.getId();
 
     return label + "^^^^" + id;
@@ -608,7 +608,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
           else if (value instanceof TermDTO)
           {
             TermDTO dto = (TermDTO) value;
-            defaults.add(Halp.getDefaultValue(key, dto.getId(), dto.getDisplayLabel()));
+            defaults.add(Halp.getDefaultValue(key, dto.getId(), dto.getTermDisplayLabel().getValue()));
           }
           else if (value instanceof ComponentDTO)
           {

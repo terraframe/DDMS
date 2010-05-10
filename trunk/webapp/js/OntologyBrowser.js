@@ -768,7 +768,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     formatLabelFromValueObject : function(valueObject)
     {
-      var displayLabel = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.DISPLAY);
+      var displayLabel = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL);
       var termId = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.TERMID);
 
       return MDSS.OntologyBrowser.formatLabel(displayLabel, termId);
@@ -819,6 +819,7 @@ Mojo.Meta.newClass("MDSS.OntologyValidator", {
     },
 
     _validateSelection : function() {
+      return;
       var termId = this._displayEl.value;        
       var concreteId = this._attributeEl.value;
       

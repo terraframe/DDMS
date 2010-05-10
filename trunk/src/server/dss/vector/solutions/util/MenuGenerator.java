@@ -15,6 +15,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.DiseaseMaster;
+import dss.vector.solutions.general.DiseaseWrapper;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
 import dss.vector.solutions.ontology.Term;
@@ -43,11 +44,11 @@ public class MenuGenerator implements Reloadable {
 		private Map<String, GuiMenuItem> children = new TreeMap<String, GuiMenuItem>();
 
 		public GuiMenuItem(MenuItem menuItem) {
-			this(menuItem.getTerm().getTermId(), menuItem.getTerm().getDisplay(), menuItem.getUrl().getUrl());
+			this(menuItem.getTerm().getTermId(), menuItem.getTerm().getTermDisplayLabel().getValue(), menuItem.getUrl().getUrl());
 		}
 
 		public GuiMenuItem(Term term) {
-			this(term.getTermId(), term.getDisplay(), null);
+			this(term.getTermId(), term.getTermDisplayLabel().getValue(), null);
 		}
 
 		public GuiMenuItem(String id, String label, String url) {
@@ -120,7 +121,7 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	private void processMenuItem(Term term, GuiMenuItem guiMenuItem) {
-		if (!isInactive(term, this.disease)) {
+		if (!DiseaseWrapper.isInactive(term, this.disease)) {
 			OIterator<? extends Term> parents = term.getAllParentTerm();
 			try {
 				if (parents.hasNext()) {
@@ -228,18 +229,6 @@ public class MenuGenerator implements Reloadable {
 			for (GuiMenuItem child : newMenu.getChildren().values()) {
 				consolidateMenu(existing, child);
 			}
-		}
-	}
-
-	// TODO - Replace this with the generic code to get inactive once Naifeh
-	// writes it!
-	private boolean isInactive(Term term, Disease disease) {
-		if (disease.equals(Disease.MALARIA)) {
-			return term.getInactiveMalaria();
-		} else if (disease.equals(Disease.DENGUE)) {
-			return term.getInactiveDengue();
-		} else {
-			return false;
 		}
 	}
 }

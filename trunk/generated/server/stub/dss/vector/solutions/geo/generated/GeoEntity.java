@@ -702,7 +702,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     Term term = this.getTerm();
     if (term != null)
     {
-      view.setMoSubType(term.getDisplay());
+      view.setMoSubType(term.getTermDisplayLabel().getValue());
     }
 
     return view;
@@ -719,7 +719,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     String termId = this.getValue(GeoEntity.TERM);
     if (termId != null && termId.trim().length() > 0)
     {
-      display += " : " + this.getTerm().getDisplay();
+      display += " : " + this.getTerm().getTermDisplayLabel().getValue();
     }
 
     return display;
@@ -1521,7 +1521,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       // vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getName());
-      vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getDisplay());
+      vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
     }
 
     @Override

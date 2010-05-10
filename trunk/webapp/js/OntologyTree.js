@@ -86,7 +86,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
 //      var parentId = params['parentId'];
       var parentId = parentNode.data.termId;
       var oldParentId = childNode.parent.data.termId;
-      this._Term.applyWithParent(request, childId, parentId, cloneOperation, oldParentId);
+      this._Term.applyWithParent(request, childId, parentId, cloneOperation, oldParentId, null);
     },
     
     /**
@@ -109,93 +109,65 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     _createListener : function(params)
     {
       var parentId = this._selectedNode.data.termId;
+      params['parentId'] = parentId;
+      
+      var that = this;
       
       var request = new MDSS.Request({
-        that: this,
-        parentId : parentId,
-        onSuccess : function(view)
+        onSuccess : function(termId)
         {
-          var that = this.that;
-        
-          // append the child to all nodes that map to the Term's parent
-          var nodes = this.that._tree.getNodesByProperty('termId', this.parentId);
-          Mojo.Iter.forEach(nodes, function(parent){
-          
-            if(parent.dynamicLoadComplete)
-            {
-              // append the child (non-Ajax)
-              var node = this._createNode(view);
-              parent.appendChild(node);
-              
-              // BUG FIX: The element that contains the children is hidden
-              // if there is only one child and it is already expanded. So force
-              // the children element to show.
-              if(parent.children.length === 1)
-              {
-                parent.getChildrenEl().style.display = 'block';
-              }
-              
-              // Calling refresh on an unexpanded yet loaded node
-              // will cause the children to be displayed but the 
-              // parent will not be marked as expanded.
-              if(parent.expanded)
-              {
-                parent.refresh();
-              }
-              else
-              {
-                parent.expand();
-              }
-            }
-            else if(parent === this._selectedNode)
-            {
-              // force re-expansion (Ajax)
-              parent.expand();
-            }
+          var request2 = new MDSS.Request({
+            onSuccess : function(query){
             
-          }, that);
-          
-          
-          that._destroyModal();
+              var view = query.getResultSet()[0];
+            
+              // append the child to all nodes that map to the Term's parent
+              var nodes = that._tree.getNodesByProperty('termId', parentId);
+              Mojo.Iter.forEach(nodes, function(parent){
+              
+                if(parent.dynamicLoadComplete)
+                {
+                  // append the child (non-Ajax)
+                  var node = that._createNode(view);
+                  parent.appendChild(node);
+                  
+                  // BUG FIX: The element that contains the children is hidden
+                  // if there is only one child and it is already expanded. So force
+                  // the children element to show.
+                  if(parent.children.length === 1)
+                  {
+                    parent.getChildrenEl().style.display = 'block';
+                  }
+                  
+                  // Calling refresh on an unexpanded yet loaded node
+                  // will cause the children to be displayed but the 
+                  // parent will not be marked as expanded.
+                  if(parent.expanded)
+                  {
+                    parent.refresh();
+                  }
+                  else
+                  {
+                    parent.expand();
+                  }
+                }
+                else if(parent === that._selectedNode)
+                {
+                  // force re-expansion (Ajax)
+                  parent.expand();
+                }
+                
+              }, that);
+
+              that._destroyModal();            
+            }
+          });
+        
+          that._Term.getByIds(request2, [termId]);
         }
       });
       
-      var term = this._getTermFromParams(params);
-      
-      term.applyWithParent(request, parentId, false, null);
-    },
-    
-    /**
-     * Sets the values on a new instance of Term
-     * based on the scraped parameter values from a form.
-     */
-    _getTermFromParams : function(params)
-    {
-      var term = new this._Term();
-      
-      var names = term.getAttributeNames();
-      for(var i=0; i<names.length; i++)
-      {
-        var name = names[i];
-        var param = 'dto.'+name;
-        if(param in params)
-        {
-          var value = params[param];
-          term.setValue(name, value);
-        }
-      }
-      
-      /*
-      term.setName(params['dto.name']);
-      term.setDisplay(params['dto.display']);
-      term.setNamespace(params['dto.namespace']);
-      term.setTermId(params['dto.termId']);
-      term.setComment(params['dto.comment']);
-      term.setDef(params['dto.def']);
-      term.setObsolete(params['dto.obsolete']);
-      */
-      
-      return term;
+      return request;
     },
     
     _updateListener : function(params)

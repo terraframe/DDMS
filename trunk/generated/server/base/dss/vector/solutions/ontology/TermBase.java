@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 624297864)
+@com.runwaysdk.business.ClassSignature(hash = 1036537595)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,29 +15,29 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEF = "def";
-  public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
-  public static java.lang.String INACTIVEDENGUE = "inactiveDengue";
-  public static java.lang.String INACTIVEMALARIA = "inactiveMalaria";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
-  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String TERMDISPLAYLABEL = "termDisplayLabel";
+  private com.runwaysdk.business.Struct termDisplayLabel = null;
+  
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 624297864;
+  private static final long serialVersionUID = 1036537595;
   
   public TermBase()
   {
     super();
+    termDisplayLabel = super.getStruct("termDisplayLabel");
   }
   
   public String getComment()
@@ -135,34 +135,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
-  public String getDisplay()
-  {
-    return getValue(DISPLAY);
-  }
-  
-  public void validateDisplay()
-  {
-    this.validateAttribute(DISPLAY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
-    return mdClassIF.definesAttribute(DISPLAY);
-  }
-  
-  public void setDisplay(String value)
-  {
-    if(value == null)
-    {
-      setValue(DISPLAY, "");
-    }
-    else
-    {
-      setValue(DISPLAY, value);
-    }
-  }
-  
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
   {
     if (getValue(ENTITYDOMAIN).trim().equals(""))
@@ -212,62 +184,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
     return mdClassIF.definesAttribute(ID);
-  }
-  
-  public Boolean getInactiveDengue()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEDENGUE));
-  }
-  
-  public void validateInactiveDengue()
-  {
-    this.validateAttribute(INACTIVEDENGUE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveDengueMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
-    return mdClassIF.definesAttribute(INACTIVEDENGUE);
-  }
-  
-  public void setInactiveDengue(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(INACTIVEDENGUE, "");
-    }
-    else
-    {
-      setValue(INACTIVEDENGUE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public Boolean getInactiveMalaria()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEMALARIA));
-  }
-  
-  public void validateInactiveMalaria()
-  {
-    this.validateAttribute(INACTIVEMALARIA);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveMalariaMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
-    return mdClassIF.definesAttribute(INACTIVEMALARIA);
-  }
-  
-  public void setInactiveMalaria(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(INACTIVEMALARIA, "");
-    }
-    else
-    {
-      setValue(INACTIVEMALARIA, java.lang.Boolean.toString(value));
-    }
   }
   
   public String getKeyName()
@@ -416,34 +332,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
-  public Boolean getObsolete()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
-  }
-  
-  public void validateObsolete()
-  {
-    this.validateAttribute(OBSOLETE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObsoleteMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
-    return mdClassIF.definesAttribute(OBSOLETE);
-  }
-  
-  public void setObsolete(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OBSOLETE, "");
-    }
-    else
-    {
-      setValue(OBSOLETE, java.lang.Boolean.toString(value));
-    }
-  }
-  
   public dss.vector.solutions.ontology.Ontology getOntology()
   {
     if (getValue(ONTOLOGY).trim().equals(""))
@@ -546,6 +434,22 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     return mdClassIF.definesAttribute(SITEMASTER);
   }
   
+  public dss.vector.solutions.ontology.TermTermDisplayLabel getTermDisplayLabel()
+  {
+    return (dss.vector.solutions.ontology.TermTermDisplayLabel) termDisplayLabel;
+  }
+  
+  public void validateTermDisplayLabel()
+  {
+    this.validateAttribute(TERMDISPLAYLABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTermDisplayLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(TERMDISPLAYLABEL);
+  }
+  
   public String getTermId()
   {
     return getValue(TERMID);
@@ -643,6 +547,34 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     {
       iterator.close();
     }
+  }
+  
+  public dss.vector.solutions.ontology.InactiveByDisease addInactiveProperties(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
+  {
+    return (dss.vector.solutions.ontology.InactiveByDisease) addChild(inactiveProperty, dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+  }
+  
+  public void removeInactiveProperties(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
+  {
+    removeAllChildren(inactiveProperty, dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveProperty> getAllInactiveProperties()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveProperty>) getChildren(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease> getAllInactivePropertiesRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease>) getChildRelationships(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease> getInactivePropertiesRel(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.InactiveByDisease>) getRelationshipsWithChild(inactiveProperty, dss.vector.solutions.ontology.InactiveByDisease.CLASS);
   }
   
   public dss.vector.solutions.intervention.monitor.IPTANCVisit addANCVisitAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
@@ -1558,16 +1490,16 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     return (Term) com.runwaysdk.business.Business.get(CLASS, key);
   }
   
-  public dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId, java.lang.Boolean inactive)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public static final dss.vector.solutions.ontology.TermView applyWithParent(java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId, java.lang.Boolean inactive)
   {
     Term _instance = Term.get(id);
-    return _instance.applyWithParent(parentTermId, cloneOperation, oldParentId);
+    return _instance.applyWithParent(parentTermId, cloneOperation, oldParentId, inactive);
   }
   
   public void confirmChangeParent(java.lang.String parentId)
@@ -1636,6 +1568,18 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public dss.vector.solutions.ontology.InactiveProperty getInactiveByDisease()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.ontology.InactiveProperty getInactiveByDisease(java.lang.String id)
+  {
+    Term _instance = Term.get(id);
+    return _instance.getInactiveByDisease();
+  }
+  
   public dss.vector.solutions.ontology.TermViewQuery getOntologyChildren(java.lang.Boolean filterObsolete)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
@@ -1700,6 +1644,18 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public void updateFromTree(java.lang.Boolean inactive)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateFromTree(java.lang.String id, java.lang.Boolean inactive)
+  {
+    Term _instance = Term.get(id);
+    _instance.updateFromTree(inactive);
   }
   
   public static Term lock(java.lang.String id)

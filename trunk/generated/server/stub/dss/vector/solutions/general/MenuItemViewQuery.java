@@ -42,7 +42,7 @@ private static final long serialVersionUID = -1651769820;
     {
       MenuItemViewQuery q = this.getViewQuery();
       q.map(MenuItemView.DISEASE, this.menuItemQuery.getDisease());
-      q.map(MenuItemView.TERMDISPLAY, this.menuItemQuery.getTerm().getDisplay());
+      q.map(MenuItemView.TERMDISPLAY, this.menuItemQuery.getTerm().getTermDisplayLabel().localize());
       q.map(MenuItemView.URLDISPLAY, this.menuItemQuery.getUrl().getDisplayLabel().localize("asdf"));
       q.map(MenuItemView.MENUITEMID, this.menuItemQuery.getId());
     }

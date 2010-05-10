@@ -23,7 +23,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
   {
     for (Term term : Term.getRootChildren(IndividualInstance.getSymptomMd()))
     {
-      extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getDisplay()));
+      extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getTermDisplayLabel().getValue()));
     }
   }
 

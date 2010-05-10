@@ -36,14 +36,28 @@ public class RootTerm extends RootTermBase implements com.runwaysdk.generation.l
       }
     }
     
-    // Cannot mark the root as obsolete because it will invalidate
-    // the entire tree (the UI should not allow this modification).
-    if(this.getInactiveDengue() || this.getInactiveMalaria())
+    // Cannot mark the root as inactive because it will invalidate
+    // the entire tree (the UI should not allow this modification anyway).
+    OIterator<? extends InactiveProperty> iter = this.getAllInactiveProperties();
+    
+    try
     {
-      String error = "Cannot set the root as inactive.";
-      throw new ProgrammingErrorException(error);
+      while(iter.hasNext())
+      {
+        InactiveProperty prop = iter.next();
+        
+        if(prop.getInactive())
+        {
+          String error = "Cannot set the root as inactive for any disease.";
+          throw new ProgrammingErrorException(error);
+        }
+      }
     }
-
+    finally
+    {
+      iter.close();
+    }
+    
     super.apply();
   }
   

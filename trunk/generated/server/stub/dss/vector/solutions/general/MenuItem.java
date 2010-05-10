@@ -71,4 +71,18 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
 
     super.delete();
   }
+  
+  @Override
+  public String toString()
+  {
+    Term term = this.getTerm();
+    if(term != null)
+    {
+      return term.getTermDisplayLabel().getValue();
+    }
+    else
+    {
+      return super.toString();
+    }
+  }
 }

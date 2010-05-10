@@ -26,8 +26,8 @@ public class Insecticide extends InsecticideBase implements
     }
     else if(this.getActiveIngredient() != null && this.getUnits() != null && this.getAmount() != null)
     {
-      String activeIngredient = this.getActiveIngredient().getDisplay();
-      String units = this.getUnits().getDisplay();
+      String activeIngredient = this.getActiveIngredient().getTermDisplayLabel().getValue();
+      String units = this.getUnits().getTermDisplayLabel().getValue();
       
       return activeIngredient + " - " + this.getAmount() + " " + units;
     }

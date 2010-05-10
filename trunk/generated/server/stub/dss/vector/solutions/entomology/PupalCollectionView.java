@@ -282,7 +282,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       }
       else if (sortAttribute.equalsIgnoreCase(PupalCollectionView.PREMISETYPE))
       {
-        attribute = query.getPremiseType().getDisplay();
+        attribute = query.getPremiseType().getTermDisplayLabel().localize();
       }
 
       if (isAscending)

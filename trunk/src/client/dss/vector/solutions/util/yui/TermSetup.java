@@ -43,7 +43,7 @@ public class TermSetup implements Reloadable
     {
       ColumnSetup setup = map.get(labelKey);
 
-      setup.setLabel(termDTO.getDisplayLabel());
+      setup.setLabel(termDTO.getTermDisplayLabel().getValue());
     }
     
     if(termKey != null)

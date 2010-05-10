@@ -59,7 +59,7 @@ private static final long serialVersionUID = 1252959712966L;
       query.map(BrowserRootView.BROWSERROOTID, this.browserRootQuery.getId());
       query.map(BrowserRootView.TERMID, this.termQuery.getId());
 //      query.map(BrowserRootView.TERMNAME, this.termQuery.getName());
-      query.map(BrowserRootView.TERMNAME, this.termQuery.getDisplay());
+      query.map(BrowserRootView.TERMNAME, this.termQuery.getTermDisplayLabel().localize());
       query.map(BrowserRootView.TERMONTOLOGYID, this.termQuery.getTermId());
       query.map(BrowserRootView.SELECTABLE, this.browserRootQuery.getSelectable());
       query.map(BrowserRootView.MDATTRIBUTEID, this.mdAttributeQuery.getId());

@@ -39,7 +39,7 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.runway
     }
     else if(this.getSpecies() != null)
     {
-      return this.getSpecies().getDisplay();
+      return this.getSpecies().getTermDisplayLabel().getValue();
     }
     
     return super.toString();

@@ -51,6 +51,6 @@ public class YUITermEditor extends YUIEditor implements Reloadable
   {
     TermDTO dto = (TermDTO) value;
     
-    return YUIColumn.getDefaultValue(dto.getId(), dto.getDisplayLabel());
+    return YUIColumn.getDefaultValue(dto.getId(), dto.getTermDisplayLabel().getValue());
   }
 }

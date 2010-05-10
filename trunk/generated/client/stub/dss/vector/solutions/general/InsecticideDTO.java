@@ -30,8 +30,8 @@ public class InsecticideDTO extends InsecticideDTOBase implements com.runwaysdk.
 
   public String getDisplayLabel()
   {
-    String unitDisplayLabel = this.getUnits().getDisplay();
-    String ingredientDisplayLabel = this.getActiveIngredient().getDisplay();
+    String unitDisplayLabel = this.getUnits().getTermDisplayLabel().getValue();
+    String ingredientDisplayLabel = this.getActiveIngredient().getTermDisplayLabel().getValue();
 
     return ingredientDisplayLabel + " - " + this.getAmount() + " " + unitDisplayLabel;
   }

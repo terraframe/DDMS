@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1228881761)
+@com.runwaysdk.business.ClassSignature(hash = -1562416800)
 public class QueryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.QueryController";
@@ -10,7 +10,7 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1228881761;
+  private static final long serialVersionUID = -1562416800;
   
   public QueryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -415,6 +415,20 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryITNDistribution");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void queryImmatureContainerCollection() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryImmatureContainerCollection");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void failQueryImmatureContainerCollection() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryImmatureContainerCollection");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)

@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.business.BusinessQuery;
@@ -24,12 +25,12 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdBusiness;
 
-import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.BrowserRoot;
 
 public class Sandbox
 {
@@ -39,7 +40,8 @@ public class Sandbox
 
   public static void main(String[] args) throws Exception
   {
-    testGeoEntityQuery();
+    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", new Locale[]{Locale.ENGLISH});
+    testGeoEntityQuery(session.getSessionId());
 
     // String s =
     // "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
@@ -280,20 +282,10 @@ public class Sandbox
   }
 
   @StartSession
-  public static void testGeoEntityQuery()
+  public static void testGeoEntityQuery(String sessionId)
   {
-    ValueQuery query = GeoEntity.searchByParameters("kalombo ka", new String[] { "true", "false", "false" }, true);
-
-    OIterator<ValueObject> it = query.getIterator();
-
-System.out.println(query.getSQL());
-    
-    while (it.hasNext())
-    {
-      ValueObject next = it.next();
-
-      System.out.println(next.getValue(GeoEntity.ENTITYNAME) + next.getValue(GeoEntityView.MOSUBTYPE));
-    }
+    String geoId = Property.getStr(PropertyInfo.INSTALL_PACKAGE, PropertyInfo.COUNTRY_GEO_ID);
+    System.out.println(geoId);
   }
 
   @StartSession

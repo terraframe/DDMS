@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1936083448)
+@com.runwaysdk.business.ClassSignature(hash = 657145211)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -1936083448;
+  private static final long serialVersionUID = 657145211;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,22 +31,19 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DEF = "def";
-  public static java.lang.String DISPLAY = "display";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
-  public static java.lang.String INACTIVEDENGUE = "inactiveDengue";
-  public static java.lang.String INACTIVEMALARIA = "inactiveMalaria";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
-  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String TERMDISPLAYLABEL = "termDisplayLabel";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
   public String getComment()
@@ -180,43 +177,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DEF).getAttributeMdDTO();
   }
   
-  public String getDisplay()
-  {
-    return getValue(DISPLAY);
-  }
-  
-  public void setDisplay(String value)
-  {
-    if(value == null)
-    {
-      setValue(DISPLAY, "");
-    }
-    else
-    {
-      setValue(DISPLAY, value);
-    }
-  }
-  
-  public boolean isDisplayWritable()
-  {
-    return isWritable(DISPLAY);
-  }
-  
-  public boolean isDisplayReadable()
-  {
-    return isReadable(DISPLAY);
-  }
-  
-  public boolean isDisplayModified()
-  {
-    return isModified(DISPLAY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAY).getAttributeMdDTO();
-  }
-  
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
@@ -259,80 +219,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
-  }
-  
-  public Boolean getInactiveDengue()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEDENGUE));
-  }
-  
-  public void setInactiveDengue(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(INACTIVEDENGUE, "");
-    }
-    else
-    {
-      setValue(INACTIVEDENGUE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isInactiveDengueWritable()
-  {
-    return isWritable(INACTIVEDENGUE);
-  }
-  
-  public boolean isInactiveDengueReadable()
-  {
-    return isReadable(INACTIVEDENGUE);
-  }
-  
-  public boolean isInactiveDengueModified()
-  {
-    return isModified(INACTIVEDENGUE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInactiveDengueMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INACTIVEDENGUE).getAttributeMdDTO();
-  }
-  
-  public Boolean getInactiveMalaria()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVEMALARIA));
-  }
-  
-  public void setInactiveMalaria(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(INACTIVEMALARIA, "");
-    }
-    else
-    {
-      setValue(INACTIVEMALARIA, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isInactiveMalariaWritable()
-  {
-    return isWritable(INACTIVEMALARIA);
-  }
-  
-  public boolean isInactiveMalariaReadable()
-  {
-    return isReadable(INACTIVEMALARIA);
-  }
-  
-  public boolean isInactiveMalariaModified()
-  {
-    return isModified(INACTIVEMALARIA);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInactiveMalariaMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INACTIVEMALARIA).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -535,43 +421,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
   }
   
-  public Boolean getObsolete()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
-  }
-  
-  public void setObsolete(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(OBSOLETE, "");
-    }
-    else
-    {
-      setValue(OBSOLETE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isObsoleteWritable()
-  {
-    return isWritable(OBSOLETE);
-  }
-  
-  public boolean isObsoleteReadable()
-  {
-    return isReadable(OBSOLETE);
-  }
-  
-  public boolean isObsoleteModified()
-  {
-    return isModified(OBSOLETE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.ontology.OntologyDTO getOntology()
   {
     if(getValue(ONTOLOGY) == null || getValue(ONTOLOGY).trim().equals(""))
@@ -710,6 +559,31 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermTermDisplayLabelDTO getTermDisplayLabel()
+  {
+    return (dss.vector.solutions.ontology.TermTermDisplayLabelDTO) this.getAttributeStructDTO(TERMDISPLAYLABEL).getStructDTO();
+  }
+  
+  public boolean isTermDisplayLabelWritable()
+  {
+    return isWritable(TERMDISPLAYLABEL);
+  }
+  
+  public boolean isTermDisplayLabelReadable()
+  {
+    return isReadable(TERMDISPLAYLABEL);
+  }
+  
+  public boolean isTermDisplayLabelModified()
+  {
+    return isModified(TERMDISPLAYLABEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getTermDisplayLabelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(TERMDISPLAYLABEL).getAttributeMdDTO();
+  }
+  
   public String getTermId()
   {
     return getValue(TERMID);
@@ -747,18 +621,18 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
   }
   
-  public final dss.vector.solutions.ontology.TermViewDTO applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public final dss.vector.solutions.ontology.TermViewDTO applyWithParent(java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId, java.lang.Boolean inactive)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String"};
-    Object[] _parameters = new Object[]{parentTermId, cloneOperation, oldParentId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{parentTermId, cloneOperation, oldParentId, inactive};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.ontology.TermViewDTO applyWithParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId)
+  public static final dss.vector.solutions.ontology.TermViewDTO applyWithParent(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentTermId, java.lang.Boolean cloneOperation, java.lang.String oldParentId, java.lang.Boolean inactive)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, parentTermId, cloneOperation, oldParentId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, parentTermId, cloneOperation, oldParentId, inactive};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
@@ -851,6 +725,22 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.ontology.InactivePropertyDTO getInactiveByDisease()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getInactiveByDisease", _declaredTypes);
+    return (dss.vector.solutions.ontology.InactivePropertyDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.InactivePropertyDTO getInactiveByDisease(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getInactiveByDisease", _declaredTypes);
+    return (dss.vector.solutions.ontology.InactivePropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final dss.vector.solutions.ontology.TermViewQueryDTO getOntologyChildren(java.lang.Boolean filterObsolete)
   {
     String[] _declaredTypes = new String[]{"java.lang.Boolean"};
@@ -939,6 +829,22 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final void updateFromTree(java.lang.Boolean inactive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.Boolean"};
+    Object[] _parameters = new Object[]{inactive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "updateFromTree", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateFromTree(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean inactive)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, inactive};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "updateFromTree", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.ontology.TermDTO> getAllChildTerm()
   {
@@ -991,6 +897,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllChildTerm(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.ontology.TermRelationshipDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.ontology.InactivePropertyDTO> getAllInactiveProperties()
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.InactivePropertyDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.ontology.InactivePropertyDTO> getAllInactiveProperties(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.InactivePropertyDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.ontology.InactiveByDiseaseDTO> getAllInactivePropertiesRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.InactiveByDiseaseDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.ontology.InactiveByDiseaseDTO> getAllInactivePropertiesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.InactiveByDiseaseDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.ontology.InactiveByDiseaseDTO addInactiveProperties(dss.vector.solutions.ontology.InactivePropertyDTO child)
+  {
+    return (dss.vector.solutions.ontology.InactiveByDiseaseDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.ontology.InactiveByDiseaseDTO addInactiveProperties(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.InactivePropertyDTO child)
+  {
+    return (dss.vector.solutions.ontology.InactiveByDiseaseDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  public void removeInactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeInactiveProperties(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.InactiveByDiseaseDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllInactiveProperties()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  public static void removeAllInactiveProperties(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

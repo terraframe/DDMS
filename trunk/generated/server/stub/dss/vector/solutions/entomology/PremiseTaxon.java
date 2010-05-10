@@ -18,7 +18,7 @@ public class PremiseTaxon extends PremiseTaxonBase implements com.runwaysdk.gene
     }
     else if (this.getPremise() != null && this.getTaxon() != null)
     {
-      return this.getPremise().toString() + " - " + this.getTaxon().getDisplay();
+      return this.getPremise().toString() + " - " + this.getTaxon().getTermDisplayLabel().getValue();
     }
 
     return super.toString();

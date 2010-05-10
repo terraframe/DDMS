@@ -9,4 +9,10 @@ public class TermView extends TermViewBase implements com.runwaysdk.generation.l
     super();
   }
   
+  @Override
+  public String toString()
+  {
+    return this.getTermName();
+  }
+  
 }

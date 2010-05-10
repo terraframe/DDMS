@@ -764,9 +764,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     mdGeoEntity.setPackageName(MDSSInfo.GENERATED_GEO_PACKAGE);
     mdGeoEntity.setTypeName(typeName);
     mdGeoEntity.getDisplayLabel().setValue(label);
-    mdGeoEntity.getDisplayLabel().setDefaultValue(label);
+//    mdGeoEntity.getDisplayLabel().setDefaultValue(label);
     mdGeoEntity.getDescription().setValue(description);
-    mdGeoEntity.getDescription().setDefaultValue(description);
+//    mdGeoEntity.getDescription().setDefaultValue(description);
 
     mdGeoEntity.setIsAbstract(false); // User defined types must be concrete
     mdGeoEntity.setExtendable(true);
@@ -1150,9 +1150,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
     geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
-    geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
     geoEntityClass.getDescription().setValue(view.getDescription());
-    geoEntityClass.getDescription().setDefaultValue(view.getDescription());
+
+    // Do these ever need to be called?
+//    geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
+//    geoEntityClass.getDescription().setDefaultValue(view.getDescription());
 
     geoEntityClass.apply();
 

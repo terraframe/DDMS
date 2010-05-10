@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -494545281)
+@com.runwaysdk.business.ClassSignature(hash = -1979858302)
 public class TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.ontology.TermController";
@@ -10,7 +10,7 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -494545281;
+  private static final long serialVersionUID = -1979858302;
   
   public TermControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -109,15 +109,15 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failConfirmDeleteTerm");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto", post=true)
-  public void create(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto, java.lang.String:parentId, java.lang.Boolean:inactive", post=true)
+  public void create(dss.vector.solutions.ontology.TermDTO dto, java.lang.String parentId, java.lang.Boolean inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.create");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto, java.lang.String:parentId, java.lang.String:inactive", post=true)
+  public void failCreate(dss.vector.solutions.ontology.TermDTO dto, java.lang.String parentId, java.lang.String inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failCreate");
@@ -221,15 +221,15 @@ public class TermControllerBase implements com.runwaysdk.generation.loader.Reloa
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failNewInstance");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto", post=true)
-  public void update(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto, java.lang.Boolean:inactive", post=true)
+  public void update(dss.vector.solutions.ontology.TermDTO dto, java.lang.Boolean inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.update");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.ontology.TermDTO:dto, java.lang.String:inactive", post=true)
+  public void failUpdate(dss.vector.solutions.ontology.TermDTO dto, java.lang.String inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.ontology.TermController.failUpdate");

@@ -329,11 +329,11 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       }
       else if (sortAttribute.equalsIgnoreCase(ImmatureCollectionView.PREMISETYPE))
       {
-        attribute = query.getPremiseType().getDisplay();
+        attribute = query.getPremiseType().getTermDisplayLabel().localize();
       }
       else if (sortAttribute.equalsIgnoreCase(ImmatureCollectionView.TAXON))
       {
-        attribute = query.getTaxon().getDisplay();
+        attribute = query.getTaxon().getTermDisplayLabel().localize();
       }
 
       if (isAscending)

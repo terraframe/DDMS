@@ -25,7 +25,7 @@ public class CollectionPremise extends CollectionPremiseBase implements com.runw
     }
     else if (this.getCollection() != null && this.getPremiseType() != null)
     {
-      return this.getCollection().getKey() + " - " + this.getPremiseType().getDisplay();
+      return this.getCollection().getKey() + " - " + this.getPremiseType().getTermDisplayLabel().getValue();
     }
 
     return super.toString();

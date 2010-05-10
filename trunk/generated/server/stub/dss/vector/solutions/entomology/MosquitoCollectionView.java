@@ -60,7 +60,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     if (method != null)
     {
-      this.setCollectionMethodLabel(method.getDisplay());
+      this.setCollectionMethodLabel(method.getTermDisplayLabel().getValue());
     }
   }
 

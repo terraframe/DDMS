@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1832046095)
+@com.runwaysdk.business.ClassSignature(hash = -1201947164)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1832046095;
+private static final long serialVersionUID = -1201947164;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -113,23 +113,6 @@ private static final long serialVersionUID = -1832046095;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getDisplay()
-  {
-    return getDisplay(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplay(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplay(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
-
-  }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -168,40 +151,6 @@ private static final long serialVersionUID = -1832046095;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue()
-  {
-    return getInactiveDengue(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria()
-  {
-    return getInactiveMalaria(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -318,23 +267,6 @@ private static final long serialVersionUID = -1832046095;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getObsolete()
-  {
-    return getObsolete(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
-
-  }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
   {
     return getOntology(null);
@@ -415,6 +347,29 @@ private static final long serialVersionUID = -1832046095;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel()
+  {
+    return getTermDisplayLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL);
+
+    return (dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL);
+
+    return (dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getTermId()
   {
     return getTermId(null);
@@ -476,6 +431,21 @@ private static final long serialVersionUID = -1832046095;
     else if (name.equals("owner")) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL)) 
+    {
+       return new dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -3061,6 +3031,122 @@ private static final long serialVersionUID = -1832046095;
   }
 
 
+  public com.runwaysdk.query.Condition inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.getBusinessQuery().isParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.getBusinessQuery().isParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.getBusinessQuery().isNotParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -3080,21 +3166,12 @@ private static final long serialVersionUID = -1832046095;
     public com.runwaysdk.query.SelectableChar getDef();
     public com.runwaysdk.query.SelectableChar getDef(String alias);
     public com.runwaysdk.query.SelectableChar getDef(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getDisplay();
-    public com.runwaysdk.query.SelectableChar getDisplay(String alias);
-    public com.runwaysdk.query.SelectableChar getDisplay(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getInactiveDengue();
-    public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias);
-    public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria();
-    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias);
-    public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -3113,9 +3190,6 @@ private static final long serialVersionUID = -1832046095;
     public com.runwaysdk.query.SelectableChar getNamespace();
     public com.runwaysdk.query.SelectableChar getNamespace(String alias);
     public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getObsolete();
-    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias);
-    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology();
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias, String displayLabel);
@@ -3128,6 +3202,9 @@ private static final long serialVersionUID = -1832046095;
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel();
+    public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias);
+    public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getTermId();
     public com.runwaysdk.query.SelectableChar getTermId(String alias);
     public com.runwaysdk.query.SelectableChar getTermId(String alias, String displayLabel);
@@ -3154,6 +3231,20 @@ private static final long serialVersionUID = -1832046095;
   public com.runwaysdk.query.Condition SUBSELECT_childTerm(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.ontology.TermRelationshipQuery termRelationshipQuery);
 
 
+  public com.runwaysdk.query.Condition inactiveProperties();
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery);
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties();
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_childTerm();
 
   public com.runwaysdk.query.Condition NOT_IN_childTerm(dss.vector.solutions.ontology.TermQuery termQuery);
@@ -3166,6 +3257,20 @@ private static final long serialVersionUID = -1832046095;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_childTerm(dss.vector.solutions.ontology.TermQuery termQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_childTerm(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.ontology.TermRelationshipQuery termRelationshipQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties();
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties();
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery);
 
 
   public com.runwaysdk.query.Condition aNCVisitAggregatedIPTs();
@@ -3681,7 +3786,7 @@ private static final long serialVersionUID = -1832046095;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1450988819;
+private static final long serialVersionUID = -667446778;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -3768,23 +3873,6 @@ private static final long serialVersionUID = 1450988819;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.DEF, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getDisplay()
-  {
-    return getDisplay(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplay(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplay(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.DISPLAY, alias, displayLabel);
-
-  }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -3817,40 +3905,6 @@ private static final long serialVersionUID = 1450988819;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.ID, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue()
-  {
-    return getInactiveDengue(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveDengue(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEDENGUE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria()
-  {
-    return getInactiveMalaria(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getInactiveMalaria(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.INACTIVEMALARIA, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -3955,23 +4009,6 @@ private static final long serialVersionUID = 1450988819;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getObsolete()
-  {
-    return getObsolete(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
-
-  }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
   {
     return getOntology(null);
@@ -4038,6 +4075,23 @@ private static final long serialVersionUID = 1450988819;
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.SITEMASTER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel()
+  {
+    return getTermDisplayLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF getTermDisplayLabel(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getTermId()
@@ -4133,6 +4187,64 @@ private static final long serialVersionUID = 1450988819;
   }
 
 
+  public com.runwaysdk.query.Condition inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.isParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.isParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.isParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.isParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+
   public com.runwaysdk.query.Condition NOT_IN_childTerm()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -4188,6 +4300,64 @@ private static final long serialVersionUID = 1450988819;
   {
     termRelationshipQuery.AND(termRelationshipQuery.hasChild(termQuery));
     return this.isNotParentIn_SUBSELECT(termRelationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.isNotParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.ontology.InactiveByDisease.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(inactivePropertyQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.isNotParentIn(inactiveByDiseaseQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_inactiveProperties(dss.vector.solutions.ontology.InactivePropertyQuery inactivePropertyQuery, dss.vector.solutions.ontology.InactiveByDiseaseQuery inactiveByDiseaseQuery)
+  {
+    inactiveByDiseaseQuery.AND(inactiveByDiseaseQuery.hasChild(inactivePropertyQuery));
+    return this.isNotParentIn_SUBSELECT(inactiveByDiseaseQuery);
   }
 
 
@@ -6653,6 +6823,21 @@ private static final long serialVersionUID = 1450988819;
     else if (name.equals("owner")) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.ontology.Term.TERMDISPLAYLABEL)) 
+    {
+       return new dss.vector.solutions.ontology.TermTermDisplayLabelQuery.TermTermDisplayLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

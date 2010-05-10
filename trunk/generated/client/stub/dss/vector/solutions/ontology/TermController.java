@@ -5,10 +5,8 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
-
-import dss.vector.solutions.general.DiseaseWrapperDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 public class TermController extends TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -80,11 +78,12 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     render("editComponent.jsp");
   }
 
-  public void update(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @Override
+  public void update(dss.vector.solutions.ontology.TermDTO dto, Boolean inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.apply();
+      dto.updateFromTree(inactive);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -123,11 +122,14 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     this.viewAll();
   }
 
-  public void create(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @Override
+  public void create(dss.vector.solutions.ontology.TermDTO dto, String parentId, Boolean inactive) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.apply();
+      dto.applyWithParent(parentId, false, null, inactive);
+      
+      resp.getWriter().print(dto.getId());
     }
     catch (ProblemExceptionDTO e)
     {
@@ -189,12 +191,16 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   
   private void populateReqForTerm(TermDTO dto)
   {
+    InactivePropertyDTO prop = dto.getInactiveByDisease();
+    boolean inactive = prop.getInactive();
+    String inactiveLabel = prop.getInactiveMd().getDisplayLabel();
+    
+    req.setAttribute("inactive", inactive);
+    req.setAttribute("inactiveLabel", inactiveLabel);
+    
     req.setAttribute("item", dto);
     
     req.setAttribute("isRoot", dto instanceof RootTermDTO);
-    
-    String inactiveAttr = DiseaseWrapperDTO.getTermInactiveAttribute(this.getClientRequest());
-    req.setAttribute("inactiveAttribute", inactiveAttr);
   }
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

@@ -40,7 +40,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
     }
     else if(this.getSpecies() != null)
     {
-      return this.getSpecies().getDisplay();
+      return this.getSpecies().getTermDisplayLabel().getValue();
     }
     
     return super.toString();

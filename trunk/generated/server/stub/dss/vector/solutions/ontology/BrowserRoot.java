@@ -26,7 +26,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 		if (this.isNew()) {
 			return "New: " + this.getClassDisplayLabel();
 		} else if (this.getTerm() != null) {
-			return this.getTerm().getDisplay();
+			return this.getTerm().getTermDisplayLabel().getValue();
 		}
 
 		return super.toString();
@@ -151,7 +151,8 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 			fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
 		}
 
-		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
+		rootQuery.WHERE(DiseaseWrapper.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+//		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 
 		return rootQuery;
@@ -177,7 +178,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     }
 		
 		BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
-
+		
 		OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
 
 		try {
@@ -188,7 +189,6 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 		} finally {
 			iter.close();
 		}
-
 		// Ticket #848: Return a roots children if only one root
 		// exists that is not selectable.
 		if (views.size() == 1 && !views.get(0).getSelectable()) {
@@ -231,7 +231,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 		BrowserRootView view = new BrowserRootView();
 		view.setTermId(term.getId());
 		// view.setTermName(term.getName());
-		view.setTermName(term.getDisplay());
+		view.setTermName(term.getTermDisplayLabel().getValue());
 		view.setSelectable(this.getSelectable());
 		view.setBrowserRootId(this.getId());
 		view.setTermOntologyId(term.getTermId());
@@ -255,7 +255,9 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 		BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
 
 		BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
-		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
+		
+		rootQuery.WHERE(DiseaseWrapper.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+//		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 
 		return (rootQuery.getCount() > 0);
