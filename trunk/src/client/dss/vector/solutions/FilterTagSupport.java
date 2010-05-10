@@ -25,7 +25,6 @@ public class FilterTagSupport extends SimpleTagSupport implements Reloadable, Co
     this.checked = false;
   }
 
-  @Override
   public int compareTo(FilterTagSupport o)
   {
     return this.universal.compareTo(o.universal);
