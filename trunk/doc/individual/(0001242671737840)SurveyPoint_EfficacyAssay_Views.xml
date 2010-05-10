@@ -47,7 +47,7 @@
             required="true" />
           <char
             name="geoId"
-            label="Geo Id"
+            label="Geo Entity"
             description="The Geo Id of the survey"
             required="true"
             size="255" />
