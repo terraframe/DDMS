@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} id
     -->
-  <locale language="defaultLocale">The political and spray hierarchies cannot have gaps between universals.</locale>
+  <locale language="defaultLocale">The political, spray, and urban hierarchies cannot have gaps between universals.</locale>
 </exception>
