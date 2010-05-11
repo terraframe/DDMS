@@ -5,10 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="page_title" value="Immatures_by_Container_Type"  scope="request"/>
+<!-- 
 <mjl:messages>
 <mjl:message />
 </mjl:messages>
-
+ -->
+ 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <c:set var="entity" scope="request" value="${item.geoEntity}" />
