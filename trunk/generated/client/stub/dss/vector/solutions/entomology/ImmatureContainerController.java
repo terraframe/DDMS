@@ -187,6 +187,10 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
     try
     {
       dto.applyWithContainers(containers);
+      
+      ClientRequestIF request = dto.getRequest();
+
+      ErrorUtility.prepareInformation(request.getInformation(), req);
 
       this.view(dto);
     }
