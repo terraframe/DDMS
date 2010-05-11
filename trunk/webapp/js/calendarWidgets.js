@@ -71,7 +71,9 @@ MDSS.Calendar = {};
     	if(date == null) date = Date.parseString(date_str,db_datetime_format);
     	if(date == null) date = Date.parseString(date_str,db_date_format);
     	if(date == null) date = Date.parseString(date_str);
-    	if(date == null && date_str.length > 16) date = new Date(date_str);
+    	//remove the timezone and the day
+    	date_str = date_str.replace(/^(\w+ )(\w+ \d\d \d\d:\d\d:\d\d )(\w+ )(\d\d\d\d)$/, '$2$4');
+    	if(date == null && date_str.length > 16) date = new Date(date_str);  	
     	return date;
     }
     
