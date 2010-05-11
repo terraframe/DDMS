@@ -783,14 +783,18 @@
   <xs:attributeGroup name="attribute">
     <!--name: The name of the attribute-->
     <xs:attribute name="name" type="xs:string" use="required" />
+    <!--column: The database column of the attribute-->
+    <xs:attribute name="column" type="xs:string" />
     <!--label:The display label of the attribute-->
     <xs:attribute name="label" type="xs:string" />
     <!--description: A description of the purpose of attribute-->
     <xs:attribute name="description" type="xs:string" />
     <!--required: If the attribute must have a value-->
     <xs:attribute name="required" type="xs:boolean" />
-    <!--accessor: The name of the accessor method used in generation-->
+    <!-- Heads up: clean up
+    accessor: The name of the accessor method used in generation
     <xs:attribute name="accessor" type="xs:string" />
+    -->
     <!--setterVisibility: The visibility of the setter methods -->
     <xs:attribute name="setterVisibility" type="visibilityOptions" />
     <!--getterVisibility: The visibility of the getter methods -->
@@ -1023,14 +1027,17 @@
     <xs:attribute name="description" type="xs:string" />
     <!--required: If the attribute must have a value-->
     <xs:attribute name="required" type="xs:boolean" />
-    <!--accessor: The name of the accessor method used in generation-->
+    <!--
+    Heads up: clean up
+    accessor: The name of the accessor method used in generation
     <xs:attribute name="accessor" type="xs:string" />
+    -->
     <!--
       accessor: The fully qualified name of the MdClassDAO which defines
       the concrete attribute
     -->
     <xs:attribute name="type" type="xs:string" use="required" />
-    <!--accessor: The name of the concrete attribute-->
+    <!--concrete: The name of the concrete attribute-->
     <xs:attribute name="concrete" type="xs:string" use="required" />
     <xs:anyAttribute processContents="skip" />
   </xs:complexType>
