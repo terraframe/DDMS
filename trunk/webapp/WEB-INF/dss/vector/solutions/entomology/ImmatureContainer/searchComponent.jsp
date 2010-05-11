@@ -45,12 +45,12 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="premiseType">
       <mjl:row>
-        ${current.premiseType.display}
+        ${current.premiseType.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="taxon">
       <mjl:row>
-        ${current.taxon.display}
+        ${current.taxon.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

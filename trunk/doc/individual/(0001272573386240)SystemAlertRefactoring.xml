@@ -136,7 +136,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+						value="thresholdType, alertType, entityLabel, premiseType, taxon, startDate, endDate, thresholdValue, indexValue" />
 				</attributeStruct>
 			</object>
 
@@ -466,7 +466,7 @@
 					value="Test Email ($thresholdType)" />
 				<attribute
 					name="emailBody"
-					value="Elevated Immature Index Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Elevated Immature Index Notification email:  Threshold for $alertType was exceeded in $entityLabel for $premiseType and $taxon during the period from $startDate to $endDate." />
 			</object>
 
 			<object
@@ -499,7 +499,7 @@
 					value="Test Email ($thresholdType)" />
 				<attribute
 					name="emailBody"
-					value="Elevated Immature Index Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Elevated Immature Index Notification email:  Threshold for $alertType was exceeded in $entityLabel for $premiseType and $taxon during the period from $startDate to $endDate." />
 			</object>
 		</create>
 	</doIt>
