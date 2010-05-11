@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-<xs:element name="TerraFrame" type="root">
+<xs:element name="Runway" type="root">
   <xs:key name="objectKey">
     <xs:selector xpath=".//id"/>
     <xs:field xpath="."/>
@@ -106,7 +106,7 @@
   </xs:complexType>
 </xs:element>
 
-<xs:element name="indexType_c">
+<xs:element name="index_type_c">
   <xs:complexType>
     <xs:sequence>
       <xs:element ref="enumeration" minOccurs="1"/>
@@ -114,7 +114,7 @@
   </xs:complexType>
 </xs:element>
 
-<xs:element name="setterVisibility_c">
+<xs:element name="setter_visibility_c">
   <xs:complexType>
     <xs:sequence>
       <xs:element ref="enumeration" minOccurs="1"/>
@@ -122,7 +122,7 @@
   </xs:complexType>
 </xs:element>
 
-<xs:element name="getterVisibility_c">
+<xs:element name="getter_visibility_c">
   <xs:complexType>
     <xs:sequence>
       <xs:element ref="enumeration" minOccurs="1"/>
@@ -130,7 +130,7 @@
   </xs:complexType>
 </xs:element>
 
-<xs:element name="hashMethod_c">
+<xs:element name="hash_method_c">
   <xs:complexType>
     <xs:sequence>
       <xs:element ref="enumeration" minOccurs="1"/>
@@ -251,20 +251,21 @@
  	    </xs:element>
 	    <xs:element name="definingMdClass" type="xs:string"/>
 	    <xs:element name="attributeName" type="xs:string"/>
+  	    <xs:element name="columnName" type="xs:string"/>
 	    <!--
 	    <xs:element name="defaultValue" type="xs:string" minOccurs="0"/>
 	    -->
 	    <xs:element name="required" type="xs:integer"/>
 	    <xs:element name="indexType" type="xs:string"/>
-	    <xs:element ref="indexType_c" minOccurs="1"/>
+	    <xs:element ref="index_type_c" minOccurs="1"/>
 	    <xs:element name="indexName" type="xs:string"/>
 	    <xs:element name="system" type="xs:integer"/>
 	    <xs:element name="immutable" type="xs:integer"/>
 	    <xs:element name="owner" type="xs:string"/>
   	    <xs:element name="setterVisibility" type="xs:string"/>
-  	    <xs:element ref="setterVisibility_c" minOccurs="1"/>
+  	    <xs:element ref="setter_visibility_c" minOccurs="1"/>
   	    <xs:element name="getterVisibility" type="xs:string"/>
-  	    <xs:element ref="getterVisibility_c" minOccurs="1"/>
+  	    <xs:element ref="getter_visibility_c" minOccurs="1"/>
 	  </xs:sequence>
 	</xs:extension>
   </xs:complexContent>
@@ -409,7 +410,7 @@
     <xs:extension base="mdattributeencryption">
 	  <xs:sequence>
 	    <xs:element name="hashMethod" type="xs:string"/>
-        <xs:element ref="hashMethod_c" minOccurs="1"/>
+        <xs:element ref="hash_method_c" minOccurs="1"/>
 	  </xs:sequence>
 	</xs:extension>
   </xs:complexContent>
