@@ -548,7 +548,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       {
         var selectable = attribute.getSelectable();
 
-        var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+        var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey(), attribute.getDisplayLabel());
         var aggSelectable = new MDSS.QueryXML.Selectable(count);
         this._countSelectable = aggSelectable;
 
