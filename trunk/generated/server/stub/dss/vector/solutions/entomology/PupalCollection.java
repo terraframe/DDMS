@@ -104,7 +104,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
 
   private void populateCollectionId()
   {
-    if (this.getCollectionId() == null || this.getCollectionId().equals(""))
+    if (this.getCollectionId() == null || this.getCollectionId().trim().length() == 0)
     {
       this.setCollectionId(LocalProperty.getNextId());
     }
