@@ -18,7 +18,7 @@
           name="displayLabel">
           <attribute
             name="defaultLocale"
-            value="Circle" />
+            value="Circular" />
         </attributeStruct>
       </object>
 
@@ -32,7 +32,7 @@
           name="displayLabel">
           <attribute
             name="defaultLocale"
-            value="Rectangle" />
+            value="Rectangular" />
         </attributeStruct>
       </object>
 

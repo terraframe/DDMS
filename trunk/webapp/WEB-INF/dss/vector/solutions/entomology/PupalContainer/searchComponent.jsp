@@ -44,7 +44,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="premiseType">
       <mjl:row>
-        ${current.premiseType.display}
+        ${current.premiseType.termComponentDisplay}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
