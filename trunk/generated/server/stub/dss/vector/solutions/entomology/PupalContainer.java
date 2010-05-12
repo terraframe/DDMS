@@ -1,12 +1,18 @@
 package dss.vector.solutions.entomology;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
+
+import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.ResponseMaster;
 import dss.vector.solutions.intervention.monitor.NotApplicableProblem;
+import dss.vector.solutions.util.ErrorUtility;
 
 public class PupalContainer extends PupalContainerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -50,6 +56,7 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
     this.validateOpeningLength();
     this.validateDiameter();
     this.validateOpeningDiameter();
+    this.validateDrawdownPercent();
 
     super.apply();
   }
@@ -217,6 +224,21 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
   }
 
   @Override
+public void validateDrawdownPercent() {
+    if(this.getDrawdownPercent() != null && this.getDrawdownPercent() > 100)
+      {
+        RangeValueProblem p = new RangeValueProblem();
+        p.setNotification(this, DRAWDOWNPERCENT);
+        p.setAttributeDisplayLabel(getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setLowerLimit(0);
+        p.setUpperLimit(100);
+        p.apply();
+        
+        p.throwIt();
+      }
+}
+
+@Override
   public PupalContainerView getView()
   {
     PupalContainerView view = new PupalContainerView();

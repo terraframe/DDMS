@@ -101,7 +101,7 @@
             type="dss.vector.solutions.entomology.PupalCollection" />
           <reference
             name="premiseType"
-            label="Permise Type"
+            label="Premise Type"
             required="true"
             type="dss.vector.solutions.ontology.Term" />
           <integer
@@ -226,7 +226,8 @@
             type="dss.vector.solutions.ontology.Term" />
           <integer
             name="drawdownPercent"
-            label="Drawdown Percentage" />
+            label="Drawdown Percentage"
+            rejectNegative="true"/>
         </attributes>
         <mdMethod
           name="getView"
