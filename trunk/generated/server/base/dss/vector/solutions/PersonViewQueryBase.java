@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 2058836249)
+@com.runwaysdk.business.ClassSignature(hash = -300592334)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2058836249;
+private static final long serialVersionUID = -300592334;
 
   public PersonViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -295,21 +295,21 @@ private static final long serialVersionUID = 2058836249;
 
   }
  
-  public com.runwaysdk.query.SelectableChar getPazzword()
+  public com.runwaysdk.query.SelectableChar getPassword()
   {
-    return getPazzword(null);
+    return getPassword(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getPazzword(String alias)
+  public com.runwaysdk.query.SelectableChar getPassword(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.PAZZWORD, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.PASSWORD, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getPazzword(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getPassword(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.PAZZWORD, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.PASSWORD, alias, displayLabel);
 
   }
  
@@ -386,21 +386,21 @@ private static final long serialVersionUID = 2058836249;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.PersonView.SEX, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getUzername()
+  public com.runwaysdk.query.SelectableChar getUsername()
   {
-    return getUzername(null);
+    return getUsername(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getUzername(String alias)
+  public com.runwaysdk.query.SelectableChar getUsername(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.UZERNAME, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.USERNAME, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getUzername(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getUsername(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.UZERNAME, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.USERNAME, alias, displayLabel);
 
   }
  

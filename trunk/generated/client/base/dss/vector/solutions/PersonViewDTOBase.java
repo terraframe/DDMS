@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1358361950)
+@com.runwaysdk.business.ClassSignature(hash = 577176763)
 public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = -1358361950;
+  private static final long serialVersionUID = 577176763;
   
   protected PersonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,12 +31,12 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String MEMBERID = "memberId";
-  public static java.lang.String PAZZWORD = "pazzword";
+  public static java.lang.String PASSWORD = "password";
   public static java.lang.String PERSONID = "personId";
   public static java.lang.String RESIDENTIALGEOID = "residentialGeoId";
   public static java.lang.String RESIDENTIALINFORMATION = "residentialInformation";
   public static java.lang.String SEX = "sex";
-  public static java.lang.String UZERNAME = "uzername";
+  public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
   public Integer getAge()
@@ -568,39 +568,39 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   
   public String getPassword()
   {
-    return getValue(PAZZWORD);
+    return getValue(PASSWORD);
   }
   
   public void setPassword(String value)
   {
     if(value == null)
     {
-      setValue(PAZZWORD, "");
+      setValue(PASSWORD, "");
     }
     else
     {
-      setValue(PAZZWORD, value);
+      setValue(PASSWORD, value);
     }
   }
   
   public boolean isPasswordWritable()
   {
-    return isWritable(PAZZWORD);
+    return isWritable(PASSWORD);
   }
   
   public boolean isPasswordReadable()
   {
-    return isReadable(PAZZWORD);
+    return isReadable(PASSWORD);
   }
   
   public boolean isPasswordModified()
   {
-    return isModified(PAZZWORD);
+    return isModified(PASSWORD);
   }
   
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPasswordMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PAZZWORD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PASSWORD).getAttributeMdDTO();
   }
   
   public String getPersonId()
@@ -760,39 +760,39 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   
   public String getUsername()
   {
-    return getValue(UZERNAME);
+    return getValue(USERNAME);
   }
   
   public void setUsername(String value)
   {
     if(value == null)
     {
-      setValue(UZERNAME, "");
+      setValue(USERNAME, "");
     }
     else
     {
-      setValue(UZERNAME, value);
+      setValue(USERNAME, value);
     }
   }
   
   public boolean isUsernameWritable()
   {
-    return isWritable(UZERNAME);
+    return isWritable(USERNAME);
   }
   
   public boolean isUsernameReadable()
   {
-    return isReadable(UZERNAME);
+    return isReadable(USERNAME);
   }
   
   public boolean isUsernameModified()
   {
-    return isModified(UZERNAME);
+    return isModified(USERNAME);
   }
   
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUsernameMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UZERNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(USERNAME).getAttributeMdDTO();
   }
   
   public String getWorkGeoId()

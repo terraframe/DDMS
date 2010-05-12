@@ -516,6 +516,7 @@
             type="dss.vector.solutions.Response" />
           <reference
             name="malariaConformationTechnique"
+            column="malariaConformationTech"
             label="How was malaria confirmed"
             type="dss.vector.solutions.ontology.Term" />
           <reference

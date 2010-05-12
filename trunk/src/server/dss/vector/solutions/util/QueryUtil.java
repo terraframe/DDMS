@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.RelationshipInfo;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
@@ -566,12 +567,14 @@ public class QueryUtil implements Reloadable
   public static String getTermSubSelect(String className, String... attributes)
   {
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-    String tableName = MdBusiness.getMdBusiness(className).getTableName();
+    MdBusinessDAOIF targetMdBusiness = MdBusinessDAO.getMdBusinessDAO(className);
+    String tableName = targetMdBusiness.getTableName();
 
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
 
     int count = 0;
+    Map<String, ? extends MdAttributeConcreteDAOIF> attrMap = targetMdBusiness.getAllDefinedMdAttributeMap();
     for (String attr : attributes)
     {
       select += " term" + count + "." + Term.NAME + " as " + attr + "_displayLabel";
@@ -581,7 +584,8 @@ public class QueryUtil implements Reloadable
         select += ",";
       }
 
-      from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attr + " = term" + count + ".id";
+      String attrColumn = attrMap.get(attr.toLowerCase()).getColumnName();
+      from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attrColumn + " = term" + count + ".id";
 
       count++;
     }
@@ -1010,7 +1014,7 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment dateAttribute)
   {
-    String da = dateAttribute.getQualifiedName();
+    String da = dateAttribute.getDbQualifiedName();
     return setQueryDates(xml, valueQuery, target, da);
   }
 

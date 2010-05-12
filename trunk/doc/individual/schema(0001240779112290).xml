@@ -168,14 +168,12 @@
             negativeLabel="No"
             positiveLabel="Yes" />
           <char
-            name="uzername"
-            accessor="username"
+            name="username"
             label="Username"
             description="Username"
             size="64" />
           <char
-            name="pazzword"
-            accessor="password"
+            name="password"
             label="Password"
             description="Password"
             size="32" />
@@ -241,7 +239,6 @@
             required="true" />
           <char
             name="geoRoot"
-            accessor="geoRoot"
             label="geoRoot"
             description="geoRoot"
             size="32" />

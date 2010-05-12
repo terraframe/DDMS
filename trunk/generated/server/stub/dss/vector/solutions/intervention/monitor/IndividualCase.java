@@ -476,7 +476,7 @@ public class IndividualCase extends IndividualCaseBase implements
       throw new IncidencePopulationException(e);
     }
 
-    String columnAlias = s.getQualifiedName();
+    String columnAlias = s.getDbQualifiedName();
 
     String tableAlias = caseQuery.getTableAlias();
     String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();

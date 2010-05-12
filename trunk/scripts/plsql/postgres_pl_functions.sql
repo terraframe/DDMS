@@ -4,24 +4,24 @@
  */
 CREATE OR REPLACE FUNCTION com_terraframe_mojo_createid
 (
-  _rootTypeId         VARCHAR,
+  _root_Type_Id         VARCHAR,
   _random             BIGINT,
-  _sitemaster         VARCHAR,
+  _site_master         VARCHAR,
   _seq                BIGINT,
-  _currentTimeMillis  TIMESTAMP
+  _current_Time_Millis  TIMESTAMP
 )
 RETURNS VARCHAR AS $$
 
 
 DECLARE
-  _idString           VARCHAR;
+  _id_String           VARCHAR;
   _id                 VARCHAR;
 
 BEGIN
 
-    _idString := _sitemaster || ':' || _currentTimeMillis || ':' || _random || ':' || _seq;
-    SELECT MD5(_idString) INTO _id;
-    _id := _id || _rootTypeId;
+    _idString := _site_master || ':' || _current_Time_Millis || ':' || _random || ':' || _seq;
+    SELECT MD5(_id_String) INTO _id;
+    _id := _id || _root_Type_Id;
 
     RETURN _id;
 

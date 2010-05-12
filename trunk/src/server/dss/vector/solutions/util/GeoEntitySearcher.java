@@ -398,7 +398,7 @@ public class GeoEntitySearcher implements Reloadable
     if (soundsLikeMatch)
     {
       geoEntityIdQuery.
-      WHERE(geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone("+childGeoEntityQuery.getEntityName().getQualifiedName()+", 255)", "entityMetaphone").
+      WHERE(geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone("+childGeoEntityQuery.getEntityName().getDbQualifiedName()+", 255)", "entityMetaphone").
           EQ(geoEntityIdQuery.aSQLCharacter("unknownMetaphone", "metaphone('"+childGeoEntityName+"', 255)", "unknownMetaphone")));
     }
     else

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -931259702)
+@com.runwaysdk.business.ClassSignature(hash = 1292944739)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class PersonExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -931259702;
+private static final long serialVersionUID = 1292944739;
 
   public PersonExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

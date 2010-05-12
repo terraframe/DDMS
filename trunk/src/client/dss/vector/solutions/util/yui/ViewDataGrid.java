@@ -51,7 +51,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
     List<String> _keys = Arrays.asList(keys);
 
-    for (String accessorName : view.getAccessorNames())
+    for (String accessorName : view.getAttributeNames())
     {
       String key = GenerationUtil.upperFirstCharacter(accessorName);
 

@@ -521,8 +521,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000000);
 
-    String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
-    String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
+    String sd = aggregatedCaseQuery.getStartDate().getDbQualifiedName();
+    String ed = aggregatedCaseQuery.getEndDate().getDbQualifiedName();
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, sd, ed);
@@ -596,7 +596,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw new IncidencePopulationException(e);
     }
 
-    String columnAlias = s.getQualifiedName();
+    String columnAlias = s.getDbQualifiedName();
 
     String sql = "(SUM(cases::FLOAT)/";
     sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "

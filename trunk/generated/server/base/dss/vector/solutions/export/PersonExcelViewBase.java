@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 363171027)
+@com.runwaysdk.business.ClassSignature(hash = -1707591828)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = 363171027;
+  private static final long serialVersionUID = -1707591828;
   
   public PersonExcelViewBase()
   {

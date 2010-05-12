@@ -464,7 +464,7 @@ public class SavedSearch extends SavedSearchBase implements
       for (Selectable sel : selectables)
       {
         ThematicVariable var = new ThematicVariable();
-        var.setAttributeName(sel.getQualifiedName());
+        var.setAttributeName(sel.getDbQualifiedName());
         var.setDisplayLabel(sel.getUserDefinedDisplayLabel());
         var.setUserAlias(sel.getUserDefinedAlias());
 

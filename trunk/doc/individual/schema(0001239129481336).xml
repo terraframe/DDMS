@@ -232,6 +232,7 @@
             rejectNegative="true" />
           <integer
             name="inPatientsPregnantDianosis"
+            column="inPatientsPregDianosis"
             label="In-patients who were pregnant with definitive diagnosis"
             rejectNegative="true" />
           <integer

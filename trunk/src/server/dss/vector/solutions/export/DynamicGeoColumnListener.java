@@ -131,7 +131,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
     MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF)instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
     Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
-    String accessorName = GenerationUtil.upperFirstCharacter(mdAttributeDAO.getAccessorName());
+    String accessorName = GenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
     excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);
   }
 

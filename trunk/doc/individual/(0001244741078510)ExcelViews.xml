@@ -479,11 +479,11 @@
             type="dss.vector.solutions.PersonView" />
           <virtual
             name="username"
-            concrete="uzername"
+            concrete="username"
             type="dss.vector.solutions.PersonView" />
           <virtual
             name="password"
-            concrete="pazzword"
+            concrete="password"
             type="dss.vector.solutions.PersonView" />
           <virtual
             name="isPatient"

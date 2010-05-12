@@ -59,8 +59,8 @@ public class YUIColumn implements Reloadable
       AttributeMdDTO attributeMd = facade.getAttributeMdDTO();
 
       this.postfix = postfix;
-      this.writable = view.isWritable(attributeMd.getAccessorName());
-      this.key = GenerationUtil.upperFirstCharacter(attributeMd.getAccessorName());
+      this.writable = view.isWritable(attributeMd.getName());
+      this.key = GenerationUtil.upperFirstCharacter(attributeMd.getName());
       this.hidden = setup.isHidden();
       this.editable = setup.isEditable();
       this.sum = setup.isSum();

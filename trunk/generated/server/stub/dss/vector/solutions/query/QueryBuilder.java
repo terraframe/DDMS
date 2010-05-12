@@ -260,7 +260,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       {
         sb.append(" || ' ' || ");
       }
-      sb.append(selectableArray[i].getQualifiedName());
+      sb.append(selectableArray[i].getDbQualifiedName());
     }
     sb.append(")");
     return sb.toString();

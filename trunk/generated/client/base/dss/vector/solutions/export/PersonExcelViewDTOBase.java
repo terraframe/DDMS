@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -686436781)
+@com.runwaysdk.business.ClassSignature(hash = 1537767660)
 public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = -686436781;
+  private static final long serialVersionUID = 1537767660;
   
   protected PersonExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {

@@ -32,6 +32,7 @@
             rejectNegative="true" />
           <integer
             name="receivedForCommunityResponse"
+            column="receivedForCommunityResp"
             label="Total number ITNs received for community response"
             rejectNegative="true" />
           <integer

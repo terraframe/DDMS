@@ -183,7 +183,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
   {
     JSONArray map = new JSONArray();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
-    for (String a : view.getAccessorNames())
+    for (String a : view.getAttributeNames())
     {
       if (!ordered_attribs.contains(a))
       {
@@ -343,7 +343,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
   {
     List<AttributeMdDTO> list = new LinkedList<AttributeMdDTO>();
 
-    for (String attrib : view.getAccessorNames())
+    for (String attrib : view.getAttributeNames())
     {
       if (attrib.length() >= 3)
       {
@@ -395,7 +395,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
         if (map != null)
         {
-          String accessor = md.getAccessorName();
+          String accessor = md.getName();
           String key = accessor.substring(0, 1).toUpperCase() + accessor.substring(1);
 
           dropdownbuff.add(key + " : " + map);

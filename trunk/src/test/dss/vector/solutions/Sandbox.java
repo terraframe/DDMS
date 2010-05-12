@@ -199,7 +199,7 @@ public class Sandbox
       {
         sb.append(" || ' ' || ");
       }
-      sb.append(selectableArray[i].getQualifiedName());
+      sb.append(selectableArray[i].getDbQualifiedName());
     }
     sb.append(")");
     return sb.toString();
@@ -284,6 +284,8 @@ public class Sandbox
   @StartSession
   public static void testGeoEntityQuery(String sessionId)
   {
+    new CleanupContextListener().contextInitialized(null);
+    
     String geoId = Property.getStr(PropertyInfo.INSTALL_PACKAGE, PropertyInfo.COUNTRY_GEO_ID);
     System.out.println(geoId);
   }

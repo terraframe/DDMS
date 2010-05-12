@@ -4,28 +4,28 @@ SELECT dss_ontology_build_allpaths('z6n4nserbewij67if9ykzs010471b6v6', 1234, 'ww
 
 CREATE OR REPLACE FUNCTION dss_ontology_build_allpaths
 (
-  _allPathsRootTypeId     VARCHAR,
+  _all_Paths_Root_TypeId     VARCHAR,
   _random                 BIGINT,
-  _sitemaster             allpaths.sitemaster%TYPE,
-  _createdById            allpaths.id%TYPE,
-  _transactionDate        allpaths.createdate%TYPE,
-  _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
+  _site_master             allpaths.site_master%TYPE,
+  _created_By_Id            allpaths.id%TYPE,
+  _transaction_Date        allpaths.create_date%TYPE,
+  _ontology_Relationship_Id allpaths.ontology_relationship%TYPE
 )
 RETURNS VOID AS $$
 
 DECLARE
-  _termCursor  CURSOR (c_ontologyRelationshipId allpaths.ontologyrelationship%TYPE) FOR
+  _termCursor  CURSOR (c_ontology_RelationshipId allpaths.ontology_relationship%TYPE) FOR
   	SELECT parent_id, child_id
 	FROM
 	  ( WITH RECURSIVE quick_paths AS
 	    ( SELECT child_id as root_id, child_id, parent_id
-	      FROM termrelationship
-	      WHERE termrelationship.ontologyRelationship = c_ontologyRelationshipId
+	      FROM term_relationship
+	      WHERE term_relationship.ontology_Relationship = c_ontology_Relationship_Id
           UNION
           SELECT a.root_id, b.child_id, b.parent_id
-          FROM quick_paths a, termrelationship b
+          FROM quick_paths a, term_relationship b
           WHERE b.child_id = a.parent_id
-          AND b.ontologyRelationship = c_ontologyRelationshipId
+          AND b.ontology_Relationship = c_ontology_Relationship_Id
         )
         SELECT root_id as child_id, parent_id
         FROM quick_paths
@@ -34,18 +34,18 @@ DECLARE
         FROM term
         WHERE id IN
           (SELECT parent_id
-           FROM termrelationship
-           WHERE ontologyrelationship = c_ontologyRelationshipId
+           FROM term_relationship
+           WHERE ontology_relationship = c_ontology_Relationship_Id
           )
          OR id IN
           (SELECT child_id
-           FROM termrelationship
-           WHERE ontologyrelationship = c_ontologyRelationshipId
+           FROM term_relationship
+           WHERE ontology_relationship = c_ontology_Relationship_Id
           )
       ) AS recurs_rel;
 
-  _parentId  termrelationship.parent_id%TYPE;
-  _childId   termrelationship.child_id%TYPE;
+  _parent_Id  term_relationship.parent_id%TYPE;
+  _child_Id   term_relationship.child_id%TYPE;
 
   _seq       allpaths.seq%TYPE;
 
@@ -53,7 +53,7 @@ BEGIN
 
   _seq := 0;
 
-  OPEN _termCursor(_ontologyRelationshipId);
+  OPEN _termCursor(_ontology_Relationship_Id);
 
   LOOP
     FETCH _termCursor INTO _parentId, _childId;
@@ -65,14 +65,14 @@ BEGIN
 
     PERFORM
       dss_ontology_create_allpath(
-        _allPathsRootTypeId,
+        _all_Paths_Root_Type_Id,
         _random,
-        _sitemaster,
-        _createdById,
-        _transactionDate,
-        _parentId,
-        _childId,
-        _ontologyRelationshipId,
+        _site_master,
+        _created_By_Id,
+        _transaction_Date,
+        _parent_Id,
+        _child_Id,
+        _ontology_Relationship_Id,
         _seq);
 
   END LOOP;
@@ -87,12 +87,12 @@ CREATE OR REPLACE FUNCTION dss_ontology_create_allpath
 (
   _allPathsRootTypeId   VARCHAR,
   _random               BIGINT,
-  _sitemaster           allpaths.sitemaster%TYPE,
-  _createdById          allpaths.id%TYPE,
-  _transactionDate      allpaths.createdate%TYPE,
-  _parentTerm           allpaths.parentterm%TYPE,
-  _childTerm            allpaths.childterm%TYPE,
-  _ontologyRelationshipId allpaths.ontologyrelationship%TYPE,
+  _site_master           allpaths.site_master%TYPE,
+  _created_By_Id          allpaths.id%TYPE,
+  _transaction_Date      allpaths.create_date%TYPE,
+  _parent_Term           allpaths.parent_term%TYPE,
+  _child_Term            allpaths.child_term%TYPE,
+  _ontology_Relationship_Id allpaths.ontology_relationship%TYPE,
   _seq                  allpaths.seq%TYPE
 )
 RETURNS VOID AS $$
@@ -107,43 +107,43 @@ BEGIN
 
 --	SELECT NOW() + interval '1 millisecond';
 
---    EXECUTE 'SELECT timestamp ''' || _transactionDate || ''' + interval ''' || _seq || ' millisecond ''' INTO _currentTimeMillis;
+--    EXECUTE 'SELECT timestamp ''' || _transaction_Date || ''' + interval ''' || _seq || ' millisecond ''' INTO _currentTimeMillis;
 
 	SELECT com_terraframe_mojo_createid
-	  (_allPathsRootTypeId,
+	  (_all_Paths_Root_Type_Id,
        _random,
-       _sitemaster,
+       _site_master,
        _seq,
-       _transactionDate) INTO _id;
+       _transaction_Date) INTO _id;
 
     INSERT INTO allpaths
       (id,
-       sitemaster,
-       keyname,
+       site_master,
+       key_name,
        owner,
-       createdate,
+       create_date,
        type,
-       lastupdatedate,
-       lastupdatedby,
+       last_update_date,
+       last_updated_by,
        seq,
-       createdby,
-       parentterm,
-       childterm,
-       ontologyrelationship)
+       created_by,
+       parent_term,
+       child_term,
+       ontology_relationship)
     VALUES
       (_id,
-       _sitemaster,
+       _site_master,
        _id,
-       _createdById,
-       _transactionDate,
+       _created_By_Id,
+       _transaction_Date,
        'dss.vector.solutions.ontology.AllPaths',
-       _transactionDate,
-       _createdById,
+       _transaction_Date,
+       _created_By_Id,
        _seq,
-       _createdById,
-       _parentTerm,
-       _childTerm,
-       _ontologyRelationshipId
+       _created_By_Id,
+       _parent_Term,
+       _child_Term,
+       _ontology_Relationship_Id
       );
 
 END;
@@ -163,13 +163,13 @@ LOCALTIMESTAMP,
 );
 
 
-mdssdevelop=> select id from term where termid = 'IDOMAL:0000047';
+mdssdevelop=> select id from term where term_id = 'IDOMAL:0000047';
                                 id
 ------------------------------------------------------------------
  zn96h6uok8wi9mp9ckp9mxwznfiyfiktsne8jxk8l206b5zftsv4t85gv0ryhuzr
 (1 row)
 
-mdssdevelop=> select id from term where termid = 'IDOMAL:0000049';
+mdssdevelop=> select id from term where term_id = 'IDOMAL:0000049';
                                 id
 ------------------------------------------------------------------
  1yivcac6w8n9tf1kim8xb3jdcsz5cxncsne8jxk8l206b5zftsv4t85gv0ryhuzr
@@ -180,14 +180,14 @@ mdssdevelop=> select id from term where termid = 'IDOMAL:0000049';
 
 CREATE OR REPLACE FUNCTION dss_ontology_copy_term
 (
-  _allPathsRootTypeId     VARCHAR,
+  _all_Paths_Root_Type_Id     VARCHAR,
   _random                 BIGINT,
-  _sitemaster             allpaths.sitemaster%TYPE,
-  _createdById            allpaths.id%TYPE,
-  _transactionDate        allpaths.createdate%TYPE,
-  _newParentTerm          allpaths.parentterm%TYPE,
-  _childTerm              allpaths.childterm%TYPE,
-  _ontologyRelationshipId allpaths.ontologyrelationship%TYPE
+  _site_master             allpaths.site_master%TYPE,
+  _created_By_Id            allpaths.id%TYPE,
+  _transaction_Date        allpaths.create_date%TYPE,
+  _newParent_Term          allpaths.parent_term%TYPE,
+  _child_Term              allpaths.child_term%TYPE,
+  _ontology_Relationship_Id allpaths.ontology_relationship%TYPE
 )
 RETURNS VOID AS $$
 
@@ -195,18 +195,18 @@ DECLARE
   _seq                allpaths.seq%TYPE;
 
   -- As the cursor iteratates over the term query, store the current term in this variable
-  _cursorChildTerm      allpaths.childterm%TYPE;
+  _cursorChildTerm      allpaths.child_term%TYPE;
 
   -- Fech all of the recursive children of the given child term, including the child term itself.
-  _termCursor  CURSOR (c_childTerm allpaths.childterm%TYPE, c_ontologyRelationshipId allpaths.ontologyrelationship%TYPE) FOR
-  	SELECT childTerm
+  _termCursor  CURSOR (c_child_Term allpaths.child_term%TYPE, c_ontology_Relationship_Id allpaths.ontology_relationship%TYPE) FOR
+  	SELECT child_Term
   	  FROM allpaths
-  	 WHERE parentTerm = c_childTerm
-  	   AND ontologyRelationship = c_ontologyRelationshipId;
+  	 WHERE parent_Term = c_child_Term
+  	   AND ontology_Relationship = c_ontology_Relationship_Id;
 
 BEGIN
 
-  OPEN _termCursor(_childTerm, _ontologyRelationshipId);
+  OPEN _termCursor(_child_Term, _ontology_Relationship_Id);
 
   -- For each child term, copy all of the paths of the new parent
   LOOP
@@ -218,42 +218,42 @@ BEGIN
 
     INSERT INTO allpaths
       (id,
-       sitemaster,
-       keyname,
+       site_master,
+       key_name,
        owner,
-       createdate,
+       create_date,
        type,
-       lastupdatedate,
-       lastupdatedby,
+       last_update_date,
+       last_updated_by,
        seq,
-       createdby,
-       parentterm,
-       childterm,
-       ontologyrelationship)
+       created_by,
+       parent_term,
+       child_term,
+       ontology_relationship)
     SELECT
-        (SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _transactionDate) AS newId),
-      	_sitemaster,
-      	(SELECT com_terraframe_mojo_createid(_allPathsRootTypeId, _random, _sitemaster, _seq, _transactionDate) AS newKey),
-    	_createdById,
-        _transactionDate,
+        (SELECT com_terraframe_mojo_createid(_all_Paths_Root_Type_Id, _random, _site_master, _seq, _transaction_Date) AS new_Id),
+      	_site_master,
+      	(SELECT com_terraframe_mojo_createid(_all_Paths_Root_Type_Id, _random, _site_master, _seq, _transaction_Date) AS new_Key),
+    	_created_By_Id,
+        _transaction_Date,
     	'dss.vector.solutions.ontology.AllPaths',
-    	_transactionDate,
-        _createdById,
+    	_transaction_Date,
+        _created_By_Id,
         _seq,
-        _createdById,
-        spooftable.parentterm,
+        _created_By_Id,
+        spooftable.parent_term,
         _cursorChildTerm,
-        _ontologyRelationshipId
+        _ontology_Relationship_Id
       FROM
-        (SELECT parentterm
+        (SELECT parent_term
            FROM allpaths
-          WHERE childterm = _newParentTerm
-            AND ontologyRelationship = _ontologyRelationshipId
+          WHERE child_term = _new_Parent_Term
+            AND ontology_Relationship = _ontology_Relationship_Id
             -- Since a term can have multiple parents, a path to one of the new parent's parents may already exist
-            AND parentterm NOT IN
-              (SELECT parentterm
+            AND parent_term NOT IN
+              (SELECT parent_term
                  FROM allpaths
-                 WHERE childTerm = _cursorChildTerm)
+                 WHERE child_Term = _cursorChildTerm)
         ) AS spooftable;
 
   END LOOP;

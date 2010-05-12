@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1555838686)
+@com.runwaysdk.business.ClassSignature(hash = 379700027)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,15 +26,15 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String ISSUPERVISOR = "isSupervisor";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String MEMBERID = "memberId";
-  public static java.lang.String PAZZWORD = "pazzword";
+  public static java.lang.String PASSWORD = "password";
   public static java.lang.String PERSONID = "personId";
   public static java.lang.String RESIDENTIALGEOID = "residentialGeoId";
   public static java.lang.String RESIDENTIALINFORMATION = "residentialInformation";
   public static java.lang.String SEX = "sex";
-  public static java.lang.String UZERNAME = "uzername";
+  public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -1555838686;
+  private static final long serialVersionUID = 379700027;
   
   public PersonViewBase()
   {
@@ -461,29 +461,29 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   
   public String getPassword()
   {
-    return getValue(PAZZWORD);
+    return getValue(PASSWORD);
   }
   
   public void validatePassword()
   {
-    this.validateAttribute(PAZZWORD);
+    this.validateAttribute(PASSWORD);
   }
   
   public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPasswordMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(PAZZWORD);
+    return mdClassIF.definesAttribute(PASSWORD);
   }
   
   public void setPassword(String value)
   {
     if(value == null)
     {
-      setValue(PAZZWORD, "");
+      setValue(PASSWORD, "");
     }
     else
     {
-      setValue(PAZZWORD, value);
+      setValue(PASSWORD, value);
     }
   }
   
@@ -608,29 +608,29 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   
   public String getUsername()
   {
-    return getValue(UZERNAME);
+    return getValue(USERNAME);
   }
   
   public void validateUsername()
   {
-    this.validateAttribute(UZERNAME);
+    this.validateAttribute(USERNAME);
   }
   
   public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUsernameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
-    return mdClassIF.definesAttribute(UZERNAME);
+    return mdClassIF.definesAttribute(USERNAME);
   }
   
   public void setUsername(String value)
   {
     if(value == null)
     {
-      setValue(UZERNAME, "");
+      setValue(USERNAME, "");
     }
     else
     {
-      setValue(UZERNAME, value);
+      setValue(USERNAME, value);
     }
   }
   

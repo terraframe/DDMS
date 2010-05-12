@@ -424,11 +424,6 @@
             <operation
               name="READ" />
             <attributePermission
-              attributeName="accessor">
-              <operation
-                name="READ" />
-            </attributePermission>
-            <attributePermission
               attributeName="attributeName">
               <operation
                 name="READ" />
@@ -641,7 +636,7 @@
               name="READ_ALL_ATTRIBUTES" />
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.runwaysdk.system.metadata.MetaData">
+            type="com.runwaysdk.system.metadata.Metadata">
             <operation
               name="READ" />
             <operation
@@ -888,7 +883,7 @@
               name="READ" />
           </mdBusinessPermission>
           <mdStructPermission
-            type="com.runwaysdk.system.metadata.MetaDataDisplayLabel">
+            type="com.runwaysdk.system.metadata.MetadataDisplayLabel">
             <operation
               name="READ" />
             <operation

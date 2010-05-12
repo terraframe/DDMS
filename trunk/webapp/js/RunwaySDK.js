@@ -4621,7 +4621,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
       this.description = obj.description;
       this.required = obj.required;
       this.immutable = obj.immutable;
-      this.accessorName = obj.accessorName;
+      this.columnName = obj.columnName;
       this.id = obj.id;
       this.system = obj.system;
       this.name = obj.name;
@@ -4641,7 +4641,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
   
     getName : function() { return this.name; },
   
-    getAccessorName : function() { return this.accessorName; }
+    getColumnName : function() { return this.columnName; }
   
   }
 });

@@ -52,7 +52,7 @@ import com.runwaysdk.system.metadata.MdLocalizable;
 import com.runwaysdk.system.metadata.MdLocalizableQuery;
 import com.runwaysdk.system.metadata.MdMethod;
 import com.runwaysdk.system.metadata.MdParameter;
-import com.runwaysdk.system.metadata.MetaData;
+import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.FileIO;
 import com.runwaysdk.util.LocalizeUtil;
 
@@ -221,7 +221,7 @@ public class MdssLocalizationExporter implements Reloadable
       String definingType = mdType.definesType();
       String attributeName = local.getAttributeName();
       
-      if (exemptions.contains(definingType) || attributeName.equalsIgnoreCase(MetaData.DESCRIPTION))
+      if (exemptions.contains(definingType) || attributeName.equalsIgnoreCase(Metadata.DESCRIPTION))
       {
         continue;
       }
@@ -242,22 +242,22 @@ public class MdssLocalizationExporter implements Reloadable
         {
           MdAttributeDAOIF mdAttribute = (MdAttributeDAOIF) entity;
           String definedAttribute = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
-          if (definedAttribute.equalsIgnoreCase(MetaData.ID) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.CREATEDBY) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.ENTITYDOMAIN) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.KEYNAME) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDATE) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.LASTUPDATEDBY) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.LOCKEDBY) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.OWNER) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.SEQ) ||
-                  definedAttribute.equalsIgnoreCase(MetaData.TYPE))
+          if (definedAttribute.equalsIgnoreCase(Metadata.ID) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.CREATEDBY) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.ENTITYDOMAIN) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.KEYNAME) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDATE) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDBY) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.LOCKEDBY) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.OWNER) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.SEQ) ||
+                  definedAttribute.equalsIgnoreCase(Metadata.TYPE))
               {
                 continue;
               }
           
           // Selectively get rid of create dates
-          if (definedAttribute.equalsIgnoreCase(MetaData.CREATEDATE))
+          if (definedAttribute.equalsIgnoreCase(Metadata.CREATEDATE))
               {
       	  		if (mdType.definesType().equals("dss.vector.solutions.general.Email")) {
       	  			continue;
@@ -267,7 +267,7 @@ public class MdssLocalizationExporter implements Reloadable
       	  		}
               }
           
-          if (definedAttribute.equalsIgnoreCase(MetaData.SITEMASTER))
+          if (definedAttribute.equalsIgnoreCase(Metadata.SITEMASTER))
               {
     	  		if (mdType.definesType().equals("com.runwaysdk.system.transaction.TransactionRecord")) {
       	  			continue;

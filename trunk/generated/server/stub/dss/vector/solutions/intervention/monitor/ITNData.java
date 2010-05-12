@@ -328,8 +328,8 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
     
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
    
-    String sd = itnQuery.getStartDate().getQualifiedName();
-    String ed = itnQuery.getEndDate().getQualifiedName();
+    String sd = itnQuery.getStartDate().getDbQualifiedName();
+    String ed = itnQuery.getEndDate().getDbQualifiedName();
 
     return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, sd, ed);
 

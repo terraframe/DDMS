@@ -60,7 +60,7 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
     condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.MONITOR_PACKAGE));
 
-    // FIXME hide the entry for countryGeoId
+    // hide the entry for countryGeoId because that is set via a different process.
     condition = AND.get(condition, query.getPropertyName().NE(PropertyInfo.COUNTRY_GEO_ID));
 
     query.WHERE(condition);

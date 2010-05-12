@@ -402,7 +402,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       tr.id = rootView.getBrowserRootId()+MDSS.OntologyFields.ROW_SUFFIX;
       
       var html = '';
-      html += '<td>'+rootView.getTermName()+' ('+rootView.getTermOntologyId()+')</td>';
+      html += '<td>'+rootView.getTermName()+'</td>';
       html += '<td>'+rootView.getSelectable()+'</td>';
       html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Edit+'</button></td>';
       html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Delete+'</button></td>';

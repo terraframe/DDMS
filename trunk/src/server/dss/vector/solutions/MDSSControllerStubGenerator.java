@@ -185,7 +185,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
 
     if (isTerm)
     {
-      String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.ACCESSOR);
+      String accessor = mdAttribute.getValue(MdAttributeReferenceInfo.GENERATE_ACCESSOR);
       String definingType = mdAttribute.definedByClass().definesType() + TypeGeneratorInfo.DTO_SUFFIX;
 
       if (accessor == null || accessor.equals(""))

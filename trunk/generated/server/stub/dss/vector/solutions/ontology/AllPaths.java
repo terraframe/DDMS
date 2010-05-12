@@ -89,39 +89,39 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     for (OntologyRelationship ontologyRelationship : orQ.getIterator())
     {
       String sql = "INSERT INTO "+allPathsTable+" (\n" +
-      "  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+",\n" +
-      "  "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+"\n" +
+      "  "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "  "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+"\n" +
       ") \n" +
-
+      
       "SELECT  \n" +
-      "    md5(term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" || term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"',\n" +
-      "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
-      "    md5(term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" || term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
-      "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
-      "    ''                                                     AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-      "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-      "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
-      "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-      "    null                                                   AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
-      "    ?                                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-      "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
-      "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
-      "    recurs_rel."+RelationshipInfo.PARENT_ID+"              AS "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+", \n" +
-      "    recurs_rel.root_id                                     AS "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+", \n" +
-      "    '"+ontologyRelationship.getId()+"'                      AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
+      "    md5(term1."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" || term2."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" ) || '"+allPathsRootTypeId+"',\n" +
+      "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    md5(term1."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" || term2."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" ) || '"+allPathsRootTypeId+"' AS "+AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName()+"\",\n" +
+      "    ''                                                     AS "+AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    null                                                   AS "+AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    ?                                                      AS "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName()+"\",\n" +
+      "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+      "    recurs_rel."+RelationshipInfo.PARENT_ID+"              AS "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+", \n" +
+      "    recurs_rel.root_id                                     AS "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+", \n" +
+      "    '"+ontologyRelationship.getId()+"'                      AS "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" \n" +
 
       "FROM "+termTable+" as term1, "+termTable+" as term2,\n" +
       " (SELECT root_id, "+RelationshipInfo.PARENT_ID+", "+RelationshipInfo.CHILD_ID+" \n"+
@@ -129,30 +129,30 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
       "  ( WITH RECURSIVE quick_paths AS \n"+
       "    ( SELECT "+RelationshipInfo.CHILD_ID+" AS root_id, "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+" \n"+
       "      FROM "+termRelationshipTable+" \n" +
-      "      WHERE "+termRelationshipTable+"."+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "      WHERE "+termRelationshipTable+"."+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationship.getId()+"' \n"+
       "      UNION \n"+
       "      SELECT a.root_id, b."+RelationshipInfo.CHILD_ID+", b."+RelationshipInfo.PARENT_ID+" \n"+
       "      FROM quick_paths a, "+termRelationshipTable+" b \n"+
       "      WHERE b."+RelationshipInfo.CHILD_ID+" = a."+RelationshipInfo.PARENT_ID+" \n"+
-      "      AND b."+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "      AND b."+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationship.getId()+"' \n"+
       "    ) \n"+
       "    SELECT root_id, root_id as "+RelationshipInfo.CHILD_ID+", "+RelationshipInfo.PARENT_ID+" \n"+
       "    FROM quick_paths \n"+
       "    UNION \n"+
-      "    SELECT "+AllPaths.getIdMd().definesAttribute().toLowerCase()+", "+AllPaths.getIdMd().definesAttribute().toLowerCase()+", "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" \n"+
+      "    SELECT "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+", "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+", "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" \n"+
       "    FROM "+termTable+" \n"+
-      "    WHERE "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" IN \n"+
+      "    WHERE "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" IN \n"+
       "      (SELECT "+RelationshipInfo.PARENT_ID+" \n"+
       "       FROM "+termRelationshipTable+" \n"+
-      "       WHERE "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "       WHERE "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationship.getId()+"' \n"+
       "      ) \n"+
-      "     OR "+AllPaths.getIdMd().definesAttribute().toLowerCase()+" IN \n"+
+      "     OR "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" IN \n"+
       "      (SELECT "+RelationshipInfo.CHILD_ID+" \n"+
       "       FROM "+termRelationshipTable+" \n"+
-      "       WHERE "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationship.getId()+"' \n"+
+      "       WHERE "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationship.getId()+"' \n"+
       "      )\n"+
       "  ) AS inner_recurs_rel) AS recurs_rel \n" +
-      "WHERE term1."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" = recurs_rel."+RelationshipInfo.PARENT_ID+" AND term2."+AllPaths.getIdMd().definesAttribute().toLowerCase()+" = recurs_rel.root_id\n";
+      "WHERE term1."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" = recurs_rel."+RelationshipInfo.PARENT_ID+" AND term2."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" = recurs_rel.root_id\n";
 
       Connection conn = Database.getConnection();
 
@@ -207,57 +207,57 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     }
 
     String sql = "INSERT INTO "+allPathsTable+" (\n" +
-    "  "+AllPaths.getIdMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getKeyNameMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getTypeMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getCreateDateMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+",\n" +
-    "  "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+"\n" +
+    "  "+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "  "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+"\n" +
     ") \n" +
     " SELECT \n"+
-    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" || allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS newId,\n" +
-    "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().definesAttribute().toLowerCase()+",\n" +
-    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" || allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" ) || '"+allPathsRootTypeId+"' AS newKey,\n" +
-    "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().definesAttribute().toLowerCase()+"\",\n" +
-    "    ''                                                     AS "+AllPaths.getEntityDomainMd().definesAttribute().toLowerCase()+",\n" +
-    "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().definesAttribute().toLowerCase()+",\n" +
-    "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().definesAttribute().toLowerCase()+",\n" +
-    "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-    "    NULL                                                   AS "+AllPaths.getLockedByMd().definesAttribute().toLowerCase()+",\n" +
-    "    ?                                                      AS "+AllPaths.getCreatedByMd().definesAttribute().toLowerCase()+",\n" +
-    "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().definesAttribute().toLowerCase()+"\",\n" +
-    "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().definesAttribute().toLowerCase()+",\n" +
-    "    allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" AS "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+", \n" +
-    "    allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+"   AS "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+", \n" +
-    "    '"+ontologyRelationshipId+"'                           AS "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" \n" +
+    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" || allpaths_child."+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" ) || '"+allPathsRootTypeId+"' AS newId,\n" +
+    "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "   MD5(allpaths_parent."+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" || allpaths_child."+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" ) || '"+allPathsRootTypeId+"' AS newKey,\n" +
+    "    '"+AllPaths.CLASS+"'                                   AS \""+AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName()+"\",\n" +
+    "    ''                                                     AS "+AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    ?                                                      AS "+AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    NEXTVAL('"+PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE+"')    AS "+AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    '"+createdById+"'                                      AS "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    NULL                                                   AS "+AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    ?                                                      AS "+AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    '"+createdById+"'                                      AS \""+AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName()+"\",\n" +
+    "    '"+createdById+"'                                      AS "+AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName()+",\n" +
+    "    allpaths_parent."+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" AS "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+", \n" +
+    "    allpaths_child."+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+"   AS "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+", \n" +
+    "    '"+ontologyRelationshipId+"'                           AS "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" \n" +
     " FROM \n"+
     // Fech all of the recursive children of the given child term, including the child term itself.
-    "  (SELECT "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" \n"+
+    "  (SELECT "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" \n"+
     "    FROM "+allPathsTable+" \n"+
-    "     WHERE "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" = '"+childTermId+"' \n"+
-    "       AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"') AS allpaths_child, \n"+
+    "     WHERE "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" = '"+childTermId+"' \n"+
+    "       AND "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationshipId+"') AS allpaths_child, \n"+
     // Fech all of the recursive parents of the given new parent term, including the new parent term itself.
-    "  (SELECT "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
+    "  (SELECT "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" \n"+
     "     FROM "+allPathsTable+" \n"+
-    "    WHERE "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" = '"+newParentTermId+"' \n"+
-    "      AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"' \n"+
+    "    WHERE "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" = '"+newParentTermId+"' \n"+
+    "      AND "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationshipId+"' \n"+
     "    ) AS allpaths_parent \n"+
     // Since a term can have multiple parents, a path to one of the new parent's parents may already exist
-    " WHERE allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" NOT IN \n"+
-    "   (SELECT "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
+    " WHERE allpaths_parent."+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" NOT IN \n"+
+    "   (SELECT "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" \n"+
     "      FROM "+allPathsTable+" \n"+
-    "     WHERE "+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" = allpaths_parent."+AllPaths.getParentTermMd().definesAttribute().toLowerCase()+" \n"+
-    "      AND "+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" = allpaths_child."+AllPaths.getChildTermMd().definesAttribute().toLowerCase()+" \n"+
-    "      AND "+AllPaths.getOntologyRelationshipMd().definesAttribute().toLowerCase()+" = '"+ontologyRelationshipId+"') \n";
+    "     WHERE "+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" = allpaths_parent."+AllPaths.getParentTermMd().getMdAttributeConcrete().getColumnName()+" \n"+
+    "      AND "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" = allpaths_child."+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+" \n"+
+    "      AND "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+" = '"+ontologyRelationshipId+"') \n";
 
     Connection conn = Database.getConnection();
 

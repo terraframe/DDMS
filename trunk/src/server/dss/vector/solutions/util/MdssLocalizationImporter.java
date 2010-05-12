@@ -34,7 +34,7 @@ import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
-import com.runwaysdk.dataaccess.metadata.MetaDataDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -66,7 +66,7 @@ public class MdssLocalizationImporter implements Reloadable
   public static void main(String[] args) throws FileNotFoundException
   {
     // Force teh cache to boot so it's not included in our timing
-    MetaDataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
+    MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
     long start = System.currentTimeMillis();
 
     MdssLocalizationImporter mli = new MdssLocalizationImporter();

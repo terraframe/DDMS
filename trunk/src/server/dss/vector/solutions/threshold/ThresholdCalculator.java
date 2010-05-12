@@ -378,7 +378,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 		valueQuery.WHERE(caseQuery.getStartDate().GE(initialDate));
 		valueQuery.WHERE(caseQuery.getEndDate().LE(finalDate));
 		// Make sure we only grab epi week periods
-		valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate", caseQuery.getStartDate().getQualifiedName() + "+ interval '6 days'")));
+		valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate", caseQuery.getStartDate().getDbQualifiedName() + "+ interval '6 days'")));
 		valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());
 
 		long sum = 0;

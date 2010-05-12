@@ -229,7 +229,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     if (valueQuery.hasSelectableRef(geoType))
     {
       s = valueQuery.getSelectableRef(geoType);
-      String columnAlias = s.getQualifiedName();
+      String columnAlias = s.getDbQualifiedName();
       sql = "get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
       sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
       sql += "MAX(spray_season), ";
@@ -267,7 +267,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
-    String columnAlias = s.getQualifiedName();
+    String columnAlias = s.getDbQualifiedName();
     sql = "SUM(" + sprayedUnits + ")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
 
     sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";

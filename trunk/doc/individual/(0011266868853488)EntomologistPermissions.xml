@@ -557,7 +557,7 @@
             </attributePermission>
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="com.runwaysdk.system.metadata.MetaData">
+            type="com.runwaysdk.system.metadata.Metadata">
             <attributePermission
               attributeName="description">
               <operation
