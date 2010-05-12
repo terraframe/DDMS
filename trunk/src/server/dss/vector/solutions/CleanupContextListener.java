@@ -10,9 +10,12 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.StartSession;
+import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.query.SavedMap;
 
@@ -113,7 +116,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "SELECT c.oid \n";
     sql += "FROM pg_catalog.pg_class c \n";
     sql += "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace \n";
-    sql += "WHERE c.relname ~ '^(metadatadisplaylabel)$' \n";
+    sql += "WHERE c.relname ~ '^(metadata_display_label)$' \n";
     sql += "AND pg_catalog.pg_table_is_visible(c.oid) );\n";
     
     List<String> list = new LinkedList<String>();
@@ -167,27 +170,27 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "SELECT  (t1.package_name || '.' || t1.type_name) AS parent_type, \n";
     sql += "  g1.geo_entity_class as parent_class, \n";
     sql += "  g1.political AS parent_political, \n";
-    sql += "  g1.spray_target_allowed AS parent_spray_target_allowed,  \n";
-    sql += "  g1.population_allowed AS parent_population_allowed, \n";
+    sql += "  g1.spray_target_allowed AS parent_spraytargetallowed,  \n";
+    sql += "  g1.population_allowed AS parent_populationallowed, \n";
     sql += "  (t2.package_name || '.' || t2.type_name) AS child_type, \n";
-    sql += "  g2.geoentity_class As child_class, \n";
+    sql += "  g2.geo_entity_class As child_class, \n";
     sql += "  g2.political AS child_political, \n";
-    sql += "  g2.spray_target_allowed AS child_spray_target_allowed,  \n";
-    sql += "  g2.population_allowed AS child_population_allowed \n";
-    sql += "FROM allowedin , \n";
+    sql += "  g2.spray_target_allowed AS child_spraytargetallowed,  \n";
+    sql += "  g2.population_allowed AS child_populationallowed \n";
+    sql += "FROM allowed_in , \n";
     sql += "  geo_hierarchy g1,  \n";
     sql += "  geo_hierarchy g2, \n";
     sql += "  md_type t1 , \n";
     sql += "  md_type t2  \n";
-    sql += "WHERE  allowedin.parent_id = g1.id \n";
-    sql += "AND allowedin.child_id = g2.id \n";
+    sql += "WHERE  allowed_in.parent_id = g1.id \n";
+    sql += "AND allowed_in.child_id = g2.id \n";
     sql += "AND t1.id = g1.geo_entity_class  \n";
     sql += "AND t2.id = g2.geo_entity_class \n";
     sql += ") \n";
     sql += ", recursive_rollup AS ( \n";
     sql += " SELECT child_type, parent_type, parent_type as root_type, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed, parent_class as root_class ,0 as depth,  child_class \n";
     sql += "   \n";
-    sql += "  FROM geo_hierarchy_flags \n";
+    sql += "  FROM geohierarchy_flags \n";
     sql += " UNION \n";
     sql += " SELECT b.child_type, b.parent_type, a.root_type, b.child_political, b.child_spraytargetallowed, b.child_populationallowed, a.parent_political, a.parent_spraytargetallowed, a.parent_populationallowed, a.root_class , a.depth+1 , b.child_class \n";
     sql += " FROM recursive_rollup a,  geohierarchy_flags b \n";
@@ -204,7 +207,11 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   private String getGeoDisplayViewSQL()
   {
     List<String> list = new LinkedList<String>();
-    list.add(com.runwaysdk.constants.MdAttributeLocalInfo.DEFAULT_LOCALE );
+    
+    String key = MetadataDisplayLabel.CLASS+"."+MetadataDisplayLabel.DEFAULTLOCALE;
+    String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
+    
+    list.add(defaultLocaleColumn);
     try
     {
       list.addAll(getLocaleColumns());
@@ -221,7 +228,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "CREATE OR REPLACE VIEW geo_displayLabel AS \n";
     sql += "SELECT   \n";
     sql += "geo0.id,  \n";
-    sql += "geo0.geoID, \n";
+    sql += "geo0.geo_ID, \n";
     sql += "(t1.package_name || '.' || t1.type_name) AS parent_type, \n";
     sql += "g1.political AS political, \n";
     sql += "g1.spray_target_allowed AS spray_target_allowed,  \n";
@@ -229,7 +236,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     for (String locale : list)
     {
       //sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
-      sql += "geo0.entity_Name|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter.name,'')   || ') - ' || geo0.geoId AS " + locale +", \n";
+      sql += "geo0.entity_Name|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter.name,'')   || ') - ' || geo0.geo_Id AS " + locale +", \n";
     }
     sql += "geo0.entity_Name|| COALESCE(' : ' || ter.name,'')   AS short_Display_Label \n"; 
     sql += "FROM  \n";
@@ -332,9 +339,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "     JOIN population_data pd ON ap.child_geo_entity = pd.geo_entity JOIN geo_display_Label gd ON gd.id = pd.geo_entity \n";
     sql += "     WHERE pd.population IS NOT NULL AND ap.parent_geo_entity =  _geo_Entity_Id AND pd.year_of_data <= _year \n";
     sql += "     AND gd.population_allowed = 1 AND gd.political = 1 \n";
-    sql += "      INTO _childCount; \n";
+    sql += "      INTO _child_Count; \n";
     sql += "      --continue to recurse if this branch has data \n";
-    sql += "       IF _childCount > 0 THEN \n";
+    sql += "       IF _child_Count > 0 THEN \n";
     sql += "          \n";
     sql += "         _sql := 'SELECT child_id  FROM located_in WHERE parent_id = ' || quote_literal(_geo_Entity_Id); \n";
     sql += "         FOR  rec IN EXECUTE _sql LOOP \n";
@@ -357,7 +364,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "RETURNS FLOAT AS $$ \n";
     sql += "DECLARE \n";
     sql += "  _population      FLOAT; \n";
-    sql += "  _geoEntity_Id  VARCHAR; \n";
+    sql += "  _geo_Entity_Id  VARCHAR; \n";
     sql += "  _year             INT; \n";
     sql += "BEGIN \n";
     sql += "  SELECT id FROM geo_entity WHERE geo_id = _geoId \n";
@@ -430,7 +437,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "   SELECT property_Value FROM property WHERE key_name = 'epiStartWeekDay' \n";
     sql += "   INTO _first_Day_Of_Epi_Week; \n";
     sql += "    \n";
-    sql += "  _epiWeek := get_epiWeek_from_date(_date,_first_Day_Of_Epi_Week); \n";
+    sql += "  _epi_Week := get_epiWeek_from_date(_date,_first_Day_Of_Epi_Week); \n";
     sql += "  _target_Column := ('target_' || _epi_Week);  \n";
     sql += "     \n";
     sql += "   RETURN get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(_geo_Entity_Id,_season_Id,_target_Column); \n";
@@ -501,8 +508,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _year := EXTRACT(YEAR FROM _date); \n";
     sql += "   \n";
     sql += "  _prev_Start_Date = get_epiStart(_year-1,_first_Day_Of_Epi_Week); \n";
-    sql += "  _startDate := get_epiStart(_year,_first_Day_Of_Epi_Week); \n";
-    sql += "  _nextStartDate := get_epiStart(_year+1,_first_Day_Of_Epi_Week); \n";
+    sql += "  _start_Date := get_epiStart(_year,_first_Day_Of_Epi_Week); \n";
+    sql += "  _next_Start_Date := get_epiStart(_year+1,_first_Day_Of_Epi_Week); \n";
     sql += "  --RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
     sql += "  CASE \n";
     sql += "   WHEN (_date >= _start_Date ) AND (_date < _next_Start_Date)  THEN \n";
@@ -513,7 +520,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "       \n";
     sql += "   WHEN _date >= _next_Start_Date THEN \n";
     sql += "      _epi_Week := 1; \n";
-    sql += "   WHEN _date < _startDate THEN \n";
+    sql += "   WHEN _date < _start_Date THEN \n";
     sql += "      _epi_Week := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _prev_Start_Date)::INT; \n";
     sql += "      _epi_Week := (round(_epi_Week::FLOAT /(60.0*60.0*24.0))::INT  / 7 )+1; \n";
     sql += "  END CASE; \n";
@@ -547,11 +554,11 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
     sql += "  CASE \n";
     sql += "   WHEN (_date >= _start_Date ) AND (_date < _next_Start_Date)  THEN \n";
-    sql += "      _epiYear := _year; \n";
+    sql += "      _epi_Year := _year; \n";
     sql += "   WHEN _date >= _next_Start_Date THEN \n";
-    sql += "      _epiYear := _year + 1; \n";
+    sql += "      _epi_Year := _year + 1; \n";
     sql += "   WHEN _date < _start_Date THEN \n";
-    sql += "      _epiYear := _year - 1;  \n";
+    sql += "      _epi_Year := _year - 1;  \n";
     sql += "  END CASE; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
@@ -577,7 +584,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "   _start_Date  := _jan_Fourth - ((_fourth_Of_Jan_Week_Day - _first_Day_Of_Epi_Week)::text || ' days')::interval; \n";
     sql += "   --RAISE NOTICE 'A: % % %', _year,_fourth_Of_Jan_Week_Day,_start_Date; \n";
     sql += "  ELSE \n";
-    sql += "   _star_tDate  := _jan_Fourth - ((7 + _fourth_Of_Jan_Week_Day - _firs_tDay_Of_Epi_Week)::text || ' days')::interval; \n";
+    sql += "   _start_Date  := _jan_Fourth - ((7 + _fourth_Of_Jan_Week_Day - _firs_tDay_Of_Epi_Week)::text || ' days')::interval; \n";
     sql += "   --RAISE NOTICE 'B: % % %', _year,_fourth_Of_Jan_Week_Day,_start_Date; \n";
     sql += "  END IF; \n";
     sql += "END; \n";
