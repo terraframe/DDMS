@@ -41,10 +41,10 @@ MDSS INSTALLER README
     
 3. Post Install
    After the install is completed click on Start->All Programs->MDSS->Start MDSS
-   The MDSS server will start in the background,  it takes about a minute to start up.
-   After a minute you can go to Start->All Programs->MDSS-> Open MDSS
+   The MDSS server will start in the background,  it takes a few minutes to start up.
+   After a minute or two you can go to Start->All Programs->MDSS-> Open MDSS
    Firefox may alert you that the Screengrab plugin has been installed, this is normal.
-   The default login is MDSS and the password is mdsstest. 
+   The default login is MDSS and the password is mdsstest2. 
    After you log in for the first time you will need to make yourself a user with admin rights.
    After you have created a user for yourself, log out and log back in as your user.
    If you have received data from the master server, run the data sync now. 
