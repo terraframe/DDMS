@@ -225,17 +225,19 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
   @Override
 public void validateDrawdownPercent() {
-    if(this.getDrawdownPercent() != null && this.getDrawdownPercent() > 100)
-      {
-        RangeValueProblem p = new RangeValueProblem();
-        p.setNotification(this, DRAWDOWNPERCENT);
-        p.setAttributeDisplayLabel(getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
-        p.setLowerLimit(0);
-        p.setUpperLimit(100);
-        p.apply();
-        
-        p.throwIt();
-      }
+    if(this.getDrawdownPercent() != null) {
+    	if (this.getDrawdownPercent() < 0 || this.getDrawdownPercent() > 100)
+	      {
+	        RangeValueProblem p = new RangeValueProblem();
+	        p.setNotification(this, DRAWDOWNPERCENT);
+	        p.setAttributeDisplayLabel(getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
+	        p.setLowerLimit(0);
+	        p.setUpperLimit(100);
+	        p.apply();
+	        
+	        p.throwIt();
+	      }
+    }
 }
 
 @Override
