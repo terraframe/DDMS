@@ -12,13 +12,10 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
-import dss.vector.solutions.intervention.monitor.Larvacide;
-import dss.vector.solutions.intervention.monitor.LarvacideInstance;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -158,21 +155,91 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     ImmatureCollectionQuery collectionQuery = ( ImmatureCollectionQuery  ) queryMap.get(ImmatureCollection.CLASS);
+    CollectionPremiseQuery collectionPremiseQuery = ( CollectionPremiseQuery  ) queryMap.get(CollectionPremise.CLASS);
+    PremiseTaxonQuery premiseTaxonQuery = ( PremiseTaxonQuery  ) queryMap.get(PremiseTaxon.CLASS);
+    CollectionContainerQuery collectionContainerQuery = ( CollectionContainerQuery  ) queryMap.get(CollectionContainer.CLASS);
+    if(collectionPremiseQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CollectionPremise.CLASS, collectionPremiseQuery );
+      valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
+    }
+    
+    if(premiseTaxonQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, PremiseTaxon.CLASS, premiseTaxonQuery );
+      valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
+    }
 
-//    valueQuery.WHERE(larvacideAssQuery.parentId().EQ(larvacideQuery.getId()));
+    if(collectionContainerQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CollectionContainer.CLASS, collectionContainerQuery );
+      valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
+    }
 
-
-    QueryUtil.joinGeoDisplayLabels(valueQuery, Larvacide.CLASS, collectionQuery );
-
-    QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, collectionQuery );
+    QueryUtil.joinGeoDisplayLabels(valueQuery, ImmatureCollection.CLASS, collectionQuery );
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    SelectableMoment dateAttribute = collectionQuery.getStartDate();
-
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, dateAttribute);
+    boolean needsJoin = false; 
+    
+    /*
+    numbercontainers integer,
+    numberwithwater integer,
+    numberdestroyed integer,
+    numberwithlarvicide integer,
+    numberimmatures integer,
+    numberlarvae integer,
+    numberpupae integer,
+    numberlarvaecollected integer,
+    numberpupaecollected integer,
+    */
+    
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM(numberExamined)/SUM(numberimmatures)*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM(numberExamined)/SUM(numberlavrae)*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM(numberExamined)/SUM(numberpupae)*100")|| needsJoin;
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM(numberExamined)/SUM(numberpupae)*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM(numberExamined)/SUM(numberpupae)*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM(numberExamined)/SUM(numberpupae)*100");
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM(numberExamined)/SUM(numberpupae)*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM(numberExamined)/SUM(numberpupae)*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(numberExamined)/SUM(numberpupae)*100");
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "pi", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "pppr", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "ppha", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "pppe", "COUNT(*)");
+    
+    if(needsJoin)
+    {
+      //String tableName = premiseTaxonQuery.getMdClassIF().getTableName();
+      //String tableAlias = premiseTaxonQuery.getTableAlias();
+      
+      if(collectionContainerQuery == null)
+      {
+        collectionContainerQuery = new CollectionContainerQuery(queryFactory);   
+        valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
+      }
+    }
+    
+    
+    
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "COUNT(*)");
+    
+    
+    
+    
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, ImmatureCollection.STARTDATE, ImmatureCollection.ENDDATE);
+    
 
   }
 }
