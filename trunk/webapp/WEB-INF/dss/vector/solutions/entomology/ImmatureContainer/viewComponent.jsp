@@ -6,10 +6,11 @@
 
 <c:set var="page_title" value="Immatures_by_Container_Type"  scope="request"/>
 
+<!-- Removed because MdInformation messages were being duplicated in the header and in the popups
 <mjl:messages>
 <mjl:message />
 </mjl:messages>
- 
+  -->
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <c:set var="entity" scope="request" value="${item.geoEntity}" />
