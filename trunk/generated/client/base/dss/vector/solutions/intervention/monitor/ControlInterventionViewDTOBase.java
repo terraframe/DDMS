@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1679384421)
+@com.runwaysdk.business.ClassSignature(hash = -1027674390)
 public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ControlInterventionView";
-  private static final long serialVersionUID = 1679384421;
+  private static final long serialVersionUID = -1027674390;
   
   protected ControlInterventionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,7 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
+  public static java.lang.String PERSONINTERVENTIONUNIVERSAL = "personInterventionUniversal";
   public static java.lang.String STARTDATE = "startDate";
   public dss.vector.solutions.geo.GeoHierarchyDTO getAggregatedPremiseUniversal()
   {
@@ -267,6 +268,50 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INDIVIDULPREMISEUNIVERSAL).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.geo.GeoHierarchyDTO getPersonInterventionUniversal()
+  {
+    if(getValue(PERSONINTERVENTIONUNIVERSAL) == null || getValue(PERSONINTERVENTIONUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(PERSONINTERVENTIONUNIVERSAL));
+    }
+  }
+  
+  public void setPersonInterventionUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PERSONINTERVENTIONUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(PERSONINTERVENTIONUNIVERSAL, value.getId());
+    }
+  }
+  
+  public boolean isPersonInterventionUniversalWritable()
+  {
+    return isWritable(PERSONINTERVENTIONUNIVERSAL);
+  }
+  
+  public boolean isPersonInterventionUniversalReadable()
+  {
+    return isReadable(PERSONINTERVENTIONUNIVERSAL);
+  }
+  
+  public boolean isPersonInterventionUniversalModified()
+  {
+    return isModified(PERSONINTERVENTIONUNIVERSAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPersonInterventionUniversalMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSONINTERVENTIONUNIVERSAL).getAttributeMdDTO();
+  }
+  
   public java.util.Date getStartDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
@@ -336,6 +381,22 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] applyWithPersonInterventionViews(dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO[][] methods)
+  {
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.PersonInterventionView;", "[[Ldss.vector.solutions.intervention.monitor.PersonInterventionMethodView;"};
+    Object[] _parameters = new Object[]{premises, methods};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "applyWithPersonInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] applyWithPersonInterventionViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO[][] methods)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.PersonInterventionView;", "[[Ldss.vector.solutions.intervention.monitor.PersonInterventionMethodView;"};
+    Object[] _parameters = new Object[]{id, premises, methods};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "applyWithPersonInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final void deleteConcrete()
   {
     String[] _declaredTypes = new String[]{};
@@ -398,6 +459,22 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getMostRecent", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.ControlInterventionViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] getPersonInterventionViews()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getPersonInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] getPersonInterventionViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getPersonInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.intervention.monitor.ControlInterventionViewQueryDTO search(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO criteria, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)

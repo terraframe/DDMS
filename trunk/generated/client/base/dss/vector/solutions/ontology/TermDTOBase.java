@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1732545661)
+@com.runwaysdk.business.ClassSignature(hash = 1142722291)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -1732545661;
+  private static final long serialVersionUID = 1142722291;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1799,6 +1799,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllPatientAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTPatientsDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionDTO> getAllPersonInterventionMethod()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionDTO> getAllPersonInterventionMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO> getAllPersonInterventionMethodRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO> getAllPersonInterventionMethodRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO addPersonInterventionMethod(dss.vector.solutions.intervention.monitor.PersonInterventionDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO addPersonInterventionMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.PersonInterventionDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  public void removePersonInterventionMethod(dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removePersonInterventionMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllPersonInterventionMethod()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
+  }
+  
+  public static void removeAllPersonInterventionMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

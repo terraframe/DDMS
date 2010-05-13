@@ -33,6 +33,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   public void delete()
   {
     //FIRST delete all Individual Premises
+    this.deletePersonIntervention();
+    
     this.deleteIndividualPremises();    
     
     this.deleteAggregatedPremises();
@@ -95,6 +97,36 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     }
     return list;
   }
+  
+  public void deletePersonIntervention()
+  {
+    List<PersonIntervention> list = this.getPersonInterventions();
+    
+    for(PersonIntervention visit : list)
+    {
+      visit.delete();
+    }
+  }
+
+
+  private List<PersonIntervention> getPersonInterventions()
+  {
+    List<PersonIntervention> list = new LinkedList<PersonIntervention>();
+    PersonInterventionQuery query = new PersonInterventionQuery(new QueryFactory());
+    query.WHERE(query.getPoint().EQ(this));
+    OIterator<? extends PersonIntervention> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    return list;
+  }
+
 
   @Override
   protected String buildKey()

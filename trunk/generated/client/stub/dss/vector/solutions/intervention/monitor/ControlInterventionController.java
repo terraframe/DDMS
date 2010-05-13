@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.PupalCollectionViewDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -64,6 +65,8 @@ public class ControlInterventionController extends ControlInterventionController
 
     this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.INDIVIDULPREMISEUNIVERSAL);
     this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.AGGREGATEDPREMISEUNIVERSAL);
+    this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.PERSONINTERVENTIONUNIVERSAL);
+
     req.setAttribute("universals", Arrays.asList(universals));
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -108,6 +111,17 @@ public class ControlInterventionController extends ControlInterventionController
     req.setAttribute("item", item);
 
     render("searchComponent.jsp");
+  }
+
+  @Override
+  public void searchByParameters(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String geoId, Date startDate, Date endDate) throws IOException, ServletException
+  {
+    ControlInterventionViewDTO view = new ControlInterventionViewDTO(this.getClientRequest());
+    view.setValue(PupalCollectionViewDTO.GEOENTITY, geoId);
+    view.setStartDate(startDate);
+    view.setEndDate(endDate);
+
+    this.searchByView(sortAttribute, isAscending, pageSize, pageNumber, view);
   }
 
   @Override
@@ -259,6 +273,36 @@ public class ControlInterventionController extends ControlInterventionController
 
   @Override
   public void failGetAggregatedPremise(ControlInterventionViewDTO view) throws IOException, ServletException
+  {
+    this.view(view);
+  }
+
+  @Override
+  public void getPersonIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      DataGrid grid = new PersonInterventionGridBuilder(request, view).build();
+
+      req.setAttribute("grid", grid);
+
+      render("viewPersonInterventionComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failGetIndividualPremise(view);
+      }
+    }
+  }
+
+  @Override
+  public void failGetPersonIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
   {
     this.view(view);
   }

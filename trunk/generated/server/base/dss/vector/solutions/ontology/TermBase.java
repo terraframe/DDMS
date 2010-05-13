@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -25443069)
+@com.runwaysdk.business.ClassSignature(hash = -921055885)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -25443069;
+  private static final long serialVersionUID = -921055885;
   
   public TermBase()
   {
@@ -1234,6 +1234,49 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public dss.vector.solutions.intervention.monitor.IPTPatients getPatientAggregatedIPTsRel(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IPTPatients> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IPTPatients>) getRelationshipsWithParent(aggregatedIPT, dss.vector.solutions.intervention.monitor.IPTPatients.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.intervention.monitor.PersonInterventionMethod addPersonInterventionMethod(dss.vector.solutions.intervention.monitor.PersonIntervention personIntervention)
+  {
+    return (dss.vector.solutions.intervention.monitor.PersonInterventionMethod) addParent(personIntervention, dss.vector.solutions.intervention.monitor.PersonInterventionMethod.CLASS);
+  }
+  
+  public void removePersonInterventionMethod(dss.vector.solutions.intervention.monitor.PersonIntervention personIntervention)
+  {
+    removeAllParents(personIntervention, dss.vector.solutions.intervention.monitor.PersonInterventionMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonIntervention> getAllPersonInterventionMethod()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonIntervention>) getParents(dss.vector.solutions.intervention.monitor.PersonInterventionMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethod> getAllPersonInterventionMethodRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethod>) getParentRelationships(dss.vector.solutions.intervention.monitor.PersonInterventionMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.PersonInterventionMethod getPersonInterventionMethodRel(dss.vector.solutions.intervention.monitor.PersonIntervention personIntervention)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethod> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.PersonInterventionMethod>) getRelationshipsWithParent(personIntervention, dss.vector.solutions.intervention.monitor.PersonInterventionMethod.CLASS);
     try
     {
       if (iterator.hasNext())

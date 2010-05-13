@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1145915044)
+@com.runwaysdk.business.ClassSignature(hash = -926799597)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ControlInterventionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1145915044;
+private static final long serialVersionUID = -926799597;
 
   public ControlInterventionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -153,6 +153,25 @@ private static final long serialVersionUID = -1145915044;
   {
 
     return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.INDIVIDULPREMISEUNIVERSAL, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal()
+  {
+    return getPersonInterventionUniversal(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal(String alias)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTIONUNIVERSAL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTIONUNIVERSAL, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getStartDate()

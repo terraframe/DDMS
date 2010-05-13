@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -72655387)
+@com.runwaysdk.business.ClassSignature(hash = 333815914)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,8 +18,9 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
+  public static java.lang.String PERSONINTERVENTIONUNIVERSAL = "personInterventionUniversal";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -72655387;
+  private static final long serialVersionUID = 333815914;
   
   public ControlInterventionViewBase()
   {
@@ -231,6 +232,41 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public dss.vector.solutions.geo.GeoHierarchy getPersonInterventionUniversal()
+  {
+    if (getValue(PERSONINTERVENTIONUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(PERSONINTERVENTIONUNIVERSAL));
+    }
+  }
+  
+  public void validatePersonInterventionUniversal()
+  {
+    this.validateAttribute(PERSONINTERVENTIONUNIVERSAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonInterventionUniversalMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
+    return mdClassIF.definesAttribute(PERSONINTERVENTIONUNIVERSAL);
+  }
+  
+  public void setPersonInterventionUniversal(dss.vector.solutions.geo.GeoHierarchy value)
+  {
+    if(value == null)
+    {
+      setValue(PERSONINTERVENTIONUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(PERSONINTERVENTIONUNIVERSAL, value.getId());
+    }
+  }
+  
   public java.util.Date getStartDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
@@ -293,6 +329,18 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     return _instance.applyWithIndividualPremiseViews(premises, methods);
   }
   
+  public dss.vector.solutions.intervention.monitor.PersonInterventionView[] applyWithPersonInterventionViews(dss.vector.solutions.intervention.monitor.PersonInterventionView[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[][] methods)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.PersonInterventionView[] applyWithPersonInterventionViews(java.lang.String id, dss.vector.solutions.intervention.monitor.PersonInterventionView[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[][] methods)
+  {
+    ControlInterventionView _instance = ControlInterventionView.get(id);
+    return _instance.applyWithPersonInterventionViews(premises, methods);
+  }
+  
   public void deleteConcrete()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
@@ -339,6 +387,18 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.PersonInterventionView[] getPersonInterventionViews()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.PersonInterventionView[] getPersonInterventionViews(java.lang.String id)
+  {
+    ControlInterventionView _instance = ControlInterventionView.get(id);
+    return _instance.getPersonInterventionViews();
   }
   
   public static dss.vector.solutions.intervention.monitor.ControlInterventionViewQuery search(dss.vector.solutions.intervention.monitor.ControlInterventionView criteria, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)

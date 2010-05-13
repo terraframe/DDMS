@@ -16,7 +16,9 @@
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonViewDTO"%><c:set var="page_title" value="Control_intervention"  scope="request"/>
+<%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO"%><c:set var="page_title" value="Control_intervention"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -64,6 +66,16 @@
          <button type="button" id="aggregatedPremiseUniversal.button"> <fmt:message key="Edit"/> </button>         
        </mjl:dt>
              
+       <mjl:dt attribute="personInterventionUniversal">
+         <mjl:select param="personInterventionUniversal" id="personInterventionUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
+           <mjl:option selected="${(personInterventionUniversal != null && personInterventionUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
+             ${current.displayLabel}
+           </mjl:option>
+         </mjl:select>
+         
+         <button type="button" id="personInterventionUniversal.button"> <fmt:message key="Edit"/> </button>         
+       </mjl:dt>
+             
     </mjl:component>    
     
     <hr />
@@ -73,7 +85,7 @@
   </mjl:form>
 </dl>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{ControlInterventionController.CLASS, ControlInterventionViewDTO.CLASS, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitMethodViewDTO.CLASS, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseReasonViewDTO.CLASS, AggregatedPremiseMethodViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{ControlInterventionController.CLASS, ControlInterventionViewDTO.CLASS, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitMethodViewDTO.CLASS, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseReasonViewDTO.CLASS, AggregatedPremiseMethodViewDTO.CLASS, PersonInterventionViewDTO.CLASS, PersonInterventionMethodViewDTO.CLASS}))%>
 
 <script type="text/javascript">
 Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
@@ -108,6 +120,9 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
         }
         else if(el.key == 'aggregatedPremiseUniversal') {
           el.button.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getAggregatedPremiseMap;
+        }
+        else if(el.key == 'personInterventionUniversal') {
+          el.button.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonInterventionMap;
         }
 
         YAHOO.util.Event.on(el.button, 'click', this.editHandler, this, this); 

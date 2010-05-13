@@ -76,9 +76,10 @@
       var record = this.getCellEditor().getRecord();
       var index = this.getRecordIndex(record);
 
+      var visited = (grid.getData(index, 'Visited') == 'true');
       var treated = (grid.getData(index, 'Treated') == 'true');
 
-      if(!treated) {
+      if(visited && !treated) {
         return oData;
       }
 
