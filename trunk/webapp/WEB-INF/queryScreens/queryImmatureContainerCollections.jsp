@@ -122,6 +122,13 @@ YAHOO.util.Event.onDOMReady(function(){
                            attributeName:"hi_lp",
                            isAggregate:true
                          },
+                        {
+                           
+                           key:"hi_l",
+                           type:"sqlfloat",
+                           attributeName:"hi_l",
+                           isAggregate:true
+                         },
 
                          {
                            
@@ -327,10 +334,10 @@ YAHOO.util.Event.onDOMReady(function(){
 
 */
       var selectableGroups = [
-                {title:"Collection", values:collectionColumns, group:"l", klass:collection.CLASS},
+                {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
                 //{title:"Container", values:calculations, group:"c", klass:collection.CLASS},
-                {title:"Indices", values:indexes, group:"i", klass:collection.CLASS},
-                {title:"Container Calculations", values:calculations, group:"cc", klass:collection.CLASS},
+                {title:"Indices", values:indexes, group:"c", klass:collection.CLASS},
+                {title:"Container_Calculations", values:calculations, group:"cc", klass:collection.CLASS},
       ];
 
     
