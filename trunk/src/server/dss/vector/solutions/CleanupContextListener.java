@@ -92,7 +92,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  USING btree \n";
     sql += "  (geo_entity_class); \n";
     
-    sql += "CREATE INDEX geoentity_class_hash \n";
+    sql += "CREATE INDEX geoentityclass_hash \n";
     sql += "  ON geo_hierarchy \n";
     sql += "  USING hash \n";
     sql += "  (geo_entity_class); \n";
@@ -103,7 +103,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   
   
   private List<String> getLocaleColumns() throws SQLException
-  {
+  { 
     String sql = "";
     sql += " SELECT \n";
     sql += "a.attname as Column \n";
