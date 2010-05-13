@@ -227,7 +227,7 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static void setSelectabeSQL(ValueQuery valueQuery, String ref, String sql)
+  public static boolean setSelectabeSQL(ValueQuery valueQuery, String ref, String sql)
   {
     if (valueQuery.hasSelectableRef(ref))
     {
@@ -240,7 +240,9 @@ public class QueryUtil implements Reloadable
       }
 
       ( (SelectableSQL) s ).setSQL(sql);
+      return true;
     }
+    return false;
   }
 
   public static SelectableSQL[] filterSelectedSelectables(ValueQuery valueQuery, String[] attributes)
