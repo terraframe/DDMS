@@ -28,8 +28,6 @@ import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 
-import dss.vector.solutions.util.QueryUtil;
-
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
@@ -196,9 +194,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     {
       selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
     }
+    
     selectClauseArray[selectableArray.length] = F.COUNT(uQ.get("weight"), "weight");
     selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.get("weight"), "sum");
-
+    
     valueQuery.SELECT(selectClauseArray);
     valueQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
     valueQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
