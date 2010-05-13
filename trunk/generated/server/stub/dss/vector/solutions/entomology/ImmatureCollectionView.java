@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
+import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
@@ -176,6 +177,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
 		return containers;
 	}
 
+	@SkipIfProblem
 	private void checkThresholds(CollectionContainerView[] containers) {
 		Integer totalContainersWithWater = null;
 		Integer totalContainersWithImmatures = null;
