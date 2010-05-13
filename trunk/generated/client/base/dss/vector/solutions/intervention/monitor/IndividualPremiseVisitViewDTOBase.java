@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 761270038)
+@com.runwaysdk.business.ClassSignature(hash = -2052243677)
 public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView";
-  private static final long serialVersionUID = 761270038;
+  private static final long serialVersionUID = -2052243677;
   
   protected IndividualPremiseVisitViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -21,6 +21,7 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVENTIONMETHOD = "interventionMethod";
+  public static java.lang.String POINT = "point";
   public static java.lang.String REASONSFORNOTTREATED = "reasonsForNotTreated";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String VISITED = "visited";
@@ -186,6 +187,50 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INTERVENTIONMETHOD).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.intervention.monitor.ControlInterventionDTO getPoint()
+  {
+    if(getValue(POINT) == null || getValue(POINT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.intervention.monitor.ControlInterventionDTO.get(getRequest(), getValue(POINT));
+    }
+  }
+  
+  public void setPoint(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)
+  {
+    if(value == null)
+    {
+      setValue(POINT, "");
+    }
+    else
+    {
+      setValue(POINT, value.getId());
+    }
+  }
+  
+  public boolean isPointWritable()
+  {
+    return isWritable(POINT);
+  }
+  
+  public boolean isPointReadable()
+  {
+    return isReadable(POINT);
+  }
+  
+  public boolean isPointModified()
+  {
+    return isModified(POINT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPointMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(POINT).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getReasonsForNotTreated()
   {
     if(getValue(REASONSFORNOTTREATED) == null || getValue(REASONSFORNOTTREATED).trim().equals(""))
@@ -336,10 +381,10 @@ public abstract class IndividualPremiseVisitViewDTOBase extends com.runwaysdk.bu
     return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodViewDTO[][]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[] getViews(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[] getViews(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO criteria)
   {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.intervention.monitor.ControlInterventionView"};
+    Object[] _parameters = new Object[]{criteria};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO.CLASS, "getViews", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

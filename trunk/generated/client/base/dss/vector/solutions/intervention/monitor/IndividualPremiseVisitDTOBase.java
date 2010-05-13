@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -2085385641)
+@com.runwaysdk.business.ClassSignature(hash = -147151129)
 public abstract class IndividualPremiseVisitDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualPremiseVisit";
-  private static final long serialVersionUID = -2085385641;
+  private static final long serialVersionUID = -147151129;
   
   protected IndividualPremiseVisitDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,6 +37,7 @@ public abstract class IndividualPremiseVisitDTOBase extends com.runwaysdk.busine
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String POINT = "point";
   public static java.lang.String REASONSFORNOTTREATED = "reasonsForNotTreated";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -356,6 +357,50 @@ public abstract class IndividualPremiseVisitDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.ControlInterventionDTO getPoint()
+  {
+    if(getValue(POINT) == null || getValue(POINT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.intervention.monitor.ControlInterventionDTO.get(getRequest(), getValue(POINT));
+    }
+  }
+  
+  public void setPoint(dss.vector.solutions.intervention.monitor.ControlInterventionDTO value)
+  {
+    if(value == null)
+    {
+      setValue(POINT, "");
+    }
+    else
+    {
+      setValue(POINT, value.getId());
+    }
+  }
+  
+  public boolean isPointWritable()
+  {
+    return isWritable(POINT);
+  }
+  
+  public boolean isPointReadable()
+  {
+    return isReadable(POINT);
+  }
+  
+  public boolean isPointModified()
+  {
+    return isModified(POINT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPointMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(POINT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getReasonsForNotTreated()

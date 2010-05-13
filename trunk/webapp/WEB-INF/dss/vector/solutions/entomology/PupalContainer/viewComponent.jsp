@@ -214,7 +214,7 @@
 
     var validateType = function(test, oData) {
       var record = this.getCellEditor().getRecord();
-      var index = record.getCount();
+      var index = this.getRecordIndex(record);
 
       var shape = grid.getData(index, 'Shape');
       var valid = test(shape);

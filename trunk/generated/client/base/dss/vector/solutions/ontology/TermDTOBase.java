@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 657145211)
+@com.runwaysdk.business.ClassSignature(hash = -1732545661)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 657145211;
+  private static final long serialVersionUID = -1732545661;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -39,6 +39,7 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
+  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -419,6 +420,43 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNamespaceMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
+  }
+  
+  public Boolean getObsolete()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
+  }
+  
+  public void setObsolete(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OBSOLETE, "");
+    }
+    else
+    {
+      setValue(OBSOLETE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isObsoleteWritable()
+  {
+    return isWritable(OBSOLETE);
+  }
+  
+  public boolean isObsoleteReadable()
+  {
+    return isReadable(OBSOLETE);
+  }
+  
+  public boolean isObsoleteModified()
+  {
+    return isModified(OBSOLETE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.OntologyDTO getOntology()
@@ -1170,6 +1208,114 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   }
   
   @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO> getAllAggregatedPremiseMethod()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO> getAllAggregatedPremiseMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO> getAllAggregatedPremiseMethodRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO> getAllAggregatedPremiseMethodRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO addAggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO addAggregatedPremiseMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  public void removeAggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeAggregatedPremiseMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllAggregatedPremiseMethod()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  public static void removeAllAggregatedPremiseMethod(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO> getAllAggregatedPremiseReasons()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO> getAllAggregatedPremiseReasons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO> getAllAggregatedPremiseReasonsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO> getAllAggregatedPremiseReasonsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO addAggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO addAggregatedPremiseReasons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  public void removeAggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeAggregatedPremiseReasons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllAggregatedPremiseReasons()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  public static void removeAllAggregatedPremiseReasons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllDiagnosticAggregatedCases()
   {
     return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
@@ -1491,6 +1637,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllIndividualInstance(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.IndividualCaseSymptomDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO> getAllIndividualPremiseVisits()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO> getAllIndividualPremiseVisits(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO>) clientRequestIF.getParents(id, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO> getAllIndividualPremiseVisitsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO> getAllIndividualPremiseVisitsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO addIndividualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO addIndividualPremiseVisits(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO parent)
+  {
+    return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  public void removeIndividualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeIndividualPremiseVisits(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllIndividualPremiseVisits()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
+  }
+  
+  public static void removeAllIndividualPremiseVisits(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

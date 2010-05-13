@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -710743849)
+@com.runwaysdk.business.ClassSignature(hash = 1791616359)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,13 +21,14 @@ public abstract class IndividualPremiseVisitBase extends com.runwaysdk.business.
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String POINT = "point";
   public static java.lang.String REASONSFORNOTTREATED = "reasonsForNotTreated";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VISITED = "visited";
-  private static final long serialVersionUID = -710743849;
+  private static final long serialVersionUID = 1791616359;
   
   public IndividualPremiseVisitBase()
   {
@@ -281,6 +282,41 @@ public abstract class IndividualPremiseVisitBase extends com.runwaysdk.business.
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.intervention.monitor.ControlIntervention getPoint()
+  {
+    if (getValue(POINT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.intervention.monitor.ControlIntervention.get(getValue(POINT));
+    }
+  }
+  
+  public void validatePoint()
+  {
+    this.validateAttribute(POINT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPointMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualPremiseVisit.CLASS);
+    return mdClassIF.definesAttribute(POINT);
+  }
+  
+  public void setPoint(dss.vector.solutions.intervention.monitor.ControlIntervention value)
+  {
+    if(value == null)
+    {
+      setValue(POINT, "");
+    }
+    else
+    {
+      setValue(POINT, value.getId());
     }
   }
   

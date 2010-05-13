@@ -1236,16 +1236,15 @@ focus : function() {
     this._browser.render();
   }
   
-  this.tableData = this.getDataTable().tableData;
+  this.dataGrid = this.getDataTable().dataGrid;
   
   // get existing term id from cell and put it into the selected array
-  if(this.tableData)
+  if(this.dataGrid)
   {    
     var row  = this.getDataTable().getTrIndex(this.getRecord());
     var column = this.getColumn().getField();
-    var model = this.tableData.getModel();
   
-    var termId = model.getData(row, column);
+    var termId = this.dataGrid.getData(row, column);
     var selected = [];
     
     if(Mojo.Util.isString(termId) && termId !== '') {

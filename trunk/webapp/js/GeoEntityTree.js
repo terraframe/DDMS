@@ -378,7 +378,7 @@ MDSS.GeoEntityTree = (function(){
       label : obj.label,
       onSuccess : function(html){
         var executable = MDSS.util.extractScripts(html);
-        var html = MDSS.util.removeScripts(html);
+        html = MDSS.util.removeScripts(html);
 
         // wrap content in divs
         var outer = document.createElement('div');

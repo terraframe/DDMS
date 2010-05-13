@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1201947164)
+@com.runwaysdk.business.ClassSignature(hash = -278018196)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1201947164;
+private static final long serialVersionUID = -278018196;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -82,7 +82,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.CREATEDBY, mdAttributeIF, this, alias, null);
 
@@ -91,7 +91,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -122,7 +122,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.ENTITYDOMAIN, mdAttributeIF, this, alias, null);
 
@@ -131,7 +131,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
@@ -196,7 +196,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.LASTUPDATEDBY, mdAttributeIF, this, alias, null);
 
@@ -205,7 +205,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -219,7 +219,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.LOCKEDBY, mdAttributeIF, this, alias, null);
 
@@ -228,7 +228,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -267,6 +267,23 @@ private static final long serialVersionUID = -1201947164;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getObsolete()
+  {
+    return getObsolete(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
   {
     return getOntology(null);
@@ -276,7 +293,7 @@ private static final long serialVersionUID = -1201947164;
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("ontology");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.ONTOLOGY);
 
     return (dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.ONTOLOGY, mdAttributeIF, this, alias, null);
 
@@ -285,7 +302,7 @@ private static final long serialVersionUID = -1201947164;
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("ontology");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.ONTOLOGY);
 
     return (dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.ONTOLOGY, mdAttributeIF, this, alias, displayLabel);
 
@@ -299,7 +316,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.OWNER, mdAttributeIF, this, alias, null);
 
@@ -308,7 +325,7 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.Term.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.Term.OWNER, mdAttributeIF, this, alias, displayLabel);
 
@@ -408,27 +425,27 @@ private static final long serialVersionUID = -1201947164;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
+    if (name.equals(dss.vector.solutions.ontology.Term.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("ontology")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.ONTOLOGY)) 
     {
        return new dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -940,6 +957,238 @@ private static final long serialVersionUID = -1201947164;
   {
     iTNTargetGroupQuery.AND(iTNTargetGroupQuery.hasParent(iTNDataQuery));
     return this.getBusinessQuery().isNotChildIn_SUBSELECT(iTNTargetGroupQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.getBusinessQuery().isChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.getBusinessQuery().isChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
   }
 
 
@@ -1636,6 +1885,122 @@ private static final long serialVersionUID = -1201947164;
   {
     individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
     return this.getBusinessQuery().isNotChildIn_SUBSELECT(individualCaseSymptomQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.getBusinessQuery().isChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
   }
 
 
@@ -3190,6 +3555,9 @@ private static final long serialVersionUID = -1201947164;
     public com.runwaysdk.query.SelectableChar getNamespace();
     public com.runwaysdk.query.SelectableChar getNamespace(String alias);
     public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getObsolete();
+    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias);
+    public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology();
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias);
     public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology(String alias, String displayLabel);
@@ -3321,6 +3689,30 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.query.Condition SUBSELECT_aggregatedITNsWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNDataQuery iTNDataQuery, dss.vector.solutions.intervention.monitor.ITNTargetGroupQuery iTNTargetGroupQuery);
 
 
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod();
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod();
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery);
+
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons();
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons();
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
+
+
   public com.runwaysdk.query.Condition diagnosticAggregatedCases();
   public com.runwaysdk.query.Condition diagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3391,6 +3783,18 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.query.Condition SUBSELECT_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
+
+
+  public com.runwaysdk.query.Condition individualPremiseVisits();
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits();
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery);
 
 
   public com.runwaysdk.query.Condition parentTerm();
@@ -3573,6 +3977,30 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedITNsWithTargetGroups(dss.vector.solutions.intervention.monitor.ITNDataQuery iTNDataQuery, dss.vector.solutions.intervention.monitor.ITNTargetGroupQuery iTNTargetGroupQuery);
 
 
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod();
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons();
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_diagnosticAggregatedCases();
   public com.runwaysdk.query.Condition NOT_IN_diagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCaseQuery aggregatedCaseQuery);
 
@@ -3643,6 +4071,18 @@ private static final long serialVersionUID = -1201947164;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualInstance(dss.vector.solutions.intervention.monitor.IndividualInstanceQuery individualInstanceQuery, dss.vector.solutions.surveillance.IndividualCaseSymptomQuery individualCaseSymptomQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits();
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery);
 
 
   public com.runwaysdk.query.Condition NOT_IN_parentTerm();
@@ -3786,7 +4226,7 @@ private static final long serialVersionUID = -1201947164;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -667446778;
+private static final long serialVersionUID = -1661330802;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -4007,6 +4447,23 @@ private static final long serialVersionUID = -667446778;
   public com.runwaysdk.query.SelectableChar getNamespace(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ontology.Term.NAMESPACE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getObsolete()
+  {
+    return getObsolete(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getObsolete(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ontology.Term.OBSOLETE, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReferenceIF getOntology()
@@ -4593,6 +5050,122 @@ private static final long serialVersionUID = -667446778;
   }
 
 
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.isChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.isChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.isChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.isChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
   public com.runwaysdk.query.Condition diagnosticAggregatedCases()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -4938,6 +5511,64 @@ private static final long serialVersionUID = -667446778;
   {
     individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
     return this.isChildIn_SUBSELECT(individualCaseSymptomQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.isChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.isChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.isChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.isChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
   }
 
 
@@ -5811,6 +6442,122 @@ private static final long serialVersionUID = -667446778;
   }
 
 
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.isNotChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isNotChildIn(aggregatedPremiseMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery)
+  {
+    aggregatedPremiseMethodQuery.AND(aggregatedPremiseMethodQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isNotChildIn_SUBSELECT(aggregatedPremiseMethodQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.isNotChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.AMOUNT);
+    relationshipQuery.AND(relationshipQuery.hasParent(aggregatedPremiseVisitQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isNotChildIn(aggregatedPremiseReasonQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery)
+  {
+    aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
+    return this.isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
   public com.runwaysdk.query.Condition NOT_IN_diagnosticAggregatedCases()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -6156,6 +6903,64 @@ private static final long serialVersionUID = -667446778;
   {
     individualCaseSymptomQuery.AND(individualCaseSymptomQuery.hasParent(individualInstanceQuery));
     return this.isNotChildIn_SUBSELECT(individualCaseSymptomQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.isNotChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(individualPremiseVisitQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.isNotChildIn(individualPremiseVisitMethodQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_individualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitQuery individualPremiseVisitQuery, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery)
+  {
+    individualPremiseVisitMethodQuery.AND(individualPremiseVisitMethodQuery.hasParent(individualPremiseVisitQuery));
+    return this.isNotChildIn_SUBSELECT(individualPremiseVisitMethodQuery);
   }
 
 
@@ -6800,27 +7605,27 @@ private static final long serialVersionUID = -667446778;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
+    if (name.equals(dss.vector.solutions.ontology.Term.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("ontology")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.ONTOLOGY)) 
     {
        return new dss.vector.solutions.ontology.OntologyQuery.OntologyQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.ontology.Term.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

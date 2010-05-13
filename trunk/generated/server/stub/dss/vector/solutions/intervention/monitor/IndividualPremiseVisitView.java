@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -29,6 +30,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
     GeoEntity entity = concrete.getGeoEntity();
     
     this.setConcreteId(concrete.getId());
+    this.setPoint(concrete.getPoint());
     this.setGeoEntity(entity);
     this.setVisited(concrete.getVisited());
     this.setTreated(concrete.getTreated());
@@ -42,6 +44,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
 
   private void populateConcrete(IndividualPremiseVisit concrete)
   {
+    concrete.setPoint(this.getPoint());
     concrete.setGeoEntity(this.getGeoEntity());
     concrete.setVisited(this.getVisited());
     concrete.setTreated(this.getTreated());
@@ -51,6 +54,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   private void buildAttributeMap(IndividualPremiseVisit concrete)
   {
     new AttributeNotificationMap(concrete, IndividualPremiseVisit.ID, this, IndividualPremiseVisitView.CONCRETEID);
+    new AttributeNotificationMap(concrete, IndividualPremiseVisit.POINT, this, IndividualPremiseVisitView.POINT);
     new AttributeNotificationMap(concrete, IndividualPremiseVisit.GEOENTITY, this, IndividualPremiseVisitView.GEOENTITY);
     new AttributeNotificationMap(concrete, IndividualPremiseVisit.GEOENTITY, this, IndividualPremiseVisitView.ENTITYLABEL);
     new AttributeNotificationMap(concrete, IndividualPremiseVisit.VISITED, this, IndividualPremiseVisitView.VISITED);
@@ -79,7 +83,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   }
 
   @Transaction
-  private IndividualPremiseVisitMethodView[] applyWithMethods(IndividualPremiseVisitMethodView[] methods)
+  public IndividualPremiseVisitMethodView[] applyWithMethods(IndividualPremiseVisitMethodView[] methods)
   {
     this.apply();
 
@@ -160,28 +164,16 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
     return views;
   }
 
-  public static IndividualPremiseVisitView[] getViews()
-  {
-    GeoEntity geoEntity = GeoEntity.searchByGeoId("100101001020");
-
-    List<IndividualPremiseVisitView> list = new LinkedList<IndividualPremiseVisitView>();
-
-    for (GeoEntity entity : geoEntity.getImmediateChildren())
-    {
-      IndividualPremiseVisitView view = IndividualPremiseVisitView.getView(entity);
-
-      list.add(view);
-    }
-
-    return list.toArray(new IndividualPremiseVisitView[list.size()]);
-  }
-
-  private static IndividualPremiseVisitView getView(GeoEntity entity)
+  public static IndividualPremiseVisitView getView(ControlIntervention point, GeoEntity entity)
   {
     IndividualPremiseVisitQuery query = new IndividualPremiseVisitQuery(new QueryFactory());
 
     Condition condition = query.getGeoEntity().EQ(entity);
-
+    
+    if(point != null)
+    {
+      condition = AND.get(condition, query.getPoint().EQ(point));
+    }
 
     query.WHERE(condition);
 
@@ -197,6 +189,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
       IndividualPremiseVisitView view = new IndividualPremiseVisitView();
       view.setGeoEntity(entity);
       view.setEntityLabel(entity.getLabel());
+      view.setPoint(point);
 
       return view;
     }

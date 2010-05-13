@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -885293235)
+@com.runwaysdk.business.ClassSignature(hash = -1660423718)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class IndividualPremiseVisitViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -885293235;
+private static final long serialVersionUID = -1660423718;
 
   public IndividualPremiseVisitViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -116,6 +116,25 @@ private static final long serialVersionUID = -885293235;
   {
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.INTERVENTIONMETHOD, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.ControlInterventionQuery.ControlInterventionQueryReferenceIF getPoint()
+  {
+    return getPoint(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.ControlInterventionQuery.ControlInterventionQueryReferenceIF getPoint(String alias)
+  {
+
+    return (dss.vector.solutions.intervention.monitor.ControlInterventionQuery.ControlInterventionQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.POINT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.ControlInterventionQuery.ControlInterventionQueryReferenceIF getPoint(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.intervention.monitor.ControlInterventionQuery.ControlInterventionQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView.POINT, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReasonsForNotTreated()

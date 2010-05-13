@@ -383,7 +383,6 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     {     
       this._model = model;
 
-      this.tableData = data;
       this.myDataSource = null;
       this.myDataTable = null;
       this.bReverseSorted = false;
@@ -391,26 +390,24 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.btnAddRow = false;
       this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
       this.after_row_load = data.after_row_load;
+      this._disabled = false;
+      this._columnDefs = data.columnDefs;
+      this._copyFromAbove = ((typeof data.copy_from_above === 'undefined') ? [] : data.copy_from_above);
+      this._default = data.defaults;
+      this._div = data.div_id;
+      this._afterRowEdit = data.after_row_edit;
 
       // set the fields
       if (typeof data.fields === 'undefined') {
         this._fields = new Array();
     
-        this.tableData.columnDefs.map(this._initializeField, this);
+        this._columnDefs.map(this._initializeField, this);
       }
       else {
         this._fields = data.fields;
       }
-                
-      if (typeof this.tableData.addButton === 'undefined') {
-        this.tableData.addButton = "allreadyThere";
-      }
         
-      if (typeof this.tableData.copy_from_above === 'undefined') {
-        this.tableData.copy_from_above = [];
-      }
-        
-      this.tableData.dirty = false;
+      this._dirty = false;
         
       // load the data
       this.myDataSource = new YAHOO.util.DataSource(this._model.getRows());
@@ -420,13 +417,11 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       };
         
       // Scrolling Data Table is slow, so we use regular data table if possible
-      if(this.tableData.width){
-        this.myDataTable = new YAHOO.widget.ScrollingDataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {
-          width : this.tableData.width
-        });
+      if(data.width){
+        this.myDataTable = new YAHOO.widget.ScrollingDataTable(this._div, this._columnDefs, this.myDataSource, {width : data.width});
       }
       else {
-        this.myDataTable = new YAHOO.widget.DataTable(this.tableData.div_id, this.tableData.columnDefs, this.myDataSource, {});
+        this.myDataTable = new YAHOO.widget.DataTable(this._div, this._columnDefs, this.myDataSource, {});
       }          
                              
       // the data comes from the server as ids, we need to set the labels
@@ -448,12 +443,12 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
       this.myDataTable.subscribe("editorSaveEvent", this._saveHandler, null, this);
           
-      this._setUpButtons();
+      this._setUpButtons(data);
 
       this._model.addListener(Mojo.Util.bind(this, this._modelEventHandler));
       
       //set this so it accessable by other methods in the jsp
-      this.myDataTable.tableData = this;          
+      this.myDataTable.dataGrid = this;          
     },
     
     _initializeField : function(c) {
@@ -463,6 +458,18 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       else if(c.children) {
         c.children.map(this._initializeField, this);
       }
+    },
+    
+    disable : function() {
+      this._disabled = true; 
+      
+      this.enableSaveButton();
+    },
+    
+    enable : function() {
+      this._disabled = false; 
+    
+      this.disableSaveButton();
     },
     
     _getDisableButton : function() {
@@ -526,11 +533,35 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       return this._model;
     },
     
+    getColumnDefinitions : function() {
+      return this._columnDefs;
+    },
+    
     setData : function(row, col, value) {
       this._model.setData(row, col, value);
-
+      
+      var column = this.myDataTable.getColumn(col);
       var record = this.myDataTable.getRecord(row);
-      record.setData(col, value);
+      var editor = column.editor;
+      
+      if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){           
+        //data comes in as value instead of label, so we fix this.    
+        for( var i = 0; i < editor.dropdownOptions.length; i++) {
+          var optionValue = editor.dropdownOptions[i].value;
+          var label = editor.dropdownOptions[i].label;
+            
+          if (value === optionValue){
+            record.setData(col, label);
+          }
+        }
+      }      
+      else if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
+        var date = MDSS.Calendar.parseDate(record.getData(field.key));
+        this.myDataTable.updateCell(record, field.key, date);
+      }
+      else {
+        record.setData(col, value);
+      }
     },
     
     getData : function(row, col) {
@@ -557,7 +588,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
     
     success : function() {
-      this.tableData.dirty = false;
+      this._dirty = false;
                  
       this.toggleSaveButton(this._getDisableButton());
                 
@@ -572,6 +603,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     save : function() {
       this.getModel().save();
+    },
+    
+    hasChanges : function() {
+      return this._dirty;
     },
     
     // Add one row to the bottom
@@ -594,7 +629,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       if (this._model.length() > 0) {
         var last_row_index = this._model.length() - 1;
         
-        this.tableData.copy_from_above.map( function(field) {
+        this._copyFromAbove.map( function(field) {
           new_data_row[field] = this._model.getData(last_row_index, field);
           
           var label = this.myDataTable.getRecord(last_row_index).getData(field);
@@ -606,7 +641,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
       this.myDataTable.addRow(new_label_row);
       
-      this.tableData.dirty = true;
+      this._dirty = true;
       this.enableSaveButton();
 
       // Execute after row add
@@ -622,7 +657,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     getDefaultValues : function() {
       var row = new Object();
-      var defaults = this.tableData.defaults;
+      var defaults = this._defaults;
         
       var keys = Mojo.Util.getKeys(defaults);
         
@@ -639,7 +674,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       
     getDefaultLabels : function() {
       var row = new Object();
-      var defaults = this.tableData.defaults;
+      var defaults = this._defaults;
           
       var keys = Mojo.Util.getKeys(defaults);
           
@@ -663,7 +698,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         
         var func = Mojo.Util.bind(this, this._initializeRecordColumn, record, index);
         
-        Mojo.Iter.map(this.tableData.columnDefs, func, this);
+        Mojo.Iter.map(this._columnDefs, func, this);
         
         if (this.after_row_load) {
           this.after_row_load(record);
@@ -707,9 +742,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           }
         }
         
-        if (editor instanceof YAHOO.widget.OntologyTermEditor ) {
-          editor.tableData = this.tableData;
-  
+        if (editor instanceof YAHOO.widget.OntologyTermEditor ) {  
           var data = record.getData(field.key);
       
           if(data){
@@ -738,63 +771,63 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       }
     },
     
-    _setUpButtons : function(record) {
+    _setUpButtons : function(data) {
       if (YAHOO.util.Dom.get('buttons') === null) {
-        var tableDiv = YAHOO.util.Dom.get(this.tableData.div_id);
+        var tableDiv = YAHOO.util.Dom.get(this._div);
         var buttons = document.createElement('span');
         
-        if(!this.tableData.saveLabelKey){
-          this.tableData.saveLabelKey = 'Save_Rows_To_DB';
+        if(!data.saveLabelKey){
+          data.saveLabelKey = 'Save_Rows_To_DB';
         }
         
-        buttons.id = this.tableData.div_id + 'Buttons';
+        buttons.id = this._div + 'Buttons';
         YAHOO.util.Dom.addClass(buttons, 'noprint');
         YAHOO.util.Dom.addClass(buttons, 'dataTableButtons');
         buttons.innerHTML = '';
 
-        if (this.tableData.addButton !== false) {
-          buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
+        if (data.addButton !== false) {
+          buttons.innerHTML += '<button type="button" id="' + this._div + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
         }
 
-        buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + 'Saverows">' + MDSS.localize(this.tableData.saveLabelKey) + '</button>';
+        buttons.innerHTML += '<button type="button" id="' + this._div + 'Saverows">' + MDSS.localize(data.saveLabelKey) + '</button>';
 
-        if (this.tableData.excelButtons !== false) {
-          buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
-          buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + this.tableData.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
+        if (data.excelButtons !== false) {
+          buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
+          buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="excelType" value="' + data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Export_Header') + '</button></span></span></form>';
         }
 
         // Setup the custom buttons
-        if(Mojo.Util.isArray(this.tableData.customButtons)) {
-          for(var i = 0; i < this.tableData.customButtons.length; i++) {
-            var config = this.tableData.customButtons[i];
+        if(Mojo.Util.isArray(data.customButtons)) {
+          for(var i = 0; i < data.customButtons.length; i++) {
+            var config = data.customButtons[i];
             
             // Create the button and add it next to the previous button 
-            buttons.innerHTML += '<button type="button" id="' + this.tableData.div_id + '.' + config.id + '">' + config.label + '</button>';
+            buttons.innerHTML += '<button type="button" id="' + this._div + '.' + config.id + '">' + config.label + '</button>';
           }
         }
 
         YAHOO.util.Dom.insertAfter(buttons, tableDiv);
       }
     
-      if (YAHOO.util.Dom.get(this.tableData.div_id + 'Addrow')) {
-        this.btnAddRow = new YAHOO.widget.Button(this.tableData.div_id + "Addrow");
+      if (YAHOO.util.Dom.get(this._div + 'Addrow')) {
+        this.btnAddRow = new YAHOO.widget.Button(this._div + "Addrow");
         this.btnAddRow.on("click", this.addRow, null, this);
       } 
     
-      if (YAHOO.util.Dom.get(this.tableData.div_id + 'Saverows')) {
+      if (YAHOO.util.Dom.get(this._div + 'Saverows')) {
         // set up the button that saves the rows to the db
-        this.btnSaveRows = new YAHOO.widget.Button(this.tableData.div_id + "Saverows");
+        this.btnSaveRows = new YAHOO.widget.Button(this._div + "Saverows");
         this.btnSaveRows.on("click", this._persistHandler, null, this);
         this.toggleSaveButton(this._getDisableButton());
       }
   
       // Setup the custom button actions
-      if(Mojo.Util.isArray(this.tableData.customButtons)) {
-        for(var i = 0; i < this.tableData.customButtons.length; i++) {
-          var config = this.tableData.customButtons[i];
+      if(Mojo.Util.isArray(data.customButtons)) {
+        for(var i = 0; i < data.customButtons.length; i++) {
+          var config = data.customButtons[i];
             
           // set up the button that saves the rows to the db
-          var customButton = new YAHOO.widget.Button(this.tableData.div_id + "." + config.id);
+          var customButton = new YAHOO.widget.Button(this._div + "." + config.id);
           customButton.on("click", config.action, null, this);
         }
       }     
@@ -920,12 +953,12 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         }
       }
 
-      this.tableData.dirty = true;
+      this._dirty = true;
       
       this.enableSaveButton();
       
-      if (this.tableData.after_row_edit) {
-        this.tableData.after_row_edit(record);
+      if (this._afterRowEdit) {
+        this._afterRowEdit(record);
       }
 
       this._sumColumn.apply(this,[oArgs]);
@@ -1020,7 +1053,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
             
     toggleSaveButton : function(disabled) {
-      this.btnSaveRows.set("disabled", disabled);       
+      this.btnSaveRows.set("disabled", (this._disabled || disabled));       
     },
     
     enableSaveButton : function() {
@@ -1029,7 +1062,11 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     disableSaveButton : function() {
       this.toggleSaveButton(true);
-    },   
+    },
+    
+    refresh : function() {
+      this.getDataTable().render();
+    },
     
     onCellClick : function(oArgs) {
       var target = oArgs.target;

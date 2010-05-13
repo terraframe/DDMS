@@ -2,73 +2,66 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
-<c:set var="entity" scope="request" value="${item.geoEntity}" />
 <c:set var="page_title" value="Control_intervention"  scope="request"/>
 
 <mjl:form name="ControlIntervention.search" method="POST" id="ControlIntervention">
   <dl>
     <mjl:component item="${item}" param="view">
+      <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
+      <mjl:dt attribute="geoEntity">
+        <mdss:geo param="geoEntity" political="false" populated="false" spray="false" urban="true" value="${item.geoEntity}" />
+      </mjl:dt>
       <mjl:dt attribute="startDate">
-        <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/>
+        <mjl:input param="startDate" type="text" classes="DatePick NoFuture" id="startDate"/>
       </mjl:dt>
       <mjl:dt attribute="endDate">
         <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate"/>
       </mjl:dt>
-      <mjl:dt attribute="geoEntity">
-        <mdss:geo param="geoEntity" political="false" populated="false" spray="false" urban="true" listener="MDSS_validGeoEntityHandler" value="${entity}" />
-      </mjl:dt>
-      <mjl:dt attribute="aggregationUniversal">
-        <mjl:select param="aggregationUniversal" items="${universals}" var="current" valueAttribute="geoHierarchyId" includeBlank="true" id="universals">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>  
     </mjl:component>
-    <dt>
-      <label><fmt:message key="DATA_TYPE"/></label>
-    </dt>
-    <dd>
-      <input name="dataType" type="radio" value="INDIVIDUAL_PREMISE" /> <fmt:message key="premises_units_visit"/>
-    </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByParameters.mojo" name="search.button" value="Search"/>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByView.mojo" name="search.button" value="Search"/>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo" name="create.button" value="Create"/>
   </dl>
 </mjl:form>
 
-<script>
-  var MDSS_validGeoEntityHandler = function(event) {
-	var loadUniversals = function(id) {
-      var request = new MDSS.Request({
-        onSuccess : function(views) {
-          var universals = document.getElementById('universals');
+<h2><fmt:message key="Results"/></h2>
 
-          Selectbox.removeAllOptions(universals);
+<mjl:table var="current" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
+  <mjl:context action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByParameters.mojo">  
+    <mjl:property name="geoId" value="${item.geoEntity.id}"/>
+    <mjl:property name="startDate" value="${startDate}"/>
+    <mjl:property name="endDate" value="${endDate}"/>
+  </mjl:context>
+  <mjl:columns>
+    <mjl:attributeColumn attributeName="geoEntity">
+      <mjl:row>
+        ${current.geoEntity.displayString}
+      </mjl:row>
+    </mjl:attributeColumn>    
+    <mjl:attributeColumn attributeName="startDate">
+      <mjl:row>
+        <fmt:formatDate value="${current.startDate}" pattern="${dateFormatPattern}"  />
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="endDate">
+      <mjl:row>
+        <fmt:formatDate value="${current.endDate}" pattern="${dateFormatPattern}"  />
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
 
-          for(var i in views) {
-            var view = views[i];
-
-            Selectbox.addOption(universals, view.getDisplayLabel(), view.getGeoHierarchyId(), false);
-          }
-        }
-      });
-      
-      dss.vector.solutions.geo.GeoHierarchyView.getUrbanHierarchies(request, id);                    
-	};
-    var type = event.getType();
-
-    if(type == MDSS.Event.AFTER_VALID_SELECTION) {
-      var value = event.getValue();
-      var selected = value.selected;
-
-      if(selected != null) {
-        if(selected instanceof dss.vector.solutions.geo.GeoEntityView) {
-          loadUniversals(selected.getGeoEntityId());
-        }
-        else {
-          loadUniversals(selected.id);
-        }
-      }
-    }
-  };
-
-</script>
+      </mjl:header>
+      <mjl:row>
+        <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ControlInterventionController.view.mojo" name="view.link">
+          <fmt:message key="View" />
+          <mjl:property value="${current.concreteId}" name="id" />
+        </mjl:commandLink>
+      </mjl:row>
+      <mjl:footer>
+      </mjl:footer>
+    </mjl:freeColumn>
+  </mjl:columns>
+  <mjl:pagination>
+    <mjl:page />
+  </mjl:pagination>  
+</mjl:table>

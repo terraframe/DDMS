@@ -1066,7 +1066,7 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     fireEvent : function(event) {
       for(var i = 0; i < this.listeners.length; i++) {
         this.listeners[i](event);
-      }    	
+      }
     },
       
     performSearch : function(value) {              

@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1036537595)
+@com.runwaysdk.business.ClassSignature(hash = -25443069)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,6 +23,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
+  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -32,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1036537595;
+  private static final long serialVersionUID = -25443069;
   
   public TermBase()
   {
@@ -329,6 +330,34 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     else
     {
       setValue(NAMESPACE, value);
+    }
+  }
+  
+  public Boolean getObsolete()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
+  }
+  
+  public void validateObsolete()
+  {
+    this.validateAttribute(OBSOLETE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getObsoleteMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.Term.CLASS);
+    return mdClassIF.definesAttribute(OBSOLETE);
+  }
+  
+  public void setObsolete(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OBSOLETE, "");
+    }
+    else
+    {
+      setValue(OBSOLETE, java.lang.Boolean.toString(value));
     }
   }
   
@@ -749,6 +778,92 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod addAggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod) addParent(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+  }
+  
+  public void removeAggregatedPremiseMethod(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    removeAllParents(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit> getAllAggregatedPremiseMethod()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit>) getParents(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod> getAllAggregatedPremiseMethodRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod>) getParentRelationships(dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod getAggregatedPremiseMethodRel(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod>) getRelationshipsWithParent(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseMethod.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseReason addAggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    return (dss.vector.solutions.intervention.monitor.AggregatedPremiseReason) addParent(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.CLASS);
+  }
+  
+  public void removeAggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    removeAllParents(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit> getAllAggregatedPremiseReasons()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit>) getParents(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReason> getAllAggregatedPremiseReasonsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReason>) getParentRelationships(dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.AggregatedPremiseReason getAggregatedPremiseReasonsRel(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit aggregatedPremiseVisit)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReason> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.AggregatedPremiseReason>) getRelationshipsWithParent(aggregatedPremiseVisit, dss.vector.solutions.intervention.monitor.AggregatedPremiseReason.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
   public dss.vector.solutions.surveillance.CaseDiagnostic addDiagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
   {
     return (dss.vector.solutions.surveillance.CaseDiagnostic) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
@@ -990,6 +1105,49 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public dss.vector.solutions.surveillance.IndividualCaseSymptom getIndividualInstanceRel(dss.vector.solutions.intervention.monitor.IndividualInstance individualInstance)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.IndividualCaseSymptom>) getRelationshipsWithParent(individualInstance, dss.vector.solutions.surveillance.IndividualCaseSymptom.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod addIndividualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisit individualPremiseVisit)
+  {
+    return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod) addParent(individualPremiseVisit, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+  }
+  
+  public void removeIndividualPremiseVisits(dss.vector.solutions.intervention.monitor.IndividualPremiseVisit individualPremiseVisit)
+  {
+    removeAllParents(individualPremiseVisit, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisit> getAllIndividualPremiseVisits()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisit>) getParents(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod> getAllIndividualPremiseVisitsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod>) getParentRelationships(dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod getIndividualPremiseVisitsRel(dss.vector.solutions.intervention.monitor.IndividualPremiseVisit individualPremiseVisit)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod>) getRelationshipsWithParent(individualPremiseVisit, dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod.CLASS);
     try
     {
       if (iterator.hasNext())
