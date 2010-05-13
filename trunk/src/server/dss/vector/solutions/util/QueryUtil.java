@@ -16,15 +16,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
@@ -51,10 +52,12 @@ import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
@@ -157,6 +160,18 @@ public class QueryUtil implements Reloadable
     {
       return ((MdAttributeConcreteDAOIF)md).getColumnName();
     }
+  }
+  
+  /**
+   * Returns the column name of the given attribute.
+   * 
+   * @param md
+   * @param attribute
+   * @return
+   */
+  public static String getColumnName(MdEntityDAOIF md, String attribute)
+  {
+    return md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()).getColumnName();
   }
 
   /**
@@ -346,9 +361,11 @@ public class QueryUtil implements Reloadable
 
   }
 
+  // FIXME COLUMN_REFACTOR change attributeName -> columnName
   public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName, String attributeAlias)
   {
-    String tableName = MdBusiness.getMdBusiness(klass).getTableName();
+    MdBusiness md = MdBusiness.getMdBusiness(klass);
+    String tableName = md.getTableName();
     
     String localeCoalesce = getLocaleCoalesce("gdl.");
 
@@ -413,17 +430,22 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
   {
-    MdBusiness enumMaster = MdBusiness.getMdBusiness(EnumerationMaster.CLASS);
+    MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
     String tableEnum = enumMaster.getTableName();
+    String displayLabelColumn = getColumnName(enumMaster, EnumerationMaster.DISPLAYLABEL);
     
     SelectableSQL[] enumAttributes = filterSelectedSelectables(valueQuery, QueryUtil.getEnumAttributes(klass));
     String tableName = MdBusiness.getMdBusiness(klass).getTableName();
 
+    MdEntityDAOIF mdDisplayLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
+    String tableDisplay = mdDisplayLabel.getTableName();
+    String defaultLocaleColumn = getColumnName(mdDisplayLabel, MetadataDisplayLabel.DEFAULTLOCALE);
+    
     for (SelectableSQL s : Arrays.asList(enumAttributes))
     {
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
-      String sql = " SELECT defaultLocale FROM "+tableEnum+" em JOIN metadatadisplaylabel md on em.displaylabel = md.id  ";
+      String sql = " SELECT "+defaultLocaleColumn+" FROM "+tableEnum+" em JOIN "+tableDisplay+" md on em."+displayLabelColumn+" = md.id  ";
       sql += " JOIN " + tableName + " as t  ON t." + attrib + "_c = em.id";
       sql += " WHERE t.id = " + attributeId + "";
 
@@ -623,9 +645,8 @@ public class QueryUtil implements Reloadable
 
   public static String getGeoDisplayLabelSubSelect(String className, String... attributes)
   {
-    String tableName = MdBusiness.getMdBusiness(className).getTableName();
-
-   
+    MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(className);
+    String tableName = md.getTableName();
     
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
@@ -642,7 +663,8 @@ public class QueryUtil implements Reloadable
         select += ",";
       }
 
-      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " as geo" + count + " on " + tableName + "." + attr + " = geo" + count + ".id";
+      String geoCol = getColumnName(md, attr);
+      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " as geo" + count + " on " + tableName + "." + geoCol + " = geo" + count + ".id";
 
       count++;
     }
@@ -679,14 +701,26 @@ public class QueryUtil implements Reloadable
       }
       
     }
-    localeColumns = "COALESCE(" + localeColumns + prefix + MdAttributeLocalInfo.DEFAULT_LOCALE + ")";
+    
+    String key = MetadataDisplayLabel.CLASS+"."+MetadataDisplayLabel.DEFAULTLOCALE;
+    String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
+    
+    localeColumns = "COALESCE(" + localeColumns + prefix + defaultLocaleColumn + ")";
     return localeColumns;
   }
 
   public static String getEnumerationDisplayLabelSubSelect(String className, String... attributes)
   {
-    String tableName = MdBusiness.getMdBusiness(className).getTableName();
+    MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
+    String tableEnum = enumMaster.getTableName();
+    String displayLabelColumn = getColumnName(enumMaster, EnumerationMaster.DISPLAYLABEL);
+    
+    MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(className);
+    String tableName = md.getTableName();
 
+    MdEntityDAOIF mdDisplayLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
+    String tableDisplay = mdDisplayLabel.getTableName();
+    
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
     String localeColumns = getLocaleCoalesce("");
@@ -694,8 +728,8 @@ public class QueryUtil implements Reloadable
     int count = 0;
     for (String attr : attributes)
     {
-
-      select += "(SELECT " + localeColumns + " FROM enumeration_master em join metadatadisplaylabel md on em.displaylabel = md.id  WHERE em.id = " + attr + "_c) as " + attr + "_displayLabel";
+      String attrCol = getColumnName(md, attr);
+      select += "(SELECT " + localeColumns + " FROM "+tableEnum+" em join "+tableDisplay+" md on em."+displayLabelColumn+" = md.id  WHERE em.id = " + attrCol + "_c) as " + attr + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
