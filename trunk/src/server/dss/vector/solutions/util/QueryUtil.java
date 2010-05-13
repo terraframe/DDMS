@@ -19,8 +19,11 @@ import org.json.JSONObject;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
@@ -46,6 +49,7 @@ import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -102,7 +106,7 @@ public class QueryUtil implements Reloadable
 
   public static final String  DISPLAY_LABEL_SUFFIX         = "_displayLabel";
 
-  public static final String  SHORT_DISPLAY_LABEL          = "shortDisplayLabel";
+  public static final String  SHORT_DISPLAY_LABEL          = "short_Display_Label";
 
   /**
    * Performs basic validation on the ValueQuery to ensure the query is valid.
@@ -134,6 +138,24 @@ public class QueryUtil implements Reloadable
           throw new CountOrRatioAloneException();
         }
       }
+    }
+  }
+  
+  /**
+   * Returns the column name of the given MdAttribute.
+   * 
+   * @param md
+   * @return
+   */
+  public static String getColumnName(MdAttributeDAOIF md)
+  {
+    if(md instanceof MdAttributeVirtualDAOIF)
+    {
+      return ((MdAttributeVirtualDAO)md).getMdAttributeConcrete().getColumnName();
+    }
+    else
+    {
+      return ((MdAttributeConcreteDAOIF)md).getColumnName();
     }
   }
 
@@ -391,7 +413,9 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
   {
-
+    MdBusiness enumMaster = MdBusiness.getMdBusiness(EnumerationMaster.CLASS);
+    String tableEnum = enumMaster.getTableName();
+    
     SelectableSQL[] enumAttributes = filterSelectedSelectables(valueQuery, QueryUtil.getEnumAttributes(klass));
     String tableName = MdBusiness.getMdBusiness(klass).getTableName();
 
@@ -399,7 +423,7 @@ public class QueryUtil implements Reloadable
     {
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
-      String sql = " SELECT defaultLocale FROM enumeration_master em JOIN metadatadisplaylabel md on em.displaylabel = md.id  ";
+      String sql = " SELECT defaultLocale FROM "+tableEnum+" em JOIN metadatadisplaylabel md on em.displaylabel = md.id  ";
       sql += " JOIN " + tableName + " as t  ON t." + attrib + "_c = em.id";
       sql += " WHERE t.id = " + attributeId + "";
 

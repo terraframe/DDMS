@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AttributeMoment;
@@ -24,6 +25,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
+import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -412,6 +414,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
 
   }
 
+  
   public static String getWithQuerySQL(String viewName, ValueQuery valueQuery)
   {
 
@@ -432,9 +435,16 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
 
     String origQuery = valueQuery.getSQL();
     
-    String selectAddtions = "taxon ,\n SUM(total) as abundance_sum, \n array_agg(collectionid) as collectionIds, \n array_agg(coalesce(collectionid || subcollectionid, collectionid)) as subCollectionIds  \n,";
+    String collectionIdCol = QueryUtil.getColumnName(MosquitoCollection.getCollectionIdMd());
+    String subCollectionId = QueryUtil.getColumnName(SubCollection.getSubCollectionIdMd());
+    String taxonCol = QueryUtil.getColumnName(SubCollection.getTaxonMd());
+    String totalCol = QueryUtil.getColumnName(SubCollection.getTotalMd());
+    String parentTermCol = QueryUtil.getColumnName(AllPaths.getParentTermMd());
+    String childTermCol = QueryUtil.getColumnName(AllPaths.getChildTermMd());
+    
+    String selectAddtions = taxonCol+",\n SUM("+totalCol+") as abundance_sum, \n array_agg("+collectionIdCol+") as collectionIds, \n array_agg(coalesce("+collectionIdCol+" || "+subCollectionId+", "+collectionIdCol+")) as subCollectionIds  \n,";
 
-    origQuery = origQuery.replaceFirst("SELECT", "SELECT "+ selectAddtions).replaceFirst("GROUP BY", "GROUP BY taxon,");
+    origQuery = origQuery.replaceFirst("SELECT", "SELECT "+ selectAddtions).replaceFirst("GROUP BY", "GROUP BY "+taxonCol+",");
 
     String sql = "WITH RECURSIVE mainQuery AS \n";
     sql += "(" + origQuery + "),\n";
@@ -444,16 +454,16 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     sql += "SELECT mainQuery.* ,";
     sql += "(SELECT SUM(ss.abundance_sum) FROM mainQuery as ss, allpaths_ontology ap ";
     //used to calcuate ratio
-    sql += "WHERE ss.taxon = childterm AND parentterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon " + joinMainQuery + " )as total_of_children, \n";
+    sql += "WHERE ss."+taxonCol+" = "+childTermCol+" AND "+parentTermCol+" = mainQuery."+taxonCol+" AND ss."+taxonCol+" != mainQuery."+taxonCol+" " + joinMainQuery + " ) as total_of_children, \n";
     //list of collection ids in this group
     sql += "ARRAY(SELECT distinct unnest(collectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allCollectionIds, \n";
     //list of sub collection ids in this group
     sql += "ARRAY(SELECT distinct unnest(subCollectionIDs)FROM mainQuery as ss WHERE 1 = 1 " + joinMainQuery + " )::text[] allSubCollectionIds, \n";
     //used to order the recursive decent
-    sql += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery + " )as depth, ";
+    sql += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss."+taxonCol+" = "+parentTermCol+"  AND "+childTermCol+" = mainQuery."+taxonCol+" AND ss.taxon != mainQuery."+taxonCol+" "+ joinMainQuery + " )as depth, ";
     //the parent specie of this row in this group, may skip levels
-    sql += "(SELECT ss.taxon as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss.taxon = parentterm  AND childterm = mainQuery.taxon AND ss.taxon != mainQuery.taxon" + joinMainQuery; 
-    sql += " GROUP BY ss.taxon ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
+    sql += "(SELECT ss."+taxonCol+" as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss."+taxonCol+" = "+parentTermCol+"  AND "+childTermCol+" = mainQuery."+taxonCol+" AND ss."+taxonCol+" != mainQuery."+taxonCol+" " + joinMainQuery; 
+    sql += " GROUP BY ss."+taxonCol+" ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
     
     sql += areaGroup + " AS areaGroup\n";
     sql += " FROM mainQuery),\n";
@@ -472,11 +482,11 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     
     
     sql += " rollup_view AS ( \n";
-    sql += " SELECT areagroup, taxon, parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
+    sql += " SELECT areagroup, "+taxonCol+", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     sql += "     FROM percent_view\n";
     sql += "     WHERE depth = 0\n";
     sql += " UNION\n";
-    sql += " SELECT child_v.areagroup, child_v.taxon, child_v.parent, child_v.depth ,child_v.my_share, \n";
+    sql += " SELECT child_v.areagroup, child_v."+taxonCol+", child_v.parent, child_v.depth ,child_v.my_share, \n";
     sql += "  parent_v.final_abundance * child_v.my_share \n";
     sql += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup \n";
     sql += " ),\n";
@@ -485,7 +495,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     
     sql += " "+viewName+" AS (\n";
     sql += "SELECT pv.*, final_abundance\n";
-    sql += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv.taxon = pv.taxon \n";
+    sql += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv."+taxonCol+" = pv."+taxonCol+" \n";
     sql += " )\n";
 
     sql += " \n";
@@ -493,4 +503,5 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
 
     return sql;
   }
+
 }
