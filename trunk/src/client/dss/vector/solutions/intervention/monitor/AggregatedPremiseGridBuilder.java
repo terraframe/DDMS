@@ -46,6 +46,8 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
     String[] keys = this.getMethodKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, true);
     
+    GridBuilder.setValidator(columns, AggregatedPremiseMethodViewDTO.AMOUNT, "YAHOO.widget.DataTable.validateNumber");
+    
     String label = view.getInterventionMethodMd().getDisplayLabel();
     TermSetup setup = new TermSetup(AggregatedPremiseMethodViewDTO.AMOUNT, AggregatedPremiseMethodViewDTO.TERM);
 
@@ -59,7 +61,8 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
     String[] keys = this.getReasonKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, true);
     
-    
+    GridBuilder.setValidator(columns, AggregatedPremiseReasonViewDTO.AMOUNT, "YAHOO.widget.DataTable.validateNumber");
+        
     String label = view.getNonTreatmentReasonMd().getDisplayLabel();
     TermSetup setup = new TermSetup(AggregatedPremiseReasonViewDTO.AMOUNT, AggregatedPremiseMethodViewDTO.TERM);
     
@@ -70,9 +73,17 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
   {
     String[] keys = getViewKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 2, false);
-    
-    ColumnSetup setup = columns.get("EntityLabel");
-    setup.setEditable(false);
+
+    for(int i = 0; i < keys.length; i++)
+    {
+      if(i > 2)
+      {
+        ColumnSetup setup = columns.get(keys[i]);
+        setup.setValidator("YAHOO.widget.DataTable.validateNumber");
+      }
+    }
+
+    GridBuilder.setEditable(columns, AggregatedPremiseVisitViewDTO.ENTITYLABEL, false);
        
     return new ViewDataGrid(view, columns, keys, data);
   }

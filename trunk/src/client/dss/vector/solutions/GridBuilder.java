@@ -42,4 +42,10 @@ public abstract class GridBuilder implements Reloadable
     setup.setValidator(validator);
   }
 
+  public static void setEditable(Map<String, ColumnSetup> columns, String key, boolean editable)
+  {
+    ColumnSetup setup = columns.get(GenerationUtil.upperFirstCharacter(key));
+    setup.setEditable(editable);
+  }
+  
 }

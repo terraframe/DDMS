@@ -188,7 +188,7 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     return list.toArray(new AggregatedPremiseMethodView[set.size()]);
   }
 
-  public static AggregatedPremiseMethodView[][] getInterventionMethodsForViews(AggregatedPremiseVisitViewBase[] views)
+  public static AggregatedPremiseMethodView[][] getInterventionMethodsForViews(AggregatedPremiseVisitView[] views)
   {
     AggregatedPremiseMethodView[][] methods = new AggregatedPremiseMethodView[views.length][];
 
@@ -200,9 +200,9 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     return methods;
   }
 
-  public static AggregatedPremiseReasonViewBase[][] getNonTreatmentReasonsForViews(AggregatedPremiseVisitViewBase[] views)
+  public static AggregatedPremiseReasonView[][] getNonTreatmentReasonsForViews(AggregatedPremiseVisitView[] views)
   {
-    AggregatedPremiseReasonViewBase[][] reasons = new AggregatedPremiseReasonViewBase[views.length][];
+    AggregatedPremiseReasonView[][] reasons = new AggregatedPremiseReasonView[views.length][];
     
     for (int i = 0; i < views.length; i++)
     {

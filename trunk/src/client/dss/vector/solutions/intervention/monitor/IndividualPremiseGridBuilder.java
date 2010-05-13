@@ -47,7 +47,7 @@ public class IndividualPremiseGridBuilder extends GridBuilder implements Reloada
     String[] keys = this.getMethodKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, true);
     
-    setValidator(columns, IndividualPremiseVisitMethodViewDTO.USED, "validateMethod");
+    GridBuilder.setValidator(columns, IndividualPremiseVisitMethodViewDTO.USED, "validateMethod");
 
     String label = view.getInterventionMethodMd().getDisplayLabel();
     TermSetup setup = new TermSetup(IndividualPremiseVisitMethodViewDTO.USED, IndividualPremiseVisitMethodViewDTO.TERM);
@@ -61,8 +61,9 @@ public class IndividualPremiseGridBuilder extends GridBuilder implements Reloada
     String[] keys = getViewKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 2, false);
        
-    setValidator(columns, IndividualPremiseVisitViewDTO.TREATED, "validateTreated");
-    setValidator(columns, IndividualPremiseVisitViewDTO.REASONSFORNOTTREATED, "validateNotTreated");
+    GridBuilder.setValidator(columns, IndividualPremiseVisitViewDTO.TREATED, "validateTreated");
+    GridBuilder.setValidator(columns, IndividualPremiseVisitViewDTO.REASONSFORNOTTREATED, "validateNotTreated");
+    GridBuilder.setEditable(columns, IndividualPremiseVisitViewDTO.ENTITYLABEL, false);
 
     return new ViewDataGrid(view, columns, keys, data);
   }
