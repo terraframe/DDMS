@@ -3,18 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<doIt>
 		<update>
-			<mdUtil
-				name="dss.vector.solutions.general.DiseaseWrapper">
-				<create>
-				<mdMethod
-					name="getMenuJson"
-					label="Get Menu JSON"
-					description="Returns the JSON to create the menu"
-					static="true"
-					returnType="java.lang.String">
-				</mdMethod>
-				</create>
-			</mdUtil>
+
 		</update>
 	</doIt>
 	<undoIt>

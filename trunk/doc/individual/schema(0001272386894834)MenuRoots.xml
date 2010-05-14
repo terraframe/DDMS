@@ -1,21 +1,6 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-    
-      <enumerationMaster
-        name="dss.vector.solutions.general.DiseaseMaster">
-        <create>
-          <attributes>
-            <reference
-              name="menuRoot"
-              label="Menu Root"
-              required="false"
-              description="A menu term"
-              type="dss.vector.solutions.ontology.Term" />
-          </attributes>
-        </create>
-      </enumerationMaster>
-
       <mdBusiness
         name="dss.vector.solutions.geo.GeoHierarchy">
         <attributes>
@@ -47,7 +32,7 @@
             <mdParameter
               name="id"
               label="Id"
-              description="Id of the DiseaseMaster"
+              description="Id of the Disease"
               order="0"
               type="java.lang.String"/>
           </mdAction>
@@ -57,10 +42,10 @@
             isPost="true">
             <mdParameter
               name="dto"
-              label="DiseaseMasterDTO"
-              description="DiseaseMasterDTO"
+              label="Disease"
+              description="Disease"
               order="0"
-              type="dss.vector.solutions.general.DiseaseMaster"/>
+              type="dss.vector.solutions.general.Disease"/>
           </mdAction>
           <mdAction
             name="cancelDisease"
@@ -69,7 +54,7 @@
             <mdParameter
               name="id"
               label="Id"
-              description="Id of the DiseaseMaster"
+              description="Id of the Disease"
               order="0"
               type="java.lang.String"/>
           </mdAction>
@@ -87,11 +72,11 @@
       </mdException>    
     
       <object
-        key="Ontology__dss.vector.solutions.general.DiseaseMaster.menuRoot"
+        key="Ontology__dss.vector.solutions.general.Disease.menuRoot"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.general.DiseaseMaster.menuRoot" />
+          key="dss.vector.solutions.general.Disease.menuRoot" />
       </object>    
 
       <mdView
@@ -131,7 +116,7 @@
     <delete>
     
       <object
-        key="Ontology__dss.vector.solutions.general.DiseaseMaster.menuRoot"
+        key="Ontology__dss.vector.solutions.general.Disease.menuRoot"
         type="dss.vector.solutions.ontology.BrowserField" />
 
       <object
@@ -141,10 +126,6 @@
       <object
         key="dss.vector.solutions.general.MenuItemLeafException"
         type="com.runwaysdk.system.metadata.MdException" />
-
-      <object
-        key="dss.vector.solutions.general.DiseaseMaster.menuRoot"
-        type="com.runwaysdk.system.metadata.MdAttributeReference" />
 
       <object
         key="dss.vector.solutions.general.MenuItemController.editDisease"

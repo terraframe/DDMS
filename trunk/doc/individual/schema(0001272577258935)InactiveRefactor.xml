@@ -1,11 +1,6 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <delete>
-
-      <object
-        key="dss.vector.solutions.general.DiseaseWrapper.getTermInactiveAttribute"
-        type="com.runwaysdk.system.metadata.MdMethod" />
-    
       <object
         key="dss.vector.solutions.ontology.Term.inactiveMalaria"
         type="com.runwaysdk.system.metadata.MdAttributeBoolean" />
@@ -32,12 +27,11 @@
             defaultValue="false"
             positiveLabel="true"
             negativeLabel="true" />
-          <enumeration
+          <reference
             name="disease"
             label="Disease"
             description="Disease for which the term is inactive"
             required="true"
-            selectMultiple="false"
             type="dss.vector.solutions.general.Disease" />
         </attributes>
       </mdBusiness>

@@ -7,11 +7,10 @@
 				name="dss.vector.solutions.general.MenuItem"
 				label="URL">
 				<attributes>
-					<enumeration
+					<reference
 						name="disease"
 						label="Disease"
 						type="dss.vector.solutions.general.Disease"
-						selectMultiple="false"
 						required="true" />
 					<reference
 						name="term"

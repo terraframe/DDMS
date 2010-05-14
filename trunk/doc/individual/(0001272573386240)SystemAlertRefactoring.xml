@@ -159,7 +159,7 @@
 							type="dss.vector.solutions.general.SystemAlertType"
 							selectMultiple="false"
 							required="true" />
-						<enumeration
+						<reference
 							name="disease"
 							label="Disease"
 							type="dss.vector.solutions.general.Disease"
@@ -179,11 +179,9 @@
 					<enumeratedItem
 						name="SOURCE_OUTBREAK_IDENTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="MALARIA" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -212,11 +210,9 @@
 					<enumeratedItem
 						name="SOURCE_OUTBREAK_IDENTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="DENGUE" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -245,11 +241,9 @@
 					<enumeratedItem
 						name="SOURCE_OUTBREAK_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="MALARIA" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -278,11 +272,9 @@
 					<enumeratedItem
 						name="SOURCE_OUTBREAK_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="DENGUE" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -311,11 +303,9 @@
 					<enumeratedItem
 						name="FACILITY_OUTBREAK_IDENTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="MALARIA" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -344,11 +334,9 @@
 					<enumeratedItem
 						name="FACILITY_OUTBREAK_IDENTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="DENGUE" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -377,11 +365,9 @@
 					<enumeratedItem
 						name="FACILITY_OUTBREAK_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="MALARIA" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -410,11 +396,9 @@
 					<enumeratedItem
 						name="FACILITY_OUTBREAK_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="DENGUE" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -444,11 +428,9 @@
 					<enumeratedItem
 						name="ELEVATED_IMMATURE_INDEX_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="MALARIA" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />
@@ -477,11 +459,9 @@
 					<enumeratedItem
 						name="ELEVATED_IMMATURE_INDEX_NOTIFICATION" />
 				</attributeEnumeration>
-				<attributeEnumeration
-					name="disease">
-					<enumeratedItem
-						name="DENGUE" />
-				</attributeEnumeration>
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
 				<attribute
 					name="isOnscreenActive"
 					value="true" />

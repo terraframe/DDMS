@@ -9,22 +9,6 @@
     
     </delete>
   
-    <create>
-    
-      <mdUtil
-        name="dss.vector.solutions.general.DiseaseWrapper"
-        label="Disease Wrapper"
-        description="Helper class that performs logic based on the disease on the user's session.">
-        <mdMethod
-          name="getTermInactiveAttribute"
-          label="Get Term Inactive Attribute"
-          description="Returns the name of the attribute for the inactive flag depending on the session's disease"
-          static="true"
-          returnType="java.lang.String">
-        </mdMethod>
-      </mdUtil>
-    
-    </create>
     <update>
     
       <mdBusiness
