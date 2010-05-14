@@ -121,4 +121,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 		    return menuGenerator.getJson();
 		  }
 	
+	  public String toString() {
+		  return this.getDisplayLabel();
+	  }
 }

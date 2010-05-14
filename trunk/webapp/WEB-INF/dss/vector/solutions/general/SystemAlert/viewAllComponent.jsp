@@ -21,11 +21,7 @@
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="disease">
 			<mjl:row>
-				<ul>
-					<c:forEach items="${item.diseaseEnumNames}" var="enumName">
-						<li> ${item.diseaseMd.enumItems[enumName]} </li>
-					</c:forEach>
-				</ul>
+				${item.disease}
 			</mjl:row>
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isOnscreenActive">
