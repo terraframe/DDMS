@@ -10,13 +10,7 @@
     <mjl:input param="id" value="${item.id}" type="hidden" />
     <mjl:component param="dto" item="${item}">
       <mjl:dt attribute="disease">
-        <ul>
-          <c:forEach items="${item.diseaseEnumNames}" var="enumName">
-            <li>
-              ${item.diseaseMd.enumItems[enumName]}
-            </li>
-          </c:forEach>
-        </ul>
+          ${item.disease}
       </mjl:dt>
       <mjl:dt attribute="term">
         ${item.term.displayLabel}
