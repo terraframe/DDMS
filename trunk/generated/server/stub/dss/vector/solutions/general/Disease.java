@@ -4,6 +4,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.ontology.Term;
 
 public class Disease extends DiseaseBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = -1180941084;
@@ -36,5 +37,13 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 	public Disease() {
 		super();
 	}
-
+	
+	public String getDisplayLabel() {
+		return this.getDimension().getDisplayLabel().getValue(Session.getCurrentLocale());
+	}
+	
+	public Term getRoot() {
+		// TODO -- DISEASE REFACTOR
+		return null;
+	}
 }
