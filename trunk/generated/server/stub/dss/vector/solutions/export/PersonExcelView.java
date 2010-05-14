@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.PersonView;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -49,7 +51,15 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());
     personView.setPassword(this.getPassword());
-    personView.addDisease(ExcelEnums.getDisease(this.getDisease()));
+    String diseaseName = this.getDisease();
+    if (diseaseName.equalsIgnoreCase(Disease.MALARIA))
+    {
+      personView.setDisease(Disease.getMalaria());
+    }
+    else if (diseaseName.equalsIgnoreCase(Disease.DENGUE))
+    {
+      personView.setDisease(Disease.getDengue());
+    }
     
     personView.setIsPatient(this.getIsPatient() != null && this.getIsPatient());
     personView.setIsIPTRecipient(this.getIsIPTRecipient() != null && this.getIsIPTRecipient());
@@ -93,10 +103,10 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
-    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
+    context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
+    context.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
   
   private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
