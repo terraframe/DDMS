@@ -1,12 +1,12 @@
-package dss.vector.solutions.entomology;
+package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1182866427)
-public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -2122739295)
+public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.entomology.ResistanceProperty";
-  private static final long serialVersionUID = -1182866427;
+  public final static String CLASS = "dss.vector.solutions.general.Disease";
+  private static final long serialVersionUID = -2122739295;
   
-  protected ResistancePropertyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected DiseaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ResistancePropertyDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected DiseaseDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -29,17 +29,15 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DESCRIPTION = "description";
-  public static java.lang.String DISPLAYLABEL = "displayLabel";
+  public static java.lang.String DIMENSION = "dimension";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MENUROOT = "menuRoot";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PROPERTYNAME = "propertyName";
-  public static java.lang.String PROPERTYVALUE = "propertyValue";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
@@ -100,54 +98,48 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.entomology.ResistancePropertyDescriptionDTO getDescription()
+  public com.runwaysdk.system.metadata.MdDimensionDTO getDimension()
   {
-    return (dss.vector.solutions.entomology.ResistancePropertyDescriptionDTO) this.getAttributeStructDTO(DESCRIPTION).getStructDTO();
+    if(getValue(DIMENSION) == null || getValue(DIMENSION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.metadata.MdDimensionDTO.get(getRequest(), getValue(DIMENSION));
+    }
   }
   
-  public boolean isDescriptionWritable()
+  public void setDimension(com.runwaysdk.system.metadata.MdDimensionDTO value)
   {
-    return isWritable(DESCRIPTION);
+    if(value == null)
+    {
+      setValue(DIMENSION, "");
+    }
+    else
+    {
+      setValue(DIMENSION, value.getId());
+    }
   }
   
-  public boolean isDescriptionReadable()
+  public boolean isDimensionWritable()
   {
-    return isReadable(DESCRIPTION);
+    return isWritable(DIMENSION);
   }
   
-  public boolean isDescriptionModified()
+  public boolean isDimensionReadable()
   {
-    return isModified(DESCRIPTION);
+    return isReadable(DIMENSION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDescriptionMd()
+  public boolean isDimensionModified()
   {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+    return isModified(DIMENSION);
   }
   
-  public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelDTO getDisplayLabel()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDimensionMd()
   {
-    return (dss.vector.solutions.entomology.ResistancePropertyDisplayLabelDTO) this.getAttributeStructDTO(DISPLAYLABEL).getStructDTO();
-  }
-  
-  public boolean isDisplayLabelWritable()
-  {
-    return isWritable(DISPLAYLABEL);
-  }
-  
-  public boolean isDisplayLabelReadable()
-  {
-    return isReadable(DISPLAYLABEL);
-  }
-  
-  public boolean isDisplayLabelModified()
-  {
-    return isModified(DISPLAYLABEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDisplayLabelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DIMENSION).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -320,6 +312,50 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getMenuRoot()
+  {
+    if(getValue(MENUROOT) == null || getValue(MENUROOT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(MENUROOT));
+    }
+  }
+  
+  public void setMenuRoot(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(MENUROOT, "");
+    }
+    else
+    {
+      setValue(MENUROOT, value.getId());
+    }
+  }
+  
+  public boolean isMenuRootWritable()
+  {
+    return isWritable(MENUROOT);
+  }
+  
+  public boolean isMenuRootReadable()
+  {
+    return isReadable(MENUROOT);
+  }
+  
+  public boolean isMenuRootModified()
+  {
+    return isModified(MENUROOT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMenuRootMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MENUROOT).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -362,80 +398,6 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
-  }
-  
-  public String getPropertyName()
-  {
-    return getValue(PROPERTYNAME);
-  }
-  
-  public void setPropertyName(String value)
-  {
-    if(value == null)
-    {
-      setValue(PROPERTYNAME, "");
-    }
-    else
-    {
-      setValue(PROPERTYNAME, value);
-    }
-  }
-  
-  public boolean isPropertyNameWritable()
-  {
-    return isWritable(PROPERTYNAME);
-  }
-  
-  public boolean isPropertyNameReadable()
-  {
-    return isReadable(PROPERTYNAME);
-  }
-  
-  public boolean isPropertyNameModified()
-  {
-    return isModified(PROPERTYNAME);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPropertyNameMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYNAME).getAttributeMdDTO();
-  }
-  
-  public Integer getPropertyValue()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PROPERTYVALUE));
-  }
-  
-  public void setPropertyValue(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(PROPERTYVALUE, "");
-    }
-    else
-    {
-      setValue(PROPERTYVALUE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isPropertyValueWritable()
-  {
-    return isWritable(PROPERTYVALUE);
-  }
-  
-  public boolean isPropertyValueReadable()
-  {
-    return isReadable(PROPERTYVALUE);
-  }
-  
-  public boolean isPropertyValueModified()
-  {
-    return isModified(PROPERTYVALUE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPropertyValueMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PROPERTYVALUE).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -488,11 +450,19 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static dss.vector.solutions.entomology.ResistancePropertyDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
+  public static final java.lang.String getMenuJson(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getMenuJson", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static dss.vector.solutions.general.DiseaseDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
     com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
-    return (dss.vector.solutions.entomology.ResistancePropertyDTO) dto;
+    return (dss.vector.solutions.general.DiseaseDTO) dto;
   }
   
   public void apply()
@@ -511,9 +481,9 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.entomology.ResistancePropertyQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.general.DiseaseQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.ResistancePropertyQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.ResistancePropertyDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.DiseaseQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.DiseaseDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -521,12 +491,12 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.entomology.ResistancePropertyDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.DiseaseDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.ResistancePropertyDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.entomology.ResistancePropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -534,12 +504,12 @@ public abstract class ResistancePropertyDTOBase extends com.runwaysdk.business.B
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.entomology.ResistancePropertyDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.general.DiseaseDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.ResistancePropertyDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.entomology.ResistancePropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }

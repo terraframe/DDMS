@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 577176763)
+@com.runwaysdk.business.ClassSignature(hash = 1241120552)
 public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = 577176763;
+  private static final long serialVersionUID = 1241120552;
   
   protected PersonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -113,30 +113,28 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFBIRTH).getAttributeMdDTO();
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.DiseaseDTO> getDisease()
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
   {
-    return (java.util.List<dss.vector.solutions.general.DiseaseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.DiseaseDTO.CLASS, getEnumNames(DISEASE));
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
   }
   
-  public java.util.List<String> getDiseaseEnumNames()
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
-    return getEnumNames(DISEASE);
-  }
-  
-  public void addDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
-  {
-    addEnumItem(DISEASE, enumDTO.toString());
-  }
-  
-  public void removeDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
-  {
-    removeEnumItem(DISEASE, enumDTO.toString());
-  }
-  
-  public void clearDisease()
-  {
-    clearEnum(DISEASE);
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public boolean isDiseaseWritable()
@@ -154,9 +152,9 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
     return isModified(DISEASE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getDiseaseMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getFirstName()

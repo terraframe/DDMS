@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1402170967)
+@com.runwaysdk.business.ClassSignature(hash = 1104662183)
 public class MenuItemControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.MenuItemController";
@@ -10,7 +10,7 @@ public class MenuItemControllerBase implements com.runwaysdk.generation.loader.R
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1402170967;
+  private static final long serialVersionUID = 1104662183;
   
   public MenuItemControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -179,15 +179,15 @@ public class MenuItemControllerBase implements com.runwaysdk.generation.loader.R
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.MenuItemController.failUpdate");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.DiseaseMasterDTO:dto", post=true)
-  public void updateDisease(dss.vector.solutions.general.DiseaseMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.DiseaseDTO:dto", post=true)
+  public void updateDisease(dss.vector.solutions.general.DiseaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.MenuItemController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.MenuItemController.updateDisease");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.DiseaseMasterDTO:dto", post=true)
-  public void failUpdateDisease(dss.vector.solutions.general.DiseaseMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.DiseaseDTO:dto", post=true)
+  public void failUpdateDisease(dss.vector.solutions.general.DiseaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.MenuItemController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.MenuItemController.failUpdateDisease");

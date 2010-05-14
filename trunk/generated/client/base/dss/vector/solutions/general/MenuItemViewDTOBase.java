@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 2080243509)
+@com.runwaysdk.business.ClassSignature(hash = -233098334)
 public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MenuItemView";
-  private static final long serialVersionUID = 2080243509;
+  private static final long serialVersionUID = -233098334;
   
   protected MenuItemViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -21,30 +21,28 @@ public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO
   public static java.lang.String MENUITEMID = "menuItemId";
   public static java.lang.String TERMDISPLAY = "termDisplay";
   public static java.lang.String URLDISPLAY = "urlDisplay";
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.DiseaseDTO> getDisease()
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
   {
-    return (java.util.List<dss.vector.solutions.general.DiseaseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.DiseaseDTO.CLASS, getEnumNames(DISEASE));
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
   }
   
-  public java.util.List<String> getDiseaseEnumNames()
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
-    return getEnumNames(DISEASE);
-  }
-  
-  public void addDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
-  {
-    addEnumItem(DISEASE, enumDTO.toString());
-  }
-  
-  public void removeDisease(dss.vector.solutions.general.DiseaseDTO enumDTO)
-  {
-    removeEnumItem(DISEASE, enumDTO.toString());
-  }
-  
-  public void clearDisease()
-  {
-    clearEnum(DISEASE);
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public boolean isDiseaseWritable()
@@ -62,9 +60,9 @@ public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO
     return isModified(DISEASE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getDiseaseMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getMenuItemId()

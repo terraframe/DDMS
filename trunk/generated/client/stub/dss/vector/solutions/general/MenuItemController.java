@@ -203,7 +203,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   @Override
   public void editDisease(String id) throws IOException, ServletException
   {
-    DiseaseMasterDTO dto = DiseaseMasterDTO.get(this.getClientRequest(), id);
+    DiseaseDTO dto = DiseaseDTO.get(this.getClientRequest(), id);
     dto.lock();
     
     req.setAttribute("term", dto.getMenuRoot());
@@ -213,7 +213,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   }
   
   @Override
-  public void updateDisease(DiseaseMasterDTO dto) throws IOException, ServletException
+  public void updateDisease(DiseaseDTO dto) throws IOException, ServletException
   {
     dto.apply();
     
@@ -223,7 +223,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   @Override
   public void cancelDisease(String id) throws IOException, ServletException
   {
-    DiseaseMasterDTO.unlock(this.getClientRequest(), id);
+    DiseaseDTO.unlock(this.getClientRequest(), id);
     
     this.viewAll();
   }
