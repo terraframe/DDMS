@@ -19,17 +19,4 @@ public class ExcelEnums implements Reloadable
     }
     return null;
   }
-
-  public static Disease getDisease(String label)
-  {
-    for (Disease disease : Disease.values())
-    {
-      if (disease.getEnumName().equalsIgnoreCase(label) ||
-          disease.getDisplayLabel().equalsIgnoreCase(label))
-      {
-        return disease;
-      }
-    }
-    return null;
-  }
 }
