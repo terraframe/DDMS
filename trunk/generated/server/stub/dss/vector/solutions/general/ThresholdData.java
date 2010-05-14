@@ -340,9 +340,8 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 			data.put("entityLabel", label);
 			data.put("threshold", threshold);
 			data.put("totalCases", count);
-			List<Disease> diseases = systemAlert.getDisease();
-			if (diseases.size() > 0) {
-				data.put("disease", diseases.get(0).getDisplayLabel());
+			if (systemAlert.getDisease() != null) {
+				data.put("disease", systemAlert.getDisease().getDisplayLabel());
 			} else {
 				data.put("disease", MDSSProperties.getString("All_Diseases"));
 			}
