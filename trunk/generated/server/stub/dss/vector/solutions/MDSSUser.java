@@ -142,9 +142,8 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   {
     UserSettings settings = UserSettings.createIfNotExists(this);
     settings.lock();
-    Disease disease = ExcelEnums.getDisease(diseaseName);
-    settings.clearDisease();
-    settings.addDisease(disease);
+    Disease disease = Disease.getByKey(diseaseName);
+    settings.setDisease(disease);
     settings.apply();
   }
   
@@ -152,11 +151,11 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   public String getDiseaseName()
   {
     UserSettings settings = UserSettings.createIfNotExists(this);
-    List<Disease> disease = settings.getDisease();
-    if (disease.size()>0)
+    Disease disease = settings.getDisease();
+    if (disease!=null)
     {
-      return disease.get(0).getEnumName();
+      return disease.getKeyName();
     }
-    return Disease.MALARIA.getEnumName();
+    return Disease.MALARIA;
   }
 }
