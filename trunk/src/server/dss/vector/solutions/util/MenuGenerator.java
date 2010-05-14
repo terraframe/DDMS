@@ -14,8 +14,6 @@ import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.DiseaseMaster;
-import dss.vector.solutions.general.DiseaseWrapper;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
 import dss.vector.solutions.ontology.Term;
@@ -103,7 +101,7 @@ public class MenuGenerator implements Reloadable {
 
 	private void generateConfigurableMenu() {
 		MenuItemQuery query = new MenuItemQuery(new QueryFactory());
-		query.WHERE(query.getDisease().containsExactly(this.disease));
+		query.WHERE(query.getDisease().EQ(this.disease));
 		query.ORDER_BY(query.getTerm().getTermId(), SortOrder.ASC);
 		OIterator<? extends MenuItem> it = query.getIterator();
 
@@ -121,13 +119,14 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	private void processMenuItem(Term term, GuiMenuItem guiMenuItem) {
-		if (!DiseaseWrapper.isInactive(term, this.disease)) {
+		// TODO -- DISEASE REFACTOR
+		if (true) { //!DiseaseWrapper.isInactive(term, this.disease)) {
 			OIterator<? extends Term> parents = term.getAllParentTerm();
 			try {
 				if (parents.hasNext()) {
 					while (parents.hasNext()) {
 						Term parent = parents.next();
-						if (parent.getId().equals(getDiseaseRoot(this.disease).getId())) {
+						if (parent.getId().equals(this.disease.getRoot().getId())) {
 							this.consolidateMenu(guiMenuItem);
 						} else {
 							GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);
@@ -148,7 +147,7 @@ public class MenuGenerator implements Reloadable {
 	private void generateDiseaseSubMenu() {
 		int n = 6000000;
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:" + (n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
-		for (Disease thisDisease : Disease.values()) {
+		for (Disease thisDisease : Disease.getAllDiseases()) {
 			String label = thisDisease.getDisplayLabel();
 			if (thisDisease.equals(this.disease)) {
 				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + (n++), label, "#"));
@@ -210,11 +209,6 @@ public class MenuGenerator implements Reloadable {
 			out.print("\t");
 		}
 		out.println(label);
-	}
-
-	private Term getDiseaseRoot(Disease disease) {
-		DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
-		return dMaster.getMenuRoot();
 	}
 
 	private void consolidateMenu(GuiMenuItem newMenu) {
