@@ -15,7 +15,6 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
-import dss.vector.solutions.general.DiseaseWrapperDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -137,7 +136,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
-    req.setAttribute("allDiseases", DiseaseDTO.allItems(getClientRequest()));
+    req.setAttribute("allDiseases", DiseaseDTO.getAllDiseases(getClientRequest()));
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -541,7 +540,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     }
     
     req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
-    req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
+    req.getSession().setAttribute("menu", DiseaseDTO.getMenuJson(getClientRequest()));
     
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
