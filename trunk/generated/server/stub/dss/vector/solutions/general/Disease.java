@@ -1,5 +1,6 @@
 package dss.vector.solutions.general;
 
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MDSSUser;
@@ -24,6 +25,12 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
 		String name = user.getDiseaseName();
 		return Disease.getByKey(name);
+	}
+	
+	public static Disease[] getAllDiseases() {
+		DiseaseQuery query = Disease.getAllInstances(null, true, 0, 0);
+		OIterator<? extends Disease> it = query.getIterator();
+		return it.getAll().toArray(new Disease[(int) query.getCount()]);
 	}
 
 	public Disease() {
