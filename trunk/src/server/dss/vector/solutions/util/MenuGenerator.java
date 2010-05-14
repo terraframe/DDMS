@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEnumerationDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -145,7 +146,7 @@ public class MenuGenerator implements Reloadable {
 
 	private void generateDiseaseSubMenu() {
 		int n = 6000000;
-		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:" + (n++), MdEnumerationDAO.getMdEnumerationDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
+		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:" + (n++), MdBusinessDAO.getMdBusinessDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
 		for (Disease thisDisease : Disease.getAllDiseases()) {
 			String label = thisDisease.getDisplayLabel();
 			if (thisDisease.equals(this.disease)) {

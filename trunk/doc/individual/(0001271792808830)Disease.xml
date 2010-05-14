@@ -33,7 +33,7 @@
 
 			<mdBusiness
 				name="dss.vector.solutions.general.Disease"
-				label="URL"
+				label="Disease"
 				generateController="false"
 				cacheAlgorithm="everything">
 				<attributes>

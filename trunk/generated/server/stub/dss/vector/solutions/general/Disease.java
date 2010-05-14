@@ -10,6 +10,7 @@ import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF;
+import dss.vector.solutions.util.MenuGenerator;
 
 public class Disease extends DiseaseBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -112,5 +113,12 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 	public String getDisplayLabel() {
 		return this.getDimension().getDisplayLabel().getValue(Session.getCurrentLocale());
 	}
+	
+	  public static String getMenuJson() {
+		    MenuGenerator menuGenerator = new MenuGenerator(getCurrent());
+		    
+		    menuGenerator.generateMenu();
+		    return menuGenerator.getJson();
+		  }
 	
 }
