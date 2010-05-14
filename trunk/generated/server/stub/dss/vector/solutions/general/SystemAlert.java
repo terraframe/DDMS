@@ -24,7 +24,7 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 	
 	@Transaction
 	public static SystemAlert get(SystemAlertType type) {
-		return get(DiseaseWrapper.getDisease(), type);
+		return get(Disease.getCurrent(), type);
 	}
 	
 	@Transaction
@@ -32,8 +32,8 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 		SystemAlert alert = null;
 		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
 		q.WHERE(q.getAlertType().containsExactly(type));
-		q.WHERE(OR.get(q.getDisease().containsExactly(disease), q.getDisease().EQ(null)));
-		q.ORDER_BY_DESC(q.getDisease().getEnumName());
+		q.WHERE(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ((Disease) null)));
+		q.ORDER_BY_DESC(q.getDisease().getKeyName());
 		OIterator<? extends SystemAlert> it = q.getIterator();
 
 		try {
