@@ -54,8 +54,8 @@ private static final long serialVersionUID = -1651769820;
     {
       MenuItemViewQuery q = this.getViewQuery();
 
-      Disease disease = DiseaseWrapper.getDisease();
-      q.WHERE(this.menuItemQuery.getDisease().containsExactly(disease));
+      Disease disease = Disease.getCurrent();
+      q.WHERE(this.menuItemQuery.getDisease().EQ(disease));
       
       q.ORDER_BY_ASC(this.menuItemQuery.getUrl().getDisplayLabel().localize());
     }
