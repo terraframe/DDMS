@@ -103,10 +103,10 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
 
-  public static void setupImportListener(ImportContext context, String... params)
+  public static void setupImportListener(ExcelImporter importer, String... params)
   {
-    context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
-    context.addListener(createExcelGeoListener(WORKGEOENTITY));
+    importer.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
+    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
   
   private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
