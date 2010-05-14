@@ -250,13 +250,14 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
       
       if(xml.indexOf(">prevalence<") > 0)
       {
+        String numberPositiveCol = QueryUtil.getColumnName(infectionQuery.getMdClassIF(), InfectionAssay.NUMBERPOSITIVE);
+        String numberTestedCol = QueryUtil.getColumnName(infectionQuery.getMdClassIF(), InfectionAssay.NUMBERTESTED);
+        
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("prevalence");
-        s.setSQL("100.0 * SUM(numberPositive) / SUM(numberTested)");
+        s.setSQL("100.0 * SUM("+numberPositiveCol+") / SUM("+numberTestedCol+")");
       }
       
     }
-
-   
     
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);

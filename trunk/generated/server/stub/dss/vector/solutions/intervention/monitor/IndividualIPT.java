@@ -192,7 +192,10 @@ public class IndividualIPT extends IndividualIPTBase implements com.runwaysdk.ge
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
 
       String personTableAlias = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE( serviceDate, " + personTableAlias + ".dateofbirth))";
+      String serviceDateCol = QueryUtil.getColumnName(individualIPTQuery.getMdClassIF(), IndividualIPT.SERVICEDATE);
+      String dateOfBirthCol = QueryUtil.getColumnName(personQuery.getMdClassIF(), Person.DATEOFBIRTH);
+      
+      String sql = "EXTRACT(year from AGE( "+serviceDateCol+", " + personTableAlias + "."+dateOfBirthCol+"))";
       dobSel.setSQL(sql);
     }
     catch (QueryException e)

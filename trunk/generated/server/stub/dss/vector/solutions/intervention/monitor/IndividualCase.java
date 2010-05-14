@@ -11,7 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
@@ -371,7 +373,8 @@ public class IndividualCase extends IndividualCaseBase implements
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = "
+      String indCaseCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.INDIVIDUALCASE);
+      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii."+indCaseCol+" = "
           + tableAlias + ".id))";
       calc.setSQL(sql);
     }
@@ -379,17 +382,20 @@ public class IndividualCase extends IndividualCaseBase implements
     if(valueQuery.hasSelectableRef("deaths"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("deaths");
-      String sql = "SUM(diedInFacility)";
+      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.DIEDINFACILITY);
+      String sql = "SUM("+diedInFacCol+")";
       calc.setSQL(sql);
     }
 
     if(valueQuery.hasSelectableRef("cfr"))
     {
+      String indCaseCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.INDIVIDUALCASE);
+      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.DIEDINFACILITY);
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "(SUM(diedInFacility)/SUM(1/(SELECT COUNT(*) FROM " + tableName
-          + " AS ii WHERE ii.individualcase = " + tableAlias + ".id)))*100.0";
+      String sql = "(SUM("+diedInFacCol+")/SUM(1/(SELECT COUNT(*) FROM " + tableName
+          + " AS ii WHERE ii."+indCaseCol+" = " + tableAlias + ".id)))*100.0";
       calc.setSQL(sql);
     }
 
@@ -479,9 +485,13 @@ public class IndividualCase extends IndividualCaseBase implements
     String columnAlias = s.getDbQualifiedName();
 
     String tableAlias = caseQuery.getTableAlias();
-    String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-
-    String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii.individualcase = "
+    
+    
+    MdEntityDAOIF mdIndInst = MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
+    String tableName = mdIndInst.getTableName();
+    String indCaseCol = QueryUtil.getColumnName(mdIndInst, IndividualInstance.INDIVIDUALCASE);
+    
+    String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii."+indCaseCol+" = "
         + tableAlias + ".id))/";
     sql += " AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias
         + ", caseReportDate)))*" + multiplier;

@@ -35,7 +35,6 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableDecimal;
 import com.runwaysdk.query.SelectableDouble;
 import com.runwaysdk.query.SelectableFloat;
-import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;

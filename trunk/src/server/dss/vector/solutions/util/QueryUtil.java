@@ -16,13 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -144,6 +144,11 @@ public class QueryUtil implements Reloadable
     }
   }
   
+  public static String getColumnName(String klass, String attribute)
+  {
+    return getColumnName(MdEntityDAO.getMdEntityDAO(klass), attribute);
+  }
+  
   /**
    * Returns the column name of the given MdAttribute.
    * 
@@ -171,7 +176,7 @@ public class QueryUtil implements Reloadable
    */
   public static String getColumnName(MdEntityDAOIF md, String attribute)
   {
-    return md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()).getColumnName();
+    return getColumnName(md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()));
   }
 
   /**
@@ -228,8 +233,8 @@ public class QueryUtil implements Reloadable
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipInfo.PARENT_ID + " = pJoin.id" + " LEFT JOIN " + termTable
-        + " tJoin on rJoin." + RelationshipInfo.CHILD_ID + " = tJoin.id)";
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipDAOIF.PARENT_ID_COLUMN + " = pJoin.id" + " LEFT JOIN " + termTable
+        + " tJoin on rJoin." + RelationshipDAOIF.CHILD_ID_COLUMN + " = tJoin.id)";
   }
 
   public static String[] filterSelectedAttributes(ValueQuery valueQuery, String[] attributes)
@@ -505,9 +510,12 @@ public class QueryUtil implements Reloadable
           String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
           String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
 
-          String table = MdRelationship.getMdEntity(klass).getTableName();
-
-          String sql = "SELECT " + attrib + " FROM " + table + " WHERE child_id = '" + term_id + "' " + "AND parent_id = " + tableAlias + ".id";
+          MdEntityDAOIF mdRel = MdEntityDAO.getMdEntityDAO(klass);
+          String table = mdRel.getTableName();
+          String attrCol = getColumnName(mdRel, attrib);
+          
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + term_id + "' " 
+            + "AND "+RelationshipDAOIF.PARENT_ID_COLUMN+" = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
         }

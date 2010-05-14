@@ -10,6 +10,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AggregateFunction;
@@ -293,12 +294,17 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
       }
 
       String tableAlias = personQuery.getTableAlias();
+      MdEntityDAOIF md = personQuery.getMdClassIF();
+      String performedRDTCol = QueryUtil.getColumnName(md, SurveyedPerson.PERFORMEDRDT);
+      String performedBloodSlideCol = QueryUtil.getColumnName(md, SurveyedPerson.PERFORMEDBLOODSLIDE);
+      String rdtResultCol = QueryUtil.getColumnName(md, SurveyedPerson.RDTRESULT);
+      String bloodSlideResultCol = QueryUtil.getColumnName(md, SurveyedPerson.BLOODSLIDERESULT);
 
-      String rtdTested = "CASE " + tableAlias + "." + SurveyedPerson.PERFORMEDRDT + "_c WHEN '" + RefusedResponse.YES.getId() + "' THEN 1 ELSE NULL END";
+      String rtdTested = "CASE " + tableAlias + "." + performedRDTCol + "_c WHEN '" + RefusedResponse.YES.getId() + "' THEN 1 ELSE NULL END";
 
-      String totalTested = "SUM(COALESCE(" + rtdTested + "," + SurveyedPerson.PERFORMEDBLOODSLIDE + ",0))::FLOAT";
+      String totalTested = "SUM(COALESCE(" + rtdTested + "," + performedBloodSlideCol + ",0))::FLOAT";
 
-      String totalPositive = "SUM(COALESCE(" + SurveyedPerson.RDTRESULT + "," + SurveyedPerson.BLOODSLIDERESULT + ",0))::FLOAT";
+      String totalPositive = "SUM(COALESCE(" + rdtResultCol + "," + bloodSlideResultCol + ",0))::FLOAT";
 
       calc.setSQL(totalPositive + " / NULLIF(" + totalTested + ",0.0)");
     }
@@ -332,7 +338,11 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
 
       String personTableAlias = personQuery.getTableAlias();
       String surveyPointTableAlais = surveyPointQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "." + SurveyPoint.SURVEYDATE + ", " + personTableAlias + "." + SurveyedPerson.DOB + "))";
+      
+      String surveyDateCol = QueryUtil.getColumnName(surveyPointQuery.getMdClassIF(), SurveyPoint.SURVEYDATE);
+      String dobCol = QueryUtil.getColumnName(personQuery.getMdClassIF(), SurveyedPerson.DOB);
+      
+      String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "." + surveyDateCol + ", " + personTableAlias + "." + dobCol + "))";
       dobSel.setSQL(sql);
     }
     

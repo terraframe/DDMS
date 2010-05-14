@@ -170,8 +170,11 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.runway
       QueryUtil.joinTermAllpaths(valueQuery, BiochemicalAssay.CLASS, biochemicalQuery);
       if(xml.indexOf(">elevated<") > 0)
       {
+        String numberElevatedCol = QueryUtil.getColumnName(biochemicalQuery.getMdClassIF(), BiochemicalAssay.NUMBERELEVATED);
+        String numberTestedCol = QueryUtil.getColumnName(biochemicalQuery.getMdClassIF(), BiochemicalAssay.NUMBERTESTED);
+        
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("elevated");
-        s.setSQL("100.0 * SUM(numberElevated) / SUM(numberTested)");
+        s.setSQL("100.0 * SUM("+numberElevatedCol+") / SUM("+numberTestedCol+")");
       }
      
     }

@@ -173,8 +173,11 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
       
       if(xml.indexOf(">minPrevalence<") > 0)
       {
+        String numberPositiveCol = QueryUtil.getColumnName(pooledInfectionQuery.getMdClassIF(), PooledInfectionAssay.NUMBERPOSITIVE);
+        String mosquitosTestedCol = QueryUtil.getColumnName(pooledInfectionQuery.getMdClassIF(), PooledInfectionAssay.MOSQUITOSTESTED);
+        
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("minPrevalence");
-        s.setSQL("100.0 * SUM(numberPositive) / SUM(mosquitostested)");
+        s.setSQL("100.0 * SUM("+numberPositiveCol+") / SUM("+mosquitosTestedCol+")");
       }
     }
     

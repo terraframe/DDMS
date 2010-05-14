@@ -176,30 +176,34 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
       valueQuery.WHERE(molecularQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, MolecularAssay.CLASS, molecularQuery);
       
+      String numberrrCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRR);
+      String numberrsCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRS);
+      String numberssCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSS);
+      
       if(xml.indexOf(">percentRR<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRR");
-        s.setSQL("100.0 * SUM(numberrr) / SUM(numberrr+numberrs+numberss)");
+        s.setSQL("100.0 * SUM("+numberrrCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
       if(xml.indexOf(">percentRS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRS");
-        s.setSQL("100.0 * SUM(numberrs) / SUM(numberrr+numberrs+numberss)");
+        s.setSQL("100.0 * SUM("+numberrsCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
       if(xml.indexOf(">percentSS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentSS");
-        s.setSQL("100.0 * SUM(numberss) / SUM(numberrr+numberrs+numberss)");
+        s.setSQL("100.0 * SUM("+numberssCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
       if(xml.indexOf(">frequencyR<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyR");
-        s.setSQL("100.0 * (SUM(numberrr +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
+        s.setSQL("100.0 * (SUM("+numberrrCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
       if(xml.indexOf(">frequencyS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyS");
-        s.setSQL("100.0 * (SUM(numberss +(0.5*numberrs) ) ) / SUM(numberrr+numberrs+numberss)");
+        s.setSQL("100.0 * (SUM("+numberssCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
     }
     
