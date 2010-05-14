@@ -99,7 +99,7 @@ public class OntologyExcelExporter
     {
       for (InactiveProperty ip : props)
       {
-        Disease disease = ip.getDisease().get(0);
+        Disease disease = ip.getDisease();
         if (disease.equals(Disease.MALARIA))
         {
           activeMalaria = !ip.getInactive(); 
