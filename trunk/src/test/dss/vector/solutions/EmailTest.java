@@ -75,7 +75,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.get(Disease.MALARIA, SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION);
+		SystemAlert alert = SystemAlert.get(Disease.getMalaria(), SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION);
 		if (!alert.sendEmail(data)) {
 			fail();
 		}
@@ -89,7 +89,7 @@ public class EmailTest extends TestCase {
         data.put("entityLabel", "SecretEntity");
         data.put("threshold", 99);
         data.put("totalCases", 99);
-		SystemAlert alert = SystemAlert.get(Disease.MALARIA, SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION);
+		SystemAlert alert = SystemAlert.get(Disease.getMalaria(), SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION);
 		if (!alert.sendEmail(data)) {
 			fail();
 		}
