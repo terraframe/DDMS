@@ -14,7 +14,6 @@ import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.DiseaseMaster;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.ontology.Term;
@@ -125,7 +124,7 @@ public class MenuItemImporter {
 			String urlId = this.getCellValue(row, 1);
 			String termId = this.getCellValue(row, 2);
 			if (diseaseId != null && diseaseId.length() > 0) {
-				Disease disease = Disease.valueOf(diseaseId);
+				Disease disease = Disease.getByKey(diseaseId);
 				Term term = Term.getByTermId(termId);
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
@@ -133,7 +132,7 @@ public class MenuItemImporter {
 				MenuItem menuItem = new MenuItem();
 				menuItem.setUrl(systemUrl);
 				menuItem.setTerm(term);
-				menuItem.addDisease(disease);
+				menuItem.setDisease(disease);
 				menuItem.apply();
 			}
 			row = sheet.getRow(rowCount++);
