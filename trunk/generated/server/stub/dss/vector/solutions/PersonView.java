@@ -66,10 +66,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       UserSettings settings = UserSettings.getForUser(user);
       if (settings!=null)
       {
-        for (Disease d : settings.getDisease())
-        {
-          this.addDisease(d);
-        }
+        this.setDisease(settings.getDisease());
       }
     }
 
@@ -142,10 +139,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       
       UserSettings settings = UserSettings.createIfNotExists(user);
       settings.lock();
-      for (Disease d : this.getDisease())
-      {
-        settings.addDisease(d);
-      }
+      settings.setDisease(this.getDisease());
       settings.apply();
     }
     else
