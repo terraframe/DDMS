@@ -5,7 +5,7 @@ import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 
-import dss.vector.solutions.general.DiseaseWrapper;
+import dss.vector.solutions.general.Disease;
 
 public class TermQueryFactory implements Reloadable
 {
@@ -93,7 +93,7 @@ public class TermQueryFactory implements Reloadable
         }
       }
 
-      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+      query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
 //      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 
@@ -151,7 +151,7 @@ public class TermQueryFactory implements Reloadable
         query.AND(this.pathsQuery.getParentTerm().EQ(""));
       }
 
-      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+      query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
 //      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
     }
 

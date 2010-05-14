@@ -490,11 +490,12 @@ public class IndividualCase extends IndividualCaseBase implements
     MdEntityDAOIF mdIndInst = MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
     String tableName = mdIndInst.getTableName();
     String indCaseCol = QueryUtil.getColumnName(mdIndInst, IndividualInstance.INDIVIDUALCASE);
+    String caseReportDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.CASEREPORTDATE);
     
     String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii."+indCaseCol+" = "
         + tableAlias + ".id))/";
     sql += " AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias
-        + ", caseReportDate)))*" + multiplier;
+        + ", "+caseReportDate+")))*" + multiplier;
 
     calc.setSQL(sql);
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2122739295)
+@com.runwaysdk.business.ClassSignature(hash = 2081610462)
 public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.Disease";
-  private static final long serialVersionUID = -2122739295;
+  private static final long serialVersionUID = 2081610462;
   
   protected DiseaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -448,6 +448,22 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseDTO[] getAllDiseases(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getAllDiseases", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.DiseaseDTO getCurrent(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getCurrent", _declaredTypes);
+    return (dss.vector.solutions.general.DiseaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String getMenuJson(com.runwaysdk.constants.ClientRequestIF clientRequest)

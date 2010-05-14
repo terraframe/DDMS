@@ -509,8 +509,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if(valueQuery.hasSelectableRef("sqldouble__cfr"))
     {
+      String deathsCol = QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(), AggregatedCase.DEATHS);
+      String casesCol = QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(), AggregatedCase.CASES);
+      
       SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__cfr");
-      String sql = "(SUM(deaths::FLOAT)/NULLIF(SUM(cases),0))*100.0";
+      String sql = "(SUM("+deathsCol+"::FLOAT)/NULLIF(SUM("+casesCol+"),0))*100.0";
       calc.setSQL(sql);
     }
 
@@ -597,24 +600,14 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     String columnAlias = s.getDbQualifiedName();
-
-    String sql = "(SUM(cases::FLOAT)/";
+    String casesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.CASES);
+    String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
+    
+    String sql = "(SUM("+casesCol+"::FLOAT)/";
     sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
-        + AggregatedCase.STARTDATE + ")),0))*" + multiplier;
+        + startDateCol + ")),0))*" + multiplier;
 
     calc.setSQL(sql);
-  }
-
-  /**
-   * Returns the alias for the relationship query that maps to the grid query
-   * with the given alias.
-   */
-  private static String getRelationshipAlias(String gridAlias)
-  {
-    // int firstIndex = gridAlias.indexOf("_", 0);
-    int index = gridAlias.lastIndexOf("_");
-
-    return gridAlias.substring(0, index);
   }
 
   /**

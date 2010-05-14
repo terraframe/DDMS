@@ -58,7 +58,7 @@ public class TermNode implements Comparable<TermNode>
       for (InactiveProperty ip : props)
       {
         ip.appLock();
-        Disease disease = ip.getDisease().get(0);
+        Disease disease = ip.getDisease();
         if (disease.equals(Disease.MALARIA))
         {
           ip.setInactive(!activeMalaria);

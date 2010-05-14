@@ -16,7 +16,7 @@ import com.runwaysdk.web.ServletUtility;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.MDSSUserDTO;
-import dss.vector.solutions.general.DiseaseWrapperDTO;
+import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
 
@@ -55,7 +55,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
       req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
-      req.getSession().setAttribute("menu", DiseaseWrapperDTO.getMenuJson(this.getClientRequest()));
+      req.getSession().setAttribute("menu", DiseaseDTO.getMenuJson(this.getClientRequest()));
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }

@@ -34,7 +34,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.DiseaseWrapper;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;
@@ -234,11 +234,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     if(isNew)
     {
       // set inactive for all diseases by default
-      for(Disease disease : Disease.values())
+      for(Disease disease : Disease.getAllDiseases())
       {
         InactiveProperty prop = new InactiveProperty();
         prop.setInactive(false);
-        prop.addDisease(disease);
+        prop.setDisease(disease);
         prop.apply();
         
         this.addInactiveProperties(prop).apply();
@@ -302,8 +302,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
       conditions.add(termQuery.getId().EQ(""));
     }
 
-    conditions.add(DiseaseWrapper.getInactiveCriteria(factory, termQuery, false));
-//    conditions.add(DiseaseWrapper.getInactive(termQuery).EQ(false));
+    conditions.add(Disease.getInactiveCriteria(factory, termQuery, false));
+//    conditions.add(Disease.getInactive(termQuery).EQ(false));
 
     Condition[] conditionArray = conditions.toArray(new Condition[conditions.size()]);
 
@@ -465,13 +465,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
   @Override
   public InactiveProperty getInactiveByDisease()
   {
-    Disease disease = DiseaseWrapper.getDisease();
+    Disease disease = Disease.getCurrent();
     
     if(this.isNew())
     {
       InactiveProperty prop = new InactiveProperty();
       prop.setInactive(false);
-      prop.addDisease(disease);
+      prop.setDisease(disease);
       return prop;
     }
     else
@@ -482,7 +482,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       
       tq.WHERE(tq.getId().EQ(this.getId()));
       
-      ipQ.WHERE(ipQ.getDisease().containsExactly(disease));
+      ipQ.WHERE(ipQ.getDisease().EQ(disease));
       ipQ.AND(ipQ.term(tq));
       
       OIterator<? extends InactiveProperty> iter = ipQ.getIterator();
@@ -701,8 +701,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         }
       }
 
-      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
+      query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+//      query.AND(Disease.getInactive(termQuery).EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getTermDisplayLabel().localize());
     }
@@ -770,8 +770,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.AND(termQuery.getId().EQ(""));
       }
 
-      query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//      query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
+      query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+//      query.AND(Disease.getInactive(termQuery).EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getTermDisplayLabel().localize());
     }
@@ -822,8 +822,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       if (this.filterObsolete)
       {
-        query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//        query.AND(DiseaseWrapper.getInactive(termQuery).EQ(false));
+        query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+//        query.AND(Disease.getInactive(termQuery).EQ(false));
       }
 
       // query.ORDER_BY_ASC(this.termQuery.getName());
@@ -882,7 +882,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
         query.WHERE(this.termRelQuery.parentId().EQ(rootId));
         query.AND(this.termRelQuery.hasChild(termQuery));
 
-        query.AND(DiseaseWrapper.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
+        query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
       }
       else
       {
@@ -1286,7 +1286,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     List<Condition> conditionList = Term.getConditions(className, attribute, fieldQuery, rootQuery, pathsQuery, termQuery);
     
-    conditionList.add(DiseaseWrapper.getInactiveCriteria(factory, termQuery, false));
+    conditionList.add(Disease.getInactiveCriteria(factory, termQuery, false));
 
     conditionList.addAll(getUnselectableConditions(className, attribute, fieldQuery, unselectableRootQuery, termQuery));
 
@@ -1324,7 +1324,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       if (count > 0)
       {
-//        termQuery.AND(DiseaseWrapper.getInactiveCriteria(unselectableRootQuery.getQueryFactory(), unselectableRootQuery.getTerm(), termQuery, false));
+//        termQuery.AND(Disease.getInactiveCriteria(unselectableRootQuery.getQueryFactory(), unselectableRootQuery.getTerm(), termQuery, false));
         
         conditions.add(unselectableRootQuery.getSelectable().EQ(false));
         conditions.add(unselectableRootQuery.field(fieldQuery));
@@ -1339,8 +1339,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     List<Condition> list = new LinkedList<Condition>();
 
-    list.add(DiseaseWrapper.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
-//    list.add(DiseaseWrapper.getInactive(termQuery).EQ(false));
+    list.add(Disease.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
+//    list.add(Disease.getInactive(termQuery).EQ(false));
 
     if (className == null && attribute == null)
     {
@@ -1365,7 +1365,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       list.add(fieldCondition);
       list.add(rootQuery.field(fieldQuery));
       
-//      termQuery.AND(DiseaseWrapper.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
+//      termQuery.AND(Disease.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
     }
     else if (className != null)
     {
@@ -1375,7 +1375,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       list.add(fieldQuery.getMdAttribute().EQ(attribute));
       list.add(rootQuery.field(fieldQuery));
-//      termQuery.AND(DiseaseWrapper.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
+//      termQuery.AND(Disease.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
     }
 
     list.add(pathsQuery.getChildTerm().EQ(termQuery));
@@ -1401,7 +1401,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       conditions.add(pathsQuery.getParentTerm().EQ(""));
     }
 
-//    termQuery.AND(DiseaseWrapper.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
+//    termQuery.AND(Disease.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
 
     return conditions;
   }

@@ -8,8 +8,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.DiseaseMaster;
-import dss.vector.solutions.general.DiseaseWrapper;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.geo.GeoHierarchy;
 
@@ -89,10 +87,9 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 	
 	public static BrowserRootView[] getMenuItemRoot()
 	{
-	  Disease disease = DiseaseWrapper.getDisease();
-	  DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
+	  Disease disease = Disease.getCurrent();
 	  
-	  TermViewQuery q = Term.getByIds(new String[] { dMaster.getMenuRoot().getId()});
+	  TermViewQuery q = Term.getByIds(new String[] { disease.getMenuRoot().getId()});
 	  OIterator<? extends TermView> iter = q.getIterator();
 	  
     try {
@@ -151,7 +148,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 			fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
 		}
 
-		rootQuery.WHERE(DiseaseWrapper.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+		rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
 //		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 
@@ -256,7 +253,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
 		BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
 		
-		rootQuery.WHERE(DiseaseWrapper.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+		rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
 //		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
 		rootQuery.AND(rootQuery.field(fieldQuery));
 

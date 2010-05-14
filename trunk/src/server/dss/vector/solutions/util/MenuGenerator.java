@@ -119,14 +119,13 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	private void processMenuItem(Term term, GuiMenuItem guiMenuItem) {
-		// TODO -- DISEASE REFACTOR
-		if (true) { //!DiseaseWrapper.isInactive(term, this.disease)) {
+		if (!Disease.isInactive(term, this.disease)) {
 			OIterator<? extends Term> parents = term.getAllParentTerm();
 			try {
 				if (parents.hasNext()) {
 					while (parents.hasNext()) {
 						Term parent = parents.next();
-						if (parent.getId().equals(this.disease.getRoot().getId())) {
+						if (parent.getId().equals(this.disease.getMenuRoot().getId())) {
 							this.consolidateMenu(guiMenuItem);
 						} else {
 							GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);

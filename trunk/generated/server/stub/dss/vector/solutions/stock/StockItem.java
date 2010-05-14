@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryException;
@@ -210,10 +211,13 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("quanity_instock");
 
       String eventTable = stockEventQuery.getTableAlias();
+      MdEntityDAOIF eventMD = stockEventQuery.getMdClassIF();
+      String transactionTypeCol = QueryUtil.getColumnName(eventMD, StockEvent.TRANSACTIONTYPE);
+      String quantityCol = QueryUtil.getColumnName(eventMD, StockEvent.QUANTITY);
       
       String sql = "SUM("
-      +"CASE "+eventTable+"."+StockEvent.TRANSACTIONTYPE+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+eventTable+"."+StockEvent.QUANTITY
-      +" ELSE "+eventTable+"."+StockEvent.QUANTITY+" * -1 END)";
+      +"CASE "+eventTable+"."+transactionTypeCol+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+eventTable+"."+quantityCol
+      +" ELSE "+eventTable+"."+quantityCol+" * -1 END)";
       
       dobSel.setSQL(sql);
     }

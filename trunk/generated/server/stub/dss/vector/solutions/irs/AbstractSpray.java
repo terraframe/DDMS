@@ -87,6 +87,9 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
     AbstractSpray.setWithQuerySQL(abstractSprayQuery, valueQuery);
+    
+    
+    
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
@@ -159,6 +162,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     valueQuery.WHERE(new InnerJoinEq("id", tableName, tableAlias, "id", sprayView, sprayView));
 
+    
+    
     valueQuery.WHERE(new InnerJoinEq(AbstractSpray.BRAND, tableName, tableAlias, "id", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "startdate", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "enddate", insecticideView, insecticideView));

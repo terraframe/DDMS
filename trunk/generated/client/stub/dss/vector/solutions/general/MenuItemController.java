@@ -1,7 +1,6 @@
 package dss.vector.solutions.general;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -50,7 +49,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   }
   public void failCreate(dss.vector.solutions.general.MenuItemDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
     req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
@@ -74,7 +72,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   }
   public void failDelete(dss.vector.solutions.general.MenuItemDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
     req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
@@ -85,7 +82,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
     try
     {
       dss.vector.solutions.general.MenuItemDTO dto = dss.vector.solutions.general.MenuItemDTO.lock(super.getClientRequest(), id);
-      req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
       req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
@@ -110,7 +106,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
     {
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
       dss.vector.solutions.general.MenuItemDTO dto = new dss.vector.solutions.general.MenuItemDTO(clientRequest);
-      req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
       req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
@@ -147,7 +142,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   }
   public void failUpdate(dss.vector.solutions.general.MenuItemDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
     req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
@@ -162,7 +156,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
       utility.checkURL(this.getClass().getSimpleName(), "view");
       com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
       dss.vector.solutions.general.MenuItemDTO dto = dss.vector.solutions.general.MenuItemDTO.get(clientRequest, id);
-      req.setAttribute("_disease", dss.vector.solutions.general.DiseaseDTO.allItems(super.getClientSession().getRequest()));
       req.setAttribute("term", dss.vector.solutions.util.AttributeUtil.getValue(dss.vector.solutions.general.MenuItemDTO.TERM, dto));
       req.setAttribute("url", dss.vector.solutions.general.SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       req.setAttribute("item", dto);
@@ -186,9 +179,9 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     String diseaseName = (String) this.getRequest().getSession().getAttribute(MDSSUserDTO.DISEASENAME);
-    List<DiseaseMasterDTO> diseases = DiseaseDTO.items(this.getClientRequest(), DiseaseDTO.valueOf(diseaseName));
+    DiseaseDTO disease = DiseaseDTO.getCurrent(this.getClientRequest());
     
-    req.setAttribute("diseaseMaster", diseases.get(0));
+    req.setAttribute("diseaseMaster", disease);
     
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.MenuItemViewQueryDTO query = dss.vector.solutions.general.MenuItemViewDTO.getViewsForDisease(clientRequest);

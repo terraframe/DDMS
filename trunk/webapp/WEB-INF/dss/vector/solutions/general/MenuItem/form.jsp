@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="disease">
-    ${item.diseaseMd.enumItems[diseaseName]}
-    <mjl:input type="hidden" param="disease" value="${diseaseName}" ></mjl:input>
+    ${item.disease.id}
+    <mjl:input type="hidden" param="disease" value="${item.disease.id}" ></mjl:input>
   </mjl:dt>
   <mjl:dt attribute="term">
     <mdss:mo param="term" value="${term}" />

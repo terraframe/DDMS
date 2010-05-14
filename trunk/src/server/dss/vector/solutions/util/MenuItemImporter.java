@@ -75,17 +75,16 @@ public class MenuItemImporter {
 		int rowCount = 1; // Start at second row
 		HSSFRow row = sheet.getRow(rowCount++);
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
-			String diseaseId = this.getCellValue(row, 0);
+			String diseaseKey = this.getCellValue(row, 0);
 			String termId = this.getCellValue(row, 1);
-			if (diseaseId != null && diseaseId.length() > 0) {
-				Disease disease = Disease.valueOf(diseaseId);
+			if (diseaseKey != null && diseaseKey.length() > 0) {
+				Disease disease = Disease.getByKey(diseaseKey);
 				Term term = Term.getByTermId(termId);
-				System.out.println("DiseaseRoot: " + diseaseId + "|" + termId);
+				System.out.println("DiseaseRoot: " + diseaseKey + "|" + termId);
         
-        DiseaseMaster dMaster = DiseaseMaster.get(disease.getId());
-        dMaster.appLock();
-        dMaster.setMenuRoot(term);
-        dMaster.apply();
+				disease.appLock();
+				disease.setMenuRoot(term);
+				disease.apply();
 			}
 			row = sheet.getRow(rowCount++);
 		}
@@ -120,15 +119,15 @@ public class MenuItemImporter {
 		int rowCount = 1; // Start at second row
 		HSSFRow row = sheet.getRow(rowCount++);
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
-			String diseaseId = this.getCellValue(row, 0);
+			String diseaseKey = this.getCellValue(row, 0);
 			String urlId = this.getCellValue(row, 1);
 			String termId = this.getCellValue(row, 2);
-			if (diseaseId != null && diseaseId.length() > 0) {
-				Disease disease = Disease.getByKey(diseaseId);
+			if (diseaseKey != null && diseaseKey.length() > 0) {
+			  Disease disease = Disease.getByKey(diseaseKey);
 				Term term = Term.getByTermId(termId);
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
-				System.out.println("MenuItem: " + diseaseId + "|" + urlId + "|" + termId);
+				System.out.println("MenuItem: " + diseaseKey + "|" + urlId + "|" + termId);
 				MenuItem menuItem = new MenuItem();
 				menuItem.setUrl(systemUrl);
 				menuItem.setTerm(term);
