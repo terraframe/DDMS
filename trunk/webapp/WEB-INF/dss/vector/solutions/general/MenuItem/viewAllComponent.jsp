@@ -37,8 +37,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink name="view.link" action="dss.vector.solutions.general.MenuItemController.view.mojo">
-          <fmt:message key="View" />
+        <mjl:commandLink name="edit.link" action="dss.vector.solutions.general.MenuItemController.edit.mojo">
+          <fmt:message key="Edit" />
           <mjl:property name="id" value="${item.menuItemId}" />
         </mjl:commandLink>
       </mjl:row>

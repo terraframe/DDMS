@@ -16,8 +16,8 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink name="view.link" action="dss.vector.solutions.entomology.ImmatureThresholdController.view.mojo">
-          <fmt:message key="View" />
+        <mjl:commandLink name="edit.link" action="dss.vector.solutions.entomology.ImmatureThresholdController.edit.mojo">
+          <fmt:message key="Edit" />
           <mjl:property name="id" value="${item.concreteId}" />
         </mjl:commandLink>
       </mjl:row>
