@@ -9,10 +9,10 @@
 
 <dl style="width: 500px">
   <mjl:form id="dss.vector.solutions.general.DiseaseMaster.form.id" name="dss.vector.solutions.general.DiseaseMaster.form.name" method="POST">
-    <mjl:input param="id" value="${currentDisease.id}" type="hidden" />
-    <mjl:component param="dto" item="${currentDisease}">
+    <mjl:input param="id" value="${disease.id}" type="hidden" />
+    <mjl:component param="dto" item="${disease}">
       <mjl:dt attribute="menuRoot">
-        ${currentDisease.menuRoot.displayLabel}
+        ${disease.menuRoot.displayLabel}
       </mjl:dt>
     </mjl:component>
     <mjl:command localize="false" name="dss.vector.solutions.general.DiseaseMaster.form.create.button" value="Edit" action="dss.vector.solutions.general.MenuItemController.editDisease.mojo" />

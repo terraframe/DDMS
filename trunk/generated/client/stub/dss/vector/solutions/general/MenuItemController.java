@@ -181,7 +181,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
     String diseaseName = (String) this.getRequest().getSession().getAttribute(MDSSUserDTO.DISEASENAME);
     DiseaseDTO disease = DiseaseDTO.getCurrent(this.getClientRequest());
     
-    req.setAttribute("diseaseMaster", disease);
+    req.setAttribute("disease", disease);
     
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.MenuItemViewQueryDTO query = dss.vector.solutions.general.MenuItemViewDTO.getViewsForDisease(clientRequest);
