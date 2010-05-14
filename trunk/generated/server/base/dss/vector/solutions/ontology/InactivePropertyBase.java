@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1869555077)
+@com.runwaysdk.business.ClassSignature(hash = -1394243406)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class InactivePropertyBase extends com.runwaysdk.business.Busine
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1869555077;
+  private static final long serialVersionUID = -1394243406;
   
   public InactivePropertyBase()
   {
@@ -71,31 +71,16 @@ public abstract class InactivePropertyBase extends com.runwaysdk.business.Busine
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
+  public dss.vector.solutions.general.Disease getDisease()
   {
-    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
-  }
-  
-  public void addDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    if (getValue(DISEASE).trim().equals(""))
     {
-      addEnumItem(DISEASE, value.getId());
+      return null;
     }
-  }
-  
-  public void removeDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    else
     {
-      removeEnumItem(DISEASE, value.getId());
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
-  }
-  
-  public void clearDisease()
-  {
-    clearEnum(DISEASE);
   }
   
   public void validateDisease()
@@ -107,6 +92,18 @@ public abstract class InactivePropertyBase extends com.runwaysdk.business.Busine
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.InactiveProperty.CLASS);
     return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()

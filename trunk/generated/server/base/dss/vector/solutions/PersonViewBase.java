@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 379700027)
+@com.runwaysdk.business.ClassSignature(hash = -709337688)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 379700027;
+  private static final long serialVersionUID = -709337688;
   
   public PersonViewBase()
   {
@@ -97,31 +97,16 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     }
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
+  public dss.vector.solutions.general.Disease getDisease()
   {
-    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
-  }
-  
-  public void addDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    if (getValue(DISEASE).trim().equals(""))
     {
-      addEnumItem(DISEASE, value.getId());
+      return null;
     }
-  }
-  
-  public void removeDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    else
     {
-      removeEnumItem(DISEASE, value.getId());
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
-  }
-  
-  public void clearDisease()
-  {
-    clearEnum(DISEASE);
   }
   
   public void validateDisease()
@@ -133,6 +118,18 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
     return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public String getFirstName()

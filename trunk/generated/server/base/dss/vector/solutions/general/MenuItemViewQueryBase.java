@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -211943970)
+@com.runwaysdk.business.ClassSignature(hash = 1033299083)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class MenuItemViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -211943970;
+private static final long serialVersionUID = 1033299083;
 
   public MenuItemViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,21 +26,23 @@ private static final long serialVersionUID = -211943970;
   {
     return dss.vector.solutions.general.MenuItemView.CLASS;
   }
-  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease()
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
   {
     return getDisease(null);
 
   }
  
-  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
   {
-    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getSelectable(dss.vector.solutions.general.MenuItemView.DISEASE, alias, null);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.MenuItemView.DISEASE, alias, null);
 
   }
  
-  public dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF getDisease(String alias, String displayLabel)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.general.DiseaseMasterQuery.DiseaseQueryIF)this.getSelectable(dss.vector.solutions.general.MenuItemView.DISEASE, alias, displayLabel);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.MenuItemView.DISEASE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1278863243)
+@com.runwaysdk.business.ClassSignature(hash = -1607329944)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1278863243;
+  private static final long serialVersionUID = -1607329944;
   
   public SystemAlertBase()
   {
@@ -117,31 +117,16 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.Disease> getDisease()
+  public dss.vector.solutions.general.Disease getDisease()
   {
-    return (java.util.List<dss.vector.solutions.general.Disease>) getEnumValues(DISEASE);
-  }
-  
-  public void addDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    if (getValue(DISEASE).trim().equals(""))
     {
-      addEnumItem(DISEASE, value.getId());
+      return null;
     }
-  }
-  
-  public void removeDisease(dss.vector.solutions.general.Disease value)
-  {
-    if(value != null)
+    else
     {
-      removeEnumItem(DISEASE, value.getId());
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
-  }
-  
-  public void clearDisease()
-  {
-    clearEnum(DISEASE);
   }
   
   public void validateDisease()
@@ -153,6 +138,18 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
     return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public String getEmailBccAddresses()
