@@ -73,14 +73,18 @@
     };   
 
     var validateNotTreated = function(oData) {
-      var record = this.getCellEditor().getRecord();
-      var index = this.getRecordIndex(record);
+      var editor = this.getCellEditor();
 
-      var visited = (grid.getData(index, 'Visited') == 'true');
-      var treated = (grid.getData(index, 'Treated') == 'true');
+      if(editor != null) {
+        var record = editor.getRecord();
+        var index = this.getRecordIndex(record);
 
-      if(visited && !treated) {
-        return oData;
+        var visited = (grid.getData(index, 'Visited') == 'true');
+        var treated = (grid.getData(index, 'Treated') == 'true');
+
+        if(visited && !treated) {
+          return oData;
+        }
       }
 
       return undefined;

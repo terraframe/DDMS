@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -433248656)
+@com.runwaysdk.business.ClassSignature(hash = 1791880705)
 public class ControlInterventionControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.intervention.monitor.ControlInterventionController";
@@ -10,7 +10,7 @@ public class ControlInterventionControllerBase implements com.runwaysdk.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -433248656;
+  private static final long serialVersionUID = 1791880705;
   
   public ControlInterventionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -121,6 +121,20 @@ public class ControlInterventionControllerBase implements com.runwaysdk.generati
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ControlInterventionController.failGetIndividualPremise");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO:view", post=true)
+  public void getInsecticideIntervention(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO view) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ControlInterventionController.getInsecticideIntervention");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO:view", post=true)
+  public void failGetInsecticideIntervention(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO view) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.intervention.monitor.ControlInterventionController.failGetInsecticideIntervention");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO:view", post=true)

@@ -18,7 +18,9 @@
 <%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO"%><c:set var="page_title" value="Control_intervention"  scope="request"/>
+<%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandLabelDTO"%><c:set var="page_title" value="Control_intervention"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -70,6 +72,10 @@
          <button type="button" id="personIntervention.button" class="editButtons"> <fmt:message key="Edit"/> </button>         
        </mjl:dt>
              
+       <mjl:dt attribute="insecticideIntervention">
+         <button type="button" id="insecticideIntervention.button" class="editButtons"> <fmt:message key="Edit"/> </button>         
+       </mjl:dt>
+             
     </mjl:component>    
     
     <hr />
@@ -79,7 +85,7 @@
   </mjl:form>
 </dl>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{ControlInterventionController.CLASS, ControlInterventionViewDTO.CLASS, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitMethodViewDTO.CLASS, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseReasonViewDTO.CLASS, AggregatedPremiseMethodViewDTO.CLASS, PersonInterventionViewDTO.CLASS, PersonInterventionMethodViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{ControlInterventionController.CLASS, ControlInterventionViewDTO.CLASS, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitMethodViewDTO.CLASS, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseReasonViewDTO.CLASS, AggregatedPremiseMethodViewDTO.CLASS, PersonInterventionViewDTO.CLASS, PersonInterventionMethodViewDTO.CLASS, InsecticideInterventionViewDTO.CLASS, InsecticideBrandLabelDTO.CLASS}))%>
 
 <script type="text/javascript">
 Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
@@ -124,6 +130,9 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       for each (el in this._editButtons) {
         if(el.id == 'personIntervention.button') {
           el.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonInterventionMap;
+        }
+        else if(el.id == 'insecticideIntervention.button') {
+          el.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getInsecticideInterventionMap;
         }
 
         YAHOO.util.Event.on(el, 'click', this.editHandler, this, this); 

@@ -2,6 +2,8 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -17,6 +19,8 @@ import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.GridComparator;
 
 public class ControlInterventionView extends ControlInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -273,8 +277,73 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     PersonInterventionView view = PersonInterventionView.getView(point);
     list.add(view);
-    
+
     return list.toArray(new PersonInterventionView[list.size()]);
+  }
+
+  @Override
+  public InsecticideInterventionView[] getInsecticideInterventionViews()
+  {
+    Set<InsecticideInterventionView> set = new TreeSet<InsecticideInterventionView>(new GridComparator());
+
+    for (Term d : Term.getRootChildren(ControlInterventionView.getInsecticideInterventionMd()))
+    {
+      InsecticideInterventionView view = new InsecticideInterventionView();
+      view.setInterventionMethod(d);
+
+      set.add(view);
+    }
+
+    if (this.hasConcrete())
+    {
+      ControlIntervention concrete = this.getConcrete();
+
+      InsecticideInterventionViewQuery query = new InsecticideInterventionViewQuery(new QueryFactory());
+      query.WHERE(query.getIntervention().EQ(concrete));
+
+      OIterator<? extends InsecticideInterventionView> it = query.getIterator();
+
+      try
+      {
+        while (it.hasNext())
+        {
+          InsecticideInterventionView view = it.next().clone();
+          
+          // We will only want grid options methods which are active
+          // All active methods are already in the set. Thus, if
+          // the set already contains an entry for the Grid Option
+          // replace the default relationship with the actaul
+          // relationship
+          if (set.contains(view))
+          {
+            set.remove(view);
+            set.add(view);
+          }
+        }
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return set.toArray(new InsecticideInterventionView[set.size()]);
+  }
+  
+  @Override
+  public InsecticideInterventionView[] applyWithInsecticideInterventionViews(InsecticideInterventionView[] views)
+  {
+    this.apply();
+
+    ControlIntervention point = this.getConcrete();
+
+    for (InsecticideInterventionView view : views)
+    {
+      view.setIntervention(point);
+      view.apply();
+    }
+
+    return views;
   }
 
   private ControlIntervention getConcrete()
@@ -392,4 +461,5 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     return intervention.searchClone();
   }
+
 }

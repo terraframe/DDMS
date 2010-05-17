@@ -38,14 +38,20 @@ public abstract class GridBuilder implements Reloadable
   
   public static void setValidator(Map<String, ColumnSetup> columns, String key, String validator)
   {
-    ColumnSetup setup = columns.get(GenerationUtil.upperFirstCharacter(key));
+    ColumnSetup setup = getSetup(columns, key);
     setup.setValidator(validator);
   }
 
   public static void setEditable(Map<String, ColumnSetup> columns, String key, boolean editable)
   {
-    ColumnSetup setup = columns.get(GenerationUtil.upperFirstCharacter(key));
+    ColumnSetup setup = getSetup(columns, key);
     setup.setEditable(editable);
+  }
+
+
+  public static ColumnSetup getSetup(Map<String, ColumnSetup> columns, String key)
+  {
+    return columns.get(GenerationUtil.upperFirstCharacter(key));
   }
   
 }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -578360792)
+@com.runwaysdk.business.ClassSignature(hash = 684176890)
 public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ControlInterventionView";
-  private static final long serialVersionUID = -578360792;
+  private static final long serialVersionUID = 684176890;
   
   protected ControlInterventionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,7 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
+  public static java.lang.String INSECTICIDEINTERVENTION = "insecticideIntervention";
   public static java.lang.String PERSONINTERVENTION = "personIntervention";
   public static java.lang.String STARTDATE = "startDate";
   public dss.vector.solutions.geo.GeoHierarchyDTO getAggregatedPremiseUniversal()
@@ -268,6 +269,50 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INDIVIDULPREMISEUNIVERSAL).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getInsecticideIntervention()
+  {
+    if(getValue(INSECTICIDEINTERVENTION) == null || getValue(INSECTICIDEINTERVENTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(INSECTICIDEINTERVENTION));
+    }
+  }
+  
+  public void setInsecticideIntervention(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEINTERVENTION, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEINTERVENTION, value.getId());
+    }
+  }
+  
+  public boolean isInsecticideInterventionWritable()
+  {
+    return isWritable(INSECTICIDEINTERVENTION);
+  }
+  
+  public boolean isInsecticideInterventionReadable()
+  {
+    return isReadable(INSECTICIDEINTERVENTION);
+  }
+  
+  public boolean isInsecticideInterventionModified()
+  {
+    return isModified(INSECTICIDEINTERVENTION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideInterventionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDEINTERVENTION).getAttributeMdDTO();
+  }
+  
   public String getPersonIntervention()
   {
     return getValue(PERSONINTERVENTION);
@@ -374,6 +419,22 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] applyWithInsecticideInterventionViews(dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] views)
+  {
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.InsecticideInterventionView;"};
+    Object[] _parameters = new Object[]{views};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "applyWithInsecticideInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] applyWithInsecticideInterventionViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] views)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.intervention.monitor.InsecticideInterventionView;"};
+    Object[] _parameters = new Object[]{id, views};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "applyWithInsecticideInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] applyWithPersonInterventionViews(dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO[][] methods)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.intervention.monitor.PersonInterventionView;", "[[Ldss.vector.solutions.intervention.monitor.PersonInterventionMethodView;"};
@@ -436,6 +497,22 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getIndividualPremiseViews", _declaredTypes);
     return (dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] getInsecticideInterventionViews()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getInsecticideInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[] getInsecticideInterventionViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO.CLASS, "getInsecticideInterventionViews", _declaredTypes);
+    return (dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO getIntervention(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.intervention.monitor.ControlInterventionViewDTO dto)

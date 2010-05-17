@@ -305,4 +305,34 @@ public class ControlInterventionController extends ControlInterventionController
   {
     this.view(view);
   }
+  
+  @Override
+  public void getInsecticideIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      DataGrid grid = new InsecticideInterventionGridBuilder(request, view).build();
+
+      req.setAttribute("grid", grid);
+
+      render("viewInsecticideInterventionComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failGetIndividualPremise(view);
+      }
+    }
+  }
+  
+  @Override
+  public void failGetInsecticideIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
+  {
+    this.view(view);
+  }
 }

@@ -396,6 +396,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this._default = data.defaults;
       this._div = data.div_id;
       this._afterRowEdit = data.after_row_edit;
+      this._doNotReload = (data.doNotReload != null ? data.doNotReload : []);
 
       // set the fields
       if (typeof data.fields === 'undefined') {
@@ -569,20 +570,22 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
     
     updateValue : function(row, col, value) {
-      var record = this.myDataTable.getRecord(row);
+      if(this._doNotReload.indexOf(col) == -1) {
+        var record = this.myDataTable.getRecord(row);
                       
-      var column = this.myDataTable.getColumn(col);
+        var column = this.myDataTable.getColumn(col);
 
-      // Do not update the value of the last row on summed columns
-      if(column.hidden) {
-        record.setData(col, value);        
-      }
-      else if (!(column.sum  && this._model.length() > row)) {
-        var editor = column.editor;
+        // Do not update the value of the last row on summed columns
+        if(column.hidden) {
+          record.setData(col, value);        
+        }
+        else if (!(column.sum  && this._model.length() > row)) {
+          var editor = column.editor;
         
-        // Do not update the value for drop down or ontology editors
-        if (!editor || ! (editor instanceof YAHOO.widget.DropdownCellEditor || editor instanceof YAHOO.widget.OntologyTermEditor)) {
-          record.setData(col, value);                  
+          // Do not update the value for drop down or ontology editors
+          if (!editor || ! (editor instanceof YAHOO.widget.DropdownCellEditor || editor instanceof YAHOO.widget.OntologyTermEditor)) {
+            record.setData(col, value);                  
+          }
         }
       }
     },
@@ -726,39 +729,58 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         if (field.save_as_id) {
           var label = this._getLabelFromId(field.key, record.getData(field.key));
           record.setData(field.key, label);
-        }
-        else if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){           
-          //data comes in as value instead of label, so we fix this.
+        }        
+        else if(editor != null){
+          if (editor instanceof YAHOO.widget.DropdownCellEditor){           
+            //data comes in as value instead of label, so we fix this.
       
-          for( var i = 0; i < editor.dropdownOptions.length; i++) {
-            var recordValue = record.getData(field.key);
-          
-            var optionValue = editor.dropdownOptions[i].value;
-            var label = editor.dropdownOptions[i].label;
+            for( var i = 0; i < editor.dropdownOptions.length; i++) {
+              var recordValue = record.getData(field.key);
+           
+              var optionValue = editor.dropdownOptions[i].value;
+              var label = editor.dropdownOptions[i].label;
               
-            if (recordValue === optionValue){
-              record.setData(field.key, label);
+              if (recordValue === optionValue){
+                record.setData(field.key, label);
+              }
             }
           }
-        }
         
-        if (editor instanceof YAHOO.widget.OntologyTermEditor ) {  
+          if (editor instanceof YAHOO.widget.OntologyTermEditor ) {  
+            var data = record.getData(field.key);
+      
+            if(data){
+              var id = data.split('^^^^')[1];
+              var displayLabel = data.split('^^^^')[0];
+              
+              if(this._model.hasRow(index)) {
+                this._model.setData(index, field.key, id);
+                record.setData(field.key, displayLabel);
+              }
+            }
+          }
+        
+          if (editor instanceof YAHOO.widget.DateCellEditor) {
+            var date = MDSS.Calendar.parseDate(record.getData(field.key));
+            this.myDataTable.updateCell(record, field.key, date);
+          }
+        }
+        else {
           var data = record.getData(field.key);
-      
+
           if(data){
-            var id = data.split('^^^^')[1];
-            var displayLabel = data.split('^^^^')[0];
+            var split = data.split('^^^^');
+            
+            if(split.length == 2) {
+              var id = split[1];
+              var displayLabel = split[0];
               
-            if(this._model.hasRow(index)) {
-              this._model.setData(index, field.key, id);
-              record.setData(field.key, displayLabel);
+              if(this._model.hasRow(index)) {
+                this._model.setData(index, field.key, id);
+                record.setData(field.key, displayLabel);
+              }
             }
           }
-        }
-        
-        if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-          var date = MDSS.Calendar.parseDate(record.getData(field.key));
-          this.myDataTable.updateCell(record, field.key, date);
         }
 
         if (field.title) {

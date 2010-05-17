@@ -32,16 +32,48 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   @Transaction
   public void delete()
   {
-    //FIRST delete all Individual Premises
+    this.deleteInsecticideIntervention();
+    
     this.deletePersonIntervention();
     
     this.deleteIndividualPremises();    
     
     this.deleteAggregatedPremises();
-    
+        
     super.delete();
   }
   
+  public void deleteInsecticideIntervention()
+  {
+    List<InsecticideIntervention> list = this.getInsecticideInterventions();
+    
+    for(InsecticideIntervention visit : list)
+    {
+      visit.delete();
+    }
+  }
+  
+  private List<InsecticideIntervention> getInsecticideInterventions()
+  {
+    List<InsecticideIntervention> list = new LinkedList<InsecticideIntervention>();
+    InsecticideInterventionQuery query = new InsecticideInterventionQuery(new QueryFactory());
+    query.WHERE(query.getIntervention().EQ(this));
+    OIterator<? extends InsecticideIntervention> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    return list;
+
+  }
+  
+  
+
   public void deleteAggregatedPremises()
   {
     List<AggregatedPremiseVisit> list = this.getAggregatedPremiseVisits();

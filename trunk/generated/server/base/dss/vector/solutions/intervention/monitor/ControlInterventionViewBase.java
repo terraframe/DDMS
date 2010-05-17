@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1799403352)
+@com.runwaysdk.business.ClassSignature(hash = -1542302598)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,9 +18,10 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
+  public static java.lang.String INSECTICIDEINTERVENTION = "insecticideIntervention";
   public static java.lang.String PERSONINTERVENTION = "personIntervention";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = -1799403352;
+  private static final long serialVersionUID = -1542302598;
   
   public ControlInterventionViewBase()
   {
@@ -232,6 +233,41 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
+  public dss.vector.solutions.ontology.Term getInsecticideIntervention()
+  {
+    if (getValue(INSECTICIDEINTERVENTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(INSECTICIDEINTERVENTION));
+    }
+  }
+  
+  public void validateInsecticideIntervention()
+  {
+    this.validateAttribute(INSECTICIDEINTERVENTION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideInterventionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDEINTERVENTION);
+  }
+  
+  public void setInsecticideIntervention(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEINTERVENTION, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEINTERVENTION, value.getId());
+    }
+  }
+  
   public String getPersonIntervention()
   {
     return getValue(PERSONINTERVENTION);
@@ -322,6 +358,18 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     return _instance.applyWithIndividualPremiseViews(premises, methods);
   }
   
+  public dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] applyWithInsecticideInterventionViews(dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] views)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] applyWithInsecticideInterventionViews(java.lang.String id, dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] views)
+  {
+    ControlInterventionView _instance = ControlInterventionView.get(id);
+    return _instance.applyWithInsecticideInterventionViews(views);
+  }
+  
   public dss.vector.solutions.intervention.monitor.PersonInterventionView[] applyWithPersonInterventionViews(dss.vector.solutions.intervention.monitor.PersonInterventionView[] premises, dss.vector.solutions.intervention.monitor.PersonInterventionMethodView[][] methods)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
@@ -368,6 +416,18 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
   {
     ControlInterventionView _instance = ControlInterventionView.get(id);
     return _instance.getIndividualPremiseViews();
+  }
+  
+  public dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] getInsecticideInterventionViews()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.intervention.monitor.ControlInterventionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.intervention.monitor.InsecticideInterventionView[] getInsecticideInterventionViews(java.lang.String id)
+  {
+    ControlInterventionView _instance = ControlInterventionView.get(id);
+    return _instance.getInsecticideInterventionViews();
   }
   
   public static dss.vector.solutions.intervention.monitor.ControlInterventionView getIntervention(dss.vector.solutions.intervention.monitor.ControlInterventionView dto)
