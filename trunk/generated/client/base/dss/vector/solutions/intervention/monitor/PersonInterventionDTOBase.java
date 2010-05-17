@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 2087918767)
+@com.runwaysdk.business.ClassSignature(hash = 857861954)
 public abstract class PersonInterventionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.PersonIntervention";
-  private static final long serialVersionUID = 2087918767;
+  private static final long serialVersionUID = 857861954;
   
   protected PersonInterventionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,7 +30,6 @@ public abstract class PersonInterventionDTOBase extends com.runwaysdk.business.B
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -141,50 +140,6 @@ public abstract class PersonInterventionDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getKeyName()

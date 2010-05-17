@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1027674390)
+@com.runwaysdk.business.ClassSignature(hash = -578360792)
 public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ControlInterventionView";
-  private static final long serialVersionUID = -1027674390;
+  private static final long serialVersionUID = -578360792;
   
   protected ControlInterventionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,7 +23,7 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
-  public static java.lang.String PERSONINTERVENTIONUNIVERSAL = "personInterventionUniversal";
+  public static java.lang.String PERSONINTERVENTION = "personIntervention";
   public static java.lang.String STARTDATE = "startDate";
   public dss.vector.solutions.geo.GeoHierarchyDTO getAggregatedPremiseUniversal()
   {
@@ -268,48 +268,41 @@ public abstract class ControlInterventionViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INDIVIDULPREMISEUNIVERSAL).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.geo.GeoHierarchyDTO getPersonInterventionUniversal()
+  public String getPersonIntervention()
   {
-    if(getValue(PERSONINTERVENTIONUNIVERSAL) == null || getValue(PERSONINTERVENTIONUNIVERSAL).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(PERSONINTERVENTIONUNIVERSAL));
-    }
+    return getValue(PERSONINTERVENTION);
   }
   
-  public void setPersonInterventionUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
+  public void setPersonIntervention(String value)
   {
     if(value == null)
     {
-      setValue(PERSONINTERVENTIONUNIVERSAL, "");
+      setValue(PERSONINTERVENTION, "");
     }
     else
     {
-      setValue(PERSONINTERVENTIONUNIVERSAL, value.getId());
+      setValue(PERSONINTERVENTION, value);
     }
   }
   
-  public boolean isPersonInterventionUniversalWritable()
+  public boolean isPersonInterventionWritable()
   {
-    return isWritable(PERSONINTERVENTIONUNIVERSAL);
+    return isWritable(PERSONINTERVENTION);
   }
   
-  public boolean isPersonInterventionUniversalReadable()
+  public boolean isPersonInterventionReadable()
   {
-    return isReadable(PERSONINTERVENTIONUNIVERSAL);
+    return isReadable(PERSONINTERVENTION);
   }
   
-  public boolean isPersonInterventionUniversalModified()
+  public boolean isPersonInterventionModified()
   {
-    return isModified(PERSONINTERVENTIONUNIVERSAL);
+    return isModified(PERSONINTERVENTION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPersonInterventionUniversalMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPersonInterventionMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSONINTERVENTIONUNIVERSAL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONINTERVENTION).getAttributeMdDTO();
   }
   
   public java.util.Date getStartDate()

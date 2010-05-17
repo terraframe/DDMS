@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -926799597)
+@com.runwaysdk.business.ClassSignature(hash = -1733645729)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class ControlInterventionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -926799597;
+private static final long serialVersionUID = -1733645729;
 
   public ControlInterventionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -155,25 +155,24 @@ private static final long serialVersionUID = -926799597;
     return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.INDIVIDULPREMISEUNIVERSAL, alias, displayLabel);
 
   }
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal()
+  public com.runwaysdk.query.SelectableChar getPersonIntervention()
   {
-    return getPersonInterventionUniversal(null);
+    return getPersonIntervention(null);
 
   }
  
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal(String alias)
+  public com.runwaysdk.query.SelectableChar getPersonIntervention(String alias)
   {
-
-    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTIONUNIVERSAL, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTION, alias, null);
 
   }
  
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getPersonInterventionUniversal(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getPersonIntervention(String alias, String displayLabel)
   {
-
-    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTIONUNIVERSAL, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.ControlInterventionView.PERSONINTERVENTION, alias, displayLabel);
 
   }
+ 
   public com.runwaysdk.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);

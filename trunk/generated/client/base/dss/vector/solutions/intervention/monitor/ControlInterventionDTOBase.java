@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1795699457)
+@com.runwaysdk.business.ClassSignature(hash = -1056589288)
 public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ControlIntervention";
-  private static final long serialVersionUID = 1795699457;
+  private static final long serialVersionUID = -1056589288;
   
   protected ControlInterventionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -41,7 +41,6 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PERSONINTERVENTIONUNIVERSAL = "personInterventionUniversal";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTDATE = "startDate";
@@ -521,50 +520,6 @@ public abstract class ControlInterventionDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.GeoHierarchyDTO getPersonInterventionUniversal()
-  {
-    if(getValue(PERSONINTERVENTIONUNIVERSAL) == null || getValue(PERSONINTERVENTIONUNIVERSAL).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(PERSONINTERVENTIONUNIVERSAL));
-    }
-  }
-  
-  public void setPersonInterventionUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
-  {
-    if(value == null)
-    {
-      setValue(PERSONINTERVENTIONUNIVERSAL, "");
-    }
-    else
-    {
-      setValue(PERSONINTERVENTIONUNIVERSAL, value.getId());
-    }
-  }
-  
-  public boolean isPersonInterventionUniversalWritable()
-  {
-    return isWritable(PERSONINTERVENTIONUNIVERSAL);
-  }
-  
-  public boolean isPersonInterventionUniversalReadable()
-  {
-    return isReadable(PERSONINTERVENTIONUNIVERSAL);
-  }
-  
-  public boolean isPersonInterventionUniversalModified()
-  {
-    return isModified(PERSONINTERVENTIONUNIVERSAL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPersonInterventionUniversalMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PERSONINTERVENTIONUNIVERSAL).getAttributeMdDTO();
   }
   
   public Long getSeq()

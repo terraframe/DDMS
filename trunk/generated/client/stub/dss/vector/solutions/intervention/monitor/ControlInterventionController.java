@@ -65,7 +65,6 @@ public class ControlInterventionController extends ControlInterventionController
 
     this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.INDIVIDULPREMISEUNIVERSAL);
     this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.AGGREGATEDPREMISEUNIVERSAL);
-    this.setUniversal(dto, clientRequest, ControlInterventionViewDTO.PERSONINTERVENTIONUNIVERSAL);
 
     req.setAttribute("universals", Arrays.asList(universals));
     req.setAttribute("item", dto);

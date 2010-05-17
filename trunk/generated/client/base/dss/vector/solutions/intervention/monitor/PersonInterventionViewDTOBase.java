@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1348454979)
+@com.runwaysdk.business.ClassSignature(hash = 77531623)
 public abstract class PersonInterventionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.PersonInterventionView";
-  private static final long serialVersionUID = 1348454979;
+  private static final long serialVersionUID = 77531623;
   
   protected PersonInterventionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,8 +17,6 @@ public abstract class PersonInterventionViewDTOBase extends com.runwaysdk.busine
   }
   
   public static java.lang.String CONCRETEID = "concreteId";
-  public static java.lang.String ENTITYLABEL = "entityLabel";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVENTIONMETHOD = "interventionMethod";
   public static java.lang.String POINT = "point";
@@ -58,87 +56,6 @@ public abstract class PersonInterventionViewDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
-  }
-  
-  public String getEntityLabel()
-  {
-    return getValue(ENTITYLABEL);
-  }
-  
-  public void setEntityLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(ENTITYLABEL, "");
-    }
-    else
-    {
-      setValue(ENTITYLABEL, value);
-    }
-  }
-  
-  public boolean isEntityLabelWritable()
-  {
-    return isWritable(ENTITYLABEL);
-  }
-  
-  public boolean isEntityLabelReadable()
-  {
-    return isReadable(ENTITYLABEL);
-  }
-  
-  public boolean isEntityLabelModified()
-  {
-    return isModified(ENTITYLABEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getInterventionMethod()

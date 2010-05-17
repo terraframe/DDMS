@@ -1,8 +1,5 @@
 package dss.vector.solutions.geo.generated;
 
-import com.runwaysdk.business.ValueQueryDTO;
-import com.runwaysdk.constants.ValueQueryDTOInfo;
-
 @com.runwaysdk.business.ClassSignature(hash = 1377366258)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {

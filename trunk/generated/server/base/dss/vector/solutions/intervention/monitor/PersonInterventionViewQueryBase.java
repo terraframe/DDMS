@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -981880852)
+@com.runwaysdk.business.ClassSignature(hash = 1838636510)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class PersonInterventionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -981880852;
+private static final long serialVersionUID = 1838636510;
 
   public PersonInterventionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -44,43 +44,6 @@ private static final long serialVersionUID = -981880852;
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityLabel()
-  {
-    return getEntityLabel(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEntityLabel(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonInterventionView.ENTITYLABEL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEntityLabel(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonInterventionView.ENTITYLABEL, alias, displayLabel);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
-  {
-    return getGeoEntity(null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonInterventionView.GEOENTITY, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.intervention.monitor.PersonInterventionView.GEOENTITY, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);

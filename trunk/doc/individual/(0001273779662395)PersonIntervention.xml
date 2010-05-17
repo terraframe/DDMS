@@ -12,11 +12,6 @@
             name="point"
             label="Intervention Point"
             type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
-          <reference
-            name="geoEntity"
-            label="Geo Entity"
-            required="true"
-            type="dss.vector.solutions.geo.generated.GeoEntity" />
           <integer
             name="vehicleDays"
             label="# Person-days for Vehicle Based Spraying" />
@@ -51,16 +46,8 @@
             label="Concrete Id"
             size="64"
             required="true" />
-          <char
-            name="entityLabel"
-            label="Geo Entity"
-            size="255"
-            required="true" />
           <virtual
             concrete="point"
-            type="dss.vector.solutions.intervention.monitor.PersonIntervention" />
-          <virtual
-            concrete="geoEntity"
             type="dss.vector.solutions.intervention.monitor.PersonIntervention" />
           <virtual
             concrete="vehicleDays"
@@ -120,26 +107,15 @@
 
     </create>
     <update>
-      <mdBusiness
-        name="dss.vector.solutions.intervention.monitor.ControlIntervention">
-        <create>
-          <attributes>
-            <reference
-              name="personInterventionUniversal"
-              column="person_universal"
-              label="Person Days Used for Intervention"
-              type="dss.vector.solutions.geo.GeoHierarchy" />
-          </attributes>
-        </create>
-      </mdBusiness>
 
       <mdView
         name="dss.vector.solutions.intervention.monitor.ControlInterventionView">
         <create>
           <attributes>
-            <virtual
-              concrete="personInterventionUniversal"
-              type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+            <char 
+              name="personIntervention"
+              label="Person Days Used for Intervention"              
+              size="255" />
           </attributes>
           <mdMethod
             name="getPersonInterventionViews"
@@ -195,10 +171,7 @@
         key="dss.vector.solutions.intervention.monitor.ControlInterventionView.getPersonInterventionViews"
         type="com.runwaysdk.system.metadata.MdMethod" />
       <object
-        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.personInterventionUniversal"
-        type="com.runwaysdk.system.metadata.MdAttribute" />
-      <object
-        key="dss.vector.solutions.intervention.monitor.ControlIntervention.personInterventionUniversal"
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionView.personIntervention"
         type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.PersonInterventionView.interventionMethod"

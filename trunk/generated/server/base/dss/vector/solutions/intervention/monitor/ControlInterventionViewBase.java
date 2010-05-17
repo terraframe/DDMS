@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 333815914)
+@com.runwaysdk.business.ClassSignature(hash = -1799403352)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,9 +18,9 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INDIVIDULPREMISEUNIVERSAL = "individulPremiseUniversal";
-  public static java.lang.String PERSONINTERVENTIONUNIVERSAL = "personInterventionUniversal";
+  public static java.lang.String PERSONINTERVENTION = "personIntervention";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = 333815914;
+  private static final long serialVersionUID = -1799403352;
   
   public ControlInterventionViewBase()
   {
@@ -232,38 +232,31 @@ public abstract class ControlInterventionViewBase extends com.runwaysdk.business
     }
   }
   
-  public dss.vector.solutions.geo.GeoHierarchy getPersonInterventionUniversal()
+  public String getPersonIntervention()
   {
-    if (getValue(PERSONINTERVENTIONUNIVERSAL).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(PERSONINTERVENTIONUNIVERSAL));
-    }
+    return getValue(PERSONINTERVENTION);
   }
   
-  public void validatePersonInterventionUniversal()
+  public void validatePersonIntervention()
   {
-    this.validateAttribute(PERSONINTERVENTIONUNIVERSAL);
+    this.validateAttribute(PERSONINTERVENTION);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonInterventionUniversalMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonInterventionMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ControlInterventionView.CLASS);
-    return mdClassIF.definesAttribute(PERSONINTERVENTIONUNIVERSAL);
+    return mdClassIF.definesAttribute(PERSONINTERVENTION);
   }
   
-  public void setPersonInterventionUniversal(dss.vector.solutions.geo.GeoHierarchy value)
+  public void setPersonIntervention(String value)
   {
     if(value == null)
     {
-      setValue(PERSONINTERVENTIONUNIVERSAL, "");
+      setValue(PERSONINTERVENTION, "");
     }
     else
     {
-      setValue(PERSONINTERVENTIONUNIVERSAL, value.getId());
+      setValue(PERSONINTERVENTION, value);
     }
   }
   

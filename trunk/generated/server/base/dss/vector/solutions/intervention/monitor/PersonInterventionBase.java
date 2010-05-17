@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1273578705)
+@com.runwaysdk.business.ClassSignature(hash = 42975426)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,6 @@ public abstract class PersonInterventionBase extends com.runwaysdk.business.Busi
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -26,7 +25,7 @@ public abstract class PersonInterventionBase extends com.runwaysdk.business.Busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VEHICLEDAYS = "vehicleDays";
-  private static final long serialVersionUID = -1273578705;
+  private static final long serialVersionUID = 42975426;
   
   public PersonInterventionBase()
   {
@@ -104,41 +103,6 @@ public abstract class PersonInterventionBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
-    }
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
-  {
-    if (getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
-    }
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonIntervention.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
     }
   }
   

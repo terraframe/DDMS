@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1764901949)
+@com.runwaysdk.business.ClassSignature(hash = -659552153)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,13 +12,11 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.PersonInterventionView";
   public static java.lang.String CONCRETEID = "concreteId";
-  public static java.lang.String ENTITYLABEL = "entityLabel";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVENTIONMETHOD = "interventionMethod";
   public static java.lang.String POINT = "point";
   public static java.lang.String VEHICLEDAYS = "vehicleDays";
-  private static final long serialVersionUID = -1764901949;
+  private static final long serialVersionUID = -659552153;
   
   public PersonInterventionViewBase()
   {
@@ -50,69 +48,6 @@ public abstract class PersonInterventionViewBase extends com.runwaysdk.business.
     else
     {
       setValue(CONCRETEID, value);
-    }
-  }
-  
-  public String getEntityLabel()
-  {
-    return getValue(ENTITYLABEL);
-  }
-  
-  public void validateEntityLabel()
-  {
-    this.validateAttribute(ENTITYLABEL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
-  }
-  
-  public void setEntityLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(ENTITYLABEL, "");
-    }
-    else
-    {
-      setValue(ENTITYLABEL, value);
-    }
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
-  {
-    if (getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
-    }
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.PersonInterventionView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
     }
   }
   

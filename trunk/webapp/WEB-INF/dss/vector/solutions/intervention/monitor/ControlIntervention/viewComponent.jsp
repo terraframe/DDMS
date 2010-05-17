@@ -66,14 +66,8 @@
          <button type="button" id="aggregatedPremiseUniversal.button"> <fmt:message key="Edit"/> </button>         
        </mjl:dt>
              
-       <mjl:dt attribute="personInterventionUniversal">
-         <mjl:select param="personInterventionUniversal" id="personInterventionUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
-           <mjl:option selected="${(personInterventionUniversal != null && personInterventionUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
-             ${current.displayLabel}
-           </mjl:option>
-         </mjl:select>
-         
-         <button type="button" id="personInterventionUniversal.button"> <fmt:message key="Edit"/> </button>         
+       <mjl:dt attribute="personIntervention">
+         <button type="button" id="personIntervention.button" class="editButtons"> <fmt:message key="Edit"/> </button>         
        </mjl:dt>
              
     </mjl:component>    
@@ -95,6 +89,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       this._mutables = YAHOO.util.Dom.getElementsByClassName("mutable");
       this._immutables = YAHOO.util.Dom.getElementsByClassName("immutable");
       this._universals = YAHOO.util.Dom.getElementsByClassName("universal");
+      this._editButtons = YAHOO.util.Dom.getElementsByClassName("editButtons");
       
       this._concreteId = document.getElementById('concreteId');
       this._formEl = document.getElementById("ControlIntervention.form");
@@ -121,12 +116,17 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
         else if(el.key == 'aggregatedPremiseUniversal') {
           el.button.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getAggregatedPremiseMap;
         }
-        else if(el.key == 'personInterventionUniversal') {
-          el.button.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonInterventionMap;
-        }
 
         YAHOO.util.Event.on(el.button, 'click', this.editHandler, this, this); 
         YAHOO.util.Event.on(el, 'change', this.buttonHandler, this, this);          
+      }      
+
+      for each (el in this._editButtons) {
+        if(el.id == 'personIntervention.button') {
+          el.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonInterventionMap;
+        }
+
+        YAHOO.util.Event.on(el, 'click', this.editHandler, this, this); 
       }      
 
       YAHOO.util.Event.on('button.go', 'click', this.onGoHandler, this, this);

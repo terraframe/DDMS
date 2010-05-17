@@ -7,43 +7,32 @@ import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 
 public class PersonInterventionView extends PersonInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 610277344;
-  
+
   public PersonInterventionView()
   {
     super();
   }
-  
+
   public void populateView(PersonIntervention concrete)
   {
-    GeoEntity entity = concrete.getGeoEntity();
-
     this.setConcreteId(concrete.getId());
     this.setPoint(concrete.getPoint());
-    this.setGeoEntity(entity);
     this.setVehicleDays(concrete.getVehicleDays());
-
-    if (entity != null)
-    {
-      this.setEntityLabel(entity.getLabel());
-    }
   }
 
   private void populateConcrete(PersonIntervention concrete)
   {
     concrete.setPoint(this.getPoint());
-    concrete.setGeoEntity(this.getGeoEntity());
     concrete.setVehicleDays(this.getVehicleDays());
   }
 
@@ -51,8 +40,6 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
   {
     new AttributeNotificationMap(concrete, PersonIntervention.ID, this, PersonInterventionView.ID);
     new AttributeNotificationMap(concrete, PersonIntervention.POINT, this, PersonInterventionView.POINT);
-    new AttributeNotificationMap(concrete, PersonIntervention.GEOENTITY, this, PersonInterventionView.GEOENTITY);
-    new AttributeNotificationMap(concrete, PersonIntervention.GEOENTITY, this, PersonInterventionView.ENTITYLABEL);
     new AttributeNotificationMap(concrete, PersonIntervention.VEHICLEDAYS, this, PersonInterventionView.VEHICLEDAYS);
   }
 
@@ -157,40 +144,36 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
 
     return views;
   }
-  
-  public static PersonInterventionView getView(ControlIntervention point, GeoEntity entity)
+
+  public static PersonInterventionView getView(ControlIntervention point)
   {
-    PersonInterventionQuery query = new PersonInterventionQuery(new QueryFactory());
-
-    Condition condition = query.getGeoEntity().EQ(entity);
-    
-    if(point != null)
+    if (point != null)
     {
-      condition = AND.get(condition, query.getPoint().EQ(point));
-    }
+      PersonInterventionQuery query = new PersonInterventionQuery(new QueryFactory());
 
-    query.WHERE(condition);
+      Condition condition = query.getPoint().EQ(point);
 
-    OIterator<? extends PersonIntervention> it = query.getIterator();
+      query.WHERE(condition);
 
-    try
-    {
-      if (it.hasNext())
+      OIterator<? extends PersonIntervention> it = query.getIterator();
+
+      try
       {
-        return it.next().getView();
+        if (it.hasNext())
+        {
+          return it.next().getView();
+        }
       }
-
-      PersonInterventionView view = new PersonInterventionView();
-      view.setGeoEntity(entity);
-      view.setEntityLabel(entity.getLabel());
-      view.setPoint(point);
-
-      return view;
+      finally
+      {
+        it.close();
+      }
     }
-    finally
-    {
-      it.close();
-    }
+    
+    PersonInterventionView view = new PersonInterventionView();
+    view.setPoint(point);
+
+    return view;
   }
 
 }

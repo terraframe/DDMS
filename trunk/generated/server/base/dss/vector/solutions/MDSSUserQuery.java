@@ -65,7 +65,7 @@ private static final long serialVersionUID = -1486548655;
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("person");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.MDSSUser.PERSON);
 
     return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.PERSON, mdAttributeIF, this, alias, null);
 
@@ -74,7 +74,7 @@ private static final long serialVersionUID = -1486548655;
   public dss.vector.solutions.PersonQuery.PersonQueryReferenceIF getPerson(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("person");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.MDSSUser.PERSON);
 
     return (dss.vector.solutions.PersonQuery.PersonQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.PERSON, mdAttributeIF, this, alias, displayLabel);
 
@@ -88,7 +88,7 @@ private static final long serialVersionUID = -1486548655;
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("rootGeoEntity");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.MDSSUser.ROOTGEOENTITY);
 
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.ROOTGEOENTITY, mdAttributeIF, this, alias, null);
 
@@ -97,7 +97,7 @@ private static final long serialVersionUID = -1486548655;
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getRootGeoEntity(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("rootGeoEntity");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.MDSSUser.ROOTGEOENTITY);
 
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.MDSSUser.ROOTGEOENTITY, mdAttributeIF, this, alias, displayLabel);
 
@@ -106,11 +106,11 @@ private static final long serialVersionUID = -1486548655;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("person")) 
+    if (name.equals(dss.vector.solutions.MDSSUser.PERSON)) 
     {
        return new dss.vector.solutions.PersonQuery.PersonQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("rootGeoEntity")) 
+    else if (name.equals(dss.vector.solutions.MDSSUser.ROOTGEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -510,11 +510,11 @@ private static final long serialVersionUID = -432818833;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("person")) 
+    if (name.equals(dss.vector.solutions.MDSSUser.PERSON)) 
     {
        return new dss.vector.solutions.PersonQuery.PersonQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("rootGeoEntity")) 
+    else if (name.equals(dss.vector.solutions.MDSSUser.ROOTGEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

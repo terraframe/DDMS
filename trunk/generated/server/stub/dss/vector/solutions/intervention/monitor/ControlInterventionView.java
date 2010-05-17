@@ -47,7 +47,6 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     this.checkIndividulPremiseUniversal(concrete);
     this.checkAggregatedPremiseUniversal(concrete);
-    this.checkPersonInterventionUniversal(concrete);
 
     this.populateMapping(concrete);
 
@@ -85,20 +84,6 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
       }
     }
   }
-  
-  private void checkPersonInterventionUniversal(ControlIntervention concrete)
-  {
-    GeoHierarchy universal = concrete.getPersonInterventionUniversal();
-    GeoHierarchy _universal = this.getPersonInterventionUniversal();
-    
-    if (universal != null)
-    {
-      if (_universal == null || !universal.getId().equals(_universal.getId()))
-      {
-        concrete.deletePersonIntervention();
-      }
-    }
-  }
 
   private void populateMapping(ControlIntervention concrete)
   {
@@ -109,7 +94,6 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     new AttributeNotificationMap(concrete, ControlIntervention.COMMENTS, this, ControlInterventionView.COMMENTS);
     new AttributeNotificationMap(concrete, ControlIntervention.INDIVIDULPREMISEUNIVERSAL, this, ControlInterventionView.INDIVIDULPREMISEUNIVERSAL);
     new AttributeNotificationMap(concrete, ControlIntervention.AGGREGATEDPREMISEUNIVERSAL, this, ControlInterventionView.AGGREGATEDPREMISEUNIVERSAL);
-    new AttributeNotificationMap(concrete, ControlIntervention.PERSONINTERVENTIONUNIVERSAL, this, ControlInterventionView.PERSONINTERVENTIONUNIVERSAL);
   }
 
   public void populateView(ControlIntervention concrete)
@@ -121,7 +105,6 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     this.setComments(concrete.getComments());
     this.setIndividulPremiseUniversal(concrete.getIndividulPremiseUniversal());
     this.setAggregatedPremiseUniversal(concrete.getAggregatedPremiseUniversal());
-    this.setPersonInterventionUniversal(concrete.getPersonInterventionUniversal());
   }
 
   public void populateConcrete(ControlIntervention concrete)
@@ -132,7 +115,6 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     concrete.setComments(this.getComments());
     concrete.setIndividulPremiseUniversal(this.getIndividulPremiseUniversal());
     concrete.setAggregatedPremiseUniversal(this.getAggregatedPremiseUniversal());
-    concrete.setPersonInterventionUniversal(this.getPersonInterventionUniversal());
   }
 
   private boolean hasConcrete()
@@ -180,7 +162,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     return premises;
   }
-  
+
   @Override
   @Transaction
   public PersonInterventionView[] applyWithPersonInterventionViews(PersonInterventionView[] premises, PersonInterventionMethodView[][] methods)
@@ -282,44 +264,15 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     return list.toArray(new AggregatedPremiseVisitView[list.size()]);
   }
-  
+
   @Override
   public PersonInterventionView[] getPersonInterventionViews()
   {
-    GeoEntity parent = this.getGeoEntity();
-    ControlIntervention point = this.getConcrete();
-    GeoHierarchy universal = this.getPersonInterventionUniversal();
-    
     List<PersonInterventionView> list = new LinkedList<PersonInterventionView>();
-    
-    QueryFactory factory = new QueryFactory();
-    
-    AllPathsQuery pathsQuery = new AllPathsQuery(factory);
-    Condition pathConditions = pathsQuery.getParentGeoEntity().EQ(parent);
-    pathConditions = AND.get(pathConditions, pathsQuery.getChildUniversal().EQ(universal.getGeoEntityClass()));
-    pathsQuery.WHERE(pathConditions);
-    
-    GeoEntityQuery query = new GeoEntityQuery(factory);
-    Condition condition = query.getId().EQ(pathsQuery.getChildGeoEntity().getId());
-    query.WHERE(condition);
-    
-    OIterator<? extends GeoEntity> it = query.getIterator();
-    
-    try
-    {
-      while (it.hasNext())
-      {
-        GeoEntity entity = it.next();
-        
-        PersonInterventionView view = PersonInterventionView.getView(point, entity);
-        
-        list.add(view);
-      }
-    }
-    finally
-    {
-      it.close();
-    }
+    ControlIntervention point = this.getConcrete();
+
+    PersonInterventionView view = PersonInterventionView.getView(point);
+    list.add(view);
     
     return list.toArray(new PersonInterventionView[list.size()]);
   }

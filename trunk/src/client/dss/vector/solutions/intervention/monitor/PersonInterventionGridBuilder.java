@@ -3,6 +3,7 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.Map;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.GridBuilder;
 import dss.vector.solutions.util.yui.ColumnSetup;
@@ -12,7 +13,7 @@ import dss.vector.solutions.util.yui.DynamicTermDataGrid;
 import dss.vector.solutions.util.yui.TermSetup;
 import dss.vector.solutions.util.yui.ViewDataGrid;
 
-public class PersonInterventionGridBuilder extends GridBuilder
+public class PersonInterventionGridBuilder extends GridBuilder implements Reloadable
 {
   private ClientRequestIF            request;
 
@@ -54,17 +55,16 @@ public class PersonInterventionGridBuilder extends GridBuilder
   private DataGrid getStaticGrid(PersonInterventionViewDTO view, PersonInterventionViewDTO[] data)
   {
     String[] keys = getViewKeys();
-    Map<String, ColumnSetup> columns = getColumns(keys, 2, false);
+    Map<String, ColumnSetup> columns = getColumns(keys, 1, false);
 
     GridBuilder.setValidator(columns, PersonInterventionViewDTO.VEHICLEDAYS, "YAHOO.widget.DataTable.validateNumber");
-    GridBuilder.setEditable(columns, PersonInterventionViewDTO.ENTITYLABEL, false);
        
     return new ViewDataGrid(view, columns, keys, data);
   }
   
   private String[] getViewKeys()
   {
-    String[] keys = new String[] { PersonInterventionViewDTO.CONCRETEID, PersonInterventionViewDTO.GEOENTITY, PersonInterventionViewDTO.ENTITYLABEL, PersonInterventionViewDTO.VEHICLEDAYS};
+    String[] keys = new String[] { PersonInterventionViewDTO.CONCRETEID, PersonInterventionViewDTO.VEHICLEDAYS};
 
     upperFirstCharacter(keys);
 
