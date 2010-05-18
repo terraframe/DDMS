@@ -426,7 +426,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
     if(inactive != null)
     {
       InactiveProperty prop = this.getInactiveByDisease();
-      prop.appLock();
+      
+      if(!prop.isNew())
+      {
+        prop.appLock();
+      }
+      
       prop.setInactive(inactive);
       prop.apply();
     }
