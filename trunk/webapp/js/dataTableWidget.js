@@ -660,14 +660,13 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     getDefaultValues : function() {
       var row = new Object();
-      var defaults = this._defaults;
         
-      var keys = Mojo.Util.getKeys(defaults);
+      var keys = Mojo.Util.getKeys(this._default);
         
       for(var i = 0; i < keys.length; i++) {
         var key = keys[i];
           
-        var value = ((defaults[key].value != null) ? defaults[key].value : defaults[key]) ;
+        var value = ((this._default[key].value != null) ? this._default[key].value : this._default[key]) ;
           
         row[key] = value;
       }
@@ -677,15 +676,14 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       
     getDefaultLabels : function() {
       var row = new Object();
-      var defaults = this._defaults;
           
-      var keys = Mojo.Util.getKeys(defaults);
+      var keys = Mojo.Util.getKeys(this._default);
           
       for(var i = 0; i < keys.length; i++) {
         var key = keys[i];
             
-        var value = ((defaults[key].value != null) ? defaults[key].value : defaults[key]) ;
-        var label = defaults[key].label;
+        var value = ((this._default[key].value != null) ? this._default[key].value : this._default[key]) ;
+        var label = this._default[key].label;
             
         row[key] = ((label != null ) ? label : value);
       }

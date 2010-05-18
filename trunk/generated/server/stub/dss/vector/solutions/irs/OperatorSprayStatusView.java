@@ -43,20 +43,24 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     this.setOther(concrete.getOther());
     this.setRefused(concrete.getRefused());
     this.setSprayOperator(concrete.getSprayOperator());
-    this.setOperatorSprayWeek(concrete.getOperatorSprayWeek());
-    if (concrete.getSprayOperator() != null) {
-        this.setOperatorLabel(concrete.getSprayOperator().getLabel());
-    } else {
-        RequiredAttributeProblem p = new RequiredAttributeProblem();
-        p.setNotification(this, SPRAYOPERATOR);
-        p.apply();
-
-        p.throwIt();
-    }
+    this.setOperatorSprayWeek(concrete.getOperatorSprayWeek());    
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());
     this.setUsed(concrete.getUsed());
+    
+    if (concrete.getSprayOperator() != null)
+    {
+      this.setOperatorLabel(concrete.getSprayOperator().getLabel());
+    }
+    else
+    {
+      RequiredAttributeProblem p = new RequiredAttributeProblem();
+      p.setNotification(this, SPRAYOPERATOR);
+      p.apply();
+
+      p.throwIt();
+    }
   }
 
   protected void populateConcrete(OperatorSprayStatus concrete)
@@ -81,9 +85,9 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     concrete.setReceived(this.getReceived());
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
-    concrete.setUsed(this.getUsed());    
+    concrete.setUsed(this.getUsed());
   }
-  
+
   private void populateMapping(OperatorSprayStatus concrete)
   {
     new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAY, this, OperatorSprayStatusView.SPRAY);
@@ -114,16 +118,16 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
   public void apply()
   {
     OperatorSprayStatus concrete = new OperatorSprayStatus();
-    
+
     if (this.hasConcrete())
     {
       concrete = OperatorSprayStatus.lock(this.getConcreteId());
     }
-        
+
     this.populateMapping(concrete);
 
     this.populateConcrete(concrete);
-        
+
     concrete.apply();
 
     this.populateView(concrete);
@@ -133,7 +137,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public void deleteConcrete()
   {
     if (this.hasConcrete())

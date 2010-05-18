@@ -303,7 +303,8 @@ public class OperatorSprayStatus extends OperatorSprayStatusBase implements com.
 
   protected SprayMethod getSprayMethod()
   {
-    List<SprayMethod> method = this.getSpray().getSprayMethod();
+    TeamSpray _spray = this.getSpray();
+    List<SprayMethod> method = _spray.getSprayMethod();
 
     if (method.size() > 0)
     {

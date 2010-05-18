@@ -3,30 +3,29 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.DataGrid;
-import dss.vector.solutions.util.yui.ViewDataGrid;
 
-public class ZoneSprayController extends ZoneSprayControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class ZoneSprayController extends ZoneSprayControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ZoneSpray/";
 
@@ -34,7 +33,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
 
   private static final long  serialVersionUID = 1240860686933L;
 
-  public ZoneSprayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ZoneSprayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -145,30 +144,10 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements com.
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
-    req.setAttribute("grid", getGrid(dto, request));
+    req.setAttribute("grid", new ZoneSprayGridBuilder(request, dto).build());
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
-  }
-
-  private DataGrid getGrid(ZoneSprayViewDTO dto, ClientRequestIF request)
-  {
-    TeamSprayStatusViewDTO view = new TeamSprayStatusViewDTO(request);
-    view.setValue(TeamSprayStatusViewDTO.SPRAY, dto.getConcreteId());
-    TeamSprayStatusViewDTO[] data = dto.getStatus();
-    
-    String[] keys = {"ConcreteId", "Spray", "SprayTeam", "TeamLabel", "TeamLeader",
-         "TeamSprayWeek", "Target", "Received", "Refills", "Returned", "Used", "Households", "Structures",
-         "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-         "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
-
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    map.put("ConcreteId", new ColumnSetup(true, false));
-    map.put("SprayData", new ColumnSetup(true, false));
-    map.put("Spray", new ColumnSetup(true, false));
-    map.put("TeamLabel", new ColumnSetup(true, false));  
-
-    return new ViewDataGrid(view, map, keys, data);
   }
 
   private void setupReferences(ZoneSprayViewDTO dto)

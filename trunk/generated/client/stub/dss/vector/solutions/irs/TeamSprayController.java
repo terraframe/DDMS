@@ -19,12 +19,8 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.DataGrid;
-import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class TeamSprayController extends TeamSprayControllerBase implements Reloadable
 {
@@ -161,28 +157,8 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
     req.setAttribute("operators", this.buildOperatorsMap(dto));
-    req.setAttribute("grid", this.getGrid(dto, request));
+    req.setAttribute("grid", new TeamSprayGridBuilder(request, dto).build());
     render("viewComponent.jsp");
-  }
-
-  private DataGrid getGrid(TeamSprayViewDTO dto, ClientRequestIF request)
-  {
-    OperatorSprayStatusViewDTO view = new OperatorSprayStatusViewDTO(request);
-    view.setValue(OperatorSprayStatusViewDTO.SPRAY, dto.getConcreteId());
-    
-    OperatorSprayStatusViewDTO[] data = dto.getStatus();
-    
-    String[] keys = {"ConcreteId", "Spray", "SprayOperator", "OperatorLabel", "OperatorSprayWeek", "Received",
-         "Refills", "Returned", "Used",   "Households", "Structures",
-         "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-         "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
-
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    map.put("ConcreteId", new ColumnSetup(true, false));
-    map.put("Spray", new ColumnSetup(true, false));
-    map.put("OperatorLabel", new ColumnSetup(true, false));
-    
-    return new ViewDataGrid(view, map, keys, data);
   }
 
   private void setupReferences(TeamSprayViewDTO dto)
@@ -196,13 +172,12 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     Map<String, String> map = new HashMap<String, String>();
 
     SprayTeamDTO team = view.getSprayTeam();
-    TeamMemberDTO[] members = team.getTeamMembers();
+    TeamMemberViewDTO[] members = team.getTeamMemberViews();
 
-    for (TeamMemberDTO operator : members)
+    for (TeamMemberViewDTO operator : members)
     {
-      PersonDTO person = operator.getPerson();
-      String key = operator.getId();
-      String label = operator.getMemberId() + " - " + person.getFirstName() + ", " + person.getLastName();
+      String key = operator.getActorId();
+      String label = operator.getLabel() + " - " + operator.getMemberId();
 
       map.put(key, label);
     }

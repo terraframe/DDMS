@@ -165,6 +165,9 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
       var column = dataTable.getColumn('SprayOperator');
       var cell = e.editor.getTdEl();
 
+      var _record = e.editor.getRecord();
+      var currentOperator = _record.getData('SprayOperator');     
+
       // Get a list of operators which already have data set for them
       var usedOperators = dataTable.getRecordSet().getRecords().map( function(record) {
         return record.getData('SprayOperator');
@@ -174,6 +177,11 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
       var filteredLabels = SprayOperatorLabels.filter(function(operator){
         return (usedOperators.indexOf(operator) === -1);
       });
+
+      // Include the current team in the list of selectable teams
+      if(currentOperator != null && currentOperator != "") {
+        filteredLabels.unshift(currentOperator);
+      }
 
       // Update the editor to use the list of valid operators
       e.editor.dropdownOptions = filteredLabels;
@@ -202,45 +210,13 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
         selectEl.innerHTML = "<option selected value=\"\"></option>";             
       }
    }
-   
-    var indexHouseholds = 8;
-    var indexStructures = 9;
-    var indexSprayedHouseholds = 10;
-    var indexSprayedStructures = 11;
-    var indexPrevSprayedHouseholds = 12;
-    var indexPrevSprayedStructures = 13;
-    var indexRooms = 14;
-    var indexPeople = 16;
-    var indexBedNets = 17;
-    var indexRoomsWithBedNets = 18;
-    var indexLocked = 19;
-    var indexRefused = 20;
-    var indexOther = 21;
-  
-    var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
-
-    if (!isMainSpray)
-    {
-      delete data.columnDefs[indexHouseholds].editor;
-      delete data.columnDefs[indexStructures].editor;
-      delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-      delete data.columnDefs[indexPrevSprayedStructures].editor;
-      delete data.columnDefs[indexRooms].editor;
-      
-      delete data.columnDefs[indexPeople].editor;
-      delete data.columnDefs[indexBedNets].editor;
-      delete data.columnDefs[indexRoomsWithBedNets].editor;
-      delete data.columnDefs[indexLocked].editor;
-      delete data.columnDefs[indexRefused].editor;
-      delete data.columnDefs[indexOther].editor;      
-    }
-    
+       
     SprayOperatorLabels=Mojo.Util.getValues(operators);
     SprayOperatorIds=Mojo.Util.getKeys(operators);   
      
-    data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
-    data.columnDefs[2].save_as_id = true;
-    data.columnDefs[2].editor.subscribe('showEvent', loadUnusedOperators);     
+    data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
+    data.columnDefs[3].save_as_id = true;
+    data.columnDefs[3].editor.subscribe('showEvent', loadUnusedOperators);
 
     var grid = MojoGrid.createDataTable(data);
     grid.addListener(beforeRowAdd);

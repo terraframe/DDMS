@@ -260,43 +260,11 @@ ZoneSprayViewDTO view = (ZoneSprayViewDTO) request.getAttribute("item");
          selectEl.innerHTML = "<option selected value=\"\"></option>";             
        }
      }
-
-     var indexHouseholds = 10;
-     var indexStructures = 11;
-     var indexSprayedHouseholds = 12;
-     var indexSprayedStructures = 13;
-     var indexPrevSprayedHouseholds = 14;
-     var indexPrevSprayedStructures = 15;
-     var indexRooms = 16;
-     var indexPeople = 18;
-     var indexBedNets = 19;
-     var indexRoomsWithBedNets = 20;
-     var indexLocked = 21;
-     var indexRefused = 22;
-     var indexOther = 23;
-  
-     var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
-
-     if (!isMainSpray)
-     {
-       delete data.columnDefs[indexHouseholds].editor;
-       delete data.columnDefs[indexStructures].editor;
-       delete data.columnDefs[indexPrevSprayedHouseholds].editor;
-       delete data.columnDefs[indexPrevSprayedStructures].editor;
-       delete data.columnDefs[indexRooms].editor;
-       delete data.columnDefs[indexPeople].editor;
-       delete data.columnDefs[indexBedNets].editor;
-       delete data.columnDefs[indexRoomsWithBedNets].editor;
-       delete data.columnDefs[indexLocked].editor;
-       delete data.columnDefs[indexRefused].editor;
-       delete data.columnDefs[indexOther].editor;            
-     }      
-     
      
      SprayTeamLabels=Mojo.Util.getValues(teams);   
      SprayTeamIds=Mojo.Util.getKeys(teams);   
 
-     var sprayTeamColumnDef = data.columnDefs[2];
+     var sprayTeamColumnDef = data.columnDefs[3];
      
      sprayTeamColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayTeamLabels,disableBtns:true,validator:validateSprayTeam});
      sprayTeamColumnDef.save_as_id = true;

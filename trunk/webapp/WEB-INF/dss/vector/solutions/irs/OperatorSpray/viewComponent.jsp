@@ -200,20 +200,14 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
               
               for(var i = 0; i < rows; i++) {
                 var event = this.grid.addRow();
-                var record = event.getValue().record;
                 var index = event.getValue().index;
                 var structureId = householdId + "-" + (i + 1);                
                   
-                record.setData("HouseholdId", householdId);
-                record.setData("StructureId", structureId);
-
-                var model = grid.getModel();
-                
-                model.setData(index, 'HouseholdId', householdId);
-                model.setData(index, 'StructureId', structureId);                
+                grid.setData(index, 'HouseholdId', householdId);
+                grid.setData(index, 'StructureId', structureId);                
               }
               
-              grid.getDataTable().render();
+              grid.refresh();
             }
           });
 
