@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1474058776)
+@com.runwaysdk.business.ClassSignature(hash = -1482749694)
 public abstract class SystemAlertDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = -1474058776;
+  private static final long serialVersionUID = -1482749694;
   
   protected SystemAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -754,6 +754,14 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.general.SystemAlertQueryDTO getAllInstancesForDisease(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, ascending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.SystemAlertDTO.CLASS, "getAllInstancesForDisease", _declaredTypes);
+    return (dss.vector.solutions.general.SystemAlertQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.general.SystemAlertDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

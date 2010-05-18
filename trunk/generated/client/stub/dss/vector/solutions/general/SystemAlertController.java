@@ -155,7 +155,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
 
 	public void viewAll() throws IOException, ServletException {
 		ClientRequestIF clientRequest = super.getClientRequest();
-		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstances(clientRequest, SystemAlertDTO.KEYNAME, true, 20, 1);
+		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstancesForDisease(clientRequest, SystemAlertDTO.KEYNAME, true, 20, 1);
 		req.setAttribute("query", query);
 		render("viewAllComponent.jsp");
 	}
@@ -166,7 +166,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
 
 	public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException {
 		ClientRequestIF clientRequest = super.getClientRequest();
-		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+		SystemAlertQueryDTO query = SystemAlertDTO.getAllInstancesForDisease(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
 		req.setAttribute("query", query);
 		render("viewAllComponent.jsp");
 	}

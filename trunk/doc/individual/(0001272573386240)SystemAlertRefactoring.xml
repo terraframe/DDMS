@@ -155,7 +155,7 @@
 					<attributes>
 						<enumeration
 							name="alertType"
-							label="alertType"
+							label="Alert Type"
 							type="dss.vector.solutions.general.SystemAlertType"
 							selectMultiple="false"
 							required="true" />

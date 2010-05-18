@@ -19,11 +19,6 @@
 				</ul>
 			</mjl:row>
 		</mjl:attributeColumn>
-		<mjl:attributeColumn attributeName="disease">
-			<mjl:row>
-				${item.disease}
-			</mjl:row>
-		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isOnscreenActive">
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isEmailActive">

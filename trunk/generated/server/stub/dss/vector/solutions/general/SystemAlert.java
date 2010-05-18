@@ -20,25 +20,33 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 	public SystemAlert() {
 		super();
 	}
-	
-	
+
+	@Transaction
+	public static SystemAlertQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber) {
+	    SystemAlertQuery query = new SystemAlertQuery(new com.runwaysdk.query.QueryFactory());
+	    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+	    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
+	    return query;
+	}
+
 	@Transaction
 	public static SystemAlert get(SystemAlertType type) {
 		return get(Disease.getCurrent(), type);
 	}
-	
+
 	@Transaction
 	public static SystemAlert get(Disease disease, SystemAlertType type) {
 		SystemAlert alert = null;
 		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
 		q.WHERE(q.getAlertType().containsExactly(type));
-		//q.WHERE(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ((Disease) null)));
+		// q.WHERE(OR.get(q.getDisease().EQ(disease),
+		// q.getDisease().EQ((Disease) null)));
 		q.ORDER_BY_DESC(q.getDisease().getKeyName());
 		OIterator<? extends SystemAlert> it = q.getIterator();
 
 		try {
 			while (it.hasNext()) {
-				alert =  (SystemAlert) it.next();
+				alert = (SystemAlert) it.next();
 				if (alert.getDisease() == null || alert.getDisease().equals(disease)) {
 					break;
 				}
@@ -46,34 +54,33 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 		} finally {
 			it.close();
 		}
-		
+
 		return alert;
 	}
-	
+
 	@Transaction
-	public boolean sendEmail(Map<String,Object> data) {
+	public boolean sendEmail(Map<String, Object> data) {
 		boolean sent = false;
-		
+
 		if (this.getIsEmailActive()) {
 			Email email = this.generateEmail(data);
-			
-			if(!email.isAppliedToDB())
-			{
-			  email.apply();
+
+			if (!email.isAppliedToDB()) {
+				email.apply();
 			}
 			sent = email.send();
 		}
-		
+
 		return sent;
 	}
 
 	@Transaction
 	public Email generateEmail() {
-		return this.generateEmail(new HashMap<String,Object>());
+		return this.generateEmail(new HashMap<String, Object>());
 	}
 
 	@Transaction
-	public Email generateEmail(Map<String,Object> data) {
+	public Email generateEmail(Map<String, Object> data) {
 		Email email = new Email();
 
 		email.setToAddresses(this.getEmailToAddresses());
@@ -87,19 +94,19 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 		return email;
 	}
 
-	private String processTemplate(String template, Map<String,Object> data) {
+	private String processTemplate(String template, Map<String, Object> data) {
 		Writer out = new StringWriter();
 
 		Velocity.setProperty("directive.foreach.counter.initial.value", "0");
-	    Velocity.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute" );
-	    Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
+		Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute");
+		Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
 
 		try {
 			Velocity.init();
 			VelocityContext context = new VelocityContext(data);
 			Velocity.evaluate(context, out, "Alert", template);
 		} catch (Exception e) {
-			return "Error processing template (" + e.getLocalizedMessage()  + ")";
+			return "Error processing template (" + e.getLocalizedMessage() + ")";
 		}
 
 		return out.toString();

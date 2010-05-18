@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1607329944)
+@com.runwaysdk.business.ClassSignature(hash = -559875454)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1607329944;
+  private static final long serialVersionUID = -559875454;
   
   public SystemAlertBase()
   {
@@ -620,6 +620,12 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static SystemAlert getByKey(String key)
   {
     return (SystemAlert) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static dss.vector.solutions.general.SystemAlertQuery getAllInstancesForDisease(java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.SystemAlert.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static SystemAlert lock(java.lang.String id)
