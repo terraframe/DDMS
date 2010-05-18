@@ -32,13 +32,16 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 		SystemAlert alert = null;
 		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
 		q.WHERE(q.getAlertType().containsExactly(type));
-		q.WHERE(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ((Disease) null)));
+		//q.WHERE(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ((Disease) null)));
 		q.ORDER_BY_DESC(q.getDisease().getKeyName());
 		OIterator<? extends SystemAlert> it = q.getIterator();
 
 		try {
-			if (it.hasNext()) {
+			while (it.hasNext()) {
 				alert =  (SystemAlert) it.next();
+				if (alert.getDisease() == null || alert.getDisease().equals(disease)) {
+					break;
+				}
 			}
 		} finally {
 			it.close();
