@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -267,7 +268,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
   {
     if (divisor.compareTo(new BigDecimal(0)) != 0)
     {
-      BigDecimal value = factor.multiply(numerator).divide(divisor);
+      BigDecimal value = factor.multiply(numerator).divide(divisor,RoundingMode.HALF_UP);
       SystemAlert systemAlert = SystemAlert.get(SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION);
       ImmatureThreshold threshold = ImmatureThreshold.getByKey(key);
       boolean emailSent = false;
