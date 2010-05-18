@@ -35,6 +35,11 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
   @Override
   public void apply()
   {
+    if(this.isNew() && !this.isAppliedToDB())
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+    
     InstallProperties.validateMasterOperation();
 
     validateTermAsLeaf();
