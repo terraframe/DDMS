@@ -272,7 +272,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
       SystemAlert systemAlert = SystemAlert.get(SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION);
       ImmatureThreshold threshold = ImmatureThreshold.getByKey(key);
       boolean emailSent = false;
-      if (threshold.getThresholdValue().compareTo(value) < 0)
+      if (threshold.getThresholdValue() != null && threshold.getThresholdValue().compareTo(value) < 0)
       {
         if (systemAlert.getIsEmailActive())
         {
