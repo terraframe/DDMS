@@ -498,7 +498,6 @@
           <boolean
             name="outOfStock"
             label="Treatment out of Stock"
-            required="true"
             description="Flag denoting if the treatment is out of stock"
             negativeLabel="No"
             positiveLabel="Yes" />
