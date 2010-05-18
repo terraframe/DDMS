@@ -50,7 +50,7 @@
             description="The exposure time in minutes"
             rejectNegative="true"
             rejectZero="true"
-            defaultValue="60"
+            defaultValue="3"
             immutable="true" />
           <integer
             name="quantityTested"
