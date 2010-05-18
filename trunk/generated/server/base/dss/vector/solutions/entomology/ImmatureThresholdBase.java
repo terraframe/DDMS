@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1017524427)
+@com.runwaysdk.business.ClassSignature(hash = -927859620)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
   public final static String CLASS = "dss.vector.solutions.entomology.ImmatureThreshold";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   private com.runwaysdk.business.Struct displayLabel = null;
   
@@ -28,7 +29,7 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
   public static java.lang.String THRESHOLDINDEX = "thresholdIndex";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1017524427;
+  private static final long serialVersionUID = -927859620;
   
   public ImmatureThresholdBase()
   {
@@ -73,6 +74,41 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThreshold.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ImmatureThreshold.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public dss.vector.solutions.entomology.ImmatureThresholdDisplayLabel getDisplayLabel()

@@ -2,6 +2,8 @@ package dss.vector.solutions.entomology;
 
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.general.Disease;
+
 public class ImmatureThreshold extends ImmatureThresholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -955212168;
@@ -39,7 +41,7 @@ public class ImmatureThreshold extends ImmatureThresholdBase implements com.runw
   @Override
   protected String buildKey()
   {
-    return this.getThresholdIndex();
+    return this.getDisease().getKey() + "." + this.getThresholdIndex();
   }
 
   @Override
@@ -66,6 +68,13 @@ public class ImmatureThreshold extends ImmatureThresholdBase implements com.runw
     view.populateView(this);
 
     return view;
+  }
+
+  public static ImmatureThreshold getByDisease(String key)
+  {
+    Disease current = Disease.getCurrent();
+        
+    return ImmatureThreshold.getByKey(current.getKey() + "." + key);
   }
 
 }
