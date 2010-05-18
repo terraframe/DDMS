@@ -34,7 +34,6 @@ import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.surveillance.OptionComparator;
 import dss.vector.solutions.surveillance.OptionIF;

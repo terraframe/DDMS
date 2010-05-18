@@ -7,6 +7,8 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
+
 
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -26,6 +28,17 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     }
 
     return this.getClassDisplayLabel();
+  }
+  
+  @Override
+  public void apply()
+  {
+    if(this.isNew() && !this.isAppliedToDB())
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+    
+    super.apply();
   }
   
   @Override

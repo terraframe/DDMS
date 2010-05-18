@@ -15,6 +15,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.RequiredAttributeProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -443,6 +444,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     Condition collectionCondition = query.getGeoEntity().EQ(intervention.getGeoEntity());
     collectionCondition = AND.get(collectionCondition, query.getStartDate().EQ(intervention.getStartDate()));
     collectionCondition = AND.get(collectionCondition, query.getEndDate().EQ(intervention.getEndDate()));
+    collectionCondition = AND.get(collectionCondition, query.getDisease().EQ(Disease.getCurrent()));
     query.WHERE(collectionCondition);
 
     OIterator<? extends ControlIntervention> it = query.getIterator();

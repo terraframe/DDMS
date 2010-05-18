@@ -1,18 +1,13 @@
 package dss.vector.solutions.entomology;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-
-import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.ResponseMaster;
 import dss.vector.solutions.intervention.monitor.NotApplicableProblem;
-import dss.vector.solutions.util.ErrorUtility;
 
 public class PupalContainer extends PupalContainerBase implements com.runwaysdk.generation.loader.Reloadable
 {

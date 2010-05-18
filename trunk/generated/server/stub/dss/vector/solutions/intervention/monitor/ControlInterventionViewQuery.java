@@ -5,6 +5,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.AllPathsQuery;
 
 /**
@@ -62,7 +63,10 @@ public class ControlInterventionViewQuery extends dss.vector.solutions.intervent
      */
     protected void buildWhereClause()
     {
-
+      // We only want to search/retrieve records which were created for the current disease
+      ControlInterventionViewQuery vQuery = this.getViewQuery();
+      
+      vQuery.WHERE(query.getDisease().EQ(Disease.getCurrent()));
     }
 
   }
