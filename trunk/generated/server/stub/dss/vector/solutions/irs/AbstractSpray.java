@@ -7,7 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.InnerJoinGtEq;
@@ -91,8 +93,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     
     
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
-    String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedrooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedstructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedhouseholds END )";
-    String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
+    String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayed_rooms  WHEN spray_unit = 'STRUCTURE' THEN sprayed_structures WHEN spray_unit = 'HOUSEHOLD' THEN sprayed_households END )";
+    String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (householdunsprayed)  END )";
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
     String unit_operational_coverage = "SUM(" + sprayedUnits + "))::float / nullif(SUM(" + avilableUnits + "),0";
@@ -133,7 +135,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
   public static void setWithQuerySQL(AbstractSprayQuery abstractSprayQuery, ValueQuery valueQuery)
   {
-
     String sprayView = "sprayView";
     String insecticideView = "insecticideView";
     String targetView = "targetView";
@@ -162,13 +163,14 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     valueQuery.WHERE(new InnerJoinEq("id", tableName, tableAlias, "id", sprayView, sprayView));
 
+    String brandCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.BRAND);
+    String sprayDateCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.SPRAYDATE);
     
-    
-    valueQuery.WHERE(new InnerJoinEq(AbstractSpray.BRAND, tableName, tableAlias, "id", insecticideView, insecticideView));
-    valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "startdate", insecticideView, insecticideView));
-    valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "enddate", insecticideView, insecticideView));
-    valueQuery.WHERE(new InnerJoinGtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));
-    valueQuery.WHERE(new InnerJoinLtEq(AbstractSpray.SPRAYDATE, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinEq(brandCol, tableName, tableAlias, "id", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "start_date", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinLtEq(sprayDateCol, tableName, tableAlias, "end_date", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinLtEq(sprayDateCol, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
   }
 
   private static String getGeoType(ValueQuery valueQuery, JSONObject queryConfig, String xml, String attrib)
@@ -231,14 +233,20 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     Selectable s;
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
+    MdEntityDAOIF geoEntityMd = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS);
+    String geoEntityTable = geoEntityMd.getTableName();
+    String geoIdCol = QueryUtil.getColumnName(geoEntityMd, GeoEntity.GEOID);
+    
+    String sprayDateCol = QueryUtil.getColumnName(AbstractSpray.CLASS, AbstractSpray.SPRAYDATE);
+    
     if (valueQuery.hasSelectableRef(geoType))
     {
       s = valueQuery.getSelectableRef(geoType);
       String columnAlias = s.getDbQualifiedName();
       sql = "get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
-      sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
+      sql += "MAX((SELECT id FROM "+geoEntityTable+" g WHERE g."+geoIdCol+" = " + columnAlias + ")), ";
       sql += "MAX(spray_season), ";
-      sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
+      sql += "'target_'||( get_epiWeek_from_date(MAX("+sprayDateCol+")," + startDay + ")-1))";
 
     }
     calc.setSQL(sql);
@@ -272,12 +280,18 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
+    MdEntityDAOIF geoEntityMd = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS);
+    String geoEntityTable = geoEntityMd.getTableName();
+    String geoIdCol = QueryUtil.getColumnName(geoEntityMd, GeoEntity.GEOID);
+    
+    String sprayDateCol = QueryUtil.getColumnName(AbstractSpray.CLASS, AbstractSpray.SPRAYDATE);
+    
     String columnAlias = s.getDbQualifiedName();
     sql = "SUM(" + sprayedUnits + ")::float / get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(";
 
-    sql += "MAX((SELECT id FROM geoentity g WHERE g.geoId = " + columnAlias + ")), ";
+    sql += "MAX((SELECT id FROM "+geoEntityTable+" g WHERE g."+geoIdCol+" = " + columnAlias + ")), ";
     sql += "MAX(spray_season), ";
-    sql += "'target_'||( get_epiWeek_from_date(MAX(sprayDate)," + startDay + ")-1))";
+    sql += "'target_'||( get_epiWeek_from_date(MAX("+sprayDateCol+")," + startDay + ")-1))";
 
     calc.setSQL(sql);
   }

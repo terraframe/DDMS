@@ -524,11 +524,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000000);
 
-    String sd = aggregatedCaseQuery.getStartDate().getDbQualifiedName();
-    String ed = aggregatedCaseQuery.getEndDate().getDbQualifiedName();
-
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
-    QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, sd, ed);
+    QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, 
+        aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate());
 
     QueryUtil.validateQuery(valueQuery);
 

@@ -366,10 +366,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
-    String sd = itnQuery.getStartDate().getDbQualifiedName();
-    String ed = itnQuery.getEndDate().getDbQualifiedName();
-
-    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, sd, ed);
+    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery,  itnQuery.getStartDate(), itnQuery.getEndDate());
 
   }
 

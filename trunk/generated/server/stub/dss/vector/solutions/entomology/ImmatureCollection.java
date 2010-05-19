@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
@@ -196,17 +197,24 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     numberpupaecollected integer,
     */
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM(numberExamined)/SUM(numberimmatures)*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM(numberExamined)/SUM(numberlavrae)*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM(numberExamined)/SUM(numberpupae)*100")|| needsJoin;
+    String numberExaminedCol = QueryUtil.getColumnName(collectionPremiseQuery.getMdClassIF(), CollectionPremise.NUMBEREXAMINED);
     
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM(numberExamined)/SUM(numberpupae)*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM(numberExamined)/SUM(numberpupae)*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM(numberExamined)/SUM(numberpupae)*100");
+    MdEntityDAOIF collectionContainerMd = collectionContainerQuery.getMdClassIF();
+    String numberImmaturesCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERIMMATURES);
+    String numberLarvaeCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERLARVAE);
+    String numberPupaeCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERPUPAE);
     
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM(numberExamined)/SUM(numberpupae)*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM(numberExamined)/SUM(numberpupae)*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(numberExamined)/SUM(numberpupae)*100");
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberExaminedCol+")/SUM("+numberImmaturesCol+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberExaminedCol+")/SUM("+numberLarvaeCol+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100")|| needsJoin;
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
     
     QueryUtil.setSelectabeSQL(valueQuery, "pi", "COUNT(*)");
     QueryUtil.setSelectabeSQL(valueQuery, "pppr", "COUNT(*)");
@@ -236,9 +244,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "COUNT(*)");
     
     
-    
-    
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, ImmatureCollection.STARTDATE, ImmatureCollection.ENDDATE);
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
     
 
   }

@@ -1013,8 +1013,8 @@ public class QueryUtil implements Reloadable
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
   {
     String attributeName = null;
-    String start = null;
-    String end = null;
+    String startValue = null;
+    String endValue = null;
     String klass = null;
     JSONObject dateObj = null;
     try
@@ -1038,16 +1038,16 @@ public class QueryUtil implements Reloadable
 
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
-        start = dateObj.getString("start");
+        startValue = dateObj.getString("start");
         AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-        valueQuery.AND(dateAttriute.GE(start));
+        valueQuery.AND(dateAttriute.GE(startValue));
 
       }
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
-        end = dateObj.getString("end");
+        endValue = dateObj.getString("end");
         AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-        valueQuery.AND(dateAttriute.LE(end));
+        valueQuery.AND(dateAttriute.LE(endValue));
       }
 
       // now we set the columns that show the restictions
@@ -1055,9 +1055,9 @@ public class QueryUtil implements Reloadable
       {
         SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
         dateGroup.setSQL("''");
-        if (start != null)
+        if (startValue != null)
         {
-          dateGroup.setSQL("'" + start + "'");
+          dateGroup.setSQL("'" + startValue + "'");
         }
       }
 
@@ -1065,13 +1065,14 @@ public class QueryUtil implements Reloadable
       {
         SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
         dateGroup.setSQL("''");
-        if (end != null)
+        if (endValue != null)
         {
-          dateGroup.setSQL("'" + end + "'");
+          dateGroup.setSQL("'" + endValue + "'");
         }
       }
 
-      return setQueryDates(xml, valueQuery, attributeQuery, attributeName);
+      
+      return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName));
     }
     catch (JSONException e)
     {
@@ -1080,14 +1081,9 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment dateAttribute)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
   {
-    String da = dateAttribute.getDbQualifiedName();
-    return setQueryDates(xml, valueQuery, target, da);
-  }
-
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da)
-  {
+    String da = daSel.getDbQualifiedName();
     Set<String> found = new HashSet<String>();
 
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
@@ -1095,8 +1091,13 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_SEASON);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
-      String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms " + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + da + " AND ms." + MalariaSeason.ENDDATE + " >= " + da);
+      MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
+      String table = malariaSeasonMd.getTableName();
+      String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
+      String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
+      String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+      
+      dateGroup.setSQL("SELECT " +seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms." + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
@@ -1188,8 +1189,11 @@ public class QueryUtil implements Reloadable
     }
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String sd, String ed)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment sdSel, SelectableMoment edSel)
   {
+    String sd = sdSel.getDbQualifiedName();
+    String ed = edSel.getDbQualifiedName();
+    
     Set<String> found = new HashSet<String>();
 
     String intervalNotValid = "INTERVAL NOT VALID";
@@ -1200,8 +1204,14 @@ public class QueryUtil implements Reloadable
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
 
-      String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms" + " WHERE ms." + MalariaSeason.STARTDATE + " <= " + sd + " AND ms." + MalariaSeason.ENDDATE + " >= " + ed);
+      
+      MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
+      String table = malariaSeasonMd.getTableName();
+      String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
+      String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
+      String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+      
+      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms" + " WHERE ms." + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)

@@ -3,13 +3,22 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.equinox.internal.app.IBranding;
+
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.system.metadata.MetadataDisplayLabel;
+
+import dss.vector.solutions.util.QueryUtil;
 
 public class InsecticideBrand extends InsecticideBrandBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -159,41 +168,73 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 
   public static String getTempTableSQL()
   {
-
-    String select = "SELECT insecticidebrand.id,\n";
-    select += "COALESCE(startdate,'1900-01-01'::date) startdate,\n";
-    select += "COALESCE(endDate,'2100-01-01'::date) enddate, \n";
-    select += "COALESCE((SELECT i.configurationDate FROM insecticidenozzle i WHERE insecticidenozzle.parent_id = i.parent_id \n";
-    select += "AND insecticidenozzle.child_id = i.child_id  AND insecticidenozzle.configurationDate < i.configurationDate ORDER BY i.configurationDate DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n"; 
-    select += "COALESCE((SELECT i.configurationDate FROM insecticidenozzle i WHERE insecticidenozzle.parent_id = i.parent_id \n";
-    select += "AND insecticidenozzle.child_id = i.child_id  AND insecticidenozzle.configurationDate > i.configurationDate  ORDER BY i.configurationDate ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n"; 
+    MdEntityDAOIF insectNozzleMd = MdEntityDAO.getMdEntityDAO(InsecticideNozzle.CLASS);
+    String insectNozzleTable = insectNozzleMd.getTableName();
+    String configDateCol = QueryUtil.getColumnName(insectNozzleMd, InsecticideNozzle.CONFIGURATIONDATE);
+    String enabledCol = QueryUtil.getColumnName(insectNozzleMd, InsecticideNozzle.ENABLED);
+    
+    MdEntityDAOIF enumMasterMD = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
+    String enumMasterTable = enumMasterMD.getTableName();
+    String enumNameCol = QueryUtil.getColumnName(enumMasterMD, EnumerationMaster.ENUMNAME);
+    String disLabelCol = QueryUtil.getColumnName(enumMasterMD, EnumerationMaster.DISPLAYLABEL);
+    
+    MdEntityDAOIF disLabelMd = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
+    String disLabelTable = disLabelMd.getTableName();
+    String defaultLocaleCol = QueryUtil.getColumnName(disLabelMd, MetadataDisplayLabel.DEFAULTLOCALE);
+    
+    MdEntityDAOIF insectBrandMd = MdEntityDAO.getMdEntityDAO(InsecticideBrand.CLASS);
+    String insectBrandTable = insectBrandMd.getTableName();
+    String sachetsPerRefillCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.SACHETSPERREFILL);
+    String weightCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.WEIGHT);
+    String amountCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.AMOUNT);
+    
+    MdEntityDAOIF nozzleMd = MdEntityDAO.getMdEntityDAO(Nozzle.CLASS);
+    String nozzleTable = nozzleMd.getTableName();
+    String ratioCol = QueryUtil.getColumnName(nozzleMd, Nozzle.RATIO);
+    String nozzleDisLabelCol = QueryUtil.getColumnName(nozzleMd, Nozzle.DISPLAYLABEL);
+    
+    MdEntityDAOIF areaStandardsMd = MdEntityDAO.getMdEntityDAO(AreaStandards.CLASS);
+    String areaStandardsTable = areaStandardsMd.getTableName();
+    String structureAreaCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.STRUCTUREAREA);
+    String roomCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.ROOM);
+    String householdCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.HOUSEHOLD);
+    String unitAreaNozzleCovCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.UNITNOZZLEAREACOVERAGE);
+    String targetUnitCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.TARGETUNIT);
+    
+    String select = "SELECT "+insectBrandTable+".id,\n";
+    select += "COALESCE(start_date,'1900-01-01'::date) start_date,\n";
+    select += "COALESCE(end_Date,'2100-01-01'::date) end_date, \n";
+    select += "COALESCE((SELECT i."+configDateCol+" FROM "+insectNozzleTable+" i WHERE "+insectNozzleTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = i."+RelationshipDAOIF.PARENT_ID_COLUMN+" \n";
+    select += "AND "+insectNozzleTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = i."+RelationshipDAOIF.CHILD_ID_COLUMN+"  AND "+insectNozzleTable+"."+configDateCol+" < i."+configDateCol+" ORDER BY i."+configDateCol+" DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n"; 
+    select += "COALESCE((SELECT i."+configDateCol+" FROM "+insectNozzleTable+" i WHERE "+insectNozzleTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = i."+RelationshipDAOIF.PARENT_ID_COLUMN+" \n";
+    select += "AND "+insectNozzleTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = i."+RelationshipDAOIF.CHILD_ID_COLUMN+"  AND "+insectNozzleTable+"."+configDateCol+" > i."+configDateCol+"  ORDER BY i."+configDateCol+" ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n"; 
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
     //select += "insecticidebrand.brandname,\n";
-    select += "weight*sachetsperrefill*ratio*(amount/100.0) AS active_ingredient_per_can,\n";
-    select += "nozzle.ratio AS nozzle_ratio,\n";
-    select += "nozzle.displaylabel AS nozzle_defaultLocale,\n";
-    select += "insecticidenozzle.enabled,\n";
-    select += "enumname spray_unit,\n";
-    select += "(SELECT defaultLocale FROM metadatadisplaylabel md WHERE enumeration_master.displaylabel = md.id) targetUnit_displayLabel,\n";
+    select += ""+weightCol+"*"+sachetsPerRefillCol+"*ratio*("+amountCol+"/100.0) AS active_ingredient_per_can,\n";
+    select += ""+nozzleTable+"."+ratioCol+" AS nozzle_ratio,\n";
+    select += ""+nozzleTable+"."+nozzleDisLabelCol+" AS nozzle_defaultLocale,\n";
+    select += ""+insectNozzleTable+"."+enabledCol+",\n";
+    select += ""+enumNameCol+" spray_unit,\n";
+    select += "(SELECT "+defaultLocaleCol+" FROM "+disLabelTable+" md WHERE "+enumMasterTable+"."+disLabelCol+" = md.id) targetUnit_displayLabel,\n";
     
-    select += "(CASE WHEN enumname = 'ROOM' THEN room  WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS unitarea,\n";
-    select += "unitnozzleareacoverage unitnozzleareacoverage,\n";
-    select += "((weight*sachetsperrefill*(amount/100.0)) / unitnozzleareacoverage )  AS standard_application_rate,\n";
-    select += "(1000.0 * (weight*sachetsperrefill*(amount/100.0)) / unitnozzleareacoverage ) AS standard_application_rate_mg,\n";
-    select += "ratio * unitnozzleareacoverage/(CASE WHEN enumname = 'ROOM' THEN room WHEN enumname = 'STRUCTURE' THEN structurearea WHEN enumname = 'HOUSEHOLD' THEN household END ) AS units_per_can,\n";
+    select += "(CASE WHEN "+enumNameCol+" = '"+TargetUnit.ROOM.name()+"' THEN "+roomCol+"  WHEN "+enumNameCol+" = '"+TargetUnit.STRUCTURE.name()+"' THEN "+structureAreaCol+" WHEN "+enumNameCol+" = '"+TargetUnit.HOUSEHOLD.name()+"' THEN "+householdCol+" END ) AS unitarea,\n";
+    select += ""+unitAreaNozzleCovCol+" "+unitAreaNozzleCovCol+",\n";
+    select += "(("+weightCol+"*"+sachetsPerRefillCol+"*("+amountCol+"/100.0)) / "+unitAreaNozzleCovCol+" )  AS standard_application_rate,\n";
+    select += "(1000.0 * ("+weightCol+"*"+sachetsPerRefillCol+"*("+amountCol+"/100.0)) / "+unitAreaNozzleCovCol+" ) AS standard_application_rate_mg,\n";
+    select += "ratio * "+unitAreaNozzleCovCol+"/(CASE WHEN "+enumNameCol+" = '"+TargetUnit.ROOM.name()+"' THEN "+roomCol+" WHEN "+enumNameCol+" = '"+TargetUnit.STRUCTURE.name()+"' THEN "+structureAreaCol+" WHEN "+enumNameCol+" = '"+TargetUnit.HOUSEHOLD.name()+"' THEN "+householdCol+" END ) AS units_per_can,\n";
     
     
     String from = "FROM ";
-    from += MdBusiness.getMdBusiness(AreaStandards.CLASS).getTableName() + " AS areastandards,\n";
-    from += MdBusiness.getMdBusiness(InsecticideBrand.CLASS).getTableName() + " AS insecticidebrand,\n";
-    from += MdBusiness.getMdBusiness(Nozzle.CLASS).getTableName() +  " AS nozzle,\n";
-    from += MdRelationship.getMdElement(InsecticideNozzle.CLASS).getTableName() + " AS insecticidenozzle\n,";
-    from += "enumeration_master enumeration_master,\n";
+    from += areaStandardsTable + " AS "+areaStandardsTable+",\n";
+    from += insectBrandTable + " AS "+insectBrandTable+",\n";
+    from += nozzleTable +  " AS "+nozzleTable+",\n";
+    from += insectNozzleTable + " AS "+insectNozzleTable+"\n,";
+    from += ""+enumMasterTable+" "+enumMasterTable+",\n";
 
     String where = "";
-    where += "AND insecticidenozzle.parent_id = insecticidebrand.id \n";
-    where += "AND insecticidenozzle.child_id = nozzle.id \n";
-    where += "AND enumeration_master.id = targetunit_c \n";
+    where += "AND "+insectNozzleTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+insectBrandTable+".id \n";
+    where += "AND "+insectNozzleTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+nozzleTable+".id \n";
+    where += "AND "+enumMasterTable+".id = "+targetUnitCol+"_c \n";
 
     select = select.substring(0, select.length() - 2);
     where = "WHERE " + where.substring(3, where.length() - 2);

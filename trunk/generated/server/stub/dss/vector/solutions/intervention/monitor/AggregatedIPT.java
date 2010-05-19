@@ -319,11 +319,7 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
     
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
-   
-    String sd = aggregatedIPTQuery.getStartDate().getDbQualifiedName();
-    String ed = aggregatedIPTQuery.getEndDate().getDbQualifiedName();
-
-    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, sd, ed);
+    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, aggregatedIPTQuery.getStartDate(), aggregatedIPTQuery.getEndDate());
 
   }
   
