@@ -48,7 +48,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       this._rootController.setUpdateListener(updateB);
       
       // add events to open the browser to set the default field terms
-      var defaultTerms = [defaultValue];
+      var defaultTerms = (defaultValue != null ? [defaultValue] : YAHOO.util.Selector.query('div.defaultFieldTerm span'));
       Mojo.Iter.forEach(defaultTerms, function(defaultTerm){
       
         var mdAttributeId = defaultTerm.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
