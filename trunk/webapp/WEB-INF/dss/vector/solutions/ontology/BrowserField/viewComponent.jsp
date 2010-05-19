@@ -51,6 +51,6 @@
 
 <script type="text/javascript">
 YAHOO.util.Event.onDOMReady(function() {
-  new MDSS.OntologyFields('<%=request.getAttribute("buttonId").toString()%>');
+  new MDSS.OntologyFields({id:'<%=request.getAttribute("buttonId").toString()%>'});
 }); 
 </script>

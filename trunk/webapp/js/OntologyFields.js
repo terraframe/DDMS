@@ -51,13 +51,13 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       var defaultTerms = (defaultValue != null ? [defaultValue] : YAHOO.util.Selector.query('div.defaultFieldTerm span'));
       Mojo.Iter.forEach(defaultTerms, function(defaultTerm){
       
-        var mdAttributeId = defaultTerm.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
+        var mdAttributeId = defaultTerm.id.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
         var browser = new MDSS.OntologyBrowser(false, mdAttributeId);
         
         browser.setHandler(this._setDefault, this);
       
         var obj = {browser: browser, mdAttributeId: mdAttributeId};
-        YAHOO.util.Event.on(defaultTerm, 'click', this._openDefaultBrowser, obj, this);
+        YAHOO.util.Event.on(defaultTerm.id, 'click', this._openDefaultBrowser, obj, this);
           
         // add event to open the browser for roots
         var dF = Mojo.Util.bind(this, this._displayFunction);
