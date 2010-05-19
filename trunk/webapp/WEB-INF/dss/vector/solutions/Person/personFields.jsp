@@ -78,9 +78,9 @@
               </mjl:messages>
             </dd>
             <mjl:dt attribute="disease">
-              <mjl:select param="disease" items="${allDiseases}" var="current" valueAttribute="enumName" id="disease">
-                <mjl:option selected="${mjl:contains(item.diseaseEnumNames, current.enumName) ? 'selected' :  'false'}" id="disease.${current.enumName}">
-                  ${item.diseaseMd.enumItems[current.enumName]}
+              <mjl:select param="disease" items="${allDiseases}" var="current" valueAttribute="id" id="disease">
+                <mjl:option selected="${(current==item.disease) ? 'selected' :  'false'}" id="disease.${current}">
+                  ${current}
                 </mjl:option>
               </mjl:select>
             </mjl:dt>

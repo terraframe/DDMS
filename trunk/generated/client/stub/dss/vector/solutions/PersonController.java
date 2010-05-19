@@ -1,6 +1,7 @@
 package dss.vector.solutions;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -136,7 +137,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
-    req.setAttribute("allDiseases", DiseaseDTO.getAllDiseases(getClientRequest()));
+    req.setAttribute("allDiseases", Arrays.asList(DiseaseDTO.getAllDiseases(getClientRequest())));
   }
 
   public void edit(String id) throws IOException, ServletException
