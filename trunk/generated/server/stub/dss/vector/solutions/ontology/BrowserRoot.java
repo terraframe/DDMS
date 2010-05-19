@@ -11,268 +11,320 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.geo.GeoHierarchy;
 
-public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.generation.loader.Reloadable {
-	public static final String ROOT_PREFIX = "Root__";
-	private static final long serialVersionUID = 1252959715750L;
+public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.generation.loader.Reloadable
+{
+  public static final String ROOT_PREFIX      = "Root__";
 
-	public BrowserRoot() {
-		super();
-	}
+  private static final long  serialVersionUID = 1252959715750L;
 
-	@Override
-	public String toString() {
-		if (this.isNew()) {
-			return "New: " + this.getClassDisplayLabel();
-		} else if (this.getTerm() != null) {
-			return this.getTerm().getTermDisplayLabel().getValue();
-		}
+  public BrowserRoot()
+  {
+    super();
+  }
 
-		return super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if (this.getTerm() != null)
+    {
+      return this.getTerm().getTermDisplayLabel().getValue();
+    }
 
-	@Override
-	protected String buildKey() {
-		Term term = this.getTerm();
-		if (term == null) {
-			return ""; // object not properly constructed.
-		}
+    return super.toString();
+  }
 
-		return ROOT_PREFIX + term.getKeyName();
-	}
+  @Override
+  protected String buildKey()
+  {
+    Term term = this.getTerm();
+    if (term == null)
+    {
+      return ""; // object not properly constructed.
+    }
 
-	public static BrowserRootViewQuery getAsViews() {
-		QueryFactory f = new QueryFactory();
-		BrowserRootViewQuery q = new BrowserRootViewQuery(f);
-		return q;
-	}
+    return ROOT_PREFIX + term.getKeyName();
+  }
 
-	@Override
-	public BrowserRootView update(BrowserRoot browserRoot) {
-		this.setTerm(browserRoot.getTerm());
-		this.setSelectable(browserRoot.getSelectable());
+  public static BrowserRootViewQuery getAsViews()
+  {
+    QueryFactory f = new QueryFactory();
+    BrowserRootViewQuery q = new BrowserRootViewQuery(f);
+    return q;
+  }
 
-		OIterator<? extends BrowserField> fields = this.getAllfield();
-		while (fields.hasNext()) {
-			fields.next().validateRoot(this);
-		}
+  @Override
+  public BrowserRootView update(BrowserRoot browserRoot)
+  {
+    this.setTerm(browserRoot.getTerm());
+    this.setSelectable(browserRoot.getSelectable());
 
-		this.apply();
+    OIterator<? extends BrowserField> fields = this.getAllfield();
+    while (fields.hasNext())
+    {
+      fields.next().validateRoot(this);
+    }
 
-		return this.toView();
-	}
+    this.apply();
 
-	/**
-	 * Fetches the default root, which is the Term without a parent. The query
-	 * WILL NOT include terms that are marked as obsolete.
-	 * 
-	 * @return
-	 */
-	public static BrowserRootView[] getDefaultRoot() {
-		TermViewQuery query = Term.getDefaultRoots(true);
+    return this.toView();
+  }
 
-		OIterator<? extends TermView> iter = query.getIterator();
+  /**
+   * Fetches the default root, which is the Term without a parent. The query
+   * WILL NOT include terms that are marked as obsolete.
+   * 
+   * @return
+   */
+  public static BrowserRootView[] getDefaultRoot()
+  {
+    TermViewQuery query = Term.getDefaultRoots(true);
 
-		List<BrowserRootView> views = new LinkedList<BrowserRootView>();
+    OIterator<? extends TermView> iter = query.getIterator();
 
-		try {
-			while (iter.hasNext()) {
-				views.add(toView(iter.next()));
-			}
-		} finally {
-			iter.close();
-		}
+    List<BrowserRootView> views = new LinkedList<BrowserRootView>();
 
-		return views.toArray(new BrowserRootView[views.size()]);
-	}
-	
-	public static BrowserRootView[] getMenuItemRoot()
-	{
-	  Disease disease = Disease.getCurrent();
-	  
-	  TermViewQuery q = Term.getByIds(new String[] { disease.getMenuRoot().getId()});
-	  OIterator<? extends TermView> iter = q.getIterator();
-	  
-    try {
-      BrowserRootView view = toView(iter.next());
-      return new BrowserRootView[] { view };
-    } finally {
+    try
+    {
+      while (iter.hasNext())
+      {
+        views.add(toView(iter.next()));
+      }
+    }
+    finally
+    {
       iter.close();
     }
-	}
 
-	public static BrowserRootView[] getDefaultGeoRoots(String universalType) {
-		GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
-		String termId = geoH.getValue(GeoHierarchy.TERM);
-		if (termId != null && termId.length() > 0) {
-			TermViewQuery q = Term.getByIds(new String[] { termId });
-			OIterator<? extends TermView> iter = q.getIterator();
-			try {
-				BrowserRootView view = toView(iter.next());
-				return new BrowserRootView[] { view };
-			} finally {
-				iter.close();
-			}
-		} else {
-			return new BrowserRootView[0];
-		}
-	}
+    return views.toArray(new BrowserRootView[views.size()]);
+  }
 
-	public static BrowserRootQuery getAttributeRoots(String className, String attribute, QueryFactory factory) {
-		BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
-		BrowserFieldQuery fieldQuery;
+  public static BrowserRootView[] getMenuItemRoot()
+  {
+    Disease disease = Disease.getCurrent();
 
-		// Default search: everything included
-		if (className == null && attribute == null) {
-			fieldQuery = new BrowserFieldQuery(factory);
-		}
+    TermViewQuery q = Term.getByIds(new String[] { disease.getMenuRoot().getId() });
+    OIterator<? extends TermView> iter = q.getIterator();
 
-		// Geo subtype searching
-		if (attribute == null || attribute.length() == 0) {
-			fieldQuery = new BrowserFieldQuery(factory);
-			BrowserRootView[] views = getDefaultGeoRoots(className);
+    try
+    {
+      BrowserRootView view = toView(iter.next());
+      return new BrowserRootView[] { view };
+    }
+    finally
+    {
+      iter.close();
+    }
+  }
 
-			if (views.length == 1) {
-				rootQuery.WHERE(rootQuery.getTerm().EQ(views[0].getTermId()));
-			} else {
-				rootQuery.WHERE(rootQuery.getTerm().EQ(""));
-			}
-		}
-		// restricted by MdAttributeId
-		else if (className == null || className.length() == 0) {
-			fieldQuery = new BrowserFieldQuery(factory);
+  public static BrowserRootView[] getDefaultGeoRoots(String universalType)
+  {
+    GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universalType);
+    String termId = geoH.getValue(GeoHierarchy.TERM);
+    if (termId != null && termId.length() > 0)
+    {
+      TermViewQuery q = Term.getByIds(new String[] { termId });
+      OIterator<? extends TermView> iter = q.getIterator();
+      try
+      {
+        BrowserRootView view = toView(iter.next());
+        return new BrowserRootView[] { view };
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+    else
+    {
+      return new BrowserRootView[0];
+    }
+  }
 
-			fieldQuery.WHERE(fieldQuery.getMdAttribute().EQ(attribute));
-		}
-		// restricted by list of parents term ids
-		else {
-			fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
-		}
+  public static BrowserRootQuery getAttributeRoots(String className, String attribute, QueryFactory factory)
+  {
+    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
+    BrowserFieldQuery fieldQuery;
 
-		rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
-//		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
-		rootQuery.AND(rootQuery.field(fieldQuery));
+    // Default search: everything included
+    if (className == null && attribute == null)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+    }
 
-		return rootQuery;
-	}
+    // Geo subtype searching
+    if (attribute == null || attribute.length() == 0)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+      BrowserRootView[] views = getDefaultGeoRoots(className);
 
-	/**
-	 * Gets all roots for the given class name and attribute name. Because
-	 * overloading isn't supported with MdMethods, this method can also take an
-	 * empty string as the class name which means the attribute param is the id
-	 * of an MdAttribute.
-	 * 
-	 * @param className
-	 * @param attributeName
-	 * @return
-	 */
-	public static BrowserRootView[] getAttributeRoots(String className, String attribute) {
-		List<BrowserRootView> views = new LinkedList<BrowserRootView>();
+      if (views.length == 1)
+      {
+        rootQuery.WHERE(rootQuery.getTerm().EQ(views[0].getTermId()));
+      }
+      else
+      {
+        rootQuery.WHERE(rootQuery.getTerm().EQ(""));
+      }
+    }
+    // restricted by MdAttributeId
+    else if (className == null || className.length() == 0)
+    {
+      fieldQuery = new BrowserFieldQuery(factory);
+
+      fieldQuery.WHERE(fieldQuery.getMdAttribute().EQ(attribute));
+    }
+    // restricted by list of parents term ids
+    else
+    {
+      fieldQuery = BrowserField.getFieldForAttribute(className, attribute, factory);
+    }
+
+    rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+    // rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
+    rootQuery.AND(rootQuery.field(fieldQuery));
+
+    return rootQuery;
+  }
+
+  /**
+   * Gets all roots for the given class name and attribute name. Because
+   * overloading isn't supported with MdMethods, this method can also take an
+   * empty string as the class name which means the attribute param is the id of
+   * an MdAttribute.
+   * 
+   * @param className
+   * @param attributeName
+   * @return
+   */
+  public static BrowserRootView[] getAttributeRoots(String className, String attribute)
+  {
+    List<BrowserRootView> views = new LinkedList<BrowserRootView>();
 
     // MenuItem searching
-    if(className.equals(MenuItem.CLASS) && attribute.equals(MenuItem.TERM))
+    if (className.equals(MenuItem.CLASS) && attribute.equals(MenuItem.TERM))
     {
       return getMenuItemRoot();
     }
-		
-		BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
-		
-		OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
 
-		try {
-			while (iter.hasNext()) {
-				BrowserRoot root = iter.next();
-				views.add(root.toView());
-			}
-		} finally {
-			iter.close();
-		}
-		// Ticket #848: Return a roots children if only one root
-		// exists that is not selectable.
-		if (views.size() == 1 && !views.get(0).getSelectable()) {
-			TermViewQuery query = Term.getOntologyChildren(views.get(0).getTermId(), true);
+    BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
 
-			views = new LinkedList<BrowserRootView>();
-			OIterator<? extends TermView> iter2 = query.getIterator();
-			try {
-				while (iter2.hasNext()) {
-					views.add(toView(iter2.next()));
-				}
-			} finally {
-				iter2.close();
-			}
-		}
+    OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
 
-		return views.toArray(new BrowserRootView[views.size()]);
-	}
+    try
+    {
+      while (iter.hasNext())
+      {
+        BrowserRoot root = iter.next();
+        views.add(root.toView());
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    // Ticket #848: Return a roots children if only one root
+    // exists that is not selectable.
+    if (views.size() == 1 && !views.get(0).getSelectable())
+    {
+      TermViewQuery query = Term.getOntologyChildren(views.get(0).getTermId(), true);
 
-	private static BrowserRootView toView(TermView termView) {
-		BrowserRootView view = new BrowserRootView();
-		view.setTermId(termView.getTermId());
-		view.setTermName(termView.getTermName()); // The view's term name is the
-													// display
-		view.setSelectable(termView.getSelectable());
-		view.setTermOntologyId(termView.getTermOntologyId());
+      views = new LinkedList<BrowserRootView>();
+      OIterator<? extends TermView> iter2 = query.getIterator();
+      try
+      {
+        while (iter2.hasNext())
+        {
+          views.add(toView(iter2.next()));
+        }
+      }
+      finally
+      {
+        iter2.close();
+      }
+    }
 
-		return view;
-	}
+    return views.toArray(new BrowserRootView[views.size()]);
+  }
 
-	/**
-	 * Converts this BrowserRoot object into a BrowserRootView.
-	 * 
-	 * @return
-	 */
-	@AbortIfProblem
-	public BrowserRootView toView() {
-		Term term = this.getTerm();
+  private static BrowserRootView toView(TermView termView)
+  {
+    BrowserRootView view = new BrowserRootView();
+    view.setTermId(termView.getTermId());
+    view.setTermName(termView.getTermName());
+    // The view's term name is the display
+    view.setSelectable(termView.getSelectable());
+    view.setTermOntologyId(termView.getTermOntologyId());
 
-		BrowserRootView view = new BrowserRootView();
-		view.setTermId(term.getId());
-		// view.setTermName(term.getName());
-		view.setTermName(term.getTermDisplayLabel().getValue());
-		view.setSelectable(this.getSelectable());
-		view.setBrowserRootId(this.getId());
-		view.setTermOntologyId(term.getTermId());
+    return view;
+  }
 
-		return view;
-	}
+  /**
+   * Converts this BrowserRoot object into a BrowserRootView.
+   * 
+   * @return
+   */
+  @AbortIfProblem
+  public BrowserRootView toView()
+  {
+    Term term = this.getTerm();
 
-	public static Boolean hasBrowserRoot(String className, String attributeName) {
-		if (className == null || attributeName == null) {
-			return false;
-		}
+    BrowserRootView view = new BrowserRootView();
+    view.setTermId(term.getId());
+    // view.setTermName(term.getName());
+    view.setTermName(term.getTermDisplayLabel().getValue());
+    view.setSelectable(this.getSelectable());
+    view.setBrowserRootId(this.getId());
+    view.setTermOntologyId(term.getTermId());
 
-		// MenuItems always have roots as given by DiseaseMaster.getMenuTerm()
-		if(className.equals(MenuItem.CLASS) && attributeName.equals(MenuItem.TERM))
-		{
-		  return true;
-		}
-		
-		QueryFactory factory = new QueryFactory();
+    return view;
+  }
 
-		BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
+  public static Boolean hasBrowserRoot(String className, String attributeName)
+  {
+    if (className == null || attributeName == null)
+    {
+      return false;
+    }
 
-		BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
-		
-		rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
-//		rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
-		rootQuery.AND(rootQuery.field(fieldQuery));
+    // MenuItems always have roots as given by DiseaseMaster.getMenuTerm()
+    if (className.equals(MenuItem.CLASS) && attributeName.equals(MenuItem.TERM))
+    {
+      return true;
+    }
 
-		return (rootQuery.getCount() > 0);
-	}
+    QueryFactory factory = new QueryFactory();
 
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof BrowserRoot)) {
-			return false;
-		}
+    BrowserFieldQuery fieldQuery = BrowserField.getFieldForAttribute(className, attributeName, factory);
 
-		BrowserRoot other = (BrowserRoot) obj;
-		Term otherTerm = other.getTerm();
-		Term thisTerm = this.getTerm();
-		if (otherTerm == null || thisTerm == null) {
-			return false;
-		}
+    BrowserRootQuery rootQuery = new BrowserRootQuery(factory);
 
-		return otherTerm.getTermId().equals(thisTerm.getTermId());
-	}
+    rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
+    // rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
+    rootQuery.AND(rootQuery.field(fieldQuery));
+
+    return ( rootQuery.getCount() > 0 );
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (! ( obj instanceof BrowserRoot ))
+    {
+      return false;
+    }
+
+    BrowserRoot other = (BrowserRoot) obj;
+    Term otherTerm = other.getTerm();
+    Term thisTerm = this.getTerm();
+    if (otherTerm == null || thisTerm == null)
+    {
+      return false;
+    }
+
+    return otherTerm.getTermId().equals(thisTerm.getTermId());
+  }
 }

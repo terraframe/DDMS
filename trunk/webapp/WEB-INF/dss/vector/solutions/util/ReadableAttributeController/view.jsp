@@ -1,6 +1,13 @@
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.ontology.BrowserFieldController"%>
+<%@page import="dss.vector.solutions.ontology.FieldDefaultViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootController"%><c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
 
 <mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST">
   <mjl:input type="hidden" param="universal" value="${universal}" />
@@ -29,9 +36,79 @@
                 <mjl:message/>
               </mjl:messages>
             </td>
+            <td>
+              <c:if test="${view.fieldId != ''}">
+                <button type="button" id="${view.fieldId}" class="root.button"> <fmt:message key="Roots"/> </button>         
+              </c:if>
+            </td>
           </tr>
         </mjl:components>
       </table>
 
   <mjl:command value="save" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
 </mjl:form>
+
+<%=Halp.loadTypes(new String[]{BrowserFieldController.CLASS, BrowserRootController.CLASS, BrowserFieldDTO.CLASS, FieldDefaultViewDTO.CLASS}) %>
+
+<script type="text/javascript">
+Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
+  Instance: {
+    initialize : function() {
+      this._buttons = YAHOO.util.Dom.getElementsByClassName("root.button");      
+
+      for each (el in this._buttons) {
+        YAHOO.util.Event.on(el, 'click', this.clickHandler, this, this);
+      }
+
+      this._modal = new YAHOO.widget.Panel("modal",  {
+        width:"100%",
+        height: "100%",
+        fixedcenter:true,
+        close:true,
+        draggable:false,
+        zindex:4,
+        modal:true,
+        visible:false
+      });
+
+      // hide all panels spawned by the search modal
+      this._modal.subscribe('beforeHide', this._beforeHide, this, this);
+    },    
+
+    clickHandler : function(e) {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess: function(innerHTML) {
+          var executable = MDSS.util.extractScripts(innerHTML);
+          var html = MDSS.util.removeScripts(innerHTML);
+
+          this.that._openModal(html);
+
+          eval(executable);          
+        }
+      });
+            
+      var id = e.originalTarget.id;
+        
+      Mojo.$.dss.vector.solutions.ontology.BrowserFieldController.view(request, id);        
+    },
+
+    _beforeHide : function() {
+      this._modal.setBody('');
+    },
+
+    _openModal : function(html)
+    {
+      this._modal.setBody(html);
+      this._modal.render(document.body);
+      this._modal.show();
+    },    
+  }
+});
+
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    new MDSS.ReadableAttributeForm();
+  });
+})();
+</script> 

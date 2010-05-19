@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -673592663)
+@com.runwaysdk.business.ClassSignature(hash = -232861837)
 public abstract class BrowserFieldViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserFieldView";
-  private static final long serialVersionUID = -673592663;
+  private static final long serialVersionUID = -232861837;
   
   protected BrowserFieldViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -250,6 +250,22 @@ public abstract class BrowserFieldViewDTOBase extends com.runwaysdk.business.Vie
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdClassLabelMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDCLASSLABEL).getAttributeMdDTO();
+  }
+  
+  public final dss.vector.solutions.ontology.BrowserRootViewDTO[] getRoots()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserFieldViewDTO.CLASS, "getRoots", _declaredTypes);
+    return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.BrowserRootViewDTO[] getRoots(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.BrowserFieldViewDTO.CLASS, "getRoots", _declaredTypes);
+    return (dss.vector.solutions.ontology.BrowserRootViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static BrowserFieldViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

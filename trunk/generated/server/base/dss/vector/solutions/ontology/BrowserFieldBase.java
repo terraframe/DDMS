@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 88901609)
+@com.runwaysdk.business.ClassSignature(hash = 704849215)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class BrowserFieldBase extends com.runwaysdk.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 88901609;
+  private static final long serialVersionUID = 704849215;
   
   public BrowserFieldBase()
   {
@@ -395,6 +395,18 @@ public abstract class BrowserFieldBase extends com.runwaysdk.business.Business i
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.BrowserField.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.ontology.BrowserFieldView getView()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.BrowserField.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.ontology.BrowserFieldView getView(java.lang.String id)
+  {
+    BrowserField _instance = BrowserField.get(id);
+    return _instance.getView();
   }
   
   public static BrowserField lock(java.lang.String id)

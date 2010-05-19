@@ -14,7 +14,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
   
   Instance : {
  
-    initialize : function()
+    initialize : function(defaultValue)
     {
       // listen for all click events on main div.
       YAHOO.util.Event.on(this.constructor.DIV_ID, 'click', this._handleClick, null, this);
@@ -48,10 +48,10 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       this._rootController.setUpdateListener(updateB);
       
       // add events to open the browser to set the default field terms
-      var defaultTerms = YAHOO.util.Selector.query('div.defaultFieldTerm span');;
+      var defaultTerms = [defaultValue];
       Mojo.Iter.forEach(defaultTerms, function(defaultTerm){
       
-        var mdAttributeId = defaultTerm.id.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
+        var mdAttributeId = defaultTerm.replace(this.constructor.DEFAULT_TERM_BUTTON_SUFFIX, '');
         var browser = new MDSS.OntologyBrowser(false, mdAttributeId);
         
         browser.setHandler(this._setDefault, this);

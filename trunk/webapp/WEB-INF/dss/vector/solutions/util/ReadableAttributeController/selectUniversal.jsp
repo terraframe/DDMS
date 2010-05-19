@@ -107,6 +107,41 @@
         <f:message key="Molecular_Assay"/>
       </mjl:commandLink>    
     </dd>
+    <dd>
+      <mjl:commandLink
+        name="DiagnosticAssayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.DiagnosticAssayView">
+        <f:message key="Diagnostic_Dose_Assay"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="TimeResponseAssayView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.TimeResponseAssayView">
+        <f:message key="Time_Response_Assay"/>
+      </mjl:commandLink>    
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="ImmatureCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.ImmatureCollectionView">
+        <f:message key="Immatures_by_Container_Type"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="PupalCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalCollectionView">
+        <f:message key="Pupal_by_individual_container"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="PupalContainerView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalContainerView">
+        <f:message key="Pupae_by_Individual_Container"/>
+      </mjl:commandLink>    
+    </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Adult_Diagnostic_Assay_Management"/></label></dt>
@@ -333,6 +368,47 @@
     </dd>
     
   </dl>
+  
+  <dl>
+    <dt><label><f:message key="Control_intervention"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="ControlInterventionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ControlInterventionView">
+        <f:message key="Control_intervention"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="IndividualPremiseVisitView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView">
+        <f:message key="Individual_premises_Visit"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="AggregatedPremiseVisitView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView">
+        <f:message key="Aggregated_Premises_Visit"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="PersonInterventionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.PersonInterventionView">
+        <f:message key="Person_Days_Used_for_Intervention"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="InsecticideInterventionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.InsecticideInterventionView">
+        <f:message key="Insecticide_Use_For_Intervention"/>
+      </mjl:commandLink>    
+    </dd>
+  </dl>
+  
+  
   <dl>
     <dt><label><f:message key="ITN_Data_Distribution"/></label></dt>
     <dd>

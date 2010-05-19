@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1736233509)
+@com.runwaysdk.business.ClassSignature(hash = 1451605018)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.util;
 public  abstract  class ReadableAttributeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1736233509;
+private static final long serialVersionUID = 1451605018;
 
   public ReadableAttributeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -95,6 +95,24 @@ private static final long serialVersionUID = -1736233509;
   public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.DISPLAYLABEL, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFieldId()
+  {
+    return getFieldId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFieldId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.FIELDID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFieldId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.FIELDID, alias, displayLabel);
 
   }
  

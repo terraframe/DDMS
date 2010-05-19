@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 991845618)
+@com.runwaysdk.business.ClassSignature(hash = 760753521)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,10 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
   public static java.lang.String ATTRIBUTENAME = "attributeName";
   public static java.lang.String ATTRIBUTEREQUIRED = "attributeRequired";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
+  public static java.lang.String FIELDID = "fieldId";
   public static java.lang.String ID = "id";
   public static java.lang.String READPERMISSION = "readPermission";
-  private static final long serialVersionUID = 991845618;
+  private static final long serialVersionUID = 760753521;
   
   public ReadableAttributeViewBase()
   {
@@ -133,6 +134,34 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     else
     {
       setValue(DISPLAYLABEL, value);
+    }
+  }
+  
+  public String getFieldId()
+  {
+    return getValue(FIELDID);
+  }
+  
+  public void validateFieldId()
+  {
+    this.validateAttribute(FIELDID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFieldIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
+    return mdClassIF.definesAttribute(FIELDID);
+  }
+  
+  public void setFieldId(String value)
+  {
+    if(value == null)
+    {
+      setValue(FIELDID, "");
+    }
+    else
+    {
+      setValue(FIELDID, value);
     }
   }
   

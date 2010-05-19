@@ -149,6 +149,11 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
     return builder.toString();
   }
+  
+  public static String loadTypes(String[] types)
+  {
+    return Halp.loadTypes(Arrays.asList(types));
+  }
 
   private static String generateDropDownMap(LabeledDTO[] terms) throws JSONException
   {

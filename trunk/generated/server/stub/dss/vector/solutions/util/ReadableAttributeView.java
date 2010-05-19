@@ -27,6 +27,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.InstallProperties;
+import dss.vector.solutions.ontology.BrowserField;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -103,14 +104,19 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     String attrName = mdAttribute.definesAttribute();
     String display = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
     String desc = mdAttribute.getDescription(Session.getCurrentLocale());
+    BrowserField field = BrowserField.getBrowserField(mdAttribute);
     
     ReadableAttributeView view = new ReadableAttributeView();
     view.setAttributeName(attrName);
     view.setDisplayLabel(display);
     view.setAttributeRequired(mdAttribute.isRequired());
     view.setAttributeDescription(desc);
-
     view.setReadPermission(readable);
+    
+    if(field != null)
+    {
+      view.setFieldId(field.getId());      
+    }
     
     return view;
   }

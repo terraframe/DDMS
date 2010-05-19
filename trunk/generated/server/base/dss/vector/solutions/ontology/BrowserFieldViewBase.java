@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -386630615)
+@com.runwaysdk.business.ClassSignature(hash = 2141785587)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
   public static java.lang.String MDATTRIBUTELABEL = "mdAttributeLabel";
   public static java.lang.String MDCLASSID = "mdClassId";
   public static java.lang.String MDCLASSLABEL = "mdClassLabel";
-  private static final long serialVersionUID = -386630615;
+  private static final long serialVersionUID = 2141785587;
   
   public BrowserFieldViewBase()
   {
@@ -224,6 +224,18 @@ public abstract class BrowserFieldViewBase extends com.runwaysdk.business.View i
   public static BrowserFieldView get(String id)
   {
     return (BrowserFieldView) com.runwaysdk.business.View.get(id);
+  }
+  
+  public dss.vector.solutions.ontology.BrowserRootView[] getRoots()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.BrowserFieldView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.ontology.BrowserRootView[] getRoots(java.lang.String id)
+  {
+    BrowserFieldView _instance = BrowserFieldView.get(id);
+    return _instance.getRoots();
   }
   
   public String toString()

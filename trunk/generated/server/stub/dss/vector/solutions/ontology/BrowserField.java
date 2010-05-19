@@ -3,11 +3,12 @@ package dss.vector.solutions.ontology;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
@@ -15,8 +16,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
-
-import dss.vector.solutions.OverlappingTermRootException;
 
 public class BrowserField extends BrowserFieldBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -35,8 +34,6 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
     MdAttribute mdAttr = this.getMdAttribute();
     return KEY_PREFIX + mdAttr.getKeyName();
   }
-  
-  
 
   public static BrowserFieldQuery getFieldForAttribute(String className, String attribute, QueryFactory factory)
   {
@@ -113,7 +110,7 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
         if (view.getMdAttributeLabel().length() == 0)
         {
           MdAttributeVirtual mdAttr = (MdAttributeVirtual) MdAttribute.get(view.getMdAttributeId());
-         
+
           String display = mdAttr.getMdAttributeConcrete().getDisplayLabel().getValue(Session.getCurrentLocale());
 
           view.setMdAttributeLabel(display);
@@ -145,15 +142,17 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
     return root.toView();
   }
 
-  public void validateRoot(BrowserRoot root) {
-	OIterator<? extends BrowserRoot> roots = this.getAllroot();
+  public void validateRoot(BrowserRoot root)
+  {
+    OIterator<? extends BrowserRoot> roots = this.getAllroot();
     try
     {
       while (roots.hasNext())
       {
-    	  BrowserRoot existingRoot = roots.next();
-    	  // Don't compare the root to itself, which BrowserRoot.equals() does not account for
-        if(!existingRoot.getId().equals(root.getId()) && existingRoot.equals(root))
+        BrowserRoot existingRoot = roots.next();
+        // Don't compare the root to itself, which BrowserRoot.equals() does not
+        // account for
+        if (!existingRoot.getId().equals(root.getId()) && existingRoot.equals(root))
         {
           String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
 
@@ -166,26 +165,90 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
           throw ex;
         }
         /*
-        AllPathsQuery q = new AllPathsQuery(new QueryFactory());
-        Condition parent = AND.get(q.getParentTerm().EQ(root.getTerm()), q.getChildTerm().EQ(existingRoot.getTerm()));
-        Condition child = AND.get(q.getParentTerm().EQ(existingRoot.getTerm()), q.getChildTerm().EQ(root.getTerm()));
-        q.WHERE(OR.get(parent,child));
-        if (q.getCount() > 0) {
-            String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
-
-            String msg = "The root overlaps with the existing root[" + existingRoot.getTerm().getName() + "].";
-            OverlappingTermRootException ex = new OverlappingTermRootException(msg);
-            ex.setBrowserField(display);
-            ex.setBrowserRoot(existingRoot.getTerm().getName());
-
-            throw ex;
-        }
-        */
+         * AllPathsQuery q = new AllPathsQuery(new QueryFactory()); Condition
+         * parent = AND.get(q.getParentTerm().EQ(root.getTerm()),
+         * q.getChildTerm().EQ(existingRoot.getTerm())); Condition child =
+         * AND.get(q.getParentTerm().EQ(existingRoot.getTerm()),
+         * q.getChildTerm().EQ(root.getTerm())); q.WHERE(OR.get(parent,child));
+         * if (q.getCount() > 0) { String display =
+         * this.getMdAttribute().getDisplayLabel
+         * ().getValue(Session.getCurrentLocale());
+         * 
+         * String msg = "The root overlaps with the existing root[" +
+         * existingRoot.getTerm().getName() + "]."; OverlappingTermRootException
+         * ex = new OverlappingTermRootException(msg);
+         * ex.setBrowserField(display);
+         * ex.setBrowserRoot(existingRoot.getTerm().getName());
+         * 
+         * throw ex; }
+         */
       }
     }
     finally
     {
       roots.close();
     }
+  }
+
+  public static BrowserField getBrowserField(MdAttributeDAOIF mdAttribute)
+  {
+    BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
+    query.WHERE(query.getMdAttribute().EQ(mdAttribute));
+    OIterator<? extends BrowserField> it = query.getIterator();
+    
+    try
+    {
+      if(it.hasNext())
+      {
+        return it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return null;
+  }
+  
+  public BrowserRootView[] getRoots()
+  {
+    List<BrowserRootView> list = new LinkedList<BrowserRootView>();
+    
+    BrowserRootViewQuery query = BrowserRootViewQuery.getRootsFromField(this);
+    OIterator<? extends BrowserRootView> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list.toArray(new BrowserRootView[list.size()]);
+  }
+  
+  @Override
+  public BrowserFieldView getView()
+  {
+    MdAttributeDAOIF _mdAttribute = (MdAttributeDAOIF) MdAttributeDAO.get(this.getMdAttribute().getId());
+    MdClassDAOIF _mdClass = _mdAttribute.definedByClass();
+    String _defaultValue = _mdAttribute.getDefaultValue();
+        
+    BrowserFieldView view = new BrowserFieldView();
+    view.setBrowserFieldId(this.getId());
+    view.setMdClassId(_mdClass.getId());
+    view.setMdClassLabel(_mdClass.getDisplayLabel(Session.getCurrentLocale()));
+    view.setMdAttributeId(_mdAttribute.getId());
+    view.setMdAttributeLabel(_mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+    
+    if(_defaultValue != null && _defaultValue.length() > 0)
+    {
+      view.setDefaultValue(Term.get(_defaultValue));
+    }
+    
+    return view;
   }
 }
