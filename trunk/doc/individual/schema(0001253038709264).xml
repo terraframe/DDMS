@@ -1,4 +1,6 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
 
@@ -10,7 +12,7 @@
             name="termId"
             size="64"
             label="Term Id"
-            required="true"/>
+            required="true" />
           <virtual
             name="termName"
             required="true"
@@ -27,7 +29,7 @@
             name="mdAttribute"
             label="MdAttribute"
             type="com.runwaysdk.system.metadata.MdAttribute"
-            required="true"/>
+            required="true" />
         </attributes>
         <mdMethod
           name="getAsViews"
@@ -52,7 +54,7 @@
 
       <mdView
         name="dss.vector.solutions.ontology.BrowserFieldView"
-        label="BrowserFieldView" >
+        label="BrowserFieldView">
         <attributes>
           <char
             name="browserFieldId"
@@ -70,7 +72,7 @@
             description="The display label of the MdAttribute"
             size="255"
             required="true" />
-         <char
+          <char
             name="mdClassId"
             label="MdClass Id"
             size="64"
@@ -90,6 +92,13 @@
         label="Ontology Root">
         <attributes>
           <reference
+            name="disease"
+            label="Disease"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.general.Disease"
+            indexType="non-unique index" />
+          <reference
             name="term"
             label="Term"
             description="The ontology term this root references."
@@ -101,7 +110,7 @@
             defaultValue="true"
             label="Selectable"
             positiveLabel="True"
-            negativeLabel="False"/>
+            negativeLabel="False" />
         </attributes>
         <mdMethod
           name="getDefaultRoot"
@@ -164,8 +173,14 @@
 
       <mdRelationship
         name="dss.vector.solutions.ontology.FieldRoot">
-        <parent cardinality="1" name="dss.vector.solutions.ontology.BrowserField" method="field" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.BrowserRoot" method="root"/>
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.ontology.BrowserField"
+          method="field" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.ontology.BrowserRoot"
+          method="root" />
       </mdRelationship>
 
       <object
@@ -173,7 +188,7 @@
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.entomology.assay.LarvaeAssay.startPoint"/>
+          key="dss.vector.solutions.entomology.assay.LarvaeAssay.startPoint" />
       </object>
 
       <object
@@ -181,7 +196,7 @@
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
           name="mdAttribute"
-          key="dss.vector.solutions.entomology.assay.LarvaeAssay.endPoint"/>
+          key="dss.vector.solutions.entomology.assay.LarvaeAssay.endPoint" />
       </object>
 
     </create>

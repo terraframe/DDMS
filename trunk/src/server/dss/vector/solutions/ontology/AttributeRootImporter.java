@@ -28,6 +28,8 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdAttribute;
 
+import dss.vector.solutions.general.Disease;
+
 /**
  * Reads in an excel file that maps Mo Attriutes to term roots. Note that if you
  * run this from a development environment but want results to appear in a
@@ -141,6 +143,8 @@ public class AttributeRootImporter implements Reloadable
     List<? extends BrowserRoot> allRoots = browserField.getAllroot().getAll();
 
     int i = 4;
+    
+    Disease[] diseases = Disease.getAllDiseases();
 
     // Iterate over all remaining columns. Each should have a Mo Term ID
     while (row.getCell(i) != null && row.getCell(i+1) != null)
@@ -148,20 +152,25 @@ public class AttributeRootImporter implements Reloadable
       String termId = ExcelUtil.getString(row.getCell(i++));
       Term term = Term.getByTermId(termId);
       Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
-      
-      BrowserRoot browserRoot = new BrowserRoot();
-      browserRoot.setTerm(term);
-      int index = allRoots.indexOf(browserRoot);
-      if (index!=-1)
+
+      for(Disease disease : diseases)
       {
-        browserRoot = allRoots.get(index);
-        browserRoot.setSelectable(selectable);
-        browserRoot.apply();
-      }
-      else
-      {
-        browserRoot.setSelectable(selectable);
-        browserField.addBrowserRoot(browserRoot);
+        BrowserRoot browserRoot = new BrowserRoot();
+        browserRoot.setTerm(term);
+        browserRoot.setDisease(disease);
+        
+        int index = allRoots.indexOf(browserRoot);
+        if (index!=-1)
+        {
+          browserRoot = allRoots.get(index);
+          browserRoot.setSelectable(selectable);
+          browserRoot.apply();
+        }
+        else
+        {
+          browserRoot.setSelectable(selectable);
+          browserField.addBrowserRoot(browserRoot);
+        }
       }
     }
 

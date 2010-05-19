@@ -386,8 +386,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.myDataSource = null;
       this.myDataTable = null;
       this.bReverseSorted = false;
-      this.btnSaveRows = false;
-      this.btnAddRow = false;
+      this.btnSaveRows = null;
       this.disableButton = !Mojo.Util.isBoolean(data.cleanDisable) ? true : data.cleanDisable;
       this.after_row_load = data.after_row_load;
       this._disabled = false;
@@ -605,6 +604,12 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
     
     save : function() {
+      // save any open editors before we send the ajax request
+      this.myDataTable.saveCellEditor();
+        
+      // Disable the save button until the request has been executed
+      this.disableSaveButton();
+    	
       this.getModel().save();
     },
     
@@ -809,7 +814,9 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           buttons.innerHTML += '<button type="button" id="' + this._div + 'Addrow">' + MDSS.localize('New_Row') + '</button>';
         }
 
-        buttons.innerHTML += '<button type="button" id="' + this._div + 'Saverows">' + MDSS.localize(data.saveLabelKey) + '</button>';
+        if (data.saveButton !== false) {
+          buttons.innerHTML += '<button type="button" id="' + this._div + 'Saverows">' + MDSS.localize(data.saveLabelKey) + '</button>';
+        }
 
         if (data.excelButtons !== false) {
           buttons.innerHTML += '<form method="get" action="excelimport" style="display: inline;"><input type="hidden" name="excelType" value="' + data.excelType + '" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">' + MDSS.localize('Excel_Import_Header') + '</button></span></span></form>';
@@ -830,14 +837,14 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       }
     
       if (YAHOO.util.Dom.get(this._div + 'Addrow')) {
-        this.btnAddRow = new YAHOO.widget.Button(this._div + "Addrow");
-        this.btnAddRow.on("click", this.addRow, null, this);
+        var btnAddRow = new YAHOO.widget.Button(this._div + "Addrow");
+        btnAddRow.on("click", this.addRow, null, this);
       } 
     
       if (YAHOO.util.Dom.get(this._div + 'Saverows')) {
         // set up the button that saves the rows to the db
         this.btnSaveRows = new YAHOO.widget.Button(this._div + "Saverows");
-        this.btnSaveRows.on("click", this._persistHandler, null, this);
+        this.btnSaveRows.on("click", this.save, null, this);
         this.toggleSaveButton(this._getDisableButton());
       }
   
@@ -991,16 +998,6 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this._model.addListener(listener);
     },
     
-    _persistHandler : function() {
-      // save any open editors before we send the ajax request
-      this.myDataTable.saveCellEditor();
-      
-      // Disable the save button until the request has been executed
-      this.disableSaveButton();
-    
-      this._model.save();
-    },   
-    
   //calculate totals
     _sumColumn : function(oArgs) {
 
@@ -1073,7 +1070,9 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     },
             
     toggleSaveButton : function(disabled) {
-      this.btnSaveRows.set("disabled", (this._disabled || disabled));       
+      if(this.btnSaveRows != null) {
+        this.btnSaveRows.set("disabled", (this._disabled || disabled));
+      }
     },
     
     enableSaveButton : function() {

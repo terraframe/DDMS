@@ -36,6 +36,17 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
     return super.toString();
   }
+  
+  @Override
+  public void apply()
+  {
+    if(this.getDisease() == null && this.isNew() && !this.isAppliedToDB())
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+    
+    super.apply();
+  }
 
   @Override
   protected String buildKey()
@@ -45,8 +56,10 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     {
       return ""; // object not properly constructed.
     }
-
-    return ROOT_PREFIX + term.getKeyName();
+    
+    // THIS IS NOT A UNIQUE KEY
+//    return this.getDisease().getKey() + "." + ROOT_PREFIX + term.getKeyName();    
+    return this.getId();
   }
 
   public static BrowserRootViewQuery getAsViews()
@@ -184,7 +197,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     }
 
     rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
-    // rootQuery.WHERE(DiseaseWrapper.getInactive(rootQuery.getTerm()).EQ(false));
+    rootQuery.WHERE(rootQuery.getDisease().EQ(Disease.getCurrent()));
     rootQuery.AND(rootQuery.field(fieldQuery));
 
     return rootQuery;
@@ -325,6 +338,9 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
       return false;
     }
 
-    return otherTerm.getTermId().equals(thisTerm.getTermId());
+    Disease thisDisease = this.getDisease();
+    Disease otherDisease = other.getDisease();
+
+    return otherTerm.getTermId().equals(thisTerm.getTermId()) && thisDisease.getId().equals(otherDisease.getId());
   }
 }

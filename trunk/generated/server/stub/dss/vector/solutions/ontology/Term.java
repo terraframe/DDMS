@@ -1284,7 +1284,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     BrowserRootQuery unselectableRootQuery = new BrowserRootQuery(query);
     AllPathsQuery pathsQuery = new AllPathsQuery(query);
     TermQuery termQuery = new TermQuery(query);
-
     
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getTermDisplayLabel().localize(Term.TERMDISPLAYLABEL), termQuery.getTermId(Term.TERMID) };
 
@@ -1344,7 +1343,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     List<Condition> list = new LinkedList<Condition>();
 
     list.add(Disease.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
-//    list.add(Disease.getInactive(termQuery).EQ(false));
+    list.add(rootQuery.getDisease().EQ(Disease.getCurrent()));
 
     if (className == null && attribute == null)
     {
@@ -1368,8 +1367,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       list.add(fieldCondition);
       list.add(rootQuery.field(fieldQuery));
-      
-//      termQuery.AND(Disease.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
     }
     else if (className != null)
     {
@@ -1379,7 +1376,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       list.add(fieldQuery.getMdAttribute().EQ(attribute));
       list.add(rootQuery.field(fieldQuery));
-//      termQuery.AND(Disease.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), termQuery, false));
     }
 
     list.add(pathsQuery.getChildTerm().EQ(termQuery));
@@ -1404,8 +1400,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
       conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
       conditions.add(pathsQuery.getParentTerm().EQ(""));
     }
-
-//    termQuery.AND(Disease.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
 
     return conditions;
   }

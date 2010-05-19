@@ -82,6 +82,11 @@
     
     <div id="details">
     </div>   
+    
+    <button type="button" id="save.button"> <fmt:message key="save"/> </button>
+    
+    <button type="button" id="delete.button"> <fmt:message key="Delete"/> </button>
+    
   </mjl:form>
 </dl>
 
@@ -96,6 +101,8 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       this._immutables = YAHOO.util.Dom.getElementsByClassName("immutable");
       this._universals = YAHOO.util.Dom.getElementsByClassName("universal");
       this._editButtons = YAHOO.util.Dom.getElementsByClassName("editButtons");
+      this._deleteButton = new YAHOO.widget.Button("delete.button");
+      this._saveButton = new YAHOO.widget.Button("save.button");      
       
       this._concreteId = document.getElementById('concreteId');
       this._formEl = document.getElementById("ControlIntervention.form");
@@ -138,13 +145,22 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
         YAHOO.util.Event.on(el, 'click', this.editHandler, this, this); 
       }      
 
-      YAHOO.util.Event.on('button.go', 'click', this.onGoHandler, this, this);
 
       for each (el in this._mutables) {
         YAHOO.util.Event.on(el, 'change', this.interventionChanged, this, this);
       }
 
+      YAHOO.util.Event.on('button.go', 'click', this.onGoHandler, this, this);
+      
       this.buttonHandler();
+
+      // SETUP THE DELETE BUTTON
+      this.toggleDelete();     
+
+      this._deleteButton.on("click", this.deleteConcrete, this, this);
+
+      // SETUP THE SAVE BUTTON
+      this._saveButton.on('click', this.saveHandler, this, this);      
     },
 
     focusHandler : function() {
@@ -163,7 +179,8 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
 
       this.buttonHandler();
       this.toggleDelete();
-
+      this._saveButton.set("disabled", this._disabled);
+      
       if(this._grid != null) {
         this._grid.disable();
       }
@@ -225,10 +242,6 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
 
     initializeDelete : function() {
       this._deleteButton = new YAHOO.widget.Button("delete.button");
-
-      this.toggleDelete();     
-
-      this._deleteButton.on("click", this.deleteConcrete, this, this);
     },
 
     deleteConcrete : function(){
@@ -351,7 +364,24 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
     go : function() {
       this._formEl.action = "dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo";
       this._formEl.submit();        
-    }    
+    },
+
+    saveHandler : function() {
+      if(this._grid != null) {
+        this._grid.save();
+      }
+      else {
+        var request = new MDSS.Request({
+          that:this,
+          onSuccess:function(returnedComponent) {
+            this.that.populateForm(returnedComponent);
+          }
+        });
+
+        var component = this.populateComponent();
+        component.apply(request);        
+      }
+    }
   }
 });
 

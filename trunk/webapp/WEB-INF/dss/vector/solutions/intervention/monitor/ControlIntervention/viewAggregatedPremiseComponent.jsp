@@ -11,7 +11,7 @@
 
 <div id="premises"></div>
 
-<button type="button" id="delete.button"> <fmt:message key="Delete"/> </button>
+<hr />
 
 <%
   DataGrid grid = (DataGrid) request.getAttribute("grid");
@@ -49,7 +49,8 @@
       defaults:<%=grid.getDefaultValues()%>,
       div_id: "premises",
       excelButtons:false,
-      addButton:false
+      addButton:false,
+      saveButton:false
     };
     
     var rows = <%=grid.getData()%>;
