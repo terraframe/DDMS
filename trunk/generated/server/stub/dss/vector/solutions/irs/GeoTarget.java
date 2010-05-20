@@ -219,14 +219,14 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     sql += " recursive_rollup AS ( \n";
     sql += " SELECT child_id, parent_id \n";
     sql += baseValue;
-    sql += "  FROM locatedin LEFT JOIN " + geoTarget + " gt ON gt.geoentity = locatedin.child_id\n";
+    sql += "  FROM located_in LEFT JOIN " + geoTarget + " gt ON gt.geo_entity = located_in.child_id\n";
     sql += "  AND gt.season = '" + malariaSeasonId + "'\n";
     sql += " WHERE parent_id = '" + geoid + "'\n";
     // this is the recursive case
     sql += " UNION\n";
     sql += " SELECT b.child_id, b.parent_id \n";
     sql += recursiveValue;
-    sql += " FROM recursive_rollup a, locatedin b LEFT JOIN " + geoTarget + " gt ON gt.geoentity = b.child_id\n";
+    sql += " FROM recursive_rollup a, located_in b LEFT JOIN " + geoTarget + " gt ON gt.geo_entity = b.child_id\n";
     sql += " AND gt.season = '" + malariaSeasonId + "'\n";
     sql += " WHERE a.child_id = b.parent_id\n";
     sql += " )\n";
