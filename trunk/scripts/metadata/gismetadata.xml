@@ -105,7 +105,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -120,7 +120,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -180,7 +180,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -200,7 +200,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -532,7 +532,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -547,7 +547,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -607,7 +607,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -627,7 +627,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -983,7 +983,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -998,7 +998,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1058,7 +1058,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1078,7 +1078,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1300,7 +1300,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1315,7 +1315,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1375,7 +1375,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1395,7 +1395,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1617,7 +1617,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1632,7 +1632,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1692,7 +1692,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1712,7 +1712,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -1934,7 +1934,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -1949,7 +1949,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -2009,7 +2009,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -2029,7 +2029,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -2251,7 +2251,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOClass</name>
+        <name>stubDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -2266,7 +2266,7 @@
         <definingComponent>com.runwaysdk.system.metadata.Metadata</definingComponent>
       </attribute>
       <attribute>
-        <name>queryDTOSource</name>
+        <name>queryDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
@@ -2326,7 +2326,7 @@
         <definingComponent>com.runwaysdk.system.metadata.MdType</definingComponent>
       </attribute>
       <attribute>
-        <name>stubDTOSource</name>
+        <name>stubDTOsource</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdClass</definingComponent>
       </attribute>
@@ -2346,7 +2346,7 @@
         </enumeration>
       </attribute>
       <attribute>
-        <name>queryDTOClass</name>
+        <name>queryDTOclass</name>
         <value/>
         <definingComponent>com.runwaysdk.system.metadata.MdEntity</definingComponent>
       </attribute>
