@@ -88,7 +88,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var collection = new dss.vector.solutions.entomology.ImmatureCollection;
     var pt = new dss.vector.solutions.entomology.PremiseTaxon;
     var premise = new dss.vector.solutions.entomology.CollectionPremise;
-    var container = new dss.vector.solutions.entomology.CollectionContainer;
+    //var container = new dss.vector.solutions.entomology.CollectionContainer;
 
     var collectionAttribs = [ "startDate","endDate","collectionId","geoEntity"];
     <%
@@ -111,7 +111,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var containerAttribs = [ "numberContainers","numberDestroyed", "numberImmatures", "numberLarvae","numberLarvaeCollected","numberPupae","numberPupaeCollected","numberWithLarvicide","numberWithWater"];
     
-    var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:'_col', dropDownMaps:collectionMaps});
+    var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_cont', dropDownMaps:collectionMaps});
 
     var indexes = ([
                                        
@@ -335,7 +335,7 @@ YAHOO.util.Event.onDOMReady(function(){
 */
       var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
-                {title:"Container", values:calculations, group:"c", klass:collection.CLASS},
+                {title:"Container", values:containerColumns, group:"c", klass:collection.CLASS},
                 {title:"Indices", values:indexes, group:"c", klass:collection.CLASS},
                 {title:"Container_Calculations", values:calculations, group:"cc", klass:collection.CLASS},
       ];
