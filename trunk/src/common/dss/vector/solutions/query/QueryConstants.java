@@ -43,6 +43,8 @@ public class QueryConstants implements Reloadable
   public enum QueryType implements Reloadable {
     
     QUERY_IMMATURE_CONTAINER_COLLECTION,
+
+    QUERY_PUPAL_CONTAINER_COLLECTION,
     
     QUERY_AGGREGATED_CASE,
     
