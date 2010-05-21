@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 908989829)
+@com.runwaysdk.business.ClassSignature(hash = 1557087174)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class ResistancePropertyBase extends com.runwaysdk.business.Busi
   public static java.lang.String DESCRIPTION = "description";
   private com.runwaysdk.business.Struct description = null;
   
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   private com.runwaysdk.business.Struct displayLabel = null;
   
@@ -31,7 +32,7 @@ public abstract class ResistancePropertyBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 908989829;
+  private static final long serialVersionUID = 1557087174;
   
   public ResistancePropertyBase()
   {
@@ -93,6 +94,41 @@ public abstract class ResistancePropertyBase extends com.runwaysdk.business.Busi
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistanceProperty.CLASS);
     return mdClassIF.definesAttribute(DESCRIPTION);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.ResistanceProperty.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public dss.vector.solutions.entomology.ResistancePropertyDisplayLabel getDisplayLabel()

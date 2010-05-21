@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1186913354)
+@com.runwaysdk.business.ClassSignature(hash = -1738464935)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,6 +12,7 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSpray";
   public static java.lang.String BRANDFORINDEX = "brandForIndex";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
   public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
   public static java.lang.String RECEIVED = "received";
@@ -25,7 +26,7 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 1186913354;
+  private static final long serialVersionUID = -1738464935;
   
   public OperatorSprayBase()
   {
@@ -64,6 +65,41 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     else
     {
       setValue(BRANDFORINDEX, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   

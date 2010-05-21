@@ -57,6 +57,10 @@ public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements 
   {
     validateLowerTime();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 

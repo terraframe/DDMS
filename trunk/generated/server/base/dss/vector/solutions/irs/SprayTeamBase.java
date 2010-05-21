@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 837361836)
+@com.runwaysdk.business.ClassSignature(hash = 1093473865)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,13 +11,49 @@ package dss.vector.solutions.irs;
 public abstract class SprayTeamBase extends dss.vector.solutions.irs.Targeter implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeam";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String SPRAYZONE = "sprayZone";
   public static java.lang.String TEAMID = "teamId";
-  private static final long serialVersionUID = 837361836;
+  private static final long serialVersionUID = 1093473865;
   
   public SprayTeamBase()
   {
     super();
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.SprayTeam.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public dss.vector.solutions.geo.generated.SprayZone getSprayZone()

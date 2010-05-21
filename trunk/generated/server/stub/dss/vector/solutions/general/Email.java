@@ -27,9 +27,10 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
     super();
   }
 
-  public Email(String fromAddress, String toAddresses, String subject, String body)
+  public Email(Disease disease, String fromAddress, String toAddresses, String subject, String body)
   {
     this();
+    this.setDisease(disease);
     this.setFromAddress(fromAddress);
     this.setToAddresses(toAddresses);
     this.setSubject(subject);

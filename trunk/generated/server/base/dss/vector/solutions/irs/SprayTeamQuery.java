@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 2099006933)
+@com.runwaysdk.business.ClassSignature(hash = -1120726400)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class SprayTeamQuery extends dss.vector.solutions.irs.TargeterQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2099006933;
+private static final long serialVersionUID = -1120726400;
 
   public SprayTeamQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -39,6 +39,29 @@ private static final long serialVersionUID = 2099006933;
   {
     return dss.vector.solutions.irs.SprayTeam.CLASS;
   }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.SprayTeam.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.SprayTeam.DISEASE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.SprayTeam.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.SprayTeam.DISEASE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone()
   {
     return getSprayZone(null);
@@ -48,7 +71,7 @@ private static final long serialVersionUID = 2099006933;
   public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayZone");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.SprayTeam.SPRAYZONE);
 
     return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.SprayTeam.SPRAYZONE, mdAttributeIF, this, alias, null);
 
@@ -57,7 +80,7 @@ private static final long serialVersionUID = 2099006933;
   public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sprayZone");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.SprayTeam.SPRAYZONE);
 
     return (dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.SprayTeam.SPRAYZONE, mdAttributeIF, this, alias, displayLabel);
 
@@ -83,7 +106,11 @@ private static final long serialVersionUID = 2099006933;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("sprayZone")) 
+    if (name.equals(dss.vector.solutions.irs.SprayTeam.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.SprayTeam.SPRAYZONE)) 
     {
        return new dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -357,6 +384,9 @@ private static final long serialVersionUID = 2099006933;
   public interface SprayTeamQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.irs.TargeterQuery.TargeterQueryReferenceIF
   {
 
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone();
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias);
     public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone(String alias, String displayLabel);
@@ -434,7 +464,7 @@ private static final long serialVersionUID = 2099006933;
  implements SprayTeamQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 410808951;
+private static final long serialVersionUID = -767934818;
 
   public SprayTeamQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -453,6 +483,23 @@ private static final long serialVersionUID = 410808951;
       return this.NE(sprayTeam.getId());
     }
 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.irs.SprayTeam.DISEASE,  alias, displayLabel);
+
+  }
   public dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReferenceIF getSprayZone()
   {
     return getSprayZone(null);
@@ -723,7 +770,11 @@ private static final long serialVersionUID = 410808951;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("sprayZone")) 
+    if (name.equals(dss.vector.solutions.irs.SprayTeam.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.irs.SprayTeam.SPRAYZONE)) 
     {
        return new dss.vector.solutions.geo.generated.SprayZoneQuery.SprayZoneQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

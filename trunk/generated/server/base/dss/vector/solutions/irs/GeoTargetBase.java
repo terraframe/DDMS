@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 659117214)
+@com.runwaysdk.business.ClassSignature(hash = 442947659)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
   public final static String CLASS = "dss.vector.solutions.irs.GeoTarget";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
@@ -78,7 +79,7 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
   public static java.lang.String TARGET_8 = "target_8";
   public static java.lang.String TARGET_9 = "target_9";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 659117214;
+  private static final long serialVersionUID = 442947659;
   
   public GeoTargetBase()
   {
@@ -122,6 +123,41 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.GeoTarget.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.GeoTarget.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()

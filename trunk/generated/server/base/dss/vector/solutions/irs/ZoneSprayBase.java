@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1416778110)
+@com.runwaysdk.business.ClassSignature(hash = 966876733)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,13 +12,14 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSpray";
   public static java.lang.String BRANDFORINDEX = "brandForIndex";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
   public static java.lang.String SPRAYDATEFORINDEX = "sprayDateForIndex";
   public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
   public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 1416778110;
+  private static final long serialVersionUID = 966876733;
   
   public ZoneSprayBase()
   {
@@ -57,6 +58,41 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     else
     {
       setValue(BRANDFORINDEX, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   

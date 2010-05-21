@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.SprayZoneQuery;
@@ -35,7 +36,17 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     super();
   }
 
+  
   @Override
+  public void apply() {
+		if (this.isNew() && this.getDisease() == null) {
+			this.setDisease(Disease.getCurrent());
+		}
+	super.apply();
+  }
+
+
+@Override
   public String toString()
   {
     if (this.isNew())

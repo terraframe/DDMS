@@ -18,6 +18,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.util.QueryUtil;
 
 public class InsecticideBrand extends InsecticideBrandBase implements com.runwaysdk.generation.loader.Reloadable
@@ -27,6 +28,15 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
   public InsecticideBrand()
   {
     super();
+  }
+  
+  @Override
+  public void apply() {
+	    if (this.isNew() && this.getDisease() == null) {
+	    	this.setDisease(Disease.getCurrent());
+	    }
+	    
+	super.apply();
   }
   
   @Override

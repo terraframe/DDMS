@@ -18,6 +18,7 @@ import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -30,6 +31,16 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
     super();
   }
 
+
+	@Override
+	public void apply() {
+		if (this.isNew() && this.getDisease() == null) {
+			this.setDisease(Disease.getCurrent());
+		}
+
+		super.apply();
+	}
+	
   @Override
   public String toString()
   {

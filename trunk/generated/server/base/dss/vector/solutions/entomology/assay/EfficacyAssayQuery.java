@@ -122,7 +122,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geoEntity");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY);
 
     return (dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY, mdAttributeIF, this, alias, null);
 
@@ -131,7 +131,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF getGeoEntity(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geoEntity");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY);
 
     return (dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY, mdAttributeIF, this, alias, displayLabel);
 
@@ -247,7 +247,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sex");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX, mdAttributeIF, this, alias, null);
 
@@ -256,7 +256,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sex");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX, mdAttributeIF, this, alias, displayLabel);
 
@@ -270,7 +270,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("surfacePostion");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION, mdAttributeIF, this, alias, null);
 
@@ -279,7 +279,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSurfacePostion(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("surfacePostion");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION, mdAttributeIF, this, alias, displayLabel);
 
@@ -293,7 +293,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("testMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD, mdAttributeIF, this, alias, null);
 
@@ -302,7 +302,7 @@ private static final long serialVersionUID = -1591314716;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("testMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD, mdAttributeIF, this, alias, displayLabel);
 
@@ -328,19 +328,19 @@ private static final long serialVersionUID = -1591314716;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("geoEntity")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sex")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("surfacePostion")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("testMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -734,19 +734,19 @@ private static final long serialVersionUID = -859403134;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("geoEntity")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sex")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("surfacePostion")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SURFACEPOSTION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("testMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.TESTMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

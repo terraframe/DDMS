@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1482326352)
+@com.runwaysdk.business.ClassSignature(hash = -1200416963)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String CCADDRESSES = "ccAddresses";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ERROR = "error";
   public static java.lang.String FROMADDRESS = "fromAddress";
@@ -31,7 +32,7 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String SUBJECT = "subject";
   public static java.lang.String TOADDRESSES = "toAddresses";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1482326352;
+  private static final long serialVersionUID = -1200416963;
   
   public EmailBase()
   {
@@ -159,6 +160,41 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.Email.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.Email.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()

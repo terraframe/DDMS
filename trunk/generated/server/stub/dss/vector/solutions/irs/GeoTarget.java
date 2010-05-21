@@ -9,6 +9,7 @@ import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -22,6 +23,15 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
   }
   
   @Override
+  public void apply() {
+	    if (this.isNew() && this.getDisease() == null) {
+	    	this.setDisease(Disease.getCurrent());
+	    }
+	    
+	super.apply();
+  }
+
+@Override
   public String toString()
   {
     if (this.isNew())

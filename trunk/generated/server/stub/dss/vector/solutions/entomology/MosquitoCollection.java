@@ -24,6 +24,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.CollectionAssayQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -151,6 +152,10 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     this.populateLifeStageName();
     this.validateCollectionDate();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 

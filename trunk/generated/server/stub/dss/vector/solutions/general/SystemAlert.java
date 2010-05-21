@@ -83,6 +83,7 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 	public Email generateEmail(Map<String, Object> data) {
 		Email email = new Email();
 
+		email.setDisease(this.getDisease());
 		email.setToAddresses(this.getEmailToAddresses());
 		email.setCcAddresses(this.getEmailCcAddresses());
 		email.setBccAddresses(this.getEmailBccAddresses());

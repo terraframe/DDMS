@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 653087022)
+@com.runwaysdk.business.ClassSignature(hash = 1559208317)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  class ResistancePropertyQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 653087022;
+private static final long serialVersionUID = 1559208317;
 
   public ResistancePropertyQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -100,6 +100,29 @@ private static final long serialVersionUID = 653087022;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.ResistanceProperty.DESCRIPTION);
 
     return (dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.ResistanceProperty.DESCRIPTION, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.ResistanceProperty.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.ResistanceProperty.DISEASE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.ResistanceProperty.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.ResistanceProperty.DISEASE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQuery.ResistancePropertyDisplayLabelQueryStructIF getDisplayLabel()
@@ -361,6 +384,10 @@ private static final long serialVersionUID = 653087022;
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.entomology.ResistanceProperty.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.entomology.ResistanceProperty.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -444,6 +471,9 @@ private static final long serialVersionUID = 653087022;
     public dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF getDescription();
     public dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF getDescription(String alias);
     public dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF getDescription(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQuery.ResistancePropertyDisplayLabelQueryStructIF getDisplayLabel();
     public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQuery.ResistancePropertyDisplayLabelQueryStructIF getDisplayLabel(String alias);
     public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQuery.ResistancePropertyDisplayLabelQueryStructIF getDisplayLabel(String alias, String displayLabel);
@@ -498,7 +528,7 @@ private static final long serialVersionUID = 653087022;
  implements ResistancePropertyQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2023217872;
+private static final long serialVersionUID = -39565157;
 
   public ResistancePropertyQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -566,6 +596,23 @@ private static final long serialVersionUID = 2023217872;
   public dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF getDescription(String alias, String displayLabel)
   {
     return (dss.vector.solutions.entomology.ResistancePropertyDescriptionQuery.ResistancePropertyDescriptionQueryStructIF)this.attributeFactory(dss.vector.solutions.entomology.ResistanceProperty.DESCRIPTION, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.entomology.ResistanceProperty.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.entomology.ResistanceProperty.DISEASE,  alias, displayLabel);
 
   }
   public dss.vector.solutions.entomology.ResistancePropertyDisplayLabelQuery.ResistancePropertyDisplayLabelQueryStructIF getDisplayLabel()
@@ -796,6 +843,10 @@ private static final long serialVersionUID = 2023217872;
     if (name.equals(dss.vector.solutions.entomology.ResistanceProperty.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.ResistanceProperty.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.ResistanceProperty.ENTITYDOMAIN)) 
     {

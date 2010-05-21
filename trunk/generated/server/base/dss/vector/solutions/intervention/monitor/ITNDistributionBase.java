@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -990068509)
+@com.runwaysdk.business.ClassSignature(hash = -261377790)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String CURRENCYRECEIVED = "currencyReceived";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISTRIBUTIONDATE = "distributionDate";
   public static java.lang.String DISTRIBUTORNAME = "distributorName";
   public static java.lang.String DISTRIBUTORSURNAME = "distributorSurname";
@@ -33,7 +34,7 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
   public static java.lang.String SERVICE = "service";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -990068509;
+  private static final long serialVersionUID = -261377790;
   
   public ITNDistributionBase()
   {
@@ -132,6 +133,41 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
     else
     {
       setValue(CURRENCYRECEIVED, java.lang.Double.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.ITNDistribution.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   

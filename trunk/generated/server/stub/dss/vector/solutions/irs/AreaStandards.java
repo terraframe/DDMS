@@ -12,6 +12,8 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
+
 public class AreaStandards extends AreaStandardsBase implements Reloadable
 {
   class StandardComparator implements Comparator<AreaStandards>, Reloadable
@@ -137,6 +139,11 @@ public class AreaStandards extends AreaStandardsBase implements Reloadable
 
   private void directApply()
   {
+
+	if (this.isNew() && this.getDisease() == null) {
+	 	this.setDisease(Disease.getCurrent());
+	}
+	  
     super.apply();
   }
 

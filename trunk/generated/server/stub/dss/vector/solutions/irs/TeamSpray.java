@@ -11,6 +11,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.QueryUtil;
@@ -68,6 +69,10 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     this.setBrandForIndex(this.getBrand());
     this.setSprayDateForIndex(this.getSprayDate());
 
+	if (this.isNew() && this.getDisease() == null) {
+		this.setDisease(Disease.getCurrent());
+	}
+	
     super.apply();
   }
   

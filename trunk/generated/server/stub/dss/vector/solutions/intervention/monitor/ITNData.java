@@ -17,6 +17,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
@@ -222,6 +223,10 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
     this.validateCurrencyReceived();    
     this.validateStartDate();
     this.validateEndDate();
+    
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
     
     super.apply();
   }

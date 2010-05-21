@@ -16,6 +16,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -94,6 +95,10 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     this.populateCollectionId();
     this.validateStartDate();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
   

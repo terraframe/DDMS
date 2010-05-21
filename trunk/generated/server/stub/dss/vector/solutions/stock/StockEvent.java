@@ -5,6 +5,7 @@ import java.util.Date;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.StockDepot;
 
@@ -63,6 +64,10 @@ public class StockEvent extends StockEventBase implements com.runwaysdk.generati
   public void apply()
   {
     validateStockDepot();
+    
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
     
     super.apply();
   }

@@ -33,10 +33,9 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   @Override
   public void apply()
   {
-    if(this.isNew() && !this.isAppliedToDB())
-    {
-      this.setDisease(Disease.getCurrent());
-    }
+	    if (this.isNew() && this.getDisease() == null) {
+	    	this.setDisease(Disease.getCurrent());
+	    }
     
     super.apply();
   }

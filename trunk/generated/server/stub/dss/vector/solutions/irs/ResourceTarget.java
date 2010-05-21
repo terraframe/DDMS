@@ -7,6 +7,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.generation.loader.Reloadable
@@ -17,7 +18,16 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
   {
     super();
   }
-
+  
+  @Override
+  public void apply() {
+	    if (this.isNew() && this.getDisease() == null) {
+	    	this.setDisease(Disease.getCurrent());
+	    }
+	    
+	super.apply();
+  }
+  
   @Override
   public String toString()
   {

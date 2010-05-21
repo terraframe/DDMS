@@ -17,6 +17,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.RequiredAttributeProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -131,6 +132,10 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
     this.validateCurrencyReceived();
     this.validateNumberRetrieved();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 

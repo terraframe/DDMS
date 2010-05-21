@@ -8,6 +8,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
 
 public class PupalCollection extends PupalCollectionBase implements com.runwaysdk.generation.loader.Reloadable
@@ -84,6 +85,10 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     this.populateCollectionId();
     this.validateStartDate();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
   

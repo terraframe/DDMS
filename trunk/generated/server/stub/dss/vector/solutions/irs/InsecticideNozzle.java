@@ -8,6 +8,8 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
+
 public class InsecticideNozzle extends InsecticideNozzleBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240597942330L;
@@ -51,7 +53,11 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.runw
     {
       this.setConfigurationDate(new Date());
     }
-    
+
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+  	    
     super.apply();
   }
 

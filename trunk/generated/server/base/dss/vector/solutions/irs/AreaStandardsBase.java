@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 231976447)
+@com.runwaysdk.business.ClassSignature(hash = -415036482)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class AreaStandardsBase extends com.runwaysdk.business.Business 
   public final static String CLASS = "dss.vector.solutions.irs.AreaStandards";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String HOUSEHOLD = "household";
@@ -30,7 +31,7 @@ public abstract class AreaStandardsBase extends com.runwaysdk.business.Business 
   public static java.lang.String TARGETUNIT = "targetUnit";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNITNOZZLEAREACOVERAGE = "unitNozzleAreaCoverage";
-  private static final long serialVersionUID = 231976447;
+  private static final long serialVersionUID = -415036482;
   
   public AreaStandardsBase()
   {
@@ -74,6 +75,41 @@ public abstract class AreaStandardsBase extends com.runwaysdk.business.Business 
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.AreaStandards.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public java.util.Date getEndDate()

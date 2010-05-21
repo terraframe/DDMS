@@ -3,6 +3,7 @@ package dss.vector.solutions.entomology.assay;
 import java.util.Date;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.Disease;
 
 public abstract class AbstractAssay extends AbstractAssayBase implements
     com.runwaysdk.generation.loader.Reloadable
@@ -25,6 +26,10 @@ public abstract class AbstractAssay extends AbstractAssayBase implements
   {
     validateTestDate();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 

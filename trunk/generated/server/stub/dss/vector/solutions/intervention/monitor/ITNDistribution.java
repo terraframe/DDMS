@@ -17,6 +17,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -204,6 +205,10 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
     // Validate the amount of currency recieved
     this.validateCurrencyReceived();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 }

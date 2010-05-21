@@ -7,6 +7,8 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
+
 public class Nozzle extends NozzleBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240597892193L;
@@ -16,6 +18,15 @@ public class Nozzle extends NozzleBase implements com.runwaysdk.generation.loade
     super();
   }
     
+  @Override
+  public void apply() {
+	    if (this.isNew() && this.getDisease() == null) {
+	    	this.setDisease(Disease.getCurrent());
+	    }
+	    
+	super.apply();
+  }
+  
   @Override
   public String toString()
   {
