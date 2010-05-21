@@ -11,6 +11,7 @@ import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.AreaStandards;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideNozzle;
@@ -68,10 +69,12 @@ public class PostOntologySetup
   @Transaction
   private static void setupApplicationRate()
   {
-    String DELTAMETHRIN = "MIRO:10000133";
-    String DDT = "MIRO:10000157";
+    final String DELTAMETHRIN = "MIRO:10000133";
+    final String DDT = "MIRO:10000157";
+    final Disease DEFAULT_DISEASE = Disease.getMalaria();
     
     InsecticideBrand deltamethrin = new InsecticideBrand();
+    deltamethrin.setDisease(DEFAULT_DISEASE);
     deltamethrin.setActiveIngredient(Term.getByTermId(DELTAMETHRIN));
     deltamethrin.setBrandName("K-othrine WG 250");
     deltamethrin.setAmount(25);
@@ -81,6 +84,7 @@ public class PostOntologySetup
     deltamethrin.apply();
     
     InsecticideBrand ddt = new InsecticideBrand();
+    ddt.setDisease(DEFAULT_DISEASE);
     ddt.setActiveIngredient(Term.getByTermId(DDT));
     ddt.setBrandName("DDT WP 75");
     ddt.setAmount(75);
@@ -90,26 +94,31 @@ public class PostOntologySetup
     ddt.apply();
     
     Nozzle n8001E = new Nozzle();
+    n8001E.setDisease(DEFAULT_DISEASE);
     n8001E.setDisplayLabel("8001 E");
     n8001E.setRatio(new BigDecimal(2.00));
     n8001E.setEnabled(true);
     n8001E.apply();
     
     Nozzle n8002E = new Nozzle();
+    n8002E.setDisease(DEFAULT_DISEASE);
     n8002E.setDisplayLabel("8002 E");
     n8002E.setRatio(new BigDecimal(1.00));
     n8002E.setEnabled(true);
     n8002E.apply();
     
     InsecticideNozzle configuration = new InsecticideNozzle(deltamethrin, n8001E);
+    configuration.setDisease(DEFAULT_DISEASE);
     configuration.setEnabled(true);
     configuration.apply();
 
     InsecticideNozzle configuration2 = new InsecticideNozzle(ddt, n8002E);
+    configuration2.setDisease(DEFAULT_DISEASE);
     configuration2.setEnabled(true);
     configuration2.apply();
     
     AreaStandards standards = new AreaStandards();
+    standards.setDisease(DEFAULT_DISEASE);
     standards.setUnitNozzleAreaCoverage(250.0F);
     standards.setRoom(25F);
     standards.setStructureArea(100F);
