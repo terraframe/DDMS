@@ -97,7 +97,7 @@ public class EmailTest extends TestCase {
 	
 	@StartSession
 	public void testSendAll() {
-		Email email = new Email("mdsstest@gmail.com", "mdsstest@gmail.com", "Test Subject " + System.currentTimeMillis(), "This is a test of resending a " + "plain text e-mail through the configured server from Java.\n" + "Here is line 2.");
+		Email email = new Email(null, "mdsstest@gmail.com", "mdsstest@gmail.com", "Test Subject " + System.currentTimeMillis(), "This is a test of resending a " + "plain text e-mail through the configured server from Java.\n" + "Here is line 2.");
 		email.apply(); // Save the email
 		Email.sendAll();
 	}
