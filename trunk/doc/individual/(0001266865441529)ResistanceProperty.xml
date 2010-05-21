@@ -54,6 +54,9 @@
             name="defaultLocale"
             value="% mortality that the population is susceptible - Greater than or Equal to " />
         </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />
       </object>
 
       <object
@@ -77,6 +80,9 @@
             name="defaultLocale"
             value="% mortality that the population is resistant - Less Than" />
         </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />
       </object>
 
       <object
@@ -100,6 +106,9 @@
             name="defaultLocale"
             value="% mortality that the population is susceptible - Greater than or Equal to" />
         </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />        
       </object>
 
       <object
@@ -123,6 +132,9 @@
             name="defaultLocale"
             value="% mortality that the population is resistant Less Than" />
         </attributeStruct>
+        <attributeReference
+			name="disease"
+			key="MALARIA" />        
       </object>
     </create>
   </doIt>
