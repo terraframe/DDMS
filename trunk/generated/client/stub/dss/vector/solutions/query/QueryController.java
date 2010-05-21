@@ -30,6 +30,8 @@ import dss.vector.solutions.entomology.InfectionAssayDTO;
 import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
+import dss.vector.solutions.entomology.PupalCollectionDTO;
+import dss.vector.solutions.entomology.PupalContainer;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -115,6 +117,8 @@ public class QueryController extends QueryControllerBase implements
   private static final String QUERY_LARVACIDE                  = "/WEB-INF/queryScreens/queryLarvacide.jsp";
 
   private static final String QUERY_IMMATURE_CONTAINER_COLLECTION = "/WEB-INF/queryScreens/queryImmatureContainerCollections.jsp";
+
+  private static final String QUERY_PUPAL_CONTAINER_COLLECTION = "/WEB-INF/queryScreens/queryPupalContainerCollections.jsp";
 
   private static final String NEW_QUERY                        = "/WEB-INF/queryScreens/newQuery.jsp";
 
@@ -843,7 +847,7 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      loadQuerySpecifics(LarvacideDTO.CLASS, QueryConstants.QueryType.QUERY_LARVACIDE);
+      loadQuerySpecifics(ImmatureCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_IMMATURE_CONTAINER_COLLECTION);
 
       ClientRequestIF request = this.getClientRequest();
 
@@ -853,6 +857,37 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute("collectionMap", map);
 
       req.getRequestDispatcher(QUERY_IMMATURE_CONTAINER_COLLECTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+  
+  
+  
+  /**
+   * Creates the screen to query contaner collections
+   */
+  public void queryPupalContainerCollection() throws IOException, ServletException
+  {
+    try
+    {
+      loadQuerySpecifics(PupalCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_PUPAL_CONTAINER_COLLECTION);
+
+      ClientRequestIF request = this.getClientRequest();
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO collection = request.getQuery(PupalCollectionDTO.CLASS);
+      String map = Halp.getDropDownMaps(collection, request, ", ");
+      req.setAttribute("collectionMap", map);
+
+      ClassQueryDTO container = request.getQuery(PupalContainer.CLASS);
+      String container_map = Halp.getDropDownMaps(collection, request, ", ");
+      req.setAttribute("containerMap", map);
+      
+      req.getRequestDispatcher(QUERY_PUPAL_CONTAINER_COLLECTION).forward(req, resp);
 
     }
     catch (Throwable t)
