@@ -16,7 +16,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -95,10 +94,6 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     this.populateCollectionId();
     this.validateStartDate();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
-    }
-    
     super.apply();
   }
   
@@ -190,41 +185,50 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
 
     boolean needsJoin = false; 
     
-    /*
-    numbercontainers integer,
-    numberwithwater integer,
-    numberdestroyed integer,
-    numberwithlarvicide integer,
-    numberimmatures integer,
-    numberlarvae integer,
-    numberpupae integer,
-    numberlarvaecollected integer,
-    numberpupaecollected integer,
-    */
+    if(collectionContainerQuery == null)
+    {
+      collectionContainerQuery = new CollectionContainerQuery(queryFactory);   
+    }
     
-    String numberExaminedCol = QueryUtil.getColumnName(collectionPremiseQuery.getMdClassIF(), CollectionPremise.NUMBEREXAMINED);
+    MdEntityDAOIF md = collectionContainerQuery.getMdClassIF();
     
-    MdEntityDAOIF collectionContainerMd = collectionContainerQuery.getMdClassIF();
-    String numberImmaturesCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERIMMATURES);
-    String numberLarvaeCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERLARVAE);
-    String numberPupaeCol = QueryUtil.getColumnName(collectionContainerMd, CollectionContainer.NUMBERPUPAE);
+    String numberContainers = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberwithwater = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberdestroyed = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberwithlarvicide  = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberimmatures = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberlarvae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberpupae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberlarvaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberpupaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberExaminedCol+")/SUM("+numberImmaturesCol+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberExaminedCol+")/SUM("+numberLarvaeCol+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100")|| needsJoin;
     
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
     
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberExaminedCol+")/SUM("+numberPupaeCol+")*100");
+    String numberExamined = QueryUtil.getColumnName(md, CollectionPremise.NUMBEREXAMINED);
+    String numberInhabitants = QueryUtil.getColumnName(md, CollectionPremise.NUMBERINHABITANTS);
+    String numberWithImmatures = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHIMMATURES);
+    String numberWithLarvae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHLARVAE);
+    String numberWithPupae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHPUPAE);
+    String premiseSize = QueryUtil.getColumnName(md, CollectionPremise.PREMISESIZE);
+    String premiseType = QueryUtil.getColumnName(md, CollectionPremise.PREMISETYPE);
     
-    QueryUtil.setSelectabeSQL(valueQuery, "pi", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "pppr", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "ppha", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "pppe", "COUNT(*)");
+    
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/SUM("+numberWithImmatures+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/SUM("+numberWithImmatures+")*100")|| needsJoin;
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100");
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberimmatures+")/SUM("+numberExamined+"*100)");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberlarvae+")/SUM("+numberExamined+"*100)");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)");
+    
+    QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)");
+    QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/SUM("+numberExamined+")");
+    QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/SUM("+premiseSize+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/SUM("+numberInhabitants+")*100");
     
     if(needsJoin)
     {
@@ -241,15 +245,20 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     
     
     
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "COUNT(*)");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "COUNT(*)");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
+    //Percentage of water-holding containers with larvae by container type:
+      //Number with larvae/Number with water*100
+
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
     
     
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
+    
+    
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, ImmatureCollection.STARTDATE, ImmatureCollection.ENDDATE);
     
 
   }
