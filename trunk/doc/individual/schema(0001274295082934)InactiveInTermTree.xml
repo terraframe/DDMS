@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdView
+        name="dss.vector.solutions.ontology.TermView">
+        <create>
+          <attributes>
+            <boolean
+              name="inactive"
+              label="Inactive"
+              required="false"
+              description="Denotes if this Term is inactive or not" />
+          </attributes>
+        </create>
+      </mdView>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

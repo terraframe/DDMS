@@ -1285,7 +1285,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     boolean parentActivated = parent.getActivated();
     boolean childActivated = this.getActivated();
 
-    if (parentActivated != childActivated && this.eligibleForActiveChange(parentActivated))
+    if (!isNew && parentActivated != childActivated && this.eligibleForActiveChange(parentActivated))
     {
       this.appLock();
       this.setActivated(parentActivated);

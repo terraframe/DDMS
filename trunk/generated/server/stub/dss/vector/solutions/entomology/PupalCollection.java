@@ -218,7 +218,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/SUM("+numberWithImmatures+")*100")|| needsJoin;
     
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, ImmatureCollection.STARTDATE, ImmatureCollection.ENDDATE);
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
     
 
   }

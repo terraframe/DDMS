@@ -266,10 +266,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       {
         ((SelectableSQL) selectable).setSQL(result);
         
+        String id = QueryUtil.getIdColumn();
+        
         String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
         valueQuery.setSqlPrefix(AdultDiscriminatingDoseAssay.getResistanceWithQuerySQL(tableName, labels));
         valueQuery.FROM(tableName, tableName);
-        valueQuery.WHERE(new RawLeftJoinEq("id", joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), "id", tableName, tableName));
+        valueQuery.WHERE(new RawLeftJoinEq(id, joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), id, tableName, tableName));
       }
     }
     

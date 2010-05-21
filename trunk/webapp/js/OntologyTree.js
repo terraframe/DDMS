@@ -213,7 +213,9 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     
     _createNodeHTML : function(view)
     {
-      return MDSS.OntologyBrowser.formatLabelFromView(view);
+      var className = view.getInactive() ? 'inactiveEntity' : 'activeEntity';
+      
+      return "<div class='"+className+"'>"+MDSS.OntologyBrowser.formatLabelFromView(view)+"</div>";
     },
     
     /**

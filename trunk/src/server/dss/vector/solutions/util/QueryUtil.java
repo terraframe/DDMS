@@ -55,6 +55,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
@@ -165,6 +166,11 @@ public class QueryUtil implements Reloadable
     {
       return ((MdAttributeConcreteDAOIF)md).getColumnName();
     }
+  }
+  
+  public static String getIdColumn()
+  {
+    return getColumnName(MdClass.getIdMd());
   }
   
   /**
@@ -335,10 +341,12 @@ public class QueryUtil implements Reloadable
     // optimization: do nothing if there are no terms selected
     if (termAttributes.length > 0)
     {
+      String id = getIdColumn();
+      
       String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
       String subSelect = klass.replace('.', '_') + "TermSubSel";
       String table = MdBusiness.getMdBusiness(klass).getTableName();
-      valueQuery.AND(new InnerJoinEq("id", table, tableAlias, "id", sql, subSelect));
+      valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
     }
     return valueQuery;
 
@@ -388,10 +396,12 @@ public class QueryUtil implements Reloadable
       String[] geoAttributes = filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
       if (geoAttributes.length > 0)
       {
+        String id = getIdColumn();
+        
         String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "GeoSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
-        valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+        valueQuery.AND(new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect));
       }
     }
     return valueQuery;
@@ -405,11 +415,13 @@ public class QueryUtil implements Reloadable
       String[] geoAttributes = GeoEntity.getGeoAttributes(klass);
       if (geoAttributes.length > 0)
       {
+        String id = getIdColumn();
+        
         String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "GeoSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
 
-        return new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect);
+        return new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect);
       }
     }
     return null;
@@ -423,10 +435,12 @@ public class QueryUtil implements Reloadable
       String[] enumAttributes = filterSelectedAttributes(valueQuery, QueryUtil.getEnumAttributes(klass));
       if (enumAttributes.length > 0)
       {
+        String id = getIdColumn();
+        
         String sql = "(" + QueryUtil.getEnumerationDisplayLabelSubSelect(klass, enumAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "EnumSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
-        valueQuery.AND(new InnerJoinEq("id", table, query.getTableAlias(), "id", sql, subSelect));
+        valueQuery.AND(new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect));
       }
     }
     return valueQuery;

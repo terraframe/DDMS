@@ -191,27 +191,29 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     }
     
     MdEntityDAOIF md = collectionContainerQuery.getMdClassIF();
-    
-    String numberContainers = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberwithwater = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberdestroyed = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberwithlarvicide  = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberimmatures = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberlarvae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberpupae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberInhabitants = QueryUtil.getColumnName(md, CollectionPremise.NUMBERINHABITANTS);
+    String numberWithImmatures = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHIMMATURES);
+    String numberExamined = QueryUtil.getColumnName(md, CollectionPremise.NUMBEREXAMINED);
+    String premiseSize = QueryUtil.getColumnName(md, CollectionPremise.PREMISESIZE);
+    
+    /*
+    String numberContainers = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberdestroyed = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberwithlarvicide  = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberlarvaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     String numberpupaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
     
-    
-    
-    String numberExamined = QueryUtil.getColumnName(md, CollectionPremise.NUMBEREXAMINED);
-    String numberInhabitants = QueryUtil.getColumnName(md, CollectionPremise.NUMBERINHABITANTS);
-    String numberWithImmatures = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHIMMATURES);
+    String numberImmaturesCol = QueryUtil.getColumnName(CollectionContainer.getNumberImmaturesMd());
+    String numberLarvaeCol = QueryUtil.getColumnName(CollectionContainer.getNumberLarvaeMd());
+    String numberPupaeCol = QueryUtil.getColumnName(CollectionContainer.getNumberPupaeMd());
     String numberWithLarvae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHLARVAE);
     String numberWithPupae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHPUPAE);
-    String premiseSize = QueryUtil.getColumnName(md, CollectionPremise.PREMISESIZE);
     String premiseType = QueryUtil.getColumnName(md, CollectionPremise.PREMISETYPE);
-    
+    */
     
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/SUM("+numberWithImmatures+")*100") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
@@ -258,7 +260,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     
     
     
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, ImmatureCollection.STARTDATE, ImmatureCollection.ENDDATE);
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
     
 
   }

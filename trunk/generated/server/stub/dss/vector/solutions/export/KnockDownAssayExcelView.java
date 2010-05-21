@@ -3,20 +3,13 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.util.HierarchyBuilder;
 
 public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {

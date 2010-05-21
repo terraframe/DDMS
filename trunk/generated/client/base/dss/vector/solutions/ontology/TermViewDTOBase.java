@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 787515489)
+@com.runwaysdk.business.ClassSignature(hash = -1854794935)
 public abstract class TermViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
-  private static final long serialVersionUID = 787515489;
+  private static final long serialVersionUID = -1854794935;
   
   protected TermViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,10 +17,48 @@ public abstract class TermViewDTOBase extends com.runwaysdk.business.ViewDTO imp
   }
   
   public static java.lang.String ID = "id";
+  public static java.lang.String INACTIVE = "inactive";
   public static java.lang.String SELECTABLE = "selectable";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TERMONTOLOGYID = "termOntologyId";
+  public Boolean getInactive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVE));
+  }
+  
+  public void setInactive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVE, "");
+    }
+    else
+    {
+      setValue(INACTIVE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isInactiveWritable()
+  {
+    return isWritable(INACTIVE);
+  }
+  
+  public boolean isInactiveReadable()
+  {
+    return isReadable(INACTIVE);
+  }
+  
+  public boolean isInactiveModified()
+  {
+    return isModified(INACTIVE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getInactiveMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(INACTIVE).getAttributeMdDTO();
+  }
+  
   public Boolean getSelectable()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SELECTABLE));

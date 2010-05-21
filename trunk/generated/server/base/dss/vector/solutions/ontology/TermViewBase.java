@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -214107679)
+@com.runwaysdk.business.ClassSignature(hash = 1592119753)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,11 +12,12 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermView";
   public static java.lang.String ID = "id";
+  public static java.lang.String INACTIVE = "inactive";
   public static java.lang.String SELECTABLE = "selectable";
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TERMONTOLOGYID = "termOntologyId";
-  private static final long serialVersionUID = -214107679;
+  private static final long serialVersionUID = 1592119753;
   
   public TermViewBase()
   {
@@ -37,6 +38,34 @@ public abstract class TermViewBase extends com.runwaysdk.business.View implement
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getInactive()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(INACTIVE));
+  }
+  
+  public void validateInactive()
+  {
+    this.validateAttribute(INACTIVE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInactiveMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.TermView.CLASS);
+    return mdClassIF.definesAttribute(INACTIVE);
+  }
+  
+  public void setInactive(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(INACTIVE, "");
+    }
+    else
+    {
+      setValue(INACTIVE, java.lang.Boolean.toString(value));
+    }
   }
   
   public Boolean getSelectable()

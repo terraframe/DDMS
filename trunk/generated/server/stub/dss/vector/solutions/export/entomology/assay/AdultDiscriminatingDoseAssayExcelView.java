@@ -3,22 +3,13 @@ package dss.vector.solutions.export.entomology.assay;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
-import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
-import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.util.HierarchyBuilder;
 
 
 public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable

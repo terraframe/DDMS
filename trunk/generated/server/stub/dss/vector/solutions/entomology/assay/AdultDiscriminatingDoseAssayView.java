@@ -6,6 +6,7 @@ import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.system.EnumerationMaster;
 
 import dss.vector.solutions.ontology.Term;
 
@@ -28,7 +29,7 @@ public class AdultDiscriminatingDoseAssayView extends AdultDiscriminatingDoseAss
 
     if (attribute instanceof AttributeEnumeration)
     {
-      attribute = ( (AttributeEnumeration) attribute ).aCharacter("enumName");
+      attribute = ( (AttributeEnumeration) attribute ).aCharacter(EnumerationMaster.ENUMNAME);
     }
     else if (attribute instanceof AttributeReference)
     {

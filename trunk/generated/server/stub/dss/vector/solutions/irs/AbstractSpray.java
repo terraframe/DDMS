@@ -91,7 +91,8 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     AbstractSpray.setWithQuerySQL(abstractSprayQuery, valueQuery);
     
     
-    
+    // TODO use constants to represent the table and column aliases since the class of the actual columns may
+    // be mapped to by more than one class (e.g., OperatorSpray and HouseholdSprayStatus).
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     String sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayed_rooms  WHEN spray_unit = 'STRUCTURE' THEN sprayed_structures WHEN spray_unit = 'HOUSEHOLD' THEN sprayed_households END )";
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (householdunsprayed)  END )";
@@ -161,12 +162,14 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     valueQuery.setSqlPrefix(sql);
 
-    valueQuery.WHERE(new InnerJoinEq("id", tableName, tableAlias, "id", sprayView, sprayView));
+    String id = QueryUtil.getIdColumn();
+    
+    valueQuery.WHERE(new InnerJoinEq(id, tableName, tableAlias, id, sprayView, sprayView));
 
     String brandCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.BRAND);
     String sprayDateCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.SPRAYDATE);
     
-    valueQuery.WHERE(new InnerJoinEq(brandCol, tableName, tableAlias, "id", insecticideView, insecticideView));
+    valueQuery.WHERE(new InnerJoinEq(brandCol, tableName, tableAlias, id, insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "start_date", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(sprayDateCol, tableName, tableAlias, "end_date", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));

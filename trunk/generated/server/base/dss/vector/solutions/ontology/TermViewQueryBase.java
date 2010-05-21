@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1198236938)
+@com.runwaysdk.business.ClassSignature(hash = -1226590272)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  abstract  class TermViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1198236938;
+private static final long serialVersionUID = -1226590272;
 
   public TermViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,6 +41,24 @@ private static final long serialVersionUID = 1198236938;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.TermView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactive()
+  {
+    return getInactive(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactive(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.INACTIVE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getInactive(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.ontology.TermView.INACTIVE, alias, displayLabel);
 
   }
  

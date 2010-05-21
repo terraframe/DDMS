@@ -426,11 +426,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       InactiveProperty prop = this.getInactiveByDisease();
       
-      if(!prop.isNew())
-      {
-        prop.appLock();
-      }
-      
+      prop.appLock();
       prop.setInactive(inactive);
       prop.apply();
     }
@@ -471,7 +467,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     Disease disease = Disease.getCurrent();
     
-    if(this.isNew())
+    if(this.isNew() && !this.isAppliedToDB())
     {
       InactiveProperty prop = new InactiveProperty();
       prop.setInactive(false);
@@ -597,6 +593,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private String[]  termIds;
 
     private TermQuery termQuery;
+    
+    private InactivePropertyQuery inactivePropQuery;
 
     protected FetchQueryBuilder(QueryFactory queryFactory, String[] termIds)
     {
@@ -604,6 +602,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       this.termIds = termIds;
       this.termQuery = new TermQuery(queryFactory);
+      this.inactivePropQuery = new InactivePropertyQuery(queryFactory);
     }
 
     @Override
@@ -615,6 +614,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
+      query.map(TermView.INACTIVE, this.inactivePropQuery.getInactive());
     }
 
     @Override
@@ -622,6 +622,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       GeneratedViewQuery query = this.getViewQuery();
 
+      Disease disease = Disease.getCurrent();
+      this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
+
+      query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
+      
       // restrict by the term ids (ordering will be done client-side)
       if (this.termIds != null && this.termIds.length > 0)
       {
@@ -793,6 +798,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private TermRelationshipQuery termRelQuery;
 
     private Boolean               filterObsolete;
+    
+    private InactivePropertyQuery inactivePropQuery;
 
     protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent, Boolean filterObsolete)
     {
@@ -802,6 +809,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       this.termQuery = new TermQuery(queryFactory);
       this.termRelQuery = new TermRelationshipQuery(queryFactory);
       this.filterObsolete = filterObsolete;
+      this.inactivePropQuery = new InactivePropertyQuery(queryFactory);
     }
 
     @Override
@@ -813,6 +821,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
+      query.map(TermView.INACTIVE, this.inactivePropQuery.getInactive());
     }
 
     @Override
@@ -821,14 +830,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
-      query.AND(termQuery.parentTerm(this.termRelQuery)); // FIXME parent-child
-      // label reversed
-
+      query.AND(termQuery.parentTerm(this.termRelQuery));
+      
+      Disease disease = Disease.getCurrent();
+      
       if (this.filterObsolete)
       {
-        query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//        query.AND(Disease.getInactive(termQuery).EQ(false));
+        this.inactivePropQuery.AND(this.inactivePropQuery.getInactive().EQ(false));
+
       }
+      
+      this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
+
+      query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
 
       // query.ORDER_BY_ASC(this.termQuery.getName());
       query.ORDER_BY_ASC(this.termQuery.getTermDisplayLabel().localize());
