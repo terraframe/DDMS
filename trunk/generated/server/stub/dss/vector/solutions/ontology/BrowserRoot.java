@@ -181,7 +181,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
       else
       {
         rootQuery.WHERE(rootQuery.getTerm().EQ(""));
-      }
+      }      
     }
     // restricted by MdAttributeId
     else if (className == null || className.length() == 0)
@@ -197,7 +197,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     }
 
     rootQuery.WHERE(Disease.getInactiveCriteria(factory, rootQuery.getTerm(), false));
-    rootQuery.WHERE(rootQuery.getDisease().EQ(Disease.getCurrent()));
+    rootQuery.AND(rootQuery.getDisease().EQ(Disease.getCurrent()));
     rootQuery.AND(rootQuery.field(fieldQuery));
 
     return rootQuery;

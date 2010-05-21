@@ -1303,8 +1303,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     List<Condition> conditionList = Term.getConditions(className, attribute, fieldQuery, rootQuery, pathsQuery, termQuery);
     
-    conditionList.add(Disease.getInactiveCriteria(factory, termQuery, false));
-
     conditionList.addAll(getUnselectableConditions(className, attribute, fieldQuery, unselectableRootQuery, termQuery));
 
     Condition[] conditions = conditionList.toArray(new Condition[conditionList.size()]);
@@ -1322,8 +1320,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
     }
-
+    
     query.restrictRows(20, 1);
+
     return query;
   }
 
@@ -1357,7 +1356,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     List<Condition> list = new LinkedList<Condition>();
 
     list.add(Disease.getInactiveCriteria(termQuery.getQueryFactory(), termQuery, false));
-    list.add(rootQuery.getDisease().EQ(Disease.getCurrent()));
 
     if (className == null && attribute == null)
     {
@@ -1380,6 +1378,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
 
       list.add(fieldCondition);
+      list.add(rootQuery.getDisease().EQ(Disease.getCurrent()));
       list.add(rootQuery.field(fieldQuery));
     }
     else if (className != null)
@@ -1389,6 +1388,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     else if (attribute != null)
     {
       list.add(fieldQuery.getMdAttribute().EQ(attribute));
+      list.add(rootQuery.getDisease().EQ(Disease.getCurrent()));
       list.add(rootQuery.field(fieldQuery));
     }
 
