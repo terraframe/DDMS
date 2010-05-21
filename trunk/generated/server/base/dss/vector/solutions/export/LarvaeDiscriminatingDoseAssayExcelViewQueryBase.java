@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -238215240)
+@com.runwaysdk.business.ClassSignature(hash = 657922576)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class LarvaeDiscriminatingDoseAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -238215240;
+private static final long serialVersionUID = 657922576;
 
   public LarvaeDiscriminatingDoseAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,21 +26,21 @@ private static final long serialVersionUID = -238215240;
   {
     return dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS;
   }
-  public com.runwaysdk.query.SelectableChar getCollectionMethod()
+  public com.runwaysdk.query.SelectableChar getCollectionId()
   {
-    return getCollectionMethod(null);
+    return getCollectionId(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias)
+  public com.runwaysdk.query.SelectableChar getCollectionId(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONID, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONMETHOD, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONID, alias, displayLabel);
 
   }
  
@@ -59,24 +59,6 @@ private static final long serialVersionUID = -238215240;
   public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableFloat)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected()
-  {
-    return getDateCollected(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected(String alias)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.DATECOLLECTED, alias, displayLabel);
 
   }
  
@@ -134,25 +116,6 @@ private static final long serialVersionUID = -238215240;
 
   }
  
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
-  {
-    return getGeoEntity(null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GEOENTITY, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.GEOENTITY, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getHoldingTime()
   {
     return getHoldingTime(null);
@@ -276,6 +239,42 @@ private static final long serialVersionUID = -238215240;
   public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.ISOFEMALE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt50()
+  {
+    return getLt50(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt50(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.LT50, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt50(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.LT50, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt95()
+  {
+    return getLt95(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt95(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.LT95, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getLt95(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.LT95, alias, displayLabel);
 
   }
  

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -690130872)
+@com.runwaysdk.business.ClassSignature(hash = -1587523980)
 public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.KnockDownAssayExcelView";
-  private static final long serialVersionUID = -690130872;
+  private static final long serialVersionUID = -1587523980;
   
   protected KnockDownAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,19 +17,25 @@ public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.busin
   }
   
   public static java.lang.String AGERANGE = "ageRange";
-  public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  public static java.lang.String DATECOLLECTED = "dateCollected";
+  public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
+  public static java.lang.String INTERVAL10 = "interval10";
+  public static java.lang.String INTERVAL20 = "interval20";
+  public static java.lang.String INTERVAL30 = "interval30";
+  public static java.lang.String INTERVAL40 = "interval40";
+  public static java.lang.String INTERVAL50 = "interval50";
+  public static java.lang.String INTERVAL60 = "interval60";
   public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String KD50 = "kd50";
+  public static java.lang.String KD95 = "kd95";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
@@ -60,78 +66,41 @@ public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
-  public String getCollectionMethod()
+  public String getCollectionId()
   {
-    return getValue(COLLECTIONMETHOD);
+    return getValue(COLLECTIONID);
   }
   
-  public void setCollectionMethod(String value)
+  public void setCollectionId(String value)
   {
     if(value == null)
     {
-      setValue(COLLECTIONMETHOD, "");
+      setValue(COLLECTIONID, "");
     }
     else
     {
-      setValue(COLLECTIONMETHOD, value);
+      setValue(COLLECTIONID, value);
     }
   }
   
-  public boolean isCollectionMethodWritable()
+  public boolean isCollectionIdWritable()
   {
-    return isWritable(COLLECTIONMETHOD);
+    return isWritable(COLLECTIONID);
   }
   
-  public boolean isCollectionMethodReadable()
+  public boolean isCollectionIdReadable()
   {
-    return isReadable(COLLECTIONMETHOD);
+    return isReadable(COLLECTIONID);
   }
   
-  public boolean isCollectionMethodModified()
+  public boolean isCollectionIdModified()
   {
-    return isModified(COLLECTIONMETHOD);
+    return isModified(COLLECTIONID);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getDateCollected()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
-  }
-  
-  public void setDateCollected(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(DATECOLLECTED, "");
-    }
-    else
-    {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public boolean isDateCollectedWritable()
-  {
-    return isWritable(DATECOLLECTED);
-  }
-  
-  public boolean isDateCollectedReadable()
-  {
-    return isReadable(DATECOLLECTED);
-  }
-  
-  public boolean isDateCollectedModified()
-  {
-    return isModified(DATECOLLECTED);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -243,50 +212,6 @@ public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.busin
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getGravid()
@@ -474,6 +399,228 @@ public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEUNITS).getAttributeMdDTO();
   }
   
+  public Integer getInterval10()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL10));
+  }
+  
+  public void setInterval10(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL10, "");
+    }
+    else
+    {
+      setValue(INTERVAL10, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval10Writable()
+  {
+    return isWritable(INTERVAL10);
+  }
+  
+  public boolean isInterval10Readable()
+  {
+    return isReadable(INTERVAL10);
+  }
+  
+  public boolean isInterval10Modified()
+  {
+    return isModified(INTERVAL10);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval10Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL10).getAttributeMdDTO();
+  }
+  
+  public Integer getInterval20()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL20));
+  }
+  
+  public void setInterval20(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL20, "");
+    }
+    else
+    {
+      setValue(INTERVAL20, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval20Writable()
+  {
+    return isWritable(INTERVAL20);
+  }
+  
+  public boolean isInterval20Readable()
+  {
+    return isReadable(INTERVAL20);
+  }
+  
+  public boolean isInterval20Modified()
+  {
+    return isModified(INTERVAL20);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval20Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL20).getAttributeMdDTO();
+  }
+  
+  public Integer getInterval30()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL30));
+  }
+  
+  public void setInterval30(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL30, "");
+    }
+    else
+    {
+      setValue(INTERVAL30, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval30Writable()
+  {
+    return isWritable(INTERVAL30);
+  }
+  
+  public boolean isInterval30Readable()
+  {
+    return isReadable(INTERVAL30);
+  }
+  
+  public boolean isInterval30Modified()
+  {
+    return isModified(INTERVAL30);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval30Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL30).getAttributeMdDTO();
+  }
+  
+  public Integer getInterval40()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL40));
+  }
+  
+  public void setInterval40(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL40, "");
+    }
+    else
+    {
+      setValue(INTERVAL40, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval40Writable()
+  {
+    return isWritable(INTERVAL40);
+  }
+  
+  public boolean isInterval40Readable()
+  {
+    return isReadable(INTERVAL40);
+  }
+  
+  public boolean isInterval40Modified()
+  {
+    return isModified(INTERVAL40);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval40Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL40).getAttributeMdDTO();
+  }
+  
+  public Integer getInterval50()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL50));
+  }
+  
+  public void setInterval50(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL50, "");
+    }
+    else
+    {
+      setValue(INTERVAL50, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval50Writable()
+  {
+    return isWritable(INTERVAL50);
+  }
+  
+  public boolean isInterval50Readable()
+  {
+    return isReadable(INTERVAL50);
+  }
+  
+  public boolean isInterval50Modified()
+  {
+    return isModified(INTERVAL50);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval50Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL50).getAttributeMdDTO();
+  }
+  
+  public Integer getInterval60()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL60));
+  }
+  
+  public void setInterval60(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVAL60, "");
+    }
+    else
+    {
+      setValue(INTERVAL60, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isInterval60Writable()
+  {
+    return isWritable(INTERVAL60);
+  }
+  
+  public boolean isInterval60Readable()
+  {
+    return isReadable(INTERVAL60);
+  }
+  
+  public boolean isInterval60Modified()
+  {
+    return isModified(INTERVAL60);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getInterval60Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVAL60).getAttributeMdDTO();
+  }
+  
   public Boolean getIsofemale()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
@@ -509,6 +656,80 @@ public abstract class KnockDownAssayExcelViewDTOBase extends com.runwaysdk.busin
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
+  }
+  
+  public Double getKd50()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD50));
+  }
+  
+  public void setKd50(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD50, "");
+    }
+    else
+    {
+      setValue(KD50, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isKd50Writable()
+  {
+    return isWritable(KD50);
+  }
+  
+  public boolean isKd50Readable()
+  {
+    return isReadable(KD50);
+  }
+  
+  public boolean isKd50Modified()
+  {
+    return isModified(KD50);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd50Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD50).getAttributeMdDTO();
+  }
+  
+  public Double getKd95()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD95));
+  }
+  
+  public void setKd95(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD95, "");
+    }
+    else
+    {
+      setValue(KD95, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isKd95Writable()
+  {
+    return isWritable(KD95);
+  }
+  
+  public boolean isKd95Readable()
+  {
+    return isReadable(KD95);
+  }
+  
+  public boolean isKd95Modified()
+  {
+    return isModified(KD95);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd95Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD95).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()

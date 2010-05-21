@@ -1,7 +1,11 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
@@ -28,58 +32,52 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
   {
     LarvaeDiscriminatingDoseAssay ldda = new LarvaeDiscriminatingDoseAssay();
     
-    MosquitoCollectionView mosquitoCollectionView = new MosquitoCollectionView();
-    mosquitoCollectionView.setCollectionMethod(Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd()));
-    mosquitoCollectionView.setCollectionDate(this.getDateCollected());
-    mosquitoCollectionView.setGeoEntity(this.getGeoEntity());
-    ldda.setCollection(mosquitoCollectionView.findMatch());
-    
+    ldda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     ldda.setTestDate(this.getTestDate());
+    ldda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), LarvaeDiscriminatingDoseAssay.getSpecieMd()));
     ldda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), LarvaeDiscriminatingDoseAssay.getIdentificationMethodMd()));
     ldda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), LarvaeDiscriminatingDoseAssay.getTestMethodMd()));
     ldda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), LarvaeDiscriminatingDoseAssay.getGenerationMd()));
     ldda.setIsofemale(this.getIsofemale());
 
-    // Specie is optional so don't validate the input if
-    // the value is null or empty
-    if(this.hasSpecie())
-    {
-      ldda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), LarvaeDiscriminatingDoseAssay.getSpecieMd()));
-    }
-
     // Age ranges
     ldda.setStartPoint(Term.validateByDisplayLabel(this.getStartPoint(), LarvaeDiscriminatingDoseAssay.getStartPointMd()));
     ldda.setEndPoint(Term.validateByDisplayLabel(this.getEndPoint(), LarvaeDiscriminatingDoseAssay.getEndPointMd()));
     
+    ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     ldda.setExposureTime(this.getExposureTime());
     ldda.setHoldingTime(this.getHoldingTime());
     ldda.setQuantityTested(this.getQuantityTested());
     ldda.setQuantityDead(this.getQuantityDead());
     ldda.setControlTestMortality(this.getControlTestMortality());
+    ldda.setLt50(this.getLt50());
+    ldda.setLt95(this.getLt95());
     
-    ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));    
     ldda.apply();
   }
   
-  private boolean hasSpecie()
+  public static List<String> customAttributeOrder()
   {
-    return this.getSpecie() != null && !this.getSpecie().equals("");
-  }
-  
-  public static void setupExportListener(ExcelExporter exporter, String...params)
-  {
-    exporter.addListener(createExcelGeoListener());
-  }
-  
-  public static void setupImportListener(ExcelImporter importer, String... params)
-  {
-    importer.addListener(createExcelGeoListener());
-  }
-
-  private static DynamicGeoColumnListener createExcelGeoListener()
-  {
-    HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(COLLECTIONID);
+    list.add(TESTDATE);
+    list.add(SPECIE);
+    list.add(IDENTIFICATIONMETHOD);
+    list.add(TESTMETHOD);
+    list.add(GENERATION);
+    list.add(ISOFEMALE);
+    list.add(STARTPOINT);
+    list.add(ENDPOINT);
+    list.add(INSECTICIDEACTIVEINGREDIENT);
+    list.add(INSECTICIDEAMOUNT);
+    list.add(INSECTICIDEUNITS);
+    list.add(EXPOSURETIME);
+    list.add(HOLDINGTIME);
+    list.add(QUANTITYTESTED);
+    list.add(QUANTITYDEAD);
+    list.add(CONTROLTESTMORTALITY);
+    list.add(LT50);
+    list.add(LT95);
+    return list;
   }
 }

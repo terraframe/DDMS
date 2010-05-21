@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1399208783)
+@com.runwaysdk.business.ClassSignature(hash = -79949141)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class KnockDownAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1399208783;
+private static final long serialVersionUID = -79949141;
 
   public KnockDownAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -44,39 +44,21 @@ private static final long serialVersionUID = -1399208783;
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCollectionMethod()
+  public com.runwaysdk.query.SelectableChar getCollectionId()
   {
-    return getCollectionMethod(null);
+    return getCollectionId(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias)
+  public com.runwaysdk.query.SelectableChar getCollectionId(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.COLLECTIONMETHOD, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.COLLECTIONID, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getCollectionId(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.COLLECTIONMETHOD, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected()
-  {
-    return getDateCollected(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected(String alias)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.DATECOLLECTED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getDateCollected(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.DATECOLLECTED, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.COLLECTIONID, alias, displayLabel);
 
   }
  
@@ -134,25 +116,6 @@ private static final long serialVersionUID = -1399208783;
 
   }
  
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
-  {
-    return getGeoEntity(null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.GEOENTITY, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.GEOENTITY, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getGravid()
   {
     return getGravid(null);
@@ -261,6 +224,114 @@ private static final long serialVersionUID = -1399208783;
 
   }
  
+  public com.runwaysdk.query.SelectableInteger getInterval10()
+  {
+    return getInterval10(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval10(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL10, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval10(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL10, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval20()
+  {
+    return getInterval20(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval20(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL20, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval20(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL20, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval30()
+  {
+    return getInterval30(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval30(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL30, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval30(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL30, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval40()
+  {
+    return getInterval40(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval40(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL40, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval40(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL40, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval50()
+  {
+    return getInterval50(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval50(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL50, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval50(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL50, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval60()
+  {
+    return getInterval60(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval60(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL60, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getInterval60(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL60, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableBoolean getIsofemale()
   {
     return getIsofemale(null);
@@ -276,6 +347,42 @@ private static final long serialVersionUID = -1399208783;
   public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.ISOFEMALE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50()
+  {
+    return getKd50(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.KD50, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.KD50, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95()
+  {
+    return getKd95(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.KD95, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.KD95, alias, displayLabel);
 
   }
  

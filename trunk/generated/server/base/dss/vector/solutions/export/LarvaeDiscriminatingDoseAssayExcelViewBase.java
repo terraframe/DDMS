@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1185483087)
+@com.runwaysdk.business.ClassSignature(hash = 590523609)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,13 +11,11 @@ package dss.vector.solutions.export;
 public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView";
-  public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
-  public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
@@ -25,44 +23,46 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.run
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
   public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String LT50 = "lt50";
+  public static java.lang.String LT95 = "lt95";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String STARTPOINT = "startPoint";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1185483087;
+  private static final long serialVersionUID = 590523609;
   
   public LarvaeDiscriminatingDoseAssayExcelViewBase()
   {
     super();
   }
   
-  public String getCollectionMethod()
+  public String getCollectionId()
   {
-    return getValue(COLLECTIONMETHOD);
+    return getValue(COLLECTIONID);
   }
   
-  public void validateCollectionMethod()
+  public void validateCollectionId()
   {
-    this.validateAttribute(COLLECTIONMETHOD);
+    this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONMETHOD);
+    return mdClassIF.definesAttribute(COLLECTIONID);
   }
   
-  public void setCollectionMethod(String value)
+  public void setCollectionId(String value)
   {
     if(value == null)
     {
-      setValue(COLLECTIONMETHOD, "");
+      setValue(COLLECTIONID, "");
     }
     else
     {
-      setValue(COLLECTIONMETHOD, value);
+      setValue(COLLECTIONID, value);
     }
   }
   
@@ -91,34 +91,6 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.run
     else
     {
       setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
-    }
-  }
-  
-  public java.util.Date getDateCollected()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
-  }
-  
-  public void validateDateCollected()
-  {
-    this.validateAttribute(DATECOLLECTED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateCollectedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(DATECOLLECTED);
-  }
-  
-  public void setDateCollected(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(DATECOLLECTED, "");
-    }
-    else
-    {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -203,41 +175,6 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.run
     else
     {
       setValue(GENERATION, value);
-    }
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
-  {
-    if (getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
-    }
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
     }
   }
   
@@ -422,6 +359,62 @@ public abstract class LarvaeDiscriminatingDoseAssayExcelViewBase extends com.run
     else
     {
       setValue(ISOFEMALE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Double getLt50()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT50));
+  }
+  
+  public void validateLt50()
+  {
+    this.validateAttribute(LT50);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLt50Md()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(LT50);
+  }
+  
+  public void setLt50(Double value)
+  {
+    if(value == null)
+    {
+      setValue(LT50, "");
+    }
+    else
+    {
+      setValue(LT50, java.lang.Double.toString(value));
+    }
+  }
+  
+  public Double getLt95()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(LT95));
+  }
+  
+  public void validateLt95()
+  {
+    this.validateAttribute(LT95);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getLt95Md()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(LT95);
+  }
+  
+  public void setLt95(Double value)
+  {
+    if(value == null)
+    {
+      setValue(LT95, "");
+    }
+    else
+    {
+      setValue(LT95, java.lang.Double.toString(value));
     }
   }
   

@@ -1,7 +1,11 @@
 package dss.vector.solutions.export;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
@@ -29,12 +33,7 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
   {
     KnockDownAssay kda = new KnockDownAssay();
     
-    MosquitoCollectionView mosquitoCollectionView = new MosquitoCollectionView();
-    mosquitoCollectionView.setCollectionMethod(Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollection.getCollectionMethodMd()));
-    mosquitoCollectionView.setCollectionDate(this.getDateCollected());
-    mosquitoCollectionView.setGeoEntity(this.getGeoEntity());
-    kda.setCollection(mosquitoCollectionView.findMatch());
-    
+    kda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     kda.setTestDate(this.getTestDate());
     kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
     kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), KnockDownAssay.getGenerationMd()));
@@ -51,28 +50,47 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setFed(this.getFed());
     kda.setGravid(this.getGravid());
     kda.setExposureTime(this.getExposureTime());
-    kda.setQuantityTested(this.getQuantityTested());
-    
     kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
+    kda.setQuantityTested(this.getQuantityTested());
+    kda.setKd50(this.getKd50());
+    kda.setKd95(this.getKd95());
+    kda.setInterval10(this.getInterval10());
+    kda.setInterval20(this.getInterval20());
+    kda.setInterval30(this.getInterval30());
+    kda.setInterval40(this.getInterval40());
+    kda.setInterval50(this.getInterval50());
+    kda.setInterval60(this.getInterval60());
     
     kda.apply();
   }
   
-  public static void setupExportListener(ExcelExporter exporter, String...params)
+  public static List<String> customAttributeOrder()
   {
-    exporter.addListener(createExcelGeoListener());
+    LinkedList<String> list = new LinkedList<String>();
+    list.add(COLLECTIONID);
+    list.add(TESTDATE);
+    list.add(TESTMETHOD);
+    list.add(GENERATION);
+    list.add(ISOFEMALE);
+    list.add(SEX);
+    list.add(SPECIE);
+    list.add(IDENTIFICATIONMETHOD);
+    list.add(AGERANGE);
+    list.add(FED);
+    list.add(GRAVID);
+    list.add(EXPOSURETIME);
+    list.add(INSECTICIDEACTIVEINGREDIENT);
+    list.add(INSECTICIDEAMOUNT);
+    list.add(INSECTICIDEUNITS);
+    list.add(QUANTITYTESTED);
+    list.add(KD50);
+    list.add(KD95);
+    list.add(INTERVAL10);
+    list.add(INTERVAL20);
+    list.add(INTERVAL30);
+    list.add(INTERVAL40);
+    list.add(INTERVAL50);
+    list.add(INTERVAL60);
+    return list;
   }
-  
-  public static void setupImportListener(ExcelImporter importer, String... params)
-  {
-    importer.addListener(createExcelGeoListener());
-  }
-
-  private static DynamicGeoColumnListener createExcelGeoListener()
-  {
-    HierarchyBuilder builder = new HierarchyBuilder();
-    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
-    return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
-  }
-
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1219323613)
+@com.runwaysdk.business.ClassSignature(hash = 673749695)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,13 +14,11 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
   public static java.lang.String AGERANGE = "ageRange";
   private com.runwaysdk.business.Struct ageRange = null;
   
-  public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
-  public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String ID = "id";
@@ -29,13 +27,15 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
   public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String KD50 = "kd50";
+  public static java.lang.String KD95 = "kd95";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1219323613;
+  private static final long serialVersionUID = 673749695;
   
   public AdultDiscriminatingDoseAssayExcelViewBase()
   {
@@ -59,31 +59,31 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     return mdClassIF.definesAttribute(AGERANGE);
   }
   
-  public String getCollectionMethod()
+  public String getCollectionId()
   {
-    return getValue(COLLECTIONMETHOD);
+    return getValue(COLLECTIONID);
   }
   
-  public void validateCollectionMethod()
+  public void validateCollectionId()
   {
-    this.validateAttribute(COLLECTIONMETHOD);
+    this.validateAttribute(COLLECTIONID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMethodMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONMETHOD);
+    return mdClassIF.definesAttribute(COLLECTIONID);
   }
   
-  public void setCollectionMethod(String value)
+  public void setCollectionId(String value)
   {
     if(value == null)
     {
-      setValue(COLLECTIONMETHOD, "");
+      setValue(COLLECTIONID, "");
     }
     else
     {
-      setValue(COLLECTIONMETHOD, value);
+      setValue(COLLECTIONID, value);
     }
   }
   
@@ -112,34 +112,6 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     else
     {
       setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
-    }
-  }
-  
-  public java.util.Date getDateCollected()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
-  }
-  
-  public void validateDateCollected()
-  {
-    this.validateAttribute(DATECOLLECTED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateCollectedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(DATECOLLECTED);
-  }
-  
-  public void setDateCollected(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(DATECOLLECTED, "");
-    }
-    else
-    {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -224,41 +196,6 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     else
     {
       setValue(GENERATION, value);
-    }
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
-  {
-    if (getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
-    }
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
     }
   }
   
@@ -471,6 +408,62 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     else
     {
       setValue(ISOFEMALE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Double getKd50()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD50));
+  }
+  
+  public void validateKd50()
+  {
+    this.validateAttribute(KD50);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd50Md()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(KD50);
+  }
+  
+  public void setKd50(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD50, "");
+    }
+    else
+    {
+      setValue(KD50, java.lang.Double.toString(value));
+    }
+  }
+  
+  public Double getKd95()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD95));
+  }
+  
+  public void validateKd95()
+  {
+    this.validateAttribute(KD95);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getKd95Md()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(KD95);
+  }
+  
+  public void setKd95(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD95, "");
+    }
+    else
+    {
+      setValue(KD95, java.lang.Double.toString(value));
     }
   }
   

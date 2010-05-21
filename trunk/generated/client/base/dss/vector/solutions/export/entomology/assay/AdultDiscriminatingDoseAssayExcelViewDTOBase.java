@@ -1,10 +1,10 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1585682339)
+@com.runwaysdk.business.ClassSignature(hash = 2114292031)
 public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = -1585682339;
+  private static final long serialVersionUID = 2114292031;
   
   protected AdultDiscriminatingDoseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,13 +17,11 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   }
   
   public static java.lang.String AGERANGE = "ageRange";
-  public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
-  public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String ID = "id";
@@ -32,6 +30,8 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
   public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String KD50 = "kd50";
+  public static java.lang.String KD95 = "kd95";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
@@ -63,41 +63,41 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
     return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
-  public String getCollectionMethod()
+  public String getCollectionId()
   {
-    return getValue(COLLECTIONMETHOD);
+    return getValue(COLLECTIONID);
   }
   
-  public void setCollectionMethod(String value)
+  public void setCollectionId(String value)
   {
     if(value == null)
     {
-      setValue(COLLECTIONMETHOD, "");
+      setValue(COLLECTIONID, "");
     }
     else
     {
-      setValue(COLLECTIONMETHOD, value);
+      setValue(COLLECTIONID, value);
     }
   }
   
-  public boolean isCollectionMethodWritable()
+  public boolean isCollectionIdWritable()
   {
-    return isWritable(COLLECTIONMETHOD);
+    return isWritable(COLLECTIONID);
   }
   
-  public boolean isCollectionMethodReadable()
+  public boolean isCollectionIdReadable()
   {
-    return isReadable(COLLECTIONMETHOD);
+    return isReadable(COLLECTIONID);
   }
   
-  public boolean isCollectionMethodModified()
+  public boolean isCollectionIdModified()
   {
-    return isModified(COLLECTIONMETHOD);
+    return isModified(COLLECTIONID);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONID).getAttributeMdDTO();
   }
   
   public Float getControlTestMortality()
@@ -135,43 +135,6 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getDateCollected()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
-  }
-  
-  public void setDateCollected(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(DATECOLLECTED, "");
-    }
-    else
-    {
-      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public boolean isDateCollectedWritable()
-  {
-    return isWritable(DATECOLLECTED);
-  }
-  
-  public boolean isDateCollectedReadable()
-  {
-    return isReadable(DATECOLLECTED);
-  }
-  
-  public boolean isDateCollectedModified()
-  {
-    return isModified(DATECOLLECTED);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -283,50 +246,6 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGenerationMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
-  {
-    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
-    }
-  }
-  
-  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public boolean isGeoEntityWritable()
-  {
-    return isWritable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityReadable()
-  {
-    return isReadable(GEOENTITY);
-  }
-  
-  public boolean isGeoEntityModified()
-  {
-    return isModified(GEOENTITY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getGravid()
@@ -586,6 +505,80 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
+  }
+  
+  public Double getKd50()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD50));
+  }
+  
+  public void setKd50(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD50, "");
+    }
+    else
+    {
+      setValue(KD50, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isKd50Writable()
+  {
+    return isWritable(KD50);
+  }
+  
+  public boolean isKd50Readable()
+  {
+    return isReadable(KD50);
+  }
+  
+  public boolean isKd50Modified()
+  {
+    return isModified(KD50);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd50Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD50).getAttributeMdDTO();
+  }
+  
+  public Double getKd95()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(KD95));
+  }
+  
+  public void setKd95(Double value)
+  {
+    if(value == null)
+    {
+      setValue(KD95, "");
+    }
+    else
+    {
+      setValue(KD95, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isKd95Writable()
+  {
+    return isWritable(KD95);
+  }
+  
+  public boolean isKd95Readable()
+  {
+    return isReadable(KD95);
+  }
+  
+  public boolean isKd95Modified()
+  {
+    return isModified(KD95);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getKd95Md()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(KD95).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
