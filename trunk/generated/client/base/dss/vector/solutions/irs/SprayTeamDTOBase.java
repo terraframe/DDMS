@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 464629548)
+@com.runwaysdk.business.ClassSignature(hash = -994379831)
 public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.TargeterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.SprayTeam";
-  private static final long serialVersionUID = 464629548;
+  private static final long serialVersionUID = -994379831;
   
   protected SprayTeamDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,8 +27,53 @@ public abstract class SprayTeamDTOBase extends dss.vector.solutions.irs.Targeter
     return CLASS;
   }
   
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String SPRAYZONE = "sprayZone";
   public static java.lang.String TEAMID = "teamId";
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.geo.generated.SprayZoneDTO getSprayZone()
   {
     if(getValue(SPRAYZONE) == null || getValue(SPRAYZONE).trim().equals(""))
