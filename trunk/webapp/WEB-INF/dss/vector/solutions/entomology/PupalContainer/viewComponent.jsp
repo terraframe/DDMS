@@ -75,78 +75,96 @@
 <%=Halp.loadTypes(Arrays.asList(new String[]{PupalCollectionViewDTO.CLASS, PupalContainerViewDTO.CLASS, PupalContainerAmountViewDTO.CLASS}))%>
 
 <script type="text/javascript">
+Mojo.Meta.newClass('MDSS.PupalForm', {
+  Instance: {
+    initialize : function(grid) {
+      // Attach a key to all of the collection elements
+      this._attributes = YAHOO.util.Dom.getElementsByClassName("collection");
+      this._premiseId = document.getElementById('premiseId');
+      this._immutables = YAHOO.util.Dom.getElementsByClassName("immutable");
+      this._mutables = YAHOO.util.Dom.getElementsByClassName("mutable");
+      this._refresh = [document.getElementById('geoEntity'), document.getElementById('premiseTypeDisplay')];
+      this._original = {};
+      this._labels = {};
+      this._grid = grid;
+      this._deleteButton = new YAHOO.widget.Button("delete.button");
 
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){ 
-    // Attach a key to all of the collection elements
-    var attributes = YAHOO.util.Dom.getElementsByClassName("collection");
-
-    for each (el in attributes) {
-      var key = el.id.split("_")[0];
-      //key = key.substr(0, 1).toUpperCase() + key.substr(1);
+      this._deleteButton.on("click", function(){
+        var formEl = document.getElementById("PupalContainer.form");
+        formEl.action = "dss.vector.solutions.entomology.PupalContainerController.delete.mojo";
+        formEl.submit();
+      });    
+        
+      for each (el in this._attributes) {
+        var key = el.id.split("_")[0];
       
-      el.key = key;
-    }
-      
-    // Load the original immutable values into a map
-    var original = {};
-    var labels = {};
-    var premiseId = document.getElementById('premiseId');
-    var immutables = YAHOO.util.Dom.getElementsByClassName("immutable");
-    var mutables = YAHOO.util.Dom.getElementsByClassName("mutable");
-    var elements = [document.getElementById('geoEntity'), document.getElementById('premiseTypeDisplay')];
-
-    var saveImmutables = function() {
-      for each (el in immutables) {
-        var key = el.key;
-
-        original[key] = el.value;
+        el.key = key;
       }
       
-      for each (el in elements) {
-        var key = el.id;
-
-        labels[key] = el.value;
+      for each (el in this._mutables) {
+        YAHOO.util.Event.on(el, 'change', enableSave, this, this);   
       }
-    }
 
-    saveImmutables();
+      this.saveImmutables();      
 
-    // SETUP SUBMIT BUTTON HANDLERS
-    var enableSave = function() {
-      grid.enableSaveButton();      
-    }
+      // INITIALIZE THE BUTTONS
+      if(!this.hasPremise()) {
+        this.enableSave();
+      }
+      
+      this.buttonHandler();        
+    },
 
-    for each (el in mutables) {
-      YAHOO.util.Event.on(el, 'change', enableSave);   
-    }
+    saveImmutables : function() {
+      for each (el in this._immutables) {
+        this._populateMap(this._original, el.key, el);
+      }
     
-    // FORM SCRAPPER USED TO POPULATE A MOSQUITO COLLECTION VIEW USED IN THE SAVE HANDLER
-    var populateCollection = function() {
+      for each (el in this._refresh) {
+        this._populateMap(this._labels, el.id, el);
+      }
+    },
+
+    _populateMap : function(map, key, el) {
+      if(el.classes.indexOf("DatePick") != -1) {
+        map[key] = MDSS.Calendar.parseDate(el.value);
+      }
+      else {
+        map[key] = el.value;
+      }
+    },
+
+    enableSave : function() {
+      this._grid.enableSaveButton();      
+    },
+
+    hasPremise : function() {
+      return (this._premiseId.value != '');
+    },
+
+    populateCollection : function() {
       var collection = new Mojo.$.dss.vector.solutions.entomology.PupalCollectionView();
 
-      var attributes = YAHOO.util.Dom.getElementsByClassName("collection");
-
-      for each (el in attributes) {
+      for each (el in this._attributes) {
         var key = el.key;
         var value = el.value;
 
-        setValue(collection, key, value);
+        this.setValue(collection, key, value);
       }
 
-      if(premiseId.value != '') {
-        for each (el in immutables) {
+      if(this.hasPremise()) {
+        for each (el in this._immutables) {
           var key = el.key;
-          var value = original[key];
+          var value = this._original[key];
 
           setValue(collection, key, value);
         }          
       }
 
       return collection;
-    }
+    },
 
-    var setValue = function(collection, attributeName, value) {
+    setValue : function(collection, attributeName, value) {
       var attributeDTO = collection.getAttributeDTO(attributeName);
 
       if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
@@ -157,17 +175,15 @@
       else {
         attributeDTO.setValue(value);
       }
-    }
+    },
 
-    var populateForm = function(collection) {
+    refresh : function(collection) {
       // Refresh the immutables from the saved map
-      if(premiseId.value == '') {
-        saveImmutables();
+      if(!this.hasPremise()) {
+        this.saveImmutables();
       }
-        
-      var attributes = YAHOO.util.Dom.getElementsByClassName("mutable");
-
-      for each (el in attributes) {          
+          
+      for each (el in this._mutables) {          
         var key = el.key;          
         var value = collection.getAttributeDTO(key).getValue();
 
@@ -175,33 +191,42 @@
       }
 
       // Reload immutables from the saved map
-      for each (el in immutables) {
+      for each (el in this._immutables) {
         var key = el.key;
-        var value = original[key];
+        var value = this._original[key];
 
         el.value = value;
       }
-      
-      for each (el in elements) {
+        
+      for each (el in this._refresh) {
         var key = el.id;
-        var value = labels[key];
+        var value = this._labels[key];
 
         el.value = value;
       }
-      
+        
       // Recheck the button status on this page
-      buttonHandler();        
+      this.buttonHandler();        
+    },
+   
+    buttonHandler : function() {
+      this._deleteButton.set("disabled", !this.hasPremise());
     }
+  }
+});
 
+
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){ 
     // THE SAVE HANDLER FOR THE SUB COLLECTIONS DATA GRID
     var saveCollection = function(request, parameters) {
-      var collection = populateCollection();
+      var collection = form.populateCollection();
 
       var oldOnSuccess = request.onSuccess;
       var newOnSuccess = function(savedRows, returnedCollection) {
         oldOnSuccess.apply(request, [savedRows]);
         
-        populateForm(returnedCollection);
+        form.refresh(returnedCollection);
       }
 
       request.onSuccess = newOnSuccess;
@@ -276,29 +301,11 @@
       }
     };
 
-    var deleteButton = new YAHOO.widget.Button("delete.button");
-
-    deleteButton.on("click", function(){
-      var formEl = document.getElementById("PupalContainer.form");
-      formEl.action = "dss.vector.solutions.entomology.PupalContainerController.delete.mojo";
-      formEl.submit();
-    });    
-   
-    // BUTTON HANDLER: DISABLES LINK BUTTONS WHEN THE MOSQUITO COLLECTION HAS NOT BEEN APPLIED
-    var buttonHandler = function() {
-      deleteButton.set("disabled", (premiseId.value == ''));
-    }    
-
     var grid = new MDSS.DataGrid(model, data);
 
     grid.addListener(addDataHandler);
 
-    // INITIALIZE THE BUTTONS
-    if(premiseId.value == '') {
-      enableSave();
-    }
-    
-    buttonHandler();
+    var form = new MDSS.PupalForm(grid);
   });
 })();
         
