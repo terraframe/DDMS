@@ -1322,6 +1322,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
     
     query.restrictRows(20, 1);
+    
+    System.out.println(query.getSQL());
 
     return query;
   }
@@ -1342,6 +1344,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
 //        termQuery.AND(Disease.getInactiveCriteria(unselectableRootQuery.getQueryFactory(), unselectableRootQuery.getTerm(), termQuery, false));
         
+        conditions.add(unselectableRootQuery.getDisease().EQ(Disease.getCurrent()));
         conditions.add(unselectableRootQuery.getSelectable().EQ(false));
         conditions.add(unselectableRootQuery.field(fieldQuery));
         conditions.add(termQuery.getId().NEi(unselectableRootQuery.getTerm().getId()));
@@ -1366,7 +1369,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       String keyName = BrowserField.buildKey(className, attribute);
 
-      Condition fieldCondition = OR.get(fieldQuery.getKeyName().EQ(keyName));
+      Condition fieldCondition = fieldQuery.getKeyName().EQ(keyName);
 
       MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(className);
 
@@ -1378,6 +1381,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
 
       list.add(fieldCondition);
+      list.add(Disease.getInactiveCriteria(rootQuery.getQueryFactory(), rootQuery.getTerm(), false));
       list.add(rootQuery.getDisease().EQ(Disease.getCurrent()));
       list.add(rootQuery.field(fieldQuery));
     }
