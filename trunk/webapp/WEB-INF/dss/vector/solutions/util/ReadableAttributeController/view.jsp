@@ -48,6 +48,8 @@
   <mjl:command value="save" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
 </mjl:form>
 
+<div id="modal" style="scroll:auto"></div>
+
 <%=Halp.loadTypes(new String[]{BrowserFieldController.CLASS, BrowserRootController.CLASS, BrowserFieldDTO.CLASS, FieldDefaultViewDTO.CLASS}) %>
 
 <script type="text/javascript">
@@ -62,7 +64,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
 
       this._modal = new YAHOO.widget.Panel("modal",  {
         width:"100%",
-        height: "100%",
+        height: "300px",
         fixedcenter:true,
         close:true,
         draggable:false,
