@@ -52,6 +52,7 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   private void populateConcrete(PupalContainer concrete)
   {
     concrete.setPremise(this.getPremise());
+    concrete.setContainerId(this.getContainerId());
     concrete.setContainerType(this.getContainerType());
     concrete.setHeight(this.getHeight());
     concrete.setWidth(this.getWidth());
