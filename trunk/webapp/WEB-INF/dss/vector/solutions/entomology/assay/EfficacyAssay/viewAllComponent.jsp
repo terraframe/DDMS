@@ -18,9 +18,14 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="geoEntity">
+    <mjl:attributeColumn attributeName="geoId">
         <mjl:row >
-        ${item.geoEntity.entityName}
+        ${item.geoId}
+      </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="surfaceType">
+      <mjl:row >
+          ${item.surfaceType.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
    <mjl:attributeColumn attributeName="testDate">

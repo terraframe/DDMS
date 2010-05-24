@@ -60,7 +60,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
+    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPageForDisease(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -207,7 +207,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
-    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPageForDisease(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");

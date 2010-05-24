@@ -12,6 +12,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 
@@ -53,8 +54,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     concrete.setTimeOnSurface(this.getTimeOnSurface());
     concrete.setSex(this.getSex());
     concrete.setSurfacePostion(this.getSurfacePostion());
-    
-    
+    concrete.setSurfaceType(this.getSurfaceType());
+    concrete.setDisease(this.getDisease());
   }
 
   public void populateView(EfficacyAssay assay)
@@ -79,6 +80,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     this.setTimeOnSurface(assay.getTimeOnSurface());
     this.setSex(assay.getSex());
     this.setSurfacePostion(assay.getSurfacePostion());
+    this.setSurfaceType(assay.getSurfaceType());
+    this.setDisease(assay.getDisease());
   }
 
   @Override
@@ -129,7 +132,11 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
         EfficacyAssayView.TIMEONSURFACE);
     new AttributeNotificationMap(concrete, EfficacyAssay.SEX, this, EfficacyAssayView.SEX);
     new AttributeNotificationMap(concrete, EfficacyAssay.SURFACEPOSTION, this,
-        EfficacyAssayView.SURFACEPOSTION);
+            EfficacyAssayView.SURFACEPOSTION);
+    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACETYPE, this,
+            EfficacyAssayView.SURFACETYPE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.DISEASE, this,
+            EfficacyAssayView.DISEASE);
   }
 
   private boolean hasConcreteId()
@@ -210,8 +217,6 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
        query.restrictRows(pageSize, pageNumber);
     }
     
-    
-    
     //FIXME: Printing out the sql changes the result,  the struct table is not being joined. 
     
     //DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!
@@ -220,4 +225,10 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     return query;
   }
 
+  public static EfficacyAssayViewQuery getPageForDisease(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    EfficacyAssayViewQuery query = getPage(sortAttribute, isAscending, pageSize, pageNumber);
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+    return query;
+  }
 }

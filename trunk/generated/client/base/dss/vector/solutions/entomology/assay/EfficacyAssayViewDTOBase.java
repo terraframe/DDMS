@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1488536828)
+@com.runwaysdk.business.ClassSignature(hash = -896677668)
 public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssayView";
-  private static final long serialVersionUID = -1488536828;
+  private static final long serialVersionUID = -896677668;
   
   protected EfficacyAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -19,6 +19,7 @@ public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.Vi
   public static java.lang.String AGERANGE = "ageRange";
   public static java.lang.String COLONYNAME = "colonyName";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GEOID = "geoId";
@@ -33,6 +34,7 @@ public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.Vi
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
@@ -133,6 +135,50 @@ public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.Vi
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -644,6 +690,50 @@ public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.Vi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACEPOSTION).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getSurfaceType()
+  {
+    if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
+    }
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getTestDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
@@ -799,6 +889,14 @@ public abstract class EfficacyAssayViewDTOBase extends com.runwaysdk.business.Vi
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
     Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getPage", _declaredTypes);
+    return (dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO getPageForDisease(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO.CLASS, "getPageForDisease", _declaredTypes);
     return (dss.vector.solutions.entomology.assay.EfficacyAssayViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

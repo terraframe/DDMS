@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1890753171)
+@com.runwaysdk.business.ClassSignature(hash = -2113548374)
 public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssay";
-  private static final long serialVersionUID = -1890753171;
+  private static final long serialVersionUID = -2113548374;
   
   protected EfficacyAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -40,6 +40,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
   public dss.vector.solutions.entomology.assay.AdultAgeRangeDTO getAgeRange()
@@ -530,6 +531,50 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurfacePostionMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACEPOSTION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getSurfaceType()
+  {
+    if(getValue(SURFACETYPE) == null || getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACETYPE));
+    }
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurfaceTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTestMethod()

@@ -13,6 +13,11 @@
       <mjl:dt attribute="geoId">
         ${item.geoId}
       </mjl:dt>
+      <mjl:dt attribute="surfaceType">
+        <c:if test="${item.surfaceType != null}">
+          ${item.surfaceType.displayLabel}
+        </c:if>
+      </mjl:dt>
       <mjl:dt attribute="testDate">
         <span id="testDateSpan" class="formatDate">${item.testDate}</span>
       </mjl:dt>

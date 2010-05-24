@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 431675780)
+@com.runwaysdk.business.ClassSignature(hash = -1705207204)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
   
   public static java.lang.String COLONYNAME = "colonyName";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GEOID = "geoId";
@@ -30,10 +31,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 431675780;
+  private static final long serialVersionUID = -1705207204;
   
   public EfficacyAssayViewBase()
   {
@@ -110,6 +112,41 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     else
     {
       setValue(CONCRETEID, value);
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssayView.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   
@@ -521,6 +558,41 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public dss.vector.solutions.ontology.Term getSurfaceType()
+  {
+    if (getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(SURFACETYPE));
+    }
+  }
+  
+  public void validateSurfaceType()
+  {
+    this.validateAttribute(SURFACETYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssayView.CLASS);
+    return mdClassIF.definesAttribute(SURFACETYPE);
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
+    }
+  }
+  
   public java.util.Date getTestDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(TESTDATE));
@@ -647,6 +719,12 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
   }
   
   public static dss.vector.solutions.entomology.assay.EfficacyAssayViewQuery getPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.EfficacyAssayView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.entomology.assay.EfficacyAssayViewQuery getPageForDisease(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.EfficacyAssayView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

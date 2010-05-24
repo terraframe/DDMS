@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1235788781)
+@com.runwaysdk.business.ClassSignature(hash = -1570987734)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,9 +26,10 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 1235788781;
+  private static final long serialVersionUID = -1570987734;
   
   public EfficacyAssayBase()
   {
@@ -406,6 +407,41 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     else
     {
       setValue(SURFACEPOSTION, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getSurfaceType()
+  {
+    if (getValue(SURFACETYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(SURFACETYPE));
+    }
+  }
+  
+  public void validateSurfaceType()
+  {
+    this.validateAttribute(SURFACETYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
+    return mdClassIF.definesAttribute(SURFACETYPE);
+  }
+  
+  public void setSurfaceType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value.getId());
     }
   }
   

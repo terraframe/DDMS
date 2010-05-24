@@ -10,6 +10,9 @@
       <mjl:dt attribute="geoId">
         <mdss:geo param="geoId" value="${geoId}" concrete="false" filter="${surface}" />      
       </mjl:dt>
+      <mjl:dt attribute="surfaceType">
+        <mdss:mo param="surfaceType" value="${surfaceType}"/>
+      </mjl:dt>   
       <mjl:dt attribute="testDate">
         <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>

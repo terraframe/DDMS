@@ -63,6 +63,8 @@ private static final long serialVersionUID = 1242609508401L;
       vQuery.map(EfficacyAssayView.TESTDATE, query.getTestDate());
       vQuery.map(EfficacyAssayView.TESTMETHOD, query.getTestMethod());
       vQuery.map(EfficacyAssayView.TIMEONSURFACE, query.getTimeOnSurface());
+      vQuery.map(EfficacyAssayView.SURFACETYPE, query.getSurfaceType());
+      vQuery.map(EfficacyAssayView.DISEASE, query.getDisease());
     }
 
     /**
