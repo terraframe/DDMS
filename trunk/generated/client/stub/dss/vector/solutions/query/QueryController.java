@@ -31,7 +31,7 @@ import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
 import dss.vector.solutions.entomology.PupalCollectionDTO;
-import dss.vector.solutions.entomology.PupalContainer;
+import dss.vector.solutions.entomology.PupalContainerDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -883,9 +883,9 @@ public class QueryController extends QueryControllerBase implements
       String map = Halp.getDropDownMaps(collection, request, ", ");
       req.setAttribute("collectionMap", map);
 
-      ClassQueryDTO container = request.getQuery(PupalContainer.CLASS);
-      String container_map = Halp.getDropDownMaps(collection, request, ", ");
-      req.setAttribute("containerMap", map);
+      ClassQueryDTO container = request.getQuery(PupalContainerDTO.CLASS);
+      String container_map = Halp.getDropDownMaps(container, request, ", ");
+      req.setAttribute("containerMap", container_map);
       
       req.getRequestDispatcher(QUERY_PUPAL_CONTAINER_COLLECTION).forward(req, resp);
 
