@@ -30,6 +30,8 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.util.IdParser;
 
+import dss.vector.solutions.util.QueryUtil;
+
 public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1253040252503L;
@@ -301,8 +303,8 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
 
     String tableName = mdBusinessAllPaths.getTableName();
 
-    String childTermColumn = AllPaths.getChildTermMd().definesAttribute();
-    String parentTermColumn = AllPaths.getParentTermMd().definesAttribute();
+    String childTermColumn = QueryUtil.getColumnName(AllPaths.getChildTermMd());
+    String parentTermColumn = QueryUtil.getColumnName(AllPaths.getParentTermMd());
 
     String procCallString = "DELETE FROM "+tableName+" WHERE "+childTermColumn+" = ? "
       + " OR "+parentTermColumn+" = ?";
@@ -347,7 +349,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
 
     String tableName = mdBusinessAllPaths.getTableName();
 
-    String childTermColumn = AllPaths.getChildTermMd().definesAttribute();
+    String childTermColumn = QueryUtil.getColumnName(AllPaths.getChildTermMd());
 
     String procCallString = "DELETE FROM "+tableName+" WHERE "+childTermColumn+" = ?";
 

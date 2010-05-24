@@ -94,6 +94,7 @@ import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
 import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.QueryUtil;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -2048,7 +2049,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     String tableName = mdBusinessAllPaths.getTableName();
 
-    String childGeoEntityColumn = AllPaths.getChildGeoEntityMd().definesAttribute();
+    String childGeoEntityColumn = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
 
     String procCallString = "DELETE FROM " + tableName + " WHERE " + childGeoEntityColumn + " = ?";
 
@@ -2092,8 +2093,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     String tableName = mdBusinessAllPaths.getTableName();
 
-    String childColumn = AllPaths.getChildGeoEntityMd().definesAttribute();
-    String parentColumn = AllPaths.getParentGeoEntityMd().definesAttribute();
+    String childColumn = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
+    String parentColumn = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
 
     String procCallString = "DELETE FROM " + tableName + " WHERE " + childColumn + " = ? " + " OR " + parentColumn + " = ?";
 
