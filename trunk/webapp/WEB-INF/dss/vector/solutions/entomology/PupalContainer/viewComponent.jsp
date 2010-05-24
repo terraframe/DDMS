@@ -102,7 +102,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
       }
       
       for each (el in this._mutables) {
-        YAHOO.util.Event.on(el, 'change', enableSave, this, this);   
+        YAHOO.util.Event.on(el, 'change', this.enableSave, this, this);   
       }
 
       this.saveImmutables();      
@@ -126,8 +126,8 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     },
 
     _populateMap : function(map, key, el) {
-      if(el.classes.indexOf("DatePick") != -1) {
-        map[key] = MDSS.Calendar.parseDate(el.value);
+      if(el.classList.contains("DatePick")) {
+        map[key] = MDSS.Calendar.getLocalizedString(el.value);
       }
       else {
         map[key] = el.value;
@@ -157,7 +157,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
           var key = el.key;
           var value = this._original[key];
 
-          setValue(collection, key, value);
+          this.setValue(collection, key, value);
         }          
       }
 
