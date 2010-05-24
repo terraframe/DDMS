@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -50,13 +51,18 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
   @Override
   public void apply()
   {
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+
     List<SprayMethod> _sprayMethod = this.getSprayMethod();
 
     if (_sprayMethod.size() > 0)
     {
       this.setSprayMethodForIndex(_sprayMethod.get(0).getEnumName());
     }
-    
+
     this.setGeoEntityForIndex(this.getGeoEntity());
     this.setBrandForIndex(this.getBrand());
     this.setSprayDateForIndex(this.getSprayDate());
@@ -97,7 +103,6 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     Database.parseAndExecute(sql);
   }
 
-  
   public static String getTempTableSQL(String viewName)
   {
     MdEntityDAOIF zoneSprayMd = MdEntityDAO.getMdEntityDAO(ZoneSpray.CLASS);
@@ -105,7 +110,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     String supervisorCol = QueryUtil.getColumnName(zoneSprayMd, ZoneSpray.SUPERVISOR);
     String zsTargetCol = QueryUtil.getColumnName(zoneSprayMd, ZoneSpray.TARGET);
     String sprayWeekCol = QueryUtil.getColumnName(zoneSprayMd, ZoneSpray.SPRAYWEEK);
-    
+
     MdEntityDAOIF teamSprayStatusMd = MdEntityDAO.getMdEntityDAO(TeamSprayStatus.CLASS);
     String teamSprayStatusTable = teamSprayStatusMd.getTableName();
     String sprayCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.SPRAY);
@@ -130,33 +135,32 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     String roomsWithBedNetsCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.ROOMSWITHBEDNETS);
     String lockedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.LOCKED);
     String refusedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.REFUSED);
-    String otherCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.OTHER);    
-    
+    String otherCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.OTHER);
+
     MdEntityDAOIF personMd = MdEntityDAO.getMdEntityDAO(Person.CLASS);
     String personTable = personMd.getTableName();
     String firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
     String lastNameCol = QueryUtil.getColumnName(personMd, Person.LASTNAME);
-    
+
     MdEntityDAOIF teamMemberMd = MdEntityDAO.getMdEntityDAO(TeamMember.CLASS);
     String teamMemberTable = teamMemberMd.getTableName();
     String memberIdCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.MEMBERID);
-    
+
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     String sprayTeamTable = sprayTeamMd.getTableName();
     String teamIdCol = QueryUtil.getColumnName(sprayTeamMd, SprayTeam.TEAMID);
-    
+
     MdEntityDAOIF abstractSprayMd = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS);
     String abstractSprayTable = abstractSprayMd.getTableName();
     String geoEntityCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.GEOENTITY);
     String sprayDateCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.SPRAYDATE);
-    
+
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     String malariaSeasonTable = malariaSeasonMd.getTableName();
     String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
     String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-    
-    
-    String select = "SELECT "+zoneSprayTable+".id,\n";
+
+    String select = "SELECT " + zoneSprayTable + ".id,\n";
 
     select += "'3'::TEXT AS aggregation_level,\n";
     // operator stuff
@@ -167,70 +171,66 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "NULL AS operator_week,\n";
     select += "NULL AS operator_target,\n";
     // team stuff
-    select += ""+teamSprayStatusTable+"." + sprayTeamCol + " AS sprayteam,\n";
-    select += "(SELECT st." + teamIdCol + " FROM "+sprayTeamTable+" st WHERE st.id = "+teamSprayStatusTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
-    select += ""+teamSprayStatusTable+"." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm.id AND tm.id = "+teamSprayStatusTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
-    select += ""+teamSprayStatusTable+"." + teamSprayWeekCol + " AS team_week,\n";
-    select += ""+teamSprayStatusTable+"." + targetCol + " AS team_target,\n";
+    select += "" + teamSprayStatusTable + "." + sprayTeamCol + " AS sprayteam,\n";
+    select += "(SELECT st." + teamIdCol + " FROM " + sprayTeamTable + " st WHERE st.id = " + teamSprayStatusTable + "." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
+    select += "" + teamSprayStatusTable + "." + teamLeaderCol + " AS sprayleader,\n";
+    select += "(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm.id AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "" + teamSprayStatusTable + "." + teamSprayWeekCol + " AS team_week,\n";
+    select += "" + teamSprayStatusTable + "." + targetCol + " AS team_target,\n";
     // zone stuff
-    select += ""+zoneSprayTable+"." + supervisorCol + "  AS zone_supervisor,\n";
-    select += "(SELECT  p."+firstNameCol+" || p."+lastNameCol+" FROM "+personTable + " AS p WHERE p.id = "+zoneSprayTable+"." + supervisorCol + ") AS zone_supervisor_defaultLocale,\n";
-    select += ""+zoneSprayTable+"." + sprayWeekCol + " AS zone_week,\n";
-    select += ""+zoneSprayTable+"." + zsTargetCol + " AS zone_target,\n";
+    select += "" + zoneSprayTable + "." + supervisorCol + "  AS zone_supervisor,\n";
+    select += "(SELECT  p." + firstNameCol + " || p." + lastNameCol + " FROM " + personTable + " AS p WHERE p.id = " + zoneSprayTable + "." + supervisorCol + ") AS zone_supervisor_defaultLocale,\n";
+    select += "" + zoneSprayTable + "." + sprayWeekCol + " AS zone_week,\n";
+    select += "" + zoneSprayTable + "." + zsTargetCol + " AS zone_target,\n";
     // target stuff
     select += "sprayseason.id  AS spray_season,\n";
-    
-    select += "NULL AS planed_operator_target,\n";
-    
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayStatusTable+"." + sprayTeamCol + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = "+teamSprayStatusTable+"." + teamSprayWeekCol
-        + ") AS planed_team_target,\n";
 
-    select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+","+abstractSprayTable+"."+sprayDateCol
-        + ") AS planed_area_target,\n";
-    //spray stuff
-    select += ""+roomsCol+",\n";
-    select += ""+structuresCol+",\n";
-    select += ""+householdsCol+",\n";
-    select += ""+sprayedRoomsCol+",\n";
-    select += ""+sprayedStructuresCol+",\n";
-    select += ""+sprayedHouseholdsCol+",\n";
-    select += ""+prevSprayedStructuresCol+",\n";
-    select += ""+prevSprayedHouseholdsCol+",\n";
-    select += ""+peopleCol+",\n";
-    select += ""+bedNetsCol+",\n";
-    select += ""+roomsWithBedNetsCol+",\n";
-    select += ""+lockedCol+",\n";
-    select += ""+refusedCol+",\n";
-    select += ""+otherCol+",\n";
-    select += ""+teamSprayStatusTable+"."+receivedCol+",\n";
-    select += ""+teamSprayStatusTable+"."+usedCol+",\n";
-    select += ""+teamSprayStatusTable+"."+refillsCol+",\n";
-    select += ""+teamSprayStatusTable+"."+returnCol+",\n";
-    select += "("+roomsCol+" - "+sprayedRoomsCol+") AS room_unsprayed,\n";
-    select += "("+structuresCol+" - "+sprayedStructuresCol+") AS structure_unsprayed,\n";
-    select += "("+householdsCol+" - "+sprayedHouseholdsCol+") AS household_unsprayed,\n";
-    
+    select += "NULL AS planed_operator_target,\n";
+
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = " + teamSprayStatusTable + "." + teamSprayWeekCol + ") AS planed_team_target,\n";
+
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date(" + abstractSprayTable + "." + geoEntityCol + "," + abstractSprayTable + "." + sprayDateCol + ") AS planed_area_target,\n";
+    // spray stuff
+    select += "" + roomsCol + ",\n";
+    select += "" + structuresCol + ",\n";
+    select += "" + householdsCol + ",\n";
+    select += "" + sprayedRoomsCol + ",\n";
+    select += "" + sprayedStructuresCol + ",\n";
+    select += "" + sprayedHouseholdsCol + ",\n";
+    select += "" + prevSprayedStructuresCol + ",\n";
+    select += "" + prevSprayedHouseholdsCol + ",\n";
+    select += "" + peopleCol + ",\n";
+    select += "" + bedNetsCol + ",\n";
+    select += "" + roomsWithBedNetsCol + ",\n";
+    select += "" + lockedCol + ",\n";
+    select += "" + refusedCol + ",\n";
+    select += "" + otherCol + ",\n";
+    select += "" + teamSprayStatusTable + "." + receivedCol + ",\n";
+    select += "" + teamSprayStatusTable + "." + usedCol + ",\n";
+    select += "" + teamSprayStatusTable + "." + refillsCol + ",\n";
+    select += "" + teamSprayStatusTable + "." + returnCol + ",\n";
+    select += "(" + roomsCol + " - " + sprayedRoomsCol + ") AS room_unsprayed,\n";
+    select += "(" + structuresCol + " - " + sprayedStructuresCol + ") AS structure_unsprayed,\n";
+    select += "(" + householdsCol + " - " + sprayedHouseholdsCol + ") AS household_unsprayed,\n";
+
     select += "1 AS sprayedrooms_share,\n";
     select += "1 AS sprayedstructures_share,\n";
     select += "1 AS sprayedhouseholds_share,\n";
-    
-    
 
     String from = " FROM ";
     // get the main tables
-    from += zoneSprayTable + " AS "+zoneSprayTable+",\n";
-    from += teamSprayStatusTable + " AS "+teamSprayStatusTable+",\n";
-    from += abstractSprayTable + " AS "+abstractSprayTable+"\n";
+    from += zoneSprayTable + " AS " + zoneSprayTable + ",\n";
+    from += teamSprayStatusTable + " AS " + teamSprayStatusTable + ",\n";
+    from += abstractSprayTable + " AS " + abstractSprayTable + "\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";
-    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" \n";
+    from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol + " AND sprayseason." + endDateCol + " \n";
 
     String where = "";
 
     // join main tables
-    where += "AND "+abstractSprayTable+".id = "+zoneSprayTable+".id \n";
-    where += "AND "+zoneSprayTable+".id = "+teamSprayStatusTable+"."+sprayCol+" \n";
+    where += "AND " + abstractSprayTable + ".id = " + zoneSprayTable + ".id \n";
+    where += "AND " + zoneSprayTable + ".id = " + teamSprayStatusTable + "." + sprayCol + " \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);
@@ -238,5 +238,5 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
 
     return select + "\n" + from + "\n" + where;
   }
-  
+
 }

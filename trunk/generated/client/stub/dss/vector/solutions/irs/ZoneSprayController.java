@@ -46,17 +46,14 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
 
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if(!redirect)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
