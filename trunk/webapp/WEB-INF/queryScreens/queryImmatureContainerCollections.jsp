@@ -109,10 +109,21 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var collectionColumns =   collectionColumns.concat(premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps}));
 
-    var containerAttribs = [ "numberContainers","numberDestroyed", "numberImmatures", "numberLarvae","numberLarvaeCollected","numberPupae","numberPupaeCollected","numberWithLarvicide","numberWithWater"];
+//    var containerAttribs = [ "numberContainers","numberDestroyed", "numberImmatures", "numberLarvae","numberLarvaeCollected","numberPupae","numberPupaeCollected","numberWithLarvicide","numberWithWater"];
+    var containerAttribs = [ "number_containers","number_destroyed", "number_immatures", "number_larvae","number_larvae_collected","number_pupae","number_pupae_collected","number_with_larvicide","number_with_water"];
     
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_cont', dropDownMaps:collectionMaps});
 
+
+    containerColumns = [{
+       
+      key:"container_term",
+      type:"sqlcharacter",
+      attributeName:"container_term",
+
+      }].concat(containerColumns);
+
+    
     var indexes = ([
                                        
                          {
