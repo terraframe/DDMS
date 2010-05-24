@@ -550,6 +550,11 @@
 	</target>
 	
 	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
+		
+    <delete>
+        <fileset dir="${model.dir}" includes="**/*.xml" />
+    </delete>   
+		
 		<echo message="Merging model" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true">
 			<arg value="-dir" />
