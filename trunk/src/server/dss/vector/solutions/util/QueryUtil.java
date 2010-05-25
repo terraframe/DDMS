@@ -374,15 +374,15 @@ public class QueryUtil implements Reloadable
 
   }
 
-  // FIXME COLUMN_REFACTOR change attributeName -> columnName
   public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName, String attributeAlias)
   {
     MdBusiness md = MdBusiness.getMdBusiness(klass);
     String tableName = md.getTableName();
+    String attribCol = QueryUtil.getColumnName(klass, attributeName);
     
     String localeCoalesce = getLocaleCoalesce("gdl.");
 
-    String sql = "SELECT "+localeCoalesce+" FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attributeName + " = gdl.id";
+    String sql = "SELECT "+localeCoalesce+" FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attribCol + " = gdl.id";
 
     sql += " WHERE p.id = " + attributeAlias + "";
 
