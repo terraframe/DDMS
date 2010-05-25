@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1077554934)
+@com.runwaysdk.business.ClassSignature(hash = 852114392)
 public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeason";
-  private static final long serialVersionUID = -1077554934;
+  private static final long serialVersionUID = 852114392;
   
   protected MalariaSeasonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -97,6 +98,50 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public java.util.Date getEndDate()
@@ -480,6 +525,22 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.MalariaSeasonDTO.CLASS, "getAll", _declaredTypes);
     return (dss.vector.solutions.general.MalariaSeasonDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.MalariaSeasonDTO[] getAllForDisease(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.MalariaSeasonDTO.CLASS, "getAllForDisease", _declaredTypes);
+    return (dss.vector.solutions.general.MalariaSeasonDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.general.MalariaSeasonQueryDTO getAllInstancesForDisease(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, ascending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.MalariaSeasonDTO.CLASS, "getAllInstancesForDisease", _declaredTypes);
+    return (dss.vector.solutions.general.MalariaSeasonQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.general.EpiDateDTO[] getEpiWeeks()

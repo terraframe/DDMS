@@ -116,7 +116,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
 
     ClientRequestIF request = super.getClientSession().getRequest();
 
-    req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
+    req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAllForDisease(request)));
     render("viewAllComponent.jsp");
   }
 

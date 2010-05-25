@@ -58,7 +58,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstancesForDisease(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -204,7 +204,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    MalariaSeasonQueryDTO query = MalariaSeasonDTO.getAllInstancesForDisease(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

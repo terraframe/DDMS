@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 726438385)
+@com.runwaysdk.business.ClassSignature(hash = 1862761880)
 public abstract class MalariaSeasonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeasonView";
-  private static final long serialVersionUID = 726438385;
+  private static final long serialVersionUID = 1862761880;
   
   protected MalariaSeasonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,10 +16,55 @@ public abstract class MalariaSeasonViewDTOBase extends com.runwaysdk.business.Vi
     return CLASS;
   }
   
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ID = "id";
   public static java.lang.String SEASONNAME = "seasonName";
   public static java.lang.String STARTDATE = "startDate";
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getEndDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(ENDDATE));

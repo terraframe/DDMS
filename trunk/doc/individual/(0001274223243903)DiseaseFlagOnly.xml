@@ -476,7 +476,7 @@
 				type="com.runwaysdk.system.metadata.MdAttribute" />
 
 			<object
-				key="ddss.vector.solutions.general.LethalTimeProperty.disease"
+				key="dss.vector.solutions.general.LethalTimeProperty.disease"
 				type="com.runwaysdk.system.metadata.MdAttribute" />
 				
 			<object

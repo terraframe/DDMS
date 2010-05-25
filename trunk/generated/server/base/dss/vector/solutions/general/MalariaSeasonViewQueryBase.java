@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -501051352)
+@com.runwaysdk.business.ClassSignature(hash = 48313665)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class MalariaSeasonViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -501051352;
+private static final long serialVersionUID = 48313665;
 
   public MalariaSeasonViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -25,6 +25,25 @@ private static final long serialVersionUID = -501051352;
   public String getClassType()
   {
     return dss.vector.solutions.general.MalariaSeasonView.CLASS;
+  }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.MalariaSeasonView.DISEASE, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getEndDate()
   {

@@ -49,6 +49,10 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     validateLength();
     validateOverlap();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
     
     // Create the epi weeks which are defined by this season
@@ -60,6 +64,15 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     }
   }
 
+
+	@Transaction
+	public static MalariaSeasonQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber) {
+		MalariaSeasonQuery query = new MalariaSeasonQuery(new com.runwaysdk.query.QueryFactory());
+	    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+	    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
+	    return query;
+	}
+	
   public EpiDate[] getEpiWeeks()
   {
     // Date epiStart =
@@ -176,6 +189,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
   public static MalariaSeason getSeasonByDate(Date date)
   {
 	  MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
+	  query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 	  
 	  return getSeasonFromQueryByDate(query, date);
   }
@@ -184,6 +198,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
   public static MalariaSeason getNextSeasonByDate(Date date)
   {
 	  MalariaSeasonQuery query = MalariaSeason.getNextSeasonQueryByDate(date, new QueryFactory());
+	  query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 	  return getSeasonFromQueryByDate(query, date);
   }
   
@@ -236,6 +251,46 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     Date today = new Date();
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
     query.ORDER_BY_DESC(query.getStartDate());
+
+    LinkedList<MalariaSeason> seasons = new LinkedList<MalariaSeason>();
+    seasons.addAll(query.getIterator().getAll());
+
+    MalariaSeason initial = null;
+
+    for (MalariaSeason season : seasons)
+    {
+      if (season.getStartDate().after(today))
+      {
+        if (initial == null)
+        {
+          initial = season;
+        }
+
+        if (season.getStartDate().before(initial.getStartDate()))
+        {
+          initial = season;
+        }
+      }
+    }
+
+    if (initial != null)
+    {
+      seasons.remove(initial);
+      seasons.addFirst(initial);
+    }
+
+    return seasons.toArray(new MalariaSeason[seasons.size()]);
+  }
+  
+  /**
+   * @return A list of all malaria seasons with the most recent one first
+   */
+  public static MalariaSeason[] getAllForDisease()
+  {
+    Date today = new Date();
+    MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
+    query.ORDER_BY_DESC(query.getStartDate());
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 
     LinkedList<MalariaSeason> seasons = new LinkedList<MalariaSeason>();
     seasons.addAll(query.getIterator().getAll());
