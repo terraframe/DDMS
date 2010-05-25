@@ -17,6 +17,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
@@ -73,6 +74,7 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
     query.WHERE(query.getGeoEntity().EQ(geoEntity));
     query.AND(query.getStartDate().EQ(startDate));
     query.AND(query.getEndDate().EQ(endDate));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
 
     OIterator<? extends AggregatedIPT> it = query.getIterator();
 
@@ -97,6 +99,10 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
     validateStartDate();
     validateEndDate();
 
+    if (this.isNew() && this.getDisease() == null) {
+        this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 

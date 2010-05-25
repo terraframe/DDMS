@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 
 
 public class IndividualIPTCase extends IndividualIPTCaseBase implements com.runwaysdk.generation.loader.Reloadable
@@ -39,6 +40,10 @@ public class IndividualIPTCase extends IndividualIPTCaseBase implements com.runw
   @Override
   public void apply()
   {
+	if (this.isNew() && this.getDisease() == null) {
+	    this.setDisease(Disease.getCurrent());
+	}
+	    
     super.apply();
     
     // As per ticket #890 we must update the patients residential information

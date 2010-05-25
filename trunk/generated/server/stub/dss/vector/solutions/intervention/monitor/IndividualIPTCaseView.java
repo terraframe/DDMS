@@ -16,6 +16,7 @@ import com.runwaysdk.query.SelectablePrimitive;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -205,6 +206,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
     IndividualIPTCaseQuery query = new IndividualIPTCaseQuery(new QueryFactory());
     query.WHERE(query.getPatient().getPerson().EQ(patientId));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
     OIterator<? extends IndividualIPTCase> iterator = query.getIterator();
 
     try

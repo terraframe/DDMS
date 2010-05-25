@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 648310034)
+@com.runwaysdk.business.ClassSignature(hash = -873556727)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,6 +13,7 @@ public abstract class AggregatedIPTBase extends com.runwaysdk.business.Business 
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedIPT";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -31,7 +32,7 @@ public abstract class AggregatedIPTBase extends com.runwaysdk.business.Business 
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TOTALITN = "totalITN";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 648310034;
+  private static final long serialVersionUID = -873556727;
   
   public AggregatedIPTBase()
   {
@@ -75,6 +76,41 @@ public abstract class AggregatedIPTBase extends com.runwaysdk.business.Business 
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedIPT.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public java.util.Date getEndDate()
