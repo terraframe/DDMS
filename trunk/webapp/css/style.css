@@ -889,6 +889,12 @@ input.browserSaveButton, input.browserCancelButton {
   margin-right: 10px;
 }
 
+div#ontologyFields {
+  height: 100%;
+  overflow: auto;
+  margin-top: 9px;
+}
+
 table.ontologyFields {
   margin-top: 5px;
   margin-bottom: 15px;
