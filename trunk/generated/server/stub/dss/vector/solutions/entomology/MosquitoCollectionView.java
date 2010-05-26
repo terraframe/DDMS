@@ -16,6 +16,7 @@ import com.runwaysdk.query.SelectablePrimitive;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
@@ -176,6 +177,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       InfectionAssayViewQuery query = new InfectionAssayViewQuery(new QueryFactory());
       query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+      query.AND(query.getDisease().EQ(Disease.getCurrent()));
 
       OIterator<? extends InfectionAssayView> it = query.getIterator();
 
@@ -201,6 +203,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       PooledInfectionAssayViewQuery query = new PooledInfectionAssayViewQuery(new QueryFactory());
       query.WHERE(query.getCollection().EQ(this.getConcreteId()));
+      query.AND(query.getDisease().EQ(Disease.getCurrent()));
 
       OIterator<? extends PooledInfectionAssayView> it = query.getIterator();
 

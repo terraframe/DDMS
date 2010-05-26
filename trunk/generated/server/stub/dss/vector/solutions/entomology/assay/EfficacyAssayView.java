@@ -55,7 +55,9 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     concrete.setSex(this.getSex());
     concrete.setSurfacePostion(this.getSurfacePostion());
     concrete.setSurfaceType(this.getSurfaceType());
-    concrete.setDisease(this.getDisease());
+    if (this.isNew() && this.getDisease() != null) {
+    	concrete.setDisease(this.getDisease());
+    }
   }
 
   public void populateView(EfficacyAssay assay)

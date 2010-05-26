@@ -54,6 +54,7 @@ private static final long serialVersionUID = 1806444007;
       vQuery.map(InfectionAssayView.SEX, query.getSex());
       vQuery.map(InfectionAssayView.SPECIES, query.getSpecies());
       vQuery.map(InfectionAssayView.TESTMETHOD, query.getTestMethod());
+      vQuery.map(InfectionAssayView.DISEASE, query.getDisease());
     }
 
     /**

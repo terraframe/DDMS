@@ -25,6 +25,7 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
     this.setSex(concrete.getSex());
     this.setSpecies(concrete.getSpecies());
     this.setTestMethod(concrete.getTestMethod());
+    this.setDisease(concrete.getDisease());
   }
 
   private void populateConcrete(InfectionAssay concrete)
@@ -39,6 +40,9 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
     concrete.setSex(this.getSex());
     concrete.setSpecies(this.getSpecies());
     concrete.setTestMethod(this.getTestMethod());
+    if (this.isNew() && this.getDisease() != null) {
+    	concrete.setDisease(this.getDisease());
+    }
   }
 
   private void buildAttributeMap(InfectionAssay concrete)
@@ -54,6 +58,7 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
     new AttributeNotificationMap(concrete, InfectionAssay.SEX, this, InfectionAssayView.SEX);
     new AttributeNotificationMap(concrete, InfectionAssay.SPECIES, this, InfectionAssayView.SPECIES);
     new AttributeNotificationMap(concrete, InfectionAssay.TESTMETHOD, this, InfectionAssayView.TESTMETHOD);
+    new AttributeNotificationMap(concrete, InfectionAssay.DISEASE, this, InfectionAssayView.DISEASE);
   }
 
   @Override

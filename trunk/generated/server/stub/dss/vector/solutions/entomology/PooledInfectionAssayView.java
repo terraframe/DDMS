@@ -26,6 +26,7 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
     this.setSex(concrete.getSex());
     this.setSpecies(concrete.getSpecies());
     this.setTestMethod(concrete.getTestMethod());
+    this.setDisease(concrete.getDisease());
   }
 
   private void populateConcrete(PooledInfectionAssay concrete)
@@ -41,6 +42,9 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
     concrete.setSex(this.getSex());
     concrete.setSpecies(this.getSpecies());
     concrete.setTestMethod(this.getTestMethod());
+    if (this.isNew() && this.getDisease() != null) {
+    	concrete.setDisease(this.getDisease());
+    }
   }
 
   private void buildAttributeMap(PooledInfectionAssay concrete)
@@ -57,6 +61,7 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
     new AttributeNotificationMap(concrete, PooledInfectionAssay.SEX, this, PooledInfectionAssayView.SEX);
     new AttributeNotificationMap(concrete, PooledInfectionAssay.SPECIES, this, PooledInfectionAssayView.SPECIES);
     new AttributeNotificationMap(concrete, PooledInfectionAssay.TESTMETHOD, this, PooledInfectionAssayView.TESTMETHOD);
+    new AttributeNotificationMap(concrete, PooledInfectionAssay.DISEASE, this, PooledInfectionAssayView.DISEASE);
   }
 
   @Override

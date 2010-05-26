@@ -14,6 +14,7 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.RangeValueProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -57,6 +58,10 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
     validatePoolId();
     validateNumberPositive();
 
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
+    
     super.apply();
   }
 
