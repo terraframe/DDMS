@@ -2,16 +2,19 @@ package dss.vector.solutions.irs;
 
 import java.util.List;
 
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.util.QueryUtil;
 
 public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -127,17 +130,21 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     }
   }
 
-  /**
+  /*
    * @param entity
    *          GeoEntity
    * @param date
    *          Date
    * 
    * @return A calulated value for geoTarget
-   */
   public static Integer getCalculatedValue(String geoid, String malariaSeasonId, String attribute)
   {
 
+    String locatedInTable = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS).getTableName();
+    String geoTargetTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
+    String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
+    String geoEntityCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
+    
     QueryFactory queryFactory = new QueryFactory();
     ValueQuery valueQuery = new ValueQuery(queryFactory);
     Integer sum = 0;
@@ -148,13 +155,13 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
     String sql = "(WITH RECURSIVE \n";
     sql += " recursive_rollup AS ( \n";
-    sql += " SELECT child_id, parent_id ,\n";
+    sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+" ,\n";
     // this is the table with the sumable value
     sql += " " + attribute + " as sumvalue\n";
-    sql += "  FROM locatedin LEFT JOIN geotarget ON geotarget.geoentity = locatedin.child_id\n";
-    sql += "  WHERE geotarget.season = '" + malariaSeasonId + "'\n";
+    sql += "  FROM "+locatedInTable+" LEFT JOIN "+geoTargetTable+" ON "+geoTargetTable+"."+geoEntityCol+" = "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
+    sql += "  WHERE "+geoTargetTable+"."+seasonCol+" = '" + malariaSeasonId + "'\n";
     // the root geoentity
-    sql += " AND parent_id = '" + geoid + "'\n";
+    sql += " AND "+RelationshipDAOIF.PARENT_ID_COLUMN+" = '" + geoid + "'\n";
     // filter to just those branches that lead somewhere
     // sql +=
     // " AND child_id IN (SELECT childgeoentity FROM allpaths0 join geotarget ON geoentity = childgeoentity";
@@ -162,11 +169,11 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     // "' AND geotarget.season = '" + malariaSeasonId + "')";
     // this is the recursive case
     sql += " UNION\n";
-    sql += " SELECT b.child_id, b.parent_id, \n";
+    sql += " SELECT b."+RelationshipDAOIF.CHILD_ID_COLUMN+", b."+RelationshipDAOIF.PARENT_ID_COLUMN+", \n";
     sql += " COALESCE(sumvalue," + attribute + ") as sumvalue\n";
-    sql += " FROM recursive_rollup a, locatedin b LEFT JOIN geotarget ON geotarget.geoentity = b.child_id\n";
-    sql += " WHERE a.child_id = b.parent_id\n";
-    sql += " AND geotarget.season = '" + malariaSeasonId + "'\n";
+    sql += " FROM recursive_rollup a, "+locatedInTable+" b LEFT JOIN "+geoTargetTable+" ON "+geoTargetTable+"."+geoEntityCol+" = b."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
+    sql += " WHERE a."+RelationshipDAOIF.CHILD_ID_COLUMN+" = b."+RelationshipDAOIF.PARENT_ID_COLUMN+"\n";
+    sql += " AND "+geoTargetTable+"."+seasonCol+" = '" + malariaSeasonId + "'\n";
     // --this will stop the recursion as soon as sumvalue is not null\n";
     // sql += " AND a.sumvalue IS NULL\n";
     sql += " )\n";
@@ -194,6 +201,7 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
 
     return sum;
   }
+   */
 
   public static Integer[] getCalculatedTargets(String geoid, String malariaSeasonId)
   {
@@ -203,8 +211,6 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
 
     QueryFactory queryFactory = new QueryFactory();
     ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
 
     String baseValue = "";
 
@@ -225,20 +231,25 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
 
     valueQuery.SELECT(selectables);
 
+    String locatedInTable = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS).getTableName();
+    String geoTargetTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
+    String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
+    String geoEntityCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
+    
     String sql = "(WITH RECURSIVE \n";
     sql += " recursive_rollup AS ( \n";
-    sql += " SELECT child_id, parent_id \n";
+    sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+" \n";
     sql += baseValue;
-    sql += "  FROM located_in LEFT JOIN " + geoTarget + " gt ON gt.geo_entity = located_in.child_id\n";
-    sql += "  AND gt.season = '" + malariaSeasonId + "'\n";
-    sql += " WHERE parent_id = '" + geoid + "'\n";
+    sql += "  FROM "+locatedInTable+" LEFT JOIN " + geoTargetTable + " gt ON gt."+geoEntityCol+" = "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
+    sql += "  AND gt."+seasonCol+" = '" + malariaSeasonId + "'\n";
+    sql += " WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = '" + geoid + "'\n";
     // this is the recursive case
     sql += " UNION\n";
-    sql += " SELECT b.child_id, b.parent_id \n";
+    sql += " SELECT b."+RelationshipDAOIF.CHILD_ID_COLUMN+", b."+RelationshipDAOIF.PARENT_ID_COLUMN+" \n";
     sql += recursiveValue;
-    sql += " FROM recursive_rollup a, located_in b LEFT JOIN " + geoTarget + " gt ON gt.geo_entity = b.child_id\n";
-    sql += " AND gt.season = '" + malariaSeasonId + "'\n";
-    sql += " WHERE a.child_id = b.parent_id\n";
+    sql += " FROM recursive_rollup a, "+locatedInTable+" b LEFT JOIN " + geoTargetTable + " gt ON gt."+geoEntityCol+" = b."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
+    sql += " AND gt."+seasonCol+" = '" + malariaSeasonId + "'\n";
+    sql += " WHERE a."+RelationshipDAOIF.CHILD_ID_COLUMN+" = b."+RelationshipDAOIF.PARENT_ID_COLUMN+"\n";
     sql += " )\n";
     sql += " select " + sums + " from recursive_rollup \n";
     sql += " )\n";
