@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology;
 
 import java.util.List;
-import java.util.Locale;
 
 import com.runwaysdk.constants.SupportedLocaleInfo;
 import com.runwaysdk.dataaccess.SupportedLocaleDAOIF;
@@ -74,10 +73,9 @@ public class ImmatureThresholdView extends ImmatureThresholdViewBase implements 
     {
       SupportedLocaleDAOIF supportedLocale = SupportedLocaleDAO.get(id);
       String enumName = supportedLocale.getValue(EnumerationMaster.ENUMNAME);
-      Locale locale = new Locale(enumName);
 
-      String value = source.getValue(locale);
-      dest.setValue(locale, value);
+      String value = source.getValue(enumName);
+      dest.setValue(enumName, value);
     }
   }
 
