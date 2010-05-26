@@ -4,19 +4,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.constants.MdTypeInfo;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdType;
 
+import dss.vector.solutions.geo.AllowedIn;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.QueryUtil;
 
 public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1256068147836L;
@@ -179,6 +185,32 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 			return null;
 		}
 
+    String geoHierarchyTable = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS).getTableName();
+    String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
+    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
+    String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
+    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
+      
+    
+    String mdTypeTable = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS).getTableName();
+    String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
+    String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
+		
+    String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
+
+    
+    String geoEntityTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
+    String typeCol = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+
+    String weeklyThresholdTable = MdEntityDAO.getMdEntityDAO(WeeklyThreshold.CLASS).getTableName();
+    
+    String thresholdDataTable = MdEntityDAO.getMdEntityDAO(ThresholdData.CLASS).getTableName();
+    String geoEntityCol = QueryUtil.getColumnName(ThresholdData.getGeoEntityMd());
+    
+    String locatedInTable = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS).getTableName();
+    
+    String idCol = QueryUtil.getIdColumn();
+    
 		QueryFactory queryFactory = new QueryFactory();
 		ValueQuery valueQuery = new ValueQuery(queryFactory);
 		Integer sum = 0;
@@ -186,54 +218,54 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
 
 		String sql = "(WITH RECURSIVE geohierarchy_flags AS(";
-		sql += " SELECT  (t1.packagename || '.' || t1.typename) AS parent_type,";
-		sql += "  g1.political AS parent_political,";
-		sql += "  g1.spraytargetallowed AS parent_spraytargetallowed,";
-		sql += "  g1.populationallowed AS parent_populationallowed,";
-		sql += "  (t2.packagename || '.' || t2.typename) AS child_type,";
-		sql += "  g2.political AS child_political,";
-		sql += "  g2.spraytargetallowed AS child_spraytargetallowed,";
-		sql += "  g2.populationallowed AS child_populationallowed";
-		sql += " FROM allowedin ,";
-		sql += "  geohierarchy g1,";
-		sql += "  geohierarchy g2,";
-		sql += "  md_type t1 ,";
-		sql += "  md_type t2 ";
-		sql += " WHERE  allowedin.parent_id = g1.id";
-		sql += "  AND allowedin.child_id = g2.id";
-		sql += "  AND t1.id = g1.geoentityclass";
-		sql += "  AND t2.id = g2.geoentityclass";
+		sql += " SELECT  (t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type,";
+		sql += "  g1."+politicalCol+" AS parent_political,";
+		sql += "  g1."+sprayTargetAllowedCol+" AS parent_spraytargetallowed,";
+		sql += "  g1."+populationAllowedCol+" AS parent_populationallowed,";
+		sql += "  (t2."+pckNameCol+" || '.' || t2."+nameCol+") AS child_type,";
+		sql += "  g2."+politicalCol+" AS child_political,";
+		sql += "  g2."+sprayTargetAllowedCol+" AS child_spraytargetallowed,";
+		sql += "  g2."+populationAllowedCol+" AS child_populationallowed";
+		sql += " FROM "+allowedInTable+" ,";
+		sql += "  "+geoHierarchyTable+" g1,";
+		sql += "  "+geoHierarchyTable+" g2,";
+		sql += "  "+mdTypeTable+" t1 ,";
+		sql += "  "+mdTypeTable+" t2 ";
+		sql += " WHERE  "+allowedInTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = g1.id";
+		sql += "  AND "+allowedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = g2.id";
+		sql += "  AND t1.id = g1."+geoEntityClassCol+"";
+		sql += "  AND t2.id = g2."+geoEntityClassCol+"";
 		sql += " )";
 		sql += " , recursive_rollup AS (";
-		sql += " SELECT child_id, parent_id, 0 AS depth , geoentity.type , ";
+		sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+", 0 AS depth , "+geoEntityTable+"."+typeCol+" , ";
 		sql += " COALESCE((";
 		// this is the table with the sumable value
-		sql += " SELECT " + attribute + " FROM weeklythreshold, thresholddata ";
-		sql += "    WHERE weeklythreshold.child_id = '" + week.getId() + "'";
-		sql += "    AND thresholddata.geoentity = locatedin.child_id";
-		sql += "    AND weeklythreshold.parent_id = thresholddata.id";
+		sql += " SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+" ";
+		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
+		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
+		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
 		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
 		sql += "  ),0)as sumvalue";
-		sql += "  FROM locatedin, geohierarchy_flags, geoentity";
+		sql += "  FROM "+locatedInTable+", geohierarchy_flags, "+geoEntityTable+"";
 		// --zambia";
-		sql += " WHERE parent_id = '" + entity.getId() + "'";
-		sql += "  AND locatedin.child_id = geoentity.id";
-		sql += "  AND geoentity.type = geohierarchy_flags.parent_type";
+		sql += " WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = '" + entity.getId() + "'";
+		sql += "  AND "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
+		sql += "  AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
 		sql += "  AND geohierarchy_flags.parent_political = 1";
 		sql += " UNION";
-		sql += " SELECT b.child_id, b.parent_id, a.depth+1 , geoentity.type , ";
+		sql += " SELECT b."+RelationshipDAOIF.CHILD_ID_COLUMN+", b."+RelationshipDAOIF.PARENT_ID_COLUMN+", a.depth+1 , "+geoEntityTable+"."+typeCol+" , ";
 		// this is how we sum. We only sum if population is allowed";
 		sql += " a.sumvalue +  COALESCE((";
-		sql += "  SELECT " + attribute + " FROM weeklythreshold, thresholddata  ";
-		sql += "    WHERE weeklythreshold.child_id = '" + week.getId() + "'";
-		sql += "    AND thresholddata.geoentity = b.child_id";
-		sql += "    AND weeklythreshold.parent_id = thresholddata.id";
+		sql += "  SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+"  ";
+		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
+		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = b."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
+		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
 		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
 		sql += " ),0)";
-		sql += " FROM recursive_rollup a, locatedin b , geohierarchy_flags, geoentity ";
-		sql += " WHERE a.child_id = b.parent_id";
-		sql += " AND b.child_id = geoentity.id";
-		sql += " AND geoentity.type = geohierarchy_flags.parent_type";
+		sql += " FROM recursive_rollup a, "+locatedInTable+" b , geohierarchy_flags, "+geoEntityTable+" ";
+		sql += " WHERE a."+RelationshipDAOIF.CHILD_ID_COLUMN+" = b."+RelationshipDAOIF.PARENT_ID_COLUMN+"";
+		sql += " AND b."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
+		sql += " AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
 		// --must have political and populated allowed set to be counted";
 		// --however recursion does not stop when political = true and
 		// --population allowed = false";
