@@ -133,10 +133,10 @@ private static final long serialVersionUID = 1252959712966L;
     {
       BrowserRootViewQuery query = this.getViewQuery();
 
-      query.WHERE(this.browserRootQuery.getTerm().EQ(this.termQuery));
+      query.WHERE(this.browserFieldQuery.getId().EQ(field.getId()));
+      query.AND(this.browserRootQuery.getTerm().EQ(this.termQuery));
       query.AND(this.browserRootQuery.getDisease().EQ(Disease.getCurrent()));
-      query.AND(this.browserRootQuery.field(this.browserFieldQuery));
-      query.AND(this.browserFieldQuery.getId().EQ(field.getId()));
+      query.AND(this.browserRootQuery.getBrowserField().EQ(this.browserFieldQuery));
     }
   }
   

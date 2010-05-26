@@ -99,6 +99,11 @@
             type="dss.vector.solutions.general.Disease"
             indexType="non-unique index" />
           <reference
+            name="browserField"
+            label="Browser Field"
+            required="true"
+            type="dss.vector.solutions.ontology.BrowserField" />
+          <reference
             name="term"
             label="Term"
             description="The ontology term this root references."
@@ -138,6 +143,22 @@
             type="dss.vector.solutions.ontology.BrowserRoot" />
         </mdMethod>
       </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.ontology.BrowserRoot"
+        label="Browser Root Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="disease"
+          indexOrder="0" />
+        <attribute
+          name="browserField"
+          indexOrder="1" />
+        <attribute
+          name="term"
+          indexOrder="2" />
+      </mdIndex>
 
       <mdView
         name="dss.vector.solutions.ontology.BrowserRootView"

@@ -3,7 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
-
       <mdBusiness
         name="dss.vector.solutions.ontology.Ontology"
         isAbstract="false"
@@ -23,7 +22,7 @@
             required="true"
             indexType="no index"
             size="255" />
-<!--
+          <!--
           <char
             name="prefix"
             label="Prefix"
@@ -197,7 +196,7 @@
             name="ontologyRelationship"
             required="true"
             label="Ontology Relationship"
-            type="dss.vector.solutions.ontology.OntologyRelationship"/>
+            type="dss.vector.solutions.ontology.OntologyRelationship" />
         </attributes>
         <parent
           cardinality="*"
@@ -414,8 +413,7 @@
             name="defaultLocale"
             value="Manager" />
         </attributeStruct>
-      </object>
-
+      </object>      
     </create>
   </doIt>
   <undoIt>

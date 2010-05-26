@@ -40,9 +40,16 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   @Override
   public void apply()
   {
-    if(this.getDisease() == null && this.isNew() && !this.isAppliedToDB())
+    boolean applied = (!this.isNew() || this.isAppliedToDB());
+
+    if(this.getDisease() == null && this.isNew())
     {
       this.setDisease(Disease.getCurrent());
+    }
+    
+    if(!applied)
+    {
+      this.addfield(this.getBrowserField()).apply();
     }
     
     super.apply();
@@ -51,15 +58,12 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   @Override
   protected String buildKey()
   {
-    Term term = this.getTerm();
-    if (term == null)
+    if (this.getTerm() == null || this.getDisease() == null || this.getBrowserField() == null)
     {
-      return ""; // object not properly constructed.
+      return this.getId(); // object not properly constructed.
     }
     
-    // THIS IS NOT A UNIQUE KEY
-//    return this.getDisease().getKey() + "." + ROOT_PREFIX + term.getKeyName();    
-    return this.getId();
+    return this.getDisease().getKey() + ":" + this.getBrowserField().getKey() + "." + this.getTerm().getKey();
   }
 
   public static BrowserRootViewQuery getAsViews()
@@ -74,12 +78,6 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
   {
     this.setTerm(browserRoot.getTerm());
     this.setSelectable(browserRoot.getSelectable());
-
-    OIterator<? extends BrowserField> fields = this.getAllfield();
-    while (fields.hasNext())
-    {
-      fields.next().validateRoot(this);
-    }
 
     this.apply();
 
@@ -343,4 +341,6 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
     return otherTerm.getTermId().equals(thisTerm.getTermId()) && thisDisease.getId().equals(otherDisease.getId());
   }
+  
+  
 }

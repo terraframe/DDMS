@@ -132,62 +132,10 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   public BrowserRootView addBrowserRoot(BrowserRoot root)
   {
     root.validateTerm(); // make sure a term value exists
-
-    this.validateRoot(root);
-
+    root.setBrowserField(this);
     root.apply();
 
-    this.addroot(root).apply();
-
     return root.toView();
-  }
-
-  public void validateRoot(BrowserRoot root)
-  {
-    OIterator<? extends BrowserRoot> roots = this.getAllroot();
-    try
-    {
-      while (roots.hasNext())
-      {
-        BrowserRoot existingRoot = roots.next();
-        // Don't compare the root to itself, which BrowserRoot.equals() does not
-        // account for
-        if (!existingRoot.getId().equals(root.getId()) && existingRoot.equals(root))
-        {
-          String display = this.getMdAttribute().getDisplayLabel().getValue(Session.getCurrentLocale());
-
-          Term term = root.getTerm();
-          String msg = "The field [" + display + "] already defines the root [" + term.getName() + "].";
-          DuplicateRootException ex = new DuplicateRootException(msg);
-          ex.setBrowserField(display);
-          ex.setBrowserRoot(term.getName());
-
-          throw ex;
-        }
-        /*
-         * AllPathsQuery q = new AllPathsQuery(new QueryFactory()); Condition
-         * parent = AND.get(q.getParentTerm().EQ(root.getTerm()),
-         * q.getChildTerm().EQ(existingRoot.getTerm())); Condition child =
-         * AND.get(q.getParentTerm().EQ(existingRoot.getTerm()),
-         * q.getChildTerm().EQ(root.getTerm())); q.WHERE(OR.get(parent,child));
-         * if (q.getCount() > 0) { String display =
-         * this.getMdAttribute().getDisplayLabel
-         * ().getValue(Session.getCurrentLocale());
-         * 
-         * String msg = "The root overlaps with the existing root[" +
-         * existingRoot.getTerm().getName() + "]."; OverlappingTermRootException
-         * ex = new OverlappingTermRootException(msg);
-         * ex.setBrowserField(display);
-         * ex.setBrowserRoot(existingRoot.getTerm().getName());
-         * 
-         * throw ex; }
-         */
-      }
-    }
-    finally
-    {
-      roots.close();
-    }
   }
 
   public static BrowserField getBrowserField(MdAttributeDAOIF mdAttribute)
