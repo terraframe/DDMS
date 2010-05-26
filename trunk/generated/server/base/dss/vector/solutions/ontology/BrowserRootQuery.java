@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1571192934)
+@com.runwaysdk.business.ClassSignature(hash = 1828799928)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class BrowserRootQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1571192934;
+private static final long serialVersionUID = 1828799928;
 
   public BrowserRootQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -38,6 +38,29 @@ private static final long serialVersionUID = 1571192934;
   public String getClassType()
   {
     return dss.vector.solutions.ontology.BrowserRoot.CLASS;
+  }
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField()
+  {
+    return getBrowserField(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD);
+
+    return (dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD);
+
+    return (dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD, mdAttributeIF, this, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -340,7 +363,11 @@ private static final long serialVersionUID = 1571192934;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.ontology.BrowserRoot.CREATEDBY)) 
+    if (name.equals(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD)) 
+    {
+       return new dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.ontology.BrowserRoot.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -523,6 +550,9 @@ private static final long serialVersionUID = 1571192934;
   public interface BrowserRootQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
+    public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField();
+    public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias);
+    public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -607,7 +637,7 @@ private static final long serialVersionUID = 1571192934;
  implements BrowserRootQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2112190200;
+private static final long serialVersionUID = -432742694;
 
   public BrowserRootQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -626,6 +656,23 @@ private static final long serialVersionUID = -2112190200;
       return this.NE(browserRoot.getId());
     }
 
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField()
+  {
+    return getBrowserField(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias)
+  {
+    return (dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF)this.get(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF getBrowserField(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReferenceIF)this.get(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -1001,7 +1048,11 @@ private static final long serialVersionUID = -2112190200;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.ontology.BrowserRoot.CREATEDBY)) 
+    if (name.equals(dss.vector.solutions.ontology.BrowserRoot.BROWSERFIELD)) 
+    {
+       return new dss.vector.solutions.ontology.BrowserFieldQuery.BrowserFieldQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.ontology.BrowserRoot.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

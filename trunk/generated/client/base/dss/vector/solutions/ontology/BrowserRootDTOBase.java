@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -174211139)
+@com.runwaysdk.business.ClassSignature(hash = 740411087)
 public abstract class BrowserRootDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRoot";
-  private static final long serialVersionUID = -174211139;
+  private static final long serialVersionUID = 740411087;
   
   protected BrowserRootDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
     return CLASS;
   }
   
+  public static java.lang.String BROWSERFIELD = "browserField";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
@@ -42,6 +43,50 @@ public abstract class BrowserRootDTOBase extends com.runwaysdk.business.Business
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
+  public dss.vector.solutions.ontology.BrowserFieldDTO getBrowserField()
+  {
+    if(getValue(BROWSERFIELD) == null || getValue(BROWSERFIELD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.BrowserFieldDTO.get(getRequest(), getValue(BROWSERFIELD));
+    }
+  }
+  
+  public void setBrowserField(dss.vector.solutions.ontology.BrowserFieldDTO value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERFIELD, "");
+    }
+    else
+    {
+      setValue(BROWSERFIELD, value.getId());
+    }
+  }
+  
+  public boolean isBrowserFieldWritable()
+  {
+    return isWritable(BROWSERFIELD);
+  }
+  
+  public boolean isBrowserFieldReadable()
+  {
+    return isReadable(BROWSERFIELD);
+  }
+  
+  public boolean isBrowserFieldModified()
+  {
+    return isModified(BROWSERFIELD);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getBrowserFieldMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BROWSERFIELD).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));

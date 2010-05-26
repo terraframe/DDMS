@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1882206525)
+@com.runwaysdk.business.ClassSignature(hash = 901683279)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.ontology;
 public abstract class BrowserRootBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.BrowserRoot";
+  public static java.lang.String BROWSERFIELD = "browserField";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
@@ -26,11 +27,46 @@ public abstract class BrowserRootBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1882206525;
+  private static final long serialVersionUID = 901683279;
   
   public BrowserRootBase()
   {
     super();
+  }
+  
+  public dss.vector.solutions.ontology.BrowserField getBrowserField()
+  {
+    if (getValue(BROWSERFIELD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.BrowserField.get(getValue(BROWSERFIELD));
+    }
+  }
+  
+  public void validateBrowserField()
+  {
+    this.validateAttribute(BROWSERFIELD);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrowserFieldMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.BrowserRoot.CLASS);
+    return mdClassIF.definesAttribute(BROWSERFIELD);
+  }
+  
+  public void setBrowserField(dss.vector.solutions.ontology.BrowserField value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERFIELD, "");
+    }
+    else
+    {
+      setValue(BROWSERFIELD, value.getId());
+    }
   }
   
   public java.util.Date getCreateDate()
