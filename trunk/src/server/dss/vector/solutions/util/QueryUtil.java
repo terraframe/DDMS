@@ -673,7 +673,7 @@ public class QueryUtil implements Reloadable
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
 
-    int count = 0;
+    int count = 0; 
     for (String attr : attributes)
     {
       String localeCoalesce = getLocaleCoalesce(" geo" + count + ".");

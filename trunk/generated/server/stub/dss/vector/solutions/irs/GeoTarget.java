@@ -1,7 +1,5 @@
 package dss.vector.solutions.irs;
 
-import java.util.List;
-
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;

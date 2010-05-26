@@ -178,7 +178,6 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   {
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-    String diseaseName = (String) this.getRequest().getSession().getAttribute(MDSSUserDTO.DISEASENAME);
     DiseaseDTO disease = DiseaseDTO.getCurrent(this.getClientRequest());
     
     req.setAttribute("disease", disease);

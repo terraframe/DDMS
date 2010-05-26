@@ -4,7 +4,10 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.constants.MdTypeInfo;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
@@ -12,8 +15,13 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdType;
 
+import dss.vector.solutions.geo.AllowedIn;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.util.QueryUtil;
 
 public class PopulationDataView extends PopulationDataViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -138,55 +146,80 @@ public class PopulationDataView extends PopulationDataViewBase implements com.ru
     
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
     
+    String geoHierarchyTable = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS).getTableName();
+    String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
+    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
+    String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
+    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
+      
+    
+    String mdTypeTable = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS).getTableName();
+    String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
+    String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
+    
+    String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
 
+    
+    String geoEntityTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
+    String typeCol = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+
+    String populationDataTable = MdEntityDAO.getMdEntityDAO(PopulationData.CLASS).getTableName();
+    String populationCol = QueryUtil.getColumnName(PopulationData.getPopulationMd());
+    String yearOfDataCol = QueryUtil.getColumnName(PopulationData.getYearOfDataMd());
+    String geoEntityCol = QueryUtil.getColumnName(PopulationData.getGeoEntityMd());
+    
+    String locatedInTable = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS).getTableName();
+
+    String idCol = QueryUtil.getIdColumn();
+    
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
     String sql = "(WITH RECURSIVE geohierarchy_flags AS(\n";
-    sql += " SELECT  (t1.packagename || '.' || t1.typename) AS parent_type,\n";
-    sql += "  g1.political AS parent_political,\n";
-    sql += "  g1.spraytargetallowed AS parent_spraytargetallowed,\n";
-    sql += "  g1.populationallowed AS parent_populationallowed,\n";
-    sql += "  (t2.packagename || '.' || t2.typename) AS child_type,\n";
-    sql += "  g2.political AS child_political,\n";
-    sql += "  g2.spraytargetallowed AS child_spraytargetallowed,\n";
-    sql += "  g2.populationallowed AS child_populationallowed\n";
-    sql += " FROM allowedin ,\n";
-    sql += "  geohierarchy g1,\n";
-    sql += "  geohierarchy g2,\n";
-    sql += "  md_type t1 ,\n";
-    sql += "  md_type t2 \n";
-    sql += " WHERE  allowedin.parent_id = g1.id\n";
-    sql += "  AND allowedin.child_id = g2.id\n";
-    sql += "  AND t1.id = g1.geoentityclass\n";
-    sql += "  AND t2.id = g2.geoentityclass\n";
+    sql += " SELECT  (t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type,\n";
+    sql += "  g1."+politicalCol+" AS parent_political,\n";
+    sql += "  g1."+sprayTargetAllowedCol+" AS parent_spraytargetallowed,\n";
+    sql += "  g1."+populationAllowedCol+" AS parent_populationallowed,\n";
+    sql += "  (t2."+pckNameCol+" || '.' || t2."+nameCol+") AS child_type,\n";
+    sql += "  g2."+politicalCol+" AS child_political,\n";
+    sql += "  g2."+sprayTargetAllowedCol+" AS child_spraytargetallowed,\n";
+    sql += "  g2."+populationAllowedCol+" AS child_populationallowed\n";
+    sql += " FROM "+allowedInTable+" ,\n";
+    sql += "  "+geoHierarchyTable+" g1,\n";
+    sql += "  "+geoHierarchyTable+" g2,\n";
+    sql += "  "+mdTypeTable+" t1 ,\n";
+    sql += "  "+mdTypeTable+" t2 \n";
+    sql += " WHERE  "+allowedInTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = g1.id\n";
+    sql += "  AND "+allowedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = g2.id\n";
+    sql += "  AND t1.id = g1."+geoEntityClassCol+"\n";
+    sql += "  AND t2.id = g2."+geoEntityClassCol+"\n";
     sql += " )\n";
     sql += ", recursive_rollup AS ( \n";
-    sql += " SELECT child_id, parent_id , 0 AS depth , geoentity.type , \n";
+    sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+" , 0 AS depth , "+geoEntityTable+"."+typeCol+" , \n";
     sql += " COALESCE((";
     // this is the table with the sumable value
-    sql += " SELECT population FROM populationdata pd \n";
-    sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
-    sql += "     AND pd.geoentity = li.child_id\n";
+    sql += " SELECT "+populationCol+" FROM "+populationDataTable+" pd \n";
+    sql += "    WHERE pd."+yearOfDataCol+"  = " + this.getYearOfData() + "\n";
+    sql += "     AND pd."+geoEntityCol+" = li."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
     sql += "     AND geohierarchy_flags.parent_populationallowed = 1\n";    
     sql += "  ), 0) as sumvalue\n";
-    sql += "  FROM locatedin li, geohierarchy_flags, geoentity \n";
+    sql += "  FROM "+locatedInTable+" li, geohierarchy_flags, "+geoEntityTable+" \n";
     // the root geoentity
-    sql += " WHERE parent_id = '" + entity.getId() + "'\n";
-    sql += "  AND li.child_id = geoentity.id";
-    sql += "  AND geoentity.type = geohierarchy_flags.parent_type";
+    sql += " WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = '" + entity.getId() + "'\n";
+    sql += "  AND li."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
+    sql += "  AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
     sql += "  AND geohierarchy_flags.parent_political = 1";    
     //this is the recursive case
     sql += " UNION\n";
-    sql += " SELECT li.child_id, li.parent_id , rr.depth+1 , geoentity.type , \n";
+    sql += " SELECT li."+RelationshipDAOIF.CHILD_ID_COLUMN+", li."+RelationshipDAOIF.PARENT_ID_COLUMN+" , rr.depth+1 , "+geoEntityTable+"."+typeCol+" , \n";
     sql += " rr.sumvalue +  COALESCE((\n";
-    sql += "    SELECT population FROM populationdata pd \n";
-    sql += "    WHERE pd.yearofdata  = " + this.getYearOfData() + "\n";
-    sql += "    AND pd.geoentity = li.child_id\n";
+    sql += "    SELECT "+populationCol+" FROM "+populationDataTable+" pd \n";
+    sql += "    WHERE pd."+yearOfDataCol+"  = " + this.getYearOfData() + "\n";
+    sql += "    AND pd."+geoEntityCol+" = li."+RelationshipDAOIF.CHILD_ID_COLUMN+"\n";
     sql += "    AND geohierarchy_flags.parent_populationallowed = 1\n";    
     sql += "  ), 0)\n";
-    sql += " FROM recursive_rollup rr, locatedin li, geohierarchy_flags, geoentity \n";
-    sql += " WHERE rr.child_id = li.parent_id\n";
-    sql += " AND li.child_id = geoentity.id";
-    sql += " AND geoentity.type = geohierarchy_flags.parent_type";
+    sql += " FROM recursive_rollup rr, "+locatedInTable+" li, geohierarchy_flags, "+geoEntityTable+" \n";
+    sql += " WHERE rr."+RelationshipDAOIF.CHILD_ID_COLUMN+" = li."+RelationshipDAOIF.PARENT_ID_COLUMN+"\n";
+    sql += " AND li."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
+    sql += " AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
     sql += " AND geohierarchy_flags.parent_political = 1";
     
     // --this will stop the recursion as soon as sumvalue is not null\n";
