@@ -38,7 +38,7 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<c:set var="page_title" value="Query_Control_of_Immatures"  scope="request"/>
+<c:set var="page_title" value="Query_Pupae_by_Individual_Container"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
