@@ -22,17 +22,19 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
   {
     super();
   }
-  
+
   @Override
-  public void apply() {
-	    if (this.isNew() && this.getDisease() == null) {
-	    	this.setDisease(Disease.getCurrent());
-	    }
-	    
-	super.apply();
+  public void apply()
+  {
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+
+    super.apply();
   }
 
-@Override
+  @Override
   public String toString()
   {
     if (this.isNew())
@@ -147,8 +149,10 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     ValueQuery valueQuery = new ValueQuery(queryFactory);
     Integer sum = 0;
 
-//    String allPaths = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
-//    String geoTarget = MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
+    // String allPaths =
+    // MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
+    // String geoTarget =
+    // MdBusiness.getMdBusiness(GeoTarget.CLASS).getTableName();
 
     valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
     String sql = "(WITH RECURSIVE \n";

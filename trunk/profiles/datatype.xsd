@@ -43,10 +43,8 @@
           <xs:element name="mdUtil" type="mdSession" />
           <xs:element name="mdController" type="mdController" />
         </xs:choice>
-        <xs:element name="object" type="entity" minOccurs="0"
-          maxOccurs="unbounded" />
-        <xs:element name="relationship" type="entity"
-          minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="object" type="entity" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="relationship" type="entity" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -103,8 +101,7 @@
       in the same namespace, thus the names are unique
     -->
     <xs:unique name="namespace">
-      <xs:selector
-        xpath=".//mdBusiness | .//mdRelationship | .//enumerationMaster | .//enumerationFilter" />
+      <xs:selector xpath=".//mdBusiness | .//mdRelationship | .//enumerationMaster | .//enumerationFilter" />
       <xs:field xpath="@name" />
     </xs:unique>
 
@@ -144,10 +141,8 @@
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="attribute">
             <xs:complexType>
-              <xs:attribute name="name" type="xs:string"
-                use="required" />
-              <xs:attribute name="indexOrder" type="xs:integer"
-                use="required" />
+              <xs:attribute name="name" type="xs:string" use="required" />
+              <xs:attribute name="indexOrder" type="xs:integer" use="required" />
             </xs:complexType>
           </xs:element>
         </xs:choice>
@@ -169,10 +164,8 @@
       <xs:extension base="metadata">
         <xs:sequence>
           <!--Defines the mdParameters of a mdMethod -->
-          <xs:element name="mdParameter" type="mdParameter"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdMethodOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="mdParameter" type="mdParameter" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="create" type="mdMethodOptions" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <!--name: The name of the mdMethod-->
         <xs:attribute name="name" type="xs:string" use="required" />
@@ -189,10 +182,8 @@
       <xs:extension base="metadata">
         <xs:sequence>
           <!--Defines the mdParameters of a mdMethod -->
-          <xs:element name="mdParameter" type="mdParameter"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdMethodOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="mdParameter" type="mdParameter" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="create" type="mdMethodOptions" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <!--name: The name of the mdMethod-->
         <xs:attribute name="name" type="xs:string" use="required" />
@@ -204,8 +195,7 @@
 
   <xs:complexType name="mdMethodOptions">
     <xs:sequence>
-      <xs:element name="mdParameter" type="mdParameter"
-        minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="mdParameter" type="mdParameter" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -248,8 +238,7 @@
 
   <xs:complexType name="mdFacadeOptions">
     <xs:sequence>
-      <xs:element name="mdMethod" type="mdMethod" minOccurs="0"
-        maxOccurs="unbounded" />
+      <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -259,12 +248,9 @@
       <xs:extension base="mdType">
         <xs:sequence>
           <!--The methods defined for the mdFacade-->
-          <xs:element name="mdMethod" type="mdMethod"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdFacadeOptions"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="create" type="mdFacadeOptions" minOccurs="0" maxOccurs="1" />
+          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -272,8 +258,7 @@
 
   <xs:complexType name="mdControllerOptions">
     <xs:sequence>
-      <xs:element name="mdAction" type="mdAction" minOccurs="0"
-        maxOccurs="unbounded" />
+      <xs:element name="mdAction" type="mdAction" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -282,12 +267,9 @@
       <xs:extension base="mdType">
         <xs:sequence>
           <!--The methods defined for the MdControllers-->
-          <xs:element name="mdAction" type="mdAction"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdControllerOptions"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="mdAction" type="mdAction" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="create" type="mdControllerOptions" minOccurs="0" maxOccurs="1" />
+          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -308,10 +290,8 @@
           <xs:element name="includeAll" />
           <!--specifys a particular object to include in the subset-->
           <xs:sequence>
-            <xs:element name="addEnumItem" type="enumItem"
-              minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="removeEnumItem" type="enumItem"
-              minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="addEnumItem" type="enumItem" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="removeEnumItem" type="enumItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:choice>
         <!--
@@ -336,10 +316,8 @@
   <xs:complexType name="mdTransient">
     <xs:complexContent>
       <xs:extension base="mdClass">
-        <xs:attribute name="extendable" type="xs:boolean"
-          use="optional" />
-        <xs:attribute name="isAbstract" type="xs:boolean"
-          use="optional" />
+        <xs:attribute name="extendable" type="xs:boolean" use="optional" />
+        <xs:attribute name="isAbstract" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -348,16 +326,11 @@
     <xs:complexContent>
       <xs:extension base="mdTransient">
         <xs:sequence>
-          <xs:element name="attributes" type="attributes"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="create" type="mdExceptionOptions"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0"
-            maxOccurs="1" />
-          <xs:element name="dtoStubSource" minOccurs="0"
-            maxOccurs="1" />
-          <xs:element name="messages" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdExceptionOptions" minOccurs="0" maxOccurs="1" />
+          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
+          <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
+          <xs:element name="messages" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <xs:attribute name="extends" type="xs:string" use="optional" />
       </xs:extension>
@@ -366,8 +339,7 @@
 
   <xs:complexType name="mdExceptionOptions">
     <xs:sequence>
-      <xs:element name="attributes" type="attributes"
-        minOccurs="0" maxOccurs="1" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
@@ -375,16 +347,11 @@
     <xs:complexContent>
       <xs:extension base="mdTransient">
         <xs:sequence>
-          <xs:element name="attributes" type="attributes"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="mdMethod" type="mdMethod"
-            minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="create" type="mdSessionOptions"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="stubSource" minOccurs="0"
-            maxOccurs="1" />
-          <xs:element name="dtoStubSource" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
+          <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="create" type="mdSessionOptions" minOccurs="0" maxOccurs="1" />
+          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
+          <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
         <xs:attribute name="extends" type="xs:string" use="optional" />
       </xs:extension>
@@ -393,10 +360,8 @@
 
   <xs:complexType name="mdSessionOptions">
     <xs:sequence>
-      <xs:element name="attributes" type="attributes"
-        minOccurs="0" maxOccurs="1" />
-      <xs:element name="mdMethod" type="mdMethod" minOccurs="0"
-        maxOccurs="unbounded" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
+      <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -404,8 +369,7 @@
     <xs:complexContent>
       <xs:extension base="mdSession">
         <xs:sequence>
-          <xs:element name="queryStubSource" minOccurs="0"
-            maxOccurs="1" />
+          <xs:element name="queryStubSource" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -413,10 +377,8 @@
 
   <xs:complexType name="mdEntityOptions">
     <xs:sequence>
-      <xs:element name="attributes" type="attributes"
-        minOccurs="0" maxOccurs="1" />
-      <xs:element name="mdMethod" type="mdMethod" minOccurs="0"
-        maxOccurs="unbounded" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
+      <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -424,9 +386,9 @@
     <xs:complexContent>
       <xs:extension base="mdClass">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="attributes" type="attributes" minOccurs="0" /> 
+          <xs:element name="attributes" type="attributes" minOccurs="0" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="stubSource" minOccurs="0"  maxOccurs="1" />
+          <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
           <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
         </xs:choice>
         <xs:attribute name="table" type="xs:string" use="optional" />
@@ -441,8 +403,7 @@
 
       <xs:extension base="mdEntity">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="create" type="mdEntityOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
         </xs:choice>
 
         <!--
@@ -460,8 +421,7 @@
     <xs:complexContent>
       <xs:extension base="mdEntity">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="create" type="mdEntityOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
         </xs:choice>
       </xs:extension>
     </xs:complexContent>
@@ -481,8 +441,7 @@
     <xs:complexContent>
       <xs:extension base="mdEntityOptions">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="mdStateMachine" type="mdStateMachine"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="mdStateMachine" type="mdStateMachine" minOccurs="0" maxOccurs="1" />
         </xs:choice>
       </xs:extension>
     </xs:complexContent>
@@ -508,10 +467,8 @@
     <xs:complexContent>
       <xs:extension base="mdBusinessBase">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="mdStateMachine" type="mdStateMachine"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="create" type="mdBusinessOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="mdStateMachine" type="mdStateMachine" minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1" />
         </xs:choice>
       </xs:extension>
     </xs:complexContent>
@@ -535,13 +492,10 @@
       <xs:extension base="mdRelationshipBase">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <!--The parent mdBusiness of the mdRelationship -->
-          <xs:element name="parent" type="participant"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="parent" type="participant" minOccurs="0" maxOccurs="1" />
           <!--The child mdBusiness of the mdRelationship -->
-          <xs:element name="child" type="participant"
-            minOccurs="0" maxOccurs="1" />
-          <xs:element name="create" type="mdBusinessOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="child" type="participant" minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1" />
         </xs:choice>
         <!--composition: If the mdRelationship is a composition -->
       </xs:extension>
@@ -578,10 +532,8 @@
 
   <xs:complexType name="mdStateMachineOptions">
     <xs:sequence>
-      <xs:element name="states" type="states" minOccurs="0"
-        maxOccurs="1" />
-      <xs:element name="transitions" type="transitions"
-        minOccurs="0" maxOccurs="1" />
+      <xs:element name="states" type="states" minOccurs="0" maxOccurs="1" />
+      <xs:element name="transitions" type="transitions" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
@@ -591,8 +543,7 @@
         <xs:sequence>
           <xs:element name="states" type="states" />
           <xs:element name="transitions" type="transitions" />
-          <xs:element name="create" type="mdStateMachineOptions"
-            minOccurs="0" maxOccurs="1" />
+          <xs:element name="create" type="mdStateMachineOptions" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -683,8 +634,7 @@
     <xs:complexContent>
       <xs:extension base="entity">
         <!--parentKey: The xml id of the object of the parent-->
-        <xs:attribute name="parentKey" type="xs:string"
-          use="required" />
+        <xs:attribute name="parentKey" type="xs:string" use="required" />
         <!--childKey: The xml id of the object of the child-->
         <xs:attribute name="childKey" type="xs:string" use="required" />
       </xs:extension>
@@ -717,8 +667,7 @@
   <xs:element name="attributeEnumeration">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="enumeratedItem" minOccurs="0"
-          maxOccurs="unbounded">
+        <xs:element name="enumeratedItem" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:attribute name="name" type="xs:string" use="required" />
           </xs:complexType>
@@ -1052,8 +1001,7 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="assignedRole">
         <xs:complexType>
-          <xs:attribute name="roleName" type="xs:string"
-            use="required" />
+          <xs:attribute name="roleName" type="xs:string" use="required" />
           <xs:attribute name="label" type="xs:string" />
           <xs:anyAttribute processContents="skip" />
         </xs:complexType>
@@ -1093,8 +1041,7 @@
     <xs:complexContent>
       <xs:extension base="singleActor">
         <xs:attribute name="type" type="xs:string" use="required" />
-        <xs:attribute name="methodName" type="xs:string"
-          use="required" />
+        <xs:attribute name="methodName" type="xs:string" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1103,8 +1050,7 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="superRole">
         <xs:complexType>
-          <xs:attribute name="roleName" type="xs:string"
-            use="required" />
+          <xs:attribute name="roleName" type="xs:string" use="required" />
         </xs:complexType>
       </xs:element>
       <xs:element name="grant" type="permissionOptions" />
@@ -1116,26 +1062,28 @@
 
   <xs:complexType name="mdFacadePermission">
     <xs:sequence>
-      <xs:element name="mdMethodPermission" type="mdMethodPermission"
-        minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="mdMethodPermission" type="mdMethodPermission" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
 
   <xs:complexType name="mdClassPermission">
     <!-- type: The metadata type to assign permissions to -->
-    <xs:sequence>
-      <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="operation">
         <xs:complexType>
-          <xs:attribute name="name" type="allOperations"
-            use="required" />
+          <xs:attribute name="name" type="allOperations" use="required" />
         </xs:complexType>
       </xs:element>
-      <xs:element ref="attributePermission" minOccurs="0"
-        maxOccurs="unbounded" />
-      <xs:element name="mdMethodPermission" type="mdMethodPermission"
-        minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
+      <xs:element name="operationForDimension">
+        <xs:complexType>
+          <xs:attribute name="name" type="dimensionOperations" use="required" />
+          <xs:attribute name="dimension" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="attributePermission" />
+      <xs:element name="mdMethodPermission" type="mdMethodPermission" />
+    </xs:choice>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
 
@@ -1143,8 +1091,7 @@
     <xs:complexContent>
       <xs:extension base="mdClassPermission">
         <xs:sequence>
-          <xs:element name="statePermission" type="statePermission"
-            minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="statePermission" type="statePermission" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1152,22 +1099,23 @@
 
   <xs:complexType name="mdRelationshipPermission">
     <!-- type: The metadata type to assign permissions to -->
-    <xs:sequence>
-      <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="operation">
         <xs:complexType>
-          <xs:attribute name="name" type="allOperations"
-            use="required" />
+          <xs:attribute name="name" type="allOperations" use="required" />
         </xs:complexType>
       </xs:element>
-      <xs:element ref="attributePermission" minOccurs="0"
-        maxOccurs="unbounded" />
-      <xs:element name="parentStatePermission" type="parentStatePermission"
-        minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="childStatePermission" type="childStatePermission"
-        minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="mdMethodPermission" type="mdMethodPermission"
-        minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
+      <xs:element name="operationForDimension">
+        <xs:complexType>
+          <xs:attribute name="name" type="dimensionOperations" use="required" />
+          <xs:attribute name="dimension" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="attributePermission" />
+      <xs:element name="parentStatePermission" type="parentStatePermission" />
+      <xs:element name="childStatePermission" type="childStatePermission"  />
+      <xs:element name="mdMethodPermission" type="mdMethodPermission"  />
+    </xs:choice>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
 
@@ -1176,12 +1124,10 @@
     <xs:sequence>
       <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
         <xs:complexType>
-          <xs:attribute name="name" type="allOperations"
-            use="required" />
+          <xs:attribute name="name" type="allOperations" use="required" />
         </xs:complexType>
       </xs:element>
-      <xs:element ref="attributePermission" minOccurs="0"
-        maxOccurs="unbounded" />
+      <xs:element ref="attributePermission" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="stateName" type="xs:string" use="required" />
   </xs:complexType>
@@ -1191,8 +1137,7 @@
     <xs:sequence>
       <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
         <xs:complexType>
-          <xs:attribute name="name" type="parentOperations"
-            use="required" />
+          <xs:attribute name="name" type="parentOperations" use="required" />
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -1204,8 +1149,7 @@
     <xs:sequence>
       <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
         <xs:complexType>
-          <xs:attribute name="name" type="childOperations"
-            use="required" />
+          <xs:attribute name="name" type="childOperations" use="required" />
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -1218,13 +1162,11 @@
       <xs:sequence>
         <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
-            <xs:attribute name="name" type="attributeOperations"
-              use="required" />
+            <xs:attribute name="name" type="attributeOperations" use="required" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="attributeName" type="xs:string"
-        use="required" />
+      <xs:attribute name="attributeName" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
 
@@ -1232,8 +1174,7 @@
     <xs:sequence>
       <xs:element name="operation" minOccurs="0" maxOccurs="unbounded">
         <xs:complexType>
-          <xs:attribute name="name" type="mdMethodOperations"
-            use="required" />
+          <xs:attribute name="name" type="mdMethodOperations" use="required" />
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -1258,6 +1199,13 @@
       <xs:enumeration value="GRANT" />
       <xs:enumeration value="REVOKE" />
       <xs:enumeration value="EXECUTE" />
+      <xs:enumeration value="READ_ALL_ATTRIBUTES" />
+      <xs:enumeration value="WRITE_ALL_ATTRIBUTES" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="dimensionOperations">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="READ_ALL_ATTRIBUTES" />
       <xs:enumeration value="WRITE_ALL_ATTRIBUTES" />
     </xs:restriction>

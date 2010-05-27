@@ -16,9 +16,13 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.MdAttributeInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.PermissionFacade;
@@ -27,6 +31,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.InstallProperties;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.BrowserField;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -79,7 +84,24 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       }
 
       Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
+      
       boolean readable = permissions.contains(Operation.READ);
+      
+      // Check the dimension permissions
+      if(!readable)
+      {
+        MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+        
+        if(mdDimension != null)
+        {
+          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+          
+          permissions = actor.getAssignedPermissions(mdAttributeDimension);
+          readable = permissions.contains(Operation.READ);
+        }
+      }
+
+      
       ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
 
       list.add(view);
@@ -152,16 +174,23 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       }
 
       Boolean permission = view.getReadPermission();
+      
 
       if (permission != null)
       {
+        Disease current = Disease.getCurrent();
+        MdDimensionDAOIF _mdDimension = MdDimensionDAO.get(current.getDimension().getId());
+        MdAttributeDAOIF _mdAttribute = MdAttributeDAO.get(mdAttribute.getId());
+        MdAttributeDimensionDAOIF _mdAttributeDimension = _mdAttribute.getMdAttributeDimension(_mdDimension);
+        
+
         if (permission)
         {
-          actor.grantPermission(Operation.READ, mdAttribute.getId());
+          actor.grantPermission(Operation.READ, _mdAttributeDimension.getId());
         }
         else
         {
-          actor.revokePermission(Operation.READ, mdAttribute.getId());
+          actor.revokePermission(Operation.READ, _mdAttributeDimension.getId());
         }
       }
     }

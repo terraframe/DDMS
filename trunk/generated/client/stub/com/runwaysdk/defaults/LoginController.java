@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.ProblemExceptionDTO;
@@ -12,6 +14,7 @@ import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdActionInfo;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.web.ServletUtility;
 import com.runwaysdk.web.WebClientSession;
 
@@ -20,7 +23,7 @@ import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
 
-public class LoginController extends LoginControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class LoginController extends LoginControllerBase implements Reloadable
 {
   private static final long  serialVersionUID = 1234283350799L;
 
@@ -28,13 +31,13 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
 
   public static final String LOGOUT_ACTION    = LoginController.class.getName() + ".logout" + MdActionInfo.ACTION_SUFFIX;
 
-  public LoginController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public LoginController(HttpServletRequest req, HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
 
   @Override
-  public void login(String username, String password) throws java.io.IOException, javax.servlet.ServletException
+  public void login(String username, String password) throws IOException, ServletException
   {
     try
     {
@@ -51,12 +54,13 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
       GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
       globalSessionListener.setCookie(this.getResponse());
       req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
-      
+            
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
+      
       req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
       req.getSession().setAttribute("menu", DiseaseDTO.getMenuJson(this.getClientRequest()));
-
+      
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
     catch (ProblemExceptionDTO e)
@@ -80,7 +84,7 @@ public class LoginController extends LoginControllerBase implements com.runwaysd
   }
 
   @Override
-  public void logout() throws java.io.IOException, javax.servlet.ServletException
+  public void logout() throws IOException, ServletException
   {
     // process which logs the user out.
     ClientSession clientSession = super.getClientSession();

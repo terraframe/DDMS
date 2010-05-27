@@ -4,6 +4,8 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.system.metadata.MdDimension;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
@@ -20,10 +22,11 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
   public static final String DENGUE           = "DENGUE";
 
-  public Disease() {
+  public Disease()
+  {
     super();
   }
-  
+
   public static Disease getMalaria()
   {
     return Disease.getByKey(MALARIA);
@@ -55,8 +58,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     return termQuery.inactiveProperties(ipQ);
   }
 
-  public static Condition getInactiveCriteria(QueryFactory f, TermQueryReferenceIF termQueryRef,
-      Boolean inactive)
+  public static Condition getInactiveCriteria(QueryFactory f, TermQueryReferenceIF termQueryRef, Boolean inactive)
   {
     // The following has a bug in the query API
     // Disease disease = getDisease();
@@ -70,7 +72,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
     TermQuery t = new TermQuery(f);
     InactivePropertyQuery ip = new InactivePropertyQuery(f);
-	
+
     Disease disease = getCurrent();
     ip.WHERE(ip.getDisease().EQ(disease));
     ip.WHERE(ip.getInactive().EQ(inactive));
@@ -79,8 +81,9 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
     return termQueryRef.EQ(t);
   }
-  
-  public static Disease[] getAllDiseases() {
+
+  public static Disease[] getAllDiseases()
+  {
     DiseaseQuery query = Disease.getAllInstances(null, true, 0, 0);
     OIterator<? extends Disease> it = query.getIterator();
     return it.getAll().toArray(new Disease[(int) query.getCount()]);
@@ -109,19 +112,31 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
     return ipQ.getCount() == 1;
   }
-	
-	public String getDisplayLabel() {
-		return this.getDimension().getDisplayLabel().getValue(Session.getCurrentLocale());
-	}
-	
-	  public static String getMenuJson() {
-		    MenuGenerator menuGenerator = new MenuGenerator(getCurrent());
-		    
-		    menuGenerator.generateMenu();
-		    return menuGenerator.getJson();
-		  }
-	
-	  public String toString() {
-		  return this.getDisplayLabel();
-	  }
+
+  public String getDisplayLabel()
+  {
+    return this.getDimension().getDisplayLabel().getValue(Session.getCurrentLocale());
+  }
+
+  public static String getMenuJson()
+  {
+    Disease current = Disease.getCurrent();
+    MdDimension dimension = current.getDimension();
+    
+    // FIRST SET THE CURRENT DIMENSION IN THE SESSION
+    String sessionId = Session.getCurrentSession().getId();
+    
+    SessionFacade.setDimension(dimension.getKey(), sessionId);
+        
+    MenuGenerator menuGenerator = new MenuGenerator(current);
+
+    menuGenerator.generateMenu();
+        
+    return menuGenerator.getJson();
+  }
+
+  public String toString()
+  {
+    return this.getDisplayLabel();
+  }
 }

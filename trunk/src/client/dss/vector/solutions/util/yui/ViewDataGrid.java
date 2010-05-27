@@ -49,7 +49,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
     this.data = data;
     this.yuiColumns = new LinkedHashMap<String, YUIColumn>();
 
-    List<String> _keys = Arrays.asList(keys);
+    List<String> _keys = new LinkedList<String>(Arrays.asList(keys));
 
     for (String accessorName : view.getAttributeNames())
     {

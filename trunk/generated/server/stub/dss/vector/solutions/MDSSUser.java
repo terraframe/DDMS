@@ -1,7 +1,5 @@
 package dss.vector.solutions;
 
-import java.util.List;
-
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
@@ -16,7 +14,6 @@ import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.Assignments;
 import com.runwaysdk.system.Roles;
 
-import dss.vector.solutions.export.ExcelEnums;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -142,9 +139,10 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   {
     UserSettings settings = UserSettings.createIfNotExists(this);
     settings.lock();
+    
     Disease disease = Disease.getByKey(diseaseName);
     settings.setDisease(disease);
-    settings.apply();
+    settings.apply();    
   }
   
   @Override

@@ -35,7 +35,7 @@
         type="dss.vector.solutions.general.Disease">
         <attributeReference
           name="dimension"
-          key="MALARIA" />
+          key="Dimension.MALARIA" />
       </object>
 
       <object
@@ -43,7 +43,7 @@
         type="dss.vector.solutions.general.Disease">
         <attributeReference
           name="dimension"
-          key="DENGUE" />
+          key="Dimension.DENGUE" />
       </object>
     </create>
   </doIt>

@@ -9,16 +9,15 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.Disease;
 
-
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1736678503;
-  
+
   public ControlIntervention()
   {
     super();
   }
- 
+
   @Override
   public String toString()
   {
@@ -29,49 +28,50 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     return this.getClassDisplayLabel();
   }
-  
+
   @Override
   public void apply()
   {
-	    if (this.isNew() && this.getDisease() == null) {
-	    	this.setDisease(Disease.getCurrent());
-	    }
-    
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+
     super.apply();
   }
-  
+
   @Override
   @Transaction
   public void delete()
   {
     this.deleteInsecticideIntervention();
-    
+
     this.deletePersonIntervention();
-    
-    this.deleteIndividualPremises();    
-    
+
+    this.deleteIndividualPremises();
+
     this.deleteAggregatedPremises();
-        
+
     super.delete();
   }
-  
+
   public void deleteInsecticideIntervention()
   {
     List<InsecticideIntervention> list = this.getInsecticideInterventions();
-    
-    for(InsecticideIntervention visit : list)
+
+    for (InsecticideIntervention visit : list)
     {
       visit.delete();
     }
   }
-  
+
   private List<InsecticideIntervention> getInsecticideInterventions()
   {
     List<InsecticideIntervention> list = new LinkedList<InsecticideIntervention>();
     InsecticideInterventionQuery query = new InsecticideInterventionQuery(new QueryFactory());
     query.WHERE(query.getIntervention().EQ(this));
     OIterator<? extends InsecticideIntervention> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -83,14 +83,12 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     return list;
 
   }
-  
-  
 
   public void deleteAggregatedPremises()
   {
     List<AggregatedPremiseVisit> list = this.getAggregatedPremiseVisits();
-    
-    for(AggregatedPremiseVisit visit : list)
+
+    for (AggregatedPremiseVisit visit : list)
     {
       visit.delete();
     }
@@ -102,7 +100,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     AggregatedPremiseVisitQuery query = new AggregatedPremiseVisitQuery(new QueryFactory());
     query.WHERE(query.getPoint().EQ(this));
     OIterator<? extends AggregatedPremiseVisit> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -117,8 +115,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   public void deleteIndividualPremises()
   {
     List<IndividualPremiseVisit> list = this.getIndividualPremiseVisits();
-    
-    for(IndividualPremiseVisit visit : list)
+
+    for (IndividualPremiseVisit visit : list)
     {
       visit.delete();
     }
@@ -130,7 +128,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     IndividualPremiseVisitQuery query = new IndividualPremiseVisitQuery(new QueryFactory());
     query.WHERE(query.getPoint().EQ(this));
     OIterator<? extends IndividualPremiseVisit> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -141,17 +139,16 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     }
     return list;
   }
-  
+
   public void deletePersonIntervention()
   {
     List<PersonIntervention> list = this.getPersonInterventions();
-    
-    for(PersonIntervention visit : list)
+
+    for (PersonIntervention visit : list)
     {
       visit.delete();
     }
   }
-
 
   private List<PersonIntervention> getPersonInterventions()
   {
@@ -159,7 +156,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     PersonInterventionQuery query = new PersonInterventionQuery(new QueryFactory());
     query.WHERE(query.getPoint().EQ(this));
     OIterator<? extends PersonIntervention> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -170,7 +167,6 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     }
     return list;
   }
-
 
   @Override
   protected String buildKey()
@@ -193,7 +189,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     return this.getView();
   }
-  
+
   @Override
   public ControlInterventionView getView()
   {

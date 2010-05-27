@@ -5,7 +5,7 @@
     <create>
       <object
         type="com.runwaysdk.system.metadata.MdDimension"
-        key="MALARIA">
+        key="Dimension.MALARIA">
         <attribute
           name="name"
           value="MALARIA" />
@@ -18,7 +18,7 @@
       </object>
       <object
         type="com.runwaysdk.system.metadata.MdDimension"
-        key="DENGUE">
+        key="Dimension.DENGUE">
         <attribute
           name="name"
           value="DENGUE" />
