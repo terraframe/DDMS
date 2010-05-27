@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1172169540)
+@com.runwaysdk.business.ClassSignature(hash = -328503617)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class InfectionAssayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1172169540;
+private static final long serialVersionUID = -328503617;
 
   public InfectionAssayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -63,6 +63,25 @@ private static final long serialVersionUID = -1172169540;
 
   }
  
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.InfectionAssayView.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.InfectionAssayView.DISEASE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);

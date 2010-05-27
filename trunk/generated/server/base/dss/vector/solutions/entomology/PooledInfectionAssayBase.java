@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -867791867)
+@com.runwaysdk.business.ClassSignature(hash = -1262015314)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class PooledInfectionAssayBase extends com.runwaysdk.business.Bu
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTMETHOD = "identMethod";
@@ -34,7 +35,7 @@ public abstract class PooledInfectionAssayBase extends com.runwaysdk.business.Bu
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -867791867;
+  private static final long serialVersionUID = -1262015314;
   
   public PooledInfectionAssayBase()
   {
@@ -113,6 +114,41 @@ public abstract class PooledInfectionAssayBase extends com.runwaysdk.business.Bu
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssay.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssay.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
