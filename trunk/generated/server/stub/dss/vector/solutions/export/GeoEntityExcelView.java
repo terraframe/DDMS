@@ -47,7 +47,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     entity.setTerm(this.validateGeoSubtypeByDisplayLabel(entity, this.getSubType(), GeoEntity.getTermMd()));
     
     MdAttributeGeometry geometry = GeoHierarchy.getGeometry(entityType);
-    entity.setValue(geometry.getAttributeName(), this.getGeometryWKT());
+    entity.setGeoData(this.getGeometryWKT());
     entity.applyWithParent(parentGeoEntityId, false, null);
   }
 
