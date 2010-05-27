@@ -156,10 +156,6 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
   @Transaction
   public void applyWithStyles(Styles styles, String savedMapId)
   {
-    SavedMap map = SavedMap.get(savedMapId);
-
-    validateUniqueness(map);
-    
     styles.apply();
     
     boolean isNew = this.isNew();
@@ -168,6 +164,23 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
     {
       this.setDefaultStyles(styles);
     }
+    
+    // Validate the uniqueness of the layer name. If the layer
+    // is new then grab the provided savedMapId because it represents
+    // the map that is being used as the temporary SavedMap until the
+    // user explicitly saves the map.
+    // Otherwise, use the existing map that the layer points to.
+    SavedMap map;
+    if(isNew)
+    {
+      map = SavedMap.get(savedMapId);
+    }
+    else
+    {
+      map = this.getAllMap().getAll().get(0);
+    }
+    validateUniqueness(map);
+
     
     this.apply();
     

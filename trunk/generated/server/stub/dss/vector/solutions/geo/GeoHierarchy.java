@@ -153,9 +153,20 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         if (layer.hasThematicVariable())
         {
           Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias() + THEMATIC_SUFFIX);
-          layer.appLock();
+          
+          // Only lock and apply the layer if it's not new to avoid erroring out
+          // on a new instance used for calculations.
+          if (!layer.isNew())
+          {
+            layer.appLock();
+          }
+
           layer.setThematicColumnAlias(thematic.getColumnAlias());
-          layer.apply();
+
+          if (!layer.isNew())
+          {
+            layer.apply();
+          }
 
           vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
