@@ -5,6 +5,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.metadata.MdDimension;
 
 import dss.vector.solutions.MDSSUser;
@@ -39,11 +40,17 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
   public static Disease getCurrent()
   {
-    String id = Session.getCurrentSession().getUser().getId();
-    MDSSUser user = MDSSUser.get(id);
+	  Disease disease = null;
+	  
+	  SessionIF session = Session.getCurrentSession();
+	  if (session != null && session.getUser() != null) {
+		    String id = Session.getCurrentSession().getUser().getId();
+		    MDSSUser user = MDSSUser.get(id);
 
-    String name = user.getDiseaseName();
-    return Disease.getByKey(name);
+		    String name = user.getDiseaseName();
+		    disease = Disease.getByKey(name);
+	  }
+	  return disease;
   }
 
   public static Condition getInactiveCriteria(QueryFactory f, TermQuery termQuery, Boolean inactive)

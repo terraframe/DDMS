@@ -11,7 +11,10 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+
+import dss.vector.solutions.general.Disease;
 
 public class Property extends PropertyBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -47,6 +50,7 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     PropertyQuery query = new PropertyQuery(new QueryFactory());
 
     query.WHERE(query.getPropertyPackage().LIKE(pkg + "%"));
+    query.AND(OR.get(query.getDisease().EQ(Disease.getCurrent()), query.getDisease().EQ("NULL")));
 
     return query;
   }
@@ -76,7 +80,13 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
 
     query.WHERE(query.getPropertyPackage().EQ(pkg));
     query.AND(query.getPropertyName().EQ(name));
-
+    
+    Disease currentDisease = Disease.getCurrent();
+    if (currentDisease == null) {
+    	query.AND(query.getDisease().EQ("NULL"));
+    } else {
+    	query.AND(OR.get(query.getDisease().EQ(Disease.getCurrent()), query.getDisease().EQ("NULL")));
+    }
     OIterator<? extends Property> iterator = query.getIterator();
 
     try
@@ -97,7 +107,8 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
 
       query.WHERE(query.getPropertyPackage().LIKE(pkg + "%"));
       query.AND(query.getPropertyName().EQ(name));
-
+      query.AND(OR.get(query.getDisease().EQ(Disease.getCurrent()), query.getDisease().EQ("NULL")));
+      
       iterator = query.getIterator();
 
       try

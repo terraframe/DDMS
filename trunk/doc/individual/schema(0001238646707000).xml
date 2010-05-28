@@ -2319,19 +2319,24 @@
         label="Property">
         <attributes>
           <char
+            name="propertyPackage"
+            required="true"
+            label="Package"
+            size="255" />
+          <char
             name="propertyName"
             label="Name"
             required="true"
             size="255" />
+          <reference
+			name="disease"
+			label="Disease"
+			type="dss.vector.solutions.general.Disease"
+			required="false" />
           <char
             name="displayLabel"
             label="Display Label"
             required="true"
-            size="255" />
-          <char
-            name="propertyPackage"
-            required="true"
-            label="Package"
             size="255" />
           <char
             name="propertyValue"
@@ -2468,7 +2473,7 @@
         type="dss.vector.solutions.Property"
         active="true"
         label="Property Index"
-        unique="true"
+        unique="false"
         description="Uniquness constraint between the Package And Key for this Property">
         <attribute
           name="propertyPackage"
@@ -2476,6 +2481,9 @@
         <attribute
           name="propertyName"
           indexOrder="1" />
+        <attribute
+          name="disease"
+          indexOrder="2" />
       </mdIndex>
 
       <mdException

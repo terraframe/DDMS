@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1131994607)
+@com.runwaysdk.business.ClassSignature(hash = -909521156)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DESCRIPTION = "description";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String EDITABLE = "editable";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -32,7 +33,7 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 1131994607;
+  private static final long serialVersionUID = -909521156;
   
   public PropertyBase()
   {
@@ -103,6 +104,41 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
     else
     {
       setValue(DESCRIPTION, value);
+    }
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Property.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
     }
   }
   

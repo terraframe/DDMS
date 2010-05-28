@@ -1,41 +1,78 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<doIt>
 		<create>
 			<object
-		        type="dss.vector.solutions.Property"
-		        key="newCasePeriod">
-		        <attribute
-		          name="propertyName"
-		          value="newCasePeriod" />
-		        <attribute
-		          name="displayLabel"
-		          value="New Case Period (weeks)" />
-		        <attribute
-		          name="propertyPackage"
-		          value="dss.vector.solutions.intervention.monitor" />
-		        <attribute
-		          name="propertyValue"
-		          value="4" />
-		        <attribute
-		          name="propertyType"
-		          value="Integer" />
-		        <attribute
-		          name="propertyValidator"
-		          value="^[1-9][0-9]*$" />
-		        <attribute
-		          name="validValues"
-		          value="4, 6, 10" />
-		        <attribute
-		          name="description"
-		          value="Number of weeks (from case diagnosis date) after which to create a new case" />
-		      	</object>
-	      </create>
+				type="dss.vector.solutions.Property"
+				key="newCasePeriod.MALARIA">
+				<attribute
+					name="propertyPackage"
+					value="dss.vector.solutions.intervention.monitor" />
+				<attribute
+					name="propertyName"
+					value="newCasePeriod" />
+				<attributeReference
+					name="disease"
+					key="MALARIA" />
+				<attribute
+					name="displayLabel"
+					value="New Case Period (weeks)" />
+				<attribute
+					name="propertyValue"
+					value="4" />
+				<attribute
+					name="propertyType"
+					value="Integer" />
+				<attribute
+					name="propertyValidator"
+					value="^[1-9][0-9]*$" />
+				<attribute
+					name="validValues"
+					value="4, 6, 10" />
+				<attribute
+					name="description"
+					value="Number of weeks (from case diagnosis date) after which to create a new case" />
+			</object>
+
+			<object
+				type="dss.vector.solutions.Property"
+				key="newCasePeriod.DENGUE">
+				<attribute
+					name="propertyPackage"
+					value="dss.vector.solutions.intervention.monitor" />
+				<attribute
+					name="propertyName"
+					value="newCasePeriod" />
+				<attributeReference
+					name="disease"
+					key="DENGUE" />
+				<attribute
+					name="displayLabel"
+					value="New Case Period (weeks)" />
+				<attribute
+					name="propertyValue"
+					value="4" />
+				<attribute
+					name="propertyType"
+					value="Integer" />
+				<attribute
+					name="propertyValidator"
+					value="^[1-9][0-9]*$" />
+				<attribute
+					name="validValues"
+					value="4, 6, 10" />
+				<attribute
+					name="description"
+					value="Number of weeks (from case diagnosis date) after which to create a new case" />
+			</object>
+		</create>
 	</doIt>
 	<undoIt>
-	    <delete>
+		<delete>
 			<object
-	        	type="dss.vector.solutions.Property"
-	        	key="newCasePeriod" />
+				type="dss.vector.solutions.Property"
+				key="newCasePeriod" />
 		</delete>
 	</undoIt>
 </version>
