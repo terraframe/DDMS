@@ -1,9 +1,7 @@
 package dss.vector.solutions.export;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -21,7 +19,6 @@ public class PupalCollectionListener implements ExcelExportListener, ImportListe
 {
   private static final String AMOUNT = "Pupae Amount - ";
   
-  @Override
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term specie : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
@@ -30,7 +27,6 @@ public class PupalCollectionListener implements ExcelExportListener, ImportListe
     }
   }
 
-  @Override
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
     PupalCollectionExcelView collection = (PupalCollectionExcelView) instance;
@@ -47,12 +43,10 @@ public class PupalCollectionListener implements ExcelExportListener, ImportListe
     }
   }
   
-  @Override
   public void preHeader(ExcelColumn columnInfo)
   {
   }
   
-  @Override
   public void preWrite(HSSFWorkbook workbook)
   {
   }

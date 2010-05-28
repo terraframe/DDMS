@@ -1111,10 +1111,10 @@
           <xs:attribute name="dimension" type="xs:string" use="required" />
         </xs:complexType>
       </xs:element>
-      <xs:element ref="attributePermission" />
-      <xs:element name="parentStatePermission" type="parentStatePermission" />
-      <xs:element name="childStatePermission" type="childStatePermission"  />
-      <xs:element name="mdMethodPermission" type="mdMethodPermission"  />
+      <xs:element ref="attributePermission" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="parentStatePermission" type="parentStatePermission" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="childStatePermission" type="childStatePermission" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="mdMethodPermission" type="mdMethodPermission" minOccurs="0" maxOccurs="unbounded" />
     </xs:choice>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
@@ -1167,6 +1167,7 @@
         </xs:element>
       </xs:sequence>
       <xs:attribute name="attributeName" type="xs:string" use="required" />
+      <xs:attribute name="dimension" type="xs:string" use="optional" />
     </xs:complexType>
   </xs:element>
 
