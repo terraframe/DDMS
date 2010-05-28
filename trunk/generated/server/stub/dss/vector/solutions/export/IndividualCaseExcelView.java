@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -181,13 +182,13 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     return list;
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(new SymptomListener());
-    importer.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
-    importer.addListener(createSettlementSubdivisionListener(RESIDENCE));
-    importer.addListener(createSettlementSubdivisionListener(WORKPLACE));
-    importer.addListener(createHealthFacilityListener());
+    context.addListener(new SymptomListener());
+    context.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
+    context.addListener(createSettlementSubdivisionListener(RESIDENCE));
+    context.addListener(createSettlementSubdivisionListener(WORKPLACE));
+    context.addListener(createHealthFacilityListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

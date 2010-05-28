@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -112,10 +113,10 @@ public class AggregatedITNExcelView extends AggregatedITNExcelViewBase implement
     return list;
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(new AggregatedITNListener());
-    importer.addListener(createExcelGeoListener());
+    context.addListener(new AggregatedITNListener());
+    context.addListener(createExcelGeoListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

@@ -65,3 +65,7 @@
     <mjl:page />
   </mjl:pagination>  
 </mjl:table>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.PupalCollectionExcelView" name="excelType"/>
+</jsp:include>

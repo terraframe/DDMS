@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -94,9 +95,9 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     return list;
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

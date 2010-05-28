@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.general.Disease;
@@ -14,7 +16,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class PersonExcelView extends PersonExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class PersonExcelView extends PersonExcelViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1246241921437L;
   
@@ -102,10 +104,10 @@ public class PersonExcelView extends PersonExcelViewBase implements com.runwaysd
     exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
-    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
+    context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
+    context.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
   
   private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)

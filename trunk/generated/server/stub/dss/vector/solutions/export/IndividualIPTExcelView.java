@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -165,11 +166,11 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     exporter.addListener(createExcelHealthFacilityListener());
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
-    importer.addListener(createExcelGeoListener(WORKGEOENTITY));
-    importer.addListener(createExcelHealthFacilityListener());
+    context.addListener(createExcelGeoListener(RESIDENTIALLOCATION));
+    context.addListener(createExcelGeoListener(WORKGEOENTITY));
+    context.addListener(createExcelHealthFacilityListener());
   }
   
   private static DynamicGeoColumnListener createExcelHealthFacilityListener()

@@ -2,6 +2,7 @@ package dss.vector.solutions.export;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.entomology.ContainerShape;
 import dss.vector.solutions.entomology.LifeStage;
 import dss.vector.solutions.general.Disease;
 
@@ -15,6 +16,19 @@ public class ExcelEnums implements Reloadable
           lifeStage.getDisplayLabel().equalsIgnoreCase(label))
       {
         return lifeStage;
+      }
+    }
+    return null;
+  }
+  
+  public static ContainerShape getContainerShape(String label)
+  {
+    for (ContainerShape containerShape : ContainerShape.values())
+    {
+      if (containerShape.getEnumName().equalsIgnoreCase(label) ||
+          containerShape.getDisplayLabel().equalsIgnoreCase(label))
+      {
+        return containerShape;
       }
     }
     return null;

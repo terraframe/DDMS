@@ -6,6 +6,7 @@ import java.util.List;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -226,10 +227,10 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     return list;
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(new AggregatedCaseListener());
-    importer.addListener(createExcelGeoListener());
+    context.addListener(new AggregatedCaseListener());
+    context.addListener(createExcelGeoListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)

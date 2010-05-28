@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -96,9 +97,9 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.ru
     exporter.addListener(createExcelGeoListener());
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener());
   }
 
   private static DynamicGeoColumnListener createExcelGeoListener()

@@ -6,6 +6,7 @@ import java.util.List;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
@@ -164,9 +165,9 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     exporter.addListener(createExcelGeoListener());
   }
 
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(createExcelGeoListener());
+    context.addListener(createExcelGeoListener());
   }
 
   private static DynamicGeoColumnListener createExcelGeoListener()
