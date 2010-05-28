@@ -1,14 +1,23 @@
 package dss.vector.solutions.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
+import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdViewInfo;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.Session;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.system.metadata.MdElementQuery;
@@ -16,7 +25,7 @@ import com.runwaysdk.system.metadata.MdElementQuery;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 
-public abstract class Facade extends FacadeBase implements com.runwaysdk.generation.loader.Reloadable
+public abstract class Facade extends FacadeBase implements Reloadable
 {
   private static final long serialVersionUID = 1236374191440L;
 
@@ -69,7 +78,7 @@ public abstract class Facade extends FacadeBase implements com.runwaysdk.generat
    * @param type
    * @return
    */
-  public static dss.vector.solutions.geo.UnknownGeoEntity[] checkSynonyms(java.io.InputStream inputStream, java.lang.String type)
+  public static dss.vector.solutions.geo.UnknownGeoEntity[] checkSynonyms(InputStream inputStream, String type)
   {
     GeoEntitySearcher geoEntitySearcher = new GeoEntitySearcher();
 
@@ -92,12 +101,49 @@ public abstract class Facade extends FacadeBase implements com.runwaysdk.generat
    * @param params
    * @return
    */
-  public static java.io.InputStream importExcelFile(java.io.InputStream inputStream, java.lang.String type, java.lang.String listenerMethod, java.lang.String[] params)
+  public static InputStream importExcelFile(InputStream inputStream, String type, String listenerMethod, String[] params)
   {
 
 //    GeoSynonym.checkExcelGeoHierarchy(inputStream);
 
-    return com.runwaysdk.facade.Facade.importExcelFile(Session.getCurrentSession().getId(), inputStream, type, listenerMethod, params);
+    ExcelImporter importer = new ExcelImporter(inputStream);
+    for (ImportContext context : importer.getContexts())
+    {
+      try
+      {
+        String definesType = context.getMdClass().definesType();
+        // Load the type which is being exported
+        Class<?> c = LoaderDecorator.load(definesType);
+        
+        // Get the listener method
+        Method method = c.getMethod(listenerMethod, ImportContext.class, String[].class);
+        
+        // Invoke the method
+        method.invoke(null, context, (Object)params);
+      }
+      catch (NoSuchMethodException e)
+      {
+        // If the method doesn't exist then do nothing
+      }
+      catch (InvocationTargetException e)
+      {
+        Throwable targetException = e.getTargetException();
+        if (targetException instanceof RunwayExceptionIF)
+        {
+          throw (RuntimeException) targetException;
+        }
+        else
+        {
+          throw new ProgrammingErrorException(e);
+        }
+      }
+      catch (Exception e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    
+    return new ByteArrayInputStream(importer.read());
   }
 
 
