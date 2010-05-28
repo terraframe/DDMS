@@ -4,6 +4,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -91,9 +92,9 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     return superId; //.split("\\.")[0];
   }
   
-  public static void setupImportListener(ExcelImporter importer, String... params)
+  public static void setupImportListener(ImportContext context, String... params)
   {
-    importer.addListener(new GeoParentListener(params[0]));
+    context.addListener(new GeoParentListener(params[0]));
   }
 
   public String getParentGeoEntityId()
