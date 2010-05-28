@@ -393,49 +393,49 @@ public class ExcelViewTest extends TestCase
   @StartSession
   private void importIndividualCaseExcelView(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
-    IndividualCaseExcelView.setupImportListener(importer);
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
+    IndividualCaseExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
   @StartSession
   private void importOperatorSprayView(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
-    OperatorSprayExcelView.setupImportListener(importer);
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
+    OperatorSprayExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
   @StartSession
   public void importEfficacyAssay(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
-    EfficacyAssayExcelView.setupImportListener(importer);
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
+    EfficacyAssayExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
   @StartSession
   public void importSurveyExcelView(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
-    SurveyExcelView.setupImportListener(importer);
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
+    SurveyExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
   @StartSession
   public void importGeoEntityView(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
     GeoEntity earth = GeoEntity.searchByGeoId("000000");
-    GeoEntityExcelView.setupImportListener(importer, earth.getId());
+    GeoEntityExcelView.setupImportListener(importer.getContexts().get(0), earth.getId());
     printImportErrors(importer, DIRECTORY + fileName);
   }
   
   @StartSession
   public void importPersonView(String sessionId, String fileName) throws IOException
   {
-    ExcelImporter importer = new ExcelImporter();
-    PersonExcelView.setupImportListener(importer);
+    ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
+    PersonExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
 
@@ -443,7 +443,7 @@ public class ExcelViewTest extends TestCase
   @Transaction
   private void printImportErrors(ExcelImporter importer, String fileName) throws IOException
   {
-    byte[] bytes = importer.read(new FileInputStream(fileName));
+    byte[] bytes = importer.read();
     if (bytes.length > 0)
     {
       String errorMessage = "\n==================================\nErrors found in import of " + fileName + "\n";
