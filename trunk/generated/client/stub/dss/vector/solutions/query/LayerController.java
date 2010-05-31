@@ -6,14 +6,12 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.runwaysdk.ApplicationException;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ValueObjectDTO;
 import com.runwaysdk.business.ValueQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.query.QueryExceptionDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 public class LayerController extends LayerControllerBase implements
     com.runwaysdk.generation.loader.Reloadable
@@ -49,7 +47,7 @@ public class LayerController extends LayerControllerBase implements
 
     req.setAttribute("layer", layer);
     req.setAttribute("isNewInstance", layer.isNewInstance());
-    StylesController.populateRequestForStyles(req, styles);
+    StylesController.populateRequestForStyles(req, styles, false);
 
     // fetch queries
     SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(request);

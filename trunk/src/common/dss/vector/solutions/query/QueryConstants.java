@@ -4,6 +4,8 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class QueryConstants implements Reloadable
 {
+  public static final String CATEGORY_OVERRIDE_PREPEND = "enable_";
+  
   /**
    * The namespace as created in GeoServer for all MDSS generated views.
    */

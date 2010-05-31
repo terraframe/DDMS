@@ -52,11 +52,17 @@ public class CategoryGen extends CategoryGenBase implements com.runwaysdk.genera
 	public Styles interpolateStyle(int n, int total) {
 		Styles styles = new Styles();
 		styles.setPointStroke(encodeColor(this.interpolatePointStrokeColor(n, total)));
+		styles.setEnable_pointStroke(true);
 		styles.setPolygonStroke(encodeColor(this.interpolatePolygonStrokeColor(n, total)));
+		styles.setEnable_polygonStroke(true);
 		styles.setPolygonFill(encodeColor(this.interpolatePolygonFillColor(n, total)));
+		styles.setEnable_polygonFill(true);
 		styles.setFill(encodeColor(this.interpolateFontFillColor(n, total)));
+		styles.setEnable_fill(true);
 		styles.setLabelHaloFill(encodeColor(this.interpolateLabelHaloFillColor(n, total)));
+		styles.setEnable_labelHaloFill(true);
 		styles.setPointSize(this.interpolatePointSize(n, total));
+		styles.setEnable_pointSize(true);
 		styles.apply();
 		return styles;
 	}

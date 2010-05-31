@@ -9,6 +9,7 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.query.AbstractCategoryDTO;
@@ -17,7 +18,6 @@ import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.NonRangeCategoryDTO;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.RangeCategoryDTO;
-import dss.vector.solutions.query.SavedMapDTO;
 import dss.vector.solutions.query.StylesDTO;
 
 public class SLDWriter implements Reloadable
@@ -42,6 +42,36 @@ public class SLDWriter implements Reloadable
     return layer;
   }
   
+  /**
+   * Merges the properties of the default and overriden styles.
+   * 
+   * @param mergedStyle
+   * @param categoryStyle
+   * @param defaultStyle
+   */
+  private void mergeStyles(StylesDTO mergedStyle, StylesDTO categoryStyle, StylesDTO defaultStyle)
+  {
+    for(String name : mergedStyle.getAttributeNames())
+    {
+      if(name.startsWith(QueryConstants.CATEGORY_OVERRIDE_PREPEND))
+      {
+        String styleName = name.substring(QueryConstants.CATEGORY_OVERRIDE_PREPEND.length());
+        Boolean doOverride = Boolean.parseBoolean(categoryStyle.getValue(name));
+        
+        if(mergedStyle.getAttributeMd(styleName) instanceof AttributeEnumerationMdDTO)
+        {
+          String enumName = doOverride ? categoryStyle.getEnumNames(styleName).get(0) : defaultStyle.getEnumNames(styleName).get(0);
+          mergedStyle.addEnumItem(styleName, enumName);
+        }
+        else
+        {
+          String value = doOverride ? categoryStyle.getValue(styleName) : defaultStyle.getValue(styleName);
+          mergedStyle.setValue(styleName, value);
+        }
+      }
+    }
+  }
+  
   private void writeSequence()
   {
     writeHeader(this.layer.getViewName());
@@ -51,9 +81,18 @@ public class SLDWriter implements Reloadable
     if (layer.hasThematicVariable())
     {
       // The layer is thematic, so write all the category styles/ranges.
+      StylesDTO defaultStyle = layer.getDefaultStyles();
+      
+      // This mergedStyle object will be reused to represent the styles
+      // defined by the layer (the default) and the overridden styles on
+      // the category.
+      StylesDTO mergedStyle = new StylesDTO(defaultStyle.getRequest());
       List<? extends AbstractCategoryDTO> categories = this.layer.getAllHasCategory();
       for(AbstractCategoryDTO category : categories)
       {
+        StylesDTO categoryStyle = category.getStyles();
+        mergeStyles(mergedStyle, categoryStyle, defaultStyle);
+        
         Filter tFilter = new ThematicLabelFilter(layer);
         Filter filter;
         if (category instanceof RangeCategoryDTO)
@@ -66,18 +105,17 @@ public class SLDWriter implements Reloadable
         }
         Filter cFilter = new CompositeFilter(layer, tFilter, filter);
 
-        StylesDTO categoryStyle = category.getStyles();
         
-        Symbolizer sym = getSymbolizer(asPoint, categoryStyle);
+        Symbolizer sym = getSymbolizer(asPoint, mergedStyle);
         
         Symbolizer tSym;
         if(layer.getShowThematicValue())
         {
-          tSym = new ThematicTextSymbolizer(layer, categoryStyle);
+          tSym = new ThematicTextSymbolizer(layer, mergedStyle);
         }
         else
         {
-          tSym = new TextSymbolizer(categoryStyle);
+          tSym = new TextSymbolizer(mergedStyle);
         }
         
         // Write one rule for having the thematic value. If the
@@ -86,7 +124,6 @@ public class SLDWriter implements Reloadable
         categoryRule.write(this);
       }
       
-      StylesDTO defaultStyle = layer.getDefaultStyles();
       Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
 
       // Write the default styles for when the thematic value

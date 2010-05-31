@@ -52,12 +52,12 @@ public class StylesController extends StylesControllerBase implements com.runway
     req.setAttribute("fontFamilies", fontFamilies);
   }
   
-  protected static void populateRequestForStyles(HttpServletRequest req, StylesDTO styles)
+  protected static void populateRequestForStyles(HttpServletRequest req, StylesDTO styles, boolean enableCheckboxes)
   {
     ClientRequestIF request = styles.getRequest();
     
     req.setAttribute("styles", styles);
-    
+    req.setAttribute("enableCheckboxes", enableCheckboxes);
     req.setAttribute("pointMarker", dss.vector.solutions.query.WellKnownNamesDTO.allItems(request));
     
     setFontStylesAndFamiles(req, request);

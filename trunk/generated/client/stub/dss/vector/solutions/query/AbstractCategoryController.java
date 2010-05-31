@@ -33,7 +33,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
     try
     {
       req.setAttribute("category", category);
-      StylesController.populateRequestForStyles(req, styles);
+      StylesController.populateRequestForStyles(req, styles, true);
     }
     catch(Throwable e)
     {

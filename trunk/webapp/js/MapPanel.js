@@ -536,6 +536,19 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     
     _saveCategoryListener : function(params)
     {
+      // set an explicit false for all checkboxes if they are not checked.
+      // Otherwise, the value will never change because it will be submitted
+      // as null and the scraper will ignore the value.
+      var keys = Mojo.Util.getKeys(params, true);
+      for(var i=0; i<keys.length; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('styles.enable_') != -1  && params[key].length === 0)
+        {
+          params[key].push(false);
+        }
+      }
+      
       // Add the layer id so the relationship between Layer and
       // Category can be made in the business layer.
       params['layerId'] = document.getElementById('layerId').value;
@@ -1889,7 +1902,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       {
         var dt = hideAll[i];
         dt.style.display = 'none';
-        dt.nextSibling.style.display = 'none';
       }
 
       var showAll = document.getElementsByClassName(show);
@@ -1897,7 +1909,6 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       {
         var dt = showAll[i];
         dt.style.display = 'block';
-        dt.nextSibling.style.display = 'block';
       }
       
     },
