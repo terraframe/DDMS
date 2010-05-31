@@ -16,6 +16,7 @@ import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.TooManyRowsException;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -26,6 +27,8 @@ import dss.vector.solutions.surveillance.GridComparator;
 public class ControlInterventionView extends ControlInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1672865679;
+  
+  private static final long MAXIMUM_COUNT = 500L;
 
   public ControlInterventionView()
   {
@@ -189,6 +192,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
   }
 
   @Override
+  @Transaction
   public IndividualPremiseVisitView[] getIndividualPremiseViews()
   {
     GeoEntity parent = this.getGeoEntity();
@@ -207,6 +211,16 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     GeoEntityQuery query = new GeoEntityQuery(factory);
     Condition condition = query.getId().EQ(pathsQuery.getChildGeoEntity().getId());
     query.WHERE(condition);
+    
+    long count = query.getCount();
+    
+    if(count > MAXIMUM_COUNT)
+    {
+      TooManyRowsException exception = new TooManyRowsException();
+      exception.apply();
+      
+      throw exception;      
+    }
 
     OIterator<? extends GeoEntity> it = query.getIterator();
 
@@ -248,6 +262,16 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     GeoEntityQuery query = new GeoEntityQuery(factory);
     Condition condition = query.getId().EQ(pathsQuery.getChildGeoEntity().getId());
     query.WHERE(condition);
+        
+    long count = query.getCount();
+    
+    if(count > MAXIMUM_COUNT)
+    {
+      TooManyRowsException exception = new TooManyRowsException();
+      exception.apply();
+      
+      throw exception;      
+    }
 
     OIterator<? extends GeoEntity> it = query.getIterator();
 

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1068277228)
+@com.runwaysdk.business.ClassSignature(hash = 140308616)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class ResponseMasterQueryDTO extends com.runwaysdk.system.EnumerationMasterQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1068277228;
+private static final long serialVersionUID = 140308616;
 
   protected ResponseMasterQueryDTO(String type)
   {
