@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -918549413)
+@com.runwaysdk.business.ClassSignature(hash = -1703081452)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class SystemURLDisplayLabelQuery extends com.runwaysdk.query.GeneratedStructQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -918549413;
+private static final long serialVersionUID = -1703081452;
 
   public SystemURLDisplayLabelQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -37,6 +37,23 @@ private static final long serialVersionUID = -918549413;
   public String getClassType()
   {
     return dss.vector.solutions.general.SystemURLDisplayLabel.CLASS;
+  }
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale()
+  {
+    return getDENGUE_defaultLocale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURLDisplayLabel.DENGUE_DEFAULTLOCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURLDisplayLabel.DENGUE_DEFAULTLOCALE, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableChar getDefaultLocale()
   {
@@ -89,6 +106,23 @@ private static final long serialVersionUID = -918549413;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURLDisplayLabel.KEYNAME, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale()
+  {
+    return getMALARIA_defaultLocale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURLDisplayLabel.MALARIA_DEFAULTLOCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURLDisplayLabel.MALARIA_DEFAULTLOCALE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getSiteMaster()
   {
     return getSiteMaster(null);
@@ -138,6 +172,9 @@ private static final long serialVersionUID = -918549413;
   public interface SystemURLDisplayLabelQueryStructIF extends com.runwaysdk.query.AttributeLocalIF, com.runwaysdk.generation.loader.Reloadable
   {
 
+    public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale();
+    public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias);
+    public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getDefaultLocale();
     public com.runwaysdk.query.SelectableChar getDefaultLocale(String alias);
     public com.runwaysdk.query.SelectableChar getDefaultLocale(String alias, String displayLabel);
@@ -147,6 +184,9 @@ private static final long serialVersionUID = -918549413;
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale();
+    public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias);
+    public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
@@ -159,7 +199,7 @@ private static final long serialVersionUID = -918549413;
  **/
   public static class SystemURLDisplayLabelQueryStruct extends com.runwaysdk.query.AttributeLocal implements SystemURLDisplayLabelQueryStructIF, com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1012279337;
+private static final long serialVersionUID = 218113048;
 
   public SystemURLDisplayLabelQueryStruct(com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdLocalStructDAOIF mdStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -167,6 +207,23 @@ private static final long serialVersionUID = -1012279337;
 
   }
 
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale()
+  {
+    return getDENGUE_defaultLocale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURLDisplayLabel.DENGUE_DEFAULTLOCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDENGUE_defaultLocale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURLDisplayLabel.DENGUE_DEFAULTLOCALE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getDefaultLocale()
   {
     return getDefaultLocale(null);
@@ -216,6 +273,23 @@ private static final long serialVersionUID = -1012279337;
   public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURLDisplayLabel.KEYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale()
+  {
+    return getMALARIA_defaultLocale(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURLDisplayLabel.MALARIA_DEFAULTLOCALE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMALARIA_defaultLocale(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURLDisplayLabel.MALARIA_DEFAULTLOCALE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getSiteMaster()

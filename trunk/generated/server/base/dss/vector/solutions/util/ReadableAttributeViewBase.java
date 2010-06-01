@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 760753521)
+@com.runwaysdk.business.ClassSignature(hash = 1768334931)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,8 +17,9 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String FIELDID = "fieldId";
   public static java.lang.String ID = "id";
+  public static java.lang.String NOTBLANK = "notBlank";
   public static java.lang.String READPERMISSION = "readPermission";
-  private static final long serialVersionUID = 760753521;
+  private static final long serialVersionUID = 1768334931;
   
   public ReadableAttributeViewBase()
   {
@@ -179,6 +180,34 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getNotBlank()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(NOTBLANK));
+  }
+  
+  public void validateNotBlank()
+  {
+    this.validateAttribute(NOTBLANK);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNotBlankMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
+    return mdClassIF.definesAttribute(NOTBLANK);
+  }
+  
+  public void setNotBlank(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(NOTBLANK, "");
+    }
+    else
+    {
+      setValue(NOTBLANK, java.lang.Boolean.toString(value));
+    }
   }
   
   public Boolean getReadPermission()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -98133148)
+@com.runwaysdk.business.ClassSignature(hash = 928563883)
 public abstract class SystemURLDisplayLabelDTOBase extends com.runwaysdk.business.LocalStructDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemURLDisplayLabel";
-  private static final long serialVersionUID = -98133148;
+  private static final long serialVersionUID = 928563883;
   
   protected SystemURLDisplayLabelDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,9 +27,11 @@ public abstract class SystemURLDisplayLabelDTOBase extends com.runwaysdk.busines
     return CLASS;
   }
   
+  public static java.lang.String DENGUE_DEFAULTLOCALE = "dENGUE_defaultLocale";
   public static java.lang.String DEFAULTLOCALE = "defaultLocale";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String MALARIA_DEFAULTLOCALE = "mALARIA_defaultLocale";
   public static java.lang.String SITEMASTER = "siteMaster";
   public String getKeyName()
   {

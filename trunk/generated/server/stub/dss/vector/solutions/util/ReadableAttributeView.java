@@ -15,6 +15,7 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.MdAttributeInfo;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -22,16 +23,15 @@ import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
-import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.PermissionFacade;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeDimension;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.InstallProperties;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.BrowserField;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -42,29 +42,30 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   {
     super();
   }
-  
+
   public static ReadableAttributeView[] getReadableAttributes(String className)
   {
     MdClass mdClass = MdClass.getMdClass(className);
     MdClassDAO mdClassDAO = (MdClassDAO) BusinessFacade.getEntityDAO(mdClass);
-    
+
     String sessionId = Session.getCurrentSession().getId();
-    
+
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
-    for(MdAttributeDAOIF mdAttribute : mdClassDAO.getAllDefinedMdAttributes())
+
+    for (MdAttributeDAOIF mdAttribute : mdClassDAO.getAllDefinedMdAttributes())
     {
       boolean readable = PermissionFacade.checkAttributeReadAccess(sessionId, mdClass, mdAttribute);
-      
-      if(mdAttribute.isSystem() || !readable)
+
+      if (mdAttribute.isSystem() || !readable)
       {
         continue;
       }
-      
+
       ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
 
       list.add(view);
     }
-  
+
     return list.toArray(new ReadableAttributeView[list.size()]);
   }
 
@@ -84,24 +85,23 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       }
 
       Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
-      
+
       boolean readable = permissions.contains(Operation.READ);
-      
+
       // Check the dimension permissions
-      if(!readable)
+      if (!readable)
       {
         MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-        
-        if(mdDimension != null)
+
+        if (mdDimension != null)
         {
           MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-          
+
           permissions = actor.getAssignedPermissions(mdAttributeDimension);
           readable = permissions.contains(Operation.READ);
         }
       }
 
-      
       ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
 
       list.add(view);
@@ -112,10 +112,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
     return list.toArray(new ReadableAttributeView[list.size()]);
   }
-  
+
   /**
-   * Creates and populates a ReadableAttributeView based on the
-   * given MdAttributeDAOIF and readable flag.
+   * Creates and populates a ReadableAttributeView based on the given
+   * MdAttributeDAOIF and readable flag.
    * 
    * @param mdAttribute
    * @param readable
@@ -127,19 +127,22 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     String display = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
     String desc = mdAttribute.getDescription(Session.getCurrentLocale());
     BrowserField field = BrowserField.getBrowserField(mdAttribute);
-    
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+    MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
+
     ReadableAttributeView view = new ReadableAttributeView();
     view.setAttributeName(attrName);
     view.setDisplayLabel(display);
     view.setAttributeRequired(mdAttribute.isRequired());
     view.setAttributeDescription(desc);
     view.setReadPermission(readable);
-    
-    if(field != null)
+    view.setNotBlank(mdAttributeDimension.isRequired());
+
+    if (field != null)
     {
-      view.setFieldId(field.getId());      
+      view.setFieldId(field.getId());
     }
-    
+
     return view;
   }
 
@@ -148,7 +151,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   public static void setActorAttributes(String universal, String actorName, ReadableAttributeView[] attributeViews)
   {
     InstallProperties.validateMasterOperation();
-    
+
     ActorDAO actor = (ActorDAO) getActor(actorName).getBusinessDAO();
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
     Map<String, ? extends MdAttributeDAOIF> attributeMap = mdClass.getAllDefinedMdAttributeMap();
@@ -173,17 +176,14 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         mdAttribute.apply();
       }
 
+      MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
+      MdAttributeDAOIF _mdAttribute = MdAttributeDAO.get(mdAttribute.getId());
+      MdAttributeDimensionDAOIF _mdAttributeDimension = _mdAttribute.getMdAttributeDimension(_mdDimension);
+
       Boolean permission = view.getReadPermission();
-      
 
       if (permission != null)
       {
-        Disease current = Disease.getCurrent();
-        MdDimensionDAOIF _mdDimension = MdDimensionDAO.get(current.getDimension().getId());
-        MdAttributeDAOIF _mdAttribute = MdAttributeDAO.get(mdAttribute.getId());
-        MdAttributeDimensionDAOIF _mdAttributeDimension = _mdAttribute.getMdAttributeDimension(_mdDimension);
-        
-
         if (permission)
         {
           actor.grantPermission(Operation.READ, _mdAttributeDimension.getId());
@@ -193,9 +193,28 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
           actor.revokePermission(Operation.READ, _mdAttributeDimension.getId());
         }
       }
+      
+      ReadableAttributeView.setNotBlank(view.getNotBlank(), _mdAttribute, _mdDimension);
     }
 
-//    actor.apply();
+    // actor.apply();
+  }
+
+  /**
+   * Sets the required field on the coresponding MdAttributeConcrete
+   * 
+   * @param notBlank
+   * @param mdAttribute
+   * @param mdDimension
+   */
+  private static void setNotBlank(Boolean notBlank, MdAttributeDAOIF mdAttribute, MdDimensionDAOIF mdDimension)
+  {
+    MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
+    MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeConcrete.getMdAttributeDimension(mdDimension);
+    
+    MdAttributeDimension mdAttributeDimension = MdAttributeDimension.lock(_mdAttributeDimension.getId());
+    mdAttributeDimension.setRequired(notBlank != null && notBlank);
+    mdAttributeDimension.apply();    
   }
 
   private static ActorDAOIF getActor(String actorName)

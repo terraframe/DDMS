@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1919635655)
+@com.runwaysdk.business.ClassSignature(hash = 252860318)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class ImmatureThresholdDisplayLabelQueryDTO extends com.runwaysdk.business.StructQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1919635655;
+private static final long serialVersionUID = 252860318;
 
   protected ImmatureThresholdDisplayLabelQueryDTO(String type)
   {

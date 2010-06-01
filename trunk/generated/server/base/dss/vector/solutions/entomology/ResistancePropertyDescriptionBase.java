@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 881216961)
+@com.runwaysdk.business.ClassSignature(hash = -525161628)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,11 +11,13 @@ package dss.vector.solutions.entomology;
 public abstract class ResistancePropertyDescriptionBase extends com.runwaysdk.business.LocalStruct implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ResistancePropertyDescription";
+  public static java.lang.String DENGUE_DEFAULTLOCALE = "dENGUE_defaultLocale";
   public static java.lang.String DEFAULTLOCALE = "defaultLocale";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
+  public static java.lang.String MALARIA_DEFAULTLOCALE = "mALARIA_defaultLocale";
   public static java.lang.String SITEMASTER = "siteMaster";
-  private static final long serialVersionUID = 881216961;
+  private static final long serialVersionUID = -525161628;
   
   public ResistancePropertyDescriptionBase()
   {

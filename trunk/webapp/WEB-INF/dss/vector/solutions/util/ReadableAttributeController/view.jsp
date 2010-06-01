@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
 <%@page import="dss.vector.solutions.util.Halp"%>
@@ -35,6 +36,9 @@
               <mjl:messages attribute="readPermission">
                 <mjl:message/>
               </mjl:messages>
+            </td>
+            <td>
+              <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired}" value="${view.attributeRequired || view.notBlank}"/>
             </td>
             <td>
               <c:if test="${view.fieldId != ''}">

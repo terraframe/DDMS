@@ -1,0 +1,21 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.util.ReadableAttributeView">
+        <create>
+          <attributes>
+            <boolean
+              name="notBlank"
+              label="Not Blank"
+              required="false" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>
