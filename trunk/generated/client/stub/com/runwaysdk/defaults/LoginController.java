@@ -1,7 +1,9 @@
 package com.runwaysdk.defaults;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +61,9 @@ public class LoginController extends LoginControllerBase implements Reloadable
       MDSSUserDTO mdss = (MDSSUserDTO) user;
       
       req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
-      req.getSession().setAttribute("menu", DiseaseDTO.getMenuJson(this.getClientRequest()));
+      Map<String,String> menus = new HashMap<String,String>();
+      menus.put(mdss.getDiseaseName(), DiseaseDTO.getMenuJson(this.getClientRequest()));
+      req.getSession().setAttribute("menus" , menus);
       
       req.getRequestDispatcher("index.jsp").forward(req, resp);
     }

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="navContainer" style="min-width: 1152px;">
  <div id="mainNav" class="yuimenubar yuimenubarnav">
   </div>
@@ -14,7 +15,7 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
 	//	(each of which represents a set of YAHOO.widget.MenuItem 
 	//	configuration properties) to the "addItems" method.
  
-    var aMenuItems = [${menu}];
+    var aMenuItems = [${menus[diseaseName]}];
     
     var oMenuBar = new YAHOO.widget.MenuBar("menuBar",{
         itemdata : aMenuItems,

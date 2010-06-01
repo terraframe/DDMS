@@ -2,6 +2,8 @@ package dss.vector.solutions;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -541,8 +543,17 @@ public class PersonController extends PersonControllerBase implements Reloadable
     }
     
     req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
-    req.getSession().setAttribute("menu", DiseaseDTO.getMenuJson(getClientRequest()));
+    Map<String,String> menus = (Map<String, String>) req.getSession().getAttribute("menus");
     
+    if (menus == null) {
+    	menus = new HashMap<String,String>();
+    }
+    
+    if (menus.get(diseaseName) == null) {
+    	menus.put(diseaseName, DiseaseDTO.getMenuJson(getClientRequest()));
+    }
+	req.getSession().setAttribute("menus", menus);
+	
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 
