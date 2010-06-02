@@ -41,7 +41,7 @@ public class IndividualPremiseVisitMethod extends IndividualPremiseVisitMethodBa
   @Override
   public void validateUsed()
   {
-    if (this.getUsed() != null)
+    if (this.getUsed() != null && this.getUsed())
     {
       IndividualPremiseVisit parent = this.getParent();
       

@@ -40,7 +40,7 @@ public class IndividualPremiseVisit extends IndividualPremiseVisitBase implement
   @Override
   public void validateTreated()
   {
-    if (this.getTreated() != null)
+    if (this.getTreated() != null && this.getTreated())
     {
       if (this.getVisited() == null || !this.getVisited())
       {
