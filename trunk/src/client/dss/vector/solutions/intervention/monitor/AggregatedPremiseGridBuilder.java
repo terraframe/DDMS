@@ -83,6 +83,7 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
       }
     }
 
+    GridBuilder.setValidator(columns, AggregatedPremiseVisitViewDTO.VEHICLECOVERAGE, "MDSS.CellValidator.validatePercentage");
     GridBuilder.setEditable(columns, AggregatedPremiseVisitViewDTO.ENTITYLABEL, false);
        
     return new ViewDataGrid(view, columns, keys, data);

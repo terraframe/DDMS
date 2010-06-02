@@ -26,6 +26,23 @@ Mojo.Meta.newClass('MDSS.ArrayMetadata', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.CellValidator', {
+  Static : {    
+    validatePercentage : function(oData) {
+	  var number = oData * 1;
+	  
+      if(Mojo.Util.isNumber(number)) {
+  	    if(number >= 0 && number <= 100) {
+  	      return oData;
+  	    }
+      }
+	  	
+      return undefined;
+    }
+  }
+});
+
+
 Mojo.Meta.newClass('MDSS.ModelMetadata', {
   Instance : {
     initialize : function(prop) {
@@ -609,7 +626,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         
       // Disable the save button until the request has been executed
       this.disableSaveButton();
-    	
+    
       this.getModel().save();
     },
     
