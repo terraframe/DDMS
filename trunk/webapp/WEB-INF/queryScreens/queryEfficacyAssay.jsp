@@ -105,7 +105,7 @@ YAHOO.util.Event.onDOMReady(function(){
     %>
     
     //public static java.lang.String GEOENTITY = "geoEntity";
-    var efficacyAttribs = ["testDate","specie","testMethod", "geoEntity", "holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion","timeOnSurface"];
+    var efficacyAttribs = ["testDate","specie","testMethod", "geoEntity", "holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion", "surfaceType","timeOnSurface"];
     available = new MDSS.Set(<%= request.getAttribute("efficacyAttribs") %>);
     efficacyAttribs = Mojo.Iter.filter(efficacyAttribs, function(attrib){
         if(attrib === 'geoEntity')

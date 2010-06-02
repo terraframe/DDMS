@@ -548,14 +548,16 @@ public class QueryUtil implements Reloadable
       {
         String attrib_name = entityAlias.substring(0, index1);
         String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
-        String attrib_alias = entityAlias.substring(index2 + 2, entityAlias.length());
         String table = MdRelationship.getMdEntity(klass).getTableName();
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
           String allPathsTable = MdRelationship.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
-          valueQuery.AND(new InnerJoinEq(attrib_name, table, attributeQuery.getTableAlias(), dss.vector.solutions.ontology.AllPaths.CHILDTERM, allPathsTable, allPathsQuery.getTableAlias()));
+          
+          String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
+          String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
+          valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
         }
       }
 
