@@ -244,12 +244,6 @@
 <script type="text/javascript">  
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   
-    var attributes = [
-         {attributeName:'sex'}
-    ];
-    
-    new MDSS.GenericOntologyBrowser("<%=PersonViewDTO.CLASS%>", attributes);
-
     var password = document.getElementById('password');
     var repassword = document.getElementById('repassword');
     var button = document.getElementById('submit.button');

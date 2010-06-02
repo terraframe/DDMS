@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component item="${styles}" param="styles">
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fill" ${styles.enable_fill ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fill" ${styles.enable_fill ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.fillMd.displayLabel }</label>
   </dt>
   <dd>
@@ -11,7 +11,7 @@
     <div class="colorPickerValue" id="${styles.id}_fill_opener" style="background-color: ${styles.fill}">&nbsp;</div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontFamily" ${styles.enable_fontFamily ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontFamily" ${styles.enable_fontFamily ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.fontFamilyMd.displayLabel }</label>
   </dt>
   <dd>
@@ -22,7 +22,7 @@
     </select>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontSize" ${styles.enable_fontSize ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontSize" ${styles.enable_fontSize ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.fontSizeMd.displayLabel }</label>
   </dt>
   <dd>
@@ -35,7 +35,7 @@
     </div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontStyles" ${styles.enable_fontStyles ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fontStyles" ${styles.enable_fontStyles ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.fontStylesMd.displayLabel }</label>
   </dt>
   <dd>
@@ -46,7 +46,7 @@
     </mjl:select>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelRotation" ${styles.enable_labelRotation ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelRotation" ${styles.enable_labelRotation ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.labelRotationMd.displayLabel }</label>
   </dt>
   <dd>
@@ -59,7 +59,7 @@
     <mjl:input type="hidden" param="labelRotation" id="${styles.id}_labelRotation" />
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloRadius" ${styles.enable_labelHaloRadius ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloRadius" ${styles.enable_labelHaloRadius ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.labelHaloRadiusMd.displayLabel }</label>
   </dt>
   <dd>
@@ -72,7 +72,7 @@
     </div>    
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloFill" ${styles.enable_labelHaloFill ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloFill" ${styles.enable_labelHaloFill ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.labelHaloFillMd.displayLabel }</label>
   </dt>
   <dd>
@@ -80,7 +80,7 @@
     <div class="colorPickerValue" id="${styles.id}_labelHaloFill_opener" style="background-color: ${styles.labelHaloFill}">&nbsp;</div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloOpacity" ${styles.enable_labelHaloOpacity ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_labelHaloOpacity" ${styles.enable_labelHaloOpacity ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.labelHaloOpacityMd.displayLabel }</label>
   </dt>
   <dd>
@@ -93,7 +93,7 @@
     </div>  
   </dd>  
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_anchorPointX" ${styles.enable_anchorPointX ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_anchorPointX" ${styles.enable_anchorPointX ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.anchorPointXMd.displayLabel }</label>
   </dt>
   <dd>
@@ -106,7 +106,7 @@
     </div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_anchorPointY" ${styles.enable_anchorPointY ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_anchorPointY" ${styles.enable_anchorPointY ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.anchorPointYMd.displayLabel }</label>
   </dt>
   <dd>
@@ -119,7 +119,7 @@
     </div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_displacementX" ${styles.enable_displacementX ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_displacementX" ${styles.enable_displacementX ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.displacementXMd.displayLabel }</label>
   </dt>
   <dd>
@@ -132,7 +132,7 @@
     </div>
   </dd>
   <dt>
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_displacementY" ${styles.enable_displacementY ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_displacementY" ${styles.enable_displacementY ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.displacementYMd.displayLabel }</label>
   </dt>
   <dd>
@@ -145,7 +145,7 @@
     </div>
   </dd>
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointMarker" ${styles.enable_pointMarker ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointMarker" ${styles.enable_pointMarker ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointMarkerMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -156,7 +156,7 @@
     </mjl:select>
   </dd>
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointStroke" ${styles.enable_pointStroke ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointStroke" ${styles.enable_pointStroke ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointStrokeMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -164,7 +164,7 @@
     <div class="colorPickerValue" id="${styles.id}_pointStroke_opener" style="background-color: ${styles.pointStroke}">&nbsp;</div>
   </dd>
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointSize" ${styles.enable_pointSize ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointSize" ${styles.enable_pointSize ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointSizeMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -177,7 +177,7 @@
     </div>
   </dd>
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointRotation" ${styles.enable_pointRotation ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointRotation" ${styles.enable_pointRotation ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointRotationMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -190,7 +190,7 @@
     <mjl:input type="hidden" param="pointRotation" id="${styles.id}_pointRotation" />
   </dd>
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointStrokeOpacity" ${styles.enable_pointStrokeOpacity ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointStrokeOpacity" ${styles.enable_pointStrokeOpacity ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointStrokeOpacityMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -203,7 +203,7 @@
     </div>
   </dd>  
   <dt class="POINT_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointWidth" ${styles.enable_pointWidth ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointWidth" ${styles.enable_pointWidth ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointWidthMd.displayLabel }</label>
   </dt>
   <dd class="POINT_toggle">
@@ -216,7 +216,7 @@
     </div>
   </dd>
   <dt class="POLYGON_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonStroke" ${styles.enable_polygonStroke ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonStroke" ${styles.enable_polygonStroke ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonStrokeMd.displayLabel }</label>
   </dt>
   <dd class="POLYGON_toggle">
@@ -224,7 +224,7 @@
     <div class="colorPickerValue" id="${styles.id}_polygonStroke_opener" style="background-color: ${styles.polygonStroke}">&nbsp;</div>
   </dd>
   <dt class="POLYGON_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonStrokeOpacity" ${styles.enable_polygonStrokeOpacity ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonStrokeOpacity" ${styles.enable_polygonStrokeOpacity ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonStrokeOpacityMd.displayLabel }</label>
   </dt>
   <dd class="POLYGON_toggle">
@@ -237,7 +237,7 @@
     </div>
   </dd>
   <dt class="POLYGON_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonFill" ${styles.enable_polygonFill ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonFill" ${styles.enable_polygonFill ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonFillMd.displayLabel }</label>
   </dt>
   <dd class="POLYGON_toggle">
@@ -245,7 +245,7 @@
     <div class="colorPickerValue" id="${styles.id}_polygonFill_opener" style="background-color: ${styles.polygonFill}">&nbsp;</div>
   </dd>
   <dt class="POLYGON_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonFillOpacity" ${styles.enable_polygonFillOpacity ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonFillOpacity" ${styles.enable_polygonFillOpacity ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonFillOpacityMd.displayLabel }</label>
   </dt>
   <dd class="POLYGON_toggle">
@@ -258,7 +258,7 @@
     </div>
   </dd>  
   <dt class="POLYGON_toggle">
-    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonWidth" ${styles.enable_polygonWidth ? 'checked="checked"' : ''} value="true" /></c:if>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonWidth" ${styles.enable_polygonWidth ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonWidthMd.displayLabel }</label>
   </dt>
   <dd class="POLYGON_toggle">
