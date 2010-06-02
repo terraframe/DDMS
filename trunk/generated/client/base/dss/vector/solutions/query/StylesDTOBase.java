@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -576387887)
+@com.runwaysdk.business.ClassSignature(hash = 1255169745)
 public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = -576387887;
+  private static final long serialVersionUID = 1255169745;
   
   protected StylesDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -33,6 +33,29 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISPLACEMENTX = "displacementX";
   public static java.lang.String DISPLACEMENTY = "displacementY";
+  public static java.lang.String ENABLE_ANCHORPOINTX = "enable_anchorPointX";
+  public static java.lang.String ENABLE_ANCHORPOINTY = "enable_anchorPointY";
+  public static java.lang.String ENABLE_DISPLACEMENTX = "enable_displacementX";
+  public static java.lang.String ENABLE_DISPLACEMENTY = "enable_displacementY";
+  public static java.lang.String ENABLE_FILL = "enable_fill";
+  public static java.lang.String ENABLE_FONTFAMILY = "enable_fontFamily";
+  public static java.lang.String ENABLE_FONTSIZE = "enable_fontSize";
+  public static java.lang.String ENABLE_FONTSTYLES = "enable_fontStyles";
+  public static java.lang.String ENABLE_LABELHALOFILL = "enable_labelHaloFill";
+  public static java.lang.String ENABLE_LABELHALOOPACITY = "enable_labelHaloOpacity";
+  public static java.lang.String ENABLE_LABELHALORADIUS = "enable_labelHaloRadius";
+  public static java.lang.String ENABLE_LABELROTATION = "enable_labelRotation";
+  public static java.lang.String ENABLE_POINTMARKER = "enable_pointMarker";
+  public static java.lang.String ENABLE_POINTROTATION = "enable_pointRotation";
+  public static java.lang.String ENABLE_POINTSIZE = "enable_pointSize";
+  public static java.lang.String ENABLE_POINTSTROKE = "enable_pointStroke";
+  public static java.lang.String ENABLE_POINTSTROKEOPACITY = "enable_pointStrokeOpacity";
+  public static java.lang.String ENABLE_POINTWIDTH = "enable_pointWidth";
+  public static java.lang.String ENABLE_POLYGONFILL = "enable_polygonFill";
+  public static java.lang.String ENABLE_POLYGONFILLOPACITY = "enable_polygonFillOpacity";
+  public static java.lang.String ENABLE_POLYGONSTROKE = "enable_polygonStroke";
+  public static java.lang.String ENABLE_POLYGONSTROKEOPACITY = "enable_polygonStrokeOpacity";
+  public static java.lang.String ENABLE_POLYGONWIDTH = "enable_polygonWidth";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
@@ -265,6 +288,857 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getDisplacementYMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(DISPLACEMENTY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_anchorPointX()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_ANCHORPOINTX));
+  }
+  
+  public void setEnable_anchorPointX(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_ANCHORPOINTX, "");
+    }
+    else
+    {
+      setValue(ENABLE_ANCHORPOINTX, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_anchorPointXWritable()
+  {
+    return isWritable(ENABLE_ANCHORPOINTX);
+  }
+  
+  public boolean isEnable_anchorPointXReadable()
+  {
+    return isReadable(ENABLE_ANCHORPOINTX);
+  }
+  
+  public boolean isEnable_anchorPointXModified()
+  {
+    return isModified(ENABLE_ANCHORPOINTX);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_anchorPointXMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_ANCHORPOINTX).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_anchorPointY()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_ANCHORPOINTY));
+  }
+  
+  public void setEnable_anchorPointY(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_ANCHORPOINTY, "");
+    }
+    else
+    {
+      setValue(ENABLE_ANCHORPOINTY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_anchorPointYWritable()
+  {
+    return isWritable(ENABLE_ANCHORPOINTY);
+  }
+  
+  public boolean isEnable_anchorPointYReadable()
+  {
+    return isReadable(ENABLE_ANCHORPOINTY);
+  }
+  
+  public boolean isEnable_anchorPointYModified()
+  {
+    return isModified(ENABLE_ANCHORPOINTY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_anchorPointYMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_ANCHORPOINTY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_displacementX()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_DISPLACEMENTX));
+  }
+  
+  public void setEnable_displacementX(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_DISPLACEMENTX, "");
+    }
+    else
+    {
+      setValue(ENABLE_DISPLACEMENTX, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_displacementXWritable()
+  {
+    return isWritable(ENABLE_DISPLACEMENTX);
+  }
+  
+  public boolean isEnable_displacementXReadable()
+  {
+    return isReadable(ENABLE_DISPLACEMENTX);
+  }
+  
+  public boolean isEnable_displacementXModified()
+  {
+    return isModified(ENABLE_DISPLACEMENTX);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_displacementXMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_DISPLACEMENTX).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_displacementY()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_DISPLACEMENTY));
+  }
+  
+  public void setEnable_displacementY(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_DISPLACEMENTY, "");
+    }
+    else
+    {
+      setValue(ENABLE_DISPLACEMENTY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_displacementYWritable()
+  {
+    return isWritable(ENABLE_DISPLACEMENTY);
+  }
+  
+  public boolean isEnable_displacementYReadable()
+  {
+    return isReadable(ENABLE_DISPLACEMENTY);
+  }
+  
+  public boolean isEnable_displacementYModified()
+  {
+    return isModified(ENABLE_DISPLACEMENTY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_displacementYMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_DISPLACEMENTY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_fill()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_FILL));
+  }
+  
+  public void setEnable_fill(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_FILL, "");
+    }
+    else
+    {
+      setValue(ENABLE_FILL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_fillWritable()
+  {
+    return isWritable(ENABLE_FILL);
+  }
+  
+  public boolean isEnable_fillReadable()
+  {
+    return isReadable(ENABLE_FILL);
+  }
+  
+  public boolean isEnable_fillModified()
+  {
+    return isModified(ENABLE_FILL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_fillMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_FILL).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_fontFamily()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_FONTFAMILY));
+  }
+  
+  public void setEnable_fontFamily(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_FONTFAMILY, "");
+    }
+    else
+    {
+      setValue(ENABLE_FONTFAMILY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_fontFamilyWritable()
+  {
+    return isWritable(ENABLE_FONTFAMILY);
+  }
+  
+  public boolean isEnable_fontFamilyReadable()
+  {
+    return isReadable(ENABLE_FONTFAMILY);
+  }
+  
+  public boolean isEnable_fontFamilyModified()
+  {
+    return isModified(ENABLE_FONTFAMILY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_fontFamilyMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_FONTFAMILY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_fontSize()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_FONTSIZE));
+  }
+  
+  public void setEnable_fontSize(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_FONTSIZE, "");
+    }
+    else
+    {
+      setValue(ENABLE_FONTSIZE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_fontSizeWritable()
+  {
+    return isWritable(ENABLE_FONTSIZE);
+  }
+  
+  public boolean isEnable_fontSizeReadable()
+  {
+    return isReadable(ENABLE_FONTSIZE);
+  }
+  
+  public boolean isEnable_fontSizeModified()
+  {
+    return isModified(ENABLE_FONTSIZE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_fontSizeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_FONTSIZE).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_fontStyles()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_FONTSTYLES));
+  }
+  
+  public void setEnable_fontStyles(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_FONTSTYLES, "");
+    }
+    else
+    {
+      setValue(ENABLE_FONTSTYLES, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_fontStylesWritable()
+  {
+    return isWritable(ENABLE_FONTSTYLES);
+  }
+  
+  public boolean isEnable_fontStylesReadable()
+  {
+    return isReadable(ENABLE_FONTSTYLES);
+  }
+  
+  public boolean isEnable_fontStylesModified()
+  {
+    return isModified(ENABLE_FONTSTYLES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_fontStylesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_FONTSTYLES).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_labelHaloFill()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_LABELHALOFILL));
+  }
+  
+  public void setEnable_labelHaloFill(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_LABELHALOFILL, "");
+    }
+    else
+    {
+      setValue(ENABLE_LABELHALOFILL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_labelHaloFillWritable()
+  {
+    return isWritable(ENABLE_LABELHALOFILL);
+  }
+  
+  public boolean isEnable_labelHaloFillReadable()
+  {
+    return isReadable(ENABLE_LABELHALOFILL);
+  }
+  
+  public boolean isEnable_labelHaloFillModified()
+  {
+    return isModified(ENABLE_LABELHALOFILL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_labelHaloFillMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_LABELHALOFILL).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_labelHaloOpacity()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_LABELHALOOPACITY));
+  }
+  
+  public void setEnable_labelHaloOpacity(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_LABELHALOOPACITY, "");
+    }
+    else
+    {
+      setValue(ENABLE_LABELHALOOPACITY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_labelHaloOpacityWritable()
+  {
+    return isWritable(ENABLE_LABELHALOOPACITY);
+  }
+  
+  public boolean isEnable_labelHaloOpacityReadable()
+  {
+    return isReadable(ENABLE_LABELHALOOPACITY);
+  }
+  
+  public boolean isEnable_labelHaloOpacityModified()
+  {
+    return isModified(ENABLE_LABELHALOOPACITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_labelHaloOpacityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_LABELHALOOPACITY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_labelHaloRadius()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_LABELHALORADIUS));
+  }
+  
+  public void setEnable_labelHaloRadius(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_LABELHALORADIUS, "");
+    }
+    else
+    {
+      setValue(ENABLE_LABELHALORADIUS, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_labelHaloRadiusWritable()
+  {
+    return isWritable(ENABLE_LABELHALORADIUS);
+  }
+  
+  public boolean isEnable_labelHaloRadiusReadable()
+  {
+    return isReadable(ENABLE_LABELHALORADIUS);
+  }
+  
+  public boolean isEnable_labelHaloRadiusModified()
+  {
+    return isModified(ENABLE_LABELHALORADIUS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_labelHaloRadiusMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_LABELHALORADIUS).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_labelRotation()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_LABELROTATION));
+  }
+  
+  public void setEnable_labelRotation(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_LABELROTATION, "");
+    }
+    else
+    {
+      setValue(ENABLE_LABELROTATION, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_labelRotationWritable()
+  {
+    return isWritable(ENABLE_LABELROTATION);
+  }
+  
+  public boolean isEnable_labelRotationReadable()
+  {
+    return isReadable(ENABLE_LABELROTATION);
+  }
+  
+  public boolean isEnable_labelRotationModified()
+  {
+    return isModified(ENABLE_LABELROTATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_labelRotationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_LABELROTATION).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointMarker()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTMARKER));
+  }
+  
+  public void setEnable_pointMarker(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTMARKER, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTMARKER, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointMarkerWritable()
+  {
+    return isWritable(ENABLE_POINTMARKER);
+  }
+  
+  public boolean isEnable_pointMarkerReadable()
+  {
+    return isReadable(ENABLE_POINTMARKER);
+  }
+  
+  public boolean isEnable_pointMarkerModified()
+  {
+    return isModified(ENABLE_POINTMARKER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointMarkerMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTMARKER).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointRotation()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTROTATION));
+  }
+  
+  public void setEnable_pointRotation(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTROTATION, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTROTATION, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointRotationWritable()
+  {
+    return isWritable(ENABLE_POINTROTATION);
+  }
+  
+  public boolean isEnable_pointRotationReadable()
+  {
+    return isReadable(ENABLE_POINTROTATION);
+  }
+  
+  public boolean isEnable_pointRotationModified()
+  {
+    return isModified(ENABLE_POINTROTATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointRotationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTROTATION).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointSize()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTSIZE));
+  }
+  
+  public void setEnable_pointSize(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTSIZE, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTSIZE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointSizeWritable()
+  {
+    return isWritable(ENABLE_POINTSIZE);
+  }
+  
+  public boolean isEnable_pointSizeReadable()
+  {
+    return isReadable(ENABLE_POINTSIZE);
+  }
+  
+  public boolean isEnable_pointSizeModified()
+  {
+    return isModified(ENABLE_POINTSIZE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointSizeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTSIZE).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointStroke()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTSTROKE));
+  }
+  
+  public void setEnable_pointStroke(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTSTROKE, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTSTROKE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointStrokeWritable()
+  {
+    return isWritable(ENABLE_POINTSTROKE);
+  }
+  
+  public boolean isEnable_pointStrokeReadable()
+  {
+    return isReadable(ENABLE_POINTSTROKE);
+  }
+  
+  public boolean isEnable_pointStrokeModified()
+  {
+    return isModified(ENABLE_POINTSTROKE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointStrokeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTSTROKE).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointStrokeOpacity()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTSTROKEOPACITY));
+  }
+  
+  public void setEnable_pointStrokeOpacity(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTSTROKEOPACITY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointStrokeOpacityWritable()
+  {
+    return isWritable(ENABLE_POINTSTROKEOPACITY);
+  }
+  
+  public boolean isEnable_pointStrokeOpacityReadable()
+  {
+    return isReadable(ENABLE_POINTSTROKEOPACITY);
+  }
+  
+  public boolean isEnable_pointStrokeOpacityModified()
+  {
+    return isModified(ENABLE_POINTSTROKEOPACITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointStrokeOpacityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTSTROKEOPACITY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_pointWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POINTWIDTH));
+  }
+  
+  public void setEnable_pointWidth(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POINTWIDTH, "");
+    }
+    else
+    {
+      setValue(ENABLE_POINTWIDTH, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_pointWidthWritable()
+  {
+    return isWritable(ENABLE_POINTWIDTH);
+  }
+  
+  public boolean isEnable_pointWidthReadable()
+  {
+    return isReadable(ENABLE_POINTWIDTH);
+  }
+  
+  public boolean isEnable_pointWidthModified()
+  {
+    return isModified(ENABLE_POINTWIDTH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_pointWidthMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POINTWIDTH).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_polygonFill()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POLYGONFILL));
+  }
+  
+  public void setEnable_polygonFill(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POLYGONFILL, "");
+    }
+    else
+    {
+      setValue(ENABLE_POLYGONFILL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_polygonFillWritable()
+  {
+    return isWritable(ENABLE_POLYGONFILL);
+  }
+  
+  public boolean isEnable_polygonFillReadable()
+  {
+    return isReadable(ENABLE_POLYGONFILL);
+  }
+  
+  public boolean isEnable_polygonFillModified()
+  {
+    return isModified(ENABLE_POLYGONFILL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_polygonFillMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONFILL).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_polygonFillOpacity()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POLYGONFILLOPACITY));
+  }
+  
+  public void setEnable_polygonFillOpacity(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POLYGONFILLOPACITY, "");
+    }
+    else
+    {
+      setValue(ENABLE_POLYGONFILLOPACITY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_polygonFillOpacityWritable()
+  {
+    return isWritable(ENABLE_POLYGONFILLOPACITY);
+  }
+  
+  public boolean isEnable_polygonFillOpacityReadable()
+  {
+    return isReadable(ENABLE_POLYGONFILLOPACITY);
+  }
+  
+  public boolean isEnable_polygonFillOpacityModified()
+  {
+    return isModified(ENABLE_POLYGONFILLOPACITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_polygonFillOpacityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONFILLOPACITY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_polygonStroke()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POLYGONSTROKE));
+  }
+  
+  public void setEnable_polygonStroke(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POLYGONSTROKE, "");
+    }
+    else
+    {
+      setValue(ENABLE_POLYGONSTROKE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_polygonStrokeWritable()
+  {
+    return isWritable(ENABLE_POLYGONSTROKE);
+  }
+  
+  public boolean isEnable_polygonStrokeReadable()
+  {
+    return isReadable(ENABLE_POLYGONSTROKE);
+  }
+  
+  public boolean isEnable_polygonStrokeModified()
+  {
+    return isModified(ENABLE_POLYGONSTROKE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_polygonStrokeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONSTROKE).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_polygonStrokeOpacity()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POLYGONSTROKEOPACITY));
+  }
+  
+  public void setEnable_polygonStrokeOpacity(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POLYGONSTROKEOPACITY, "");
+    }
+    else
+    {
+      setValue(ENABLE_POLYGONSTROKEOPACITY, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_polygonStrokeOpacityWritable()
+  {
+    return isWritable(ENABLE_POLYGONSTROKEOPACITY);
+  }
+  
+  public boolean isEnable_polygonStrokeOpacityReadable()
+  {
+    return isReadable(ENABLE_POLYGONSTROKEOPACITY);
+  }
+  
+  public boolean isEnable_polygonStrokeOpacityModified()
+  {
+    return isModified(ENABLE_POLYGONSTROKEOPACITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_polygonStrokeOpacityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONSTROKEOPACITY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_polygonWidth()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_POLYGONWIDTH));
+  }
+  
+  public void setEnable_polygonWidth(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_POLYGONWIDTH, "");
+    }
+    else
+    {
+      setValue(ENABLE_POLYGONWIDTH, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_polygonWidthWritable()
+  {
+    return isWritable(ENABLE_POLYGONWIDTH);
+  }
+  
+  public boolean isEnable_polygonWidthReadable()
+  {
+    return isReadable(ENABLE_POLYGONWIDTH);
+  }
+  
+  public boolean isEnable_polygonWidthModified()
+  {
+    return isModified(ENABLE_POLYGONWIDTH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_polygonWidthMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONWIDTH).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()

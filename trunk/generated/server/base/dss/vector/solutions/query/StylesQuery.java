@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1587435514)
+@com.runwaysdk.business.ClassSignature(hash = 1117092936)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class StylesQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1587435514;
+private static final long serialVersionUID = 1117092936;
 
   public StylesQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.CREATEDBY, mdAttributeIF, this, alias, null);
 
@@ -108,7 +108,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -147,6 +147,397 @@ private static final long serialVersionUID = 1587435514;
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX()
+  {
+    return getEnable_anchorPointX(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTX, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY()
+  {
+    return getEnable_anchorPointY(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX()
+  {
+    return getEnable_displacementX(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTX, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY()
+  {
+    return getEnable_displacementY(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill()
+  {
+    return getEnable_fill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily()
+  {
+    return getEnable_fontFamily(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTFAMILY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTFAMILY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize()
+  {
+    return getEnable_fontSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTSIZE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles()
+  {
+    return getEnable_fontStyles(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill()
+  {
+    return getEnable_labelHaloFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity()
+  {
+    return getEnable_labelHaloOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius()
+  {
+    return getEnable_labelHaloRadius(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALORADIUS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELHALORADIUS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation()
+  {
+    return getEnable_labelRotation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELROTATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_LABELROTATION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker()
+  {
+    return getEnable_pointMarker(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTMARKER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTMARKER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation()
+  {
+    return getEnable_pointRotation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTROTATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTROTATION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize()
+  {
+    return getEnable_pointSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSIZE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke()
+  {
+    return getEnable_pointStroke(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity()
+  {
+    return getEnable_pointStrokeOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKEOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKEOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth()
+  {
+    return getEnable_pointWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POINTWIDTH, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill()
+  {
+    return getEnable_polygonFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity()
+  {
+    return getEnable_polygonFillOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILLOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILLOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke()
+  {
+    return getEnable_polygonStroke(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity()
+  {
+    return getEnable_polygonStrokeOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKEOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKEOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth()
+  {
+    return getEnable_polygonWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -156,7 +547,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.ENTITYDOMAIN, mdAttributeIF, this, alias, null);
 
@@ -165,7 +556,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
@@ -230,18 +621,18 @@ private static final long serialVersionUID = 1587435514;
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("fontStyles");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.FONTSTYLES);
 
-    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("fontStyles", mdAttributeIF, this, alias, null);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.FONTSTYLES, mdAttributeIF, this, alias, null);
 
   }
  
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("fontStyles");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.FONTSTYLES);
 
-    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory("fontStyles", mdAttributeIF, this, alias, displayLabel);
+    return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.FONTSTYLES, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -372,7 +763,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.LASTUPDATEDBY, mdAttributeIF, this, alias, null);
 
@@ -381,7 +772,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -395,7 +786,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.LOCKEDBY, mdAttributeIF, this, alias, null);
 
@@ -404,7 +795,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -418,7 +809,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.OWNER, mdAttributeIF, this, alias, null);
 
@@ -427,7 +818,7 @@ private static final long serialVersionUID = 1587435514;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.OWNER, mdAttributeIF, this, alias, displayLabel);
 
@@ -441,18 +832,18 @@ private static final long serialVersionUID = 1587435514;
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("pointMarker");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.POINTMARKER);
 
-    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.getComponentQuery().internalAttributeFactory("pointMarker", mdAttributeIF, this, alias, null);
+    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.POINTMARKER, mdAttributeIF, this, alias, null);
 
   }
  
   public dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF getPointMarker(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("pointMarker");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.POINTMARKER);
 
-    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.getComponentQuery().internalAttributeFactory("pointMarker", mdAttributeIF, this, alias, displayLabel);
+    return (dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.POINTMARKER, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getPointRotation()
@@ -680,23 +1071,23 @@ private static final long serialVersionUID = 1587435514;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
+    if (name.equals(dss.vector.solutions.query.Styles.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -711,11 +1102,11 @@ private static final long serialVersionUID = 1587435514;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("fontStyles")) 
+    if (name.equals(dss.vector.solutions.query.Styles.FONTSTYLES)) 
     {
        return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("pointMarker")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.POINTMARKER)) 
     {
        return new dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -776,6 +1167,75 @@ private static final long serialVersionUID = 1587435514;
     public com.runwaysdk.query.SelectableInteger getDisplacementY();
     public com.runwaysdk.query.SelectableInteger getDisplacementY(String alias);
     public com.runwaysdk.query.SelectableInteger getDisplacementY(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX();
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY();
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementX();
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementY();
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fill();
+    public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily();
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontSize();
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles();
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill();
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity();
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius();
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation();
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointSize();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth();
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill();
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity();
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke();
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity();
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth();
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -878,7 +1338,7 @@ private static final long serialVersionUID = 1587435514;
  implements StylesQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 290295196;
+private static final long serialVersionUID = -1551930906;
 
   public StylesQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -997,6 +1457,397 @@ private static final long serialVersionUID = 290295196;
   public com.runwaysdk.query.SelectableInteger getDisplacementY(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.DISPLACEMENTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX()
+  {
+    return getEnable_anchorPointX(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointX(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTX, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY()
+  {
+    return getEnable_anchorPointY(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX()
+  {
+    return getEnable_displacementX(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTX, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY()
+  {
+    return getEnable_displacementY(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_displacementY(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_DISPLACEMENTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill()
+  {
+    return getEnable_fill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily()
+  {
+    return getEnable_fontFamily(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTFAMILY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontFamily(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTFAMILY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize()
+  {
+    return getEnable_fontSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTSIZE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles()
+  {
+    return getEnable_fontStyles(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill()
+  {
+    return getEnable_labelHaloFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity()
+  {
+    return getEnable_labelHaloOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALOOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius()
+  {
+    return getEnable_labelHaloRadius(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALORADIUS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloRadius(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELHALORADIUS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation()
+  {
+    return getEnable_labelRotation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELROTATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_labelRotation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_LABELROTATION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker()
+  {
+    return getEnable_pointMarker(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTMARKER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointMarker(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTMARKER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation()
+  {
+    return getEnable_pointRotation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTROTATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointRotation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTROTATION, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize()
+  {
+    return getEnable_pointSize(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSIZE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointSize(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSIZE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke()
+  {
+    return getEnable_pointStroke(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStroke(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity()
+  {
+    return getEnable_pointStrokeOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKEOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointStrokeOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTSTROKEOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth()
+  {
+    return getEnable_pointWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_pointWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POINTWIDTH, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill()
+  {
+    return getEnable_polygonFill(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFill(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity()
+  {
+    return getEnable_polygonFillOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILLOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonFillOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONFILLOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke()
+  {
+    return getEnable_polygonStroke(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStroke(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity()
+  {
+    return getEnable_polygonStrokeOpacity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKEOPACITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonStrokeOpacity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONSTROKEOPACITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth()
+  {
+    return getEnable_polygonWidth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, displayLabel);
 
   }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
@@ -1496,23 +2347,23 @@ private static final long serialVersionUID = 290295196;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
+    if (name.equals(dss.vector.solutions.query.Styles.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -1527,11 +2378,11 @@ private static final long serialVersionUID = 290295196;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("fontStyles")) 
+    if (name.equals(dss.vector.solutions.query.Styles.FONTSTYLES)) 
     {
        return new dss.vector.solutions.query.FontStyleQuery.FontStylesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("pointMarker")) 
+    else if (name.equals(dss.vector.solutions.query.Styles.POINTMARKER)) 
     {
        return new dss.vector.solutions.query.WellKnownNamesMasterQuery.WellKnownNamesQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
