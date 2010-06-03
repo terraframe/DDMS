@@ -459,7 +459,7 @@
             type="dss.vector.solutions.geo.SpatialTypes" />
           <virtual
             name="typeName"
-            required="true"
+            required="false"
             concrete="typeName"
             type="com.runwaysdk.system.metadata.MdType" />
           <char

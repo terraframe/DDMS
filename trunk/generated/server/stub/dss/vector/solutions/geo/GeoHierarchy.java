@@ -31,6 +31,7 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.ReservedWords;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -767,7 +768,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
     // define the new MdBusiness
-    String typeName = getSystemName(definition.getTypeName());
+    String typeName = getSystemName(definition.getDisplayLabel());
     String label = definition.getDisplayLabel();
     String description = definition.getDescription();
 
@@ -2028,6 +2029,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         }
       }
       systemName = sb.toString();
+      
+      if (ReservedWords.javaContains(systemName) || ReservedWords.sqlContains(systemName)) {
+    	  systemName += "Universal";
+      }
     }
     return systemName;
   }

@@ -14,17 +14,6 @@
     <mjl:input type="hidden" param="parentGeoHierarchyId" />
       <dt>
         <label>
-          ${definition.typeNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="typeName" />
-        <mjl:messages attribute="typeName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
           ${definition.displayLabelMd.displayLabel}
         </label>
       </dt>
