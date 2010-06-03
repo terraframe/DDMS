@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -182,8 +184,11 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   public BrowserFieldView getView()
   {
     MdAttributeDAOIF _mdAttribute = (MdAttributeDAOIF) MdAttributeDAO.get(this.getMdAttribute().getId());
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+    
+    MdAttributeDimensionDAOIF mdAttributeDimension = _mdAttribute.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
     MdClassDAOIF _mdClass = _mdAttribute.definedByClass();
-    String _defaultValue = _mdAttribute.getDefaultValue();
+    String _defaultValue = mdAttributeDimension.getDefaultValue();
         
     BrowserFieldView view = new BrowserFieldView();
     view.setBrowserFieldId(this.getId());

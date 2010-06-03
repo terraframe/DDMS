@@ -2,11 +2,15 @@ package dss.vector.solutions.ontology;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.MdAttributeConcreteInfo;
+import com.runwaysdk.constants.MdAttributeDimensionInfo;
 import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 public class FieldDefaultView extends FieldDefaultViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -41,23 +45,25 @@ public class FieldDefaultView extends FieldDefaultViewBase implements com.runway
     if (mdAttribute != null)
     {
       String attributeId = mdAttribute.getId();
-      MdAttributeDAOIF businessDAOIF = (MdAttributeDAOIF) MdAttributeDAO.get(attributeId);
-      BusinessDAO mdAttributeDAO = businessDAOIF.getMdAttributeConcrete().getBusinessDAO();
-
-      if (mdAttributeDAO instanceof MdAttributeRefDAOIF)
+      MdAttributeDAOIF mdAttributeDAOIF = (MdAttributeDAOIF) MdAttributeDAO.get(attributeId).getMdAttributeConcrete();
+      
+      if (mdAttributeDAOIF instanceof MdAttributeRefDAOIF)
       {
+        MdDimensionDAOIF mdDimension = Session.getCurrentDimension();      
+        MdAttributeDimensionDAO mdAttributeDimension = mdAttributeDAOIF.getMdAttributeDimension(mdDimension).getBusinessDAO();
+
         Term term = this.getDefaultValue();
 
         if (term != null)
         {
-          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, term.getId());
+          mdAttributeDimension.setValue(MdAttributeDimensionInfo.DEFAULT_VALUE, term.getId());
         }
         else
         {
-          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, null);
+          mdAttributeDimension.setValue(MdAttributeDimensionInfo.DEFAULT_VALUE, null);
         }
 
-        mdAttributeDAO.apply();
+        mdAttributeDimension.apply();
       }
     }
   }

@@ -71,6 +71,7 @@
           <text
             name="comment"
             label="Comment"
+            column="relationship_comment"
             required="false" />
           <reference
             name="inverseOf"
@@ -170,6 +171,7 @@
             required="false" />
           <text
             name="comment"
+            column="term_comment"
             label="Comment"
             required="false" />
           <boolean

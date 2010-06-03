@@ -15,13 +15,16 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
-import com.runwaysdk.constants.MdAttributeConcreteInfo;
-import com.runwaysdk.dataaccess.BusinessDAO;
+import com.runwaysdk.constants.MdAttributeDimensionInfo;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDimensionDAO;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -41,31 +44,14 @@ import dss.vector.solutions.general.Disease;
  */
 public class AttributeRootImporter implements Reloadable
 {
-  @StartSession
-  public static void main(String[] args) throws Exception
-  {
-    String fileName = "AttributeRoots.xls";
-    File file = new File(fileName);
-    if (args.length == 0)
-    {
-      if (file.exists())
-      {
-        System.out.println("No file name specified. Using default location: " + file.getAbsoluteFile());
-      }
-      else
-      {
-        System.out.println("No file name specified. Add file name as a comand line argument.");
-        return;
-      }
-    }
-    else
-    {
-      fileName = args[0];
-      file = new File(fileName);
-    }
+  private List<MdDimensionDAOIF> mdDimensions;
 
-    AttributeRootImporter importer = new AttributeRootImporter();
-    importer.read(new BufferedInputStream(new FileInputStream(file)));
+  private Disease[]              diseases;
+
+  public AttributeRootImporter()
+  {
+    this.mdDimensions = MdDimensionDAO.getAllMdDimensions();
+    this.diseases = Disease.getAllDiseases();
   }
 
   @Transaction
@@ -104,25 +90,29 @@ public class AttributeRootImporter implements Reloadable
     if (cell != null && cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
     {
       String termId = ExcelUtil.getString(cell);
-      if (termId.length()==0)
+      if (termId.length() == 0)
       {
         return;
       }
       Term term = Term.getByTermId(termId);
 
-//      FieldDefaultView view = new FieldDefaultView();
-//      view.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
-//      view.setDefaultValue(term);
-//      view.apply();
-      
+      // FieldDefaultView view = new FieldDefaultView();
+      // view.setMdAttribute(MdAttribute.get(mdAttribute.getId()));
+      // view.setDefaultValue(term);
+      // view.apply();
+
       if (term != null)
       {
-        BusinessDAO mdAttributeDAO = mdAttribute.getMdAttributeConcrete().getBusinessDAO();
+        MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
 
-        if (mdAttributeDAO instanceof MdAttributeRefDAOIF)
+        if (mdAttributeConcrete instanceof MdAttributeRefDAOIF)
         {
-          mdAttributeDAO.setValue(MdAttributeConcreteInfo.DEFAULT_VALUE, term.getId());
-          mdAttributeDAO.apply();
+          for (MdDimensionDAOIF mdDimension : mdDimensions)
+          {
+            MdAttributeDimensionDAO mdAttributeDimension = mdAttributeConcrete.getMdAttributeDimension(mdDimension).getBusinessDAO();
+            mdAttributeDimension.setValue(MdAttributeDimensionInfo.DEFAULT_VALUE, term.getId());
+            mdAttributeDimension.apply();
+          }
         }
       }
     }
@@ -143,24 +133,22 @@ public class AttributeRootImporter implements Reloadable
     List<? extends BrowserRoot> allRoots = browserField.getAllroot().getAll();
 
     int i = 4;
-    
-    Disease[] diseases = Disease.getAllDiseases();
 
     // Iterate over all remaining columns. Each should have a Mo Term ID
-    while (row.getCell(i) != null && row.getCell(i+1) != null)
+    while (row.getCell(i) != null && row.getCell(i + 1) != null)
     {
       String termId = ExcelUtil.getString(row.getCell(i++));
       Term term = Term.getByTermId(termId);
       Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
 
-      for(Disease disease : diseases)
+      for (Disease disease : diseases)
       {
         BrowserRoot browserRoot = new BrowserRoot();
         browserRoot.setTerm(term);
         browserRoot.setDisease(disease);
-        
+
         int index = allRoots.indexOf(browserRoot);
-        if (index!=-1)
+        if (index != -1)
         {
           browserRoot = allRoots.get(index);
           browserRoot.setSelectable(selectable);
@@ -201,4 +189,32 @@ public class AttributeRootImporter implements Reloadable
       throw new SystemException(e);
     }
   }
+
+  @StartSession
+  public static void main(String[] args) throws Exception
+  {
+    String fileName = "AttributeRoots.xls";
+    File file = new File(fileName);
+    if (args.length == 0)
+    {
+      if (file.exists())
+      {
+        System.out.println("No file name specified. Using default location: " + file.getAbsoluteFile());
+      }
+      else
+      {
+        System.out.println("No file name specified. Add file name as a comand line argument.");
+        return;
+      }
+    }
+    else
+    {
+      fileName = args[0];
+      file = new File(fileName);
+    }
+
+    AttributeRootImporter importer = new AttributeRootImporter();
+    importer.read(new BufferedInputStream(new FileInputStream(file)));
+  }
+
 }
