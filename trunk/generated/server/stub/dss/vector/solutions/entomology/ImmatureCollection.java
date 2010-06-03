@@ -12,7 +12,6 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -176,7 +175,6 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     
     if(premiseTaxonQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, PremiseTaxon.CLASS, premiseTaxonQuery );
       
       if(collectionPremiseQuery == null)
       {
@@ -184,11 +182,24 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
         valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
       }
       
+      QueryUtil.joinTermAllpaths(valueQuery, PremiseTaxon.CLASS, premiseTaxonQuery );
       valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
     }
 
     if(collectionContainerQuery != null)
     {
+      if(collectionPremiseQuery == null)
+      {
+        collectionPremiseQuery = new CollectionPremiseQuery(queryFactory);
+        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
+      }
+
+      if(premiseTaxonQuery == null)
+      {
+        premiseTaxonQuery = new PremiseTaxonQuery(queryFactory);
+        valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
+      }
+
       QueryUtil.joinTermAllpaths(valueQuery, CollectionContainer.CLASS, collectionContainerQuery );
       valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
     }
@@ -254,18 +265,18 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/SUM("+numberWithImmatures+")*100")|| needsJoin;
     
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100");
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100") || needsJoin;
     
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberimmatures+")/SUM("+numberExamined+"*100)");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberlarvae+")/SUM("+numberExamined+"*100)");
-    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)");
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberimmatures+")/SUM("+numberExamined+"*100)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberlarvae+")/SUM("+numberExamined+"*100)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)") || needsJoin;
     
-    QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)");
-    QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/SUM("+numberExamined+")");
-    QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/SUM("+premiseSize+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/SUM("+numberInhabitants+")*100");
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/SUM("+numberExamined+")") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/SUM("+premiseSize+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/SUM("+numberInhabitants+")*100") || needsJoin;
     
     
     if(valueQuery.hasSelectableRef("container_term"))
@@ -273,11 +284,38 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
        needsJoin = true;
     }
     
+    if(valueQuery.hasSelectableRef("container_term"))
+    {
+      needsJoin = true;
+    }
+    
+    
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    //Percentage of water-holding containers with larvae by container type:
+      //Number with larvae/Number with water*100
+
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
     
     if(needsJoin)
     {
       //String tableName = premiseTaxonQuery.getMdClassIF().getTableName();
       //String tableAlias = premiseTaxonQuery.getTableAlias();
+      
+      if(collectionPremiseQuery == null)
+      {
+        collectionPremiseQuery = new CollectionPremiseQuery(queryFactory);
+        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
+      }
+
+      if(premiseTaxonQuery == null)
+      {
+        premiseTaxonQuery = new PremiseTaxonQuery(queryFactory);
+        valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
+      }
       
       if(collectionContainerQuery == null)
       {
@@ -291,20 +329,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
       String idCol = QueryUtil.getIdColumn();
       String sql = "SELECT "+ Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt."+idCol+" = " +collectionContainerQuery.getTableAlias()+"."+RelationshipDAOIF.CHILD_ID_COLUMN;
-      //QueryUtil.leftJoinTermDisplayLabels(valueQuery, CollectionContainer.CLASS, collectionContainerQuery, collectionContainerQuery.childId().getColumnAlias());
       QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
     }
-    
-    
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
-    //Percentage of water-holding containers with larvae by container type:
-      //Number with larvae/Number with water*100
-
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
-    QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100");
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
 

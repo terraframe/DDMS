@@ -3,7 +3,6 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.surveillance.ChildOption;
 import dss.vector.solutions.util.MDSSProperties;
