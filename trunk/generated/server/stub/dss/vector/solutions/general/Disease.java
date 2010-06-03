@@ -40,17 +40,18 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
   public static Disease getCurrent()
   {
-	  Disease disease = null;
-	  
-	  SessionIF session = Session.getCurrentSession();
-	  if (session != null && session.getUser() != null) {
-		    String id = Session.getCurrentSession().getUser().getId();
-		    MDSSUser user = MDSSUser.get(id);
+    Disease disease = null;
 
-		    String name = user.getDiseaseName();
-		    disease = Disease.getByKey(name);
-	  }
-	  return disease;
+    SessionIF session = Session.getCurrentSession();
+    if (session != null && session.getUser() != null)
+    {
+      String id = Session.getCurrentSession().getUser().getId();
+      MDSSUser user = MDSSUser.get(id);
+
+      String name = user.getDiseaseName();
+      disease = Disease.getByKey(name);
+    }
+    return disease;
   }
 
   public static Condition getInactiveCriteria(QueryFactory f, TermQuery termQuery, Boolean inactive)
@@ -128,18 +129,22 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
   public static String getMenuJson()
   {
     Disease current = Disease.getCurrent();
-    MdDimension dimension = current.getDimension();
-    
-    // FIRST SET THE CURRENT DIMENSION IN THE SESSION
-    String sessionId = Session.getCurrentSession().getId();
-    
-    SessionFacade.setDimension(dimension.getKey(), sessionId);
-        
     MenuGenerator menuGenerator = new MenuGenerator(current);
 
     menuGenerator.generateMenu();
-        
+
     return menuGenerator.getJson();
+  }
+
+  public static void setCurrentDimension()
+  {
+    Disease current = Disease.getCurrent();
+    MdDimension dimension = current.getDimension();
+
+    // FIRST SET THE CURRENT DIMENSION IN THE SESSION
+    String sessionId = Session.getCurrentSession().getId();
+
+    SessionFacade.setDimension(dimension.getKey(), sessionId);
   }
 
   public String toString()

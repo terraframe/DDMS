@@ -56,10 +56,12 @@ public class LoginController extends LoginControllerBase implements Reloadable
       GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
       globalSessionListener.setCookie(this.getResponse());
       req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
+      
+      DiseaseDTO.setCurrentDimension(clientRequest);
             
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
-      
+            
       req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
       Map<String,String> menus = new HashMap<String,String>();
       menus.put(mdss.getDiseaseName(), DiseaseDTO.getMenuJson(this.getClientRequest()));

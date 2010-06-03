@@ -167,12 +167,12 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
       MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
       String oldValue = mdAttribute.getDisplayLabel().getValue();
-      String newValue = view.getDisplayLabel();
+      String newLabel = view.getDisplayLabel();
 
-      if (!oldValue.equals(newValue))
+      if (!oldValue.equals(newLabel))
       {
         mdAttribute.lock();
-        mdAttribute.getDisplayLabel().setValue(newValue);
+        mdAttribute.getDisplayLabel().setValue(newLabel);
         mdAttribute.apply();
       }
 
@@ -194,7 +194,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         }
       }
       
-      ReadableAttributeView.setNotBlank(view.getNotBlank(), _mdAttribute, _mdDimension);
+      ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), _mdAttribute, _mdDimension);
     }
 
     // actor.apply();
@@ -207,7 +207,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
    * @param mdAttribute
    * @param mdDimension
    */
-  private static void setNotBlank(Boolean notBlank, MdAttributeDAOIF mdAttribute, MdDimensionDAOIF mdDimension)
+  private static void setDimensionAttributes(Boolean notBlank, MdAttributeDAOIF mdAttribute, MdDimensionDAOIF mdDimension)
   {
     MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
     MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeConcrete.getMdAttributeDimension(mdDimension);

@@ -134,7 +134,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     prepareRequest(view);
     render("createComponent.jsp");
   }
-  
+
   private void prepareRequest(PersonViewDTO view)
   {
     req.setAttribute("sex", view.getSex());
@@ -530,30 +530,38 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
     render("editRecipientComponent.jsp");
   }
-  
+
+  @SuppressWarnings("unchecked")
   @Override
   public void changeDisease(String diseaseName) throws IOException, ServletException
   {
-    ClientRequestIF cr = getClientRequest();
-    if(cr.isLoggedIn())
+    ClientRequestIF clientRequest = getClientRequest();
+
+    if (clientRequest.isLoggedIn())
     {
-      BusinessDTO user = cr.getSessionUser();
+      BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
       mdss.changeDisease(diseaseName);
+      
+      DiseaseDTO.setCurrentDimension(clientRequest);
     }
-    
+
     req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
-    Map<String,String> menus = (Map<String, String>) req.getSession().getAttribute("menus");
     
-    if (menus == null) {
-    	menus = new HashMap<String,String>();
+    Map<String, String> menus = (Map<String, String>) req.getSession().getAttribute("menus");
+
+    if (menus == null)
+    {
+      menus = new HashMap<String, String>();
+    }
+
+    if (menus.get(diseaseName) == null)
+    {
+      menus.put(diseaseName, DiseaseDTO.getMenuJson(getClientRequest()));
     }
     
-    if (menus.get(diseaseName) == null) {
-    	menus.put(diseaseName, DiseaseDTO.getMenuJson(getClientRequest()));
-    }
-	req.getSession().setAttribute("menus", menus);
-	
+    req.getSession().setAttribute("menus", menus);
+
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 

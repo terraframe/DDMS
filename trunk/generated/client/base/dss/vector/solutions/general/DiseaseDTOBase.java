@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 2081610462)
+@com.runwaysdk.business.ClassSignature(hash = 823049778)
 public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.Disease";
-  private static final long serialVersionUID = 2081610462;
+  private static final long serialVersionUID = 823049778;
   
   protected DiseaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -472,6 +472,14 @@ public abstract class DiseaseDTOBase extends com.runwaysdk.business.BusinessDTO 
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "getMenuJson", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void setCurrentDimension(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.DiseaseDTO.CLASS, "setCurrentDimension", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.general.DiseaseDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

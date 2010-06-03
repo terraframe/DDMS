@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -707757730)
+@com.runwaysdk.business.ClassSignature(hash = -1350075214)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -707757730;
+  private static final long serialVersionUID = -1350075214;
   
   public DiseaseBase()
   {
@@ -400,6 +400,12 @@ public abstract class DiseaseBase extends com.runwaysdk.business.Business implem
   }
   
   public static java.lang.String getMenuJson()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void setCurrentDimension()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.Disease.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
