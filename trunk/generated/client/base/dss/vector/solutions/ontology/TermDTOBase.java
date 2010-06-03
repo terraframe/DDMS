@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 367416067)
+@com.runwaysdk.business.ClassSignature(hash = 1142722291)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 367416067;
+  private static final long serialVersionUID = 1142722291;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -39,6 +39,7 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NAME = "name";
   public static java.lang.String NAMESPACE = "namespace";
+  public static java.lang.String OBSOLETE = "obsolete";
   public static java.lang.String ONTOLOGY = "ontology";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -419,6 +420,43 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNamespaceMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NAMESPACE).getAttributeMdDTO();
+  }
+  
+  public Boolean getObsolete()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(OBSOLETE));
+  }
+  
+  public void setObsolete(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(OBSOLETE, "");
+    }
+    else
+    {
+      setValue(OBSOLETE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isObsoleteWritable()
+  {
+    return isWritable(OBSOLETE);
+  }
+  
+  public boolean isObsoleteReadable()
+  {
+    return isReadable(OBSOLETE);
+  }
+  
+  public boolean isObsoleteModified()
+  {
+    return isModified(OBSOLETE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getObsoleteMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(OBSOLETE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.OntologyDTO getOntology()
