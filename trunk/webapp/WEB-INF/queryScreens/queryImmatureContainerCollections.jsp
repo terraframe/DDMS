@@ -105,7 +105,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var collectionColumns =   collectionColumns.concat(premiseTaxonAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pt, suffix:'_col', dropDownMaps:collectionMaps}));
 
-    var premiseAttribs = [ "numberExamined","numberInhabitants", "premiseSize", "premiseType"];
+    var premiseAttribs = [ "numberExamined","numberInhabitants", "numberWithLarvae", "numberWithPupae", "numberWithImmatures", "premiseSize", "premiseType"];
     
     var collectionColumns =   collectionColumns.concat(premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps}));
 

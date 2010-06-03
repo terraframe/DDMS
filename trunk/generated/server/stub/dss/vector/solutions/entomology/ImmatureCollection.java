@@ -9,8 +9,10 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -165,6 +167,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     CollectionPremiseQuery collectionPremiseQuery = ( CollectionPremiseQuery  ) queryMap.get(CollectionPremise.CLASS);
     PremiseTaxonQuery premiseTaxonQuery = ( PremiseTaxonQuery  ) queryMap.get(PremiseTaxon.CLASS);
     CollectionContainerQuery collectionContainerQuery = ( CollectionContainerQuery  ) queryMap.get(CollectionContainer.CLASS);
+    
     if(collectionPremiseQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, CollectionPremise.CLASS, collectionPremiseQuery );
@@ -174,6 +177,13 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     if(premiseTaxonQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, PremiseTaxon.CLASS, premiseTaxonQuery );
+      
+      if(collectionPremiseQuery == null)
+      {
+        collectionPremiseQuery = new CollectionPremiseQuery(queryFactory);
+        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
+      }
+      
       valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
     }
 
@@ -279,7 +289,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     if(valueQuery.hasSelectableRef("container_term"))
     {
       String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-      String sql = "SELECT "+ Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt.id = " +collectionContainerQuery.getTableAlias()+".child_id";
+      String idCol = QueryUtil.getIdColumn();
+      String sql = "SELECT "+ Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt."+idCol+" = " +collectionContainerQuery.getTableAlias()+"."+RelationshipDAOIF.CHILD_ID_COLUMN;
       //QueryUtil.leftJoinTermDisplayLabels(valueQuery, CollectionContainer.CLASS, collectionContainerQuery, collectionContainerQuery.childId().getColumnAlias());
       QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
     }
