@@ -1043,6 +1043,13 @@ public class QueryUtil implements Reloadable
       GeneratedEntityQuery attributeQuery = null;
       while (attributeQuery == null)
       {
+        if(md == null)
+        {
+          // the entity that defines the date attribute is not
+          // in the query, so don't do anymore processing.
+          return valueQuery;
+        }
+        
         attributeQuery = queryMap.get(md.definesType());
         if(attributeQuery != null)
         {

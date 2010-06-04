@@ -8,6 +8,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       this.$initialize(queryList);
 
+
+      this._browserClassOverrides = {};
+      
       // list of columns that have bee_visibleAttributeHandlern added before a call to render()
       this._preconfiguredColumns = [];
 
@@ -42,16 +45,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       this._buildColumns();
     },
-
-
+    
     /**
-     * Returns the type of query.
-     * // FIXME NO LONGER NEEDED
-    _getQueryType: function()
-    {
-      return this._queryType;
-    },
+     * Some Term attributes have their browser roots defined on a different class
+     * than the original domain class which defines the attribute. In those cases,
+     * subclasses may override this method to return different classes.
      */
+    _getBrowserRootClass : function(attribute)
+    {
+      return attribute.getType();
+    },
 
     /**
      * Returns the controller action to invoke when exporting the query to XML.
@@ -882,7 +885,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       that._toggleVisibility(toggleDiv, visibleUl);
 
       that._attachSelectAll(visibleUl,checkClass);
-
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
@@ -994,15 +996,17 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         else //Mo terms
         if(attribute.getTerm())
         {
+          var browserRootClass = this._getBrowserRootClass(attribute);
+          
         	li.id = attribute.getKey()+'_li';
         	var n =  attribute.getAttributeName().replace(/.name/,'');
         	if(this._moUsesView !== false)
         	{
-        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type + "View", n, true);
+        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass + "View", n, true);
         	}
         	else
         	{
-        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, visibleObj.type , n, true);
+        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass , n, true);
         	}
         }
 
@@ -1010,7 +1014,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
 
       visibleDiv.appendChild(visibleUl);
-
       return visibleDiv;
     },
 

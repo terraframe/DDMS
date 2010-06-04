@@ -36,6 +36,8 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
                           ];
       
       this._queryType = this._mainQueryClass;
+      
+      this._moUsesView = false;
 
       this.$initialize(selectableGroups, queryList);   
       
@@ -49,6 +51,19 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(false);
  
+      },
+      
+      _getBrowserRootClass : function(attribute)
+      {
+        var type = attribute.getType();
+        if(type === 'dss.vector.solutions.entomology.MosquitoCollection')
+        {
+          return 'dss.vector.solutions.entomology.SearchMosquitoCollectionView';
+        }
+        else
+        {
+          return type;
+        }
       },
 				
        /**

@@ -291,9 +291,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      * Toggles the show/hide status of either the point or polygon
      * styles depending on the selected value of Layer.renderAs.
      */
-    _toggleStylesAfterRender : function(useTimeout)
+    _toggleStylesAfterRender : function(forCategory)
     {
-      if(useTimeout)
+      if(forCategory)
       {
         setTimeout(Mojo.Util.bind(this, this._toggleStylesAfterRender2),
           MDSS.MapPanel.TOGGLE_TIMEOUT);
