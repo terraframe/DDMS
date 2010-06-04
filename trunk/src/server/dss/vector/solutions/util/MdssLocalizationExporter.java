@@ -31,6 +31,7 @@ import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeCharDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.StructDAO;
@@ -38,6 +39,7 @@ import com.runwaysdk.dataaccess.StructDAOIF;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.XMLParseException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -78,6 +80,7 @@ public class MdssLocalizationExporter implements Reloadable
   private HSSFSheet propertySheet;
   private HSSFSheet controlPanelSheet;
   private List<Locale> locales;
+  private List<LocaleDimension> columns;
 
   @StartSession
   public static void main(String[] args) throws Exception
@@ -86,7 +89,7 @@ public class MdssLocalizationExporter implements Reloadable
 
     MdssLocalizationExporter exporter = new MdssLocalizationExporter();
     exporter.addLocale(Locale.ENGLISH);
-    exporter.addLocale(Locale.FRENCH);
+    exporter.addLocale(Locale.US);
     exporter.export();
     FileIO.write("localizer.xls", exporter.write());
 
@@ -97,6 +100,8 @@ public class MdssLocalizationExporter implements Reloadable
   public MdssLocalizationExporter()
   {
     locales = new LinkedList<Locale>();
+    columns = new LinkedList<LocaleDimension>();
+    addLocaleDimensions(MdAttributeLocalInfo.DEFAULT_LOCALE);
   }
   
   public void addLocale(Locale l)
@@ -104,6 +109,16 @@ public class MdssLocalizationExporter implements Reloadable
     if (!locales.contains(l))
     {
       locales.add(l);
+      addLocaleDimensions(l.toString());
+    }
+  }
+
+  private void addLocaleDimensions(String localeString)
+  {
+    columns.add(new LocaleDimension(localeString));
+    for (MdDimensionDAOIF dim : MdDimensionDAO.getAllMdDimensions())
+    {
+      columns.add(new LocaleDimension(localeString, dim));
     }
   }
   
@@ -119,7 +134,6 @@ public class MdssLocalizationExporter implements Reloadable
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
     
     prepareExceptions();
-//    prepareTypes();
     prepareLocalizedAttributes();
     prepareProperties("MDSS", propertySheet);
     prepareProperties("serverExceptions", serverSheet);
@@ -137,6 +151,8 @@ public class MdssLocalizationExporter implements Reloadable
       HSSFRow row = sheet.createRow(0);
       int i=0;
       
+      boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
+      
       if (sheet.equals(labelSheet))
       {
         row.createCell(i++).setCellValue(new HSSFRichTextString("Type"));
@@ -144,10 +160,14 @@ public class MdssLocalizationExporter implements Reloadable
       }
       
       row.createCell(i++).setCellValue(new HSSFRichTextString("Key"));
-      row.createCell(i++).setCellValue(new HSSFRichTextString(MdAttributeLocalInfo.DEFAULT_LOCALE));
-      for (Locale l : locales)
+      
+      for (LocaleDimension c : columns)
       {
-        row.createCell(i++).setCellValue(new HSSFRichTextString(l.toString()));
+        if (ignoreDimensions && c.hasDimension())
+        {
+          continue;
+        }
+        row.createCell(i++).setCellValue(new HSSFRichTextString(c.getColumnName()));
       }
       
       for (short s=0; s<i; s++)
@@ -184,10 +204,12 @@ public class MdssLocalizationExporter implements Reloadable
       HSSFRow row = customSheet.createRow(r++);
       int c = 0;
       row.createCell(c++).setCellValue(new HSSFRichTextString(localizable.definesType()));
-      setExceptionMessage(templates, row, c++, MdAttributeLocalInfo.DEFAULT_LOCALE);
-      for (Locale l : locales)
+      for (LocaleDimension col : columns)
       {
-        setExceptionMessage(templates, row, c++, l.toString());
+        if (!col.hasDimension())
+        {
+          setExceptionMessage(templates, row, c++, col.getAttributeName());
+        }
       }
     }
   }
@@ -291,19 +313,18 @@ public class MdssLocalizationExporter implements Reloadable
         row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getType()));
         row.createCell(c++).setCellValue(new HSSFRichTextString(attributeName));
         row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getKey()));
-        row.createCell(c++).setCellValue(new HSSFRichTextString(struct.getValue(MdAttributeLocalInfo.DEFAULT_LOCALE)));
+//        row.createCell(c++).setCellValue(new HSSFRichTextString(struct.getValue(MdAttributeLocalInfo.DEFAULT_LOCALE)));
         
-        for (Locale l : locales)
+        for (LocaleDimension col : columns)
         {
           HSSFCell cell = row.createCell(c++);
-          String localeString = l.toString();
           
-          if (mdLocalStruct.definesAttribute(localeString)==null)
+          if (mdLocalStruct.definesAttribute(col.getAttributeName())==null)
           {
             continue;
           }
           
-          String value = struct.getValue(localeString);
+          String value = struct.getValue(col.getAttributeName());
           if (value.trim().length()>0)
           {
             cell.setCellValue(new HSSFRichTextString(value));
@@ -344,16 +365,20 @@ public class MdssLocalizationExporter implements Reloadable
     {
       HSSFRow row = sheet.createRow(r++);
       row.createCell(0).setCellValue(new HSSFRichTextString(e.getKey()));
-      row.createCell(1).setCellValue(new HSSFRichTextString(e.getValue()));
     }
     
     // Now read each locale
-    int c=1;
-    for (Locale l : locales)
+    int c=0;
+    boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
+    for (LocaleDimension l : columns)
     {
+      if (ignoreDimensions && l.hasDimension())
+      {
+        continue;
+      }
       c++;
       
-      File localFile = new File(dir, "MDSS_" + l.toString() + ".properties");
+      File localFile = new File(dir, l.getPropertyFileName(bundleName));
       if (!localFile.exists())
       {
         continue;
@@ -384,7 +409,7 @@ public class MdssLocalizationExporter implements Reloadable
     }
   }
   
-  private Map<String, String> getProperties(List<String> lines)
+  public static Map<String, String> getProperties(List<String> lines)
   {
     LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
     for (String line : lines)

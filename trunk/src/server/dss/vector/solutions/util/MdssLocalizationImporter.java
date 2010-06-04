@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -33,6 +34,7 @@ import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
@@ -65,7 +67,7 @@ public class MdssLocalizationImporter implements Reloadable
   @StartSession
   public static void main(String[] args) throws FileNotFoundException
   {
-    // Force teh cache to boot so it's not included in our timing
+    // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
     long start = System.currentTimeMillis();
 
@@ -94,6 +96,85 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties("MdssControlPanel", controlPanelSheet);
     updateExceptions();
     updateLabels();
+    
+    for (LocaleDimension ld : getColumnHeaders(propertySheet))
+    {
+      if (ld.hasDimension())
+      {
+        mergeProperties(ld);
+      }
+    }
+  }
+
+  private void mergeProperties(LocaleDimension child)
+  {
+    LocaleDimension parent = null;
+    for (LocaleDimension option : getColumnHeaders(propertySheet))
+    {
+      if (child.isDimensionChildOf(option))
+      {
+        parent = option;
+        break;
+      }
+    }
+    
+    if (parent == null)
+    {
+      return;
+    }
+    
+    String parentFileName = parent.getPropertyFileName("MDSS");
+    File dir;
+    try
+    {
+      dir = FileIO.getDirectory(parentFileName);
+    }
+    catch (URISyntaxException e)
+    {
+      throw new SystemException(e);
+    }
+    
+    File parentFile = new File(dir, parentFileName);
+    File childFile = new File(dir, child.getPropertyFileName("MDSS"));
+    List<String> parentLines;
+    List<String> childLines;
+    
+    try
+    {
+      parentLines = FileIO.readLines(parentFile);
+    }
+    catch (IOException e)
+    {
+      throw new FileReadException(parentFile, e);
+    }
+    
+    try
+    {
+      childLines = FileIO.readLines(childFile);
+    }
+    catch (IOException e)
+    {
+      throw new FileReadException(childFile, e);
+    }
+    
+    Map<String, String> childProps = MdssLocalizationExporter.getProperties(childLines);
+    Map<String, String> parentProps = MdssLocalizationExporter.getProperties(parentLines);
+    parentProps.putAll(childProps);
+    
+    String data = new String();
+    for (Entry<String, String> entry : parentProps.entrySet())
+    {
+      data += entry.getKey() + "=" + entry.getValue() + '\n';
+    }
+    
+    try
+    {
+      FileIO.write(childFile, data);
+    }
+    catch (IOException e)
+    {
+      throw new FileWriteException(childFile, e);
+    }
   }
 
   private void checkLocales()
@@ -102,7 +183,10 @@ public class MdssLocalizationImporter implements Reloadable
     HSSFSheet[] sheets = new HSSFSheet[]{customSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, controlPanelSheet};
     for (HSSFSheet sheet : sheets)
     {
-      allLocales.addAll(parseLocales(sheet));
+      for (LocaleDimension ld : getColumnHeaders(sheet))
+      {
+        allLocales.add(ld.getLocaleString());
+      }
     }
     
     for (String locale : allLocales)
@@ -123,15 +207,14 @@ public class MdssLocalizationImporter implements Reloadable
       }
     }
   }
-
+  
   @SuppressWarnings("unchecked")
-  private List<String> parseLocales(HSSFSheet sheet)
+  private List<LocaleDimension> getColumnHeaders(HSSFSheet sheet)
   {
-    List<String> locales = new LinkedList<String>();
-    
+    List<LocaleDimension> list = new LinkedList<LocaleDimension>();
     if (sheet==null)
     {
-      return locales;
+      return list;
     }
     
     HSSFRow row = sheet.getRow(0);
@@ -147,16 +230,11 @@ public class MdssLocalizationImporter implements Reloadable
     while (cellIterator.hasNext())
     {
       HSSFCell cell = cellIterator.next();
-      String localeString = getStringValue(cell);
-      if (localeString != null)
-      {
-        locales.add(localeString);
-      }
+      list.add(LocaleDimension.parseColumnHeader(getStringValue(cell)));
     }
-    
-    return locales;
+    return list;
   }
-
+  
   @SuppressWarnings("unchecked")
   private void updateProperties(String bundle, HSSFSheet sheet)
   {
@@ -177,7 +255,7 @@ public class MdssLocalizationImporter implements Reloadable
     }
 
     int c = 0;
-    for (String l : parseLocales(sheet))
+    for (LocaleDimension l : getColumnHeaders(sheet))
     {
       c++;
       String data = new String();
@@ -200,17 +278,14 @@ public class MdssLocalizationImporter implements Reloadable
 
         data += key + '=' + getStringValue(cell) + '\n';
       }
-
-      String fileName;
-      if (l.equals(MdAttributeLocalInfo.DEFAULT_LOCALE))
+      
+      // Don't bother writing if no keys were specified
+      if (data.length()==0)
       {
-        fileName = bundle + ".properties";
-      }
-      else
-      {
-        fileName = bundle + '_' + l + ".properties";
+        continue;
       }
 
+      String fileName = l.getPropertyFileName(bundle);
       File file = new File(dir, fileName);
       try
       {
@@ -251,21 +326,21 @@ public class MdssLocalizationImporter implements Reloadable
       return;
     }
     
-    List<String> locales = parseLocales(labelSheet);
+    List<LocaleDimension> columnHeaders = getColumnHeaders(labelSheet);
     
     Iterator<HSSFRow> rowIterator = labelSheet.rowIterator();
     rowIterator.next();
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      readLabelRow2(locales, row);
+      readLabelRow(columnHeaders, row);
       
-      if (row.getRowNum()%50==0)
-        System.out.print(".");
+//      if (row.getRowNum()%50==0)
+//        System.out.print(".");
     }
   }
 
-  private void readLabelRow2(List<String> locales, HSSFRow row)
+  private void readLabelRow(List<LocaleDimension> localeDimensions, HSSFRow row)
   {
     int c = 0;
     String type = getStringValue(row.getCell(c++));
@@ -277,23 +352,21 @@ public class MdssLocalizationImporter implements Reloadable
       return;
     }
     
-//    EntityDAO entity = EntityDAO.get(type, key).getEntityDAO();
     StructDAO struct = StructDAO.get(EntityDAO.get(type, key).getValue(attributeName)).getStructDAO();
 
     boolean apply = false;
-    for (String localeString : locales)
+    for (LocaleDimension ld : localeDimensions)
     {
       String value = getStringValue(row.getCell(c++));
       if (value != null)
       {
-//        String oldValue = entity.getStructValue(attributeName, localeString);
-        String oldValue = struct.getValue(localeString);
+        String localeAttributeName = ld.getAttributeName();
+        String oldValue = struct.getValue(localeAttributeName);
         
         // To speed things up, only set values that have changed
         if (!oldValue.equals(value))
         {
-//          entity.setStructValue(attributeName, localeString, value);
-          struct.setValue(localeString, value);
+          struct.setValue(localeAttributeName, value);
           apply = true;
         }
       }
@@ -302,7 +375,6 @@ public class MdssLocalizationImporter implements Reloadable
     // To speed things up, only apply if we actually changed a value
     if (apply)
     {
-//      entity.apply();
       struct.apply();
       modifiedCount++;
     }
@@ -358,12 +430,12 @@ public class MdssLocalizationImporter implements Reloadable
       Map<String, String> allTemplates = getTemplates(xmlFile);
       int c = 1;
       // Add new template definitions, possibly overwriting old ones 
-      for (String localeString : parseLocales(customSheet))
+      for (LocaleDimension ld : getColumnHeaders(customSheet))
       {
         String value = getStringValue(row.getCell(c++));
         if (value != null)
         {
-          allTemplates.put(localeString, value);
+          allTemplates.put(ld.getAttributeName(), value);
         }
       }
 
