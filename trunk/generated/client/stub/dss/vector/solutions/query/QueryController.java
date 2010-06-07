@@ -31,7 +31,9 @@ import dss.vector.solutions.entomology.MolecularAssayDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.entomology.PooledInfectionAssayDTO;
 import dss.vector.solutions.entomology.PupalCollectionDTO;
+import dss.vector.solutions.entomology.PupalContainerAmountDTO;
 import dss.vector.solutions.entomology.PupalContainerDTO;
+import dss.vector.solutions.entomology.PupalContainerViewDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -886,6 +888,23 @@ public class QueryController extends QueryControllerBase implements
       ClassQueryDTO container = request.getQuery(PupalContainerDTO.CLASS);
       String container_map = Halp.getDropDownMaps(container, request, ", ");
       req.setAttribute("containerMap", container_map);
+      
+      
+      JSONObject ordered = new JSONObject();
+
+      // Target Groups
+      JSONObject taxons = new JSONObject();
+      taxons.put("type", TermDTO.CLASS);
+      taxons.put("label",MDSSProperties.getObject("Pupae_Amount") );
+      taxons.put("relType", PupalContainerAmountDTO.CLASS);
+      taxons.put("relAttribute", PupalContainerAmountDTO.AMOUNT);
+      taxons.put("options", getAllTermsForGrid(request, PupalContainerViewDTO.CLASS,
+          PupalContainerViewDTO.PUPAEAMOUNT));
+      ordered.put("pupaeAmmount", taxons);
+
+      req.setAttribute("orderedGrids", ordered.toString());
+      
+     
       
       req.getRequestDispatcher(QUERY_PUPAL_CONTAINER_COLLECTION).forward(req, resp);
 
