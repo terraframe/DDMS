@@ -70,12 +70,32 @@ public class MdssLocalizationImporter implements Reloadable
     // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
     long start = System.currentTimeMillis();
-
+    
+    String fileName = "doc/DiseaseLocalizationDefaults.xls";
+    File file = new File(fileName);
+    if (args.length == 0)
+    {
+      if (file.exists())
+      {
+        System.out.println("No file name specified. Using default location: " + file.getAbsoluteFile());
+      }
+      else
+      {
+        System.out.println("No file name specified. Add file name as a comand line argument.");
+        return;
+      }
+    }
+    else
+    {
+      fileName = args[0];
+      file = new File(fileName);
+    }
+    
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
-    mli.read(new FileInputStream("testLoc.xls"));
+    mli.read(new FileInputStream(file));
 
     long stop = System.currentTimeMillis();
-    System.out.println("\nModified " + modifiedCount + " rows in " + ( stop - start ) / 1000.0 + " seconds");
+    System.out.println("\nImported in " + ( stop - start ) / 1000.0 + " seconds");
   }
 
   public MdssLocalizationImporter()
