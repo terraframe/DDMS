@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -163,17 +164,19 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
 
     PupalCollectionQuery collectionQuery = ( PupalCollectionQuery  ) queryMap.get(PupalCollection.CLASS);
     PupalPremiseQuery premiseQuery = ( PupalPremiseQuery  ) queryMap.get(PupalPremise.CLASS);
-    PupalContainerQuery collectionContainerQuery = ( PupalContainerQuery  ) queryMap.get(CollectionContainer.CLASS);
+    PupalContainerQuery pupalContainerQuery = ( PupalContainerQuery  ) queryMap.get(PupalContainer.CLASS);
     if(premiseQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, PupalPremise.CLASS, premiseQuery );
       valueQuery.WHERE(premiseQuery.getCollection().EQ(collectionQuery));
     }
 
-    if(collectionContainerQuery != null)
+    if(pupalContainerQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery, CollectionContainer.CLASS, collectionContainerQuery );
-     //valueQuery.WHERE(collectionContainerQuery.hasParent(premiseQuery));
+      QueryUtil.joinTermAllpaths(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
+      QueryUtil.joinTermAllpaths(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
+     //valueQuery.WHERE(premiseQuery.co);
     }
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, PupalCollection.CLASS, collectionQuery );
@@ -184,39 +187,41 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
         
     boolean needsJoin = false; 
     
-    if(collectionContainerQuery == null)
+    if(pupalContainerQuery == null)
     {
-      collectionContainerQuery = new PupalContainerQuery(queryFactory);   
+      pupalContainerQuery = new PupalContainerQuery(queryFactory);   
     }
     
-    MdEntityDAOIF md = collectionContainerQuery.getMdClassIF();
+    MdEntityDAOIF md = pupalContainerQuery.getMdClassIF();
+   
     
-    String numberContainers = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberwithwater = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberdestroyed = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberwithlarvicide  = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberimmatures = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberlarvae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberpupae = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberlarvaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
-    String numberpupaecollected = QueryUtil.getColumnName(md, CollectionContainer.NUMBERCONTAINERS);
+    String numberContainers = QueryUtil.getColumnName(md, PupalContainer.CONTAINERTYPE);
+    String numberwithwater = QueryUtil.getColumnName(md, PupalContainer.LID);
+    String numberdestroyed = QueryUtil.getColumnName(md, PupalContainer.FILLFREQUENCY);
+    String numberwithlarvicide  = QueryUtil.getColumnName(md, PupalContainer.DRAWDOWNFREQUENCY);
+       
+    MdEntityDAOIF premiseMd = MdEntityDAO.getMdEntityDAO(PupalPremise.CLASS);
     
+    String numberExamined = QueryUtil.getColumnName(premiseMd, PupalPremise.NUMBEREXAMINED);
+    String numberInhabitants = QueryUtil.getColumnName(premiseMd, PupalPremise.NUMBERINHABITANTS);
+    String premiseSize = QueryUtil.getColumnName(premiseMd, PupalPremise.PREMISESIZE);
+    String premiseType = QueryUtil.getColumnName(premiseMd, PupalPremise.PREMISETYPE);
     
-    
-    String numberExamined = QueryUtil.getColumnName(md, CollectionPremise.NUMBEREXAMINED);
-    String numberInhabitants = QueryUtil.getColumnName(md, CollectionPremise.NUMBERINHABITANTS);
-    String numberWithImmatures = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHIMMATURES);
-    String numberWithLarvae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHLARVAE);
-    String numberWithPupae = QueryUtil.getColumnName(md, CollectionPremise.NUMBERWITHPUPAE);
-    String premiseSize = QueryUtil.getColumnName(md, CollectionPremise.PREMISESIZE);
-    String premiseType = QueryUtil.getColumnName(md, CollectionPremise.PREMISETYPE);
-    
+  /*
+    SELECT 
+    ((SELECT amount FROM pupal_container_amount WHERE child_id = '057sqv753oxeghusqzpctlipdd9zmzh8znhbkgu6i9k0a1e1eqp7f28c0yvo2z4n' AND parent_id = pupal_container_2.id)) AS termMIRO40000518,
+    pupal_container_2.container_length AS container_length_3 FROM pupal_container pupal_container_2 
+    */
     
     
-    
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/SUM("+numberWithImmatures+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/SUM("+numberWithImmatures+")*100")|| needsJoin;
+    //needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_ammount", "SELECT SUM(1) FROM pupal_container_amount WHERE parent_id = pupal_container_2.id" ) || needsJoin;   
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberExamined+")/SUM("+premiseSize+")*100") || needsJoin;
+      
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_premise_by_taxon", "SUM("+numberExamined+")/SUM("+premiseSize+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_hectare_by_taxon", "SUM("+numberExamined+")/SUM("+premiseSize+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_person_per_taxon", "SUM("+numberExamined+")/SUM("+premiseSize+")*100") || needsJoin;
+   
+    QueryUtil.getSingleAttribteGridSql(valueQuery, pupalContainerQuery.getTableAlias());
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
     
